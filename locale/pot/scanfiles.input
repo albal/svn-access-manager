@@ -21,6 +21,7 @@
 /export/home/kriegeth/workspace/svn_access_manager/templates/selectProject.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/main.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/addMemberToProject.tpl
+/export/home/kriegeth/workspace/svn_access_manager/templates/framework_div.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/deleteProject.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/database_error.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/preferences.tpl

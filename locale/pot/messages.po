@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-18 22:40+0200\n"
-"PO-Revision-Date: 2008-05-18 22:51+0100\n"
+"POT-Creation-Date: 2008-05-19 19:58+0200\n"
+"PO-Revision-Date: 2008-05-19 20:07+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:97
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:227
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:371
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:109
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:240
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:384
 #, php-format
 msgid "%s is not a valid email address!"
 msgstr "%s ist keine gültige E-Mailadresse!"
@@ -80,6 +83,26 @@ msgstr "%s ist keine gültige E-Mailadresse!"
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:174
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:143
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:132
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:169
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:240
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:162
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:208
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:83
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:118
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:138
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:121
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:163
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:73
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:125
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:166
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:121
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:163
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:165
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:185
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:121
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:163
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:122
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:142
 msgid "<"
 msgstr "<"
 
@@ -134,6 +157,26 @@ msgstr "<"
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:161
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:130
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:119
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:167
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:227
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:160
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:195
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:82
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:116
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:125
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:119
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:150
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:71
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:123
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:153
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:119
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:150
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:163
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:172
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:119
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:150
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:120
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:129
 msgid "<<"
 msgstr "<<"
 
@@ -207,6 +250,34 @@ msgstr ""
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:198
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:167
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:156
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:171
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:264
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:164
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:232
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:101
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_locked_users.tpl:64
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_repos.tpl:64
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_log.tpl:56
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_access_rights.tpl:82
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_groups.tpl:58
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:52
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_projects.tpl:61
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:91
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:120
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:162
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:123
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:187
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:75
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:127
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:190
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:123
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:186
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:167
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:209
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:123
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:187
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:124
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:166
 msgid ">"
 msgstr ">"
 
@@ -261,6 +332,34 @@ msgstr ">"
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:212
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:181
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:170
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:173
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:278
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:166
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:246
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:102
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_locked_users.tpl:65
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_repos.tpl:65
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_log.tpl:57
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_access_rights.tpl:83
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_groups.tpl:59
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:53
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_projects.tpl:62
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:92
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:122
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:176
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:125
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:202
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:77
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:129
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:204
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:125
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:200
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:169
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:223
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:125
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:201
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:126
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:180
 msgid ">>"
 msgstr ">>"
 
@@ -272,6 +371,7 @@ msgstr "Ein Datenbankfehler ist aufgetreten:"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:131
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:183
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:196
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:209
 msgid "A new user needs a password!"
 msgstr "Ein neuer Benutzer braucht ein Passwort!"
 
@@ -342,6 +442,12 @@ msgstr "Aktion"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:521
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:457
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:533
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:167
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:169
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:481
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:194
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:196
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:549
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -354,6 +460,8 @@ msgstr "Gruppenmitglied hinzufügen"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:155
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:164
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:175
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:153
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:199
 msgid "Add member"
 msgstr "Mitglied hinzufügen"
 
@@ -366,10 +474,14 @@ msgstr "Projektverantwortlichen hinzufügen"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:204
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:213
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:225
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:180
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:182
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:241
 msgid "Add responsible"
 msgstr "Verantwortlichen hinzufügen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:960
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1061
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -421,6 +533,40 @@ msgstr "Administrator"
 msgid "Administrator account"
 msgstr "Administrator Kennung"
 
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:890
+#, php-format
+msgid "Administrator email address %s is not a valid email address!"
+msgstr "E-Mailadresse des Administrators %s ist nicht gültig!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:890
+#, php-format
+msgid "Administrator email address %s is nota valid email address!"
+msgstr "E-Mailadresse des Administrators %s ist nicht gültig!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:885
+msgid "Administrator email address is missing!"
+msgstr "E-Mailadresse des Administrators fehlt!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:880
+msgid "Administrator name is missing!"
+msgstr "Nachname des Administrators fehlt!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:865
+msgid "Administrator password is missing!"
+msgstr "Passwort des Administrators fehlt!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:875
+msgid "Administrator password is not strong enough!"
+msgstr "Administrator Passwort ist nicht stark genug!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:870
+msgid "Administrator passwords do not match!"
+msgstr "Administrator Passworte sind verschieden!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:860
+msgid "Administrator username is missing!"
+msgstr "Administrator Kennung fehlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteAccessRight.tpl:67
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/setAccessRight.tpl:81
 msgid "Allowed groups"
@@ -431,10 +577,18 @@ msgstr "Erlaubte Gruppen"
 msgid "Allowed users"
 msgstr "Erlaubte Benutzer"
 
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/installresult.tpl:77
+msgid "And don't forget to setup your apache webserver with a configuration similar to this:"
+msgstr "Vergessen Sie nicht, Ihren Apache Webserver mit einer Konfiguration ähnlich der folgenden einzurichten:"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:226
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:247
 msgid "Auth User file"
 msgstr "Benutzer Authentifizierungdatei"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:909
+msgid "Auth user file is missing!"
+msgstr "Benutzer Authentifizierungsdatei fehlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:46
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:48
@@ -543,6 +697,63 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:123
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:124
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:262
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:115
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:119
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:124
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:170
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:174
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:183
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:80
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:84
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:136
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:129
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:133
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:144
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:130
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:134
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:197
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:171
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:175
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:180
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:220
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:224
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:249
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:141
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:145
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:196
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:102
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:106
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:188
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:196
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:200
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:247
+#: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:67
+#: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:71
+#: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:76
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:81
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:85
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:93
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:133
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:137
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:148
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:124
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:128
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:201
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:267
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:271
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:280
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:147
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:151
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:475
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:129
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:133
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:144
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:129
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:133
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:144
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:174
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:178
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:278
 msgid "Back"
 msgstr "Zurück"
 
@@ -551,11 +762,13 @@ msgstr "Zurück"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:265
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:272
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:284
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:308
 #, php-format
 msgid "Can not delete access right with id %s"
 msgstr "Zugriffsrecht mit Id %s kann nicht gelöscht werden"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:875
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:976
 msgid "Can't write new config.inc.php file!"
 msgstr "kann config.inc.php nicht schreiben!"
 
@@ -575,6 +788,12 @@ msgstr "Kann AuthUser Datei nicht schreiben"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:568
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:502
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:580
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:171
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:173
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:526
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:198
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:200
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:596
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -672,6 +891,7 @@ msgid "Change"
 msgstr "Ändern"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/password.tpl:29
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/password.tpl:30
 msgid "Change password"
 msgstr "Passwort ändern"
 
@@ -679,11 +899,14 @@ msgstr "Passwort ändern"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:255
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:265
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:278
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:269
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:286
 msgid "Change to directory"
 msgstr "Verzeichnis wechseln"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:101
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:115
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:127
 msgid "Changed data successfully"
 msgstr "Daten erfolgreich geändert"
 
@@ -749,6 +972,7 @@ msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:151
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/getDateForAccessRights.tpl:21
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:165
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:176
 msgid "Create report"
 msgstr "Bericht erstellen"
 
@@ -764,6 +988,7 @@ msgstr "Aktuelles Passwort nicht eingegeben!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:106
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:120
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:132
 msgid "Data not changed due to database errors"
 msgstr "Daten aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -773,17 +998,31 @@ msgstr "Daten aufgrund eines Datenbankfehlers nicht geändert"
 msgid "Database error"
 msgstr "Datenbank Fehler"
 
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:842
+msgid "Database host is missing!"
+msgstr "Datenbank Rechner fehlt!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:852
+msgid "Database name is missing!"
+msgstr "Datenbankname fehlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:59
 msgid "Database settings"
 msgstr "Datenbank Einstellungen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:945
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1046
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:927
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1028
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gelöscht"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:847
+msgid "Database user is missing!"
+msgstr "Datenbankbenutzer fehlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_log.tpl:12
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/getDateForAccessRights.tpl:11
@@ -827,6 +1066,21 @@ msgstr "Datum für Zugriffsrechte Bericht"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:99
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:201
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:121
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:128
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:132
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:139
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:139
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:143
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:150
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:100
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:104
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:111
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:194
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:198
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:205
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:122
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:126
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:133
 msgid "Delete"
 msgstr "Löschen"
 
@@ -844,6 +1098,7 @@ msgstr "Löschen von %s fehlgeschlagen!"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:425
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:434
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:446
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:462
 #, php-format
 msgid "Delete of svn_projects_responsiblep record with id %s failed"
 msgstr "Löschen des Datensatzes svn_projects_responsiblep mit id %s fehlgeschlagen!"
@@ -852,6 +1107,7 @@ msgstr "Löschen des Datensatzes svn_projects_responsiblep mit id %s fehlgeschla
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:347
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:356
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:367
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:391
 #, php-format
 msgid "Delete of svn_users_group record with id %s failed"
 msgstr "Löschen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
@@ -862,6 +1118,9 @@ msgstr "Löschen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:87
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:230
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:242
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:176
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:178
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:266
 msgid "Delete selected"
 msgstr "Ausgewählte löschen"
 
@@ -893,6 +1152,8 @@ msgstr "E-Mailadresse"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:353
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:222
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:366
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:235
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:379
 msgid "Emailaddress is missing, please fill in!"
 msgstr "E-Mailadresse fehlt, bitte eingeben!"
 
@@ -957,6 +1218,7 @@ msgid "Enter the username for the administrator account."
 msgstr "Den Benutzernamen für die Administrator Kennung eingeben"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:906
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1007
 msgid "Error copying temporary config file!"
 msgstr "Fehler beim kopieren der temporären Konfig Datei!"
 
@@ -965,6 +1227,7 @@ msgid "Error creating admin user"
 msgstr "Fehler beim Anlegen des Admin Benutzers"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:895
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:996
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim Löschen der temporären Konfig Datei"
 
@@ -978,11 +1241,14 @@ msgstr "Fehler beim Löschen der temporären Konfig Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:299
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:162
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:311
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:175
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:327
 msgid "Error during database insert"
 msgstr "Fehler beim Einfügen in die Datenbank"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:293
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:306
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:319
 msgid "Error during database insert of user data"
 msgstr "Fehler beim Einfügen der Benutzerdaten in die Datenbank"
 
@@ -990,6 +1256,8 @@ msgstr "Fehler beim Einfügen der Benutzerdaten in die Datenbank"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:440
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:294
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:453
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:307
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:466
 msgid "Error during database write of user rights"
 msgstr "Fehler beim Schreiben der Benutzerdaten in die Datenbank"
 
@@ -1026,6 +1294,8 @@ msgstr "Fehler beim Zugriff auf das Subversion Repository: %s (%s/%s)"
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:421
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:393
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:435
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:405
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:447
 msgid "Error while deleting access right"
 msgstr "Fehler beim Löschen des Zugriffsrechts"
 
@@ -1033,6 +1303,7 @@ msgstr "Fehler beim Löschen des Zugriffsrechts"
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:425
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:434
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:448
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:460
 #, php-format
 msgid "Error while inserting access right for group %s"
 msgstr "Fehler beim Einfügen des Zugriffsrechtes für Gruppe %s"
@@ -1041,6 +1312,7 @@ msgstr "Fehler beim Einfügen des Zugriffsrechtes für Gruppe %s"
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:383
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:392
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:406
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:418
 #, php-format
 msgid "Error while inserting access right for user %s"
 msgstr "Fehler beim Einfügen des Zugriffsrechtes für Benutzer %s"
@@ -1054,6 +1326,7 @@ msgstr "Fehler beim Aktualisieren von Recht id %s beim Löschen"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:216
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:225
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:239
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:243
 #, php-format
 msgid "Error while updating right id %s for delete"
 msgstr "Fehler beim Aktualisieren von Recht id %s beim Löschen"
@@ -1062,6 +1335,7 @@ msgstr "Fehler beim Aktualisieren von Recht id %s beim Löschen"
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:337
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:346
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:360
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:372
 msgid "Error while writing access right modification"
 msgstr "Fehler beim Schreiben der Zugriffrechte Aktualisierung"
 
@@ -1123,6 +1397,10 @@ msgstr "Gewährte Rechte"
 msgid "Granted user rights"
 msgstr "Gewährte Benutzerrechte"
 
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:922
+msgid "Grep command is missinbg!"
+msgstr "Grep Kommando fehlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:21
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnGroup.tpl:11
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteGroup.tpl:11
@@ -1134,6 +1412,7 @@ msgstr "Gruppe"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:247
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:256
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:267
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:291
 #, php-format
 msgid "Group %s not inserted due to database errors"
 msgstr "Gruppe %s aufgrund von Datenbankfehlern nicht gelöscht"
@@ -1161,6 +1440,7 @@ msgstr "Gruppenbeschreibung"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:202
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:211
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:222
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:246
 msgid "Group description is missing. Please fill in!"
 msgstr "Gruppenbeschreibung fehlt, bitte eingeben!"
 
@@ -1177,6 +1457,7 @@ msgstr "Gruppenname"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:197
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:206
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:217
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:241
 msgid "Group name is missing. Please fill in!"
 msgstr "Gruppenname fehlt, bitte eingeben!"
 
@@ -1184,6 +1465,7 @@ msgstr "Gruppenname fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:162
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:171
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:185
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:197
 msgid "Group not deleted due to database error"
 msgstr "Gruppe aufgrund eines Datenbankfehlers nicht gelöscht"
 
@@ -1191,6 +1473,7 @@ msgstr "Gruppe aufgrund eines Datenbankfehlers nicht gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:155
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:164
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:178
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:190
 msgid "Group not deleted due to errors while deleting users/groups relations"
 msgstr "Gruppe aufgrund eines Fehlers beim Löschen der Benutzer-Gruppen-Zuordnung"
 
@@ -1202,6 +1485,7 @@ msgstr "Gruppe aufgrund eines Datenbankfehler nicht eingefügt"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:145
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:154
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:168
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:180
 msgid "Group successfully deleted"
 msgstr "Gruppe erfolgreich gelöscht"
 
@@ -1209,6 +1493,7 @@ msgstr "Gruppe erfolgreich gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:227
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:236
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:247
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:271
 #, php-format
 msgid "Group with name %s already exists!"
 msgstr "Gruppe mir dem Namen %s existiert bereits!"
@@ -1242,6 +1527,7 @@ msgstr "Wenn ausgewählt, dann gelten die Zugriffsrechte für das Verzeichnis se
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:275
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:284
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:295
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:319
 #, php-format
 msgid "Insert of user group relation failed for user_id %s and group_id %s"
 msgstr "Einfügen der Benutzer-Gruppen Relation für Benutzer Id %s und Gruppen-Id %s fehlgeschlagen"
@@ -1250,6 +1536,7 @@ msgstr "Einfügen der Benutzer-Gruppen Relation für Benutzer Id %s und Gruppen-
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:318
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:327
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:339
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:355
 #, php-format
 msgid "Insert of user project relation failed for user_id %s and project_id %s"
 msgstr "Einfügen der Projekt-Benutzer Relation für Benutzer-Id %s und Pojekt-Id %s fehlgeschlagen"
@@ -1258,6 +1545,7 @@ msgstr "Einfügen der Projekt-Benutzer Relation für Benutzer-Id %s und Pojekt-I
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:389
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:398
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:409
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:433
 #, php-format
 msgid "Insert of user/group relation (%s/%s) failed due to database error"
 msgstr "Einfügen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -1266,13 +1554,14 @@ msgstr "Einfügen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Datenbank
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:471
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:480
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:492
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:508
 #, php-format
 msgid "Insert of user/project relation (%s/%s) failed due to database error"
 msgstr "Einfügen der Projekt/Benutzer-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/installresult.tpl:39
 msgid "Installation results"
-msgstr "Ergebnisse der INstallation"
+msgstr "Ergebnisse der Installation"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/user_list.php:111
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:155
@@ -1333,6 +1622,22 @@ msgstr "Ergebnisse der INstallation"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:203
 #: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:75
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:191
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:301
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:334
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_log.php:198
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:224
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:502
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:491
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php:255
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:159
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:226
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:350
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:537
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:221
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:245
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:223
+#: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:87
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:201
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ungültiger Knopf %s, hat jemend dran herumgespielt?"
@@ -1341,6 +1646,7 @@ msgstr "Ungültiger Knopf %s, hat jemend dran herumgespielt?"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:570
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:579
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:591
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:607
 #, php-format
 msgid "Invalid button (%s/%s), anyone tampered arround with?"
 msgstr "Ungültiger Knopf(%s/%s), hat jemand daran herumgespielt?"
@@ -1408,6 +1714,9 @@ msgstr "Ungültige Repository-Id %s angefordert"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:125
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:151
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:529
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:252
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:496
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:545
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ungültige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -1495,12 +1804,14 @@ msgstr "Login"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:322
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:186
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:335
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:199
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:348
 msgid "Login must be cs9999(9). It must start with cs and consist of 4 or 5 digits!"
 msgstr "Login muss im Format cs9999(9) sein. Es muss mit cs beginnen und dann aus 4 oder 5 Ziffern bestehen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_log.tpl:21
 msgid "Logmessage"
-msgstr "Log Nachticht"
+msgstr "Log Nachricht"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:10
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:41
@@ -1573,6 +1884,8 @@ msgstr "Name"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:327
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:191
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:340
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:204
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:353
 msgid "Name missing, please fill in!"
 msgstr "Name fehlt, bitte eingeben!"
 
@@ -1583,6 +1896,9 @@ msgstr "Name fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:86
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:153
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:165
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:168
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:172
+#: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:189
 msgid "New access right"
 msgstr "Neues Zugriffsrecht"
 
@@ -1593,6 +1909,9 @@ msgstr "Neues Zugriffsrecht"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:103
 #: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:104
 #: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:118
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:127
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:131
+#: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:138
 msgid "New group"
 msgstr "Neue Gruppe"
 
@@ -1613,6 +1932,9 @@ msgstr "Die neuen Passworte sind nicht identisch!"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:107
 #: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:108
 #: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:122
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:131
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:135
+#: /export/home/kriegeth/workspace/svn_access_manager/list_projects.php:142
 msgid "New project"
 msgstr "Neues Projekt"
 
@@ -1623,6 +1945,9 @@ msgstr "Neues Projekt"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:103
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:104
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:118
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:127
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:131
+#: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:138
 msgid "New repository"
 msgstr "Neues Repository"
 
@@ -1634,6 +1959,9 @@ msgstr "Neues Repository"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:102
 #: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:103
 #: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:117
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:127
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:131
+#: /export/home/kriegeth/workspace/svn_access_manager/list_users.php:138
 msgid "New user"
 msgstr "Neuer Benutzer"
 
@@ -1664,14 +1992,18 @@ msgstr "Nächster"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:294
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:305
 #: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:67
+#: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:63
+#: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:79
 msgid "No"
 msgstr "Nein"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:969
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1070
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:932
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1033
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gelöscht"
 
@@ -1683,15 +2015,18 @@ msgstr "Keine Datenbanktabellen gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:283
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:265
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:297
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:277
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:309
 #, php-format
 msgid "Not a valid date: %s"
 msgstr "UngültigesDatum: %s"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:173
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:187
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_access_rights.php:198
 #, php-format
 msgid "Not a valid date: %s (%s-%s-%s)"
-msgstr "Gein gültiges Datum: %s (%s-%s-%s)"
+msgstr "Kein gültiges Datum: %s (%s-%s-%s)"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteRepo.tpl:43
 msgid "Notice"
@@ -1701,6 +2036,14 @@ msgstr "Hinweis"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:313
 msgid "Page size"
 msgstr "Seitengröße"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:927
+msgid "Page size is missing!"
+msgstr "Seitengröße fehlt!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:932
+msgid "Page size is not numeric!"
+msgstr "Seitengröße ict nicht numerisch!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/repo_list.tpl:21
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/login.tpl:48
@@ -1750,6 +2093,8 @@ msgstr "Passwort erfolgreich geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:342
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:211
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:355
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:224
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:368
 msgid "Password does not match the password policy!"
 msgstr "Passwort erfüllt nicht die Passwort Richtlinie"
 
@@ -1788,6 +2133,8 @@ msgstr "Passwort Richtlinie"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:334
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:203
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:347
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:216
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:360
 msgid "Passwords do not match!"
 msgstr "Passwörter stimmen nicht überein!"
 
@@ -1811,11 +2158,13 @@ msgstr "Bitte füllen Sie das Formular unten aus um die Installation von SVN Acc
 
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:78
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:92
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:104
 msgid "Please fill in your email address!"
 msgstr "Bitte die E-Mailadresse eingeben!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:73
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:87
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:99
 msgid "Please fill in your name!"
 msgstr "Bitte den Namen eingeben!"
 
@@ -1834,11 +2183,13 @@ msgstr "Voreinstellungen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:112
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:126
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:147
 msgid "Preferences changed successfully"
 msgstr "Voreinstellungen erfolgreich geändert"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:117
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:131
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:152
 msgid "Preferences not changed due to database error"
 msgstr "Voreinstellungen aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -1880,6 +2231,7 @@ msgstr "Projekt Verwaltung / Projekt löschen"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:157
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:166
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:180
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:192
 msgid "Project not deleted due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht gelöscht."
 
@@ -1887,6 +2239,7 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht gelöscht."
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:150
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:159
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:173
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:185
 msgid "Project not deleted due to errors while deleting users/projects relations"
 msgstr "Projekt aufgrund von Datenbankfehlern beim Löschen der Benutzer/Projekt-Zuordnung"
 
@@ -1894,6 +2247,7 @@ msgstr "Projekt aufgrund von Datenbankfehlern beim Löschen der Benutzer/Projekt
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:487
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:496
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:508
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:524
 msgid "Project not modified due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -1901,6 +2255,7 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:140
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:149
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:163
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:175
 msgid "Project successfully deleted"
 msgstr "Projekt erfolgreich gelöscht"
 
@@ -1927,11 +2282,13 @@ msgstr "Zeilen pro Seite"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:71
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:85
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:106
 msgid "Records per page must be filled in!"
 msgstr "Zeilen pro seite muss ausgefüllt werden!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:76
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:90
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:111
 msgid "Records per page must contain digits only!"
 msgstr "Zeilen pro seite muss numerisch sein!"
 
@@ -1945,6 +2302,8 @@ msgstr "Rekursiver Zugriff"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:165
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:174
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:185
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:157
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:209
 msgid "Remove member"
 msgstr "Mitglied löschen"
 
@@ -1953,6 +2312,9 @@ msgstr "Mitglied löschen"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:215
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:224
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:236
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:184
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:186
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:252
 msgid "Remove responsible"
 msgstr "Verantwortlichen löschen"
 
@@ -2029,6 +2391,8 @@ msgstr "Repository Name"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:166
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:125
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:180
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:138
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:193
 msgid "Repository name is missing, please fill in!"
 msgstr "Repository Name fehlt, bitte eingeben!"
 
@@ -2036,6 +2400,7 @@ msgstr "Repository Name fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:138
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:147
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:161
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:173
 msgid "Repository not deleted due to database error"
 msgstr "Repository aufgrund eines Datenbankfehlers nicht gelöscht"
 
@@ -2043,6 +2408,7 @@ msgstr "Repository aufgrund eines Datenbankfehlers nicht gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:158
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:167
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:181
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:193
 #, php-format
 msgid "Repository not deleted due to usage in other projects (%s)!"
 msgstr "Repository nicht gelöscht, da es noch in anderen Projekten (%s) verwendet wird!"
@@ -2051,6 +2417,7 @@ msgstr "Repository nicht gelöscht, da es noch in anderen Projekten (%s) verwend
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:209
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:218
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:232
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:245
 msgid "Repository not modified due to database error"
 msgstr "Repository aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -2073,6 +2440,8 @@ msgstr "Repository Pfad"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:171
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:130
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:185
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:143
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:198
 msgid "Repository path missing, please fill in!"
 msgstr "Repository Pfad fehlt, bitte eingeben!"
 
@@ -2080,6 +2449,7 @@ msgstr "Repository Pfad fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:128
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:137
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:151
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:163
 msgid "Repository successfully deleted"
 msgstr "Repository erfolgreich gelöscht"
 
@@ -2087,6 +2457,7 @@ msgstr "Repository erfolgreich gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:145
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:154
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:168
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:181
 msgid "Repository successfully inserted"
 msgstr "Repository erfolgreich geschrieben"
 
@@ -2094,6 +2465,7 @@ msgstr "Repository erfolgreich geschrieben"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:203
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:212
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:226
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:239
 msgid "Repository successfully modified"
 msgstr "Repository erfolgreich geändert"
 
@@ -2166,12 +2538,17 @@ msgstr "Rechte"
 msgid "SVN Access File"
 msgstr "SVN Access Datei"
 
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:899
+msgid "SVN Access File is missing!"
+msgstr "SVN Access Datei fehlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/framework.tpl:11
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/login.tpl:13
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:13
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/framework.tpl:29
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/installresult.tpl:13
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/login.tpl:31
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/framework_div.tpl:29
 msgid "SVN Access Manager"
 msgstr "SVN Access Manager"
 
@@ -2185,6 +2562,10 @@ msgstr "SVN Access Manager Installation"
 msgid "SVN Webserver settings"
 msgstr "SVN Webserver Einstellungen"
 
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:917
+msgid "SVN command is missing!"
+msgstr "SVN Kommando fehlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnAccessRight.tpl:53
 msgid "Select directory"
 msgstr "Verzeichnis auswählen"
@@ -2196,6 +2577,7 @@ msgstr "Globale Benutzerrechte auswählen"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/selectProject.tpl:37
 #: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:56
 #: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:70
+#: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:82
 msgid "Select project"
 msgstr "Projekt auswählen"
 
@@ -2218,6 +2600,9 @@ msgstr "Verzeichnis auswählen"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:295
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:305
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:318
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:273
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:275
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:326
 msgid "Set access rights"
 msgstr "Zugriffsrechte setzen"
 
@@ -2258,6 +2643,28 @@ msgstr "Installation starten"
 #: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:78
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:211
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:268
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:113
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:130
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:78
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:82
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:89
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/selectProject.tpl:37
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:169
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:186
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:218
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:222
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:255
+#: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:65
+#: /export/home/kriegeth/workspace/svn_access_manager/selectProject.php:69
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:79
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:83
+#: /export/home/kriegeth/workspace/svn_access_manager/preferences.php:99
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:145
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:149
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:235
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:172
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:176
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:284
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -2285,6 +2692,8 @@ msgstr "Subversion Modulpfad"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:367
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:281
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:379
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:297
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:395
 msgid "Subversion module path missing, please fill in!"
 msgstr "Subversion Modulpfad fehlt, bitte eingeben!"
 
@@ -2297,6 +2706,7 @@ msgstr "Subversion Projekt"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:255
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:264
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:276
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:292
 msgid "Subversion project is missing, please fill in!"
 msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 
@@ -2304,6 +2714,7 @@ msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:353
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:362
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:374
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:390
 msgid "Subversion project name is missing, please fill in!"
 msgstr "Subversion projektname fehlt, bitte eingeben!"
 
@@ -2320,6 +2731,7 @@ msgstr "Beachten Sie, dass Sie eine gültige E-Mailadresse eingegeben haben. Ans
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:267
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:371
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:384
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:397
 #, php-format
 msgid "The user %s does not exist"
 msgstr "Der Benutzer %s existiert nicht"
@@ -2328,6 +2740,7 @@ msgstr "Der Benutzer %s existiert nicht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:175
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:227
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:240
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:253
 #, php-format
 msgid "The user with the userid %s exists already"
 msgstr "Der Benutzer mit der Benutzer-Id %s existiert bereits"
@@ -2342,12 +2755,13 @@ msgstr "Dieser Pfad wird den ausgewählten Verzeichnissen vorangestellt."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnUser.tpl:118
 msgid "This right overrules the repository access right settings. A user with read permission only can't get write access to any repository!"
-msgstr "Dieses Recht übersteuert die Repository Zugriffsrechte. Ein Bneutzer mit nur Leseberechtigung kann keinen Schreibzugriff zu irgendwelchen Repositories bekommen!"
+msgstr "Dieses Recht übersteuert die Repository Zugriffsrechte. Ein Benutzer mit nur Leseberechtigung kann keinen Schreibzugriff zu irgendwelchen Repositories bekommen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:367
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:407
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:416
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:427
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:451
 #, php-format
 msgid "Update of group %s failed due to database errors"
 msgstr "Änderung der Gruppe %s aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -2386,6 +2800,7 @@ msgstr "Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:137
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:58
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:151
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:163
 msgid "User "
 msgstr "Benutzer"
 
@@ -2405,6 +2820,10 @@ msgstr "Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:419
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:345
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:500
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:325
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:443
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:361
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:516
 #, php-format
 msgid "User %s not found!"
 msgstr "Benutzer %s nicht gefunden!"
@@ -2432,6 +2851,7 @@ msgstr "Benutzer existiert nicht!"
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:301
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:310
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:324
+#: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:336
 msgid "User is not allowed to have write access, global right is read only"
 msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. DAs globale Recht ist \"nur lesen\""
 
@@ -2439,6 +2859,7 @@ msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. DAs globale
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:149
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:158
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:172
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:184
 msgid "User not deleted due to database errors"
 msgstr "Benutzer aufgrund eines Datenbankfehlers nicht gelöscht"
 
@@ -2446,6 +2867,7 @@ msgstr "Benutzer aufgrund eines Datenbankfehlers nicht gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:310
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:451
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:464
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:477
 msgid "User not modified due to database error"
 msgstr "Benutzer aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -2457,6 +2879,7 @@ msgstr "Benutzerrecht"
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:139
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:148
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:162
+#: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:174
 msgid "User successfully deleted"
 msgstr "Benutzer erfolgreich gelöscht"
 
@@ -2464,6 +2887,7 @@ msgstr "Benutzer erfolgreich gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:201
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:305
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:318
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:331
 msgid "User successfully inserted"
 msgstr "Benutzer erfolgreich eingefügt"
 
@@ -2471,6 +2895,7 @@ msgstr "Benutzer erfolgreich eingefügt"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:304
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:459
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:472
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:485
 msgid "User successfully modified"
 msgstr "Benutzer erfolgreich geändert"
 
@@ -2481,7 +2906,7 @@ msgstr "Benutzerkennung"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:12
 msgid "Userid"
-msgstr "Bneutzer-Id"
+msgstr "Benutzer-Id"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:113
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:209
@@ -2491,6 +2916,8 @@ msgstr "Bneutzer-Id"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:317
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:181
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:330
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:194
+#: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:343
 msgid "Userid is missing, please fill in!"
 msgstr "Benutzerkennung fehlt, bitte eingeben!"
 
@@ -2561,6 +2988,9 @@ msgstr "Willkommen %s"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:293
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:304
 #: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:60
+#: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:61
+#: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:65
+#: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:72
 msgid "Yes"
 msgstr "Ja"
 
@@ -2577,14 +3007,17 @@ msgid "You do not have sufficient access rights. Permission denied. The attempt 
 msgstr "Sie haben nicht die erforderlichen Rechte. Zugriff verweigert. Der Versuch wurde protokolliert."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:862
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:963
 msgid "can't open config template for reading!"
 msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:882
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:983
 msgid "can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie sicher, dass das Verzeichnis für den Webserver Benutzer schreibbat ist!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:899
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1000
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
@@ -2627,6 +3060,7 @@ msgstr "grep Kommando"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:51
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:51
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:146
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:158
 msgid "no"
 msgstr "Nein"
 
@@ -2680,6 +3114,7 @@ msgstr "schreiben"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:51
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:51
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:146
+#: /export/home/kriegeth/workspace/svn_access_manager/general.php:158
 msgid "yes"
 msgstr "Ja"
 

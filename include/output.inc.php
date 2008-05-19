@@ -21,7 +21,7 @@
 
 /*
 
-$Id: output.inc.php 94 2008-05-16 16:21:39Z kriegeth $
+$Id: output.inc.php 108 2008-05-19 10:56:13Z kriegeth $
 
 */
 
@@ -85,7 +85,7 @@ function outputSubHeader($area) {
 		
 	} elseif(strtolower($area) == "projects") {
 		
-		print "<img src='./images/mimetypes.png' border='0' />  "._("Projects");
+		print "<img src='./images/project.png' border='0' />  "._("Projects");
 		
 	} elseif(strtolower($area) == "repos") {
 	
@@ -214,7 +214,7 @@ function outputMenu($area) {
 		
 	}
 	
-	print "\t</table>\n";
+	#print "\t</table>\n";
 }
 
 

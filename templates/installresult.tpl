@@ -72,6 +72,48 @@ include( "../include/output.inc.php" );
 				   	<tr>
 				      	<td colspan="3">&nbsp;</td>
 				   	</tr>
+				   	<tr>
+				   		<td colspan="3">
+				   			<?php print _("And don't forget to setup your apache webserver with a configuration similar to this:"); ?> 
+				   		</td>
+				   	</tr>
+				   	<tr>
+				      	<td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td colspan="3">
+				   			<?php print <<<EOM
+&lt;----- snip -----&gt;<br />
+ <br />
+Alias /svnstyle /var/www/apache2-default<br />
+ <br />
+&lt;Location /svn/repos&gt;<br />
+ <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAV svn<br />
+ <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVNParentPath /svn/repos<br />
+ <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthType Basic<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthName \"Subversion Repository\"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thUserFile $tAuthUserFile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Require valid-user<br />
+ <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthzSVNAccessFile $tSvnAccessFile<br />
+ <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVNIndexXSLT /svnstyle/svnindex.xsl<br />
+ <br />
+&lt;/Location&gt;<br />
+ <br />
+CustomLog logs/svn.log \"%t %u %{SVN-ACTION}e\" env=SVN-ACTION<br />
+ <br />
+ &lt;----- snip -----&gt;
+EOM;
+?>
+				   		</td>
+				   	</tr>
+				   	<tr>
+				      	<td colspan="3">&nbsp;</td>
+				   	</tr>
 				</table>
 			
 		</div>

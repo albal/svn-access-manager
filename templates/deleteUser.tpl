@@ -79,8 +79,8 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="3" class="hlp_center">
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Delete"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Back"); ?>" />
+				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Delete"); ?>"  title="<?php print _("Delete"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>
 				   	</tr>
 				   	<tr>

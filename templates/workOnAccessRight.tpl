@@ -79,9 +79,9 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="3" class="hlp_center">
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Change to directory"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Set access rights"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Back"); ?>" />
+				      	<input type="image" name="fSubmit_chdir" src="./images/chdir.png" value="<?php print _("Change to directory"); ?>"  title="<?php print _("Change to directory"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="image" name="fSubmit_set" src="./images/forward.png" value="<?php print _("Set access rights"); ?>"  title="<?php print _("Set access rights"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>
 				   	</tr>
 				   	<tr>

@@ -151,7 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
-   	$button									= escape_string( $_POST['fSubmit'] );
    	$tUserid								= escape_string( $_POST['fUserid'] );
    	$tName									= escape_string( $_POST['fName'] );
    	$tGivenname								= escape_string( $_POST['fGivenname'] );
@@ -163,6 +162,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tAdministrator							= escape_string( $_POST['fAdministrator'] );
    	$tUserRight								= escape_string( $_POST['fUserRight'] );
    	$tRightsAvailable						= getRights( $dbh );
+   	
+   	if( isset( $_POST['fSubmit'] ) ) {
+		$button								= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
+		$button								= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button								= _("Back" );
+	} elseif( isset( $_POST['fSubmit_ok'] ) ) {
+		$button								= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button								= _("Back" );
+	} else {
+		$button								= "undef";
+	}
    	
    	if( $button == _("Back" ) ) {
    	

@@ -30,8 +30,8 @@
 					</tr>
 					<tr valign="top">
 						<td nowrap>
-							<input class="button" type="submit" name="fSubmitAdd" value="<?php print _("Add"); ?>" />&nbsp;&nbsp;&nbsp;
-							<input class="button" type="submit" name="fSubmitAdd" value="<?php print _("Cancel"); ?>" />
+							<input type="image" name="fSubmitAdd_ok" src="./images/ok.png" value="<?php print _("Add"); ?>"  title="<?php print _("Add"); ?>" />&nbsp;&nbsp;&nbsp;
+				      		<input type="image" name="fSubmitAdd_back" src="./images/button_cancel.png" value="<?php print _("Cancel"); ?>" title="<?php print _("Cancel"); ?>" />
 						</td>
 						<td>&nbsp;</td>
 					</tr>

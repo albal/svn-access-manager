@@ -116,7 +116,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
-	$button									= escape_string( $_POST['fSubmit'] );
+	if( isset( $_POST['fSubmit'] ) ) {
+		$button									= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
+		$button									= _("Delete");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button									= _("Back" );
+	} elseif( isset( $_POST['fSubmit_ok'] ) ) {
+		$button									= _("Delete");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button									= _("Back" );
+	} else {
+		$button									= "undef";
+	}
 	
 	if( $button == _("Delete") ) {
 		

@@ -160,7 +160,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$error									= 0;
-	$button									= escape_string( $_POST['fSubmit'] );
+	
+	if( isset( $_POST['fSubmit'] ) ) {
+		$button									= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
+		$button									= _("<<");
+	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {
+		$button									= _("<");
+	} elseif( isset( $_POST['fSubmit_n_x'] ) ) {
+		$button									= _(">");			
+	} elseif( isset( $_POST['fSubmit_l_x'] ) ) {
+		$button									= _(">>");
+	} elseif( isset( $_POST['fSubmit_date_x'] ) ) {
+		$button									= _("Create report");
+	} elseif( isset( $_POST['fSubmit_date'] ) ) {
+		$button									= _("Create report");
+	} else {
+		$button									= "undef";
+	}
 	
 	if( $button == _("Create report") ) {
 		

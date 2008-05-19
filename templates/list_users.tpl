@@ -73,20 +73,24 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="11" class="hlp_center">
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("New user"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="image" name="fSubmit_new" src="./images/add_user.png" value="<?php print _("New user"); ?>"  title="<?php print _("New user"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	
 				      	<?php
 				      		if( $tPrevDisabled != "disabled" ) {
 				      			
-				      			print "\t\t\t\t\t\t<input class='button' type='submit' name='fSubmit' value='"._("<<")."' /> \n";
-				      			print "\t\t\t\t\t\t<input class='button' type='submit' name='fSubmit' value='"._("<")."' />          \n";
+				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_f' src='./images/first.png' value='"._("<<")."' /> \n";
+				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_p' src='./images/previous.png' value='"._("<")."' />          \n";
+				      			
+				      			
 				      			
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
 				      		
-				      			print "\t\t\t\t\t\t<input class='button' type='submit' name='fSubmit' value='"._(">")."' /> \n";
-				      			print "\t\t\t\t\t\t<input class='button' type='submit' name='fSubmit' value='"._(">>")."' />\n";
+				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_n' src='./images/next.png' value='"._(">")."' /> \n";
+				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_p' src='./images/last.png' value='"._(">>")."' />\n";
+				      			
 				      			
 				      		}
 				      	?>

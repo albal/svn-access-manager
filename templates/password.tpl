@@ -26,7 +26,9 @@
 		      <td colspan=3>&nbsp;</td>
 		   </tr>
 		   <tr>
-		      <td colspan="3" class="hlp_center"><input class="button" type="submit" name="submit" value="<?php print _("Change password"); ?>" /></td>
+		      <td colspan="3" class="hlp_center">
+		      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Change password"); ?>"  title="<?php print _("Change password"); ?>" />
+			  </td>
 		   </tr>
 		   <tr>
 		      <td colspan="3" class="standout"><?php print $tMessage; ?></td>

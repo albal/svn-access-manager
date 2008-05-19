@@ -32,48 +32,51 @@
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 </head>
 <body>
-	<div id="wrap">
-		<div id="header">
-			<div id="header_left">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr valign="top">
+			<td width="200px" bgcolor="#EAEAE8">
 				<a href="http://www.svn-access-manager.org/" target="_blank">
 					<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
 				</a>
-			</div>
-			<div id="header_right">
-				<?php outputHeader($header); ?>
-			</div>
-		</div>
-		<div id="subheader">
-			<div id="subheader_left">
-				<img src="./images/clear.gif" border="0" />
-			</div>
-			<div id="subheader_right">
-				<?php outputSubHeader($subheader); ?>
-			</div>
-		</div>
-		<div style="background-color: #EAEAE8; height: 100%">
-			<div id="left" class="leftMenu">
-				<ul>
-					<?php outputMenu($menu); ?>
-				</ul>
-			</div>
-			<div style="background-color: #EAEAE8;">
-				<div id="right" style="background-color: #EAEAE8;">
-					<div style="background-color: #FFFFFF; padding-left: 20px; padding-top: 10px; min-height: 600px;">
-						<?php
-							include( "./templates/".$template );
-						?>
-					</div>
-					<div style="background-color: #ffffff;">
-						&nbsp;
-					</div>
+			</td>
+			<td>
+				<div id="header_right" bgcolor="#EAEAE8">
+					<?php outputHeader($header); ?>
 				</div>
-			</div>
-		</div>
-		
-		<?php
-			include( "footer.tpl" );
-		?>
-	</div>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="200px">
+				<div id="subheader_left">
+					&nbsp;
+				</div>
+			</td>
+			<td>
+				<div id="subheader_right">
+					<?php outputSubHeader($subheader); ?>
+				</div>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="200px" bgcolor="#EAEAE8">
+				<div id="left" class="leftMenu">
+					<ul>
+						<?php outputMenu($menu); ?>
+					</ul>
+				</div>
+			</td>
+			<td>
+				<div id="right">
+					<?php include( "./templates/".$template ); ?>
+				</div>
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<?php include( "footer.tpl" ); ?>
+			</td>
+		</tr>
+	</table>
 </body>
 </html>

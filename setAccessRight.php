@@ -205,14 +205,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tRepoPassword							= $_SESSION['svn_sessid']['repopassword'];
 	$tModulePath							= $_SESSION['svn_sessid']['modulepath'];
 	$tPathSelected							= $tModulePath.$_SESSION['svn_sessid']['pathselected'];
-		
-   	$button									= isset( $_POST['fSubmit'] ) 		? escape_string( $_POST['fSubmit'] ) 		: "";
    	$tAccessRight							= isset( $_POST['fAccessRight']) 	? escape_string( $_POST['fAccessRight'] ) 	: "";
    	$tRecursive								= isset( $_POST['fRecursive'] ) 	? escape_string( $_POST['fRecursive'] )		: "";
    	$tValidFrom								= isset( $_POST['fValidFrom'] )		? escape_string( $_POST['fValidFrom'] )		: "";
    	$tValidUntil							= isset( $_POST['fValidUntil'] )	? escape_string( $_POST['fValidUntil'] )	: "";
    	$tUsers									= isset( $_POST['fUsers'] )			? escape_string( $_POST['fUsers'] )			: array();
    	$tGroups								= isset( $_POST['fGroups'] )		? escape_string( $_POST['fGroups'] )		: array();
+   	
+   	if( isset( $_POST['fSubmit'] ) ) {
+		$button								= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
+		$button								= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button								= _("Back" );
+	} elseif( isset( $_POST['fSubmit_ok'] ) ) {
+		$button								= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button								= _("Back" );
+	} else {
+		$button								= "undef";
+	}
    	
    	if( $tAccessRight == "none" ) {
    		

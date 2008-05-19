@@ -18,7 +18,7 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="3" class="hlp_center">
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Create report"); ?>" />
+				      	<input type="image" name="fSubmit_date" src="./images/ok.png" value="<?php print _("Create report"); ?>"  title="<?php print _("Create report"); ?>" />
 				      </td>
 				   	</tr>
 				   	<tr>

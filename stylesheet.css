@@ -36,25 +36,21 @@ a:visited, a:active {
 }
 
 #header_left {
-	float: left;
 	height: 60px;
 	vertical-align: middle;
 }
 
 #header_right {
-	/* float: right; */
+	background-color:#EAEAE8;
 	height: 60px;
 	min-width: 500px;
-	max-width: 780px;
 	text-align: left;
-	padding-left: 230px;
 	vertical-align: middle;
+	padding-right: 10px;
 }
 
 #subheader_pld {
 	background-color: #FFFFFF; /*#CFFDFF;*/
-	clear: both;
-	float: none;
 	padding-left: 200px;
 	height: 60px;
 	font-size: 24px;
@@ -66,8 +62,6 @@ a:visited, a:active {
 
 #subheader {
 	background-color: #FFFFFF; /*#CFFDFF;*/
-	clear: both;
-	float: none;
 	/* padding-left: 200px;
 	height: 60px;
 	font-size: 24px;
@@ -83,30 +77,25 @@ a:visited, a:active {
 }
 
 #subheader_left {
-	/* background-color: #FFFFFF; */ /*#CFFDFF;*/
 	background-color:#EAEAE8;
-	/*clear: both;*/
-	float: none;
-	#padding-left: 200px;
 	height: 60px;
 	width: 200px;
 	font-size: 24px;
 	font-weight: bold;
 	text-align: left;
 	vertical-align: middle;
-	/* padding-top: 5px; */
-	float: left;
 }
 
 #subheader_right {
 	background-color: #FFFFFF; /*#CFFDFF;*/
-	margin-left: 210px;
 	height: 60px;
 	font-size: 24px;
 	font-weight: bold;
 	color: #0000ff;
 	text-align: left;
 	vertical-align: middle;
+	padding-left: 10px;
+	padding-top: 5px;
 }
 
 .clear {
@@ -128,12 +117,8 @@ a:visited, a:active {
 
 #left {
 	width: 200px;
-	float: left;
 	text-align: left;
 	background-color: #EAEAE8; /*#CFFDFF;*/
-	min-height: 410px;
-	padding-left: -10px;
-	height: 100%;
 }
 
 #left h3 {
@@ -152,35 +137,24 @@ a:visited, a:active {
 }
 
 #right {
-	/* float: right; */
-	min-width: 500px;
-	max-width: 780px;
 	text-align: left;
-	padding-left: 200px;
-	padding-top: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
 	border-top-color: #000000;
 	border-top-style: solid;
 	border-top-width: 1px;
 	vertical-align: middle;
 	background-color: #FFFFFF;
-	min-height: 600px;
 }
 
 #righttext {
-	pad<div id="right">
-			<?php
-				include( "./templates/".$template );
-			?>
-		</div>ding-left: 10px;
+	padding-left: 10px;
 }
 
 #footer {
-	clear: both;
-	max-width:980px;
-	/* margin:auto; */
-	/* padding:0.5em;*/
 	text-align:left;
-	/* padding-top:0.2em;*/
 	margin-bottom:16px;
 	min-width:700px;
 	border-style: solid;
@@ -189,16 +163,14 @@ a:visited, a:active {
 }
 
 #footer {
-    /* width: 750px; */
-    width: 95%;
-    /* margin: 20px auto; */
-    border-top: 1px solid #bbbbbb;
-    background: #ddeeff; /* #efefef; */
-    color: #000000; /* #999999; */
-    /* line-height: 20px; */
-    text-align: left;
-    padding-left: 15px;
-    font-size: 9px;
+    	border-top: 1px solid #bbbbbb;
+    	/* background: #ddeeff; */ /* #efefef; */
+    	background-color: #EAEAE8;
+    	color: #000000; /* #999999; */
+    	text-align: left;
+    	padding-left: 15px;
+    	padding-right: 15px;
+   	font-size: 9px;
 }
 
 #footer a {

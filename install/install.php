@@ -835,7 +835,108 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( $error == 0 ) {
 		
+		if( $tCreateDatabaseTables == "YES" ) {
+			
+			if( $tDatabaseHost == "" ) {
+				
+				$tMessage					= _("Database host is missing!");
+				$error						= 1;
+				
+			} elseif( $tDatabaseUser == "" ) {
+				
+				$tMessage					= _("Database user is missing!");
+				$error						= 1;
+				
+			} elseif( $tDatabaseName == "" ) {
+				
+				$tMessage					= _("Database name is missing!" );
+				$error						= 1;
+				
+			} 
+		}
 		
+		if( $tUsername == "" ) {
+			
+			$tMessage						= _("Administrator username is missing!" );
+			$error							= 1;
+			
+		} elseif( ($tPassword == "") or ($tPassword2 == "") ) {
+			
+			$tMessage						= _("Administrator password is missing!" );
+			$error							= 1;
+			
+		} elseif( $tPassword != $tPassword2 ) {
+			
+			$tMessage						= _("Administrator passwords do not match!" );
+			$error							= 1;
+			
+		} elseif( checkPasswordPolicy( $tPassword) == 0 ) {
+			
+			$tMessage						= _("Administrator password is not strong enough!" );
+			$error							= 1;
+			
+		} elseif( $tName == "" ) {
+			
+			$tMessage						= _("Administrator name is missing!" );
+			$error							= 1;
+			
+		} elseif( $tAdminEmail == "" ) {
+			
+			$tMessage						= _("Administrator email address is missing!" );
+			$error							= 1;
+			
+		} elseif( ! check_email($tAdminEmail) ) {
+			
+			$tMessage						= sprintf( _("Administrator email address %s is not a valid email address!"), $tAdminEmail );
+			$error							= 1;
+			
+		}
+		
+		if( $tUseSvnAccessFile == "YES" ) {
+			
+			if( $tSvnAccessFile == "" ) {
+				
+				$tMessage					= _( "SVN Access File is missing!" );
+				$error						= 1;
+				
+			}
+		}
+		
+		if( $tUseSvnAccessFile == "YES" ) {
+			
+			if( $tAuthUserFile == "" ) {
+				
+				$tMessage					= _("Auth user file is missing!" );
+				$error						= 1;
+				
+			}
+		}
+		
+		if( $tSvnCommand == "" ) {
+			
+			$tMessage						= _("SVN command is missing!" );
+			$error							= 1;
+			 
+		} elseif( $tGrepCommand == "" ) {
+			
+			$tMessage						= _("Grep command is missinbg!" );
+			$error							= 1;
+			
+		} elseif( $tPageSize == "" ) {
+			
+			$tMessage						= _("Page size is missing!" );
+			$error							= 1;
+			
+		} elseif( ! is_numeric($tPageSize) ) {
+			
+			$tMessage						= _("Page size is not numeric!" );
+			$error							= 1;
+			
+		}
+		
+	}
+	
+	if( $error == 0 ) {
 			
 		if( $fh_in = @fopen( $configtmpl, "r" ) ) {
 			

@@ -39,8 +39,8 @@
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td nowrap>
-							<input class="button" type="submit" name="fSubmit" value="<?php print _("Add member"); ?>" />&nbsp;&nbsp;&nbsp;
-							<input class="button" type="submit" name="fSubmit" value="<?php print _("Remove member"); ?>" />
+							<input type="image" name="fSubmit_add" src="./images/add_user.png" value="<?php print _("Add member"); ?>"  title="<?php print _("Add member"); ?>" />&nbsp;&nbsp;&nbsp;
+				      		<input type="image" name="fSubmit_remove" src="./images/edit_remove.png" value="<?php print _("Remove member"); ?>" title="<?php print _("Remove member"); ?>" />
 						</td>
 						<td>&nbsp;</td>
 					</tr>
@@ -49,8 +49,8 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="5" class="hlp_center">
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input class="button" type="submit" name="fSubmit" value="<?php print _("Back"); ?>" />
+				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>
 				   	</tr>
 				   	<tr>

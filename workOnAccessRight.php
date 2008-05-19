@@ -260,14 +260,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tModulePath							= $_SESSION['svn_sessid']['modulepath'];
 		
    	if( isset( $_POST['fSubmit'] ) ) {
-   	
-   		$button								= escape_string( $_POST['fSubmit'] );
-   		
-   	} else {
-   		
-   		$button								= "";
-   		
-   	}
+		$button								= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_chdir_x'] ) ) {
+		$button								= _("Change to directory");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button								= _("Back" );
+	} elseif( isset( $_POST['fSubmit_chdir'] ) ) {
+		$button								= _("Change to directory");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button								= _("Back" );
+   	} elseif( isset( $_POST['fSubmit_set_x'] ) ) {
+   		$button								= _("Set access rights");
+   	} elseif( isset( $_POST['fSubmit_set'] ) ) {
+		$button								= _("Set access rights");
+	} else {
+		$button								= "";
+	}
    	
    	if( $button == _("Back") ) {
    		

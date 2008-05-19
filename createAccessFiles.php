@@ -55,7 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
-	$button									= isset( $_POST['fSubmit']) ? escape_string( $_POST['fSubmit'] ) : "";
+	if( isset( $_POST['fSubmit'] ) ) {
+		$button									= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_y_x'] ) ) {
+		$button									= _("Yes");
+	} elseif( isset( $_POST['fSubmit_n_x'] ) ) {
+		$button									= _("No");
+	} elseif( isset( $_POST['fSubmit_y'] ) ) {
+		$button									= _("Yes");
+	} elseif( isset( $_POST['fSubmit_n'] ) ) {
+		$button									= _("No");
+	} else {
+		$button									= "undef";
+	}
 	
 	if( $button == _("Yes") ) {
 

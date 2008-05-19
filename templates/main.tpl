@@ -78,7 +78,7 @@
 						
 						if( $rightProjectAdmin != "none" ) {
 							
-							print "\t\t\t\t\t\t<td><a href=\"list_projects.php\"><img border=\"0\" src=\"./images/mimetypes.png\" alt=\"Projects\" /></a></td>\n";
+							print "\t\t\t\t\t\t<td><a href=\"list_projects.php\"><img border=\"0\" src=\"./images/project.png\" alt=\"Projects\" /></a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
 							print "\t\t\t\t\t\t<td><a href=\"list_projects.php\">"._("Projects")."</a></td>";
 							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";

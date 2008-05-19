@@ -154,7 +154,31 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
-	$button									= escape_string( $_POST['fSubmit'] );
+	if( isset( $_POST['fSubmit'] ) ) {
+		$button									= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
+		$button									= _("<<");
+	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {
+		$button									= _("<");
+	} elseif( isset( $_POST['fSubmit_n_x'] ) ) {
+		$button									= _(">");			
+	} elseif( isset( $_POST['fSubmit_l_x'] ) ) {
+		$button									= _(">>");
+	} elseif( isset( $_POST['fSubmit_new_x'] ) ) {
+		$button									= _("New access right");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button									= _("Back" );
+	} elseif( isset( $_POST['fSubmit_new'] ) ) {
+		$button									= _("New access right");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button									= _("Back" );
+	} elseif( isset( $_POST['fSubmit_delete'] ) ) {
+		$button									= _("Delete selected");
+	} elseif( isset( $_POST['fSubmit_delete_x'] ) ) {
+		$button									= _("Delete selected");
+	} else {
+		$button									= "undef";
+	}
 	
 	if( $button == _( "Back" ) ) {
 		

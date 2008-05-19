@@ -140,15 +140,39 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$buttonAdd								= "";
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		
-		$button								= escape_string( $_POST['fSubmit'] );
-		
+		$button									= escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
+		$button									= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button									= _("Back" );
+	} elseif( isset( $_POST['fSubmit_ok'] ) ) {
+		$button									= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button									= _("Back" );
+	} elseif( isset( $_POST['fSubmit_add_x'] ) ) {
+		$button									= _("Add member");
+	} elseif( isset( $_POST['fSubmit_add'] ) ) {
+		$button									= _("Add member");
+	} elseif( isset($_POST['fSubmit_remove_x'] ) ) {
+		$button									= _("Remove member");
+	} elseif( isset( $_POST['fSubmit_remove'] ) ) {
+		$button									= _("Remove member");
+	} else {
+		$button									= "undef";
 	}
 	
 	if( isset( $_POST['fSubmitAdd'] ) ) {
-	
-		$buttonAdd 							= escape_string( $_POST['fSubmitAdd'] );
-		
+		$buttonAdd 								= escape_string( $_POST['fSubmitAdd'] );
+	} elseif( isset( $_POST['fSubmitAdd_ok_x'] ) ) {
+		$buttonAdd								= _("Add");
+	} elseif( isset( $_POST['fSubmitAdd_ok'] ) ) {
+		$buttonAdd								= _("Add");
+	} elseif( isset( $_POST['fSubmitAdd_back_x'] ) ) {
+		$buttonAdd								= _("Cancel");
+	} elseif( isset( $_POST['fSubmitAdd_back'] ) ) {
+		$buttonAdd								= _("Cancel");
+	} else {
+		$buttonAdd								= "undef";
 	}
 	
 	if( isset( $_POST['fDescription'] ) ) {
@@ -510,7 +534,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 	} else {
 	
-		$tMessage							= _( "Invalid button $button, anyone tampered arround with?" );	
+		$tMessage							= sprintf( _( "Invalid button %s, anyone tampered arround with?" ), $button );	
 	}
 	
 	$header									= "groups";
