@@ -743,6 +743,109 @@ function db_get_preferences($userid, $link) {
 
 
 
+//
+// db_get_semaphore
+// Action: check if semaphore is set, 
+//         returns true if semaphore is set
+// Call: db_get_semaphore(string action, string type, resource link)
+//
+function db_get_semaphore($action, $type, $link) {
+	
+	global $CONF;
+	
+	$query							= "SELECT * " .
+									  "  FROM semaphores " .
+									  " WHERE (action = '$action') " .
+									  "   AND (type = '$type') " .
+									  "   AND (status = 'open')";
+	$result							= db_query( $query, $link );
+	if( $result['rows'] > 0 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+}
+
+
+
+
+//
+// db_set_semaphore
+// Action: set semaphore and check if a semaphore is already open, 
+//         returns false if a semaphore could not be set
+// Call: db_set_semaphore(string action, string type, resource link)
+//
+function db_set_semaphore($action, $type, $link) {
+	
+	global $CONF;
+	
+	if( db_get_semaphore( $action, $type, $link ) ) {
+		
+		return false;
+		
+	} else {
+		
+		$query						= "INSERT INTO semaphores (action, status, type) " .
+									  "     VALUES ('$action', 'open', '$type')";
+									  
+		db_ta( 'BEGIN', $link );
+		$result						= db_query( $query, $link);
+		if( $result['rows'] == 0 ) {
+			
+			db_ta('ROLLBACK', $link);
+			return false;
+			
+		} else {
+			
+			db_ta('COMMIT', $link);
+			return true;
+			
+		}
+	}
+}
+
+
+
+//
+// db_unset_semaphore
+// Action: unset semaphore
+// Call: db_unset_semaphore(string action, string type, resource link)
+//
+function db_unset_semaphore($action, $type, $link) {
+	
+	global $CONF;
+	
+	if( db_get_semaphore( $action, $type, $link ) ) {
+		
+		$query							= "UPDATE semaphores " .
+										  "   SET status = 'closed' " .
+										  " WHERE (action = '$action') " .
+										  "   AND (type = '$type')";
+										  
+		db_ta('BEGIN', $link);
+		$result							= db_query( $query, $link );
+		if( $result['rows'] > 0 ) {
+			
+			db_ta('COMMIT', $link );
+			return true;
+			
+		} else {
+			
+			db_ta('ROLLBACK', $link );
+			return false;
+			
+		}
+		
+	} else {
+		
+		return false;
+		
+	}
+}
+
+
+
 
 //
 // session handling

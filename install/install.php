@@ -53,7 +53,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "preferences" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "preferences" );
 		}
 	
 	}
@@ -65,7 +65,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "rights" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "rights" );
 		}
 	
 	}
@@ -77,7 +77,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "sessions" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "sessions" );
 		}
 	
 	}
@@ -89,7 +89,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svn_access_rights" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svn_access_rights" );
 		}
 	
 	}
@@ -101,7 +101,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svn_project_mailinglists" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svn_project_mailinglists" );
 		}
 	
 	}
@@ -113,7 +113,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svn_projects_responsible" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svn_projects_responsible" );
 		}
 	
 	}
@@ -125,7 +125,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svn_users_groups" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svn_users_groups" );
 		}
 	
 	}
@@ -137,7 +137,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svngroups" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svngroups" );
 		}
 	
 	}
@@ -149,7 +149,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svnmailinglists" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svnmailinglists" );
 		}
 	
 	}
@@ -161,7 +161,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svnprojects" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svnprojects" );
 		}
 	
 	}
@@ -173,7 +173,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svnrepos" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svnrepos" );
 		}
 	
 	}
@@ -185,7 +185,7 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "svnusers" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svnusers" );
 		}
 	
 	}
@@ -197,7 +197,19 @@ function dropDatabaseTables( $dbh ) {
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
-			$tMessage						= sprintf( _("Cannot create table %s"), "users_rights" );
+			$tMessage						= sprintf( _("Cannot drop table %s"), "users_rights" );
+		}
+	
+	}
+	
+	if( $error == 0 ) {
+		
+		$query								= "DROP TABLE IF EXISTS `semaphores`";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot drop table %s"), "semaphores" );
 		}
 	
 	}
@@ -542,6 +554,24 @@ function createDatabaseTables( $dbh ) {
 			$tMessage						= sprintf( _("Cannot create table %s"), "svnusers" );
 		}
 	
+	}
+	
+	if( $error == 0 ) {
+		
+		$query								= "CREATE TABLE IF NOT EXISTS `semaphores` (
+  													`id` int(10) unsigned NOT NULL auto_increment,
+  													`timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  													`action` varchar(255) NOT NULL,
+  													`status` varchar(255) NOT NULL,
+  													`type` varchar(255) NOT NULL,
+  													PRIMARY KEY  (`id`)
+												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table of semaphores';";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot create table %s"), "semaphores" );
+		}
 	}
 	
 	if( $error == 0 ) {

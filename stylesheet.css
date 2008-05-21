@@ -49,6 +49,14 @@ a:visited, a:active {
 	padding-right: 10px;
 }
 
+#header_right_login {
+	height: 60px;
+	min-width: 500px;
+	text-align: left;
+	vertical-align: middle;
+	padding-right: 10px;
+}
+
 #subheader_pld {
 	background-color: #FFFFFF; /*#CFFDFF;*/
 	padding-left: 200px;

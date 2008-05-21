@@ -39,7 +39,7 @@ include( "./include/output.inc.php" );
 			<div id="header_left">
 				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
 			</div>
-			<div id="header_right">
+			<div id="header_right_login">
 				
 			</div>
 			<div id="subheader">
@@ -74,7 +74,9 @@ include( "./include/output.inc.php" );
 				      <td colspan="2">&nbsp;</td>
 				   </tr>
 				   <tr>
-				      <td colspan="2" class="hlp_center"><input class="button" type="submit" name="submit" value="<?php print _('Login'); ?>" /></td>
+				      <td colspan="2" class="hlp_center">
+				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Login"); ?>"  title="<?php print _("Login"); ?>" />
+				      </td>
 				   </tr>
 				   <tr>
 				      <td colspan="2" class="standout"><?php print $tMessage; ?></td>

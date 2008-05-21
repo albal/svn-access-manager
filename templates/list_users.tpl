@@ -81,17 +81,22 @@
 				      			
 				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_f' src='./images/first.png' value='"._("<<")."' /> \n";
 				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_p' src='./images/previous.png' value='"._("<")."' />          \n";
-				      			
-				      			
-				      			
+
+				      		} else {
+				      		
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>          \n";
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
 				      		
 				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_n' src='./images/next.png' value='"._(">")."' /> \n";
 				      			print "\t\t\t\t\t\t<input type='image' name='fSubmit_p' src='./images/last.png' value='"._(">>")."' />\n";
-				      			
-				      			
+
+				      		} else {
+				      		
+				      			print "\t\t\t\t\t\t<img src)'./images/clear.gif' width='24' height='24'> \n";
+				      			print "\t\t\t\t\t\t<img src)'./images/clear.gif' width='24' height='24'>\n";
 				      		}
 				      	?>
 				      </td>

@@ -326,3 +326,18 @@ CREATE TABLE IF NOT EXISTS `users_rights` (
   KEY `idx_user_id` (`user_id`),
   KEY `idx_right_id` (`right_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of granted user rights';
+
+-- --------------------------------------------------------
+
+-- 
+-- Tabellenstruktur für Tabelle `semaphores`
+-- 
+
+CREATE TABLE `semaphores` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `action` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table of semaphores';
