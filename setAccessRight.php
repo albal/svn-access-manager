@@ -461,7 +461,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		   						$error					= 1;
 		   					}	
 		   					
-		   					db_log( $_SESSION['svn_sessid']['username'], "added access right $tAccessRight for $userid to $tPathSelected", $dbh );
+		   					db_log( $_SESSION['svn_sessid']['username'], "added access right $tAccessRight for $groupid to $tPathSelected", $dbh );
 		   				}
 		   				
 		   			}

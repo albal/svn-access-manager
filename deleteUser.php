@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( $button == _("Delete") ) {
 		
-		$userid								= db_getUseridById( $_SESSION['svn_sessid']['userid'] );
+		$userid								= db_getUseridById( $_SESSION['svn_sessid']['userid'], $dbh );
 		$error								= 0;
 		$query								= "UPDATE svnusers " .
 											  "   SET deleted = now(), " .

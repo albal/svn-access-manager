@@ -631,7 +631,7 @@ function to64 ($v, $n)
 // Return: 1 = password ok, 0 = password not ok
 //
 
-function checkPasswordPolicy( $password ) {
+function checkPasswordPolicy( $password, $admin="y" ) {
 	
 	global $CONF;
 	
@@ -642,18 +642,53 @@ function checkPasswordPolicy( $password ) {
 	$specialChars		= preg_match( $pattern, $password );
 	$passwordLength		= strlen( $password );
 	
-	if( ($smallLetters == 0) 	or 
-	    ($capitalLetters == 0) 	or 
-	    ($numbers == 0)			or 
-	    ($specialChars == 0) 	or 
-	    ($passwordLength < $CONF['minPasswordlength']) ) {
+	if( $admin == "y" ) {
+	
+		if( ($smallLetters == 0) 	or 
+		    ($capitalLetters == 0) 	or 
+		    ($numbers == 0)			or 
+		    ($specialChars == 0) 	or 
+		    ($passwordLength < $CONF['minPasswordlength']) ) {
+			
+			$retval			= 0;
 		
-		$retval			= 0;
+		} else {
+			
+			$retval			= 1;
+			
+		}
 	
 	} else {
 		
-		$retval			= 1;
-		
+		if( $passwordLength < $CONF['minPasswordlengthUser'] ) {
+			
+			$retval			= 0;
+			
+		} else {
+			
+			$groups			= 0;
+			
+			if( $smallLetters != 0 ) {
+				$groups++;
+			}
+			if( $capitalLetters != 0 ) {
+				$groups++;
+			}
+			if( $numbers != 0 ) {
+				$groups++;
+			}
+			if( $specialChars != 0 ) {		
+				$groups++;
+			}
+			
+			if( $groups < 3 ) {
+				
+				$retval			= 0;
+			} else {
+				
+				$retval			= 1;
+			}
+		}
 	}
 	
 	return $retval;

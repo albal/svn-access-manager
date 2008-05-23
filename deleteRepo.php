@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$reponame						= db_getRepoById( $_SESSION['svn_sessid']['repoid'], $dbh );
 			
 			db_ta( 'BEGIN', $dbh );
-			db_log( $_SESSION['svn_sesid']['username'], "deleted repository $reponame", $dbh);
+			db_log( $_SESSION['svn_sessid']['username'], "deleted repository $reponame", $dbh);
 			
 			$query								= "UPDATE svnrepos " .
 												  "   SET deleted = now(), " .

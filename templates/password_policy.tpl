@@ -14,7 +14,8 @@
 				<p>&nbsp;</p>
 				<p>A password must consist of %s characters at least. It must include one character 
 				of the four groups digits, lower case characters. upper case characters and special 
-				characters.</p>
+				characters for adminitrator passwords. User passwords must include three of the four 
+				groups mentioned above.</p>
 				<p>&nbsp;</p>
 				<p>The following special characters are allowed: %s</p>"), $len, htmlspecialchars($CONF['passwordSpecialCharsTxt']));
 				print $msg;

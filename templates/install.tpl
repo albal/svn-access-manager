@@ -320,6 +320,26 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 				   		<tr>
+					   		<td nowrap><strong><?php print _("Minimal length for admin passwords").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fMinAdminPwSize" value="<?php print $tMinAdminPwSize; ?>" size="4" maxsize="4" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the minimal length for administrator passwords."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+				   		<tr>
+					   		<td nowrap><strong><?php print _("Minimal length for user passwords").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fMinUserPwSize" value="<?php print $tMinUserPwSize; ?>" size="4" maxsize="4" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the minimal length for user passwordws."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+				   		<tr>
 				      		<td colspan="4">&nbsp;</td>
 				   		</tr>
 					</table>

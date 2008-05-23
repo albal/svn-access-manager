@@ -763,6 +763,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tPageSize								= "30";
    	$tJavaScriptYes							= "checked";
    	$tJavaScriptNo							= "";
+   	$tMinAdminPwSize						= 14;
+   	$tMinUserPwSize							= 8;
    
    	include ("../templates/install.tpl");
    
@@ -792,6 +794,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLogging								= isset( $_POST['fLogging'] )				? escape_string( $_POST['fLogging'] )				: "";
 	$tJavaScript							= isset( $_POST['fJavaScript'] )			? escape_string( $_POST['fJavaScript'] )			: "";
 	$tPageSize								= isset( $_POST['fPageSize'] )				? escape_string( $_POST['fPageSize'] )				: 30;
+	$tMinAdminPwSize						= isset( $_POST['fMinAdminPwSize'] )		? escape_string( $_POST['fMinAdminPwSize'] )		: 14;
+	$tMinUserPwSize							= isset( $_POST['fMinUserPwSize'] 	)		? escape_string( $_POST['fMinUserPwSize'] )			: 8;
 	$tAdminEmail							= isset( $_POST['fAdminEmail'] )			? escape_string( $_POST['fAdminEmail'] )			: "";
 	
 	$tMessage								= "";
@@ -900,7 +904,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tMessage						= _("Administrator passwords do not match!" );
 			$error							= 1;
 			
-		} elseif( checkPasswordPolicy( $tPassword) == 0 ) {
+		} elseif( checkPasswordPolicy( $tPassword, 'y' ) == 0 ) {
 			
 			$tMessage						= _("Administrator password is not strong enough!" );
 			$error							= 1;
@@ -960,6 +964,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		} elseif( ! is_numeric($tPageSize) ) {
 			
 			$tMessage						= _("Page size is not numeric!" );
+			$error							= 1;
+			
+		} elseif( ! is_numeric( $tMinAdminPwSize) ) {
+			
+			$tMessage						= _("Minimal administrator password length is not numeric!" );
+			$error							= 1;
+			
+		} elseif( ! is_numeric( $tMinUserPwSize ) ) {
+			
+			$tMessage						= _("Minimal user password length is not numeric!" );
 			$error							= 1;
 			
 		}

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
-   $erorr			  		= 0;
+   $error			  		= 0;
    $fUser             		= $SESSID_USERNAME;
    $fPassword_current 		= escape_string ($_POST['fPassword_current']);
    $fPassword         		= escape_string ($_POST['fPassword']);
@@ -66,7 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
          $error 							= 1;
          $pPassword_password_current_text 	= _( "Current password not entered!" );
          
+      } else {
+      	
+      	$row								= db_array( $result['result'] );
+      	$isAdmin							= $row['admin'];
+      	
       }
+      
    } else {
       
       $error				 	= 1;
@@ -79,11 +85,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $error 					= 1;
       $pPassword_password_text 	= _( "New passwords do not match!" );
       
+   } elseif( $fPassword == $fPassword_current ) {
+   	
+      $error					= 1;
+   	  $pPassword_password_text	= _("New password can not be the same as the current password!");
+   	  
    }
    
    if( $error == 0 ) {
    	
-   		if( checkPasswordPolicy( $fPassword ) == 0 ) {
+   		if( checkPasswordPolicy( $fPassword, $isAdmin ) == 0 ) {
    			      
          	$tMessage 			= _("Password not strong enough!" );
          	$error				= 1;

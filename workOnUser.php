@@ -194,11 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Userid is missing, please fill in!" );
    				$error						= 1;
    				
-   			} elseif( ! preg_match( '/^cs[0-9]{4,5}$/i', $tUserid ) ) {
-   				
-   				$tMessage					= _( "Login must be cs9999(9). It must start with cs and consist of 4 or 5 digits!" );
-   				$error						= 1;
-   				
    			} elseif( $tName == "" ) {
    				
    				$tMessage					= _( "Name missing, please fill in!" );
@@ -218,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					
 				} else {
 					
-					$retval					= checkPasswordPolicy( $tPassword );
+					$retval					= checkPasswordPolicy( $tPassword, $tAdministrator );
 					if( $retval == 0 ) {
 						
 						$tMessage			= _( "Password does not match the password policy!" );
@@ -232,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			
    			if( $tEmail == "" ) {
    				
-   				$tMessage					= _( "Emailaddress is missing, please fill in!" );
+   				$tMessage					= _( "Email address is missing, please fill in!" );
    				$error						= 1;
    				
    			} elseif( ! check_email( $tEmail ) ) {
@@ -273,12 +268,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    					foreach( $tRightsAvailable as $right ) {
    					
    						$right_id			= $right['id'];
-   						$field				= "fId".$id;
+   						$field				= "fId".$right_id;
    						$value				= isset( $_POST[$field] ) ? escape_string( $_POST[$field] ) : "";
    						
    						if( $value != "" ) {
    							$query			= "SELECT * " .
-   									 		  "  FROM user_rights " .
+   									 		  "  FROM users_rights " .
    									 		  " WHERE (right_id = $right_id) " .
    									 		  "   AND (user_id = $lastid) " .
    									 		  "   AND (deleted = '0000-00-00 00:00:00')";
@@ -341,11 +336,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			if( $tUserid == "" ) {
    				
    				$tMessage					= _( "Userid is missing, please fill in!" );
-   				$error						= 1;
-   				
-   			} elseif( ! preg_match( '/^cs[0-9]{4,5}$/i', $tUserid ) ) {
-   				
-   				$tMessage					= _( "Login must be cs9999(9). It must start with cs and consist of 4 or 5 digits!" );
    				$error						= 1;
    				
    			} elseif( $tName == "" ) {

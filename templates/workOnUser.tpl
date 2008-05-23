@@ -98,7 +98,7 @@
 				   				?>
 				   			</select>
 				   		</td>
-				   		<td>&nbsp;</td>
+				   		<td><?php print _("Admins have a stronger password policy than normal users."); ?></td>
 				   	</tr>
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Repository user right").": "; ?></strong></td>

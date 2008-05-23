@@ -28,7 +28,7 @@ include_once ("./include/output.inc.php");
 
 initialize_i18n();
 
-#$SESSID_USERNAME 								= check_session ();
+$SESSID_USERNAME 								= check_session ();
 #$dbh											= db_connect();
 
 if ( file_exists ( realpath ( "./templates/framework.tpl" ) ) ) {
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
    	include ($location);
    	
-   	db_disconnect( $dbh );
+   	#db_disconnect( $dbh );
  
 }
 
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
    	include ($location);
    	
-   	db_disconnect( $dbh );
+   	#db_disconnect( $dbh );
  
 }
 ?>

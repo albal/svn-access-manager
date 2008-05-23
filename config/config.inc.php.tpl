@@ -68,8 +68,8 @@ $CONF['page_size'] 				= '###PAGESIZE###';
 
 $CONF['passwordSpecialChars']	= '[\!\"\§\$\%\/\(\)=\?\*\+\#\-\_\.\:\,\;\<\>\|\@]';
 $CONF['passwordSpecialCharsTxt']= '!"§$%/()=?*+#-_.:,;<>|@';
-$CONF['minPasswordlength']		= 14;
-$CONF['minPasswordlengthUser']	= 8;
+$CONF['minPasswordlength']		= ###MINPWADMIN###;
+$CONF['minPasswordlengthUser']	= ###MINPWUSER###;
 
 $CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 
