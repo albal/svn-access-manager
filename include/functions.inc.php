@@ -314,9 +314,9 @@ function escape_string ($string) {
    			
    		} else {
       	
-      		if ($CONF['database_type'] == "mysql")  $escaped_string = mysql_real_escape_string ($string);
-      		if ($CONF['database_type'] == "mysqli")  $escaped_string = mysqli_real_escape_string ($string);
-      		if ($CONF['database_type'] == "pgsql")  $escaped_string = pg_escape_string ($string);
+      		if ($CONF['database_type'] == "mysql")  	$escaped_string = mysql_real_escape_string ($string);
+      		if ($CONF['database_type'] == "mysqli")  	$escaped_string = mysqli_real_escape_string ($string);
+      		if ($CONF['database_type'] == "pgsql")  	$escaped_string = pg_escape_string ($string);
       		
    		}
       

@@ -733,12 +733,13 @@ function db_get_preferences($userid, $link) {
 		$preferences				= array();
 		$preferences['page_size']	= $page_size;
 		
-		return $preferences;
-		
 	} else {
 		
-		return false;
+		$preferences['page_size']	= $CONF['page_size'];
+		
 	}
+	
+	return $preferences;
 }
 
 

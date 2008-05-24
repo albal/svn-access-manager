@@ -743,8 +743,6 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 }
 
 initialize_i18n();
-
-$dbh 		= db_connect ();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
@@ -774,29 +772,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$tResult								= array();
 	
-	$tCreateDatabaseTables					= isset( $_POST['fCreateDatabaseTables'] ) 	? escape_string( $_POST['fCreateDatabaseTables'] )	: "";
-	$tDropDatabaseTables					= isset( $_POST['fDropDatabaseTables'] ) 	? escape_string( $_POST['fDropDatabaseTables'] )	: "";
-	$tDatabaseHost							= isset( $_POST['fDatabaseHost'] )			? escape_string( $_POST['fDatabaseHost'] )			: "";
-	$tDatabaseUser							= isset( $_POST['fDatabaseUser'] )			? escape_string( $_POST['fDatabaseUser'] )			: "";
-	$tDatabasePassword						= isset( $_POST['fDatabasePassword'] )		? escape_string( $_POST['fDatabasePassword'] )		: "";
-	$tDatabaseName							= isset( $_POST['fDatabaseName'] )			? escape_string( $_POST['fDatabaseName'] )			: "";
-	$tUsername								= isset( $_POST['fUsername'] ) 				? escape_string( $_POST['fUsername'] )				: "";
-	$tPassword								= isset( $_POST['fPassword'] )				? escape_string( $_POST['fPassword'] )				: "";
-	$tPassword2								= isset( $_POST['fPassword2'] )				? escape_string( $_POST['fPassword2'] )				: "";
-	$tGivenname								= isset( $_POST['fGivenname'] ) 			? escape_string( $_POST['fGivenname'] )				: "";
-	$tName									= isset( $_POST['fName'] )					? escape_String( $_POST['fName'] )					: "";
-	$tUseSvnAccessFile						= isset( $_POST['fUseSvnAccessFile'] )		? escape_string( $_POST['fUseSvnAccessFile'] )		: "";
-	$tSvnAccessFile							= isset( $_POST['fSvnAccessFile'] )			? escape_string( $_POST['fSvnAccessFile'] )			: "";
-	$tUseAuthUserFile						= isset( $_POST['fUseAuthUserFile'] )		? escape_String( $_POST['fUseAuthUserFile'] )		: "";
-	$tAuthUserFile							= isset( $_POST['fAuthUserFile'] )			? escape_string( $_POST['fAuthUserFile'] )			: "";
-	$tSvnCommand							= isset( $_POST['fSvnCommand'] )			? escape_string( $_POST['fSvnCommand'] )			: "";
-	$tGrepCommand							= isset( $_POST['fGrepCommand'] )			? escape_string( $_POST['fGrepCommand'] )			: "";
-	$tLogging								= isset( $_POST['fLogging'] )				? escape_string( $_POST['fLogging'] )				: "";
-	$tJavaScript							= isset( $_POST['fJavaScript'] )			? escape_string( $_POST['fJavaScript'] )			: "";
-	$tPageSize								= isset( $_POST['fPageSize'] )				? escape_string( $_POST['fPageSize'] )				: 30;
-	$tMinAdminPwSize						= isset( $_POST['fMinAdminPwSize'] )		? escape_string( $_POST['fMinAdminPwSize'] )		: 14;
-	$tMinUserPwSize							= isset( $_POST['fMinUserPwSize'] 	)		? escape_string( $_POST['fMinUserPwSize'] )			: 8;
-	$tAdminEmail							= isset( $_POST['fAdminEmail'] )			? escape_string( $_POST['fAdminEmail'] )			: "";
+	$tCreateDatabaseTables					= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
+	$tDropDatabaseTables					= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
+	$tDatabaseHost							= isset( $_POST['fDatabaseHost'] )			? ( $_POST['fDatabaseHost'] )			: "";
+	$tDatabaseUser							= isset( $_POST['fDatabaseUser'] )			? ( $_POST['fDatabaseUser'] )			: "";
+	$tDatabasePassword						= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
+	$tDatabaseName							= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
+	$tUsername								= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
+	$tPassword								= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
+	$tPassword2								= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
+	$tGivenname								= isset( $_POST['fGivenname'] ) 			? ( $_POST['fGivenname'] )				: "";
+	$tName									= isset( $_POST['fName'] )					? ( $_POST['fName'] )					: "";
+	$tUseSvnAccessFile						= isset( $_POST['fUseSvnAccessFile'] )		? ( $_POST['fUseSvnAccessFile'] )		: "";
+	$tSvnAccessFile							= isset( $_POST['fSvnAccessFile'] )			? ( $_POST['fSvnAccessFile'] )			: "";
+	$tUseAuthUserFile						= isset( $_POST['fUseAuthUserFile'] )		? ( $_POST['fUseAuthUserFile'] )		: "";
+	$tAuthUserFile							= isset( $_POST['fAuthUserFile'] )			? ( $_POST['fAuthUserFile'] )			: "";
+	$tSvnCommand							= isset( $_POST['fSvnCommand'] )			? ( $_POST['fSvnCommand'] )				: "";
+	$tGrepCommand							= isset( $_POST['fGrepCommand'] )			? ( $_POST['fGrepCommand'] )			: "";
+	$tLogging								= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
+	$tJavaScript							= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
+	$tPageSize								= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
+	$tMinAdminPwSize						= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
+	$tMinUserPwSize							= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
+	$tAdminEmail							= isset( $_POST['fAdminEmail'] )			? ( $_POST['fAdminEmail'] )				: "";
 	
 	$tMessage								= "";
 	$error									= 0;
@@ -818,6 +816,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$configpath								= dirname( $configfile );
 	$confignew								= $configpath."/config.inc.php.new";
 	$configtmpl								= $configpath."/config.inc.php.tpl";
+	
 	
 	if( $tJavaScript == "YES" ) {
 		$tJavaScriptYes						= "checked";
@@ -1001,6 +1000,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###CREATEACCESSFILE###', $tUseSvnAccessFile, $content );
 			$content					= str_replace( '###CREATEAUTHFILE###', $tUseAuthUserFile, $content );
 			$content					= str_replace( '###ADMINEMAIL###', $tAdminEmail, $content );
+			$content					= str_replace( '###MINPWADMIN###', $tMinAdminPwSize, $content );
+			$content					= str_replace( '###MINPWUSER###', $tMinUserPwSize, $content );
 			
 		} else {
 			

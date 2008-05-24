@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-23 18:57+0200\n"
-"PO-Revision-Date: 2008-05-23 18:59+0100\n"
-"Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
+"POT-Creation-Date: 2008-05-24 00:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -534,6 +535,7 @@ msgstr "Verantwortlichen hinzufügen"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1061
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1091
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1105
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1107
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -856,6 +858,7 @@ msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:976
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1006
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1020
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1022
 msgid "Can't write new config.inc.php file!"
 msgstr "kann config.inc.php nicht schreiben!"
 
@@ -1149,6 +1152,7 @@ msgstr "Datenbank Einstellungen"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1046
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1076
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1090
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1092
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
@@ -1156,6 +1160,7 @@ msgstr "Datenbanktabellen erfolgreich angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1028
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1058
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1072
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1074
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gelöscht"
 
@@ -1377,6 +1382,7 @@ msgstr "Den Benutzernamen für die Administrator Kennung eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1007
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1037
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1051
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1053
 msgid "Error copying temporary config file!"
 msgstr "Fehler beim kopieren der temporären Konfig Datei!"
 
@@ -1389,6 +1395,7 @@ msgstr "Fehler beim Anlegen des Admin Benutzers"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:996
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1026
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1040
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1042
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim Löschen der temporären Konfig Datei"
 
@@ -2202,6 +2209,7 @@ msgstr "Nein"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1070
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1100
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1114
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1116
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
@@ -2209,6 +2217,7 @@ msgstr "Keine Datenbanktabellen angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1033
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1063
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1077
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1079
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gelöscht"
 
@@ -3241,6 +3250,7 @@ msgstr "Sie haben nicht die erforderlichen Rechte. Zugriff verweigert. Der Versu
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:963
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:993
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1007
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1009
 msgid "can't open config template for reading!"
 msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 
@@ -3248,6 +3258,7 @@ msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:983
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1013
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1027
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1029
 msgid "can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie sicher, dass das Verzeichnis für den Webserver Benutzer schreibbat ist!"
 
@@ -3255,6 +3266,7 @@ msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie siche
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1000
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1030
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1044
+#: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1046
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
@@ -3354,4 +3366,3 @@ msgstr "schreiben"
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:158
 msgid "yes"
 msgstr "Ja"
-
