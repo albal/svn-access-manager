@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    											  "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', now(), '".$_SESSION['svn_sessid']['username']."')";
    				
    				db_ta( 'BEGIN', $dbh );
-   				db_log( $_SESSION['svn_sessid']['username'], "addes repository $reponame ($repopath)", $dbh );
+   				db_log( $_SESSION['svn_sessid']['username'], "addes repository $tReponame ($tRepopath)", $dbh );
    				
    				$result						= db_query( $query, $dbh );
    				if( $result['rows'] != 1 ) {

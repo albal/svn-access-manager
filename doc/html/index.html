@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<!--
+ * Created on May 24, 2008
+ *
+ * To change the template for this generated file go to
+ * Window - Preferences - PHPeclipse - PHP - Code Templates
+-->
+<head>
+	<title>SVN Access Manager</title>
+</head>
+<body>
+
+<h1><a name="contents">Table of contens</a></h1>
+<p>
+	<a href="#overview">Overview</a>
+	<a href="#installer">Using the installer</a>
+</p>
+
+<h1><a name="#overview">SVN Access Manager overview</a></h1>
+<p>SVN Access Manager is a powerful tool for managing access to subversion repositories. The tool provides user and group management and access rights (read /write) to dedicated paths in a repository as well.</p>
+
+<h1>Getting started</h1>
+<p>To use SVN Access Manager you need at least:
+<ul>
+	<li>a working subversion installation</li>
+	<li>a MySQL Database, version 4 or higher</li>
+	<li>an Apache webserver, version 2.0 or higher with DAV, mod_authz and SVN support</li>
+	<li>PHP version 4 or higher</li>
+</ul>
+</p>
+
+<h2>Get the software</h2>
+<p>First download the source archive from <a href="http://svn-access-mana.sourceforge.net/">sourceforge.net</a>.</p>
+
+<h2>Install</h2>
+<p>Installation is divided up in several parts. Just follow the instructions below.</p>
+
+<h3>Install the software</h3>
+<p>Go to a directory where the software can be accessed by your Apache webserver. Unpack the archive. That's it. Proceed with setting up the Apache webserver.</p>
+
+<h3>Setup your Apache webserver</h3>
+<p>Your webserver must know about the SVN Access Manager if it is not installed in the DocumentRoot of your webserver. In the latter case you can include a line similar to this in your webserver configuration:</p>
+<code>
+Alias /svnaccessmanager /[path_to_svn_access_manager]/svn_access_manager
+</code>
+<p>After adding this don't forget to reload your webserver to make sure the configuration changes are active.</p>
+
+<h3>Setup a MySQL database and a database user</h3>
+<p>You need a database for SVN Access manager and an user with full access to this database. To create the database do the following as root user of your MySQL database:</p>
+<code>
+CREATE DATABASE svnadmin;
+</code>
+<p>To create a user having access to this database do the following as root user of your MySQL database:</p>
+<pre>
+CREATE USER 'svnadmin'@ 'localhost' IDENTIFIED BY '*******';
+
+GRANT USAGE ON * . * TO 'svnadmin'@ 'localhost' IDENTIFIED BY '*******' 
+            WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 
+                 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+
+GRANT ALL PRIVILEGES ON `svnadmin` . * TO 'svnadmin'@ 'localhost';
+</pre>
+<p>After finishing the database work continue with installing SVN Access Manager.</p>
+
+<h3><a name="installer">Using the installer</a></h3>
+<p><strong><u>Important notice:</u></strong><br />Please remove the installer script after finishing the installation. It is a security risk to have the installer on a global accessable site!</p>
+<p>The installer ist started by entering the following URL into your web browser presuming that you have the alias mentioned above. Otherwise please fill in the values fitting your installation: </p>
+<code>
+http(s)://[your_domain]/svnaccessmanager/install/install.php
+</code>
+<p>It is recommended to use https to access the installer because of the fact that passwords are sent to the webserver!</p>
+<p></p>
+
+</body>
+</html>
