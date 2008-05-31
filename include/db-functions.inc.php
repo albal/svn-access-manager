@@ -874,9 +874,10 @@ class Session {
        	$db_user 				= $CONF['database_user'];
     	$db_pass 				= $CONF['database_password'];
     	$db_host 				= $CONF['database_host'];
+    	$db_name				= $CONF['database_name'];
     	
         if (self::$_sess_db = mysql_connect($db_host, $db_user, $db_pass)) {
-            return mysql_select_db('svnadmin', self::$_sess_db);
+            return mysql_select_db($db_name, self::$_sess_db);
         }
         
         return false;

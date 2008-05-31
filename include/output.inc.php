@@ -21,7 +21,7 @@
 
 /*
 
-$Id: output.inc.php 108 2008-05-19 10:56:13Z kriegeth $
+$Id: output.inc.php 159 2008-05-31 15:22:04Z kriegeth $
 
 */
 
@@ -162,15 +162,15 @@ function outputMenu($area) {
 		
 	}
 	
-	if( $rightProjectAdmin != "none" ) {
-		
-		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_projects.php\">"._("Projects")."</a></li>\n";
-		
-	}
-	
 	if( $rightRepositoryAdmin != "none" ) {
 		
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_repos.php\">"._("Repositories")."</a></li>\n";
+		
+	}
+	
+	if( $rightProjectAdmin != "none" ) {
+		
+		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_projects.php\">"._("Projects")."</a></li>\n";
 		
 	}
 		
