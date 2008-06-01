@@ -22,7 +22,7 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				   		<td><?php print _("Givenname").": "; ?></td>
+				   		<td><?php print _("Given name").": "; ?></td>
 				   		<td>
 				   			<?php print $tGivenname; ?>
 				   		</td>

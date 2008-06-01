@@ -1,0 +1,12 @@
+To Do's
+
+- check project responsible and grant access to repository access rights administration
+      -> solved
+      
+- delete repository rights if a project or repository is deleted 
+      -> solved
+      
+- delete repository rights if a user or group is deleted
+      -> solved
+
+- cron jobs for access right creation and user lockout

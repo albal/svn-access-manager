@@ -171,13 +171,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( $result['rows'] >= 0 ) {
 			
-				db_ta( 'COMMIT', $dbh );
-				$tMessage						= _("Project successfully deleted" );
+				$query 						= "UPDATE svn_access_rights " .
+											  "   SET deleted = now(), " .
+											  "       deleted user = '".$_SESSION['svn_sessid']['username']."' " .
+											  " WHERE (project_id = '".$_SESSION['svn_sessid']['projectid']."') " .
+											  "   AND (deleted = '0000-00-00 00:00:00')";
+				$result						= db_query( $query, $dbh );
+				if( mysql_errno( $dbh ) == 0 ) {
+					db_ta( 'COMMIT', $dbh );
+					$tMessage						= _("Project successfully deleted" );
 			
-				db_disconnect( $dbh );
+					db_disconnect( $dbh );
 			
-				header( "Location: list_projects.php" );
-				exit;
+					header( "Location: list_projects.php" );
+					exit;
+					
+				} else {
+					
+					db_ta( 'ROLLBACK', $dbh );
+					$tMessage				= _("Project not deleted due to errors while deleting access right relations" );
+				}
 				
 			} else {
 				

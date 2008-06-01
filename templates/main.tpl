@@ -107,7 +107,7 @@
 							
 							print "\t\t\t\t\t\t<td><a href=\"list_access_rights.php\"><img border=\"0\" src=\"./images/password.png\" alt=\"Repository access rights\" /></a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
-							print "\t\t\t\t\t\t<td><a href=\"list_access_rights.php\">"._("Repositoty access rights")."</a></td>\n";
+							print "\t\t\t\t\t\t<td><a href=\"list_access_rights.php\">"._("Repository access rights")."</a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
 							$count++;
 							

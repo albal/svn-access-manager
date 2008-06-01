@@ -71,6 +71,8 @@ $CONF['passwordSpecialChars']	= '[\!\"\§\$\%\/\(\)=\?\*\+\#\-\_\.\:\,\;\<\>\|\@
 $CONF['passwordSpecialCharsTxt']= '!"§$%/()=?*+#-_.:,;<>|@';
 $CONF['minPasswordlength']		= ###MINPWADMIN###;
 $CONF['minPasswordlengthUser']	= ###MINPWUSER###;
+$CONF['password_expires']		= 60;
+$conf['password_expires_warn']	= 50;
 
 $CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 
@@ -82,6 +84,41 @@ $CONF['SVNAccessFile']			= '###SVNACCESSFILE###';
 $CONF['AuthUserFile']			= '###SVNAUTHFILE###';
 $CONF['createAccessFile']		= '###CREATEACCESSFILE###';
 $CONF['createUserFile']			= '###CREATEAUTHFILE###';
+
+$CONF['mail_password_warn']		= <<<EOM
+
+Dear %s,
+
+your password for SVN Access manager is about to expire. Please goto %s, log in and change your password.
+
+Please keep in mind that your account will be locked out automatically if your password was not changed. 
+
+Users are locked out if the password was not changed for %s days!
+
+Kind regrads
+
+SVN Access Manager
+Administrator
+
+EOM;
+
+$CONF['mail_user_locked']		= <<<EOM
+
+Dear %s,
+
+you account at SVN Access manager was locked. You did not change your password for %s days.
+
+You can not access the subversion repositories any more. To get access please log into your account at %s and change your password.
+
+Please give about %s minutes until your account is unlocked and you can access the subversion repositories again.
+
+Kind regards
+
+SVN Access Manager
+Administrator
+
+EOM;
+
 //
 // END OF CONFIG FILE
 //

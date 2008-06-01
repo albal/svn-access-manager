@@ -33,9 +33,15 @@ $rightAllowed									= db_check_acl( $SESSID_USERNAME, "Access rights admin", $
 
 if( $rightAllowed == "none" ) {
 	
-	db_disconnect( $dbh );
-	header( "Location: nopermission.php" );
-	exit;
+	if( $_SESSION['svn_sessid']['admin'] == "p" ) {
+		
+	} else {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+		
+	}
 	
 }		  
 

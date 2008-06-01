@@ -15,7 +15,7 @@
 				   			<?php print _("Name"); ?>
 				   		</td>
 				   		<td>
-				   			<?php print _("Givenname"); ?>
+				   			<?php print _("Given name"); ?>
 				   		</td>
 				   		<td>
 				   			<?php print _("Email"); ?>

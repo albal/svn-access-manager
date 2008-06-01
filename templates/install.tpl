@@ -179,7 +179,7 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td nowrap><strong><?php print _("Admin's givenname").": "; ?></strong></td>
+					   		<td nowrap><strong><?php print _("Admin's given name").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fGivenname" value="<?php print $tGivenname; ?>" size="40" />
 					   		</td>

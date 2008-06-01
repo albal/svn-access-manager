@@ -22,7 +22,7 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				   		<td><strong><?php print _("Givenname").": "; ?></strong></td>
+				   		<td><strong><?php print _("Given name").": "; ?></strong></td>
 				   		<td>
 				   			<input type="text" name="fGivenname" value="<?php print $tGivenname; ?>" size="40" maxsize="255" />
 				   		</td>

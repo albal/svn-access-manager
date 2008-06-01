@@ -29,86 +29,143 @@ include_once ("./addMemberToGroup.php");
 
 
 
-function getAccessRights( $start, $count, $dbh ) {
+function getAccessRights( $user_id, $start, $count, $dbh ) {
 	
-	$tAccessRights							= array();
-	$query									= "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." .
+	$id										= db_getIdByUserid( $user_id, $dbh );
+	$tProjectIds							= "";
+	$query									= "SELECT * " .
+  					      					  "  FROM svn_projects_responsible " .
+  					      					  " WHERE (user_id = $id) " .
+  					      					  "   AND (deleted = '0000-00-00 00:00:00')";
+  	$result									= db_query( $query, $dbh );
+  	while( $row = db_array( $result['result'] ) ) {
+  		
+  		if( $tProjectIds == "" ) {
+  			
+  			$tProjectIds 					= $row['project_id'];
+  			
+  		} else {
+  			
+  			$tProjectIds					= $tProjectIds.",".$row['project_id'];
+  			
+  		}
+  		
+  	}
+	
+	if( $tProjectIds != "" ) {
+		
+		$tAccessRights						= array();
+		$query								= "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." .
 											  "       reponame, valid_from, valid_until, path, access_right, recursive," .
 											  "       svn_access_rights.user_id, svn_access_rights.group_id " .
 											  "  FROM svn_access_rights, svnprojects, svnrepos " .
 											  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
+											  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
 											  "   AND (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
 											  "ORDER BY svnrepos.reponame, svn_access_rights.path " .
 											  "   LIMIT $start, $count";
-	$result									= db_query( $query, $dbh );
-	
-	while( $row = db_array( $result['result'] ) ) {
+		$result								= db_query( $query, $dbh );
 		
-		$entry								= $row;
-		$userid								= $row['user_id'];
-		$groupid							= $row['group_id'];
-		$entry['groupname']					= "";
-		$entry['username']					= "";
-		
-		if( $userid != "0" ) {
-		
-			$query							= "SELECT * " .
+		while( $row = db_array( $result['result'] ) ) {
+			
+			$entry							= $row;
+			$userid							= $row['user_id'];
+			$groupid						= $row['group_id'];
+			$entry['groupname']				= "";
+			$entry['username']				= "";
+			
+			if( $userid != "0" ) {
+			
+				$query						= "SELECT * " .
 											  "  FROM svnusers " .
 											  " WHERE id = $userid";
-			$resultread						= db_query( $query, $dbh );
-			if( $resultread['rows'] == 1 ) {
-				
-				$row						= db_array( $resultread['result'] );
-				$entry['username']			= $row['userid'];
-				
-			}
-	
-		}
+				$resultread					= db_query( $query, $dbh );
+				if( $resultread['rows'] == 1 ) {
+					
+					$row					= db_array( $resultread['result'] );
+					$entry['username']		= $row['userid'];
+					
+				}
 		
-		if( $groupid != "0" ) {
+			}
 			
-			$query							= "SELECT * " .
+			if( $groupid != "0" ) {
+				
+				$query						= "SELECT * " .
 											  "  FROM svngroups " .
 											  " WHERE id = $groupid";
-			$resultread						= db_query( $query, $dbh );
-			if( $resultread['rows'] == 1 ) {
-				
-				$row						= db_array( $resultread['result'] );
-				$entry['groupname']			= $row['groupname'];
-				
-			} else {
-				$entry['groupname']			= "unknown";
+				$resultread					= db_query( $query, $dbh );
+				if( $resultread['rows'] == 1 ) {
+					
+					$row					= db_array( $resultread['result'] );
+					$entry['groupname']		= $row['groupname'];
+					
+				} else {
+					$entry['groupname']		= "unknown";
+				}
 			}
+			
+			$tAccessRights[]				= $entry;
 		}
-		
-		$tAccessRights[]					= $entry;
+	
 	}
 
 	return $tAccessRights;
 	
 }
 
-function getCountAccessRights( $dbh ) {
+function getCountAccessRights( $user_id, $dbh ) {
 	
-	$tAccessRights							= array();
-	$query									= "SELECT COUNT(*) AS anz " .
+	$id										= db_getIdByUserid( $user_id, $dbh );
+	$tProjectIds							= "";
+	$query									= "SELECT * " .
+  					      					  "  FROM svn_projects_responsible " .
+  					      					  " WHERE (user_id = $id) " .
+  					      					  "   AND (deleted = '0000-00-00 00:00:00')";
+  	$result									= db_query( $query, $dbh );
+  	while( $row = db_array( $result['result'] ) ) {
+  		
+  		if( $tProjectIds == "" ) {
+  			
+  			$tProjectIds 					= $row['project_id'];
+  			
+  		} else {
+  			
+  			$tProjectIds					= $tProjectIds.",".$row['project_id'];
+  			
+  		}
+  		
+  	}
+	
+	if( $tProjectIds != "" ) {
+	
+		$tAccessRights						= array();
+		$query								= "SELECT COUNT(*) AS anz " .
 											  "  FROM svn_access_rights, svnprojects, svnrepos " .
 											  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
+											  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
 											  "   AND (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
 											  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-	$result									= db_query( $query, $dbh );
+		$result								= db_query( $query, $dbh );
+		
+		if( $result['rows'] == 1 ) {
+			
+			$row							= db_array( $result['result'] );
+			$count							= $row['anz'];
+			
+			return $count;
+			
+		} else {
+			
+			return false;
+			
+		}
 	
-	if( $result['rows'] == 1 ) {
-		
-		$row								= db_array( $result['result'] );
-		$count								= $row['anz'];
-		
-		return $count;
 	} else {
 		
-		return false;
+		return 0;
 		
 	}
 	
@@ -125,17 +182,21 @@ $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Access rights admin", $d
 
 if( $rightAllowed == "none" ) {
 	
-	db_disconnect( $dbh );
-	header( "Location: nopermission.php" );
-	exit;
+	if( $_SESSION['svn_sessid']['admin'] == "p" ) {
+		
+	} else {
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	}
 	
 }		  
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
-	$tAccessRights							= getAccessRights( 0, $CONF['page_size'], $dbh );
+	$tAccessRights							= getAccessRights( $SESSID_USERNAME, 0, $CONF['page_size'], $dbh );
 	$_SESSION['svn_sessid']['rightcounter']	= 0;
-	$tCountRecords							= getCountAccessRights( $dbh );
+	$tCountRecords							= getCountAccessRights( $SESSID_USERNAME, $dbh );
 	$tPrevDisabled							= "disabled";
 	
 	if( $tCountRecords <= $CONF['page_size'] ) {
@@ -195,8 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} elseif( $button == _("<<") ) {
 		
 		$_SESSION['svn_sessid']['rightcounter']		= 0;
-		$tAccessRights								= getAccessRights( 0, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountAccessRights( $dbh );
+		$tAccessRights								= getAccessRights( $SESSID_USERNAME, 0, $CONF['page_size'], $dbh );
+		$tCountRecords								= getCountAccessRights( $SESSID_USERNAME, $dbh );
 		$tPrevDisabled								= "disabled";
 	
 		if( $tCountRecords <= $CONF['page_size'] ) {
@@ -220,8 +281,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		}
 		
 		$start										= $_SESSION['svn_sessid']['rightcounter'] * $CONF['page_size'];
-		$tAccessRights								= getAccessRights( $start, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountAccessRights( $dbh );
+		$tAccessRights								= getAccessRights( $SESSID_USERNAME, $start, $CONF['page_size'], $dbh );
+		$tCountRecords								= getCountAccessRights( $SESSID_USERNAME, $dbh );
 	
 		if( $tCountRecords <= $CONF['page_size'] ) {
 		
@@ -233,8 +294,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$_SESSION['svn_sessid']['rightcounter']++;
 		$start										= $_SESSION['svn_sessid']['rightcounter'] * $CONF['page_size'];
-		$tAccessRights								= getAccessRights( $start, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountAccessRights( $dbh );
+		$tAccessRights								= getAccessRights( $SESSID_USERNAME, $start, $CONF['page_size'], $dbh );
+		$tCountRecords								= getCountAccessRights( $SESSID_USERNAME, $dbh );
 		$tRemainingRecords							= $tCountRecords - $start - $CONF['page_size'];
 		
 		if( $tRemainingRecords <= 0 ) {
@@ -245,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 	} elseif( $button == _(">>") ) {
 		
-		$count										= getCountAccessRights( $dbh );
+		$count										= getCountAccessRights( $SESSID_USERNAME, $dbh );
 		$rest   									= $count % $CONF['page_size'];
 		if( $rest != 0 ) {
 			
@@ -260,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		}
 		
 		$_SESSION['svn_sessid']['rightcounter'] 	= floor($count / $CONF['page_size'] );
-		$tAccessRights								= getAccessRights( $start, $CONF['page_size'], $dbh );
+		$tAccessRights								= getAccessRights( $SESSID_USERNAME, $start, $CONF['page_size'], $dbh );
 		$tNextDisabled								= "disabled";
 				
 	} elseif( $button == _("Delete selected") ) {

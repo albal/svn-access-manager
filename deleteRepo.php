@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		if( $result['rows'] == 0 ) {
 			
-			$reponame						= db_getRepoById( $_SESSION['svn_sessid']['repoid'], $dbh );
+			$reponame						= db_getRepoById( $_SESSION['svn_sessid']['repoid'], $dbh );				
 			
 			db_ta( 'BEGIN', $dbh );
 			db_log( $_SESSION['svn_sessid']['username'], "deleted repository $reponame", $dbh);
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$result								= db_query( $query, $dbh );
 			
 			if( $result['rows'] == 1 ) {
-				
+			
 				db_ta( 'COMMIT', $dbh );
 				$tMessage						= _("Repository successfully deleted" );
 				
