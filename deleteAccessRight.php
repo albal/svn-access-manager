@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$accessright						= $rightdata['access_right'];
 		
 		db_ta( 'BEGIN', $dbh );
-		db_log( $_SESSION['svn_sessid']['username'], "deleted access right $accessright for repository $reponame, path $path, project $project", $dbh );
+		db_log( $_SESSION['svn_sessid']['username'], "deleted access right $accessright for repository $reponame, path $path, project $projectname", $dbh );
 		
 		$query								= "UPDATE svn_access_rights " .
 											  "   SET deleted = now(), " .

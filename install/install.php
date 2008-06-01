@@ -763,6 +763,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tJavaScriptNo							= "";
    	$tMinAdminPwSize						= 14;
    	$tMinUserPwSize							= 8;
+   	$tSessionInDatabaseYes					= "checked";
+   	$tSessionInDatabaseNo					= "";
    
    	include ("../templates/install.tpl");
    
@@ -778,6 +780,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tDatabaseUser							= isset( $_POST['fDatabaseUser'] )			? ( $_POST['fDatabaseUser'] )			: "";
 	$tDatabasePassword						= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
 	$tDatabaseName							= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
+	$tSessionInDatabase						= isset( $_POST['fSessionInDatabase'])		? ( $_POST['fSessionInDatabase'] )		: "";
 	$tUsername								= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
 	$tPassword								= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
 	$tPassword2								= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
@@ -864,6 +867,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tDropDatabaseTablesYes				= "";
 		$tDropDatabaseTablesNo				= "checked";
+	}
+	
+	if( $tSessionInDatabase == "YES" ) {
+		$tSessionInDatabaseYes				= "checked";
+		$tSessionInDatabaseNo				= "";
+	} else {
+		$tSessionInDatabaseYes				= "";
+		$tSessionInDatabaseNo				= "checked";
 	}
 	
 	if( $error == 0 ) {
@@ -1002,6 +1013,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###ADMINEMAIL###', $tAdminEmail, $content );
 			$content					= str_replace( '###MINPWADMIN###', $tMinAdminPwSize, $content );
 			$content					= str_replace( '###MINPWUSER###', $tMinUserPwSize, $content );
+			$content					= str_replace( '###SESSIONINDB###', $tSessionInDatabase, $content );
 			
 		} else {
 			

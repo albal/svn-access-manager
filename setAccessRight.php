@@ -102,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tRepoPassword							= $_SESSION['svn_sessid']['repopassword'];
 	$tModulePath							= $_SESSION['svn_sessid']['modulepath'];
 	$tPathSelected							= $tModulePath.$_SESSION['svn_sessid']['pathselected'];
+	$tPathSelected							= str_replace( '//', '/', $tPathSelected );
 	$tNone									= "checked";
 	$tRecursive								= "checked";
 	

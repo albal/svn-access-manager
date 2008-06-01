@@ -316,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			if( $error == 0 ) {
    				
    				db_ta( 'BEGIN', $dbh );
-   				db_log( $_SESSION['svn_sessid']['username'], "project $tProject ($tModulePath) added", $dbh );
+   				db_log( $_SESSION['svn_sessid']['username'], "project $tProject ($tModulepath) added", $dbh );
    				
    				$query 						= "INSERT INTO svnprojects (svnmodule, modulepath, repo_id, created, created_user) " .
    										      "     VALUES ('$tProject', '$tModulepath', '$tRepo', now(), '".$_SESSION['svn_sessid']['username']."')";

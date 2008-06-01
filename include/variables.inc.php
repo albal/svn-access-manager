@@ -100,5 +100,8 @@ $tNextDisabled						= "";
 $tPrevDisabled						= "";
 $tDate								= "";
 $tDatabaseError						= "";
+$tSessionInDatabaseYes				= "";
+$tSessionInDatabaseNo				= "";
+$tSessionInDatabase					= "";
 
 ?>

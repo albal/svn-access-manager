@@ -666,6 +666,21 @@ function db_getRightData( $id, $link ) {
 		$ret['path']			= $row['path'];
 		$ret['access_right']	= $row['access_right'];
 		
+		$query					= "SELECT * " .
+								  "  FROM svnprojects " .
+								  " WHERE id = ".$row['project_id'];
+		$result					= db_query( $query, $link );
+		if( $result['rows'] == 1 ) {
+			
+			$row				= db_array( $result['result'] );
+			$ret['repo_id']		= $row['repo_id'];
+			
+		} else {
+		
+			return false;
+			
+		}
+		
 		return $ret;
 		
 	} else {
@@ -986,13 +1001,18 @@ ini_set('session.gc_probability', 50);
 ini_set('session.gc_divisor', 50);
 ini_set('session.save_handler', 'user');
 ini_set('session.gc_maxlifetime', '1800');
-session_set_save_handler(array('Session', 'open'),
-                         array('Session', 'close'),
-                         array('Session', 'read'),
-                         array('Session', 'write'),
-                         array('Session', 'destroy'),
-                         array('Session', 'gc')
-                         );
-                         
+
+if( $CONF['session_in_db'] == "YES" ) {
+	
+	session_set_save_handler(array('Session', 'open'),
+	                         array('Session', 'close'),
+	                         array('Session', 'read'),
+	                         array('Session', 'write'),
+	                         array('Session', 'destroy'),
+	                         array('Session', 'gc')
+	                         );
+	                         
+}
+
 session_cache_expire(30);
 ?>

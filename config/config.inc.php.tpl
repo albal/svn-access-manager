@@ -51,6 +51,7 @@ $CONF['database_password'] 		= '###DBPASS###';
 $CONF['database_name'] 			= '###DBNAME###';
 $CONF['database_prefix'] 		= '';
 $CONF['database_innodb']		= 'YES';
+$CONF['session_in_db']			= '###SESSIONINDB###';
 
 // Site Admin
 // Define the Site Admins email address below.

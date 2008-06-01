@@ -95,7 +95,7 @@ Alias /svnstyle /var/www/apache2-default<br />
  <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthType Basic<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthName \"Subversion Repository\"<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thUserFile $tAuthUserFile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthUserFile $tAuthUserFile<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Require valid-user<br />
  <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthzSVNAccessFile $tSvnAccessFile<br />
