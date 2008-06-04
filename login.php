@@ -27,7 +27,8 @@ require ("./include/functions.inc.php");
 
 initialize_i18n();
 
-$dbh 		= db_connect ();
+$dbh 									= db_connect ();
+$_SESSION['svn_sessid']['helptopic']	= "login";
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
@@ -37,68 +38,92 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	$error			= 0;
-   	$fUsername 		= escape_string ($_POST['fUsername']);
-   	$fPassword 		= escape_string ($_POST['fPassword']);
-   	$result 		= db_query( "SELECT password " .
-   								"  FROM svnusers " .
-   								" WHERE userid = '$fUsername'", $dbh );
+	$error							= 0;
+   	$fUsername 						= escape_string ($_POST['fUsername']);
+   	$fPassword 						= escape_string ($_POST['fPassword']);
+   	$tPasswordExpired				= 0;
+   	$result 						= db_query( "SELECT password " .
+   												"  FROM svnusers " .
+   												" WHERE userid = '$fUsername'", $dbh );
    
    	if ($result['rows'] == 1) {
 
-      $row 			= db_array ($result['result']);
-      $password 	= addslashes( pacrypt ($fPassword, $row['password']) );
-      $result 		= db_query( "SELECT * " .
-      							"  FROM svnusers " .
-      							" WHERE userid = '$fUsername' " .
-      							"   AND password = '$password'", $dbh );
+      $row 							= db_array ($result['result']);
+      $password 					= addslashes( pacrypt ($fPassword, $row['password']) );
+      $result 						= db_query( "SELECT * " .
+      											"  FROM svnusers " .
+      											" WHERE userid = '$fUsername' " .
+      											"   AND password = '$password'", $dbh );
       
       if ($result['rows'] != 1) {
-         $error 		= 1;
-         $tMessage 		= _('Username and/or password wrong');
-         $tUsername 	= $fUsername;
+         
+         $error 					= 1;
+         $tMessage 					= _('Username and/or password wrong');
+         $tUsername 				= $fUsername;
       
       } else {
       
-      	$row 			= db_array ($result['result']);
-      	$id				= $row['id'];
-      	$tName			= $row['name'];
-      	$tGivenname		= $row['givenname'];
-      	$tAdmin			= "n";
+      	$row 						= db_array ($result['result']);
+      	$id							= $row['id'];
+      	$tName						= $row['name'];
+      	$tGivenname					= $row['givenname'];
+      	$tAdmin						= "n";
+      	$tPwModified				= mkUnixTimestampFromDateTime( $row['password_modified'] );
+      	$today						= time();
+      	$maxDiff					= $CONF['password_expires'] * 86400;
+      	if( ($today - $tPwModified ) > $maxDiff ) {
       		
-  		$query			= "SELECT * " .
-  					      "  FROM svn_projects_responsible " .
-  					      " WHERE (user_id = $id) " .
-  					      "   AND (deleted = '0000-00-00 00:00:00')";
-  		$result			= db_query( $query, $dbh );
+      		$tPasswordExpired		= 1;
+      		
+       	} else {
+       		
+       		$tPasswordExpired		= 0;
+       		
+       	}
+      		
+  		$query						= "SELECT * " .
+  					      			  "  FROM svn_projects_responsible " .
+  					      			  " WHERE (user_id = $id) " .
+  					      			  "   AND (deleted = '0000-00-00 00:00:00')";
+  		$result						= db_query( $query, $dbh );
   		
   		if( $result['rows'] > 0 ) {
   			
-  			$tAdmin	= 'p';
+  			$tAdmin					= 'p';
   		}
 
       }
       
    	} else {
       
-      $error 		= 1;
-      $tMessage 	= _('Username and/or password wrong');
+      $error 						= 1;
+      $tMessage 					= _('Username and/or password wrong');
       
    	}
 
    	if ( $error != 1 ) {
 
-	  $s 									= new Session;
+	  $s 											= new Session;
       session_start();
       session_register("svn_sessid");
 
-      $_SESSION['svn_sessid']['username'] 	= $fUsername;
-      $_SESSION['svn_sessid']['name']		= $tName;
-      $_SESSION['svn_sessid']['givenname']	= $tGivenname;
-      $_SESSION['svn_sessid']['admin']		= $tAdmin;
+      $_SESSION['svn_sessid']['username'] 			= $fUsername;
+      $_SESSION['svn_sessid']['name']				= $tName;
+      $_SESSION['svn_sessid']['givenname']			= $tGivenname;
+      $_SESSION['svn_sessid']['admin']				= $tAdmin;
+      $_SESSION['svn_sessid']['password_expired']	= $tPasswordExpired;
       
       db_log( $_SESSION['svn_sessid']['username'], "user $tUsername logged in", $dbh );
 
+	  if( $tPasswordExpired == 1 ) {
+	  	
+	  		db_log( $_SESSION['svn_sessid']['username'], "password of user $tUsername expired, force password change", $dbh );
+	  		db_disconnect ($dbh);
+	  		header("Location: password.php");
+	  		exit;
+	  }
+	  
+	  db_disconnect ($dbh);
       header("Location: main.php");
       exit;
       

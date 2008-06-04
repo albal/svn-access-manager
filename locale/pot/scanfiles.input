@@ -38,6 +38,7 @@
 /export/home/kriegeth/workspace/svn_access_manager/templates/password_policy.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/deleteAccessRight.tpl
+/export/home/kriegeth/workspace/svn_access_manager/templates/help.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/list_projects.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/setAccessRight.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/addAccessRight.tpl
@@ -66,6 +67,9 @@
 /export/home/kriegeth/workspace/svn_access_manager/include/variables.inc.php
 /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php
 /export/home/kriegeth/workspace/svn_access_manager/selectProject.php
+/export/home/kriegeth/workspace/svn_access_manager/help.php
+/export/home/kriegeth/workspace/svn_access_manager/scripts/cronjobs/cron_lockUserWithExpiredPasswords.php
+/export/home/kriegeth/workspace/svn_access_manager/scripts/cronjobs/cron_createAccessFiles.php
 /export/home/kriegeth/workspace/svn_access_manager/preferences.php
 /export/home/kriegeth/workspace/svn_access_manager/list_projects.php
 /export/home/kriegeth/workspace/svn_access_manager/password.php

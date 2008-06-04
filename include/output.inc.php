@@ -21,7 +21,7 @@
 
 /*
 
-$Id: output.inc.php 159 2008-05-31 15:22:04Z kriegeth $
+$Id: output.inc.php 193 2008-06-04 09:04:49Z kriegeth $
 
 */
 
@@ -39,6 +39,8 @@ function outputHeader($area) {
 	print "<ul class='topmenu'>";
 	print "<li class='topmenu'><a href='main.php' alt='Home'><img src='./images/gohome.png' border='0' /> "._("Main menu")."</a></li>";
 	print "<li class='topmenu'><a href='logout.php' alt='Logout'><img src='./images/stop.png' border='0' />"._("Logoff")."</a></li>";
+	print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
+	print "<li><a href='help.php' alt='help' target='_blank'><img src='./images/help.png' border='0' />"._("Help")."</a></li>";
 	print "</ul>";
 	print "<div align='right'><p>&nbsp;</p>"._("Logged in as").": ".$_SESSION['svn_sessid']['username']."</div>";
 }
@@ -213,6 +215,8 @@ function outputMenu($area) {
 		print "\t\t\t\t</ul>\n";
 		
 	}
+	
+	print "\t\t\t\t<p>&nbsp;</p>\n";
 	
 	#print "\t</table>\n";
 }

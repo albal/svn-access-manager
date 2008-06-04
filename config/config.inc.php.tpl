@@ -22,10 +22,10 @@
 /*
 
 File:            config.inc.php.tpl
-$LastChangedDate: 2008-05-16 18:14:12 +0200 (Fri, 16 May 2008) $
+$LastChangedDate: 2008-06-04 14:25:27 +0200 (Wed, 04 Jun 2008) $
 $LastChangedBy: kriegeth $
 
-$Id: config.inc.php 93 2008-05-16 16:14:12Z kriegeth $
+$Id: config.inc.php.tpl 216 2008-06-04 12:25:27Z kriegeth $
 
 */
 
@@ -72,7 +72,7 @@ $CONF['passwordSpecialCharsTxt']= '!"§$%/()=?*+#-_.:,;<>|@';
 $CONF['minPasswordlength']		= ###MINPWADMIN###;
 $CONF['minPasswordlengthUser']	= ###MINPWUSER###;
 $CONF['password_expires']		= 60;
-$conf['password_expires_warn']	= 50;
+$CONF['password_expires_warn']	= 50;
 
 $CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 

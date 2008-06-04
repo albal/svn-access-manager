@@ -29,8 +29,10 @@ require ("./include/db-functions.inc.php");
 initialize_i18n();
 
 $SESSID_USERNAME 							= check_session ();
+check_password_expired();
 $dbh 										= db_connect ();
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Access rights admin", $dbh );
+$_SESSION['svn_sessid']['helptopic']		= "deleteaccessright";
 
 if( $rightAllowed != "delete" ) {
 	

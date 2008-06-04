@@ -28,8 +28,9 @@ require ("./include/db-functions.inc.php");
 
 initialize_i18n();
 
-$dbh 					= db_connect ();
-$SESSID_USERNAME 		= check_session ();
+$dbh 									= db_connect ();
+$SESSID_USERNAME 						= check_session ();
+$_SESSION['svn_sessid']['helptopic']	= "password";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
@@ -116,8 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       if ($result['rows'] == 1)       {
          
          db_log( $_SESSION['svn_sessid']['username'], "password changed", $dbh );
-         $tMessage 			= _( "Password changed successfully" );
+         
+         $tMessage 										= _( "Password changed successfully" );
+         
 	 	 db_ta("COMMIT", $dbh);
+	 	 
+	 	 $_SESSION['svn_sessid']['password_expired']	= 0;
 	 	 
       } else {
          

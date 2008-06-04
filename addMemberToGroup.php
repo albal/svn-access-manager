@@ -27,6 +27,8 @@ require_once ("./include/db-functions.inc.php");
 include_once ("./include/output.inc.php");
 
 initialize_i18n();
+check_password_expired();
+$_SESSION['svn_sessid']['helptopic']	= "addmembertogroup";
 
 function addMemberToGroup($group, $currentMembers, $dbh) {
 

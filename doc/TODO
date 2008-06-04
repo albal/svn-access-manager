@@ -10,3 +10,10 @@ To Do's
       -> solved
 
 - cron jobs for access right creation and user lockout
+       -> jobs are include, documentation is to be written
+
+- take user to password change if password is expired
+       -> done
+
+- add online help
+       -> particularly done, more texts to be added.

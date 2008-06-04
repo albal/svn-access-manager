@@ -28,9 +28,11 @@ require ("./include/db-functions.inc.php");
 
 initialize_i18n();
 
-$SESSID_USERNAME 	= check_session ();
-$dbh 				= db_connect ();
-$userid				= db_getIdByUserid ( $SESSID_USERNAME, $dbh );
+$SESSID_USERNAME 						= check_session ();
+check_password_expired();
+$dbh 									= db_connect ();
+$userid									= db_getIdByUserid ( $SESSID_USERNAME, $dbh );
+$_SESSION['svn_sessid']['helptopic']	= "preferences";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 

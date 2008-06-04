@@ -1,3 +1,5 @@
+#!/usr/bin/php
+
 <?php
 
 /*
@@ -22,10 +24,10 @@
 /*
 
 File:  cron_createAccessFiles.php
-$LastChangedDate$
-$LastChangedBy$
+$LastChangedDate: 2008-06-04 14:03:46 +0200 (Wed, 04 Jun 2008) $
+$LastChangedBy: kriegeth $
 
-$Id$
+$Id: cron_createAccessFiles.php 213 2008-06-04 12:03:46Z kriegeth $
 
 
 !!!!!=========================================================!!!!!
@@ -43,11 +45,19 @@ require ("$INCLUDEPATH/include/functions.inc.php");
 require ("$INCLUDEPATH/include/db-functions.inc.php");
 require ("$INCLUDEPATH/include/createAuthFiles.php");
 
+ini_set( 'max_execution_time', '3600' );
+ini_set( 'display_errors', 'Off');
+ini_set( 'log_errors', 'On');
+ini_set( 'error_log', '/var/tmp/cron_createAccessFiles.log' );
+ini_set( 'error_reporting', 'E_ALL' );
+
+
 initialize_i18n();
 
 
 if( $CONF['createAccessFile'] == 'YES' ) {
 	
+	$dbh								= db_connect();
 	$tRetAccess							= createAccessFile( $dbh );
 	
 	if( $tRetAccess['error'] != 0 ) {
@@ -55,11 +65,13 @@ if( $CONF['createAccessFile'] == 'YES' ) {
 		print $tRetAccess['errormsg']." \n";
 		
 	}
+	db_disconnect( $dbh );
 	
 }
 
 if( $CONF['createUserFile']	== 'YES' ) {
 	
+	$dbh								= db_connect();
 	$tRetAuthUser						= createAuthUserFile( $dbh );
 	
 	if( $tRetAuthUser['error'] != 0 ) {
@@ -67,6 +79,8 @@ if( $CONF['createUserFile']	== 'YES' ) {
 		print $tRetAuthUser['errormsg']."\n";
 		
 	}
+	
+	db_disconnect( $dbh );
 }
 
 exit;

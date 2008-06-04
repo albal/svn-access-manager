@@ -28,7 +28,9 @@ include_once ("./include/output.inc.php");
 
 initialize_i18n();
 
-$SESSID_USERNAME = check_session ();
+$SESSID_USERNAME 						= check_session ();
+check_password_expired();
+$_SESSION['svn_sessid']['helptopic']	= "password_policy";
 
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {

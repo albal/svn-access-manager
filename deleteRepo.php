@@ -28,8 +28,10 @@ require ("./include/db-functions.inc.php");
 
 
 $SESSID_USERNAME 							= check_session ();
+check_password_expired();
 $dbh 										= db_connect ();
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Repository admin", $dbh );
+$_SESSION['svn_sessid']['helptopic']		= "deleterepo";
 
 if( $rightAllowed != "delete" ) {
 	

@@ -28,9 +28,11 @@ include_once ("./addMemberToProject.php");
 
 initialize_i18n();
 
-$SESSID_USERNAME 					= check_session ();
-$dbh 								= db_connect ();
-$rightAllowed						= db_check_acl( $SESSID_USERNAME, "Project admin", $dbh );
+$SESSID_USERNAME 						= check_session ();
+check_password_expired();
+$dbh 									= db_connect ();
+$rightAllowed							= db_check_acl( $SESSID_USERNAME, "Project admin", $dbh );
+$_SESSION['svn_sessid']['helptopic']	= "workonproject";
 
 if( $rightAllowed == "none" ) {
 	

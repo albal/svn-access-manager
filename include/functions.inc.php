@@ -45,6 +45,13 @@ if (ereg ("functions.inc.php", $_SERVER['PHP_SELF'])) {
 function initialize_i18n() {
 	
 	$locale 					= get_locale();
+	#error_log( "got locale: $locale" );
+	
+	if( ! preg_match( '/_/', $locale ) ) {
+		
+		$locale					= $locale."_".strtoupper($locale);
+		#error_log( "set locale to: $locale" );
+	}
 	
 	putenv("LANG=$locale");
 	putenv("LC_ALL=$locale");
@@ -99,6 +106,24 @@ function check_session () {
 }
 
 
+
+
+//
+// check_password_expired
+// Action: checks if a password is expired and akes the user to the password change mask
+// Call: check_password_expired
+//
+function check_password_expired() {
+	
+	if( isset( $_SESSION['svn_sessid']['password_expired'] ) ) {
+	
+		if( $_SESSION['svn_sessid']['password_expired'] == 1 ) {
+
+			header( "Location: password.php" );
+			exit;			
+		}
+	}
+}
 
 //
 // check_language
@@ -721,6 +746,7 @@ function splitDateTime( $datetime ) {
 
 
 
+
 //
 // splitValidDate
 // Action split valid date
@@ -735,5 +761,35 @@ function splitValidDate( $date ) {
 	$datestr		= $day.".".$month.".".$year;
 	
 	return $datestr;
+}
+
+
+
+//
+// mkUnixTimestampFromDateTime
+// Action: create a unix timestamp from a datetime field
+// Call: mkUnixTimestampFromDateTime(string datetime)
+//
+function mkUnixTimestampFromDateTime( $datetime ) {
+	
+	$values 		= array();
+	$dateval		= array();
+	$timeval		= array();
+	
+	$values 		= explode( " ", $datetime );
+	$date   		= $values[ 0 ];
+	$time   		= $values[ 1 ];
+	$dateval		= explode( "-", $date );
+	$year   		= $dateval[ 0 ];
+	$month  		= $dateval[ 1 ];
+	$day    		= $dateval[ 2 ];
+	$timeval		= explode( ":", $time );
+	$hour			= $timeval[ 0 ];
+	$min			= $timeval[ 1 ];
+	$sec			= $timeval[ 2 ];
+	
+	$timestamp		= mktime( $hour, $min, $sec, $month, $day, $year, -1 );
+	
+	return $timestamp;
 }
 ?>

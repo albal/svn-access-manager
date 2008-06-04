@@ -67,8 +67,10 @@ function getRightsGranted( $user_id, $dbh ) {
 initialize_i18n();
 
 $SESSID_USERNAME 							= check_session ();
+check_password_expired();
 $dbh 										= db_connect ();
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "User admin", $dbh );
+$_SESSION['svn_sessid']['helptopic']		= "workonuser";
 
 if( $rightAllowed == "none" ) {
 	
