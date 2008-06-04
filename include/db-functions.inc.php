@@ -1002,7 +1002,7 @@ ini_set('session.gc_divisor', 50);
 ini_set('session.save_handler', 'user');
 ini_set('session.gc_maxlifetime', '1800');
 
-if( $CONF['session_in_db'] == "YES" ) {
+if( isset( $CONF) and ($CONF['session_in_db'] == "YES") ) {
 	
 	session_set_save_handler(array('Session', 'open'),
 	                         array('Session', 'close'),

@@ -1,6 +1,9 @@
 Change Log
 
 
+Release 0.2.0.1
+	- added table help to installer
+	
 Release 0.2.0.0
 	- force user to change password after login if password is expired
 	- corrected invalid img tag in templates

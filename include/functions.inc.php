@@ -170,7 +170,12 @@ function get_locale() {
    
    global $CONF;
    
-   $supported_languages 			= $CONF['supported_languages'];
+   if( isset( $CONF ) ) {
+   		$supported_languages		= $CONF['supported_languages'];
+   } else {
+   		$supported_languages		= array ('de', 'de_DE', 'en', 'en_US');	
+   }
+   
    $lang_array 						= preg_split ('/(\s*,\s*)/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
    
    if (is_array ($lang_array))  {

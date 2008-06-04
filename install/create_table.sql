@@ -3,17 +3,37 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Host: localhost
--- Erstellungszeit: 18. Mai 2008 um 13:29
--- Server Version: 5.0.32
--- PHP-Version: 5.2.0-8+etch10
+-- Generation Time: Jun 04, 2008 at 05:45 PM
+-- Server version: 5.0.32
+-- PHP Version: 5.2.0-8+etch10
 -- 
--- Datenbank: `svnadmin`
+-- Database: `svnadmin`
 -- 
 
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `log`
+-- Table structure for table `help`
+-- 
+
+DROP TABLE IF EXISTS `help`;
+CREATE TABLE IF NOT EXISTS `help` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `topic` varchar(255) NOT NULL,
+  `headline_en` varchar(255) NOT NULL,
+  `headline_de` varchar(255) NOT NULL,
+  `helptext_de` longtext NOT NULL,
+  `helptext_en` longtext NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `idx_topic` (`topic`),
+  FULLTEXT KEY `helptext` (`helptext_de`),
+  FULLTEXT KEY `helptext_en` (`helptext_en`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table of help texts';
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `log`
 -- 
 
 DROP TABLE IF EXISTS `log`;
@@ -30,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `log` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `preferences`
+-- Table structure for table `preferences`
 -- 
 
 DROP TABLE IF EXISTS `preferences`;
@@ -51,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `preferences` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `rights`
+-- Table structure for table `rights`
 -- 
 
 DROP TABLE IF EXISTS `rights`;
@@ -73,7 +93,23 @@ CREATE TABLE IF NOT EXISTS `rights` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `sessions`
+-- Table structure for table `semaphores`
+-- 
+
+DROP TABLE IF EXISTS `semaphores`;
+CREATE TABLE IF NOT EXISTS `semaphores` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `action` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table of semaphores';
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `sessions`
 -- 
 
 DROP TABLE IF EXISTS `sessions`;
@@ -88,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svn_access_rights`
+-- Table structure for table `svn_access_rights`
 -- 
 
 DROP TABLE IF EXISTS `svn_access_rights`;
@@ -119,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `svn_access_rights` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svn_projects_mailinglists`
+-- Table structure for table `svn_projects_mailinglists`
 -- 
 
 DROP TABLE IF EXISTS `svn_projects_mailinglists`;
@@ -141,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `svn_projects_mailinglists` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svn_projects_responsible`
+-- Table structure for table `svn_projects_responsible`
 -- 
 
 DROP TABLE IF EXISTS `svn_projects_responsible`;
@@ -163,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `svn_projects_responsible` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svn_users_groups`
+-- Table structure for table `svn_users_groups`
 -- 
 
 DROP TABLE IF EXISTS `svn_users_groups`;
@@ -186,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `svn_users_groups` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svngroups`
+-- Table structure for table `svngroups`
 -- 
 
 DROP TABLE IF EXISTS `svngroups`;
@@ -207,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `svngroups` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svnmailinglists`
+-- Table structure for table `svnmailinglists`
 -- 
 
 DROP TABLE IF EXISTS `svnmailinglists`;
@@ -228,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `svnmailinglists` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svnprojects`
+-- Table structure for table `svnprojects`
 -- 
 
 DROP TABLE IF EXISTS `svnprojects`;
@@ -252,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `svnprojects` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svnrepos`
+-- Table structure for table `svnrepos`
 -- 
 
 DROP TABLE IF EXISTS `svnrepos`;
@@ -275,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `svnrepos` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `svnusers`
+-- Table structure for table `svnusers`
 -- 
 
 DROP TABLE IF EXISTS `svnusers`;
@@ -307,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `svnusers` (
 -- --------------------------------------------------------
 
 -- 
--- Tabellenstruktur für Tabelle `users_rights`
+-- Table structure for table `users_rights`
 -- 
 
 DROP TABLE IF EXISTS `users_rights`;
@@ -326,18 +362,3 @@ CREATE TABLE IF NOT EXISTS `users_rights` (
   KEY `idx_user_id` (`user_id`),
   KEY `idx_right_id` (`right_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of granted user rights';
-
--- --------------------------------------------------------
-
--- 
--- Tabellenstruktur für Tabelle `semaphores`
--- 
-
-CREATE TABLE `semaphores` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `action` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table of semaphores';

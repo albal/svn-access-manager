@@ -27,7 +27,9 @@ Template File: install.tpl
 */
 
 require ("../include/variables.inc.php");
-require ("../config/config.inc.php");
+#if( file_exists( "../config/config.inc.php") ) {
+#	require ("../config/config.inc.php");
+#}
 require ("../include/db-functions.inc.php");
 require ("../include/functions.inc.php");
 
@@ -210,6 +212,18 @@ function dropDatabaseTables( $dbh ) {
 		
 			$error							= 1;
 			$tMessage						= sprintf( _("Cannot drop table %s"), "semaphores" );
+		}
+	
+	}
+	
+	if( $error == 0 ) {
+		
+		$query								= "DROP TABLE IF EXISTS `help`";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot drop table %s"), "help" );
 		}
 	
 	}
@@ -576,6 +590,28 @@ function createDatabaseTables( $dbh ) {
 	
 	if( $error == 0 ) {
 		
+		$query								= "CREATE TABLE IF NOT EXISTS `help` (
+  													`id` int(10) unsigned NOT NULL auto_increment,
+  													`topic` varchar(255) NOT NULL,
+  													`headline_en` varchar(255) NOT NULL,
+  													`headline_de` varchar(255) NOT NULL,
+  													`helptext_de` longtext NOT NULL,
+  													`helptext_en` longtext NOT NULL,
+  													PRIMARY KEY  (`id`),
+  													KEY `idx_topic` (`topic`),
+  													FULLTEXT KEY `helptext_de` (`helptext_de`),
+  													FULLTEXT KEY `helptext_en` (`helptext_en`)
+												) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table of help texts';";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot create table %s"), "help" );
+		}
+	}
+	
+	if( $error == 0 ) {
+		
 		$query								= "CREATE TABLE IF NOT EXISTS `users_rights` (
   													`id` int(10) unsigned NOT NULL auto_increment,
   													`user_id` int(10) NOT NULL,
@@ -812,7 +848,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 	} else {
 		
-		$configfile							= realpath ( "./config/config.inc.php" );
+		$configfile							= "../config/config.inc.php";
 		
 	}
 	
