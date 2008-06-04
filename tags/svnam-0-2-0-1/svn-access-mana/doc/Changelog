@@ -1,0 +1,24 @@
+Change Log
+
+
+Release 0.2.0.1
+	- added table help to installer
+	
+Release 0.2.0.0
+	- force user to change password after login if password is expired
+	- corrected invalid img tag in templates
+	- added online help
+	- corrected permission problem regarding repository access rights
+	- fixed locale problem with IE 
+	- fixed issue with double '/' in subversion directory
+	- added cronjob for creating access rights files automatically
+	- added cronjob for locking out users with expired passwords
+	
+Release 0.1.0.2
+	- bugfix release
+
+Release 0.1.0.1
+	- bugfix release
+
+Release 0.1.0.0
+	- first alpha release
