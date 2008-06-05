@@ -1,0 +1,24 @@
+
+To Do's
+
+- check project responsible and grant access to repository access rights administration
+      -> solved
+      
+- delete repository rights if a project or repository is deleted 
+      -> solved
+      
+- delete repository rights if a user or group is deleted
+      -> solved
+
+- cron jobs for access right creation and user lockout
+       -> jobs are include, documentation is to be written
+
+- take user to password change if password is expired
+       -> done
+
+- add online help
+       -> particularly done, more texts to be added.
+
+- log project with granted access rights
+
+- use the same sort order for users (sort by name and given name or enable preferences for sort order)
