@@ -37,7 +37,7 @@ include( "./include/output.inc.php" );
 	<div id="wrap">
 		<div id="header_login">
 			<div id="header_left">
-				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
+				<!--<img src="./images/coco_logo.jpeg" width="200" height="60" border="0" />-->
 			</div>
 			<div id="header_right_login">
 				
@@ -52,7 +52,7 @@ include( "./include/output.inc.php" );
 				   <tr>
 				      <td colspan="2" align="center">
 				      	<a href="http://www.svn-access-manager.org/" target="_blank">
-				      		<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+				      		<img src="./images/coco_logo.jpeg" width="200" height="60" border="0" />
 				      	</a>
 				      </td>
 				   </tr>

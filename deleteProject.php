@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 				$query 						= "UPDATE svn_access_rights " .
 											  "   SET deleted = now(), " .
-											  "       deleted user = '".$_SESSION['svn_sessid']['username']."' " .
+											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE (project_id = '".$_SESSION['svn_sessid']['projectid']."') " .
 											  "   AND (deleted = '0000-00-00 00:00:00')";
 				$result						= db_query( $query, $dbh );

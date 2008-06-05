@@ -20,7 +20,7 @@ trunk
           /dir4
      /dir5
 
-Let's assume that there're two user defined for this repository, user A and
+Let's assume that there're two users defined for this repository, user A and
 user B. User A should have read access to the whole repository but should only
 be allowed to write into "dir2" without the sub directories. User B should have
 write access to the whole repository except "dir5". For dir5 he should not have

@@ -639,7 +639,7 @@ function createDatabaseTables( $dbh ) {
 	if( $error == 0 ) {
 		
 		$query								= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
-											  "VALUES ('User admin', 'Adminster users', 'Benutzer verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
+											  "VALUES ('User admin', 'Administer users', 'Benutzer verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 		$result								= db_query_install( $query, $dbh );
 		if( $result['rows'] != 1 ) {
 			$error							= 1;
@@ -649,7 +649,7 @@ function createDatabaseTables( $dbh ) {
 		if( $error == 0 ) {
 		
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
-											  "VALUES ('Group admin', 'Adminster groups', 'Gruppen verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
+											  "VALUES ('Group admin', 'Administer groups', 'Gruppen verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
 			if( $result['rows'] != 1 ) {
 				$error						= 1;
@@ -661,7 +661,7 @@ function createDatabaseTables( $dbh ) {
 		if( $error == 0 ) {
 		
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
-											  "VALUES ('Project admin', 'Adminster projects', 'Projecte verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
+											  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
 			if( $result['rows'] != 1 ) {
 				$error						= 1;
@@ -673,7 +673,7 @@ function createDatabaseTables( $dbh ) {
 		if( $error == 0 ) {
 		
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
-											  "VALUES ('Repository admin', 'Adminster repositories', 'Repositories verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
+											  "VALUES ('Repository admin', 'Administer repositories', 'Repositories verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
 			if( $result['rows'] != 1 ) {
 				$error						= 1;
@@ -685,7 +685,7 @@ function createDatabaseTables( $dbh ) {
 		if( $error == 0 ) {			
 		
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
-											  "VALUES ('Access rights admin', 'Adminster repository access rights', 'Repository Zugriffsrechte verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
+											  "VALUES ('Access rights admin', 'Administer repository access rights', 'Repository Zugriffsrechte verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
 			if( $result['rows'] != 1 ) {
 				$error						= 1;

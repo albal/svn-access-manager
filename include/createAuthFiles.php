@@ -202,7 +202,7 @@ function createAccessFile( $dbh ) {
 				if( $retcode == 0 ) {
 				
 					# write access rights to file
-					$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right " .
+					$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
 													  "    FROM svn_access_rights, svnprojects, svnrepos " .
 													  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
 													  "     AND (svn_access_rights.valid_from <= '$curdate') " .
@@ -234,7 +234,7 @@ function createAccessFile( $dbh ) {
 						
 						if( $row['path'] != $oldpath ) {
 							
-							$oldpath				= $row['path'];
+							$oldpath				= $row['repo_id'].$row['path'];
 							if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$row['path']."]\n" ) ) {
 								
 								$retcode			= 4;

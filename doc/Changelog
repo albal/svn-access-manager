@@ -1,6 +1,13 @@
 Change Log
 
 
+Release 0.2.0.2
+  	- fixed bug 1985204 (remove project fails)
+  	  Thanx to Andy L.
+  	- fixed a typo in scrolling function, jump to the last page now works
+  	- fixed issue with access right selection. A project responsible user couldn't see
+  	  access rights belonging to his project. Now he can.
+  	  
 Release 0.2.0.1
 	- added table help to installer
 	

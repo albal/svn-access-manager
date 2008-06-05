@@ -33,11 +33,64 @@ check_password_expired();
 $dbh 										= db_connect ();
 $uId										= db_getIdByUserid( $SESSID_USERNAME, $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "selectproject";
+$rightAllowed								= db_check_acl( $SESSID_USERNAME, "Access rights admin", $dbh );
+
+if( $rightAllowed == "none" ) {
+	
+	if( $_SESSION['svn_sessid']['admin'] == "p" ) {
+		
+		$tSeeUserid							= $SESSID_USERNAME;
+		
+	} else {
+		
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+		
+	}
+	
+} else {
+	
+	$tSeeUserid								= -1;
+	
+}  
+
+if( $tSeeUserid != -1 ) {
+	$id										= db_getIdByUserid( $SESSID_USERNAME, $dbh );
+	$tProjectIds							= "";
+	$query									= "SELECT * " .
+  					      					  "  FROM svn_projects_responsible " .
+  					      				  	  " WHERE (user_id = $id) " .
+  					      				  	  "   AND (deleted = '0000-00-00 00:00:00')";
+} else {
+	
+	$tProjectIds							= "";
+	$query									= "SELECT * " .
+	  					      				  "  FROM svn_projects_responsible " .
+  						      				  " WHERE (deleted = '0000-00-00 00:00:00')";
+  					      				  
+}
+
+$result									= db_query( $query, $dbh );
+while( $row = db_array( $result['result'] ) ) {
+	
+	if( $tProjectIds == "" ) {
+		
+		$tProjectIds 					= $row['project_id'];
+		
+	} else {
+		
+		$tProjectIds					= $tProjectIds.",".$row['project_id'];
+		
+	}
+	
+}
+
 $tProjects									= array();
 $query										= "SELECT svnprojects.id, svnmodule, modulepath, reponame, " .
 											  "       repopath, repouser, repopassword " .
 											  "  FROM svn_projects_responsible, svnprojects, svnrepos " .
-											  " WHERE (svn_projects_responsible.user_id = $uId) " .
+											  " WHERE (svnprojects.id IN (".$tProjectIds.")) " .
 											  "   AND (svn_projects_responsible.project_id = svnprojects.id) " .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
 											  "   AND (svn_projects_responsible.deleted = '0000-00-00 00:00:00') " .
