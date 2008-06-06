@@ -149,12 +149,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		} elseif( $tSortField == "" ) {
    			
    			$error							= 1;
-   			$tMessage						= _("Please slect the user sort fields!" );
+   			$tMessage						= _("Please select the user sort fields!" );
    			
    		} elseif( $tSortOrder == "" ) {
    			
    			$error							= 1;
-   			$tMessage						= -_("Please select to user sort order!" );
+   			$tMessage						= -_("Please select the user sort order!" );
    			
    		}
    		
