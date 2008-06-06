@@ -30,11 +30,13 @@ include_once ("./include/output.inc.php");
 
 function getUsers( $start, $count, $dbh ) {
 
+	global $CONF;
+	
 	$tUsers				= array();
 	$query				= " SELECT * " .
 						  "   FROM svnusers " .
 						  "   WHERE (deleted = '0000-00-00 00:00:00') " .
-						  "ORDER BY name, givenname ASC " .
+						  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'] .
 						  "   LIMIT $start, $count";
 	$result				= db_query( $query, $dbh );
 	   	
@@ -77,6 +79,8 @@ check_password_expired();
 $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
+$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
+$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, 'User admin', $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "list_users";
 

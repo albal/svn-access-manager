@@ -31,6 +31,10 @@ initialize_i18n();
 $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh 										= db_connect ();
+$preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
+$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
+$CONF['user_sort_order']					= $preferences['user_sort_order'];
+$CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "workongroup";
 
@@ -98,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 												  "   AND (svn_users_groups.deleted = '0000-00-00 00:00:00') " .
 												  "   AND (svnusers.deleted = '0000-00-00 00:00:00') " .
 												  "   AND (svn_users_groups.user_id = svnusers.id) " .
-												  "ORDER BY svnusers.userid";
+												  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 			$result								= db_query( $query, $dbh );
 			
 			while( $row = db_array( $result['result'] ) ) {

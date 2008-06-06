@@ -37,6 +37,9 @@ if ( file_exists ( realpath ( "./templates/framework.tpl" ) ) ) {
 	$location									= "../templates/framework.tpl";
 } 
 
+$tQuery											= $_SESSION['svn_sessid']['dbquery'];
+$tDbError										= $_SESSION['svn_sessid']['dberror'];
+
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	  
    	$template									= "database_error.tpl";

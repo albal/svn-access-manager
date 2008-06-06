@@ -28,10 +28,12 @@ include_once ("./include/output.inc.php");
 
 initialize_i18n();
 check_password_expired();
-$_SESSION['svn_sessid']['helptopic']	= "addmembertogroup";
+
 
 function addMemberToGroup($group, $currentMembers, $dbh) {
 
+	global $CONF;
+	
 	$cs_array					= array();
 	
 	foreach( $currentMembers as $userid => $name ) {
@@ -45,7 +47,7 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 								  "  FROM svnusers " .
 								  "	WHERE (deleted = '0000-00-00 00:00:00') " .
 								  "   AND (locked = 0) " .
-								  "ORDER BY name, givenname";
+								  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result						= db_query( $query, $dbh );
 	
 	while( $row = db_array( $result['result'] ) ) {

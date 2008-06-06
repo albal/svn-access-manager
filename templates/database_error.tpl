@@ -17,7 +17,7 @@
 				   			<strong><?php print _("Errormessage").": "; ?></strong>
 				   		</td>
 				   		<td>
-				   			<?php print $_SESSION['svn_sessid']['dberror']; ?>
+				   			<?php print $tDbError; ?>
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
@@ -29,7 +29,7 @@
 				   			<strong><?php print _("Query").": "; ?></strong>
 				   		</td>
 				   		<td>
-				   			<?php print $_SESSION['svn_sessid']['dbquery']; ?>
+				   			<?php print $tQuery; ?>
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>

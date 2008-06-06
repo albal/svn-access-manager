@@ -30,15 +30,13 @@ include_once ("./include/output.inc.php");
 
 function getGrantedRights( $start, $count, $dbh ) {
 	
+	global $CONF;
+	
 	$tGrantedRights							= array();
-	$query									= "SELECT svnusers.userid, svnusers.name, svnusers.givenname, rights.right_name, users_rights.allowed " .
-											  "  FROM svnusers, rights, users_rights " .
-											  " WHERE (svnusers.id = users_rights.user_id) " .
-											  "   AND (rights.id = users_rights.right_id) " .
-											  "   AND (svnusers.deleted = '0000-00-00 00:00:00') " .
-											  "   AND (users_rights.deleted = '0000-00-00 00:00:00') " .
-											  "   AND (rights.deleted = '0000-00-00 00:00:00') " .
-											  "ORDER BY svnusers.userid ASC " .
+	$query									= "  SELECT * " .
+											  "    FROM svnusers " .
+											  "   WHERE deleted = '0000-00-00 00:00:00' " .
+											  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'] .
 											  "   LIMIT $start, $count";
 	$result									= db_query( $query, $dbh );
 	$olduserid								= "";
@@ -47,69 +45,75 @@ function getGrantedRights( $start, $count, $dbh ) {
 	
 	while( $row = db_array( $result['result'] ) ) {
 		
-		if( $olduserid != $row['userid'] ) {
-			
-			if( $olduserid != "" ) {
+		if( $row['givenname'] != "" ) {
 				
-				$entry['rights']			= $rights;
-				$rights						= "";
-				$tGrantedRights[]			= $entry;
-				$entry						= array();
-			}
-			
-			if( $row['givenname'] != "" ) {
+			$entry['name']					= $row['givenname']." ".$row['name'];
 				
-				$entry['name']				= $row['givenname']." ".$row['name'];
-				
-			} else {
-				
-				$entry['name']				= $row['name'];
-				
-			}
-			
-			$entry['userid']				= $row['userid'];
-			$olduserid						= $row['userid'];
-
-		} 
-	
-		if( $rights == "" ) {
-			
-			$rights							= $row['right_name']." (".$row['allowed'].")";
-			
 		} else {
-			
-			$rights							= $rights.", ".$row['right_name']." (".$row['allowed'].")";
-			
+				
+			$entry['name']					= $row['name'];
+				
 		}
-	}
-	
-	if( ($olduserid != "") and ($rights != "") ) {
+			
+		$entry['userid']					= $row['userid'];
+		$id									= $row['id'];
+		
+		$query								= "SELECT rights.right_name, users_rights.allowed " .
+											  "  FROM rights, users_rights " .
+											  " WHERE (rights.id = users_rights.right_id) " .
+											  "   AND (users_rights.user_id = $id ) " .
+											  "   AND (users_rights.deleted = '0000-00-00 00:00:00') " .
+											  "   AND (rights.deleted = '0000-00-00 00:00:00') " .
+											  "ORDER BY user_id, right_id";
+		$resultrights						= db_query( $query, $dbh );
+		
+		while( $rowrights = db_array( $resultrights['result'] ) ) {
+			
+			if( $rights == "" ) {
+			
+				$rights						= $rowrights['right_name']." (".$rowrights['allowed'].")";
+			
+			} else {
+			
+				$rights						= $rights.", ".$rowrights['right_name']." (".$rowrights['allowed'].")";
+			
+			}
+		
+		}
 		
 		$entry['rights']					= $rights;
+		$rights								= "";
 		$tGrantedRights[]					= $entry;
-		
-	}
+		$entry								= array();
 
+	}
+	
 	return $tGrantedRights;
 	
 }
 
 function getCountGrantedRights( $dbh ) {
 	
-	$tGrantedRights							= array();
-	$query									= "SELECT DISTINCT * " .
-											  "  FROM svnusers, rights, users_rights " .
-											  " WHERE (svnusers.id = users_rights.user_id) " .
-											  "   AND (rights.id = users_rights.right_id) " .
-											  "   AND (svnusers.deleted = '0000-00-00 00:00:00') " .
-											  "   AND (users_rights.deleted = '0000-00-00 00:00:00') " .
-											  "   AND (rights.deleted = '0000-00-00 00:00:00') " .
-											  "GROUP BY svnusers.userid";
+	global $CONF;
+	
+	$query									= " SELECT COUNT(*) AS anz " .
+											  "   FROM svnusers " .
+											  "  WHERE (deleted = '0000-00-00 00:00:00') " .
+						  				      "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result									= db_query( $query, $dbh );
-	
-	$count									= $result['rows'];
-	
-	return $count;
+	   	
+	if( $result['rows'] == 1 ) {
+		
+		$row								= db_array( $result['result'] );
+		$count								= $row['anz'];
+		
+		return $count;
+		
+	} else {
+		
+		return false;
+		
+	}
 	
 }
 
@@ -119,8 +123,10 @@ initialize_i18n();
 $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh										= db_connect();
-$preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
+$preferences								= db_get_preferences( $SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
+$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
+$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Reports", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "rep_granted_user_rights";
 
@@ -131,6 +137,9 @@ if( $rightAllowed == "none" ) {
 	exit;
 	
 }		  
+
+error_log( "page_size = ".$CONF['page_size'] );
+
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	

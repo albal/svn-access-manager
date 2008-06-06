@@ -22,3 +22,5 @@ To Do's
 - log project with granted access rights
 
 - use the same sort order for users (sort by name and given name or enable preferences for sort order)
+
+- integrate LDAP for users and groups

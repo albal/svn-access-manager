@@ -78,6 +78,8 @@ check_password_expired();
 $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
+$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
+$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, 'Repository admin', $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "list_repos";
 

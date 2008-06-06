@@ -15,6 +15,22 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
+				   		<td width="150"><strong><?php print _("Sort user by").": "; ?></strong></td>
+				   		<td>
+				   			<input type="radio" name="fSortField" value="name,givenname" <?php print $tName; ?> />&nbsp;&nbsp;<?php print _("Name, given name"); ?>&nbsp;&nbsp;&nbsp;
+				   			<input type="radio" name="fSortField" value="userid" <?php print $tUserid; ?> />&nbsp;&nbsp;<?php print _("Username"); ?>
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td width="150"><strong><?php print _("Sort user order").": "; ?></strong></td>
+				   		<td>
+				   			<input type="radio" name="fSortOrder" value="ASC" <?php print $tAsc; ?> />&nbsp;&nbsp;<?php print _("ascending"); ?>&nbsp;&nbsp;&nbsp;
+				   			<input type="radio" name="fSortOrder" value="DESC" <?php print $tDesc; ?> />&nbsp;&nbsp;<?php print _("descending"); ?>
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>

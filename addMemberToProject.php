@@ -33,6 +33,8 @@ $_SESSION['svn_sessid']['helptopic']	= "addmembertoproject";
 
 function addMemberToGroup($group, $currentMembers, $dbh) {
 
+	global $CONF;
+	
 	$cs_array					= array();
 	
 	foreach( $currentMembers as $userid => $name ) {
@@ -42,7 +44,10 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 	}
 	
 	$tUsers						= array();
-	$query						= "SELECT * FROM svnusers WHERE (deleted = '0000-00-00 00:00:00') ORDER BY name, givenname";
+	$query						= "SELECT * " .
+								  "  FROM svnusers " .
+								  " WHERE (deleted = '0000-00-00 00:00:00') " .
+								  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result						= db_query( $query, $dbh );
 	
 	while( $row = db_array( $result['result'] ) ) {

@@ -113,8 +113,10 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
    global $CONF;
    global $DEBUG_TEXT;
    $link = "";
+   
+   
 
-   if ($CONF['database_type'] == "mysql") {
+   if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) {
       
       if (function_exists ("mysql_connect")) {
          
@@ -123,12 +125,12 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
          
       } else {
          
-          $_SESSION['svn_sessid']['dberror']		= mysql_errno().": ".mysql_error();
-      	  $_SESSION['svn_sessid']['dbquery']		= "MySQL 3.x / 4.0 functions not available!<br />database_type = 'mysql' in config.inc.php, are you using a different database?";
+          $tDbError			= mysql_errno().": ".mysql_error();
+      	  $tDbQuery			= "MySQL 3.x / 4.0 functions not available!<br />database_type = 'mysql' in config.inc.php, are you using a different database?";
 	 	  db_ta ("ROLLBACK", $link);
 	 	  db_disconnect( $link );
 	 	
-	 	  header( "location: database_error.php");
+	 	  header( "location: database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError");
 	 	  exit;
          
       }
@@ -150,18 +152,18 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
       return $link;
    } else {
    	
-	  $_SESSION['svn_sessid']['dberror']		= mysql_errno().": ".mysql_error();
-      $_SESSION['svn_sessid']['dbquery']		= "Connect: Unable to connect to database: Make sure that you have set the correct database type in the config.inc.php file";
+	  $tDbError				= mysql_errno().": ".mysql_error();
+      $tDbQuery				= "Connect: Unable to connect to database: Make sure that you have set the correct database type in the config.inc.php file";
 	  db_ta ("ROLLBACK", $link);
 	  db_disconnect( $link );
 	 	
 	  if ( file_exists ( realpath ( "database_error.php" ) ) ) {
-	  	$location								= "database_error.php";
+	  	$location								= "database_error_install.php";
 	  } else {
-	  	$location								= "../database_error.php";
+	  	$location								= "../database_error_install.php";
 	  }
 	  
-	  header( "location: $location");
+	  header( "location: $location?dberror=$tDbError&dbquery=$tDbQuery");
 	  exit;
    }
 }
@@ -285,12 +287,16 @@ function db_query_install ($query, $link) {
       }
    }
    
-   if ($CONF['database_type'] == "mysql") {
+   if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) {
       if(! $result = @mysql_query ($query, $link)) { 
       	
-      	die ("<p />DEBUG INFORMATION:<br />Query: $query<br />" .  mysql_error () . "$DEBUG_TEXT");
-	 	 
-	 	#die ("Uups");
+      	$tDbError			= mysql_errno().": ".mysql_error();
+    	$tDbQuery			= "MySQL 3.x / 4.0 functions not available!<br />database_type = 'mysql' in config.inc.php, are you using a different database?";
+    	
+      	error_log( "DB Error: $error" );
+      	
+      	header( "location: database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError");
+	 	exit;
       }
    }
    
@@ -307,13 +313,13 @@ function db_query_install ($query, $link) {
 
    if (eregi ("^SELECT", $query)) {
       // if $query was a SELECT statement check the number of rows with [database_type]_num_rows ().
-      if ($CONF['database_type'] == "mysql") 	$number_rows = mysql_num_rows ($result);
+      if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$number_rows = mysql_num_rows ($result);
       if ($CONF['database_type'] == "mysqli") 	$number_rows = mysqli_num_rows ($result);      
       if ($CONF['database_type'] == "pgsql") 	$number_rows = pg_num_rows ($result);
    } else {
       // if $query was something else, UPDATE, DELETE or INSERT check the number of rows with
       // [database_type]_affected_rows ().
-      if ($CONF['database_type'] == "mysql") 	$number_rows = mysql_affected_rows ($link);
+      if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$number_rows = mysql_affected_rows ($link);
       if ($CONF['database_type'] == "mysqli") 	$number_rows = mysqli_affected_rows ($link);
       if ($CONF['database_type'] == "pgsql") 	$number_rows = pg_affected_rows ($result);      
    }
@@ -351,7 +357,7 @@ function db_array ($result) {
   
    global $CONF;
    $row = "";
-   if ($CONF['database_type'] == "mysql") 	$row = mysql_fetch_array ($result);
+   if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$row = mysql_fetch_array ($result);
    if ($CONF['database_type'] == "mysqli") 	$row = mysqli_fetch_array ($result);
    if ($CONF['database_type'] == "pgsql") 	$row = pg_fetch_array ($result);   
    return $row;
@@ -458,7 +464,7 @@ function db_ta ($action,$link) {
    global $DEBUG_TEXT;
    
     if ($CONF['database_innodb'] == 'YES') {
-	if ($CONF['database_type'] == "mysql") 	$result = @mysql_query ($action, $link) or die ("<p />DEBUG INFORMATION:<br />Invalid query($action): " . mysql_error() . "$DEBUG_TEXT");
+	if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$result = @mysql_query ($action, $link) or die ("<p />DEBUG INFORMATION:<br />Invalid query($action): " . mysql_error() . "$DEBUG_TEXT");
 	if ($CONF['database_type'] == "mysqli") $result = @mysqli_query ($link, $action) or die ("<p />DEBUG INFORMATION:<br />Invalid query: " . mysqli_error() . "$DEBUG_TEXT");
 	if ($CONF['database_type'] == "pgsql") 	$result = @pg_query ($link, $action) or die ("<p />DEBUG INFORMATION:<br />Invalid query: " . pg_last_error() . "$DEBUG_TEXT");
    }
@@ -735,22 +741,26 @@ function db_get_preferences($userid, $link) {
 
 	global $CONF;
 	
-	$id								= db_getIdByUserid( $userid, $link );
-	$query							= "SELECT * " .
-									  "  FROM preferences " .
-									  " WHERE user_id = $id";
-	$result							= db_query( $query, $link );
+	$id											= db_getIdByUserid( $userid, $link );
+	$query										= "SELECT * " .
+												  "  FROM preferences " .
+												  " WHERE user_id = $id";
+	$result										= db_query( $query, $link );
 	
 	if( $result['rows'] == 1 ) {
 		
-		$row						= db_array( $result['result'] );
-		$page_size					= $row['page_size'];
-		$preferences				= array();
-		$preferences['page_size']	= $page_size;
+		$row									= db_array( $result['result'] );
+		$page_size								= $row['page_size'];
+		$preferences							= array();
+		$preferences['page_size']				= $page_size;
+		$preferences['user_sort_fields']		= $row['user_sort_fields'];
+		$preferences['user_sort_order']			= $row['user_sort_order'];
 		
 	} else {
 		
-		$preferences['page_size']	= $CONF['page_size'];
+		$preferences['page_size']				= $CONF['page_size'];
+		$preferences['user_sort_fields']		= $CONF['user_sort_fields'];
+		$preferences['user_sort_order']			= $CONF['user_sort_order'];
 		
 	}
 	

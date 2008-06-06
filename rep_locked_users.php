@@ -50,11 +50,14 @@ function getLockedUsers( $start, $count, $dbh ) {
 
 function getCountLockedUsers( $dbh ) {
 
+	global $CONF;
+	
 	$tUsers				= array();
 	$query				= " SELECT COUNT(*) AS anz " .
 						  "   FROM svnusers " .
 						  "  WHERE (deleted = '0000-00-00 00:00:00') " .
-						  "    AND (locked != 0)";
+						  "    AND (locked != 0) " .
+						  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result				= db_query( $query, $dbh );
 	   	
 	if( $result['rows'] == 1 ) {
@@ -79,6 +82,8 @@ check_password_expired();
 $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
+$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
+$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Reports", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "rep_locked_users";
 

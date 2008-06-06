@@ -47,12 +47,45 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	if( $result['rows'] == 0 ) {
    	
    		$tPageSize							= $CONF['page_size']	;
+   		$tSortField							= $CONF['user_sort_fields'];
+   		$tSortOrder							= $CONF['user_sort_order'];
    		
    	} else {
    		
    		$row								= db_array( $result['result'] );
    		$tPageSize							= $row['page_size'];
+   		$tSortField							= $row['user_sort_fields'];
+   		$tSortOrder							= $row['user_sort_order'];
    		
+   		if( $tSortField == "" ) {
+   			
+   			$tSortField						= $CONF['user_sort_fields'];
+   			$tSortOrder						= $CONF['user_sort_order'];
+   			
+   		}
+   		
+   	}
+   	
+   	if( $tSortOrder == "ASC" ) {
+   		$tAsc								= "checked";
+   		$tDesc								= "";
+   	} elseif( $tSortOrder == "DESC" ) {
+   		$tDesc								= "checked";
+   		$tAsc								= "";
+   	} else {
+   		$tAsc								= "checked";
+   		$tDesc								= "";
+   	}
+   	
+   	if( $tSortField == "name,givenname" ) {
+   		$tName								= "checked";
+   		$tUserid							= "";
+   	} elseif( $tSortField == "userid") {
+   		$tUserid							= "checked";
+   		$tName								= "";
+   	} else {
+   		$tName								= "checked";
+   		$tUserid							= "";
    	}
 		
 	
@@ -89,8 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
-   	$tPageSize									= escape_string( $_POST['fPageSize'] );
-   	
+   	$tPageSize									= isset( $_POST['fPageSize'] ) 		? escape_string( $_POST['fPageSize'] ) 	: "";
+   	$tSortField									= isset( $_POST['fSortField'] ) 	? escape_string( $_POST['fSortField'] )	: "";
+   	$tSortOrder									= isset( $_POST['fSortOrder'] )		? escape_string( $_POST['fSortOrder'] )	: "";
    	   	
    	if( $button == _("Back" ) ) {
    	
@@ -112,6 +146,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			$error							= 1;
    			$tMessage						= _("Records per page must contain digits only!" );
    			
+   		} elseif( $tSortField == "" ) {
+   			
+   			$error							= 1;
+   			$tMessage						= _("Please slect the user sort fields!" );
+   			
+   		} elseif( $tSortOrder == "" ) {
+   			
+   			$error							= 1;
+   			$tMessage						= -_("Please select to user sort order!" );
+   			
    		}
    		
    		if( $error == 0 ) {
@@ -127,13 +171,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			
    			if( $result['rows'] == 0 ) {
    				
-   				$query						= "INSERT INTO preferences (user_id, page_size, created, created_user) " .
-   											  "     VALUES ($userid, $tPageSize, now(), '$SESSID_USERNAME')";
+   				$query						= "INSERT INTO preferences (user_id, page_size, user_sort_fields, user_sort_order, created, created_user) " .
+   											  "     VALUES ($userid, $tPageSize, '$tSortField', '$tSortOrder', now(), '$SESSID_USERNAME')";
    				
    			} else {
    				
    				$query						= "UPDATE preferences " .
    											  "   SET page_size = $tPageSize, " .
+   											  "       user_sort_fields = '$tSortField', " .
+   											  "       user_sort_order = '$tSortOrder', " .
    											  "       modified = now(), " .
    											  "       modified_user = '$SESSID_USERNAME' " .
    											  " WHERE (user_id = $userid) " .

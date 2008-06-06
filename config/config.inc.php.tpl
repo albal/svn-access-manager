@@ -22,10 +22,10 @@
 /*
 
 File:            config.inc.php.tpl
-$LastChangedDate: 2008-06-04 14:25:27 +0200 (Wed, 04 Jun 2008) $
+$LastChangedDate: 2008-06-06 05:35:49 +0200 (Fri, 06 Jun 2008) $
 $LastChangedBy: kriegeth $
 
-$Id: config.inc.php.tpl 216 2008-06-04 12:25:27Z kriegeth $
+$Id: config.inc.php.tpl 243 2008-06-06 03:35:49Z kriegeth $
 
 */
 
@@ -52,6 +52,10 @@ $CONF['database_name'] 			= '###DBNAME###';
 $CONF['database_prefix'] 		= '';
 $CONF['database_innodb']		= 'YES';
 $CONF['session_in_db']			= '###SESSIONINDB###';
+
+// Sort order for user
+$CONF['user_sort_fields']		= "name,givenname";
+$CONF['user_sort_order']		= "ASC";
 
 // Site Admin
 // Define the Site Admins email address below.

@@ -638,12 +638,14 @@ function createDatabaseTables( $dbh ) {
 	
 	if( $error == 0 ) {
 		
+		db_ta( 'BEGIN', $dbh );
+		
 		$query								= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('User admin', 'Administer users', 'Benutzer verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 		$result								= db_query_install( $query, $dbh );
-		if( $result['rows'] != 1 ) {
+		if( mysql_errno() != 0 ) {
 			$error							= 1;
-			$tMessage						= _("Error inserting data into rights table" );
+			$tMessage						= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 		}
 		
 		if( $error == 0 ) {
@@ -651,9 +653,9 @@ function createDatabaseTables( $dbh ) {
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('Group admin', 'Administer groups', 'Gruppen verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
-			if( $result['rows'] != 1 ) {
+			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= _("Error inserting data into rights table" );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 			}
 		
 		}
@@ -663,9 +665,9 @@ function createDatabaseTables( $dbh ) {
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
-			if( $result['rows'] != 1 ) {
+			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= _("Error inserting data into rights table" );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 			}
 			
 		}
@@ -675,9 +677,9 @@ function createDatabaseTables( $dbh ) {
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('Repository admin', 'Administer repositories', 'Repositories verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
-			if( $result['rows'] != 1 ) {
+			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= _("Error inserting data into rights table" );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 			}
 			
 		}
@@ -687,9 +689,9 @@ function createDatabaseTables( $dbh ) {
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('Access rights admin', 'Administer repository access rights', 'Repository Zugriffsrechte verwalten', 'delete', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
-			if( $result['rows'] != 1 ) {
+			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= _("Error inserting data into rights table" );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 			}
 			
 		}	
@@ -698,9 +700,9 @@ function createDatabaseTables( $dbh ) {
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
-			if( $result['rows'] != 1 ) {
+			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= _("Error inserting data into rights table" );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 			}
 			
 		}
@@ -710,13 +712,18 @@ function createDatabaseTables( $dbh ) {
 			$query							= "INSERT INTO `rights` (`right_name`, `description_en`, `description_de`, `allowed_action`, `created`, `created_user`, `modified`, `modified_user`, `deleted`, `deleted_user`) " .
 											  "VALUES ('Reports', 'Show reports', 'Berichte ansehen', 'read', now(), 'install', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '')";
 			$result							= db_query_install( $query, $dbh );
-			if( $result['rows'] != 1 ) {
+			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= _("Error inserting data into rights table" );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
 			}
 			
 		}
 		
+		if( $error == 0 ) {
+			db_ta( 'COMMIT', $dbh );
+		} else {
+			db_ta( 'ROLLBACK', $dbh );
+		}
 	}
 	
 	
@@ -724,11 +731,15 @@ function createDatabaseTables( $dbh ) {
 	$ret['error']							= $error;
 	$ret['errormsg']						= $tMessage;
 	
+	error_log( $error." - ". $tMessage );
+	
 	return $ret;
 	
 }
 
 function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh ) {
+	
+	db_ta( 'BEGIN', $dbh );
 	
 	$error									= 0;
 	$tMessage								= "";
@@ -736,10 +747,10 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 	$query									= "INSERT INTO svnusers (userid, name, givenname, password, emailaddress, mode, admin, created, created_user, password_modified) " .
 											  "VALUES ('$userid', '$name', '$givenname', '$pwcrypt', '$emailaddress', 'write', 'y', now(), 'install', now())";
 	$result									= db_query_install( $query, $dbh );
-	if( $result['rows'] != 1 ) {
+	if( mysql_errno() != 0 ) {
 		
 		$error								= 1;
-		$tMessage							= _("Error creating admin user");
+		$tMessage							= sprintf( _("Error creating admin user: %s"), mysql_error() );
 		
 	} else {
 		
@@ -750,7 +761,9 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 	$query									= "SELECT id, allowed_action " .
 											  "  FROM rights " .
 											  " WHERE deleted = '0000-00-00 00:00:00'";
+	error_log( $query );
 	$result									= db_query_install( $query, $dbh );
+	error_log( "rows = ".$result['rows'] );
 	
 	while( ($error == 0) and ($row = db_array( $result['result'] )) ) {
 		
@@ -759,20 +772,29 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 		
 		$query								= "INSERT INTO users_rights (user_id, right_id, allowed, created, created_user) " .
 											  "VALUES ($uid, $id, '$allowed', now(), 'install')";
+		error_log( $query );
 		$resultinsert						= db_query_install( $query, $dbh );
 		
-		if( $resultinsert['rows'] != 1 ) {
+		if( mysql_errno() != 0 ) {
 			
 			$error							= 1;
-			$tMessage						= _("Error inserting user access right for admin" );
+			$tMessage						= sprintf( _("Error inserting user access right for admin: %s" ), mysql_error() );
 			
 		}			
 		
 	}
 	
+	if( $error == 0 ) {
+		db_ta( 'COMMIT', $dbh );
+	} else {
+		db_ta( 'ROLLBACK', $dbh );
+	}
+	
 	$ret									= array();
 	$ret['error']							= $error;
 	$ret['errormsg']						= $tMessage;
+	
+	error_log( "createAdmin: ".$error." - ". $tMessage );
 	
 	return $ret;
 	
