@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-07 00:21+0200\n"
-"PO-Revision-Date: 2008-06-07 00:23+0100\n"
+"POT-Creation-Date: 2008-06-07 16:29+0200\n"
+"PO-Revision-Date: 2008-06-07 16:30+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -152,6 +152,9 @@ msgstr "%s ist keine gültige E-Mailadresse!"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:167
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:129
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:149
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:54
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:178
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:198
 msgid "<"
 msgstr "<"
 
@@ -267,6 +270,9 @@ msgstr "<"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:154
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:127
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:136
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:53
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:176
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:185
 msgid "<<"
 msgstr "<<"
 
@@ -439,6 +445,9 @@ msgstr ""
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:191
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:131
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:173
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:64
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:180
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:222
 msgid ">"
 msgstr ">"
 
@@ -572,6 +581,9 @@ msgstr ">"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:205
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:133
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:187
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:65
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:182
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:236
 msgid ">>"
 msgstr ">>"
 
@@ -2110,6 +2122,7 @@ msgid "Givenname"
 msgstr "Vorname"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:18
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:21
 msgid "Granted rights"
 msgstr "Gewährte Rechte"
 
@@ -2437,6 +2450,7 @@ msgstr "Ergebnisse der Installation"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_repos.php:227
 #: /export/home/kriegeth/workspace/svn_access_manager/createAccessFiles.php:91
 #: /export/home/kriegeth/workspace/svn_access_manager/rep_locked_users.php:208
+#: /export/home/kriegeth/workspace/svn_access_manager/rep_granted_user_rights.php:258
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ungültiger Knopf %s, hat jemend dran herumgespielt?"
@@ -2596,6 +2610,10 @@ msgstr "Liste der Zugriffsrechte für %s"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:5
 msgid "List of granted user rights"
 msgstr "LIste der gewährten Benutzerrechte"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_locked_users.tpl:5
+msgid "List of locked users"
+msgstr "Liste der gesperrten Benutzer"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/general.tpl:57
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteUser.tpl:52
@@ -4057,6 +4075,10 @@ msgstr "Benutzer existiert nicht!"
 msgid "User is not allowed to have write access, global right is read only"
 msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. DAs globale Recht ist \"nur lesen\""
 
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:30
+msgid "User locked"
+msgstr "Benutzer gesperrt"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:147
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:149
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:158
@@ -4120,6 +4142,7 @@ msgid "UserId"
 msgstr "Benutzerkennung"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:12
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:15
 msgid "Userid"
 msgstr "Benutzer-Id"
 
@@ -4151,6 +4174,7 @@ msgstr "Benutzerkennung fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:15
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/login.tpl:66
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/preferences.tpl:21
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:18
 msgid "Username"
 msgstr "Benutzername"
 

@@ -1,6 +1,14 @@
 Change Log
 
 
+Release 0.2.1.2
+	- fixed title of locked user report
+	- added texts ti german language file
+	
+Release 0.2.1.1
+	- added icon for locked user in granted user rights report
+	- fixed issue with scrolling in granted user rights report
+	
 Release 0.2.1.0
 	- use the same sort order for users in all masks
 	- defined user selectable preferences for different sort orders
