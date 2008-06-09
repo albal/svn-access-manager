@@ -56,6 +56,7 @@ function getGrantedRights( $start, $count, $dbh ) {
 		}
 			
 		$entry['userid']					= $row['userid'];
+		$entry['locked']					= $row['locked'];
 		$id									= $row['id'];
 		
 		$query								= "SELECT rights.right_name, users_rights.allowed " .
@@ -146,6 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tGrantedRights							= getGrantedRights( 0, $CONF['page_size'], $dbh );	
 	$tCountRecords							= getCountGrantedRights( $dbh );
 	$tPrevDisabled							= "disabled";
+	$_SESSION['svn_sessid']['rightcounter']	= 0;
 	
 	if( $tCountRecords <= $CONF['page_size'] ) {
 		

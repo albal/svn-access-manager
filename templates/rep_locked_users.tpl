@@ -1,8 +1,8 @@
 		<div id="edit_form">
-			<form name="rep_log" method="post">
+			<form name="rep_locked_users" method="post">
 				<table>
 				   	<tr>
-				      <td colspan="6"><h3><?php print _("Log report"); ?></h3></td>
+				      <td colspan="6"><h3><?php print _("List of locked users"); ?></h3></td>
 				   	</tr>
 				   	<tr>
 				      <td colspan="6">&nbsp;</td>

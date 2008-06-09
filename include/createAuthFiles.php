@@ -232,7 +232,8 @@ function createAccessFile( $dbh ) {
 							
 						}
 						
-						if( $row['path'] != $oldpath ) {
+						$checkpath				= $row['repo_id'].$row['path'];
+						if( $checkpath != $oldpath ) {
 							
 							$oldpath				= $row['repo_id'].$row['path'];
 							if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$row['path']."]\n" ) ) {
@@ -284,6 +285,14 @@ function createAccessFile( $dbh ) {
 							} 	
 						}
 					}
+					
+					if( @fwrite( $fileHandle, "\n" ) ) {
+						
+						$retcode					= 7;
+						$tMessage					= sprintf( _("Cannot write to %s"), $tempfile );
+						db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									
+					} 
 					
 				}
 				

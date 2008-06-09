@@ -9,6 +9,9 @@
 				   	</tr>
 				   	<tr class="theader">
 				   		<td>
+				   			&nbsp;
+				   		</td>
+				   		<td>
 				   			<strong><?php print _("Userid"); ?></strong>
 				   		</td>
 				   		<td>
@@ -23,7 +26,14 @@
 				   						   		
 				   		foreach( $tGrantedRights as $entry ) {
 				   		
+				   			if( $entry['locked'] == 1 ) {
+				   				$locked				= "<img src='./images/locked_16_16.png' width='16' height='16' border='0' alt='"._("User locked")."' title='"._("User locked")."' />";
+				   			} else {
+				   				$locked				= "&nbsp;";
+				   			}
+				   			
 				   			print "\t\t\t\t\t<tr valign=\"top\">\n";
+				   			print "\t\t\t\t\t\t<td>".$locked."</td>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['userid']."</td>\n";
 				   			print "\t\t\t\t\t\t<td nowrap>".$entry['name']."</td>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['rights']."</td>\n";
