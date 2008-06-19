@@ -1,5 +1,9 @@
 Change Log
 
+Release 0.2.3
+	- fixed issues with access file creation
+	- added md5 encrypted passwords
+	
 Release 0.2.1.3
 	- fixed issue with access file creation
 	- added help texts

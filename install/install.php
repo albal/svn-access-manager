@@ -823,6 +823,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tMinUserPwSize							= 8;
    	$tSessionInDatabaseYes					= "checked";
    	$tSessionInDatabaseNo					= "";
+   	$tMd5Yes								= "";
+   	$tMd5No									= "checked";
    
    	include ("../templates/install.tpl");
    
@@ -856,6 +858,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tMinAdminPwSize						= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
 	$tMinUserPwSize							= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
 	$tAdminEmail							= isset( $_POST['fAdminEmail'] )			? ( $_POST['fAdminEmail'] )				: "";
+	$tUseMd5								= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
 	
 	$tMessage								= "";
 	$error									= 0;
@@ -933,6 +936,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tSessionInDatabaseYes				= "";
 		$tSessionInDatabaseNo				= "checked";
+	}
+	
+	if( $tUseMd5 == "md5" ) {
+		$tMd5Yes							= "checked";
+		$tMd5No								= "";
+	} else {
+		$tMd5Yes							= "";
+		$tMd5No								= "checked";
 	}
 	
 	if( $error == 0 ) {
@@ -1072,6 +1083,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###MINPWADMIN###', $tMinAdminPwSize, $content );
 			$content					= str_replace( '###MINPWUSER###', $tMinUserPwSize, $content );
 			$content					= str_replace( '###SESSIONINDB###', $tSessionInDatabase, $content );
+			$content					= str_replace( '###PWCRYPT###', $tUseMd5, $content );
 			
 		} else {
 			

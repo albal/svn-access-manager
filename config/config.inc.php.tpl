@@ -22,10 +22,10 @@
 /*
 
 File:            config.inc.php.tpl
-$LastChangedDate: 2008-06-06 05:35:49 +0200 (Fri, 06 Jun 2008) $
+$LastChangedDate: 2008-06-19 21:34:43 +0200 (Thu, 19 Jun 2008) $
 $LastChangedBy: kriegeth $
 
-$Id: config.inc.php.tpl 243 2008-06-06 03:35:49Z kriegeth $
+$Id: config.inc.php.tpl 268 2008-06-19 19:34:43Z kriegeth $
 
 */
 
@@ -77,6 +77,8 @@ $CONF['minPasswordlength']		= ###MINPWADMIN###;
 $CONF['minPasswordlengthUser']	= ###MINPWUSER###;
 $CONF['password_expires']		= 60;
 $CONF['password_expires_warn']	= 50;
+# valid values for pwcrypt are md5 or crypt
+$CONF['pwcrypt']				= '###PWCRYPT###';
 
 $CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 

@@ -62,6 +62,7 @@ while( $row = db_array( $result['result'] ) ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
+	$tMembers								= array();
 	$tReadonly								= "";
 	$tTask									= escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {

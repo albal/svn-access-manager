@@ -97,7 +97,7 @@ function createAuthUserFile( $dbh ) {
 			
 		} else {
 		
-			$error								= 1;
+			$retcode							= 1;
 			$tMessage							= _("Can't set semaphore, another process is writing Auth User File, try again later");
 		}
 		
@@ -286,46 +286,45 @@ function createAccessFile( $dbh ) {
 						}
 					}
 					
-					if( @fwrite( $fileHandle, "\n" ) ) {
+					if( ! @fwrite( $fileHandle, "\n" ) ) {
 						
 						$retcode					= 7;
 						$tMessage					= sprintf( _("Cannot write to %s"), $tempfile );
 						db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
 									
 					} 
-					
-				}
 				
-				@fclose( $fileHandle );
-				
-				if( @copy( $tempfile, $CONF['SVNAccessFile'] ) ) {
+					@fclose( $fileHandle );
 					
-					if( @unlink( $tempfile ) ) {
+					if( @copy( $tempfile, $CONF['SVNAccessFile'] ) ) {
 						
-						if( db_unset_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
-						
-							$tMessage				= _( "Access file successfully created!" );
+						if( @unlink( $tempfile ) ) {
+							
+							if( db_unset_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
+							
+								$tMessage				= _( "Access file successfully created!" );
+								
+							} else {
+								
+								$retcode				= 1;
+								$tMessage				= _("Access file successfully created but semaphore could nor be released");
+								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								
+							}	
 							
 						} else {
 							
-							$error					= 1;
-							$tMessage				= _("Access file successfully created but semaphore could nor be released");
+							$retcode				= 4;
+							$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
 							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-							
-						}	
+						}
 						
 					} else {
 						
-						$retcode				= 4;
-						$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+						$retcode					= 3;
+						$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['SVNAccessFile'] );
 						db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-					}
-					
-				} else {
-					
-					$retcode					= 3;
-					$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['SVNAccessFile'] );
-					db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+					}	
 				}
 			
 			} else {
@@ -338,9 +337,9 @@ function createAccessFile( $dbh ) {
 			
 		} else {
 			
-			$error								= 1;
+			$retcode							= 1;
 			$tMessage							= _("Can't set semaphore, another process is writing access file, try again later");
-			db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+
 		}
 	
 	} else {

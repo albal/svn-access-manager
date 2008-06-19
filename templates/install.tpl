@@ -350,6 +350,17 @@ include( "../include/output.inc.php" );
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("Use md5 encryption").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fUseMd5" value="md5" <?php print $tMd5Yes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fUseMd5" value="crypt" <?php print $tMd5No; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
 				   		<tr>
 				      		<td colspan="4">&nbsp;</td>
 				   		</tr>
