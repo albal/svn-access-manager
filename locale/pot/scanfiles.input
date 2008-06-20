@@ -33,6 +33,7 @@
 /export/home/kriegeth/workspace/svn_access_manager/templates/createAccessFilesResult.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/deleteGroup.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/password.tpl
+/export/home/kriegeth/workspace/svn_access_manager/templates/database_error_install.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/list_groups.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/password_policy.tpl
 /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl
@@ -55,6 +56,11 @@
 /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php
 /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php
 /export/home/kriegeth/workspace/svn_access_manager/login.php
+/export/home/kriegeth/workspace/svn_access_manager/help/en/general.php
+/export/home/kriegeth/workspace/svn_access_manager/help/en/password.php
+/export/home/kriegeth/workspace/svn_access_manager/help/help.tpl
+/export/home/kriegeth/workspace/svn_access_manager/help/de/general.php
+/export/home/kriegeth/workspace/svn_access_manager/help/de/password.php
 /export/home/kriegeth/workspace/svn_access_manager/logout.php
 /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php
 /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php
