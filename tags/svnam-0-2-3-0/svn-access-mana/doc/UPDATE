@@ -1,0 +1,14 @@
+
+Update to V0.2.3
+
+With version 0.2.3 md5 encryption of passwords is available. There's no need to convert
+the existing passwords in the database. The encryption algorithm is checked automatically
+and the passwords are treated accordingly.
+
+If you want to use md5 encrypted passwords you have to add $CONF['pwcrypt'] = 'md5' 
+to config.inc.php. 
+
+Notice:
+-------
+When passwords are changed the encryption algorithm selected in the config file is used to 
+encrypt the new password.

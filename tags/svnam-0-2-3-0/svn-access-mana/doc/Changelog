@@ -1,0 +1,52 @@
+Change Log
+
+Release 0.2.3
+	- fixed issues with access file creation
+	- added md5 encrypted passwords
+	
+Release 0.2.1.3
+	- fixed issue with access file creation
+	- added help texts
+	- added additional installer template
+	
+Release 0.2.1.2
+	- fixed title of locked user report
+	- added texts to German language file
+	
+Release 0.2.1.1
+	- added icon for locked user in granted user rights report
+	- fixed issue with scrolling in granted user rights report
+	
+Release 0.2.1.0
+	- use the same sort order for users in all masks
+	- defined user selectable preferences for different sort orders
+	- modified granted right report to show the correct number of lines per page
+	- fixed installer bug with session handling
+	
+Release 0.2.0.2
+  	- fixed bug 1985204 (remove project fails) - Thanx to Andy L.
+  	- fixed a typo in scrolling function, jump to the last page now works
+  	- fixed issue with access right selection. A project responsible user couldn't see
+  	  access rights belonging to his project. Now he can.
+  	  
+Release 0.2.0.1
+	- added table help to installer
+	
+Release 0.2.0.0
+	- force user to change password after login if password is expired
+	- corrected invalid img tag in templates
+	- added online help
+	- corrected permission problem regarding repository access rights
+	- fixed locale problem with IE 
+	- fixed issue with double '/' in subversion directory
+	- added cronjob for creating access rights files automatically
+	- added cronjob for locking out users with expired passwords
+	
+Release 0.1.0.2
+	- bugfix release
+
+Release 0.1.0.1
+	- bugfix release
+
+Release 0.1.0.0
+	- first alpha release
