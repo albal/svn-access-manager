@@ -376,6 +376,52 @@ function getGroupMembers( $groupid, $dbh ) {
 
 
 
+function deleteUser( $members, $userid ) {
+	
+	$new								= array();
+	
+	for( $i = 0; $i < count( $members); $i++ ) {
+		
+		if( $members[$i] != $userid ) {
+			
+			$new[]						= $members[$i];
+			
+		}
+	}
+		
+	return $new;
+}
+
+
+
+function getUpperDirUsers( $checkpath, $repopathes ) {
+	
+	$parts								= explode( '/', $checkpath );
+	$count								= count( $parts );
+	$data								= array();
+	
+	if( $count >= 2 ) {
+		
+		array_pop( $parts );
+		
+		$path							= implode( '/', $parts );
+		
+		if( array_key_exists( $path, $repopathes ) ) {
+			
+			$data						= $repopathes[$path];
+		
+		} else {
+			
+			$data						= getUpperDirUsers( $path, $repopathes );
+		
+		}
+	}
+	
+	return $data;
+}
+
+
+
 function createViewvcConfig( $dbh ) {
 
 	global $CONF;
@@ -388,6 +434,7 @@ function createViewvcConfig( $dbh ) {
 	$modulepath							= "";
 	$currentgroup						= "g".create_salt();
 	$groups[$currentgroup]				= "";
+	$repopathes							= array();
 	
 	if( $CONF['createViewvcConf'] == "YES" ) {
 		
@@ -412,28 +459,40 @@ function createViewvcConfig( $dbh ) {
 												  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 												  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 												  "     AND (svnprojects.repo_id = svnrepos.id) " .
-												  "ORDER BY svnprojects.repo_id, svn_access_rights.path ASC";
+												  "ORDER BY svnprojects.repo_id ASC, svn_access_rights.path ASC, svn_access_rights.access_right DESC";
+					
 					$result						= db_query( $query, $dbh );
 					
 					while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
 						
 						$checkpath				= $row['repo_id'].$row['path'];
+						
 						if( $checkpath != $oldpath ) {
 							
+							$oldgroup				= $currentgroup;
 							$currentgroup			= "g".create_salt();
 							while( array_key_exists( $currentgroup, $groups ) ) {
 								$currentgroup			= "g".create_salt();
 							}
-							$groups[$currentgroup]	= "";
+							
+							if( ! array_key_exists( $checkpath, $repopathes ) ) {
 								
-							$oldpath				= $row['repo_id'].$row['path'];
+								$data					= getUpperDirUsers( $checkpath, $repopathes );
+								$repopathes[$checkpath]	= $data;
 								
-							# write group definition to group file
-							$modulepath			= $CONF['ViewvcLocation']."/".$row['reponame'].$row['path'];
+							} else {
+
+								$data					= $repopathes[$checkpath];
+
+							}
+							
+							$groups[$currentgroup]		= $data;			
+							$oldpath					= $row['repo_id'].$row['path'];
+							$modulepath					= $CONF['ViewvcLocation']."/".$row['reponame'].$row['path'];
 							
 							if( ! @fwrite( $fileHandle, "<Location $modulepath>\n" ) ) {
-								$retcode		= 9;
-								$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+								$retcode			= 9;
+								$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
 								db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
 							}
 							
@@ -446,7 +505,7 @@ function createViewvcConfig( $dbh ) {
 							}
 							
 							if( $retcode == 0 ) {
-								if( ! @fwrite( $fileHandle, "     AuthName \"".$CONF['ViewvcRealm']."\"\n" ) ) {
+								if( ! @fwrite( $fileHandle, "     AuthName \"Viewvc Access Control\"\n" ) ) {
 									$retcode		= 9;
 									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
 									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
@@ -501,7 +560,13 @@ function createViewvcConfig( $dbh ) {
 									
 									# add user to apache access group
 									$rowusr					= db_array( $resultusr['result'] );
-									$groups[$currentgroup] 	= $groups[$currentgroup]." ".$rowusr['userid'];
+									
+									if( ! in_array( $rowusr['userid'], $groups[$currentgroup] ) ) {
+										
+										$groups[$currentgroup][]	= $rowusr['userid'];
+										$repopathes[$checkpath][]	= $rowusr['userid'];
+										
+									}
 									
 								}
 							}
@@ -521,20 +586,101 @@ function createViewvcConfig( $dbh ) {
 									$members			= getGroupMembers( $groupid, $dbh );
 									
 									foreach( $members as $member ) {
-										$groups[$currentgroup] = $groups[$currentgroup]." ".$member;
+										
+										if( ! in_array( $member, $groups[$currentgroup] ) ) {
+											
+											$groups[$currentgroup][] = $member;
+											$repopathes[$checkpath][]= $member;
+											
+										}
 									} 
 								} 	
+								
+							} 
+							
+						} else {
+						
+							if( $row['user_id'] != "0" ) {
+								
+								$query					= "SELECT * " .
+														  "  FROM svnusers " .
+														  " WHERE (id = ".$row['user_id'].")";
+								$resultusr				= db_query( $query, $dbh );
+								
+								if( $resultusr['rows'] == 1 ) {
+									
+									# delete user from apache access group
+									$rowusr					= db_array( $resultusr['result'] );
+									
+									if( in_array( $rowusr['userid'], $groups[$currentgroup] ) ) {
+										
+										$groups[$currentgroup]	= deleteUser($groups[$currentgroup], $rowusr['userid'] );
+										$repopathes[$checkpath] = deleteUser($repopathes[$checkpath], $rowusr['userid']);
+										
+									}
+									
+								}
 							}
+							
+							if( $row['group_id'] != "0" ) {
+							
+								$query					= "  SELECT * " .
+														  "    FROM svngroups " .
+														  "   WHERE (id = ".$row['group_id'].")";
+								$resultgrp				= db_query( $query, $dbh );
+								
+								if( $resultgrp['rows'] == 1 ) {
+									
+									# get group members
+									$rowgrp				= db_array( $resultgrp['result'] );
+									$groupid			= $rowgrp['id'];
+									$members			= getGroupMembers( $groupid, $dbh );
+									
+									foreach( $members as $member ) {
+										
+										if( in_array( $member, $groups[$currentgroup] ) ) {
+											
+											$groups[$currentgroup] = deleteUser($groups[$currentgroup], $member );
+											$repopathes[$checkpath]= deleteUser($repopathes[$checkpath], $member );
+										}
+									} 
+								} 	
+								
+							} 
+								
 						}
+						
 					}
 					
 					foreach( $groups as $group => $members ) {
 						
-						if( trim( $members ) != "" ) {
-							if( ! fwrite( $groupHandle, $group.":".$members."\n") ) {
+						if( count( $members ) != 0 ) {
+							
+							if( ! fwrite( $groupHandle, $group.":") ) {
+								
 								$retcode		= 10;
 								$tMessage		= sprintf( _("Cannot write to %s"), $tempgroups );
 								db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								
+							} else {
+								
+								if( is_array( $members) and ! empty( $members) ) {
+									for( $i = 0; $i < count( $members ); $i++ ) {
+										if( ! fwrite( $groupHandle, $members[$i]." ") ) {
+											$retcode		= 10;
+											$tMessage		= sprintf( _("Cannot write to %s"), $tempgroups );
+											db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+										}
+									}
+								}
+							}
+							
+							if( ! fwrite( $groupHandle, "\n") ) {
+								
+								$retcode		= 10;
+								$tMessage		= sprintf( _("Cannot write to %s"), $tempgroups );
+								db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								
 							}
 						}
 					}
