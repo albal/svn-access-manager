@@ -91,7 +91,9 @@ while( $row = db_array( $result['result'] ) ) {
 }
 
 $tProjects									= array();
-$query										= "SELECT svnprojects.id, svnmodule, modulepath, reponame, " .
+if( $tProjectIds != "" ) {
+	
+	$query									= "SELECT svnprojects.id, svnmodule, modulepath, reponame, " .
 											  "       repopath, repouser, repopassword " .
 											  "  FROM svn_projects_responsible, svnprojects, svnrepos " .
 											  " WHERE (svnprojects.id IN (".$tProjectIds.")) " .
@@ -99,11 +101,13 @@ $query										= "SELECT svnprojects.id, svnmodule, modulepath, reponame, " .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
 											  "   AND (svn_projects_responsible.deleted = '0000-00-00 00:00:00') " .
 											  "   AND (svnprojects.deleted = '0000-00-00 00:00:00')";
-$result										= db_query( $query, $dbh );
-while( $row = db_array( $result['result'] ) ) {
+	$result									= db_query( $query, $dbh );
+	while( $row = db_array( $result['result'] ) ) {
+	
+		$tProjects[ $row['id'] ]			= $row['svnmodule'];
+			
+	}
 
-	$tProjects[ $row['id'] ]				= $row['svnmodule'];
-		
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {

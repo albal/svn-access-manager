@@ -1,6 +1,10 @@
 Change Log
 
-Release 0.2.3
+
+Release 0.3.0.0
+	- added access control for ViewVC
+	
+Release 0.2.3.0
 	- fixed issues with access file creation
 	- added md5 encrypted passwords
 	

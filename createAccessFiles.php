@@ -49,6 +49,16 @@ if( $rightAllowed == "none" ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
+	if( $CONF['createViewvcConf'] == "YES" ) {
+		$tViewvcConfigNo					= "no";
+		$tViewvcConfigYes					= "checked";
+		$tReload							= $CONF['ViewvcApacheReload'];
+	} else {
+ 		$tViewvcConfigNo					= "checked";
+		$tViewvcConfigYes					= "";
+		$tReload							= "";
+ 	}
+	
 	$header									= "access";
 	$subheader								= "access";
 	$menu									= "access";
@@ -73,10 +83,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
+	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )	? $_POST['fViewvcConfig']	: "";
+	$tReload								= isset( $_POST['fReload'] )		? $_POST['fReload']			: "";
+	$tRetReload								= array();
+	
 	if( $button == _("Yes") ) {
 
 		$tRetAuthUser						= createAuthUserFile( $dbh );
 		$tRetAccess							= createAccessFile( $dbh );
+		
+		if( $tViewvcConfig == "YES" ) {
+			
+			$tRetViewvc						= createViewvcConfig( $dbh );
+			
+			if( ($tRetViewvc['error'] == 0) and ($tReload != "") ) {
+				
+				$output						= array();
+				
+				exec( escapeshellcmd($tReload), $output, $returncode );
+				sleep(2);
+				
+				$tRetReload['error']		= $returncode;
+				if( $returncode != 0 ) {
+					$tRetReload['errormsg']	= _("Reloead of webserver configuration failed");
+				} else {
+					$tRetReload['errormsg']	= _("Reload of webserver configuration successfull");
+				}
+			} else {
+				
+				$tRetReload['error']		= 0;
+				$tRetReload['errormsg']		= _("No reload sheduled");
+			}
+			
+		} else {
+			
+			$tRetReload['error']			= 0;
+			$tRetReload['errormsg']			= _("No reload sheduled");
+			$tRetViewvc['error']			= 0;
+			$tRetViewvc['errormsg']			= _("No viewvc configuration to create");
+			
+		}
 		
 		db_log( $SESSID_USERNAME, "created auth files", $dbh );
 			

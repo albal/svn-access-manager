@@ -18,15 +18,12 @@ include( "../include/output.inc.php" );
 <body>
 	<div id="wrap">
 		<div id="header_login">
-			<div id="header_left">
-				<img src="../images/svn-access-manager_200_60_white.jpg" width="200" height="60" border="0" />
-			</div>
-			<div id="header_right">
-				&nbsp;<br /><h1><?php print _("SVN Access Manager Installation"); ?></h1>
-			</div>
-			<div id="subheader">
-				&nbsp;
-			</div>
+		   	<table>
+				<tr>
+					<td><img src="../images/svn-access-manager_200_60_white.jpg" width="200" height="60" /></td>
+					<td><h1><?php print _("SVN Access Manager Installation"); ?></h1></td>
+				</tr>
+			</table>
 		</div>
 		<div id="login">
 			<form name="install" method="post">
@@ -261,6 +258,57 @@ include( "../include/output.inc.php" );
 					   		</td>
 					   		<td>
 					   			<?php print _("Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("Create ViewVC configuration").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fViewvcConfig" value="YES" <?php print $tViewvcConfigYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fViewvcConfig" value="NO" <?php print $tViewvcConfigNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("ViewVC configuration directory").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fViewvcConfigDir" value="<?php print $tViewvcConfigDir; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("ViewVC realm").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fViewvcRealm" value="<?php print $tViewvcRealm; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("ViewVC webserver alias").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fViewvcAlias" value="<?php print $tViewvcAlias; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("ViewVC webserver reload command").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fViewvcApacheReload" value="<?php print $tViewvcApacheReload; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>

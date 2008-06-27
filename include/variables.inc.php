@@ -103,5 +103,12 @@ $tDatabaseError						= "";
 $tSessionInDatabaseYes				= "";
 $tSessionInDatabaseNo				= "";
 $tSessionInDatabase					= "";
+$tReload							= "";
+$tViewvcConfigsYes					= "";
+$tViewvcConfigsNo					= "";
+$tViewvcConfigDir					= "";
+$tViewvcAlias						= "";
+$tViewvcApacheReload				= "";
+$tViewvcRealm						= "";
 
 ?>

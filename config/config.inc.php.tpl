@@ -22,10 +22,10 @@
 /*
 
 File:            config.inc.php.tpl
-$LastChangedDate: 2008-06-19 21:34:43 +0200 (Thu, 19 Jun 2008) $
+$LastChangedDate: 2008-06-27 05:07:10 +0200 (Fri, 27 Jun 2008) $
 $LastChangedBy: kriegeth $
 
-$Id: config.inc.php.tpl 268 2008-06-19 19:34:43Z kriegeth $
+$Id: config.inc.php.tpl 292 2008-06-27 03:07:10Z kriegeth $
 
 */
 
@@ -88,8 +88,15 @@ $CONF['use_javascript']			= '###USEJS###';
 
 $CONF['SVNAccessFile']			= '###SVNACCESSFILE###';
 $CONF['AuthUserFile']			= '###SVNAUTHFILE###';
+$CONF['ViewvcConf']				= '###VIEWVCCONF###';
+$CONF['ViewvcGroups']			= '###VIEWVCGROUPS###';
+# ViewVC Alias in the Apache Webserver without trailing /
+$CONF['ViewvcLocation']			= '###VIEWVCLOCATION###';
+$CONF['ViewvcApacheReload']		= '###VIEWVCAPACHERELOAD###';
+$CONF['ViewvcRealm']			= '###VIEWVCREALM###';
 $CONF['createAccessFile']		= '###CREATEACCESSFILE###';
 $CONF['createUserFile']			= '###CREATEAUTHFILE###';
+$CONF['createViewvcConf']		= '###CREATEVIEWVCCONF###';
 
 $CONF['mail_password_warn']		= <<<EOM
 

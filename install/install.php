@@ -263,6 +263,8 @@ function createDatabaseTables( $dbh ) {
   													`id` int(10) unsigned NOT NULL auto_increment,
   													`user_id` int(10) NOT NULL,
   													`page_size` int(4) NOT NULL,
+  													`user_sort_fields` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`user_sort_order` varchar(255) collate latin1_german1_ci NOT NULL,
   													`created` datetime NOT NULL,
   													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
   													`modified` datetime NOT NULL,
@@ -823,8 +825,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tMinUserPwSize							= 8;
    	$tSessionInDatabaseYes					= "checked";
    	$tSessionInDatabaseNo					= "";
-   	$tMd5Yes								= "";
-   	$tMd5No									= "checked";
+   	$tMd5Yes								= "checked";
+   	$tMd5No									= "";
+   	$tViewvcConfigYes						= "";
+   	$tViewvcConfigNo						= "checked";
    
    	include ("../templates/install.tpl");
    
@@ -859,6 +863,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tMinUserPwSize							= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
 	$tAdminEmail							= isset( $_POST['fAdminEmail'] )			? ( $_POST['fAdminEmail'] )				: "";
 	$tUseMd5								= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
+	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )			? ( $_POST['fViewvcConfig'] )			: "";
+	$tViewvcConfigDir						= isset( $_POST['fViewvcConfigDir'] ) 		? ( $_POST['fViewvcConfigDir'] )		: "";
+	$tViewvcAlias							= isset( $_POST['fViewvcAlias'] )			? ( $_POST['fViewvcAlias'] )			: "";
+	$tViewvcApacheReload					= isset( $_POST['fViewvcApacheReload'] )	? ( $_POST['fViewvcApacheReload'] )		: "";
+	$tViewvcRealm							= isset( $_POST['fViewvcRealm'] )			? ( $_POST['fViewvcRealm'] )			: ""; 
 	
 	$tMessage								= "";
 	$error									= 0;
@@ -946,6 +955,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tMd5No								= "checked";
 	}
 	
+	if( $rViewvcConfig == "YES" ) {
+		$tViewvcConfigYes					= "checked";
+		$tViewvcConfigNo					= "";
+	} else {
+		$tViewvcConfigYes					= "";
+		$tViewvcConfigNo					= "checked";
+	}
+	
 	if( $error == 0 ) {
 		
 		if( $tCreateDatabaseTables == "YES" ) {
@@ -1025,6 +1042,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			}
 		}
 		
+		if( $tViewvcConfig == "YES" ) {
+		
+			if( $tViewvcConfigDir == "" ) {
+				
+				$tMessage					= _("ViewVC configuration directory is missing!");
+				$error						= 1;
+				
+			} elseif( $tViewvcAlias == "" ) {
+				
+				$tMessage					= _("ViewVC webserver alias is missing!");
+				$error						= 1;
+				
+			} elseif( $tViewvcRealm == "" ) {
+				
+				$tMessage					= _("ViewVC realm is missing!" );
+				$error						= 1;
+				
+			}
+		}
+		
 		if( $tSvnCommand == "" ) {
 			
 			$tMessage						= _("SVN command is missing!" );
@@ -1063,6 +1100,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 		if( $fh_in = @fopen( $configtmpl, "r" ) ) {
 			
+			$viewvcconf					= $tViewvcConfigDir."/viewvc-apache.conf";
+			$viewvcgroups				= $tViewvcConfigDir."/viewvc-groups";
 			$content 					= fread ( $fh_in, filesize ($configtmpl));
 			@fclose( $fh_in );
 			
@@ -1084,6 +1123,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###MINPWUSER###', $tMinUserPwSize, $content );
 			$content					= str_replace( '###SESSIONINDB###', $tSessionInDatabase, $content );
 			$content					= str_replace( '###PWCRYPT###', $tUseMd5, $content );
+			$content					= str_replace( '###CREATEVIEWVCCONF###', $tViewvcConf, $content );
+			$content					= str_replace( '###VIEWVCCONF###', $viewvcconf, $content );
+			$content					= str_replace( '###VIEWVCGROUPS###', $viewvcgroups, $content );
+			$content					= str_replace( '###VIEWVCLOCATION###', $tViewvcAlias, $content );
+			$content					= str_replace( '###VIEWVCAPACHERELOAD###', $tViewvcApacheReload, $content );
+			$content					= str_replace( '###VIEWVCREALM###', $tViewvcRealm, $content );
 			
 		} else {
 			

@@ -209,7 +209,7 @@ function createAccessFile( $dbh ) {
 													  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 													  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 													  "     AND (svnprojects.repo_id = svnrepos.id) " .
-													  "ORDER BY svn_access_rights.path ASC";
+													  "ORDER BY svnprojects.repo_id, svn_access_rights.path ASC";
 					$result							= db_query( $query, $dbh );
 					
 					while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
@@ -349,10 +349,314 @@ function createAccessFile( $dbh ) {
 			
 	}
 	
-	$ret								= array();
-	$ret['error']						= $retcode;
-	$ret['errormsg']					= $tMessage;
+	$ret									= array();
+	$ret['error']							= $retcode;
+	$ret['errormsg']						= $tMessage;
 	
 	return $ret;
+}
+
+
+function getGroupMembers( $groupid, $dbh ) {
+	
+	$members							= array();
+	$query								= "  SELECT userid " .
+										  "    FROM svnusers, svngroups, svn_users_groups " .
+										  "   WHERE (svngroups.id = $groupid) " .
+										  "     AND (svngroups.id = svn_users_groups.group_id) " .
+										  "     AND (svnusers.id = svn_users_groups.user_id) " .
+										  "ORDER BY userid ASC";
+	$result								= db_query( $query, $dbh );
+	while( $row = db_array( $result['result'] ) ) {
+		$members[]						= $row['userid'];
+	}
+	
+	return $members;
+}
+
+
+
+function createViewvcConfig( $dbh ) {
+
+	global $CONF;
+	
+	$retcode 							= 0;
+	$tMessage							= "";
+	$curdate							= strftime( "%Y%m%d" );
+	$oldpath							= "";
+	$oldgroup							= "";
+	$modulepath							= "";
+	$currentgroup						= "g".create_salt();
+	$groups[$currentgroup]				= "";
+	
+	if( $CONF['createViewvcConf'] == "YES" ) {
+		
+		if( db_set_semaphore( 'createviewvcconf', 'sem', $dbh ) ) {
+			
+			$dir							= dirname( $CONF['ViewvcConf'] );
+			$entropy						= create_salt();
+			$tempfile						= $dir."/viewvc_conf_temp_".$entropy;
+		
+			if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
+	
+				$dir						= dirname( $CONF['ViewvcGroups'] );
+				$entropy					= create_salt();
+				$tempgroups					= $dir."/viewvc_groups_temp_".$entropy;
+				
+				if( $groupHandle = @fopen( $tempgroups, 'w' ) ) {
+			
+					$query						= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
+												  "    FROM svn_access_rights, svnprojects, svnrepos " .
+												  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+												  "     AND (svn_access_rights.valid_from <= '$curdate') " .
+												  "     AND (svn_access_rights.valid_until >= '$curdate') " .
+												  "     AND (svn_access_rights.project_id = svnprojects.id) " .
+												  "     AND (svnprojects.repo_id = svnrepos.id) " .
+												  "ORDER BY svnprojects.repo_id, svn_access_rights.path ASC";
+					$result						= db_query( $query, $dbh );
+					
+					while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+						
+						$checkpath				= $row['repo_id'].$row['path'];
+						if( $checkpath != $oldpath ) {
+							
+							$currentgroup			= "g".create_salt();
+							while( array_key_exists( $currentgroup, $groups ) ) {
+								$currentgroup			= "g".create_salt();
+							}
+							$groups[$currentgroup]	= "";
+								
+							$oldpath				= $row['repo_id'].$row['path'];
+								
+							# write group definition to group file
+							$modulepath			= $CONF['ViewvcLocation']."/".$row['reponame'].$row['path'];
+							
+							if( ! @fwrite( $fileHandle, "<Location $modulepath>\n" ) ) {
+								$retcode		= 9;
+								$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+								db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+							}
+							
+							if( $retcode == 0 ) {
+								if( ! @fwrite( $fileHandle, "     AuthType Basic\n" ) ) {
+									$retcode		= 9;
+									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								}
+							}
+							
+							if( $retcode == 0 ) {
+								if( ! @fwrite( $fileHandle, "     AuthName \"".$CONF['ViewvcRealm']."\"\n" ) ) {
+									$retcode		= 9;
+									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								}
+							}
+							
+							if( $retcode == 0 ) {
+								if( ! @fwrite( $fileHandle, "     AuthUserFile ".$CONF['AuthUserFile']."\n" ) ) {
+									$retcode		= 9;
+									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								}
+							}
+							
+							if( $retcode == 0 ) {
+								if( ! @fwrite( $fileHandle, "     AuthGroupFile ".$CONF['ViewvcGroups']."\n" ) ) {
+									$retcode		= 9;
+									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								}
+							}
+							
+							if( $retcode == 0 ) {
+								if( ! @fwrite( $fileHandle, "     Require group $currentgroup\n" ) ) {
+									$retcode		= 9;
+									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								}
+							}
+							
+							if( $retcode == 0 ) {
+								if( ! @fwrite( $fileHandle, "</Location>\n\n" ) ) {
+									$retcode		= 9;
+									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								}
+							}
+
+								
+						}
+						
+						if( $row['access_right'] != "none" ) {
+
+							if( $row['user_id'] != "0" ) {
+								
+								$query					= "SELECT * " .
+														  "  FROM svnusers " .
+														  " WHERE (id = ".$row['user_id'].")";
+								$resultusr				= db_query( $query, $dbh );
+								
+								if( $resultusr['rows'] == 1 ) {
+									
+									# add user to apache access group
+									$rowusr					= db_array( $resultusr['result'] );
+									$groups[$currentgroup] 	= $groups[$currentgroup]." ".$rowusr['userid'];
+									
+								}
+							}
+							
+							if( $row['group_id'] != "0" ) {
+							
+								$query					= "  SELECT * " .
+														  "    FROM svngroups " .
+														  "   WHERE (id = ".$row['group_id'].")";
+								$resultgrp				= db_query( $query, $dbh );
+								
+								if( $resultgrp['rows'] == 1 ) {
+									
+									# get group members
+									$rowgrp				= db_array( $resultgrp['result'] );
+									$groupid			= $rowgrp['id'];
+									$members			= getGroupMembers( $groupid, $dbh );
+									
+									foreach( $members as $member ) {
+										$groups[$currentgroup] = $groups[$currentgroup]." ".$member;
+									} 
+								} 	
+							}
+						}
+					}
+					
+					foreach( $groups as $group => $members ) {
+						
+						if( trim( $members ) != "" ) {
+							if( ! fwrite( $groupHandle, $group.":".$members."\n") ) {
+								$retcode		= 10;
+								$tMessage		= sprintf( _("Cannot write to %s"), $tempgroups );
+								db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+							}
+						}
+					}
+						
+					@fclose( $groupHandle );
+					
+				} else {
+				 	
+				}	
+				
+				if( ! @fwrite( $fileHandle, "<LocationMatch (^".$CONF['ViewvcLocation']."\$|^".$CONF['ViewvcLocation']."/\$)>\n" ) ) {
+					$retcode		= 9;
+					$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}
+				
+				if( ! @fwrite( $fileHandle, "      AuthType Basic\n" ) ) {
+					$retcode		= 9;
+					$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}
+				
+				if( ! @fwrite( $fileHandle, "      AuthName \"Viewvc Access Control\"\n" ) ) {
+					$retcode		= 9;
+					$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}
+				
+				if( ! @fwrite( $fileHandle, "      AuthUserFile /etc/svn/svn-passwd\n" ) ) {
+					$retcode		= 9;
+					$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}
+				
+				if( ! @fwrite( $fileHandle, "      Require valid-user\n" ) ) {
+					$retcode		= 9;
+					$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}
+				
+				if( ! @fwrite( $fileHandle, "</LocationMatch>\n" ) ) {
+					$retcode		= 9;
+					$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}
+				
+				@fclose( $fileHandle );
+				
+			} else {
+				
+			}
+			
+			if( $retcode == 0 ) {
+				
+				if( @copy( $tempgroups, $CONF['ViewvcGroups'] ) ) {
+						
+					if( @unlink( $tempgroups ) ) {
+						
+						if( @copy( $tempfile, $CONF['ViewvcConf'] ) ) {
+							
+							if( @unlink( $tempfile ) ) {
+								
+								if( db_unset_semaphore( 'createviewvcconf', 'sem', $dbh ) ) {
+							
+									$tMessage				= _( "Viewvc access configuration successfully created!" );
+								
+								} else {
+								
+									$retcode				= 1;
+									$tMessage				= _("Viewvc access configuration successfully created but semaphore could nor be released");
+									db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+								
+								}
+									
+							} else {
+								
+								$retcode				= 4;
+								$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+								db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
+							}
+							
+						} else {
+							
+							$retcode					= 3;
+							$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempgroups, $CONF['ViewvcGroups'] );
+							db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+						}
+						
+					} else {
+						
+						$retcode				= 4;
+						$tMessage				= sprintf( _("Delete of %s failed!"), $tempgroups );
+						db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
+					}
+					
+				} else {
+					
+					$retcode					= 3;
+					$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['ViewvcGroups'] );
+					db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
+				}	
+			}
+			
+		} else {
+			
+			
+			$retcode							= 1;
+			$tMessage							= _("Can't set semaphore, another process is writing access file, try again later");
+			
+		}
+		
+	} else {
+		
+		$retcode							= 0;
+		$tMessage							= _("Create of access file not configured!" );
+	}
+	
+	$ret									= array();
+	$ret['error']							= $retcode;
+	$ret['errormsg']						= $tMessage;
+	
+	return $ret;
+	
 }
 ?>

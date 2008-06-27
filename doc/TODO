@@ -11,7 +11,7 @@ To Do's
       -> solved
 
 - cron jobs for access right creation and user lockout
-       -> jobs are include, documentation is to be written
+       -> jobs are included, documentation is to be written
 
 - take user to password change if password is expired
        -> done
@@ -20,7 +20,9 @@ To Do's
        -> particularly done, more texts to be added.
 
 - log project with granted access rights
+	- check log messages and use clear text instead of database ids
 
 - use the same sort order for users (sort by name and given name or enable preferences for sort order)
+	-> user selectable sort order implemented
 
 - integrate LDAP for users and groups

@@ -64,6 +64,7 @@
 /export/home/kriegeth/workspace/svn_access_manager/logout.php
 /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php
 /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php
+/export/home/kriegeth/workspace/svn_access_manager/database_error_install.php
 /export/home/kriegeth/workspace/svn_access_manager/deleteAccessRight.php
 /export/home/kriegeth/workspace/svn_access_manager/install/install.php
 /export/home/kriegeth/workspace/svn_access_manager/include/db-functions.inc.php
