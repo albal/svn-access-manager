@@ -27,9 +27,6 @@ Template File: install.tpl
 */
 
 require ("../include/variables.inc.php");
-#if( file_exists( "../config/config.inc.php") ) {
-#	require ("../config/config.inc.php");
-#}
 require ("../include/db-functions.inc.php");
 require ("../include/functions.inc.php");
 
@@ -647,7 +644,7 @@ function createDatabaseTables( $dbh ) {
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 			$error							= 1;
-			$tMessage						= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+			$tMessage						= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 		}
 		
 		if( $error == 0 ) {
@@ -657,7 +654,7 @@ function createDatabaseTables( $dbh ) {
 			$result							= db_query_install( $query, $dbh );
 			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 			}
 		
 		}
@@ -669,7 +666,7 @@ function createDatabaseTables( $dbh ) {
 			$result							= db_query_install( $query, $dbh );
 			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 			}
 			
 		}
@@ -681,7 +678,7 @@ function createDatabaseTables( $dbh ) {
 			$result							= db_query_install( $query, $dbh );
 			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 			}
 			
 		}
@@ -693,7 +690,7 @@ function createDatabaseTables( $dbh ) {
 			$result							= db_query_install( $query, $dbh );
 			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 			}
 			
 		}	
@@ -704,7 +701,7 @@ function createDatabaseTables( $dbh ) {
 			$result							= db_query_install( $query, $dbh );
 			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 			}
 			
 		}
@@ -716,7 +713,7 @@ function createDatabaseTables( $dbh ) {
 			$result							= db_query_install( $query, $dbh );
 			if( mysql_errno() != 0 ) {
 				$error						= 1;
-				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), nysql_error() );
+				$tMessage					= sprintf( _("Error inserting data into rights table: %s" ), mysql_error() );
 			}
 			
 		}
@@ -806,6 +803,11 @@ initialize_i18n();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
+    # common locations where to find grep and svn under linux/unix
+   	$svnpath								= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
+   	$greppath								= array('/usr/local/bin/grep', '/usr/bin/grep', '/bin/grep');
+   	$apachepath								= array('/etc/init.d/httpd', '/etc/init.d/apache2', '/etc/init.d/apache');
+   	
    	$tCreateDatabaseTablesYes				= "checked";
    	$tCreateDatabaseTablesNo				= "";
    	$tDropDatabaseTablesYes					= "checked";
@@ -816,8 +818,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tUseAuthUserFileNo						= "checked";
 	$tLoggingYes							= "checked";
 	$tLoggingNo								= "";
-   	$tGrepCommand							= "/bin/grep";
-   	$tSvnCommand							= "/usr/bin/svn";
    	$tPageSize								= "30";
    	$tJavaScriptYes							= "checked";
    	$tJavaScriptNo							= "";
@@ -829,7 +829,36 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tMd5No									= "";
    	$tViewvcConfigYes						= "";
    	$tViewvcConfigNo						= "checked";
+   	$tGrepCommand							= "";
+   	$tSvnCommand							= "";
+   	$tViewvcRealm							= "ViewVC Access Control";
+   	$tViewvcAlias							= "/viewvc";
+   	$tViewvcApacheReload					= "";
+   	
+   	for( $i = 0; $i < count($svnpath); $i++ ) {
+   		if( file_exists( $svnpath[$i] ) ) {
+   			if( $tSvnCommand == "" ) {
+   				$tSvnCommand				= $svnpath[$i];
+   			}
+   		}
+   	}
+   	
+   	for( $i=0; $i < count($greppath ); $i++ ) {
+   		if( file_exists( $greppath[$i] ) ) {
+   			if( $tGrepCommand == "" ) {
+   				$tGrepCommand				= $greppath[$i];
+   			}
+   		}
+   	}
    
+   	for( $i=0; $i < count($apachepath); $i++ ) {
+   		if( file_exists($apachepath[$i] ) ) {
+   			if( $tViewvcApacheReload == "" ) {
+   				$tViewvcApacheReload 		= "sudo ".$apachepath[$i]." graceful";
+   			}
+   		}
+   	}
+   	
    	include ("../templates/install.tpl");
    
 }
@@ -955,7 +984,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tMd5No								= "checked";
 	}
 	
-	if( $rViewvcConfig == "YES" ) {
+	if( $tViewvcConfig == "YES" ) {
 		$tViewvcConfigYes					= "checked";
 		$tViewvcConfigNo					= "";
 	} else {
@@ -1123,7 +1152,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###MINPWUSER###', $tMinUserPwSize, $content );
 			$content					= str_replace( '###SESSIONINDB###', $tSessionInDatabase, $content );
 			$content					= str_replace( '###PWCRYPT###', $tUseMd5, $content );
-			$content					= str_replace( '###CREATEVIEWVCCONF###', $tViewvcConf, $content );
+			$content					= str_replace( '###CREATEVIEWVCCONF###', $tViewvcConfig, $content );
 			$content					= str_replace( '###VIEWVCCONF###', $viewvcconf, $content );
 			$content					= str_replace( '###VIEWVCGROUPS###', $viewvcgroups, $content );
 			$content					= str_replace( '###VIEWVCLOCATION###', $tViewvcAlias, $content );

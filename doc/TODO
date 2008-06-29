@@ -20,9 +20,11 @@ To Do's
        -> particularly done, more texts to be added.
 
 - log project with granted access rights
-	- check log messages and use clear text instead of database ids
+	-> check log messages and use clear text instead of database ids
+	-> done
 
 - use the same sort order for users (sort by name and given name or enable preferences for sort order)
 	-> user selectable sort order implemented
+	-> done
 
 - integrate LDAP for users and groups

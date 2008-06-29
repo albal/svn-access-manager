@@ -298,7 +298,7 @@ include( "../include/output.inc.php" );
 					   			<input type="text" name="fViewvcAlias" value="<?php print $tViewvcAlias; ?>" size="40" />
 					   		</td>
 					   		<td>
-					   			&nbsp;
+					   			<?php print _("Enter the alias you used in your webserver:"); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>

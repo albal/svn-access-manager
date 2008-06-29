@@ -369,6 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			db_ta( 'BEGIN', $dbh );
 	   			
 	   			$tId							= $_SESSION['svn_sessid']['rightid'];
+	   			$olddata						= db_getRightData( $tId, $dbh );
 	   			$query							= "UPDATE svn_access_rights " .
 	   											  "   SET modified = now(), " .
 	   											  "       modified_user = '".$_SESSION['svn_sessid']['username']."', " .
@@ -380,8 +381,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			
 	   			if( $result['rows'] == 1 ) {
 	   				
+	   				$user						= db_getUseridById ( $olddata['user_id'], $dbh );
+	   				$repo						= db_getRepoById ($olddata['repo_id'], $dbh );
+	   				$path						= $olddata['path'];
+	   				$oldright					= $olddata['access_right'];
+	   				
+	   				db_log( $_SESSION['svn_sessid']['username'], "updated access right from $oldright to $tAccessRight for $user in $repo for $path", $dbh );
 	   				db_ta( 'COMMIT', $dbh );
 	   				db_disconnect( $dbh );
+	   				
 	   				header( "location: list_access_rights.php" );
 	   				exit;
 	   				
@@ -438,7 +446,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		   					$error					= 1;
 		   				}	
 		   				
-		   				db_log( $_SESSION['svn_sessid']['username'], "added access right $tAccessRight for $userid to $tPathSelected", $dbh );
+		   				db_log( $_SESSION['svn_sessid']['username'], "added access right $tAccessRight for ".db_getUseridById ($userid, $dbh)." to $tPathSelected", $dbh );
 		   			} 
 		   			
 		   			if( $error == 0 ) {

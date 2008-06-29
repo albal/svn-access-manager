@@ -430,7 +430,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    											   " WHERE (id = ".$_SESSION['svn_sessid']['projectid'].")";
    				
    				db_ta( 'BEGIN', $dbh );
-   				db_log( $_SESSION['svn_sessid']['username'], "updated project $tProject ($tModulepath/$tRepo)", $dbh );
+   				
+   				$project						= db_getProjectById( $tProject, $dbh );
+   				$repo							= db_getRepoById( $tRepo, $dbh );
+   					
+   				db_log( $_SESSION['svn_sessid']['username'], "updated project $tProject ($tModulepath/$repo)", $dbh );
    				
    				$result						= db_query( $query, $dbh );
    				
@@ -466,7 +470,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							
 							if( $result_del['rows'] != 1 ) {
 								
-								$tMessage	= sprintf( _("Delete of svn_projects_responsiblep record with id %s failed"), $id );
+								$tMessage	= sprintf( _("Delete of svn_projects_responsible record with id %s failed"), $id );
 								$error		= 1;
 								
 							}

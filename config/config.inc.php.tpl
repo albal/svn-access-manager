@@ -22,10 +22,10 @@
 /*
 
 File:            config.inc.php.tpl
-$LastChangedDate: 2008-06-27 05:07:10 +0200 (Fri, 27 Jun 2008) $
+$LastChangedDate: 2008-06-28 12:18:33 +0200 (Sat, 28 Jun 2008) $
 $LastChangedBy: kriegeth $
 
-$Id: config.inc.php.tpl 292 2008-06-27 03:07:10Z kriegeth $
+$Id: config.inc.php.tpl 297 2008-06-28 10:18:33Z kriegeth $
 
 */
 
@@ -102,7 +102,7 @@ $CONF['mail_password_warn']		= <<<EOM
 
 Dear %s,
 
-your password for SVN Access manager is about to expire. Please goto %s, log in and change your password.
+your password for SVN Access Manager is about to expire. Please goto %s, log in and change your password.
 
 Please keep in mind that your account will be locked out automatically if your password was not changed. 
 
@@ -119,7 +119,7 @@ $CONF['mail_user_locked']		= <<<EOM
 
 Dear %s,
 
-you account at SVN Access manager was locked. You did not change your password for %s days.
+you account at SVN Access Manager was locked. You did not change your password for %s days.
 
 You can not access the subversion repositories any more. To get access please log into your account at %s and change your password.
 
