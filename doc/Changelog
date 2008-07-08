@@ -1,6 +1,10 @@
 Change Log
 
 
+Release 0.3.0.1
+	- fixed Bug 2008661, thanx to Matthias Hoertzsch
+	- added check that at leased one user or one group is selected while adding an access right
+	
 Release 0.3.0.0
 	- added creation of access control files for ViewVC (Apache webserver only)
 	- improved logging

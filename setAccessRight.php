@@ -359,6 +359,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   		}
 	   			
 	   	}
+	   	
+	   	if( (count($tUsers) == 0) and (count($tGroups) == 0) ) {
+	   		
+	   		$tMessage						= _("No user and no group selected!");
+	   		$error							= 1; 
+	   		
+	   	}
 	   			
 	   	$curdate							= strftime( "%Y%m%d" );
 	   	
@@ -446,7 +453,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		   					$error					= 1;
 		   				}	
 		   				
-		   				db_log( $_SESSION['svn_sessid']['username'], "added access right $tAccessRight for ".db_getUseridById ($userid, $dbh)." to $tPathSelected", $dbh );
+		   				db_log( $_SESSION['svn_sessid']['username'], "added access right $tAccessRight for ".$userid." to $tPathSelected", $dbh );
 		   			} 
 		   			
 		   			if( $error == 0 ) {
