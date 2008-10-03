@@ -200,7 +200,42 @@ function createAccessFile( $dbh ) {
 				
 				
 				if( $retcode == 0 ) {
+
+					$first						= 1;
+					$query						= "SELECT * " .
+											  	  "  FROM svnusers " .
+											  	  " WHERE (superadmin = 1) " .
+											  	  "   AND (deleted = '0000-00-00 00:00:00')";
+					$resultusr 					= db_query( $query, $dbh );
+					while( $rowusr = db_array( $resultusr['result'] ) ) {
+
+						if( $first == 1 ) {
+							
+							$first					= 0;
+							
+							# write superuser privileges for access to all repositories by http(s)
+							if( ! @fwrite( $fileHandle, "\n[/]\n" ) ) {
+										
+								$retcode			= 8;
+								$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+							}
+						}	
+						
+						if( ! @fwrite( $fileHandle, $rowusr['userid']." = r\n" ) ) {
+									
+							$retcode				= 5;
+							$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
+							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+						}
+								
+					}
+					
+				}
 				
+				
+				if( $retcode == 0 ) {
+					
 					# write access rights to file
 					$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
 													  "    FROM svn_access_rights, svnprojects, svnrepos " .

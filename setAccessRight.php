@@ -561,6 +561,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tGroups[$id]							= $groupname;
 		
 	}
+	
+	if( isset( $_SESSION['svn_sessid']['userid'] ) ) {
+		
+		$tUid								= $_SESSION['svn_sessid']['userid'];
+		
+	} else {
+		
+		$tUid								= "";
+		
+	}
+	
+	if( isset( $_SESSION['svn_sessid']['groupid'] ) ) {
+		
+		$tGid								= $_SESSION['svn_sessid']['groupid'];
+		
+	} else {
+		
+		$tGid								= "";
+		
+	}
    	
    	$header									= "access";
 	$subheader								= "access";

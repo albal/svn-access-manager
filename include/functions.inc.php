@@ -540,7 +540,8 @@ function pacrypt ($pw, $pw_db="") {
 		
 	}
 	
-	if( substr($pw_db, 0, 3) == $MAGIC ) {
+	$size							= strlen( $MAGIC );
+	if( substr($pw_db, 0, $size) == $MAGIC ) {
 		# md5 crypted password
 		
 		$split_salt 				= preg_split ('/\$/', $pw_db);
@@ -555,6 +556,7 @@ function pacrypt ($pw, $pw_db="") {
 		
 		$salt 						= substr( $pw_db, 0, 2);
 		$password 					= crypt ($pw, $salt);
+		
 	} else {
 		
 		if( $crypt == "md5" ) {
@@ -582,12 +584,21 @@ function pacrypt ($pw, $pw_db="") {
 // Action: Creates MD5 encrypted password
 // Call: md5crypt (string cleartextpassword)
 //
-$MAGIC  = "$1$";
-$ITOA64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+if( determineOs() == "windows" ){
+	
+	$MAGIC				= '$apr1$';
+	
+} else {
+	
+	$MAGIC  			= "$1$";
+	
+}
+$ITOA64 				= "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 function md5crypt ($pw, $salt="", $magic="") {
    
    global $MAGIC;
+   
 
    if ($magic == "") $magic = $MAGIC;
    if ($salt == "") $salt = create_salt (); 
@@ -649,6 +660,7 @@ function md5crypt ($pw, $salt="", $magic="") {
    $passwd 							.= to64 (ord ($final[11]), 2);
    
    return "$magic$salt\$$passwd";
+
 }
 
 function create_salt () {
@@ -830,5 +842,40 @@ function mkUnixTimestampFromDateTime( $datetime ) {
 	$timestamp		= mktime( $hour, $min, $sec, $month, $day, $year, -1 );
 	
 	return $timestamp;
+}
+
+
+
+//
+// determineOs
+// Action: determine if windows or not
+// Call: determineOs()
+//
+function determineOs() {
+	
+	$ret			= "undef";
+	
+	ob_start();
+	eval("phpinfo();");
+	$info 			= ob_get_contents();
+	ob_end_clean();
+	
+	foreach(explode("\n", $info) as $line) 	{
+	      
+	      if(strpos($line, "System")!== false) {
+	        
+	        $show 	= trim(str_replace("System","", strip_tags($line)));
+	        
+	      }
+	}
+	
+	if( preg_match('/WIN/i', $show) ) {
+	        
+	        $ret	= "windows";
+	} else {
+	        $ret	= "unix";
+	}
+
+	return( $ret );
 }
 ?>
