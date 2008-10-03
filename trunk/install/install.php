@@ -554,6 +554,7 @@ function createDatabaseTables( $dbh ) {
   													`deleted` datetime NOT NULL,
   													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
   													`password_modified` datetime NOT NULL,
+  													`superadmin` tinyint(1) NOT NULL default '0',
   													PRIMARY KEY  (`id`),
   													UNIQUE KEY `idx_userid` (`userid`),
   													KEY `idx_mode` (`locked`),
@@ -743,8 +744,8 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 	$error									= 0;
 	$tMessage								= "";
 	$pwcrypt								= mysql_real_escape_string( pacrypt( $password ) );
-	$query									= "INSERT INTO svnusers (userid, name, givenname, password, emailaddress, mode, admin, created, created_user, password_modified) " .
-											  "VALUES ('$userid', '$name', '$givenname', '$pwcrypt', '$emailaddress', 'write', 'y', now(), 'install', now())";
+	$query									= "INSERT INTO svnusers (userid, name, givenname, password, emailaddress, mode, admin, created, created_user, password_modified, superadmin) " .
+											  "VALUES ('$userid', '$name', '$givenname', '$pwcrypt', '$emailaddress', 'write', 'y', now(), 'install', now(), 1)";
 	$result									= db_query_install( $query, $dbh );
 	if( mysql_errno() != 0 ) {
 		
@@ -1193,8 +1194,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( ! @unlink( $confignew ) ) {
 				
-				$error					= 1;
-				$tMessage				= _("Error deleting temporary config file");
+				if( determineOs() == "windows" ) {
+					$error				= 0;
+				} else {
+					$error				= 1;
+					$tMessage			= _("Error deleting temporary config file");
+				}
 				
 			} else {
 				

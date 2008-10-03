@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 2.9.1.1-Debian-6
+-- version 2.9.1.1-Debian-7
 -- http://www.phpmyadmin.net
 -- 
 -- Host: localhost
--- Generation Time: Jun 04, 2008 at 05:45 PM
+-- Generation Time: Oct 03, 2008 at 08:51 AM
 -- Server version: 5.0.32
--- PHP Version: 5.2.0-8+etch10
+-- PHP Version: 5.2.0-8+etch11
 -- 
 -- Database: `svnadmin`
 -- 
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `help` (
   `helptext_en` longtext NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `idx_topic` (`topic`),
-  FULLTEXT KEY `helptext` (`helptext_de`),
+  FULLTEXT KEY `helptext_de` (`helptext_de`),
   FULLTEXT KEY `helptext_en` (`helptext_en`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table of help texts';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Table of help texts';
 
 -- --------------------------------------------------------
 
@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `preferences` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `user_id` int(10) NOT NULL,
   `page_size` int(4) NOT NULL,
+  `user_sort_fields` varchar(255) collate latin1_german1_ci NOT NULL,
+  `user_sort_order` varchar(255) collate latin1_german1_ci NOT NULL,
   `created` datetime NOT NULL,
   `created_user` varchar(255) collate latin1_german1_ci NOT NULL,
   `modified` datetime NOT NULL,
@@ -333,6 +335,7 @@ CREATE TABLE IF NOT EXISTS `svnusers` (
   `deleted` datetime NOT NULL,
   `deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
   `password_modified` datetime NOT NULL,
+  `superadmin` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `idx_userid` (`userid`),
   KEY `idx_mode` (`locked`),

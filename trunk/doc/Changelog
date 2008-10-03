@@ -1,6 +1,10 @@
 Change Log
 
 
+Release 0.3.0.2
+	- fixed issues with windows installations regarding using http(s) protocol for repository access
+	- fixed issue with md5 crypting of passwords under windows
+	 
 Release 0.3.0.1
 	- fixed Bug 2008661, thanx to Matthias Hoertzsch
 	- added check that at leased one user or one group is selected while adding an access right

@@ -165,9 +165,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$_SESSION['svn_sessid']['repopath']		= $tRepoPath;
 				$_SESSION['svn_sessid']['repouser']		= $tRepoUser;
 				$_SESSION['svn_sessid']['repopassword']	= $tRepoPassword;
+				$os										= determineOs();
+				
+				if( $os == "windows" ) {
+					$tempdir					= "c:\temp";
+				} else {
+					$tempdir					= "/var/tmp/";
+				}
+				
+				if( strtolower(substr($tRepoPath, 0, 4) == "http") ) {
+					$options					= " --username $tRepoUser --password $tRepoPassword ";
+				} else {
+					$options					= "";
+				}
 				
 				$tRepodirs						= array();
-				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir /var/tmp/ '.$tRepoPath.'/'.$tModulePath.'|'.$CONF['grep_command'].' "/$"';
+				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$tRepoPath.'/'.$tModulePath.'|'.$CONF['grep_command'].' "/$"';
 				$errortext						= exec( $cmd, $tRepodirs, $retval );
 				
 				if( $retval == 0 ) {
