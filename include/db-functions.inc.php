@@ -293,7 +293,7 @@ function db_query_install ($query, $link) {
       	$tDbError			= mysql_errno().": ".mysql_error();
     	$tDbQuery			= "MySQL 3.x / 4.0 functions not available!<br />database_type = 'mysql' in config.inc.php, are you using a different database?";
     	
-      	error_log( "DB Error: $error" );
+      	error_log( "DB Error: $tDBError" );
       	
       	header( "location: database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError");
 	 	exit;
