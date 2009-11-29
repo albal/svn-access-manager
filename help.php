@@ -22,10 +22,10 @@
 /*
 
 File:  help.php
-$LastChangedDate: 2008-06-04 11:43:05 +0200 (Wed, 04 Jun 2008) $
-$LastChangedBy: kriegeth $
+$LastChangedDate$
+$LastChangedBy$
 
-$Id: help.php 204 2008-06-04 09:43:05Z kriegeth $
+$Id$
 
 */
 

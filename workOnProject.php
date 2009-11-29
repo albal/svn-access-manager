@@ -25,16 +25,17 @@ require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
 require ("./include/db-functions.inc.php");
 include_once ("./addMemberToProject.php");
+include_once ("./addGroupToProject.php");
 
 initialize_i18n();
 
 $SESSID_USERNAME 						= check_session ();
 check_password_expired();
 $dbh 									= db_connect ();
-$preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
-$CONF['page_size']							= $preferences['page_size'];
+$preferences							= db_get_preferences($SESSID_USERNAME, $dbh );
+$CONF['user_sort_fields']				= $preferences['user_sort_fields'];
+$CONF['user_sort_order']				= $preferences['user_sort_order'];
+$CONF['page_size']						= $preferences['page_size'];
 $rightAllowed							= db_check_acl( $SESSID_USERNAME, "Project admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']	= "workonproject";
 
@@ -58,7 +59,7 @@ while( $row = db_array( $result['result'] ) ) {
 	$name							= $row['reponame'];
 	$tRepos[$id]					= $name;
 	
-}
+}					  
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
@@ -75,6 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	}
 	
+	if( ($rightAllowed == "add") and (($tTask != "new") and ($tTask != "relist")) ) {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	
+	}		
+	
 	if(strtolower($tTask) != "relist") {
 		
 		$_SESSION['svn_sessid']['task']		= strtolower( $tTask );
@@ -89,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tModulepath							= $_SESSION['svn_sessid']['modulepath'];
 		$tRepo									= $_SESSION['svn_sessid']['repo'];
 		$tMembers								= $_SESSION['svn_sessid']['members'];
+		$tGroups								= $_SESSION['svn_sessid']['groups'];
 		
 	} elseif( $_SESSION['svn_sessid']['task'] == "new" ) {
    		
@@ -97,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tRepo									= "";
 		$tMembers								= array();
 		$_SESSION['svn_sessid']['members']		= array();
+		$_SESSION['svn_sessid']['groups']		= array();
 		$_SESSION['svn_sessid']['project']		= "";
 		$_SESSION['svn_sessid']['modulepath']	= "";
 		$_SESSION['svn_sessid']['repo']			= "";
@@ -146,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$_SESSION['svn_sessid']['project']		= $tProject;
 			$_SESSION['svn_sessid']['modulepath']	= $tModulepath;
 			$_SESSION['svn_sessid']['repo']			= $tRepo;
-			
+							
 		} else {
 		
 			$tMessage							= _( "Invalid projectid $id requested!" );	
@@ -191,6 +202,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("Remove responsible");
 	} elseif( isset( $_POST['fSubmit_remove'] ) ) {
 		$button									= _("Remove responsible");
+   	} elseif( isset( $_POST['fSubmit_add_group'] ) ) {
+   		$button									= _("Add group");
+   	} elseif( isset( $_POST['fSubmit_add_group_x'] ) ) {
+   		$button									= _("Add group");
+   	} elseif( isset( $_POST['fSubmit_remove_group'] ) ) {
+   		$button									= _("Remove group");
+   	} elseif( isset( $_POST['fSubmit_remove_group_x'] ) ) {
+   		$button									= _("Remove group");
 	} else {
 		$button									= "undef";
 	}
@@ -207,6 +226,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$buttonadd								= _("Cancel");
 	} else {
 		$buttonadd								= "undef";
+	}
+	
+	if( isset( $_POST['fSubmitAddGroup'] ) ) {
+		$buttonaddgroup							= escape_string( $_POST['fSubmitAdd'] );
+	} elseif( isset( $_POST['fSubmitAddGroup_ok_x'] ) ) {
+		$buttonaddgroup							= _("Add");
+	} elseif( isset( $_POST['fSubmitAddGroup_ok'] ) ) {
+		$buttonaddgroup							= _("Add");
+	} elseif( isset( $_POST['fSubmitAddGroup_back_x'] ) ) {
+		$buttonaddgroup							= _("Cancel");
+	} elseif( isset( $_POST['fSubmitAddGroup_back'] ) ) {
+		$buttonaddgroup							= _("Cancel");
+	} else {
+		$buttonaddgroup							= "undef";
 	}
    	
    	if( isset( $_POST['fProject'] ) ) {
@@ -244,6 +277,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$tMembers							= array();
 	}
+	
+	if( isset( $_POST['groupsallowed'] ) ) {
+		
+		$tGroups							= escape_string( $_POST['groupsallowed'] );
+		
+	} else {
+		
+		$tGroups							= array();
+		
+	}
    	   	
    	if( $button == _("Add responsible") ) {
    		
@@ -251,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$_SESSION['svn_sessid']['modulepath']	= $tModulepath;
 		$_SESSION['svn_sessid']['repo']			= $tRepo;
 			
-   		addMemberToGroup($tGroup, $_SESSION['svn_sessid']['members'], $dbh );
+   		addMemberToGroup($tGroups, $_SESSION['svn_sessid']['members'], $dbh );
 
 		db_disconnect( $dbh );
 		exit;
@@ -278,10 +321,45 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 		} else {
 			
-			$tMembers						= $_SESSION['svn_sessid']['members'];
+			$tMembers							= $_SESSION['svn_sessid']['members'];
 			
 		}
 		
+   	} elseif( $button == _("Add group") ) {
+   		
+   		$_SESSION['svn_sessid']['project']		= $tProject;
+		$_SESSION['svn_sessid']['modulepath']	= $tModulepath;
+		$_SESSION['svn_sessid']['repo']			= $tRepo;
+			
+   		addGroupToProject($tGroups, $_SESSION['svn_sessid']['groups'], $dbh );
+
+		db_disconnect( $dbh );
+		exit;
+		
+   	} elseif( $button == _("Remove group" ) ) {
+   	
+   		if( count ( $tGroups ) > 0 ) {
+   			$new								= array();
+   			$old								= $_SESSION['svn_sessid']['groups'];
+   			
+   			foreach( $old as $groupid => $name ) {
+   				
+   				if( ! in_array( $groupid, $tGroups ) ) {
+   					
+   					$new[$groupid]				= $name;
+   					
+   				}
+   			}
+   			
+   			$_SESSION['svn_sessid']['groups']	= $new;
+   			$tGroups							= $new;
+   			
+   		} else {
+   			
+   			$tGroups							= $_SESSION['svn_sessid']['groups'];
+   			
+   		}
+   		
    	} elseif( $button == _("Back" ) ) {
    	
    		db_disconnect( $dbh );	
@@ -361,7 +439,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								
 								$tMessage	= sprintf( _("Insert of user project relation failed for user_id %s and project_id %s"), $id, $projectid );
 								$error		= 1;
-							}
+								
+							} 
 							
 						} else {
 							
@@ -448,6 +527,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						
 					}
 					
+					$tGroupIds				= array();
+					
+					foreach( $_SESION['svn_sessid']['groups'] as $groupid => $groupname ) {
+						
+						$tGroupIds[]		= $groupid;
+					}
+					
 					$query					= "SELECT * " .
 											  "  FROM svn_projects_responsible " .
 											  " WHERE (project_id = $projectid) " .
@@ -457,6 +543,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					while( ($row = db_array( $result['result'])) and ($error == 0) ) {
 						
 						$userid				= db_getUseridById( $row['user_id'], $dbh );
+						$uid				= $row['user_id'];
+						$projectid			= $row['project_id'];
 
 						if( ! in_array( $userid, $tUids) ) {
 							
@@ -473,10 +561,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								$tMessage	= sprintf( _("Delete of svn_projects_responsible record with id %s failed"), $id );
 								$error		= 1;
 								
-							}
+							} 
 						}
 					}
-					
 
 					foreach( $_SESSION['svn_sessid']['members'] as $userid => $name ) {
 						
@@ -505,7 +592,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							
 							if( $result['rows'] == 0 ) {
 								
-								db_log( $_SESSION['svn_sessid']['username'], "added project responsible $userid to project $tProject", $dbh );
+								db_log( $_SESSION['svn_sessid']['username']," added project responsible $userid to project $tProject", $dbh );
 								$query		= "INSERT INTO svn_projects_responsible (user_id, project_id, created, created_user) " .
 										      "     VALUES ($id, $projectid, now(), '".$_SESSION['svn_sessid']['username']."')";
 								$result		= db_query( $query, $dbh );
@@ -529,6 +616,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							
 						}		
 					}
+					
+						
    					
    				} else {
    					
@@ -605,6 +694,56 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		exit;
 		
    	} elseif( $buttonadd == _("Cancel") ) {
+   	
+   		$project							= $_SESSION['svn_sessid']['projectid'];
+		$task								= $_SESSION['svn_sessid']['task'];
+		
+		db_disconnect( $dbh );
+		header("Location: workOnProject.php?id=$project&task=relist");
+		exit;
+		
+   	} elseif( $buttonaddgroup == _("Add") ) {
+   		
+   		if( isset( $_POST['groupsadd'] ) ) {
+		
+			$groupsadd 						= escape_string($_POST['groupsadd']);
+			
+		} else {
+			
+			$groupsadd						= array();
+			
+		}
+		
+		foreach( $groupsadd as $groupid ) {
+			
+			$query							= "SELECT * " .
+											  "  FROM svngroups " .
+											  " WHERE (id = '$groupid') " .
+											  "   AND (deleted = '0000-00-00 00:00:00' )";
+			$result							= db_query( $query, $dbh );
+			
+			if( $result['rows'] == 1 ) {
+				
+				$row						= db_array( $result['result'] );
+				$name						= $row['groupname'];
+				
+			}
+			
+			$_SESSION['svn_sessid']['groups'][$groupid]		= $name;
+			
+		}
+		
+		$project							= $_SESSION['svn_sessid']['projectid'];
+		$tProject							= $_SESSION['svn_sessid']['project'];
+		$tModulepath						= $_SESSION['svn_sessid']['modulepath'];
+		$tRepo								= $_SESSION['svn_sessid']['repo'];
+		$tMembers							= $_SESSION['svn_sessid']['members'];
+
+		db_disconnect( $dbh );
+		header("Location: workOnProject.php?id=$project&task=relist");
+		exit;
+		
+   	} elseif( $buttonaddgroup == _("Cancel") ) {
    	
    		$project							= $_SESSION['svn_sessid']['projectid'];
 		$task								= $_SESSION['svn_sessid']['task'];

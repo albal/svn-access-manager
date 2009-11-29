@@ -1,6 +1,19 @@
 Change Log
+==========
 
 
+Release 0.4.0.0
+	- added additional global right "add" which allows only to add new entries but do not allow to change
+	  any existing entries
+	- changed listing functions to only display available actions (e. g. edit, delete)
+	- added functionality to let users administer some groups their self as granted by administrator
+	- added functionality to create repositories from the web interface. This only works if SVN Access Manager 
+	  is running on the same hosts where the repositories live. This is due to the fact that svnadmin only
+	  accepts a path not an URL.
+	
+Release 0.3.0.3
+	- minor corrections in install.php, removed typo in installer
+	
 Release 0.3.0.2
 	- fixed issues with windows installations regarding using http(s) protocol for repository access
 	- fixed issue with md5 crypting of passwords under windows

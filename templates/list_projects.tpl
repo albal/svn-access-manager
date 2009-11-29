@@ -27,7 +27,21 @@
 				   		foreach( $tProjects as $entry ) {
 				   		
 				   			$id						= $entry['id'];
-				   			$action					= "<a href=\"workOnProject.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteProject.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   			
+				   			if( ($rightAllowed == "edit") or
+				   			    ($rightAllowed == "delete" ) ) {
+				   			    $edit				= "<a href=\"workOnProject.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   			} else {
+				   				$edit				= "";
+				   			}
+				   			
+				   			
+				   			if( $rightAllowed == "delete" ) {
+				   				$delete				= "<a href=\"deleteProject.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   			} else {
+				   				$delete				= "";
+				   			}
+				   			$action					= $edit."     ".$delete;
 				   			
 				   			print "\t\t\t\t\t<tr>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
@@ -44,7 +58,15 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="6" class="hlp_center">
-				      	<input type="image" name="fSubmit_new" src="./images/add_project.png" value="<?php print _("New project"); ?>"  title="<?php print _("New project"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				        <?php
+				      		if( ($rightAllowed == "add") or
+				      		    ($rightAllowed == "edit") or
+				      		    ($rightAllowed == "delete") ) {
+				      		    
+				      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_project.png\" value=\""._("New project")."\"  title=\""._("New project")."\" />     ";
+				      		}
+				      	?>
+				      	
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<?php
 				      		if( $tPrevDisabled != "disabled" ) {

@@ -215,6 +215,18 @@ function dropDatabaseTables( $dbh ) {
 	
 	if( $error == 0 ) {
 		
+		$query								= "DROP TABLE IF EXISTS `svn_groups_responsible`";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot drop table %s"), "svn_groups_responsible" );
+		}
+	
+	}
+	
+	if( $error == 0 ) {
+		
 		$query								= "DROP TABLE IF EXISTS `help`";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
@@ -516,6 +528,9 @@ function createDatabaseTables( $dbh ) {
   													`repopath` varchar(255) collate latin1_german1_ci NOT NULL,
   													`repouser` varchar(255) collate latin1_german1_ci NOT NULL,
   													`repopassword` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`different_auth_files` tinyint(1) NOT NULL DEFAULT '0',
+  													`auth_user_file` varchar(255) COLLATE latin1_german1_ci NOT NULL,
+  													`svn_access_file` varchar(255) COLLATE latin1_german1_ci NOT NULL,
   													`created` datetime NOT NULL,
   													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
   													`modified` datetime NOT NULL,
@@ -616,7 +631,7 @@ function createDatabaseTables( $dbh ) {
   													`id` int(10) unsigned NOT NULL auto_increment,
   													`user_id` int(10) NOT NULL,
   													`right_id` int(10) NOT NULL,
-  													`allowed` enum('none','read','edit','delete') NOT NULL default 'none',
+  													`allowed` enum('none','read','add','edit','delete') NOT NULL default 'none',
   													`created` datetime NOT NULL,
   													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
@@ -632,6 +647,32 @@ function createDatabaseTables( $dbh ) {
 		
 			$error							= 1;
 			$tMessage						= sprintf( _("Cannot create table "), "users_rights" );
+		}
+	
+	}
+	
+	if( $error == 0 ) {
+		
+		$query								= "CREATE TABLE `svn_groups_responsible` (
+												  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+												  `user_id` int(10) unsigned NOT NULL,
+												  `group_id` int(10) unsigned NOT NULL,
+												  `allowed` enum('none','read','edit','delete') NOT NULL DEFAULT 'none',
+												  `created` datetime NOT NULL,
+												  `created_user` varchar(255) NOT NULL,
+												  `modified` datetime NOT NULL,
+												  `modified_user` varchar(255) NOT NULL,
+												  `deleted` datetime NOT NULL,
+												  `deleted_user` varchar(255) NOT NULL,
+												  PRIMARY KEY (`id`),
+												  KEY `idx_projectid_userid_groupid` (`user_id`,`group_id`),
+												  KEY `idx_deleted` (`deleted`)
+												) ENGINE=InnoDB  DEFAULT CHARSET=latin1;";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot create table "), "svn_groups_responsible" );
 		}
 	
 	}
@@ -806,6 +847,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
     # common locations where to find grep and svn under linux/unix
    	$svnpath								= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
+   	$svnadminpath							= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
    	$greppath								= array('/usr/local/bin/grep', '/usr/bin/grep', '/bin/grep');
    	$apachepath								= array('/etc/init.d/httpd', '/etc/init.d/apache2', '/etc/init.d/apache');
    	
@@ -832,14 +874,25 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tViewvcConfigNo						= "checked";
    	$tGrepCommand							= "";
    	$tSvnCommand							= "";
+   	$tSvnadminCommand						= "";
    	$tViewvcRealm							= "ViewVC Access Control";
    	$tViewvcAlias							= "/viewvc";
    	$tViewvcApacheReload					= "";
+   	$tPerRepoFilesYes						= "";
+   	$tPerRepoFilesNo						= "checked";
    	
    	for( $i = 0; $i < count($svnpath); $i++ ) {
    		if( file_exists( $svnpath[$i] ) ) {
    			if( $tSvnCommand == "" ) {
    				$tSvnCommand				= $svnpath[$i];
+   			}
+   		}
+   	}
+   	
+   	for( $i = 0; $i < count($svnadminpath); $i++ ) {
+   		if( file_exists( $svnadminpath[$i] ) ) {
+   			if( $tSvnadminCommand == "" ) {
+   				$tSvnadminCommand				= $svnadminpath[$i];
    			}
    		}
    	}
@@ -885,6 +938,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tUseAuthUserFile						= isset( $_POST['fUseAuthUserFile'] )		? ( $_POST['fUseAuthUserFile'] )		: "";
 	$tAuthUserFile							= isset( $_POST['fAuthUserFile'] )			? ( $_POST['fAuthUserFile'] )			: "";
 	$tSvnCommand							= isset( $_POST['fSvnCommand'] )			? ( $_POST['fSvnCommand'] )				: "";
+	$tSvnadminCommand						= isset( $_POST['fSvnadminCommand'] )		? ( $_POST['fSvnadminCommand'] )		: "";
 	$tGrepCommand							= isset( $_POST['fGrepCommand'] )			? ( $_POST['fGrepCommand'] )			: "";
 	$tLogging								= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
 	$tJavaScript							= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
@@ -898,6 +952,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tViewvcAlias							= isset( $_POST['fViewvcAlias'] )			? ( $_POST['fViewvcAlias'] )			: "";
 	$tViewvcApacheReload					= isset( $_POST['fViewvcApacheReload'] )	? ( $_POST['fViewvcApacheReload'] )		: "";
 	$tViewvcRealm							= isset( $_POST['fViewvcRealm'] )			? ( $_POST['fViewvcRealm'] )			: ""; 
+	$tPerRepoFiles							= isset( $_POST['fPerRepoFiles'] )			? ( $_POST['fPerRepoFiles'] )			: "";
 	
 	$tMessage								= "";
 	$error									= 0;
@@ -951,6 +1006,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tUseSvnAccessFileYes				= "";
 		$tUseSvnAccessFileNo				= "checked";
+	}
+	
+	if( $tPerRepoFiles == "YES" ) {
+		$tPerRepoFilesYes					= "checked";
+		$tPerRepoFilesNo					= "";
+	} else {
+		$tPerRepoFilesYes					= "";
+		$tPerRepoFilesNo					= "checked";
 	}
 	
 	if( $tCreateDatabaseTables == "YES" ) {
@@ -1096,7 +1159,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			$tMessage						= _("SVN command is missing!" );
 			$error							= 1;
-			 
+			
+		} elseif( $tSvnadminCommand == "" ) { 
+		
+			$tMessage						= _("Svnadmin command missing!" );
+			$error							= 1;
+			
 		} elseif( $tGrepCommand == "" ) {
 			
 			$tMessage						= _("Grep command is missinbg!" );
@@ -1159,6 +1227,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###VIEWVCLOCATION###', $tViewvcAlias, $content );
 			$content					= str_replace( '###VIEWVCAPACHERELOAD###', $tViewvcApacheReload, $content );
 			$content					= str_replace( '###VIEWVCREALM###', $tViewvcRealm, $content );
+			$content					= str_replace( '###SEPERATEFILESPERREPO###', $tPerRepoFiles, $content );
+			$content					= str_replace( '###SVNADMINCMD###', $tSvnadminCommand, $content );
 			
 		} else {
 			

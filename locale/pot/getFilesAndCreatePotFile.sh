@@ -11,6 +11,6 @@ else
 	JOIN=""
 fi
 
-xgettext -f $OUTPUT -o $OUTPUTDIR/messages.po -L PHP -s --from-code=UTF-8 --copyright-holder="Thomas Krieger" --add-comments='$Id: getFilesAndCreatePotFile.sh 18 2008-05-04 13:47:49Z kriegeth $' --no-wrap $JOIN
+xgettext -f $OUTPUT -o $OUTPUTDIR/messages.po -L PHP -s --from-code=UTF-8 --copyright-holder="Thomas Krieger" --add-comments='$Id$' --no-wrap $JOIN
 
 exit 0

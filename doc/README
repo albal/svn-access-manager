@@ -4,7 +4,7 @@ SVN Access Manager Readme
 
 SVN Access Manager is a powerful tool for managing access to subversion 
 repositories. The tool provides user and group management and access 
-rights (read /write) to dedicated paths in a repository as well.
+rights (read/write) to dedicated paths in a repository as well.
 
 Subversion grants access rights recursively. That means that creating
 access rights to repositories is not as complex as it seams.
@@ -63,6 +63,16 @@ Installation
 ============
 
 For installation please look into the documentation in the html directory.
+
+
+
+Mailinglists
+============
+
+There's a mailinglist for announcements of new releases of SVN Access Manager.
+The list requires a subscription which can be done here.
+
+New releases are announced on freshmeat.net and sourceforge.net as well.
 
 
 

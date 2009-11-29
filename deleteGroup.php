@@ -40,9 +40,12 @@ $_SESSION['svn_sessid']['helptopic']		= "deletegroup";
 
 if( $rightAllowed != "delete" ) {
 	
-	db_disconnect( $dbh );
-	header( "Location: nopermission.php" );
-	exit;
+	$tGroupsAllowed							= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
+	if(count($tGroupsAllowed) == 0 ) {
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	}
 	
 }		
 
@@ -57,6 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		$tId								= "";
 
+	}
+	
+	if( ($rightAllowed != "delete") and ($tId != "" ) and (! array_key_exists( $tId, $tGroupsAllowed ) ) ) {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+			
 	}
 	
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
@@ -157,6 +168,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE (group_id = '".$_SESSION['svn_sessid']['groupid']."') " .
 											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  
+			db_log( $_SESSION['svn_sessid']['username'], "deleted group user relations for $groupname", $dbh );											  
 			$result							= db_query( $query, $dbh );
 			
 			if( $result['rows'] >= 0 ) {
@@ -166,10 +179,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 											   "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											   	"WHERE (group_id = '".$_SESSION['svn_sessid']['groupid']."') " .
 											   	"  AND (deleted = '0000-00-00 00:00:00')";
+											   	
+				db_log( $_SESSION['svn_sessid']['username'], "deleted access rights for $groupname", $dbh );
 				$result						= db_query( $query, $dbh );
 				
-				if( $result['rows'] < 0 ) {
+				if( $result['rows'] >= 0 ) {
 				
+					$query					= "UPDATE svn_groups_responsible " .
+											  "   SET deleted = now(), " .
+											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
+											  " WHERE (group_id = '".$_SESSION['svn_sessid']['groupid']."') " .
+											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  
+					db_log( $_SESSION['svn_sessid']['username'], "deleted group responsibles for $groupname", $dbh );
+					$result					= db_query( $query, $dbh );
+					if( $result['rows'] < 0 ) {
+						
+						$error				= 1;
+					}
+					
+				} else {
+					
 					$error					= 1;
 						
 				}

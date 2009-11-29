@@ -39,16 +39,16 @@ if ( file_exists ( realpath ( "./templates/database_error_install.tpl" ) ) ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	 
-	$tDbQuery									= $_GET['dbquery'];
-	$tDbError									= $_GET['dberror']; 
+	$tDbQuery									= isset( $_GET['dbquery'] ) ? $_GET['dbquery'] : "not set";
+	$tDbError									= isset( $_GET['dberror'] ) ? $_GET['dberror'] : "not set";
+	$tDbFunction								= isset( $_GET['dbfunction'] ) ? $_GET['dbfunction'] : "not set"; 
    	$template									= "database_error.tpl";
    	$header										= "dberror";
    	$subheader									= "dberror";
    	$menu										= "dberror";
    
    	include ($location);
-   	
-   	#db_disconnect( $dbh );
+
  
 }
 
@@ -60,8 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$menu										= "dberror";
    
    	include ($location);
-   	
-   	#db_disconnect( $dbh );
  
 }
 ?>

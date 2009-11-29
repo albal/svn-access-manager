@@ -29,7 +29,6 @@ include_once ("./include/output.inc.php");
 initialize_i18n();
 
 $SESSID_USERNAME 								= check_session ();
-#$dbh											= db_connect();
 
 if ( file_exists ( realpath ( "./templates/framework.tpl" ) ) ) {
 	$location									= "./templates/framework.tpl";
@@ -39,6 +38,7 @@ if ( file_exists ( realpath ( "./templates/framework.tpl" ) ) ) {
 
 $tQuery											= $_SESSION['svn_sessid']['dbquery'];
 $tDbError										= $_SESSION['svn_sessid']['dberror'];
+$tDbFunction									= isset( $_SESSION['svn_sessid'] ) ? $_SESSION['svn_sessid'] : "not set";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	  
@@ -48,8 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$menu										= "dberror";
    
    	include ($location);
-   	
-   	#db_disconnect( $dbh );
  
 }
 
@@ -61,8 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$menu										= "dberror";
    
    	include ($location);
-   	
-   	#db_disconnect( $dbh );
  
 }
 ?>

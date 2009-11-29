@@ -29,6 +29,7 @@
 						$rightAccessRightAdmin		= db_check_acl( $_SESSION['svn_sessid']['username'], 'Access rights admin', $dbh );
 						$rightCreateFiles			= db_check_acl( $_SESSION['svn_sessid']['username'], 'Create files', $dbh );
 						$rightReports				= db_check_acl( $_SESSION['svn_sessid']['username'], 'Reports', $dbh );
+						$tGroupsAllowed				= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
 						$count						= 0;
 	
 						if( ($_SESSION['svn_sessid']['admin'] == "p" ) or
@@ -37,6 +38,7 @@
 	    					($rightProjectAdmin != "none") or
 	    					($rightRepositoryAdmin != "none") or
 	    					($rightAccessRightAdmin != "none") or
+	    					(count($tGroupsAllowed) > 0) or
 	    					($rightCreateFiles != "none") ) 
 						{
 						
@@ -66,7 +68,7 @@
 							
 						}
 						
-						if( $rightGroupAdmin != "none" ) {
+						if( ($rightGroupAdmin != "none") or (count($tGroupsAllowed) > 0) ) {
 		
 							print "\t\t\t\t\t\t<td><a href=\"list_groups.php\"><img border=\"0\" src=\"./images/group.png\" alt=\"Group\" /></a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
@@ -129,6 +131,16 @@
 							$count++;
 						}
 						
+						if( $rightGroupAdmin != "none" ) {
+		
+							print "\t\t\t\t\t\t<td><a href=\"list_group_adminss.php\"><img border=\"0\" src=\"./images/group.png\" alt=\"Group\" /></a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td><a href=\"list_group_admins.php\">"._("Group administrators")."</a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							$count++;
+		
+						}
+						
 						
 						if( ($_SESSION['svn_sessid']['admin'] == "p" ) or
 	    					($rightUserAdmin != "none") or
@@ -136,6 +148,7 @@
 						    ($rightProjectAdmin != "none") or
 	    					($rightRepositoryAdmin != "none") or
 	    					($rightAccessRightAdmin != "none") or
+	    					(count($tGroupsAllowed) > 0) or
 	    					($rightCreateFiles != "none") ) 
 						{
 	    		

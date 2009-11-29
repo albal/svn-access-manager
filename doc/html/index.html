@@ -47,6 +47,9 @@
 	<tr>
 		<td><img src="images/svn-access-manager_200_60_white.jpg" width="200" height="60" /></td>
 		<td><h1><a name="top">SVN Access Manager Documentation</a></h1></td>
+		<td>
+			<a href="http://sourceforge.net/projects/svn-access-mana"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=226213&amp;type=13" width="120" height="30" alt="Get svn-access-manager at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+		</td>
 	</tr>
 </table>
 
@@ -94,7 +97,8 @@
 			<a href="#use_groups">3.2.3 Repositories</a><br />
 			<a href="#use_groups">3.2.4 Projects</a><br />
 			<a href="#use_groups">3.2.5 Repository access rights</a><br />
-			<a href="#use_groups">3.2.6 Create access files</a>
+			<a href="#use_groups">3.2.6 Create access files</a><br />
+			<a href="#group_admin">3.2.7 Group administrators</a>
 			</blockquote>
 		<a href="#use_reports">3.3 Reports menu</a>
 			<blockquote>
@@ -104,6 +108,7 @@
 			<a href="#use_rep_user_rights">3.3.4 Granted user rights</a>
 			</blockquote>
 		</blockquote>
+	<a href="#mailinglists">Mailinglists</a><br />
 	<a href="#license">License</a><br />
 	<a href="#warranty">Warranty</a>
 	</blockquote>
@@ -276,6 +281,7 @@ GRANT ALL PRIVILEGES ON `svnadmin` . * TO 'svnadmin'@ 'localhost';
 </pre>
 
 <p>After finishing the database work continue with installing SVN Access Manager.</p>
+<p>If you get an error "No database selected" during installation check if the database user has sufficient rights to access and to work with the database!</p>
 <p><a href="#top">Back to top</a></p>
 
 <h4><a name="inst_installer">2.2.4 Using the installer</a></h4>
@@ -418,8 +424,18 @@ https://localhost/svnaccessmanager/
 	</tr>
 	<tr valign="top">
 		<td><a href="images/add_repository.png" target="_blank"><img src="images/thumbs/add_repository.png" width="150" height="106" /></a></td>
-		<td><p>Each repository needs an unique name, a repository path and if it is accessed by DAV an username and a password to access the remote repository.</p>
-		<p>The repository path must start with <em>file://</em> if SVN Access Manager runs on the same machine as the repository is located.</p></td>
+		<td>
+			<p>Each repository needs an unique name, a repository path and if it is accessed by DAV an username and a password to access the remote repository.</p>
+			<p>The repository path must start with <em>file://</em> if SVN Access Manager runs on the same machine as the repository is located.</p>			
+		</td>
+	</tr>
+	<tr valign="top">
+		<td colspan="2">
+			<p>If SVN Access Manager runs on the same host where the svn repositories are located you can let SVN Access Manager create an empty repository for you.</p>
+			<p>Depending on your configuration settings you will see the two input fileds for "Auth user file" and "SVN access file". These fields are for per repository access files.
+			   If you do not enter a path and a filename the path from the global configuration is taken and appended with an appropriate filename. Keep in mind that the user
+			   running the webserver must have permission to write the files. Otherwise you have trouble with access file generation.</p>
+		</td>
 	</tr>
 </table>
 <p><a href="#top">Back to top</a></p>
@@ -520,6 +536,30 @@ B =
 <p>Before the access files are created you must confirm to do so.</p>
 <p><a href="#top">Back to top</a></p>
 
+<h4><a name="group_admin">3.2.7 Group administrators</a></h4>
+<table width="100%" border="0">
+	<tr valign="top">
+		<td><a href="images/group_admins_overview.png" target="_blank"><img src="images/thumbs/group_admins_overview.png" width="150" height="106" /></a></td>
+		<td valign="top"><p>The image on the left shows the group administrators overview dialog. You can select a group administrator by clicking on the <em>edit</em> icon on the right of the group administrator, 
+		                    delete a group administrator by clicking on the delete icon on the right of the group administrator or add a new group administrator. If you edit a group administrator or add a new group 
+		                    administrator you will see the select group dialogshown in the next picture.</p></td>
+	</tr>
+	<tr valign="top">
+		<td><a href="images/group_admins_select_group.png" target="_blank"><img src="images/thumbs/group_admins_select_group.png" width="150" height="106" /></a></td>
+		<td valign="middle"><p>Select the group you want to add a new group administrator.</p>
+		                    <p>After klicking the ok button you will see the doalog shown in the next picture.</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td><a href="images/group_admins_add_user.png" target="_blank"><img src="images/thumbs/group_admins_add_user.png" width="150" height="106" /></a></td>
+		<td valign="middle"><p>Select the user you want to grant privileges on the previous selected group. Select the right you want to give to the user.</p>
+		                    <p>After klicking the ok button you are finished.</p>
+		</td>
+	</tr>
+</table>
+<p>The global user rights determine what the user is allowed to do. The right can be <em>none</em>, <em>read</em>, <em>edit</em> or <em>delete</em>. Higher rights also include the lower rights. E. g. the delete right includes edit and read.</p>
+<p><a href="#top">Back to top</a></p>
+
 <h3><a name="use_reports">3.3 Reports menu</a></h3>
 <p>Several reports are predefined. The idea behind the reports is to give an auditor access to the given access rights, the users and their rights and the log without having any permissions to administer SVN Access Manager.</p>
 <p><a href="#top">Back to top</a></p>
@@ -538,6 +578,12 @@ B =
 
 <h4><a name="use_rep_user_rights">3.3.4 Granted user rights</a></h4>
 <p>Each user can be granted administrative rights. This report shows you the rights each user has within SVN Access Manager. Access rights to repositories are not included. There's an extra report for that.</p>
+<p><a href="#top">Back to top</a></p>
+
+<h2><a name="mailinglists">Mailinglists</a></h2>
+<p>There's a mailinglist called svn-access-manager-announce for announcements of new releases of SVN Access Manager. The list requires a subscription which can be 
+   <a href="http://listen.asamnet.de/cgi-bin/mailman/listinfo/svn-access-manager-announce" target="_blank">done</a> here in the Mailman Web Interface.</p>
+<p>New releases are announced on freshmeat.net and sourceforge.net as well.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h2><a name="license">License</a></h2>

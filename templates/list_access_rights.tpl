@@ -86,7 +86,15 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="11" class="hlp_center">
-				      	<input type="image" name="fSubmit_new" src="./images/edit_add.png" value="<?php print _("New access right"); ?>"  title="<?php print _("New access right"); ?>" />&nbsp;&nbsp;&nbsp;
+				        <?php
+				      		if( ($rightAllowed == "add") or
+				      		    ($rightAllowed == "edit") or
+				      		    ($rightAllowed == "delete") ) {
+				      		    
+				      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New access right")."\"  title=\""._("New access right")."\" />     ";
+				      		}
+				      	?>
+				      	
 				      	<input type="image" name="fSubmit_delete" src="./images/delete_all.png" value="<?php print _("Delete selected"); ?>"  title="<?php print _("Delete selected"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<?php

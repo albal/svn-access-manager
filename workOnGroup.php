@@ -40,9 +40,12 @@ $_SESSION['svn_sessid']['helptopic']		= "workongroup";
 
 if( $rightAllowed == "none" ) {
 	
-	db_disconnect( $dbh );
-	header( "Location: nopermission.php" );
-	exit;
+	$tGroupsAllowed							= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
+	if(count($tGroupsAllowed) == 0 ) {
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	}
 	
 }		  
 
@@ -59,6 +62,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tId								= "";
 
 	}
+	
+	if( ($rightAllowed == "add") and (($tTask != "new") and ($tTask != "relist")) ) {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	
+	}	
+	
+	if( ($rightAllowed == "none") and ( $tId != "") and (! array_key_exists( $tId, $tGroupsAllowed ) ) ) {
+		
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+		
+	}	
 	
 	if(strtolower($tTask) != "relist") {
 		

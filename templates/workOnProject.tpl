@@ -63,13 +63,19 @@
 						<td>
 							<table>
 								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
 									<td>
 										<strong><?php print _("Select project responsible users"); ?></strong>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<select name="members[]" multiple="" size="15" style="width: 100%; height=200px;">
+										<select name="members[]" multiple="" size="13" style="width: 100%; height=200px;">
 											<?php
 												foreach($tMembers as $uid => $member) {
 													$label = $member." [".$uid."]";
@@ -78,9 +84,6 @@
 											?>
 										</select>
 									</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
 								</tr>
 								<tr>
 									<td>
@@ -100,7 +103,5 @@
 					    </td>
 					</tr>
 				</table>
-				
-						
 			</form>
 		</div>
