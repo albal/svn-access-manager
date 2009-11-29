@@ -23,76 +23,208 @@ function createAuthUserFile( $dbh ) {
 	
 	global $CONF;
 	
+	if( (isset($CONF['separateFilesPerRepo'])) and ($CONF['separateFilesPerRepo'] == "YES") ) {
+		
+		$ret								= createAuthUserFilePerRepo( $dbh );
+		
+	} else {
+		
+		$retcode 							= 0;
+		$tMessage							= "";
+		$dir								= dirname( $CONF['AuthUserFile'] );
+		$entropy							= create_salt();
+		$tempfile							= $dir."/authtemp_".$entropy;
+			
+		if( $CONF['createUserFile'] == "YES" ) {
+			
+			if( db_set_semaphore( 'createauthuserfile', 'sem', $dbh ) ) {
+				
+				if( $fileHandle	= @fopen( $tempfile, 'w' ) ) {
+					
+					$query						= "SELECT * " .
+												  "  FROM svnusers " .
+												  " WHERE (deleted = '0000-00-00 00:00:00') " .
+												  "   AND (locked = '0') " .
+												  "ORDER BY userid";
+					$result						= db_query( $query, $dbh );
+					
+					while( $row = db_array( $result['result'] ) ) {
+						
+						if( ! @fwrite( $fileHandle, $row['userid'].":".$row['password']."\n" ) ) {
+							
+							$retcode 			= 1;
+							$tMessage			= _( "Can't write to AuthUser file" );
+							db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+						}
+						
+					}
+					
+					@fclose( $fileHandle );
+					
+					if( $retcode == 0 ) {
+						
+						if( @rename( $tempfile, $CONF['AuthUserFile'] ) ) {
+							
+							#if( @unlink( $tempfile ) ) {
+								
+								if( db_unset_semaphore( 'createauthuserfile', 'sem', $dbh ) ) {
+									
+									$tMessage			= _("Auth user file successfully created!" );
+									
+								} else {
+									
+									$retcode			= 1;
+									$tMessage			= _("Auth user file created but semaphore could not be released");
+									db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+								}
+								
+							#} else {
+								
+							#	$retcode				= 4;
+							#	$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+							#	db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+							#}
+							
+						} else {
+							
+							$retcode					= 3;
+							$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['AuthUserFile'] );
+							db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+						}
+						
+					}
+					
+				} else {
+					
+					$retcode						= 2;
+					$tMessage						= sprintf( _( "Cannot open file %s for writing!" ), $tempfile );
+					db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+				}
+				
+			} else {
+			
+				$retcode							= 1;
+				$tMessage							= _("Can't set semaphore, another process is writing Auth User File, try again later");
+			}
+			
+		} else {
+			
+			$retcode								= 0;
+			$tMessage								= _("Create of auth user file not configured!" );
+		}
+			
+		
+		$ret										= array();
+		$ret['error']								= $retcode;
+		$ret['errormsg']							= $tMessage;
+	}
+	
+	return $ret;
+}
+
+
+function createAuthUserFilePerRepo( $dbh ) {
+	
+	global $CONF;
+	
 	$retcode 							= 0;
 	$tMessage							= "";
 	$dir								= dirname( $CONF['AuthUserFile'] );
 	$entropy							= create_salt();
 	$tempfile							= $dir."/authtemp_".$entropy;
+	$curdate							= strftime( "%Y%m%d" );
 		
 	if( $CONF['createUserFile'] == "YES" ) {
 		
 		if( db_set_semaphore( 'createauthuserfile', 'sem', $dbh ) ) {
 			
-			if( $fileHandle	= @fopen( $tempfile, 'w' ) ) {
 				
-				$query						= "SELECT * " .
-											  "  FROM svnusers " .
-											  " WHERE (deleted = '0000-00-00 00:00:00') " .
-											  "   AND (locked = '0') " .
-											  "ORDER BY userid";
-				$result						= db_query( $query, $dbh );
-				
-				while( $row = db_array( $result['result'] ) ) {
-					
-					if( ! @fwrite( $fileHandle, $row['userid'].":".$row['password']."\n" ) ) {
-						
-						$retcode 			= 1;
-						$tMessage			= _( "Can't write to AuthUser file" );
-						db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
-					}
-					
+			$query						= "SELECT * " .
+										  "  FROM svnrepos " .
+										  " WHERE (deleted = '0000-00-00 00:00:00')";
+			$resultrepos				= db_query( $query, $dbh );
+			while( $row = db_array( $resultrepos['result'] ) ) {
+			
+				$repoid						= $row['id'];
+				$authuserfile				= $row['auth_user_file'];
+				$reponame					= $row['reponame'];
+				if( $authuserfile == "" ) {
+					$authuserfile			= dirname( $CONF['AuthUserFile'] )."/svn-passwd.".$reponame;
 				}
 				
-				@fclose( $fileHandle );
-				
-				if( $retcode == 0 ) {
+				if( $fileHandle	= @fopen( $tempfile, 'w' ) ) {
+												  
+					$query						= "SELECT DISTINCT svnusers.userid, svnusers.password " .
+												  "  FROM svnusers, svn_access_rights, svnrepos, svnprojects " .
+												  " WHERE (svnprojects.repo_id=$repoid) " .
+												  "   AND (svn_access_rights.project_id = svnprojects.id) " .
+												  "   AND (svnusers.id = svn_access_rights.user_id) " .
+												  "   AND (svnusers.id = svn_access_rights.user_id) " .
+												  "   AND (svnrepos.deleted = '0000-00-00 00:00:00') " .
+												  "   AND (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+												  "   AND (svn_access_rights.valid_from <= '$curdate') " .
+												  "   AND (svn_access_rights.valid_until >= '$curdate') " .
+												  "   AND (svnprojects.deleted = '0000-00-00 00:00:00') " .
+												  "   AND (svnusers.locked = '0') " .
+												  "ORDER BY svnusers.userid";
+												  
+					$result						= db_query( $query, $dbh );
 					
-					if( @copy( $tempfile, $CONF['AuthUserFile'] ) ) {
+					while( $row = db_array( $result['result'] ) ) {
 						
-						if( @unlink( $tempfile ) ) {
+						if( ! @fwrite( $fileHandle, $row['userid'].":".$row['password']."\n" ) ) {
 							
-							if( db_unset_semaphore( 'createauthuserfile', 'sem', $dbh ) ) {
-								
-								$tMessage			= _("Auth user file successfully created!" );
-								
-							} else {
-								
-								$retcode			= 1;
-								$tMessage			= _("Auth user file created but semaphore could not be released");
-								db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
-							}
-							
-						} else {
-							
-							$retcode				= 4;
-							$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+							$retcode 			= 1;
+							$tMessage			= _( "Can't write to AuthUser file" );
 							db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
 						}
 						
-					} else {
-						
-						$retcode					= 3;
-						$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['AuthUserFile'] );
-						db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
 					}
 					
+					@fclose( $fileHandle );	
+					
+					if( $retcode == 0 ) {
+						
+						if( @rename( $tempfile, $authuserfile ) ) {
+							
+						} else {
+							
+							$retcode					= 3;
+							$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['AuthUserFile'] );
+							db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+						}
+						
+					}
+					
+					#if( @unlink( $tempfile ) ) {
+								
+					#} else {
+						
+					#	$retcode				= 4;
+					#	$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+					#	db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+					#}
+					
+				} else {
+					
+					$retcode						= 2;
+					$tMessage						= sprintf( _( "Cannot open file %s for writing!" ), $tempfile );
+					db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+				
 				}
-				
-			} else {
-				
-				$retcode						= 2;
-				$tMessage						= sprintf( _( "Cannot open file %s for writing!" ), $tempfile );
-				db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+			}
+			
+			if( $retcode == 0 ) {
+				if( db_unset_semaphore( 'createauthuserfile', 'sem', $dbh ) ) {
+										
+					$tMessage			= _("Auth user file successfully created!" );
+					
+				} else {
+					
+					$retcode			= 1;
+					$tMessage			= _("Auth user file created but semaphore could not be released");
+					db_unset_semaphore( 'createauthuserfile', 'sem', $dbh );
+				}
 			}
 			
 		} else {
@@ -120,6 +252,308 @@ function createAccessFile( $dbh ) {
 	
 	global $CONF;
 	
+	if( (isset($CONF['separateFilesPerRepo'])) and ($CONF['separateFilesPerRepo'] == "YES") ) {
+		
+		$ret								= createAccessFilePerRepo( $dbh );
+		
+	} else {
+	
+		$retcode 							= 0;
+		$tMessage							= "";
+		$curdate							= strftime( "%Y%m%d" );
+		$oldpath							= "";
+		
+		if( $CONF['createAccessFile'] == "YES" ) {
+			
+			if( db_set_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
+				
+				$dir							= dirname( $CONF['SVNAccessFile'] );
+				$entropy						= create_salt();
+				$tempfile						= $dir."/accesstemp_".$entropy;
+			
+				if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
+				
+					$groupwritten						= 0;
+					
+					if( $retcode == 0 ) {
+					
+						# write groups to file
+						$query							= "  SELECT svngroups.groupname, svnusers.userid " .
+														  "    FROM svngroups, svnusers, svn_users_groups " .
+														  "   WHERE (svngroups.deleted = '0000-00-00 00:00:00') " .
+														  "     AND (svn_users_groups.user_id = svnusers.id) " .
+														  "     AND (svn_users_groups.group_id = svngroups.id) " .
+														  "     AND (svnusers.deleted = '0000-00-00 00:00:00') " .
+														  "     AND (svn_users_groups.deleted = '0000-00-00 00:00:00') " .
+														  "ORDER BY svngroups.groupname ASC";
+						$result							= db_query( $query, $dbh );
+						$oldgroup						= "";
+						$users							= "";
+						
+						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+							
+							if( $oldgroup != $row['groupname'] ) {
+								
+								if( $users != "" ) {
+									
+									if( $groupwritten == 0 ) {
+										
+										$groupwritten 	= 1;
+										if( ! @fwrite( $fileHandle, "[groups]\n" ) ) {
+							
+											$retcode	= 1;
+											$tMessage	= sprintf( _("Cannot write to %s"), $tempfile );
+											db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+										} 
+										
+									}
+									
+									if( ! @fwrite( $fileHandle, $oldgroup." = ".$users."\n" ) )  {
+										
+										$retcode		= 1;
+										$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+										db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									}
+									
+								} 
+								
+								$users					= $row['userid'];
+								$oldgroup				= $row['groupname'];
+								
+							} else {
+								
+								if( $users == "" ) {
+									
+									$users				= $row['userid'];
+									
+								} else {
+									
+									$users				= $users.", ".$row['userid'];
+									
+								}
+								
+							}
+							
+						}
+						
+						if( $users != "" ) {
+							
+							if( $groupwritten == 0 ) {
+										
+								$groupwritten 			= 1;
+								if( ! @fwrite( $fileHandle, "[groups]\n" ) ) {
+					
+									$retcode			= 1;
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								} 
+								
+									}
+							fwrite( $fileHandle, $oldgroup." = ".$users."\n" );
+							
+						}
+					}
+					
+					
+					if( $retcode == 0 ) {
+	
+						$first						= 1;
+						$query						= "SELECT * " .
+												  	  "  FROM svnusers " .
+												  	  " WHERE (superadmin = 1) " .
+												  	  "   AND (deleted = '0000-00-00 00:00:00')";
+						$resultusr 					= db_query( $query, $dbh );
+						while( $rowusr = db_array( $resultusr['result'] ) ) {
+	
+							if( $first == 1 ) {
+								
+								$first					= 0;
+								
+								# write superuser privileges for access to all repositories by http(s)
+								if( ! @fwrite( $fileHandle, "\n[/]\n" ) ) {
+											
+									$retcode			= 8;
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								}
+							}	
+							
+							if( ! @fwrite( $fileHandle, $rowusr['userid']." = r\n" ) ) {
+										
+								$retcode				= 5;
+								$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
+								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+							}
+									
+						}
+						
+					}
+					
+					
+					if( $retcode == 0 ) {
+						
+						# write access rights to file
+						
+						$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
+														  "    FROM svn_access_rights, svnprojects, svnrepos " .
+														  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+														  "     AND (svn_access_rights.valid_from <= '$curdate') " .
+														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
+														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
+														  "     AND (svnprojects.repo_id = svnrepos.id) " .
+														  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
+						$result							= db_query( $query, $dbh );
+						
+						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+							
+							if( $row['access_right'] == "none" ) {
+								
+								$right					= "";
+								
+							} elseif( $row['access_right'] == "read" ) {
+								
+								$right					= "r";
+								
+							} elseif( $row['access_right'] == "write" ) {
+								
+								$right					= "rw";
+								
+							} else {
+								
+								$right					= "";
+								
+							}
+							
+							$checkpath				= $row['repo_id'].$row['path'];
+							if( $checkpath != $oldpath ) {
+								
+								$oldpath				= $row['repo_id'].$row['path'];
+								if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$row['path']."]\n" ) ) {
+									
+									$retcode			= 4;
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								}
+								
+							} 
+							
+							if( $row['user_id'] != "0" ) {
+								
+								$query					= "SELECT * " .
+														  "  FROM svnusers " .
+														  " WHERE (id = ".$row['user_id'].")";
+								$resultusr				= db_query( $query, $dbh );
+								
+								if( $resultusr['rows'] == 1 ) {
+									
+									$rowusr				= db_array( $resultusr['result'] );
+									if( ! @fwrite( $fileHandle, $rowusr['userid']." = ".$right."\n" ) ) {
+										
+										$retcode		= 5;
+										$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+										db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									}
+									
+								}
+							}
+							
+							if( $row['group_id'] != "0" ) {
+							
+								$query					= "  SELECT * " .
+														  "    FROM svngroups " .
+														  "   WHERE (id = ".$row['group_id'].")";
+								$resultgrp				= db_query( $query, $dbh );
+								
+								if( $resultgrp['rows'] == 1 ) {
+									
+									$rowgrp				= db_array( $resultgrp['result'] );
+									if( ! @fwrite( $fileHandle, "@".$rowgrp['groupname']." = ".$right."\n" ) ) {
+										
+										$retcode		= 6;
+										$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+										db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									}
+									
+								} 	
+							}
+						}
+						
+						if( ! @fwrite( $fileHandle, "\n" ) ) {
+							
+							$retcode					= 7;
+							$tMessage					= sprintf( _("Cannot write to %s"), $tempfile );
+							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+										
+						} 
+					
+						@fclose( $fileHandle );
+						
+						if( @rename( $tempfile, $CONF['SVNAccessFile'] ) ) {
+							
+							#if( @unlink( $tempfile ) ) {
+								
+								if( db_unset_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
+								
+									$tMessage				= _( "Access file successfully created!" );
+									
+								} else {
+									
+									$retcode				= 1;
+									$tMessage				= _("Access file successfully created but semaphore could nor be released");
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									
+								}	
+								
+							#} else {
+								
+							#	$retcode				= 4;
+							#	$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+							#	db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+							#}
+							
+						} else {
+							
+							$retcode					= 3;
+							$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['SVNAccessFile'] );
+							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+						}	
+					}
+				
+				} else {
+					
+					$retcode						= 1;
+					$tMessage						= sprintf( _("Cannot open %s for wrtiting"), $tempfile );
+					db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+					
+				}
+				
+			} else {
+				
+				$retcode							= 1;
+				$tMessage							= _("Can't set semaphore, another process is writing access file, try again later");
+	
+			}
+		
+		} else {
+			
+			$retcode							= 0;
+			$tMessage							= _("Create of access file not configured!" );
+				
+		}
+		
+		$ret									= array();
+		$ret['error']							= $retcode;
+		$ret['errormsg']						= $tMessage;
+	}
+
+	return $ret;
+}
+
+
+function createAccessFilePerRepo( $dbh ) {
+	
+	global $CONF;
+	
 	$retcode 							= 0;
 	$tMessage							= "";
 	$curdate							= strftime( "%Y%m%d" );
@@ -132,244 +566,293 @@ function createAccessFile( $dbh ) {
 			$dir							= dirname( $CONF['SVNAccessFile'] );
 			$entropy						= create_salt();
 			$tempfile						= $dir."/accesstemp_".$entropy;
-		
-			if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
 			
-				if( ! @fwrite( $fileHandle, "[groups]\n" ) ) {
-					
-					$retcode					= 1;
-					$tMessage					= sprintf( _("Cannot write to %s"), $tempfile );
-					db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-				} 
+			$query						= "SELECT * " .
+										  "  FROM svnrepos " .
+										  " WHERE (deleted = '0000-00-00 00:00:00')";
+			$resultrepos				= db_query( $query, $dbh );
+			while( $row = db_array( $resultrepos['result'] ) ) {
+			
+				$repoid						= $row['id'];
+				$authuserfile				= $row['auth_user_file'];
+				$svnaccessfile				= $row['svn_access_file'];
+				$reponame					= $row['reponame'];
+				if( $svnaccessfile == "" ) {
+					$svnaccessfile			= dirname( $CONF['SVNAccessFile'] )."/svn-access.".$reponame;
+				}
+		
+				if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
 				
-				if( $retcode == 0 ) {
-				
-					# write groups to file
-					$query							= "  SELECT svngroups.groupname, svnusers.userid " .
-													  "    FROM svngroups, svnusers, svn_users_groups " .
-													  "   WHERE (svngroups.deleted = '0000-00-00 00:00:00') " .
-													  "     AND (svn_users_groups.user_id = svnusers.id) " .
-													  "     AND (svn_users_groups.group_id = svngroups.id) " .
-													  "     AND (svnusers.deleted = '0000-00-00 00:00:00') " .
-													  "     AND (svn_users_groups.deleted = '0000-00-00 00:00:00') " .
-													  "ORDER BY svngroups.groupname ASC";
-					$result							= db_query( $query, $dbh );
-					$oldgroup						= "";
-					$users							= "";
+					$groupwritten			= 0;
 					
-					while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+					if( $retcode == 0 ) {
+					
+						# write groups to file		
+						$query							= "  SELECT svngroups.groupname, svnusers.userid " .
+														  "    FROM svngroups, svnusers, svn_users_groups, svnprojects, svn_access_rights, svnrepos " .
+														  "   WHERE (svn_users_groups.user_id = svnusers.id) " .
+														  "     AND (svn_users_groups.group_id = svngroups.id) " .
+														  "     AND (svnprojects.repo_id = svnrepos.id) " .
+														  "     AND (svnprojects.repo_id=$repoid) " .
+														  "     AND (svnprojects.id = svn_access_rights.project_id) " .
+														  "     AND (svn_access_rights.group_id=svngroups.id) " .
+														  "     AND (svn_access_rights.group_id != 0) " .
+														  "     AND (svn_users_groups.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svn_access_rights.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svn_access_rights.valid_from <= '$curdate') " .
+														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
+														  "     AND (svnprojects.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svngroups.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svnrepos.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svnusers.deleted='0000-00-00 00:00:00') " .
+														  "ORDER BY svngroups.groupname ASC";
+						$result							= db_query( $query, $dbh );
+						$oldgroup						= "";
+						$users							= "";
 						
-						if( $oldgroup != $row['groupname'] ) {
+						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
 							
-							if( $users != "" ) {
+							if( $oldgroup != $row['groupname'] ) {
 								
-								if( ! @fwrite( $fileHandle, $oldgroup." = ".$users."\n" ) )  {
+								if( $users != "" ) {
+									
+									if( $groupwritten == 0 ) {
+										
+										$groupwritten		= 1;
+										
+										if( ! @fwrite( $fileHandle, "[groups]\n" ) ) {
+											
+											$retcode		= 1;
+											$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+											db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+										} 
+									}
+									
+									if( ! @fwrite( $fileHandle, $oldgroup." = ".$users."\n" ) )  {
+										
+										$retcode		= 1;
+										$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+										db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									}
+									
+								} 
+								
+								$users					= $row['userid'];
+								$oldgroup				= $row['groupname'];
+								
+							} else {
+								
+								if( $users == "" ) {
+									
+									$users				= $row['userid'];
+									
+								} else {
+									
+									$users				= $users.", ".$row['userid'];
+									
+								}
+								
+							}
+							
+						}
+						
+						if( $users != "" ) {
+							
+							if( $groupwritten == 0 ) {
+										
+								$groupwritten		= 1;
+								
+								if( ! @fwrite( $fileHandle, "[groups]\n" ) ) {
 									
 									$retcode		= 1;
 									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								} 
+							}
+							
+							fwrite( $fileHandle, $oldgroup." = ".$users."\n" );
+							
+						}
+
+					}
+					
+					
+					if( $retcode == 0 ) {
+	
+						$first						= 1;
+						$query						= "SELECT * " .
+												  	  "  FROM svnusers " .
+												  	  " WHERE (superadmin = 1) " .
+												  	  "   AND (deleted = '0000-00-00 00:00:00')";
+						$resultusr 					= db_query( $query, $dbh );
+						while( $rowusr = db_array( $resultusr['result'] ) ) {
+	
+							if( $first == 1 ) {
+								
+								$first					= 0;
+								
+								# write superuser privileges for access to all repositories by http(s)
+								if( ! @fwrite( $fileHandle, "\n[/]\n" ) ) {
+											
+									$retcode			= 8;
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								}
+							}	
+							
+							if( ! @fwrite( $fileHandle, $rowusr['userid']." = r\n" ) ) {
+										
+								$retcode				= 5;
+								$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
+								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+							}
+									
+						}
+						
+					}
+					
+					
+					if( $retcode == 0 ) {
+						
+						# write access rights to file
+						$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
+														  "    FROM svn_access_rights, svnprojects, svnrepos " .
+														  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+														  "     AND (svn_access_rights.valid_from <= '$curdate') " .
+														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
+														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
+														  "     AND (svnprojects.repo_id = svnrepos.id) " .
+														  "     AND (svnprojects.repo_id=$repoid) " .
+														  "     AND (svnprojects.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svnrepos.deleted='0000-00-00 00:00:00') " .
+														  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
+						$result							= db_query( $query, $dbh );
+						
+						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+							
+							if( $row['access_right'] == "none" ) {
+								
+								$right					= "";
+								
+							} elseif( $row['access_right'] == "read" ) {
+								
+								$right					= "r";
+								
+							} elseif( $row['access_right'] == "write" ) {
+								
+								$right					= "rw";
+								
+							} else {
+								
+								$right					= "";
+								
+							}
+							
+							$checkpath				= $row['repo_id'].$row['path'];
+							if( $checkpath != $oldpath ) {
+								
+								$oldpath				= $row['repo_id'].$row['path'];
+								if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$row['path']."]\n" ) ) {
+									
+									$retcode			= 4;
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
 									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
 								}
 								
 							} 
 							
-							$users					= $row['userid'];
-							$oldgroup				= $row['groupname'];
-							
-						} else {
-							
-							if( $users == "" ) {
+							if( $row['user_id'] != "0" ) {
 								
-								$users				= $row['userid'];
+								$query					= "SELECT * " .
+														  "  FROM svnusers " .
+														  " WHERE (id = ".$row['user_id'].")";
+								$resultusr				= db_query( $query, $dbh );
 								
-							} else {
-								
-								$users				= $users.", ".$row['userid'];
-								
-							}
-							
-						}
-						
-					}
-					
-					if( $users != "" ) {
-						
-						fwrite( $fileHandle, $oldgroup." = ".$users."\n" );
-						
-					}
-				}
-				
-				
-				if( $retcode == 0 ) {
-
-					$first						= 1;
-					$query						= "SELECT * " .
-											  	  "  FROM svnusers " .
-											  	  " WHERE (superadmin = 1) " .
-											  	  "   AND (deleted = '0000-00-00 00:00:00')";
-					$resultusr 					= db_query( $query, $dbh );
-					while( $rowusr = db_array( $resultusr['result'] ) ) {
-
-						if( $first == 1 ) {
-							
-							$first					= 0;
-							
-							# write superuser privileges for access to all repositories by http(s)
-							if( ! @fwrite( $fileHandle, "\n[/]\n" ) ) {
+								if( $resultusr['rows'] == 1 ) {
+									
+									$rowusr				= db_array( $resultusr['result'] );
+									if( ! @fwrite( $fileHandle, $rowusr['userid']." = ".$right."\n" ) ) {
 										
-								$retcode			= 8;
-								$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
-								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-							}
-						}	
-						
-						if( ! @fwrite( $fileHandle, $rowusr['userid']." = r\n" ) ) {
+										$retcode		= 5;
+										$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+										db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									}
 									
-							$retcode				= 5;
-							$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
-							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-						}
-								
-					}
-					
-				}
-				
-				
-				if( $retcode == 0 ) {
-					
-					# write access rights to file
-					$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
-													  "    FROM svn_access_rights, svnprojects, svnrepos " .
-													  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
-													  "     AND (svn_access_rights.valid_from <= '$curdate') " .
-													  "     AND (svn_access_rights.valid_until >= '$curdate') " .
-													  "     AND (svn_access_rights.project_id = svnprojects.id) " .
-													  "     AND (svnprojects.repo_id = svnrepos.id) " .
-													  "ORDER BY svnprojects.repo_id, svn_access_rights.path ASC";
-					$result							= db_query( $query, $dbh );
-					
-					while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
-						
-						if( $row['access_right'] == "none" ) {
-							
-							$right					= "";
-							
-						} elseif( $row['access_right'] == "read" ) {
-							
-							$right					= "r";
-							
-						} elseif( $row['access_right'] == "write" ) {
-							
-							$right					= "rw";
-							
-						} else {
-							
-							$right					= "";
-							
-						}
-						
-						$checkpath				= $row['repo_id'].$row['path'];
-						if( $checkpath != $oldpath ) {
-							
-							$oldpath				= $row['repo_id'].$row['path'];
-							if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$row['path']."]\n" ) ) {
-								
-								$retcode			= 4;
-								$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
-								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								}
 							}
 							
+							if( $row['group_id'] != "0" ) {
+							
+								$query					= "  SELECT * " .
+														  "    FROM svngroups " .
+														  "   WHERE (id = ".$row['group_id'].")";
+								$resultgrp				= db_query( $query, $dbh );
+								
+								if( $resultgrp['rows'] == 1 ) {
+									
+									$rowgrp				= db_array( $resultgrp['result'] );
+									if( ! @fwrite( $fileHandle, "@".$rowgrp['groupname']." = ".$right."\n" ) ) {
+										
+										$retcode		= 6;
+										$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+										db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									}
+									
+								} 	
+							}
+						}
+						
+						if( ! @fwrite( $fileHandle, "\n" ) ) {
+							
+							$retcode					= 7;
+							$tMessage					= sprintf( _("Cannot write to %s"), $tempfile );
+							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+										
 						} 
-						
-						if( $row['user_id'] != "0" ) {
-							
-							$query					= "SELECT * " .
-													  "  FROM svnusers " .
-													  " WHERE (id = ".$row['user_id'].")";
-							$resultusr				= db_query( $query, $dbh );
-							
-							if( $resultusr['rows'] == 1 ) {
-								
-								$rowusr				= db_array( $resultusr['result'] );
-								if( ! @fwrite( $fileHandle, $rowusr['userid']." = ".$right."\n" ) ) {
-									
-									$retcode		= 5;
-									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
-									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-								}
-								
-							}
-						}
-						
-						if( $row['group_id'] != "0" ) {
-						
-							$query					= "  SELECT * " .
-													  "    FROM svngroups " .
-													  "   WHERE (id = ".$row['group_id'].")";
-							$resultgrp				= db_query( $query, $dbh );
-							
-							if( $resultgrp['rows'] == 1 ) {
-								
-								$rowgrp				= db_array( $resultgrp['result'] );
-								if( ! @fwrite( $fileHandle, "@".$rowgrp['groupname']." = ".$right."\n" ) ) {
-									
-									$retcode		= 6;
-									$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
-									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-								}
-								
-							} 	
-						}
-					}
 					
-					if( ! @fwrite( $fileHandle, "\n" ) ) {
+						@fclose( $fileHandle );
 						
-						$retcode					= 7;
-						$tMessage					= sprintf( _("Cannot write to %s"), $tempfile );
-						db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-									
-					} 
-				
-					@fclose( $fileHandle );
-					
-					if( @copy( $tempfile, $CONF['SVNAccessFile'] ) ) {
-						
-						if( @unlink( $tempfile ) ) {
-							
-							if( db_unset_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
-							
-								$tMessage				= _( "Access file successfully created!" );
-								
-							} else {
-								
-								$retcode				= 1;
-								$tMessage				= _("Access file successfully created but semaphore could nor be released");
-								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-								
-							}	
+						if( @rename( $tempfile, $svnaccessfile ) ) {
 							
 						} else {
 							
-							$retcode				= 4;
-							$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+							$retcode					= 3;
+							$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['SVNAccessFile'] );
 							db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-						}
+						}	
+					}
+					
+					#if( @unlink( $tempfile ) ) {
+								
+					#} else {
 						
-					} else {
-						
-						$retcode					= 3;
-						$tMessage					= sprintf( _("Copy from %s to %s failed!"), $tempfile, $CONF['SVNAccessFile'] );
-						db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
-					}	
+					#	$retcode				= 4;
+					#	$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+					#	db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+					#}
+				
+				} else {
+					
+					$retcode						= 1;
+					$tMessage						= sprintf( _("Cannot open %s for wrtiting"), $tempfile );
+					db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+					
 				}
 			
+			} # end iteration over repos
+			
+			if( db_unset_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
+			
+				$tMessage				= _( "Access file successfully created!" );
+				
 			} else {
 				
-				$retcode						= 1;
-				$tMessage						= sprintf( _("Cannot open %s for wrtiting"), $tempfile );
+				$retcode				= 1;
+				$tMessage				= _("Access file successfully created but semaphore could nor be released");
 				db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
 				
-			}
-			
+			}	
+
 		} else {
 			
 			$retcode							= 1;
@@ -770,13 +1253,13 @@ function createViewvcConfig( $dbh ) {
 			
 			if( $retcode == 0 ) {
 				
-				if( @copy( $tempgroups, $CONF['ViewvcGroups'] ) ) {
+				if( @rename( $tempgroups, $CONF['ViewvcGroups'] ) ) {
 						
-					if( @unlink( $tempgroups ) ) {
+					#if( @unlink( $tempgroups ) ) {
 						
-						if( @copy( $tempfile, $CONF['ViewvcConf'] ) ) {
+						if( @rename( $tempfile, $CONF['ViewvcConf'] ) ) {
 							
-							if( @unlink( $tempfile ) ) {
+							#if( @unlink( $tempfile ) ) {
 								
 								if( db_unset_semaphore( 'createviewvcconf', 'sem', $dbh ) ) {
 							
@@ -790,12 +1273,12 @@ function createViewvcConfig( $dbh ) {
 								
 								}
 									
-							} else {
+							#} else {
 								
-								$retcode				= 4;
-								$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
-								db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
-							}
+							#	$retcode				= 4;
+							#	$tMessage				= sprintf( _("Delete of %s failed!"), $tempfile );
+							#	db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
+							#}
 							
 						} else {
 							
@@ -804,12 +1287,12 @@ function createViewvcConfig( $dbh ) {
 							db_unset_semaphore( 'createviewvcconf', 'sem', $dbh );
 						}
 						
-					} else {
+					#} else {
 						
-						$retcode				= 4;
-						$tMessage				= sprintf( _("Delete of %s failed!"), $tempgroups );
-						db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
-					}
+					#	$retcode				= 4;
+					#	$tMessage				= sprintf( _("Delete of %s failed!"), $tempgroups );
+					#	db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
+					#}
 					
 				} else {
 					

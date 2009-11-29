@@ -1,3 +1,33 @@
+Update to V0.4.0.0
+
+These are the steps to update from version 0.3.0.3 to 0.4.0.0
+
+1. Update the database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.3.0.2-to-0.3.1.0 adds new fields and
+   new tables.
+   
+   
+2. Edit config.inc.php in config folder
+
+   Add the following lines and change the values as needed:
+   $CONF['svnadmin_command']		= '/usr/bin/svnadmin';
+   $CONF['separateFilesPerRepo']	= 'NO';
+
+
+3. Release 0.4.0.0  comes with new features. That means that there are a lot of
+   files changed and serveral new files included. Either compare your installation to 
+   the current release or install the release from scratch and copy the changed config
+   file from your previous installation into your new installation.
+   
+
+You're finished.
+
+
+----------------------------------------------------------------------------------------
+
+
 
 Update to V0.3.0.2
 

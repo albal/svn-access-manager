@@ -17,7 +17,7 @@
 							<?php
 								foreach($tUsers as $uid => $name) {
 									
-									print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$name\">$name ($uid)</option>\n";
+									print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$name ($uid)\">$name ($uid)</option>\n";
 									
 								}   
 							?>

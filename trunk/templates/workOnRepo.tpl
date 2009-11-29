@@ -36,6 +36,56 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
+				   		<td><strong><?php print _("Create repository in filesystem").": "; ?></strong></td>
+				   		<?php
+				   			if( $_SESSION['svn_sessid']['task'] == "change" ) {
+				   				$checked			= "disabled";
+				   			} else {
+					   			if( $tCreateRepo == "1" ) {
+					   				$checked		= "checked";
+					   			} else {
+					   				$checked		= "";
+					   			}
+				   			}
+				   		?>
+				   		<td><input type="checkbox" name="fCreateRepo" value="1" <?php print $checked; ?> /></td>
+				   		<td><?php print _("This only works if SVN Access Manager runs on the same host where the repositories live.");?></td>
+				   	</tr>
+				   	<?php
+				   		if( isset( $CONF['separateFilesPerRepo'] ) ) {
+				   			if( $CONF['separateFilesPerRepo'] != "YES" ) {
+				   				print "<!--\n";
+				   			}
+				   		}
+				   	?>
+				   	<tr>
+				   		<td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td colspan="3"><?php print _("If you need separate configuration files for each repository specify the locations of the files here. If you do not give a path and filename config parameters will be used and the filename will be replaced accordingly."); ?></td>
+				   	</tr>
+				   	<tr>
+				   		<td nowrap><strong><?php print _("Auth user file").": "; ?></strong></td>
+				   		<td>
+				   			<input type="text" name="fAuthUserFile" value="<?php print $tAuthUserFile;?>" size="40" maxsize="255" />
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td nowrap><strong><?php print _("SVN access file").": "; ?></strong></td>
+				   		<td>
+				   			<input type="text" name="fSvnAccessFile" value="<?php print $tSvnAccessFile;?>" size="40" maxsize="255" />
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<?php
+				   		if( isset( $CONF['separateFilesPerRepo'] ) ) {
+				   			if( $CONF['separateFilesPerRepo'] != "YES" ) {
+				   				print "-->\n";
+				   			}
+				   		} 
+				   	?>
+				   	<tr>
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>

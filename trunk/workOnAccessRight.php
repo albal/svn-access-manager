@@ -122,6 +122,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	}
 	
+	if( ($rightAllowed == "add") and ($tTask != "new") ) {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	
+	}		
+	
 	$_SESSION['svn_sessid']['task']				= strtolower( $tTask );
 	
 	

@@ -262,6 +262,17 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
+					   		<td nowrap><strong><?php print _("Create per repository access files").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fPerRepoFiles" value="YES" <?php print $tPerRepoFilesYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fPerRepoFiles" value="NO" <?php print $tPerRepoFilesNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
 					   		<td nowrap><strong><?php print _("Create ViewVC configuration").": "; ?></strong></td>
 					   		<td>
 					   			<input type="radio" name="fViewvcConfig" value="YES" <?php print $tViewvcConfigYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
@@ -319,6 +330,16 @@ include( "../include/output.inc.php" );
 					   		</td>
 					   		<td>
 					   			<?php print _("Enter the full path and the name of the svn command."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("svnadmin command").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fSvnadminCommand" value="<?php print $tSvnadminCommand; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the full path and the name of the svnadmin command."); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>

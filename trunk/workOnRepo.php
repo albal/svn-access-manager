@@ -60,15 +60,27 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	}
 	
+	if( ($rightAllowed == "add") and ($tTask != "new") ) {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	
+	}		
+	
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
 	$_SESSION['svn_sessid']['repoid']		= $tId;
 	
 	if( $_SESSION['svn_sessid']['task'] == "new" ) {
    		
-   		$tReponame							= "";
-		$tRepopath							= "";
-		$tRepouser							= "";
-		$tRepopassword						= "";
+   		$tReponame								= "";
+		$tRepopath								= "";
+		$tRepouser								= "";
+		$tRepopassword							= "";
+		$tSeparate								= "";
+		$tAuthUserFile							= "";
+		$tSvnAccessFile							= "";
+		$tCreateRepo							= "";
 			
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
@@ -82,6 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tRepopath							= $row['repopath'];
 			$tRepouser							= $row['repouser'];
 			$tRepopassword						= $row['repopassword'];
+			$tSeparate							= $row['different_auth_files'];
+			$tAuthUserFile						= $row['auth_user_file'];
+			$tSvnAccessFile						= $row['svn_access_file'];
+			$tCreateRepo						= "";
 			
 		} else {
 		
@@ -91,16 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		
 	} else {
    			
-   			$tMessage						= sprintf( _( "Invalid task %s, anyone tampered arround with?" ), $_SESSION['svn_sessid']['task'] );
+   			$tMessage							= sprintf( _( "Invalid task %s, anyone tampered arround with?" ), $_SESSION['svn_sessid']['task'] );
    			
    	}
    		
 		
 	
-	$header									= "repos";
-	$subheader								= "repos";
-	$menu									= "repos";
-	$template								= "workOnRepo.tpl";
+	$header										= "repos";
+	$subheader									= "repos";
+	$menu										= "repos";
+	$template									= "workOnRepo.tpl";
 	
    	include ("./templates/framework.tpl");
 
@@ -108,23 +124,27 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
-   	$tReponame								= escape_string( $_POST['fReponame'] );
-   	$tRepopath								= escape_string( $_POST['fRepopath'] );
-   	$tRepouser								= escape_string( $_POST['fRepouser'] );
-   	$tRepopassword							= escape_string( $_POST['fRepopassword'] );
+   	$tReponame									= escape_string( $_POST['fReponame'] );
+   	$tRepopath									= escape_string( $_POST['fRepopath'] );
+   	$tRepouser									= escape_string( $_POST['fRepouser'] );
+   	$tRepopassword								= escape_string( $_POST['fRepopassword'] );
+   	#$tSeparate									= isset( $_POST['fSeparate'] ) 		  ? escape_String( $_POST['fSeparate'] ) : 0;
+   	$tAuthUserFile								= isset( $_POST['fAuthUserFile'] ) 	  ? escape_string( $_POST['fAuthUserFile'] ) : "";
+   	$tSvnAccessFile								= isset( $_POST['fSvnAccessFile'] )   ? escape_string( $_POST['fSvnAccessFile'] ) : "";
+   	$tCreateRepo								= isset( $_POST['fCreateRepo'] )	  ? escape_string( $_POST['fCreateRepo'] ) : "";
    	
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button								= escape_string( $_POST['fSubmit'] );
+		$button									= escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
-		$button								= _("Submit");
+		$button									= _("Submit");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
-		$button								= _("Back" );
+		$button									= _("Back" );
 	} elseif( isset( $_POST['fSubmit_ok'] ) ) {
-		$button								= _("Submit");
+		$button									= _("Submit");
 	} elseif( isset( $_POST['fSubmit_back'] ) ) {
-		$button								= _("Back" );
+		$button									= _("Back" );
 	} else {
-		$button								= "undef";
+		$button									= "undef";
 	}
    	   	
    	if( $button == _("Back" ) ) {
@@ -137,88 +157,129 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    		if( $_SESSION['svn_sessid']['task'] == "new" ) {
    			
-   			$error							= 0;
+   			$error								= 0;
    			
    			if( $tReponame == "" ) {
    				
-   				$tMessage					= _( "Repository name is missing, please fill in!" );
-   				$error						= 1;
+   				$tMessage						= _( "Repository name is missing, please fill in!" );
+   				$error							= 1;
    				
    			} elseif( $tRepopath == "" ) {
    				
-   				$tMessage					= _( "Repository path missing, please fill in!" );
-   				$error						= 1;
+   				$tMessage						= _( "Repository path missing, please fill in!" );
+   				$error							= 1;
    			
-   			} else {
-
-   				$query						= "SELECT * " .
-   											  "  FROM svnrepos " .
-   											  " WHERE (reponame = '$tReponame') " .
-   											  "   AND (deleted = '0000-00-00 00:00:00')";
-   				$result						= db_query( $query, $dbh );
+   			} elseif( (!preg_match( '/^file:\//', $tRepopath )) and (!preg_match( '/^http:\//', $tRepopath )) and (!preg_match( '/^https:\//', $tRepopath )) ) {
    				
-   				if( $result['rows'] > 0 ) {
-   					
-   					$tMessage				= _( "The repository with the name $tReponame exists already" );
-   					$error					= 1;
-   					
-   				} 
+   				$tMessage						= _("Repository path must start with file://, http:// or https://!");
+   				$error							= 1;
+   				
+   			} else {
+				
+				if( $error == 0 ) {
+	   				$query						= "SELECT * " .
+	   											  "  FROM svnrepos " .
+	   											  " WHERE (reponame = '$tReponame') " .
+	   											  "   AND (deleted = '0000-00-00 00:00:00')";
+	   				$result						= db_query( $query, $dbh );
+	   				
+	   				if( $result['rows'] > 0 ) {
+	   					
+	   					$tMessage				= _( "The repository with the name $tReponame exists already" );
+	   					$error					= 1;
+	   					
+	   				} 
+				}
    			}
   			   			
    			if( $error == 0 ) {
    				
-   				$query 						= "INSERT INTO svnrepos (reponame, repopath, repouser, repopassword, created, created_user) " .
-   											  "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', now(), '".$_SESSION['svn_sessid']['username']."')";
+   				$query 							= "INSERT INTO svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " .
+   												  "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', now(), '".$_SESSION['svn_sessid']['username']."')";
    				
    				db_ta( 'BEGIN', $dbh );
    				db_log( $_SESSION['svn_sessid']['username'], "addes repository $tReponame ($tRepopath)", $dbh );
    				
-   				$result						= db_query( $query, $dbh );
+   				$result							= db_query( $query, $dbh );
    				if( $result['rows'] != 1 ) {
    					
    					db_ta( 'ROLLBACK', $dbh );
    					
-   					$tMessaage				= _( "Error during database insert" );
+   					$tMessage					= _( "Error during database insert" );
    					
    				} else {
    					
    					db_ta( 'COMMIT', $dbh );
    					
-   					$tMessage				= _( "Repository successfully inserted" );
+   					$tMessage					= _( "Repository successfully inserted" );
    					
+   					if( $tCreateRepo == "1" ) {
+   						
+   						if( ! isset( $CONF['svnadmin_command'] ) or ($CONF['svnadmin_command'] == "") ) {
+   							
+   							$tMessage		= _("Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!");
+   							
+   						} else {
+	   						
+	   						if( preg_match( '/^file:\//', $tRepopath ) ) {
+	   							
+	   							$repopath			= preg_replace( '/^file:\/\//', '', $tRepopath );
+	   							$tCreateRepository 	= $CONF['svnadmin_command']." --pre-1.6-compatible create ".$repopath;
+	   							exec( escapeshellcmd($tCreateRepository), $output, $returncode );
+								sleep(2);
+								if( $returncode != 0 ) {
+									
+									$tMessage		= _("Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!");
+						
+								} else {
+									
+									$tMessage		= _("Repository successfully inserted into database and created in filesystem" );
+								}
+								
+	   						} else {
+	   						
+	   							$tMessage			= _("Repository sucessfully inserted into database but not created in filesystem because it's not locally hosted!");	
+	   						}
+   						}
+   						
+   					} 
    				}
    			}
    			
    		} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
-   			$error							= 0;
-   			$tReadonly						= "readonly";
+   			$error								= 0;
+   			$tReadonly							= "readonly";
    			
    			if( $tReponame == "" ) {
    				
-   				$tMessage					= _( "Repository name is missing, please fill in!" );
-   				$error						= 1;
+   				$tMessage						= _( "Repository name is missing, please fill in!" );
+   				$error							= 1;
    				
    			} elseif( $tRepopath == "" ) {
    				
-   				$tMessage					= _( "Repository path missing, please fill in!" );
-   				$error						= 1;
+   				$tMessage						= _( "Repository path missing, please fill in!" );
+   				$error							= 1;
    			
    			} else {
-
-   				$query						= "SELECT * " .
-   											  "  FROM svnrepos " .
-   											  " WHERE (reponame = '$tReponame') " .
-   											  "   AND (deleted = '0000-00-00 00:00:00') " .
-   											  "   AND (id != ".$_SESSION['svn_sessid']['repoid'].")";
-   				$result						= db_query( $query, $dbh );
+				
+				if( $error == 0 ) {
+	   				
+	   				$query					= "SELECT * " .
+	   										  "  FROM svnrepos " .
+	   										  " WHERE (reponame = '$tReponame') " .
+	   										  "   AND (deleted = '0000-00-00 00:00:00') " .
+	   										  "   AND (id != ".$_SESSION['svn_sessid']['repoid'].")";
+	   				$result					= db_query( $query, $dbh );
+	   				
+	   				if( $result['rows'] > 0 ) {
+	   					
+	   					$tMessage			= _( "The repository with the name $tReponame exists already" );
+	   					$error				= 1;
+	   					
+	   				}
    				
-   				if( $result['rows'] > 0 ) {
-   					
-   					$tMessage				= _( "The repository with the name $tReponame exists already" );
-   					$error					= 1;
-   					
-   				}
+				}
    			}
   			   			
    			if( $error == 0 ) {
@@ -229,6 +290,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    											   "       repopath = '$tRepopath', " .
    											   "       repouser = '$tRepouser', " .
    											   "       repopassword = '$tRepopassword', " .
+   											   "       auth_user_file='$tAuthUserFile', " .
+   											   "       svn_access_file='$tSvnAccessFile', " .
    											   "       modified = now(), " .
    											   "       modified_user = '".$_SESSION['svn_sessid']['username']."' " .
    											   " WHERE (id = ".$_SESSION['svn_sessid']['repoid'].")";

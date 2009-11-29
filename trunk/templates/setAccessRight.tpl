@@ -66,9 +66,9 @@
 								foreach($tUsers as $uid => $name) {
 									
 									if( $uid == $tUid ) {
-										print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$name\" selected>$name ($uid)</option>\n";
+										print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$name ($uid)\" selected>$name ($uid)</option>\n";
 									} else {
-										print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$name\">$name ($uid)</option>\n";
+										print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$name ($uid)\">$name ($uid)</option>\n";
 									}
 									
 								}   

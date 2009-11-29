@@ -22,10 +22,10 @@
 /*
 
 File:            config.inc.php.tpl
-$LastChangedDate: 2008-06-28 12:18:33 +0200 (Sat, 28 Jun 2008) $
-$LastChangedBy: kriegeth $
+$LastChangedDate$
+$LastChangedBy$
 
-$Id: config.inc.php.tpl 297 2008-06-28 10:18:33Z kriegeth $
+$Id$
 
 */
 
@@ -83,6 +83,7 @@ $CONF['pwcrypt']				= '###PWCRYPT###';
 $CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 
 $CONF['svn_command']			= '###SVNCMD###';
+$CONF['svnadmin_command']		= '###SVNADMINCMD###';
 $CONF['grep_command']			= '###GREPCMD###';
 $CONF['use_javascript']			= '###USEJS###';
 
@@ -97,6 +98,7 @@ $CONF['ViewvcRealm']			= '###VIEWVCREALM###';
 $CONF['createAccessFile']		= '###CREATEACCESSFILE###';
 $CONF['createUserFile']			= '###CREATEAUTHFILE###';
 $CONF['createViewvcConf']		= '###CREATEVIEWVCCONF###';
+$CONF['separateFilesPerRepo']	= '###SEPERATEFILESPERREPO###';
 
 $CONF['mail_password_warn']		= <<<EOM
 

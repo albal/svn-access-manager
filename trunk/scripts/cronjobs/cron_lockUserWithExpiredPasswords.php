@@ -24,10 +24,10 @@
 /*
 
 File:  cron_lockUserWithExpiredPasswords.php
-$LastChangedDate: 2008-06-04 15:07:39 +0200 (Wed, 04 Jun 2008) $
-$LastChangedBy: kriegeth $
+$LastChangedDate$
+$LastChangedBy$
 
-$Id: cron_lockUserWithExpiredPasswords.php 224 2008-06-04 13:07:39Z kriegeth $
+$Id$
 
 
 

@@ -29,7 +29,20 @@
 				   	<?php
 				   		foreach( $tRepos as $entry ) {
 				   		
-				   			$action					= "<a href=\"workOnRepo.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteRepo.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   			if( ($rightAllowed == "edit") or
+				   			    ($rightAllowed == "delete" ) ) {
+				   			    $edit				= "<a href=\"workOnRepo.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   			} else {
+				   				$edit				= "";
+				   			}
+				   			
+				   			
+				   			if( $rightAllowed == "delete" ) {
+				   				$delete				= "<a href=\"deleteRepo.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   			} else {
+				   				$delete				= "";
+				   			}
+				   			$action					= $edit."     ".$delete;
 				   			
 				   			print "\t\t\t\t\t<tr>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['reponame']."</td>\n";
@@ -47,7 +60,15 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="7" class="hlp_center">
-				      	<input type="image" name="fSubmit_new" src="./images/edit_add.png" value="<?php print _("New repository"); ?>"  title="<?php print _("New repository"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				        <?php
+				      		if( ($rightAllowed == "add") or
+				      		    ($rightAllowed == "edit") or
+				      		    ($rightAllowed == "delete") ) {
+				      		    
+				      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New repository")."\"  title=\""._("New repository")."\" />     ";
+				      		}
+				      	?>
+				      	
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<?php
 				      		if( $tPrevDisabled != "disabled" ) {

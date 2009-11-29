@@ -35,20 +35,25 @@
 	<div id="wrap">
 		<div id="header_login">
 			<div id="header_left">
-				<img src="./images/coco_logo.jpeg" width="200" height="60" border="0" />
+				<img src="images/svn-access-manager_200_60_white.jpg" width="200" height="60" border="0" />
 			</div>
 		</div>
 		<div id="edit_form">
+			<p>&nbsp;</p>
 			<h2><?php print _("Database error"); ?></h2>
 			<p>&nbsp;</p>
 			<table>
 				<tr>
-					<td><?php print _("DB Query").": "; ?></td>
+					<td width="200"><?php print _("DB Query").": "; ?></td>
 					<td><?php print $tDbQuery; ?></td>
 				<tr>
 				<tr>
-					<td><?php print _("DB Error").": "; ?></td>
+					<td width="200"><?php print _("DB Error").": "; ?></td>
 					<td><?php print $tDbError; ?></td>
+				</tr>
+				<tr>
+					<td width="200"><?php print _("DB Function").": "; ?></td>
+					<td><?php print $tDbFunction; ?></td>
 				</tr>
 			<table>
 			<p>&nbsp;</p>

@@ -24,10 +24,10 @@
 /*
 
 File:  cron_createAccessFiles.php
-$LastChangedDate: 2008-06-04 14:03:46 +0200 (Wed, 04 Jun 2008) $
-$LastChangedBy: kriegeth $
+$LastChangedDate$
+$LastChangedBy$
 
-$Id: cron_createAccessFiles.php 213 2008-06-04 12:03:46Z kriegeth $
+$Id$
 
 
 !!!!!=========================================================!!!!!
@@ -77,6 +77,20 @@ if( $CONF['createUserFile']	== 'YES' ) {
 	if( $tRetAuthUser['error'] != 0 ) {
 		
 		print $tRetAuthUser['errormsg']."\n";
+		
+	}
+	
+	db_disconnect( $dbh );
+}
+
+if( $CONF['createViewvcConf'] == "YES" ) {
+	
+	$dbh								= db_connect();
+	$tRetViewvcConf						= createViewvcConfig( $dbh );
+	
+	if( $tRetViewvcConf['error'] != 0 ) {
+		
+		print $tRetViewvcConf['errormsg']."\n";
 		
 	}
 	

@@ -28,14 +28,39 @@ include_once ("./include/output.inc.php");
 
 
 
-function getGroups( $start, $count, $dbh ) {
+function getGroups( $start, $count, $groupAdmin, $tGroupsAllowed, $dbh ) {
 	
-	$tGroups			= array();
-	$query				= "SELECT  * " .
-						  "   FROM svngroups " .
-						  "   WHERE (deleted = '0000-00-00 00:00:00') " .
-						  "ORDER BY groupname ASC " .
-						  "   LIMIT $start, $count";
+	$tGroups				= array();
+	
+	if( $groupAdmin == 1 ) {
+		
+		$grouplist			= "";
+		
+		foreach( $tGroupsAllowed as $groupid => $right ) {
+
+			if( $grouplist == "" ) {
+				$grouplist	= "'".$groupid."'";
+			} else {
+				$grouplist .= ",'".$groupid."'";
+			}
+		}
+		
+		$grouplist			= "(".$grouplist.")";
+		
+		$query				= "SELECT  * " .
+							  "   FROM svngroups " .
+							  "   WHERE (deleted = '0000-00-00 00:00:00') " .
+							  "     AND (id in $grouplist) " .
+							  "ORDER BY groupname ASC " .
+							  "   LIMIT $start, $count";
+	} else {
+		$query				= "SELECT  * " .
+							  "   FROM svngroups " .
+							  "   WHERE (deleted = '0000-00-00 00:00:00') " .
+							  "ORDER BY groupname ASC " .
+							  "   LIMIT $start, $count";
+	}
+	
 	$result				= db_query( $query, $dbh );
 	   	
 	while( $row = db_array( $result['result']) ) {
@@ -43,18 +68,41 @@ function getGroups( $start, $count, $dbh ) {
 		$tGroups[] 		= $row;
 	   		
 	}
-
+	
 	return $tGroups;
 }
 
-function getCountGroups( $dbh ) {
+function getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh ) {
 	
-	$tGroups			= array();
-	$query				= "SELECT  COUNT(*) AS anz " .
-						  "   FROM svngroups " .
-						  "   WHERE (deleted = '0000-00-00 00:00:00') ";
+	$tGroups				= array();
+	
+	if( $groupAdmin == 1 ) {
+		$grouplist			= "";
+		
+		foreach( $tGroupsAllowed as $groupid => $right ) {
+			
+			if( $grouplist == "" ) {
+				$grouplist	= "'".$groupid."'";
+			} else {
+				$grouplist .= ",'".$groupid."'";
+			}
+		}
+		
+		$grouplist			= "(".$grouplist.")";
+		
+		$query				= "SELECT  COUNT(*) AS anz " .
+							  "   FROM svngroups " .
+							  "   WHERE (deleted = '0000-00-00 00:00:00') " .
+							  "     AND (id in $grouplist)";
+		
+	} else {
+		$query				= "SELECT  COUNT(*) AS anz " .
+							  "   FROM svngroups " .
+							  "   WHERE (deleted = '0000-00-00 00:00:00') ";
+	}
+	
 	$result				= db_query( $query, $dbh );
-	
+		
 	if( $result['rows'] == 1 ) {
 		
 		$row			= db_array( $result['result'] );
@@ -67,7 +115,6 @@ function getCountGroups( $dbh ) {
 		return false;
 		
 	}
-	
 }
 
 
@@ -82,20 +129,29 @@ $CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "list_groups";
+$groupAdmin									= 0;
+$tGroupsAllowed								= array();
 
 if( $rightAllowed == "none" ) {
 	
-	db_disconnect( $dbh );
-	header( "Location: nopermission.php" );
-	exit;
+	$tGroupsAllowed							= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
+	if(count($tGroupsAllowed) == 0 ) {
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	} else {
+		$groupAdmin							= 1;
+	}
 	
-}		  
+} else {
+	$groupAdmin								= 2;
+}	  
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
    	$_SESSION['svn_sessid']['groupcounter']		= 0;
-   	$tGroups									= getGroups( 0, $CONF['page_size'], $dbh );
-   	$tCountRecords								= getCountGroups( $dbh );
+   	$tGroups									= getGroups( 0, $CONF['page_size'], $groupAdmin, $tGroupsAllowed, $dbh );
+   	$tCountRecords								= getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh );
    	$tPrevDisabled								= "disabled";
    	
    	if( $tCountRecords <= $CONF['page_size'] ) {

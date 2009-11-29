@@ -138,22 +138,32 @@
 			   				
 			   				$tNone						= "selected";
 			   				$tRead						= "";
+			   				$tAdd						= "";
 			   				$tEdit						= "";
 			   				$tDelete					= "";   				
 			   					
 		   					if(strtolower($tRightsGranted[$id]) == "read") {
 		   						$tNone				= "";
 		   						$tRead				= "selected";
+		   						$tAdd				= "";
+		   						$tEdit				= "";
+		   						$tDelete			= "";
+		   					} elseif(strtolower($tRightsGranted[$id]) == "add" ) {
+		   						$tNone				= "";
+		   						$tRead				= "";
+		   						$tAdd				= "selected";
 		   						$tEdit				= "";
 		   						$tDelete			= "";
 		   					} elseif(strtolower($tRightsGranted[$id]) == "edit" ) {
 		   						$tNone				= "";
 		   						$tRead				= "";
+		   						$tAdd				= "";
 		   						$tEdit				= "selected";
 		   						$tDelete			= "";
 		   					} elseif(strtolower($tRightsGranted[$id]) == "delete" ) {
 		   						$tNone				= "";
 		   						$tRead				= "";
+		   						$tAdd				= "";
 		   						$tEdit				= "";
 		   						$tDelete			= "selected";
 		   					}
@@ -161,10 +171,16 @@
 			   							   				
 			   				print "\t\t\t\t\t\t\t\t\t<option value='none' ".$tNone.">"._("none")."</option>\n";
 			   				if( ($right['allowed_action'] == "read") or 
+			   					($right['allowed_action'] == "add") or
 			   					($right['allowed_action'] == "edit") or 
 			   					($right['allowed_action'] == "delete")) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='read' ".$tRead.">"._("read")."</option>\n";
+			   				}
+			   				if( ($right['allowed_action'] == "add" ) or
+			   				    ($right['allowed_action'] == "edit") or
+			   					($right['allowed_action'] == "delete") ) {
+			   					print "\t\t\t\t\t\t\t\t\t<option value='add' ".$tAdd.">"._("add")."</option>\n";
 			   				}
 			   				if( ($right['allowed_action'] == "edit") or
 			   					($right['allowed_action'] == "delete") ) {

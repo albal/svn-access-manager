@@ -360,7 +360,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			
 	   	}
 	   	
-	   	if( (count($tUsers) == 0) and (count($tGroups) == 0) ) {
+	   	if( ($_SESSION['svn_sessid']['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0) ) {
 	   		
 	   		$tMessage						= _("No user and no group selected!");
 	   		$error							= 1; 

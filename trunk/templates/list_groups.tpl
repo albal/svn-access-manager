@@ -25,7 +25,25 @@
 				   	<?php
 				   		foreach( $tGroups as $entry ) {
 				   		
-				   			$action					= "<a href=\"workOnGroup.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteGroup.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   			$groupRight				=  isset($tGroupsAllowed[$entry['id']]) ? $tGroupsAllowed[$entry['id']] : "none";
+				   			
+				   			if( ($rightAllowed == "edit") or
+				   			    ($rightAllowed == "delete") or
+				   			    ($groupRight == "edit") or
+				   			    ($groupRight == "delete") 
+				   			   ) {
+				   			    $edit				= "<a href=\"workOnGroup.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   			} else {
+				   				$edit				= "";
+				   			}
+				   			
+				   			
+				   			if( ($rightAllowed == "delete") or ($groupRight == "delete") ) {
+				   				$delete				= "<a href=\"deleteGroup.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   			} else {
+				   				$delete				= "";
+				   			}
+				   			$action					= $edit."     ".$delete;
 				   			
 				   			print "\t\t\t\t\t<tr>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['groupname']."</td>\n";
@@ -41,7 +59,15 @@
 				   	</tr>
 				   	<tr>
 				      <td colspan="5" class="hlp_center">
-				      	<input type="image" name="fSubmit_new" src="./images/add_group.png" value="<?php print _("New group"); ?>"  title="<?php print _("New group"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				        <?php
+				      		if( ($rightAllowed == "add") or
+				      		    ($rightAllowed == "edit") or
+				      		    ($rightAllowed == "delete") ) {
+				      		    
+				      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_group.png\" value=\""._("New group")."\"  title=\""._("New group")."\" />     ";
+				      		}
+				      	?>
+				      	
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<?php
 				      		if( $tPrevDisabled != "disabled" ) {

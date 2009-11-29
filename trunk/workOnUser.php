@@ -34,7 +34,7 @@ function getRights( $dbh ){
 	$query										= "SELECT id, right_name, allowed_action, description_$lang AS description " .
 												  "  FROM rights " .
 												  " WHERE (deleted = '0000-00-00 00:00:00') " .
-												  "ORDER BY id ASC";
+												  " ORDER BY id ASC";
 	$result										= db_query( $query, $dbh );
 	
 	while( $row = db_array( $result['result'] ) ) {
@@ -97,6 +97,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tId								= "";
 
 	}
+
+	if( ($rightAllowed == "add") and ($tTask != "new") ) {
+	
+		db_disconnect( $dbh );
+		header( "Location: nopermission.php" );
+		exit;
+	
+	}		
 	
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
 	$_SESSION['svn_sessid']['userid']		= $tId;
@@ -449,6 +457,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    												  "       allowed = '$value' " .
    												  " WHERE (user_id = ".$_SESSION['svn_sessid']['userid'].") " .
    											  	"   AND (right_id = $right_id)";
+
    							
    							} else {
    							

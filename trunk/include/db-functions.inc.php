@@ -57,10 +57,17 @@ function db_connect () {
          
           $_SESSION['svn_sessid']['dberror']		= mysql_errno().": ".mysql_error();
       	  $_SESSION['svn_sessid']['dbquery']		= "MySQL 3.x / 4.0 functions not available!<br />database_type = 'mysql' in config.inc.php, are you using a different database?";
+      	  $_SESSION['svn_sessid']['dbfunction']		= "db_connect";
+      	  
 	 	  db_ta ("ROLLBACK", $link);
 	 	  db_disconnect( $link );
 	 	
-	 	  header( "location: database_error.php");
+	 	  if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	    $location								= "database_error.php";
+	      } else {
+	  	    $location								= "../database_error.php";
+	  	  }
+	 	  header( "location: $location");
 	 	  exit;
          
       }
@@ -96,7 +103,12 @@ function db_connect () {
 	  db_ta ("ROLLBACK", $link);
 	  db_disconnect( $link );
 	 	
-	  header( "location: database_error.php");
+	  if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	$location								= "database_error.php";
+	  } else {
+	  	$location								= "../database_error.php";
+	  }
+	  header( "location: $location");
 	  exit;
    }
 }
@@ -130,7 +142,13 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
 	 	  db_ta ("ROLLBACK", $link);
 	 	  db_disconnect( $link );
 	 	
-	 	  header( "location: database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError");
+	 	  if ( file_exists ( realpath ( "database_error_install.php" ) ) ) {
+	  	      $location								= "../database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_connect_install";
+	      } else {
+	  	      $location								= "../database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_connect_install";
+	      }
+	 	  error_log( $location );
+	 	  header( "location: $location");
 	 	  exit;
          
       }
@@ -153,11 +171,11 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
    } else {
    	
 	  $tDbError				= mysql_errno().": ".mysql_error();
-      $tDbQuery				= "Connect: Unable to connect to database: Make sure that you have set the correct database type in the config.inc.php file";
+      $tDbQuery				= "Connect: Unable to connect to database: Make sure that you have set the correct database type in the config.inc.php file and username and password are corect also!";
 	  db_ta ("ROLLBACK", $link);
 	  db_disconnect( $link );
 	 	
-	  if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  if ( file_exists ( realpath ( "database_error_install.php" ) ) ) {
 	  	$location								= "database_error_install.php";
 	  } else {
 	  	$location								= "../database_error_install.php";
@@ -217,6 +235,9 @@ function db_query ($query, $link) {
       	$_SESSION['svn_sessid']['dbquery']		= $query;
 	 	db_ta ("ROLLBACK", $link);
 	 	db_disconnect( $link );
+	 	
+	 	error_log( "DB-Error: ".$_SESSION['svn_sessid']['dberror'] );
+	 	error_log( "DB-Query: ".$_SESSION['svn_sessid']['dbquery'] );
 	 	
 	 	if ( file_exists ( realpath ( "database_error.php" ) ) ) {
 	  		$location								= "database_error.php";
@@ -291,11 +312,18 @@ function db_query_install ($query, $link) {
       if(! $result = @mysql_query ($query, $link)) { 
       	
       	$tDbError			= mysql_errno().": ".mysql_error();
-    	$tDbQuery			= "MySQL 3.x / 4.0 functions not available!<br />database_type = 'mysql' in config.inc.php, are you using a different database?";
+    	$tDbQuery			= $query;
     	
-      	error_log( "DB Error: $tDBError" );
+      	error_log( "DB Error: $tDbError" );
+      	error_log( "DB Query: $query" );
       	
-      	header( "location: database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError");
+      	if ( file_exists ( realpath ( "./database_error_install.php" ) ) ) {
+      		$location		= "database_error_install.php";
+      	} else {
+      		$location		= "../database_error_install.php";
+      	}
+      	
+      	header( "location: ".$location."?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install");
 	 	exit;
       }
    }
@@ -701,7 +729,7 @@ function db_getRightData( $id, $link ) {
 //
 // db_check_acl
 // Action: check if user has permission to do something
-// Call: db_check_acl( string username, string action, ressource dbh )
+// Call: db_check_acl( string username, string action, resource dbh )
 //
 function db_check_acl( $username, $action, $dbh ) {
 
@@ -717,17 +745,51 @@ function db_check_acl( $username, $action, $dbh ) {
 	$result 						= db_query( $query, $dbh );
 	
 	if( $result['rows'] > 0 ) {
-		
+
 		$row    					= db_array( $result['result'] );
 		$right 						= $row['allowed'];
 		
+		
 	} else {
 	
-		$right = "none";
+		$right 						= "none";
 		
 	}
 
 	return $right;
+}
+
+
+
+//
+// db_check_group_acl
+// Action: check if user is allowed to administer a particular group
+// Call: db_check_group_acl( string username, resource dbh )
+//
+function db_check_group_acl( $username, $dbh ) {
+	
+	$query							= "SELECT svn_groups_responsible.allowed, svn_groups_responsible.group_id " .
+									  "  FROM svn_groups_responsible, svnusers " .
+									  " WHERE (svnusers.id = svn_groups_responsible.user_id) " .
+									  "   AND (svnusers.userid = '$username') " .
+									  "   AND (svn_groups_responsible.deleted = '0000-00-00 00:00:00') " .
+									  "   AND (svnusers.deleted = '0000-00-00 00:00:00')";
+	$result							= db_query( $query, $dbh );
+	$tAllowedGroups					= array();
+	
+	if( $result['rows'] > 0 ) {
+		
+		
+		while( $row = db_array( $result['result'] ) ) {
+			
+			$groupid					= $row['group_id'];
+			$right 						= $row['allowed'];
+			$tAllowedGroups[$groupid]	= $right;
+		}
+		
+	}
+	
+	return $tAllowedGroups;
 }
 
 

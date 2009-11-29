@@ -21,7 +21,7 @@
 
 /*
 
-$Id: output.inc.php 193 2008-06-04 09:04:49Z kriegeth $
+$Id$
 
 */
 
@@ -134,6 +134,7 @@ function outputMenu($area) {
 	$rightAccessRightAdmin		= db_check_acl( $_SESSION['svn_sessid']['username'], 'Access rights admin', $dbh );
 	$rightCreateFiles			= db_check_acl( $_SESSION['svn_sessid']['username'], 'Create files', $dbh );
 	$rightReports				= db_check_acl( $_SESSION['svn_sessid']['username'], 'Reports', $dbh );
+	$tGroupsAllowed				= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
 	
 	
 	if( ($_SESSION['svn_sessid']['admin'] == "p" ) or
@@ -142,6 +143,7 @@ function outputMenu($area) {
 	    ($rightProjectAdmin != "none") or
 	    ($rightRepositoryAdmin != "none") or
 	    ($rightAccessRightAdmin != "none") or
+	    (count($tGroupsAllowed) > 0) or
 	    ($rightCreateFiles != "none") ) 
 	{
 		
@@ -159,6 +161,11 @@ function outputMenu($area) {
 	}
 	
 	if( $rightGroupAdmin != "none" ) {
+		
+		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_groups.php\">"._("Groups")."</a></li>\n";
+		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_group_admins.php\">"._("Group administrators")."</a></li>\n";
+		
+	} elseif( count($tGroupsAllowed) > 0 ) {
 		
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_groups.php\">"._("Groups")."</a></li>\n";
 		
@@ -194,6 +201,7 @@ function outputMenu($area) {
 	    ($rightProjectAdmin != "none") or
 	    ($rightRepositoryAdmin != "none") or
 	    ($rightAccessRightAdmin != "none") or
+	    (count($tGroupsAllowed) > 0) or
 	    ($rightCreateFiles != "none") ) 
 	{
 	    		
