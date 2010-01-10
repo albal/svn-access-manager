@@ -2,6 +2,10 @@ Change Log
 ==========
 
 
+Release 0.4.0.1 
+	- fixed bug 2926359
+	  do not set 'session.save_handler' to user if sessions are not stored in database.
+	  
 Release 0.4.0.0
 	- added additional global right "add" which allows only to add new entries but do not allow to change
 	  any existing entries
