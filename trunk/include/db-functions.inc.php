@@ -1069,12 +1069,12 @@ class Session {
     }
 }
 
-ini_set('session.gc_probability', 50);
-ini_set('session.gc_divisor', 50);
-ini_set('session.save_handler', 'user');
-ini_set('session.gc_maxlifetime', '1800');
-
 if( isset( $CONF) and ($CONF['session_in_db'] == "YES") ) {
+	
+	ini_set('session.gc_probability', 50);
+	ini_set('session.gc_divisor', 50);
+	ini_set('session.save_handler', 'user');
+	ini_set('session.gc_maxlifetime', '1800');
 	
 	session_set_save_handler(array('Session', 'open'),
 	                         array('Session', 'close'),
