@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-28 20:46+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-01-13 20:04+0100\n"
+"PO-Revision-Date: 2010-01-13 21:24+0100\n"
+"Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
+"Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:159
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:250
@@ -298,6 +299,26 @@ msgstr "<"
 #: /export/home/kriegeth/workspace/svn_access_manager/list_groups.php:210
 msgid "<<"
 msgstr "<<"
+
+#: /export/home/kriegeth/workspace/svn_access_manager/templates/password_policy.tpl:23
+#, php-format
+msgid ""
+"<h3>Password policy</h3>\n"
+"\t\t\t\t<p>&nbsp;</p>\n"
+"\t\t\t\t<p>A password must consist of %s characters at least. It must include one character \n"
+"\t\t\t\tof the %s groups digits, lower case characters. upper case characters and special \n"
+"\t\t\t\tcharacters for adminitrator passwords. User passwords must include %s of the four \n"
+"\t\t\t\tgroups mentioned above.</p>\n"
+"\t\t\t\t<p>&nbsp;</p>\n"
+"\t\t\t\t<p>The following special characters are allowed: %s</p>"
+msgstr ""
+"<h3>Passwort Richtlinien</h3>\n"
+"\t\t\t\t<p>&nbsp;</p>\n"
+"\t\t\t\t<p>Ein Passwort muss aus mindestens %s Zeichen bestehen. Es muss für Administrator Passworte jeweils mindestens ein Zeichen aus \n"
+"\t\t\t\tden %s Gruppen Ziffern, Kleinbuchstaben, Großbuchstaben und Sonderzeichen \n"
+"\t\t\t\tenthalten. Benutzerpassworte müssen Zeichen aus mindestens %s der vorher geannten Gruppen enthalten.</p>\n"
+"\t\t\t\t<p>&nbsp;</p>\n"
+"\t\t\t\t<p>Die folgenden Sonderzeichen sind erlaubt: %s</p>"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/password_policy.tpl:13
 #, php-format
@@ -5875,3 +5896,4 @@ msgstr "schreiben"
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:164
 msgid "yes"
 msgstr "Ja"
+
