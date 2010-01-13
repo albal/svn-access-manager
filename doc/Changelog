@@ -2,6 +2,15 @@ Change Log
 ==========
 
 
+Release 0.4.0.2
+	- fixed a bug in list project screen
+	- added two constants to make password complexity configurable. Passwords must consist
+	  of lower-case, upper-case characters, digits and special characters. Normally an administrator
+	  has to use all for groups, a normal user has to use three groups at least. Two constants are 
+	  added ($CONF['minPasswordGroups'] and $CONF['minPasswordGroupsUser']) to enable configuration.
+	  If not set or out of range (1 - 4) 3 is assumed for normal users and 4 is assumed for 
+	  administrators.
+	 
 Release 0.4.0.1 
 	- fixed bug 2926359
 	  do not set 'session.save_handler' to user if sessions are not stored in database.

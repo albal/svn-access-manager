@@ -10,8 +10,20 @@ Open:
 - add online help
        -> particularly done, more texts to be added.
 
+- support PostgreSQL
+  have a look about mysql_insert_id and PostgreSQL
+
+- support mysqli
+
+- add security question for password reset
+
+- add language support for MySQL
+
+
 
 Done:
+
+- make password complexity configurable
 
 - create new repositories from the webserver
   This is only possible if SVN Access Manager runs on the same host where the 

@@ -75,6 +75,13 @@ $CONF['passwordSpecialChars']	= '[\!\"\§\$\%\/\(\)=\?\*\+\#\-\_\.\:\,\;\<\>\|\@
 $CONF['passwordSpecialCharsTxt']= '!"§$%/()=?*+#-_.:,;<>|@';
 $CONF['minPasswordlength']		= ###MINPWADMIN###;
 $CONF['minPasswordlengthUser']	= ###MINPWUSER###;
+// Set passwword complexity. A password must consist of four different goups och charactsers.
+// The four groups are locer-case and upper-case characters, special characters and digits
+// The two config varaibles $CONF['minPasswordGroups'] and $CONF['minPasswordGroupsUser']
+// allow to set how many groups a password must consist of. The maximum is 4, the minimum is 1!
+// If the values are out of range, for user 3 is assumed and for admins 4 is assumed
+$CONF['minPasswordGroups']		= 4;
+$CONF['minPasswordGroupsUser']	= 3;
 $CONF['password_expires']		= 60;
 $CONF['password_expires_warn']	= 50;
 # valid values for pwcrypt are md5 or crypt
