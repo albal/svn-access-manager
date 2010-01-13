@@ -9,14 +9,24 @@
 					$len			= $CONF['minPasswordlengthUser'];
 					
 				}
+				if( isset($CONF['minPasswordGroups']) {
+					$minGroups		= $CONF['minPasswordGroups'];
+				} else {
+					$minGroups		= 4;
+				}
+				if( isset($CONF['minPasswordGroupsUser']) ) {
+					$minGroupsUser	= $CONF['minPasswordGroupsUser'];
+				} else {
+					$minGroupsUser	= 3;
+				}
 				
 				$msg = sprintf( _("<h3>Password policy</h3>
 				<p>&nbsp;</p>
 				<p>A password must consist of %s characters at least. It must include one character 
-				of the four groups digits, lower case characters. upper case characters and special 
-				characters for adminitrator passwords. User passwords must include three of the four 
+				of the %s groups digits, lower case characters. upper case characters and special 
+				characters for adminitrator passwords. User passwords must include %s of the four 
 				groups mentioned above.</p>
 				<p>&nbsp;</p>
-				<p>The following special characters are allowed: %s</p>"), $len, htmlspecialchars($CONF['passwordSpecialCharsTxt']));
+				<p>The following special characters are allowed: %s</p>"), $len, htmlspecialchars($CONF['passwordSpecialCharsTxt']), $minGroups, $minGroupsUser);
 				print $msg;
 			?>

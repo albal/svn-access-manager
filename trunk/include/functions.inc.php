@@ -717,21 +717,52 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 	$pattern			= '/'.$CONF['passwordSpecialChars'].'/';
 	$specialChars		= preg_match( $pattern, $password );
 	$passwordLength		= strlen( $password );
+	$groups				= 0;
+	
+	if( $smallLetters != 0 ) {
+		$groups++;
+	}
+	
+	if( $capitalLetters != 0 ) {
+		$groups++;
+	}
+	
+	if( $numbers != 0 ) {
+		$groups++;
+	}
+	
+	if( $specialChars != 0 ) {		
+		$groups++;
+	}
 	
 	if( $admin == "y" ) {
-	
-		if( ($smallLetters == 0) 	or 
-		    ($capitalLetters == 0) 	or 
-		    ($numbers == 0)			or 
-		    ($specialChars == 0) 	or 
-		    ($passwordLength < $CONF['minPasswordlength']) ) {
+		if( $passwordLength < $CONF['minPasswordlength'] ) {
 			
 			$retval			= 0;
-		
+			
 		} else {
+		
+			if( isset( $CONF['minPasswordGroups'] ) ) {
 			
-			$retval			= 1;
+				if( ($CONF['minPasswordGroups'] < 1) or ($CONF['minPasswordGroups'] > 4) ) {
+					$minGroups	= 4;
+				} else {
+					$minGroups	= $CONF['minPasswordGroups'];
+				}
+				
+			} else {
+				$minGroups		= 4;
+			}
 			
+			if( $groups < $minGroups ) {
+			
+				$retval			= 0;
+			
+			} else {
+				
+				$retval			= 1;
+				
+			}	
 		}
 	
 	} else {
@@ -742,29 +773,29 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 			
 		} else {
 			
-			$groups			= 0;
-			
-			if( $smallLetters != 0 ) {
-				$groups++;
-			}
-			if( $capitalLetters != 0 ) {
-				$groups++;
-			}
-			if( $numbers != 0 ) {
-				$groups++;
-			}
-			if( $specialChars != 0 ) {		
-				$groups++;
+			if( isset($CONF['minPasswordGroupsUser']) ) {
+				
+				if( ($CONF['minPasswordGroupsUser'] < 1) or ($CONF['minPasswordGroupsUser'] > 4 ) ) {
+					$minGroupsUser	= 3;
+				} else {
+					$minGroupsUser	= $CONF['minPasswordGroupsUser'];
+				}
+				
+			} else {
+				$minGroupsUser	= 3;
 			}
 			
-			if( $groups < 3 ) {
+			if( $groups < $minGroupsUser ) {
 				
 				$retval			= 0;
+				
 			} else {
 				
 				$retval			= 1;
 			}
+			
 		}
+		
 	}
 	
 	return $retval;
