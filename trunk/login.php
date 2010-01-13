@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       	$id							= $row['id'];
       	$tName						= $row['name'];
       	$tGivenname					= $row['givenname'];
-      	$tAdmin						= "n";
+      	$tAdmin						= $row['admin'];
       	$tPwModified				= mkUnixTimestampFromDateTime( $row['password_modified'] );
       	$today						= time();
       	$maxDiff					= $CONF['password_expires'] * 86400;
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   					      			  "   AND (deleted = '0000-00-00 00:00:00')";
   		$result						= db_query( $query, $dbh );
   		
-  		if( $result['rows'] > 0 ) {
+  		if( ($result['rows'] > 0) and ($tAdmin =="n") ) {
   			
   			$tAdmin					= 'p';
   		}

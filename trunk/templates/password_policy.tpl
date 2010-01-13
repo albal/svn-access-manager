@@ -9,7 +9,8 @@
 					$len			= $CONF['minPasswordlengthUser'];
 					
 				}
-				if( isset($CONF['minPasswordGroups']) {
+				
+				if( isset($CONF['minPasswordGroups']) ) {
 					$minGroups		= $CONF['minPasswordGroups'];
 				} else {
 					$minGroups		= 4;
@@ -27,6 +28,6 @@
 				characters for adminitrator passwords. User passwords must include %s of the four 
 				groups mentioned above.</p>
 				<p>&nbsp;</p>
-				<p>The following special characters are allowed: %s</p>"), $len, htmlspecialchars($CONF['passwordSpecialCharsTxt']), $minGroups, $minGroupsUser);
+				<p>The following special characters are allowed: %s</p>"), $len, $minGroups, $minGroupsUser, htmlspecialchars($CONF['passwordSpecialCharsTxt']));
 				print $msg;
 			?>
