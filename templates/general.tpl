@@ -44,6 +44,24 @@
 				   		<td><?php print _("Take care that you have a valid email address submitted. Otherwise notifications concerning your account will be lost!"); ?></td>
 				   	</tr>
 				   	<tr>
+				   		<td>
+				   			<strong><?php print _("Security question").": "; ?></strong>
+				   		</td>
+				   		<td>
+				   			<input type="text" name="fSecurityQuestion" value="<?php print $tSecurityQuestion;?>" size="40" maxsize=255" /> 
+				   		</td>
+				   		<td><?php print _("Question to answer before a password reset."); ?></td>
+				   	</tr>
+				   	<tr>
+				   		<td>
+				   			<strong><?php print _("Security question answer").": "; ?></strong>
+				   		</td>
+				   		<td>
+				   			<input type="text" name="fAnswer" value="<?php print $tAnswer; ?>" size="40" maxsize="255" />
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
 				   		<td nowrap>
 				   			<strong><?php print _("Password modified").": "; ?></strong>
 				   		</td>

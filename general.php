@@ -55,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		list($date, $time)	= splitdateTime( $row['password_modified'] );
 		$tPwModified		= $date." ".$time;
 		$tLocked			= $row['locked'] == 0 ? _("no" ) : _( "yes" );
+		$tSecurityQuestion	= $row['securityquestion'];
+		$tAnswer			= $row['securityanswer'];
 		
 		$_SESSION['svn_sessid']['userid']		= $row['id'];
 		
@@ -97,6 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  		$tGivenname				= escape_string( $_POST['fGivenname'] );
  		$tName					= escape_string( $_POST['fName'] );
  		$tEmail					= escape_string( $_POST['fEmail'] );
+ 		$tSecurityQuestion		= escape_string( $_POST['fSecurityQuestion'] );
+ 		$tAnswer				= escape_string( $_POST['fAnswer'] );
  		$error					= 0;
  		
  		if( $tName == "" ) {
@@ -113,6 +117,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  			
  			$error				= 1;
  			$tMessage			= sprintf( _("%s is not a valid email address!"), $tEmail );
+ 			
+ 		} elseif( ($tAnswer != "") and ($tSecurityQuestion == "") ) {
+ 			
+ 			$error				= 1;
+ 			$tMessage			= _("Please fill in a security question too!" );
+ 			
+ 		} elseif( ($tAnswer == "") and ($tSecurityQuestion != "") ) {
+ 			
+ 			$error				= 1;
+ 			$tMessage			= _("Please fill in an answer for the security question too!");
+ 			
  		}
  		
  		if( $error == 0 ) {
@@ -123,7 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$query			= "UPDATE svnusers " .
 							  "   SET givenname = '$tGivenname', " .
 							  "       name = '$tName', " .
-							  "       emailaddress = '$tEmail' " .
+							  "       emailaddress = '$tEmail', " .
+							  "       securityquestion = '$tSecurityQuestion', " .
+							  "       securityanswer = '$tAnswer' ".
 							  " WHERE (id = ".$_SESSION['svn_sessid']['userid'].")";
 			$result			= db_query( $query, $dbh );
 			
@@ -162,6 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		list($date, $time)	= splitdateTime( $row['password_modified'] );
 		$tPwModified		= $date." ".$time;
 		$tLocked			= $row['locked'] == 0 ? _("no" ) : _( "yes" );
+		$tSecurityQuestion	= $row['securityquestion'];
+		$tAnswer			= $row['securityanswer'];
 		
 	} else {
 		

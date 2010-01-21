@@ -2,7 +2,13 @@ Change Log
 ==========
 
 
-Release 0.4.0.2
+Release 0.4.1.0
+	- fixed bug 2929680: 
+	  added configurable language support for MySQL to installer and changed db connect
+	  function accordingly.
+	- added security question to allow users to reset their password themself
+	   
+Release 0.4.0.3
 	- fixed a bug in list project screen
 	- added two constants to make password complexity configurable. Passwords must consist
 	  of lower-case, upper-case characters, digits and special characters. Normally an administrator

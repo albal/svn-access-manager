@@ -34,6 +34,9 @@ $DEBUG_TEXT = "\n
 Please check the documentation and website for more information.\n
 ";
 
+
+
+
 //
 // db_connect
 // Action: Makes a connection to the database if it doesn't exist
@@ -45,6 +48,20 @@ function db_connect () {
    global $DEBUG_TEXT;
    
    $link = "";
+   
+   if( isset($CONF['database_charset']) ) {
+   		$charset = $CONF['database_charset'];
+   } else {
+   		$charset = "latin1";
+   }
+   
+   if( isset($CONF['database_collation']) ) {
+   		$collation = $CONF['database_collation'];
+   } else {
+   		$collation = "latin1_german1_ci";
+   }
+   
+   $nameset  = "SET NAMES '$charset' COLLATE '$collation'";
 
    if ($CONF['database_type'] == "mysql") {
       
@@ -52,6 +69,7 @@ function db_connect () {
          
          $link 	 = @mysql_connect ($CONF['database_host'], $CONF['database_user'], $CONF['database_password']) or die ("<p />DEBUG INFORMATION:<br />Connect: " .  mysql_error () . "$DEBUG_TEXT");
          $succes = @mysql_select_db ($CONF['database_name'], $link) or die ("<p />DEBUG INFORMATION:<br />MySQL Select Database: " .  mysql_error () . "$DEBUG_TEXT");
+         $result = @mysql_query($nameset, $link)  or die ("<p />DEBUG INFORMATION:<br />MySQL Set Name ($nameset): " .  mysql_error () . "$DEBUG_TEXT");
          
       } else {
          
@@ -74,12 +92,27 @@ function db_connect () {
    }
 
    if ($CONF['database_type'] == "mysqli")  {
+      
       if (function_exists ("mysqli_connect")) {
          $link 		= @mysqli_connect ($CONF['database_host'], $CONF['database_user'], $CONF['database_password']) or die ("<p />DEBUG INFORMATION:<br />Connect: " .  mysqli_connect_error () . "$DEBUG_TEXT");
          $succes 	= @mysqli_select_db ($link, $CONF['database_name']) or die ("<p />DEBUG INFORMATION:<br />MySQLi Select Database: " .  mysqli_error () . "$DEBUG_TEXT");
+         $result   	= @mysqli_query($link, $nameset) or die ("<p />DEBUG INFORMATION:<br />MySQLi Set Name: " .  mysqli_error () . "$DEBUG_TEXT");
       } else {
-         print "<p />DEBUG INFORMATION:<br />MySQL 4.1 functions not available!<br />database_type = 'mysqli' in config.inc.php, are you using a different database? $DEBUG_TEXT";
-         die;
+         
+         $_SESSION['svn_sessid']['dberror']			= mysqli_connect_errno().": ".mysqli_connect_error();
+         $_SESSION['svn_sessid']['dbquery']			= "MySQL 4.1 functions not available!<br />database_type = 'mysqli' in config.inc.php, are you using a different database?";
+         $_SESSION['svn_sessid']['dbfunction']		= "db_connect";
+         
+         db_ta ("ROLLBACK", $link);
+	 	 db_disconnect( $link );
+	 	
+	 	 if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	    $location								= "database_error.php";
+	     } else {
+	  	   	$location								= "../database_error.php";
+	  	 }
+	 	 header( "location: $location");
+	 	 exit;
       }
    }
 
@@ -100,6 +133,7 @@ function db_connect () {
    	
 	  $_SESSION['svn_sessid']['dberror']		= mysql_errno().": ".mysql_error();
       $_SESSION['svn_sessid']['dbquery']		= "Connect: Unable to connect to database: Make sure that you have set the correct database type in the config.inc.php file";
+      $_SESSION['svn_sessid']['dbfunction']		= "db_connect";
 	  db_ta ("ROLLBACK", $link);
 	  db_disconnect( $link );
 	 	
@@ -120,13 +154,13 @@ function db_connect () {
 // Action: Makes a connection to the database if it doesn't exist
 // Call: db_connect (string dbhost, string dbuser, string dbpassword, string dbname)
 //
-function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
+function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname, $charset, $collation) {
    
    global $CONF;
    global $DEBUG_TEXT;
+   
    $link = "";
-   
-   
+   $nameset = "SET NAMES '$charset' COLLATE '$collation'";
 
    if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) {
       
@@ -134,6 +168,7 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
          
          $link 	 = @mysql_connect ($dbhost, $dbuser, $dbpassword);
          $succes = @mysql_select_db ($dbname, $link);
+         $result = @mysql_query($nameset, $link);
          
       } else {
          
@@ -155,12 +190,27 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname) {
    }
 
    if ($CONF['database_type'] == "mysqli")  {
+      
       if (function_exists ("mysqli_connect")) {
          $link 		= @mysqli_connect ($dbhost, $dbuser, $dbpassword) or die ("<p />DEBUG INFORMATION:<br />Connect: " .  mysqli_connect_error () . "$DEBUG_TEXT");
          $succes 	= @mysqli_select_db ($link, $dbname) or die ("<p />DEBUG INFORMATION:<br />MySQLi Select Database: " .  mysqli_error () . "$DEBUG_TEXT");
+         $result    = @mysqli_query($link, $nameset) or die ("<p />DEBUG INFORMATION:<br />MySQLi Set Names Database: " .  mysqli_error () . "$DEBUG_TEXT");
       } else {
-         print "<p />DEBUG INFORMATION:<br />MySQL 4.1 functions not available!<br />database_type = 'mysqli' in config.inc.php, are you using a different database? $DEBUG_TEXT";
-         die;
+         
+         $tDbError			= mysqli_connect_errno().": ".mysqli_connect_error();
+         $tDbQuery			= "MySQL 4.1 functions not available!<br />database_type = 'mysqli' in config.inc.php, are you using a different database?";
+         
+		 db_ta ("ROLLBACK", $link);
+	 	 db_disconnect( $link );
+	 	
+	 	 if ( file_exists ( realpath ( "database_error_install.php" ) ) ) {
+	  	      $location								= "../database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_connect_install";
+	     } else {
+	  	      $location								= "../database_error_install.php?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_connect_install";
+	     }
+	 	 error_log( $location );
+	 	 header( "location: $location");
+	 	 exit;
       }
    }
 
@@ -198,9 +248,22 @@ function db_disconnect ($link) {
    global $CONF;
    global $DEBUG_TEXT;
    
-   if ($CONF['database_type'] == "mysql") 	mysql_close ($link);
-   if ($CONF['database_type'] == "mysqli") 	mysqli_close ($link);
-   if ($CONF['database_type'] == "pgsql") 	pg_close ($link);      
+   if ($CONF['database_type'] == "mysql") { 	
+   	
+   		mysql_close ($link);
+   		
+   } elseif($CONF['database_type'] == "mysqli") { 	
+   	
+   		mysqli_close ($link);
+   		
+   } elseif ($CONF['database_type'] == "pgsql") { 	
+   
+   		pg_close ($link);
+   		
+   } else {
+   	
+   }
+         
 }
 
 
@@ -229,10 +292,12 @@ function db_query ($query, $link) {
    }
    
    if ($CONF['database_type'] == "mysql") {
+      
       if(! $result = @mysql_query ($query, $link)) { 
       	
       	$_SESSION['svn_sessid']['dberror']		= mysql_errno().": ".mysql_error();
       	$_SESSION['svn_sessid']['dbquery']		= $query;
+      	$_SESSION['svn_sessid']['dbfunction']	= "db_query";
 	 	db_ta ("ROLLBACK", $link);
 	 	db_disconnect( $link );
 	 	
@@ -247,13 +312,38 @@ function db_query ($query, $link) {
 	  
 	 	header( "location: $location");
 	 	exit;
-	 	 
-	 	#die ("Uups");
+
       }
    }
    
-   if ($CONF['database_type'] == "mysqli") $result = @mysqli_query ($link, $query) or die ("<p />DEBUG INFORMATION:<br />Invalid query: " . mysqli_error() . "$DEBUG_TEXT");
+   if ($CONF['database_type'] == "mysqli") { 
+   		
+   		if(! $result = @mysqli_query ($link, $query)) {
+   		
+   			$_SESSION['svn_sessid']['dberror']		= mysqli_errno().": ".mysqli_error();
+   			$_SESSION['svn_sessid']['dbquery']		= $query;
+   			$_SESSION['svn_sessid']['dbfunction']	= "db_query";
+   			
+   			db_ta ("ROLLBACK", $link);
+		 	db_disconnect( $link );
+		 	
+		 	error_log( "DB-Error: ".$_SESSION['svn_sessid']['dberror'] );
+		 	error_log( "DB-Query: ".$_SESSION['svn_sessid']['dbquery'] );
+		 	
+		 	if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+		  		$location								= "database_error.php";
+		  	} else {
+		  		$location								= "../database_error.php";
+		    }
+		  
+		 	header( "location: $location");
+		 	exit;	
+   		}
+   		
+   }
+   
    if ($CONF['database_type'] == "pgsql") {
+      
       if (eregi ("LIMIT", $query)) { 
          $search = "/LIMIT (\w+), (\w+)/";
          $replace = "LIMIT \$2 OFFSET \$1";
@@ -264,16 +354,43 @@ function db_query ($query, $link) {
    } 
 
    if (eregi ("^SELECT", $query)) {
+      
       // if $query was a SELECT statement check the number of rows with [database_type]_num_rows ().
-      if ($CONF['database_type'] == "mysql") 	$number_rows = mysql_num_rows ($result);
-      if ($CONF['database_type'] == "mysqli") 	$number_rows = mysqli_num_rows ($result);      
-      if ($CONF['database_type'] == "pgsql") 	$number_rows = pg_num_rows ($result);
+      if ($CONF['database_type'] == "mysql") {	
+      
+      	$number_rows = mysql_num_rows ($result);
+      		
+      }
+      if ($CONF['database_type'] == "mysqli") { 	
+      
+      	$number_rows = mysqli_num_rows ($result);
+      	
+      }      
+      if ($CONF['database_type'] == "pgsql") { 	
+      
+      	$number_rows = pg_num_rows ($result);
+      }
+   
    } else {
+      
       // if $query was something else, UPDATE, DELETE or INSERT check the number of rows with
       // [database_type]_affected_rows ().
-      if ($CONF['database_type'] == "mysql") 	$number_rows = mysql_affected_rows ($link);
-      if ($CONF['database_type'] == "mysqli") 	$number_rows = mysqli_affected_rows ($link);
-      if ($CONF['database_type'] == "pgsql") 	$number_rows = pg_affected_rows ($result);      
+      if ($CONF['database_type'] == "mysql") {
+      
+      	$number_rows = mysql_affected_rows ($link);
+      	
+      }
+      if ($CONF['database_type'] == "mysqli") { 	
+      
+      	$number_rows = mysqli_affected_rows ($link);
+      	
+      }
+      if ($CONF['database_type'] == "pgsql") { 	
+      
+      	$number_rows = pg_affected_rows ($result);
+      	
+      }      
+      
    }
 
    $return = array (
@@ -309,6 +426,7 @@ function db_query_install ($query, $link) {
    }
    
    if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) {
+     
       if(! $result = @mysql_query ($query, $link)) { 
       	
       	$tDbError			= mysql_errno().": ".mysql_error();
@@ -326,10 +444,32 @@ function db_query_install ($query, $link) {
       	header( "location: ".$location."?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install");
 	 	exit;
       }
+      
    }
    
-   if ($CONF['database_type'] == "mysqli") $result = @mysqli_query ($link, $query) or die ("<p />DEBUG INFORMATION:<br />Invalid query: " . mysqli_error() . "$DEBUG_TEXT");
+   if ($CONF['database_type'] == "mysqli") { 
+   	
+   		if(! $result = @mysqli_query ($link, $query)) {
+   			
+   			$tDbError			= mysqli_errno().": ".mysqli_error();
+	    	$tDbQuery			= $query;
+	    	
+	      	error_log( "DB Error: $tDbError" );
+	      	error_log( "DB Query: $query" );
+	      	
+	      	if ( file_exists ( realpath ( "./database_error_install.php" ) ) ) {
+	      		$location		= "database_error_install.php";
+	      	} else {
+	      		$location		= "../database_error_install.php";
+	      	}
+	      	
+	      	header( "location: ".$location."?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install");
+		 	exit;
+   		}
+   }
+   
    if ($CONF['database_type'] == "pgsql") {
+      
       if (eregi ("LIMIT", $query)) { 
          $search = "/LIMIT (\w+), (\w+)/";
          $replace = "LIMIT \$2 OFFSET \$1";
@@ -340,22 +480,51 @@ function db_query_install ($query, $link) {
    } 
 
    if (eregi ("^SELECT", $query)) {
+      
       // if $query was a SELECT statement check the number of rows with [database_type]_num_rows ().
-      if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$number_rows = mysql_num_rows ($result);
-      if ($CONF['database_type'] == "mysqli") 	$number_rows = mysqli_num_rows ($result);      
-      if ($CONF['database_type'] == "pgsql") 	$number_rows = pg_num_rows ($result);
+      if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) {
+      
+      	$number_rows = mysql_num_rows ($result);
+      	
+      }
+      if ($CONF['database_type'] == "mysqli") { 
+      
+      	$number_rows = mysqli_num_rows ($result);
+      	
+      }      
+      if ($CONF['database_type'] == "pgsql") { 	
+      
+      	$number_rows = pg_num_rows ($result);
+      	
+      }
+      
    } else {
+      
       // if $query was something else, UPDATE, DELETE or INSERT check the number of rows with
       // [database_type]_affected_rows ().
-      if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$number_rows = mysql_affected_rows ($link);
-      if ($CONF['database_type'] == "mysqli") 	$number_rows = mysqli_affected_rows ($link);
-      if ($CONF['database_type'] == "pgsql") 	$number_rows = pg_affected_rows ($result);      
+      if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) { 	
+      
+      	$number_rows = mysql_affected_rows ($link);
+      	
+      }
+      if ($CONF['database_type'] == "mysqli") { 	
+      
+      	$number_rows = mysqli_affected_rows ($link);
+      	
+      }
+      if ($CONF['database_type'] == "pgsql") { 	
+      
+      	$number_rows = pg_affected_rows ($result);
+      	
+      }      
+      
    }
 
    $return = array (
       "result" => $result,
       "rows" => $number_rows
    );
+   
    return $return;
 }
 
@@ -369,9 +538,19 @@ function db_row ($result) {
    
    global $CONF;
    $row = "";
-   if ($CONF['database_type'] == "mysql") 	$row = mysql_fetch_row ($result);
-   if ($CONF['database_type'] == "mysqli") 	$row = mysqli_fetch_row ($result);
-   if ($CONF['database_type'] == "pgsql") 	$row = pg_fetch_row ($result);
+   if ($CONF['database_type'] == "mysql") {
+   
+   		$row = mysql_fetch_row ($result);
+   }
+   if ($CONF['database_type'] == "mysqli") { 	
+   
+   		$row = mysqli_fetch_row ($result);
+   }
+   if ($CONF['database_type'] == "pgsql") { 	
+   
+   		$row = pg_fetch_row ($result);
+   }
+   
    return $row;
 }
 
@@ -385,9 +564,19 @@ function db_array ($result) {
   
    global $CONF;
    $row = "";
-   if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$row = mysql_fetch_array ($result);
-   if ($CONF['database_type'] == "mysqli") 	$row = mysqli_fetch_array ($result);
-   if ($CONF['database_type'] == "pgsql") 	$row = pg_fetch_array ($result);   
+   if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) {
+   
+   		$row = mysql_fetch_array ($result);
+   }
+   if ($CONF['database_type'] == "mysqli") { 	
+   
+   		$row = mysqli_fetch_array ($result);
+   }
+   if ($CONF['database_type'] == "pgsql") { 	
+   
+   		$row = pg_fetch_array ($result);
+   }
+      
    return $row;
 }
 
@@ -402,9 +591,18 @@ function db_assoc ($result) {
    global $CONF;
    $row = "";
    
-   if ($CONF['database_type'] == "mysql") 	$row = mysql_fetch_assoc ($result);
-   if ($CONF['database_type'] == "mysqli") 	$row = mysqli_fetch_assoc ($result);
-   if ($CONF['database_type'] == "pgsql") 	$row = pg_fetch_assoc ($result);   
+   if ($CONF['database_type'] == "mysql") {
+   
+   		$row = mysql_fetch_assoc ($result);
+   }
+   if ($CONF['database_type'] == "mysqli") { 	
+   
+   		$row = mysqli_fetch_assoc ($result);
+   }
+   if ($CONF['database_type'] == "pgsql") { 	
+   
+   		$row = pg_fetch_assoc ($result);
+   }   
    
    return $row;
 }
@@ -473,9 +671,18 @@ function db_error($link) {
 	
 	$error 		= false;
 	
-	if( $CONF['database_type'] == "mysql" ) 	$error = @mysql_errno( $link ).": ".mysql_error( $link ); 
-	if( $CONF['database_type'] == "mysqli" )	$error = @mysqli_errno( $link).": ".mysqli_error( $link );
+	if( $CONF['database_type'] == "mysql" ) { 	
 	
+		$error = @mysql_errno( $link ).": ".mysql_error( $link );
+	} 
+	if( $CONF['database_type'] == "mysqli" ) {	
+			
+		$error = @mysqli_errno( $link).": ".mysqli_error( $link );
+	}
+	if( $CONF['database_type'] == "pgsql" ) {
+		
+		$error =  pg_last_error();
+	}
 	return $error;
 }
 
@@ -488,14 +695,85 @@ function db_error($link) {
 //
 function db_ta ($action,$link) {
    
-   global $CONF;
-   global $DEBUG_TEXT;
+   	global $CONF;
+   	global $DEBUG_TEXT;
    
-    if ($CONF['database_innodb'] == 'YES') {
-	if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) 	$result = @mysql_query ($action, $link) or die ("<p />DEBUG INFORMATION:<br />Invalid query($action): " . mysql_error() . "$DEBUG_TEXT");
-	if ($CONF['database_type'] == "mysqli") $result = @mysqli_query ($link, $action) or die ("<p />DEBUG INFORMATION:<br />Invalid query: " . mysqli_error() . "$DEBUG_TEXT");
-	if ($CONF['database_type'] == "pgsql") 	$result = @pg_query ($link, $action) or die ("<p />DEBUG INFORMATION:<br />Invalid query: " . pg_last_error() . "$DEBUG_TEXT");
-   }
+	if ($CONF['database_innodb'] == 'YES') {
+		
+		if (($CONF['database_type'] == "mysql") or ($CONF['database_type'] == "")) { 	
+			
+			if(! $result = @mysql_query ($action, $link)) { 
+      	
+		      	$_SESSION['svn_sessid']['dberror']		= mysql_errno().": ".mysql_error();
+		      	$_SESSION['svn_sessid']['dbquery']		= $action;
+		      	$_SESSION['svn_sessid']['dbfunction']	= "db_ta";
+			 	db_disconnect( $link );
+			 	
+			 	error_log( "DB-Error: ".$_SESSION['svn_sessid']['dberror'] );
+			 	error_log( "DB-Query: ".$_SESSION['svn_sessid']['dbquery'] );
+			 	
+			 	if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+			  		$location								= "database_error.php";
+			  	} else {
+			  		$location								= "../database_error.php";
+			    }
+			  
+			 	header( "location: $location");
+			 	exit;
+		
+		      }
+		      
+		} elseif ($CONF['database_type'] == "mysqli") { 
+			
+			if(! $result = @mysqli_query ($action, $link)) { 
+      	
+		      	$_SESSION['svn_sessid']['dberror']		= mysqli_errno().": ".mysqli_error();
+		      	$_SESSION['svn_sessid']['dbquery']		= $action;
+			 	db_disconnect( $link );
+			 	
+			 	error_log( "DB-Error: ".$_SESSION['svn_sessid']['dberror'] );
+			 	error_log( "DB-Query: ".$_SESSION['svn_sessid']['dbquery'] );
+			 	$_SESSION['svn_sessid']['dbfunction']	= "db_ta";
+			 	
+			 	if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+			  		$location								= "database_error.php";
+			  	} else {
+			  		$location								= "../database_error.php";
+			    }
+			  
+			 	header( "location: $location");
+			 	exit;
+		
+		      }
+		      
+		} elseif ($CONF['database_type'] == "pgsql") {
+			
+			if(! $result = @pg_query ($link, $action)) { 
+      	
+		      	$_SESSION['svn_sessid']['dberror']		= pg_last_error();
+		      	$_SESSION['svn_sessid']['dbquery']		= $action;
+			 	db_disconnect( $link );
+			 	
+			 	error_log( "DB-Error: ".$_SESSION['svn_sessid']['dberror'] );
+			 	error_log( "DB-Query: ".$_SESSION['svn_sessid']['dbquery'] );
+			 	$_SESSION['svn_sessid']['dbfunction']	= "db_ta";
+			 	
+			 	if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+			  		$location								= "database_error.php";
+			  	} else {
+			  		$location								= "../database_error.php";
+			    }
+			  
+			 	header( "location: $location");
+			 	exit;
+		
+			}
+			
+		} else {
+			
+		}
+		
+   	}
    
    return true;
    
@@ -934,6 +1212,46 @@ function db_unset_semaphore($action, $type, $link) {
 
 
 
+//
+// db_escape_string
+// Action: Escape a string
+// Call: db_escape_string (string string)
+//
+function db_escape_string ($string) {
+   
+   	global $CONF;
+   
+   	if (get_magic_quotes_gpc () == 0)  {
+   	
+   		if( is_array( $string) ) {
+   			
+   			return $string;
+   			
+   		} else {
+      	
+      		if ($CONF['database_type'] == "mysql") { 	
+      			$escaped_string = mysql_real_escape_string ($string);
+      		}
+      		if ($CONF['database_type'] == "mysqli") {  	
+      			$escaped_string = mysqli_real_escape_string ($string);
+      		}
+      		if ($CONF['database_type'] == "pgsql") {  	
+      			$escaped_string = pg_escape_string ($string);
+   			}
+      		
+   		}
+      
+   	} else {
+      
+      $escaped_string = $string;
+      
+   	}
+   
+   	return $escaped_string;
+}
+
+
+
 
 //
 // session handling
@@ -963,8 +1281,24 @@ class Session {
     	$db_host 				= $CONF['database_host'];
     	$db_name				= $CONF['database_name'];
     	
+    	if( isset($CONF['database_charset']) ) {
+	   		$charset 			= $CONF['database_charset'];
+	   } else {
+	   		$charset 			= "latin1";
+	   }
+	   
+	   if( isset($CONF['database_collation']) ) {
+	   		$collation 			= $CONF['database_collation'];
+	   } else {
+	   		$collation 			= "latin1_german1_ci";
+	   }
+	   
+	   $nameset  				= "SET NAMES '$charset' COLLATE '$collation'";
+    	
         if (self::$_sess_db = mysql_connect($db_host, $db_user, $db_pass)) {
-            return mysql_select_db($db_name, self::$_sess_db);
+            $ret =  mysql_select_db($db_name, self::$_sess_db);
+            mysql_query( $nameset, self::$_sess_db);
+            return( $ret );
         }
         
         return false;

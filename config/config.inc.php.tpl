@@ -51,7 +51,11 @@ $CONF['database_password'] 		= '###DBPASS###';
 $CONF['database_name'] 			= '###DBNAME###';
 $CONF['database_prefix'] 		= '';
 $CONF['database_innodb']		= 'YES';
+$CONF['database_charset']		= '###DBCHARSET###';
+$CONF['database_collation']		= '###DBCOLLATION###';
 $CONF['session_in_db']			= '###SESSIONINDB###';
+
+$CONF['website_charset']		= '###WEBSITECHARSET###';
 
 // Sort order for user
 $CONF['user_sort_fields']		= "name,givenname";
@@ -63,6 +67,11 @@ $CONF['admin_email'] 			= '###ADMINEMAIL###';
 
 $CONF['encrypt'] 				= 'system';
 $CONF['generate_password'] 		= 'YES';
+
+// Lost password
+$CONF['lostPwSender']			= '###LOSTPWSENDER###';
+$CONF['lostPwMaxError']			= ###LOSTPWMAXERROR###;
+$CONF['lostPwLinkValid']		= ###LOSTPWLINKVALID###;
 
 $CONF['logging']				= '###USELOGGING###';
 

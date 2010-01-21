@@ -17,11 +17,11 @@ Open:
 
 - add security question for password reset
 
-- add language support for MySQL
-
 
 
 Done:
+
+- add language support for MySQL
 
 - make password complexity configurable
 
