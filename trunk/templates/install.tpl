@@ -33,7 +33,23 @@ include( "../include/output.inc.php" );
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				   		<td colspan="3" class="standout"><?php print $tMessage; ?></td>
+				   		<td colspan="3" class="standout">
+				   			<?php
+				   				if( count($tErrors) > 0 ) {
+				   				
+				   					print "\t\t\t\t<p><strong>"._("Please correct the following errors:")."</strong></p>\n";
+				   					print "\t\t\t\t<ul>\n";
+				   					
+				   					foreach( $tErrors as $tMessage ) {
+				   					
+				   						print "\t\t\t\t\t<li>".$tMessage."</li>";
+				   					
+				   					} 
+				   					
+				   					print "\t\t\t\t</ul>\n";
+				   				}
+				   			?>
+				   		</td>
 				   	</tr>
 				  	<tr>
 				   		<td colspan="3">&nbsp;</td>
@@ -121,6 +137,26 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
+					   		<td><strong><?php print _("MySQL Database charset").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fDatabaseCharset" value="<?php print $tDatabaseCharset; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the character set you want to use" ); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("MySQL Database collation").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fDatabaseCollation" value="<?php print $tDatabaseCollation; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the collation you want to use" ); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
 					   		<td nowrap><strong><?php print _("Hold sessions in database").": "; ?></strong></td>
 					   		<td>
 					   			<input type="radio" name="fSessionInDatabase" value="YES" <?php print $tSessionInDatabaseYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
@@ -128,6 +164,30 @@ include( "../include/output.inc.php" );
 					   		</td>
 					   		<td>
 					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+				      		<td colspan="4">&nbsp;</td>
+				   		</tr>
+					</table>
+				</fieldset>
+				
+				<p>&nbsp;</p>
+				
+				<fieldset>
+					<legend><strong><?php print " "._("Website settings")." "; ?></string></legend>
+					<table>
+						<tr>
+				      		<td colspan="4">&nbsp;</td>
+				   		</tr>
+						<tr>
+					   		<td nowrap><strong><?php print _("Website characterset").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fWebsiteCharset" value="<?php print $tWebsiteCharset; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the character set you want to use for the website. Please keep in mind that the characterset must be compatible to the database characterset!" ); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>

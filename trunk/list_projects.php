@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$_SESSION['svn_sessid']['projectcounter']++;
 		$start											= $_SESSION['svn_sessid']['projectcounter'] * $CONF['page_size'];
 		$tProjects										= getProjects( $start, $CONF['page_size'], $dbh );
-		$tCountRecords									= getCountProject( $dbh );
+		$tCountRecords									= getCountProjects( $dbh );
 		$tRemainingRecords								= $tCountRecords - $start - $CONF['page_size'];
 		
 		if( $tRemainingRecords <= 0 ) {

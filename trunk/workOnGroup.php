@@ -28,9 +28,9 @@ include_once ("./addMemberToGroup.php");
 
 initialize_i18n();
 
-$SESSID_USERNAME 							= check_session ();
+$SESSID_USERNAME 							= check_session();
 check_password_expired();
-$dbh 										= db_connect ();
+$dbh 										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['user_sort_fields']					= $preferences['user_sort_fields'];
 $CONF['user_sort_order']					= $preferences['user_sort_order'];

@@ -245,7 +245,7 @@ function dropDatabaseTables( $dbh ) {
 }
 
 
-function createDatabaseTables( $dbh ) {
+function createDatabaseTables( $dbh, $charset, $collation ) {
 	
 	$error									= 0;
 	$tMessage								= "";
@@ -258,7 +258,7 @@ function createDatabaseTables( $dbh ) {
   													`logmessage` longtext NOT NULL,
   													PRIMARY KEY  (`id`),
   													KEY `idx_timestamp` (`timestamp`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of log messages';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of log messages';";
 	$result									= db_query_install( $query, $dbh );
 	if( mysql_errno() != 0 ) {
 		
@@ -272,17 +272,17 @@ function createDatabaseTables( $dbh ) {
   													`id` int(10) unsigned NOT NULL auto_increment,
   													`user_id` int(10) NOT NULL,
   													`page_size` int(4) NOT NULL,
-  													`user_sort_fields` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`user_sort_order` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`user_sort_fields` varchar(255) NOT NULL,
+  													`user_sort_order` varchar(255) NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`),
   													KEY `idx_userid` (`user_id`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of user preferences';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user preferences';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -307,7 +307,7 @@ function createDatabaseTables( $dbh ) {
   													`deleted` datetime NOT NULL,
   													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of rights to grant to users';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of rights to grant to users';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -320,12 +320,12 @@ function createDatabaseTables( $dbh ) {
 	if( $error == 0 ) {
 		
 		$query								= "CREATE TABLE IF NOT EXISTS `sessions` (
-  													`session` varchar(255) character set utf8 collate utf8_bin NOT NULL,
+  													`session` varchar(255) NOT NULL,
   													`session_expires` int(10) unsigned NOT NULL default '0',
-  													`session_data` text collate utf8_unicode_ci,
+  													`session_data` text,
   													PRIMARY KEY  (`session`),
   													KEY `idx_expires` (`session_expires`)
-												) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+												) ENGINE=MyISAM DEFAULT CHARSET=$charset COLLATE=$collation;";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -359,7 +359,7 @@ function createDatabaseTables( $dbh ) {
   													KEY `idx_groupid` (`group_id`),
   													KEY `idx_path` (`path`(512)),
   													KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of user or group access rights';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user or group access rights';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -376,15 +376,15 @@ function createDatabaseTables( $dbh ) {
   													`project_id` int(10) unsigned NOT NULL,
   													`mailinglisten_id` int(10) unsigned NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`),
   													KEY `moduleid` (`project_id`,`mailinglisten_id`),
   													KEY `mailinglistenid` (`mailinglisten_id`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of modules and mailinglist relations';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of modules and mailinglist relations';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -409,7 +409,7 @@ function createDatabaseTables( $dbh ) {
   													PRIMARY KEY  (`id`),
   													KEY `idx_projectid` (`project_id`),
   													KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of project responsible users';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of project responsible users';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -426,16 +426,16 @@ function createDatabaseTables( $dbh ) {
   													`user_id` int(10) unsigned NOT NULL,
   													`group_id` int(10) unsigned NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
 													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`),
   													KEY `idx_groupid` (`group_id`),
   													KEY `idx_userid` (`user_id`),
   													KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of user group relations';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user group relations';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -449,17 +449,17 @@ function createDatabaseTables( $dbh ) {
 		
 		$query								= "CREATE TABLE IF NOT EXISTS `svngroups` (
   													`id` int(10) unsigned NOT NULL auto_increment,
-  													`groupname` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`description` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`groupname` varchar(255) NOT NULL,
+  													`description` varchar(255) NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`),
   													KEY `groupname` (`groupname`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of svn user groups';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn user groups';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -473,17 +473,17 @@ function createDatabaseTables( $dbh ) {
 		
 		$query								= "CREATE TABLE IF NOT EXISTS `svnmailinglists` (
   													`id` int(10) unsigned NOT NULL auto_increment,
-  													`mailinglist` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`emailaddress` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`description` mediumtext collate latin1_german1_ci NOT NULL,
+  													`mailinglist` varchar(255) NOT NULL,
+  													`emailaddress` varchar(255) NOT NULL,
+  													`description` mediumtext NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of available svn mailing lists';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of available svn mailing lists';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -498,19 +498,19 @@ function createDatabaseTables( $dbh ) {
 		$query								= "CREATE TABLE IF NOT EXISTS `svnprojects` (
   													`id` int(10) unsigned NOT NULL auto_increment,
   													`repo_id` int(10) unsigned NOT NULL,
-  													`svnmodule` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`modulepath` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`description` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`svnmodule` varchar(255) NOT NULL,
+  													`modulepath` varchar(255) NOT NULL,
+  													`description` varchar(255) NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,	
+  													`deleted_user` varchar(255) NOT NULL,	
   													PRIMARY KEY  (`id`),
   													KEY `idx_repoid` (`repo_id`),
   													KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of svn modules';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn modules';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -524,22 +524,22 @@ function createDatabaseTables( $dbh ) {
 		
 		$query								= "CREATE TABLE IF NOT EXISTS `svnrepos` (
   													`id` int(10) unsigned NOT NULL auto_increment,
-  													`reponame` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`repopath` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`repouser` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`repopassword` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`reponame` varchar(255) NOT NULL,
+  													`repopath` varchar(255) NOT NULL,
+  													`repouser` varchar(255) NOT NULL,
+  													`repopassword` varchar(255) NOT NULL,
   													`different_auth_files` tinyint(1) NOT NULL DEFAULT '0',
-  													`auth_user_file` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  													`svn_access_file` varchar(255) COLLATE latin1_german1_ci NOT NULL,
+  													`auth_user_file` varchar(255) NOT NULL,
+  													`svn_access_file` varchar(255) NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`),
   													KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of svn repositories';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn repositories';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -553,29 +553,31 @@ function createDatabaseTables( $dbh ) {
 		
 		$query								= "CREATE TABLE IF NOT EXISTS `svnusers` (
   													`id` int(10) unsigned NOT NULL auto_increment,
-  													`userid` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`name` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`givenname` varchar(255) collate latin1_german1_ci NOT NULL,
-  													`password` varchar(255) collate latin1_german1_ci NOT NULL default '',
+  													`userid` varchar(255) NOT NULL,
+  													`name` varchar(255) NOT NULL,
+  													`givenname` varchar(255) NOT NULL,
+  													`password` varchar(255) NOT NULL default '',
   													`passwordexpires` tinyint(1) NOT NULL default '1',
   													`locked` tinyint(1) NOT NULL default '0',
-  													`emailaddress` varchar(255) collate latin1_german1_ci NOT NULL default '',
-  													`admin` char(1) collate latin1_german1_ci NOT NULL default 'n',
-  													`mode` varchar(10) collate latin1_german1_ci NOT NULL,
+  													`emailaddress` varchar(255) NOT NULL default '',
+  													`admin` char(1) NOT NULL default 'n',
+  													`mode` varchar(10) NOT NULL,
   													`created` datetime NOT NULL,
-  													`created_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`created_user` varchar(255) NOT NULL,
   													`modified` datetime NOT NULL,
-  													`modified_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`modified_user` varchar(255) NOT NULL,
   													`deleted` datetime NOT NULL,
-  													`deleted_user` varchar(255) collate latin1_german1_ci NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL,
   													`password_modified` datetime NOT NULL,
   													`superadmin` tinyint(1) NOT NULL default '0',
+  													`securityquestion varchar(255) default '',
+  													`securityanswer varchar(255) default '',
   													PRIMARY KEY  (`id`),
-  													UNIQUE KEY `idx_userid` (`userid`),
+  													UNIQUE KEY `idx_userid` (`userid`,`deleted`),
   													KEY `idx_mode` (`locked`),
   													KEY `idx_passwordexpires` (`passwordexpires`),
   													KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of all known users';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of all known users';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -594,7 +596,7 @@ function createDatabaseTables( $dbh ) {
   													`status` varchar(255) NOT NULL,
   													`type` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table of semaphores';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='table of semaphores';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -616,7 +618,7 @@ function createDatabaseTables( $dbh ) {
   													KEY `idx_topic` (`topic`),
   													FULLTEXT KEY `helptext_de` (`helptext_de`),
   													FULLTEXT KEY `helptext_en` (`helptext_en`)
-												) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table of help texts';";
+												) ENGINE=MyISAM  DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of help texts';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -641,7 +643,7 @@ function createDatabaseTables( $dbh ) {
   													PRIMARY KEY  (`id`),
   													KEY `idx_user_id` (`user_id`),
   													KEY `idx_right_id` (`right_id`)
-												) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of granted user rights';";
+												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of granted user rights';";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
@@ -667,12 +669,31 @@ function createDatabaseTables( $dbh ) {
 												  PRIMARY KEY (`id`),
 												  KEY `idx_projectid_userid_groupid` (`user_id`,`group_id`),
 												  KEY `idx_deleted` (`deleted`)
-												) ENGINE=InnoDB  DEFAULT CHARSET=latin1;";
+												) ENGINE=InnoDB  DEFAULT CHARSET=$charset COLLATE=$collation;";
 		$result								= db_query_install( $query, $dbh );
 		if( mysql_errno() != 0 ) {
 		
 			$error							= 1;
 			$tMessage						= sprintf( _("Cannot create table "), "svn_groups_responsible" );
+		}
+	
+	}
+	
+	if( $error == 0 ) {
+		
+		$query								= "CREATE TABLE IF NOT EXISTS `svnpasswordreset` (
+  												  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+												  `unixtime` int(11) NOT NULL,
+												  `username` varchar(255) NOT NULL,
+												  `token` varchar(255) NOT NULL,
+												  `idstr` varchar(255) NOT NULL,
+												  PRIMARY KEY (`id`)
+												) ENGINE=InnoDB  DEFAULT CHARSET=$charset;";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot create table "), "svnpasswordreset" );
 		}
 	
 	}
@@ -880,6 +901,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tViewvcApacheReload					= "";
    	$tPerRepoFilesYes						= "";
    	$tPerRepoFilesNo						= "checked";
+   	$tDatabaseCharset						= "latin1";
+   	$tDatabaseCollation						= "latin1_german1_ci";
+   	$tWebsiteCharset						= "iso8859-15";
+   	$tErrors								= array();
    	
    	for( $i = 0; $i < count($svnpath); $i++ ) {
    		if( file_exists( $svnpath[$i] ) ) {
@@ -920,6 +945,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$tResult								= array();
+	$tErrors								= array();
 	
 	$tCreateDatabaseTables					= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
 	$tDropDatabaseTables					= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
@@ -928,6 +954,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tDatabasePassword						= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
 	$tDatabaseName							= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
 	$tSessionInDatabase						= isset( $_POST['fSessionInDatabase'])		? ( $_POST['fSessionInDatabase'] )		: "";
+	$tDatabaseCharset						= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
+	$tDatabaseCollation						= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
+	$tWebsiteCharset						= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
 	$tUsername								= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
 	$tPassword								= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
 	$tPassword2								= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
@@ -1058,59 +1087,85 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( $error == 0 ) {
 		
-		if( $tCreateDatabaseTables == "YES" ) {
+		#if( $tCreateDatabaseTables == "YES" ) {
 			
-			if( $tDatabaseHost == "" ) {
-				
-				$tMessage					= _("Database host is missing!");
-				$error						= 1;
-				
-			} elseif( $tDatabaseUser == "" ) {
-				
-				$tMessage					= _("Database user is missing!");
-				$error						= 1;
-				
-			} elseif( $tDatabaseName == "" ) {
-				
-				$tMessage					= _("Database name is missing!" );
-				$error						= 1;
-				
-			} 
+		if( $tDatabaseHost == "" ) {
+			
+			$tErrors[]					= _("Database host is missing!");
+			$error						= 1;
+			
+		}
+		
+		if( $tDatabaseUser == "" ) {
+			
+			$tErrors[]					= _("Database user is missing!");
+			$error						= 1;
+			
+		} 
+		
+		if( $tDatabaseName == "" ) {
+			
+			$tErrors[]					= _("Database name is missing!" );
+			$error						= 1;
+			
+		} 
+		
+		if( $tDatabaseCharset == "" ) {
+			
+			$tErrors[]					= _("Database charset is missing!" );
+			$error						= 1;
+			
+		} 
+		
+		if( $tDatabaseCollation == "" ) {
+			
+			$tErrors[]					= _("Database collation is missing!" );
+			$error						= 1;
+			
+		}
+		
+		#}
+		
+		if( $tWebsiteCharset == "" ) {
+			
+			$tErrors[]						= _("Website charset is missing!");
+			$error							= 1;
+			
 		}
 		
 		if( $tUsername == "" ) {
 			
-			$tMessage						= _("Administrator username is missing!" );
+			$tErrors[]						= _("Administrator username is missing!" );
 			$error							= 1;
 			
 		} elseif( ($tPassword == "") or ($tPassword2 == "") ) {
 			
-			$tMessage						= _("Administrator password is missing!" );
+			$tErrors[]						= _("Administrator password is missing!" );
 			$error							= 1;
 			
 		} elseif( $tPassword != $tPassword2 ) {
 			
-			$tMessage						= _("Administrator passwords do not match!" );
+			$tErrors[]						= _("Administrator passwords do not match!" );
 			$error							= 1;
 			
 		} elseif( checkPasswordPolicy( $tPassword, 'y' ) == 0 ) {
 			
-			$tMessage						= _("Administrator password is not strong enough!" );
+			$tErrors[]						= _("Administrator password is not strong enough!" );
 			$error							= 1;
 			
 		} elseif( $tName == "" ) {
 			
-			$tMessage						= _("Administrator name is missing!" );
+			$tErrors[]						= _("Administrator name is missing!" );
 			$error							= 1;
 			
 		} elseif( $tAdminEmail == "" ) {
 			
-			$tMessage						= _("Administrator email address is missing!" );
+			$tErrors[]						= _("Administrator email address is missing!" );
 			$error							= 1;
 			
 		} elseif( ! check_email($tAdminEmail) ) {
 			
-			$tMessage						= sprintf( _("Administrator email address %s is not a valid email address!"), $tAdminEmail );
+			$tErrors[]						= sprintf( _("Administrator email address %s is not a valid email address!"), $tAdminEmail );
 			$error							= 1;
 			
 		}
@@ -1119,7 +1174,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( $tSvnAccessFile == "" ) {
 				
-				$tMessage					= _( "SVN Access File is missing!" );
+				$tErrors[]					= _( "SVN Access File is missing!" );
 				$error						= 1;
 				
 			}
@@ -1129,7 +1184,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( $tAuthUserFile == "" ) {
 				
-				$tMessage					= _("Auth user file is missing!" );
+				$tErrors[]					= _("Auth user file is missing!" );
 				$error						= 1;
 				
 			}
@@ -1139,17 +1194,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 			if( $tViewvcConfigDir == "" ) {
 				
-				$tMessage					= _("ViewVC configuration directory is missing!");
+				$tErrors[]					= _("ViewVC configuration directory is missing!");
 				$error						= 1;
 				
 			} elseif( $tViewvcAlias == "" ) {
 				
-				$tMessage					= _("ViewVC webserver alias is missing!");
+				$tErrors[]					= _("ViewVC webserver alias is missing!");
 				$error						= 1;
 				
 			} elseif( $tViewvcRealm == "" ) {
 				
-				$tMessage					= _("ViewVC realm is missing!" );
+				$tErrors[]					= _("ViewVC realm is missing!" );
 				$error						= 1;
 				
 			}
@@ -1157,37 +1212,37 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		if( $tSvnCommand == "" ) {
 			
-			$tMessage						= _("SVN command is missing!" );
+			$tErrors[]						= _("SVN command is missing!" );
 			$error							= 1;
 			
 		} elseif( $tSvnadminCommand == "" ) { 
 		
-			$tMessage						= _("Svnadmin command missing!" );
+			$tErrors[]						= _("Svnadmin command missing!" );
 			$error							= 1;
 			
 		} elseif( $tGrepCommand == "" ) {
 			
-			$tMessage						= _("Grep command is missinbg!" );
+			$tErrors[]						= _("Grep command is missinbg!" );
 			$error							= 1;
 			
 		} elseif( $tPageSize == "" ) {
 			
-			$tMessage						= _("Page size is missing!" );
+			$tErrors[]						= _("Page size is missing!" );
 			$error							= 1;
 			
 		} elseif( ! is_numeric($tPageSize) ) {
 			
-			$tMessage						= _("Page size is not numeric!" );
+			$tErrors[]						= _("Page size is not numeric!" );
 			$error							= 1;
 			
 		} elseif( ! is_numeric( $tMinAdminPwSize) ) {
 			
-			$tMessage						= _("Minimal administrator password length is not numeric!" );
+			$tErrors[]						= _("Minimal administrator password length is not numeric!" );
 			$error							= 1;
 			
 		} elseif( ! is_numeric( $tMinUserPwSize ) ) {
 			
-			$tMessage						= _("Minimal user password length is not numeric!" );
+			$tErrors[]						= _("Minimal user password length is not numeric!" );
 			$error							= 1;
 			
 		}
@@ -1207,6 +1262,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###DBUSER###', $tDatabaseUser, $content );
 			$content					= str_replace( '###DBPASS###', $tDatabasePassword, $content );
 			$content					= str_replace( '###DBNAME###', $tDatabaseName, $content );
+			$content					= str_replace( '###DBCHARSET###', $tDatabaseCharset, $content );
+			$content					= str_replace( '###DBCOLLATION###', $tDatabaseCollation, $content );
 			$content					= str_replace( '###USELOGGING###', $tLogging, $content );
 			$content					= str_replace( '###PAGESIZE###', $tPageSize, $content );
 			$content					= str_replace( '###SVNCMD###', $tSvnCommand, $content );
@@ -1232,7 +1289,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 		} else {
 			
-			$tMessage 					= _("can't open config template for reading!");
+			$tErrors[] 					= _("can't open config template for reading!");
 			$error						= 1;
 			
 		}
@@ -1245,14 +1302,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( ! @fwrite( $fh_out, $content ) ) {
 				
-				$tMessage				= _("Can't write new config.inc.php file!" );
+				$tErrors[]				= _("Can't write new config.inc.php file!" );
 				$error					= 1;
 				
 			} 
 			
 		} else {
 			
-			$tMessage 					= _("can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!" );
+			$tErrors[] 					= _("can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!" );
 			$error						= 1;
 		}
 		
@@ -1268,7 +1325,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$error				= 0;
 				} else {
 					$error				= 1;
-					$tMessage			= _("Error deleting temporary config file");
+					$tErrors[]			= _("Error deleting temporary config file");
 				}
 				
 			} else {
@@ -1280,7 +1337,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		} else {
 			
 			$error						= 1;
-			$tMessage					= _("Error copying temporary config file!");
+			$tErrors[]					= _("Error copying temporary config file!");
 			
 		}
 	}
@@ -1289,14 +1346,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		if( $tCreateDatabaseTables == "YES" ) {
 			
-			$dbh						= db_connect_install($tDatabaseHost, $tDatabaseUser, $tDatabasePassword, $tDatabaseName);
+			$dbh						= db_connect_install($tDatabaseHost, $tDatabaseUser, $tDatabasePassword, $tDatabaseName, $tDatabaseCharset, $tDatabaseCollation);
 			
 			if( $tDropDatabaseTables == "YES" ) {
 		
 				$ret					= dropDatabaseTables( $dbh );
 				if( $ret['error'] != 0 ) {
 				
-					$tMessage			= $ret['errormsg'];
+					$tErrors[]			= $ret['errormsg'];
 					$error				= 1;
 				
 				} else {
@@ -1312,10 +1369,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( $error == 0 ) {
 				
-				$ret 					= createDatabaseTables( $dbh );
+				$ret 					= createDatabaseTables( $dbh, $tDatabaseCharset, $tDatabaseCollation );
 				if( $ret['error'] != 0 ) {
 				
-					$tMessage			= $ret['errormsg'];
+					$tErrors[]			= $ret['errormsg'];
 				
 				} else {
 					
@@ -1330,7 +1387,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$ret					= createAdmin( $tUsername, $tPassword, $tGivenname, $tName, $tAdminEmail, $dbh );
 				if( $ret['error'] != 0 ) {
 				
-					$tMessage			= $ret['errormsg'];
+					$tErrors[]			= $ret['errormsg'];
 				
 				} else {
 					

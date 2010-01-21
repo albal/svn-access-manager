@@ -34,8 +34,7 @@ include( "./include/output.inc.php" );
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 </head>
 <body>
-	<div id="wrap">
-		<div id="header_login">
+	<div id="header_login">
 			<div id="header_left">
 				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
 			</div>
@@ -47,63 +46,47 @@ include( "./include/output.inc.php" );
 			</div>
 		</div>
 		<div id="login">
-			<form name="login" method="post">
-				<table id="login_table" cellspacing="10">
-				   <tr>
-				      <td colspan="2" align="center">
-				      	<a href="http://www.svn-access-manager.org/" target="_blank">
-				      		<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
-				      	</a>
+			<form name="lostpassword" method="post">
+				<table id="login_table">
+					<tr>
+				      <td colspan="3"><h3><?php print _("Recover lost password (Step 1)"); ?></h3></td>
+				   	</tr>
+				   	<tr>
+				      <td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td width="150"><strong><?php print _("Username").": "; ?></strong></td>
+				   		<td>
+				   			<input type="text" name="fUsername" value="<?php print $tUsername; ?>" size="40" maxsize="255" />
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td width="150"><strong><?php print _("Email address").": "; ?></strong></td>
+				   		<td>
+				   			<input type="text" name="fEmailaddress" value="<?php print $tEmailaddress; ?>" size="40" maxsize="255" />
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				      <td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				      <td colspan="3" class="hlp_center">
+				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />
 				      </td>
-				   </tr>
-				   <tr>
-				      <td colspan="2">&nbsp;</td>
-				   </tr>
-				   <tr>
-				      <td colspan="2"><h4><?php print _('Subversion Administration Frontend'); ?></h4></td>
-				   </tr>
-				   <tr>
-				      <td><?php print _('Username') . ":"; ?></td>
-				      <td><input type="text" name="fUsername" value="<?php print $tUsername; ?>" /></td>
-				   </tr>
-				   <tr>
-				      <td><?php print _('Password') . ":"; ?></td>
-				      <td><input type="password" name="fPassword" /></td>
-				   </tr>
-				   <tr>
-				      <td colspan="2">&nbsp;</td>
-				   </tr>
-				   <tr>
-				   	   <td colspan=="2" class="hlp_center"><a href="lostpassword.php" target="_top"><?php print _("Lost password"); ?></a></td>
-				   <tr>
-				      <td colspan="2">&nbsp;</td>
-				   </tr>
-				   <tr>
-				      <td colspan="2" class="hlp_center">
-				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Login"); ?>"  title="<?php print _("Login"); ?>" />
+				   	</tr>
+				   	<tr>
+				      <td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				      <td colspan="3" class="standout">
+				      	<?php print $tMessage; ?>
 				      </td>
-				   </tr>
-				   <tr>
-				      <td colspan="2" class="standout"><?php print $tMessage; ?></td>
-				   </tr>
+				   	</tr>
 				</table>
 			</form>
 		</div>
 	</div>
-	<!--
-	<div id="footer">
-			<?php $datetime = strftime("%c"); ?>
-			<table width="100%" cellspacing="0" border="0" cellpadding="0">
-   				<tr>
-       				<td nowrap>
-						<?php print $CONF['copyright']; ?>
-					</td>
-					<td nowrap align="right">
-						<?php print $datetime; ?>
-					</td>
-     			</tr>
- 			</table>
-	</div>
-	-->
 </body>
 </html>

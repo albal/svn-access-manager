@@ -87,7 +87,7 @@ function initialize_i18n() {
 // Action: Check if a session already exists, if not redirect to login.php
 // Call: check_session ()
 //
-function check_session () {
+function check_session() {
    
    
    	$s 						= new Session;
@@ -103,6 +103,63 @@ function check_session () {
    	$SESSID_USERNAME 		= $_SESSION['svn_sessid']['username'];
    
    	return $SESSID_USERNAME;
+}
+
+
+
+//
+// check_session_lpw
+// Action: Check if a session already exists, if not redirect to login.php
+// Call: check_session ()
+//
+function check_session_lpw( $redirect="y" ) {
+   
+   
+   	$s 						= new Session;
+	session_start ();
+   
+   	if (!session_is_registered ("svn_lpw"))  {
+     
+     	 $SESSID_USERNAME 	= "";
+     	 
+      	if( $redirect == "y" ) {
+      		header ("Location: lostpassword.php");
+      		exit;
+      	}
+      
+   	} else {
+   
+   		if( isset( $_SESSION['svn_lpw']['username'] ) ) {
+   			$SESSID_USERNAME 		= $_SESSION['svn_lpw']['username'];
+   		} else {
+   			$SESSID_USERNAME 		= "";
+   		}
+   	}
+   
+   	return $SESSID_USERNAME;
+}
+
+
+
+
+//
+// create_verify_string
+// Action: create a verify string for email verification
+// Call: create_verify_string
+//
+function create_verify_string ()
+{
+	$validchars   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
+	$verifyString = "";
+	for( $i = 0; $i < 32; $i++ ) {
+		$char = chr( mt_rand( 0, 255 ) );
+		while( strpos( $validchars, $char ) == 0 ) {
+			$char = chr( mt_rand( 0, 255 ) );
+		}
+		$verifyString .= $char;
+	}
+	
+	return $verifyString;
 }
 
 
@@ -344,9 +401,15 @@ function escape_string ($string) {
    			
    		} else {
       	
-      		if ($CONF['database_type'] == "mysql")  	$escaped_string = mysql_real_escape_string ($string);
-      		if ($CONF['database_type'] == "mysqli")  	$escaped_string = mysqli_real_escape_string ($string);
-      		if ($CONF['database_type'] == "pgsql")  	$escaped_string = pg_escape_string ($string);
+      		if ($CONF['database_type'] == "mysql") { 	
+      			$escaped_string = mysql_real_escape_string ($string);
+      		}
+      		if ($CONF['database_type'] == "mysqli") {  	
+      			$escaped_string = mysqli_real_escape_string ($string);
+      		}
+      		if ($CONF['database_type'] == "pgsql") {  	
+      			$escaped_string = pg_escape_string ($string);
+   			}
       		
    		}
       
@@ -908,5 +971,52 @@ function determineOs() {
 	}
 
 	return( $ret );
+}
+
+
+
+//
+// encode_subject
+// Action: encode subject of a email
+// Call: encode_subject( string $in_str, string $charset )
+//
+function encode_subject($in_str, $charset) { 
+    $out_str = $in_str; 
+    if ($out_str && $charset) { 
+
+        // define start delimimter, end delimiter and spacer 
+        $end = "?="; 
+        $start = "=?" . $charset . "?B?"; 
+        $spacer = $end . "\r\n " . $start; 
+
+        // determine length of encoded text within chunks 
+        // and ensure length is even 
+        $length = 75 - strlen($start) - strlen($end); 
+
+        /* 
+            [EDIT BY danbrown AT php DOT net: The following 
+            is a bugfix provided by (gardan AT gmx DOT de) 
+            on 31-MAR-2005 with the following note: 
+            "This means: $length should not be even, 
+            but divisible by 4. The reason is that in 
+            base64-encoding 3 8-bit-chars are represented 
+            by 4 6-bit-chars. These 4 chars must not be 
+            split between two encoded words, according 
+            to RFC-2047. 
+        */ 
+        $length = $length - ($length % 4); 
+
+        // encode the string and split it into chunks 
+        // with spacers after each chunk 
+        $out_str = base64_encode($out_str); 
+        $out_str = chunk_split($out_str, $length, $spacer); 
+
+        // remove trailing spacer and 
+        // add start and end delimiters 
+        $spacer = preg_quote($spacer); 
+        $out_str = preg_replace("/" . $spacer . "$/", "", $out_str); 
+        $out_str = $start . $out_str . $end; 
+    } 
+    return $out_str; 
 }
 ?>

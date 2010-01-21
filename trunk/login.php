@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   					      			  "   AND (deleted = '0000-00-00 00:00:00')";
   		$result						= db_query( $query, $dbh );
   		
-  		if( ($result['rows'] > 0) and ($tAdmin =="n") ) {
+  		if( ($result['rows'] > 0) and ($tAdmin == "n") ) {
   			
   			$tAdmin					= 'p';
   		}

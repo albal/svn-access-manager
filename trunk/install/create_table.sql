@@ -244,8 +244,10 @@ CREATE TABLE IF NOT EXISTS `svnusers` (
   `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
   `password_modified` datetime NOT NULL,
   `superadmin` tinyint(1) NOT NULL DEFAULT '0',
+  `securityquestion` varchar(255) DEFAULT '',
+  `securityanswer` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_userid` (`userid`),
+  UNIQUE KEY `idx_userid` (`userid`,`deleted`),
   KEY `idx_mode` (`locked`),
   KEY `idx_passwordexpires` (`passwordexpires`),
   KEY `idx_deleted` (`deleted`)
@@ -394,3 +396,18 @@ CREATE TABLE IF NOT EXISTS `users_rights` (
   KEY `idx_user_id` (`user_id`),
   KEY `idx_right_id` (`right_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of granted user rights';
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `svnpasswordreset`
+--
+
+CREATE TABLE IF NOT EXISTS `svnpasswordreset` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `unixtime` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `idstr` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;

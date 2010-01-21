@@ -4,6 +4,8 @@
 @header ("Cache-Control: no-store, no-cache, must-revalidate");
 @header ("Cache-Control: post-check=0, pre-check=0", false);
 @header ("Pragma: no-cache");
+
+include( "./include/output.inc.php" );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -25,67 +27,43 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 -->
-<?php
-	global $CONF;
-	
-	if( isset( $CONF['website_charset'] ) ) {
-		$charset		= $CONF['website_charset'];
-	} else {
-		$charset		= "iso8859-15";
-	}
-?>
 <head>
   <title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
   <meta name="GENERATOR" content="Quanta Plus">
-  <meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 </head>
 <body>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
-		<tr valign="top">
-			<td width="200px" bgcolor="#EAEAE8">
-				<a href="http://www.svn-access-manager.org/" target="_blank">
-					<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
-				</a>
-			</td>
-			<td>
-				<div id="header_right" bgcolor="#EAEAE8">
-					<?php outputHeader($header); ?>
-				</div>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="200px">
-				<div id="subheader_left">
-					&nbsp;
-				</div>
-			</td>
-			<td>
-				<div id="subheader_right">
-					<?php outputSubHeader($subheader); ?>
-				</div>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="200px" bgcolor="#EAEAE8">
-				<div id="left" class="leftMenu">
-					<ul>
-						<?php outputMenu($menu); ?>
-					</ul>
-				</div>
-			</td>
-			<td>
-				<div id="right">
-					<?php include( "./templates/".$template ); ?>
-				</div>
-			
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<?php include( "footer.tpl" ); ?>
-			</td>
-		</tr>
-	</table>
+	<div id="header_login">
+			<div id="header_left">
+				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
+			</div>
+			<div id="header_right_login">
+				
+			</div>
+			<div id="subheader">
+				&nbsp;
+			</div>
+		</div>
+		<div id="login">
+			<form name="lostpassword" method="post">
+				<table id="login_table">
+					<tr>
+				      <td colspan="3"><h3><?php print _("Recover lost password (Finished)"); ?></h3></td>
+				   	</tr>
+				   	<tr>
+				      <td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td colspan="2"><?php print $tMessage; ?></td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				      <td colspan="3">&nbsp;</td>
+				   	</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
