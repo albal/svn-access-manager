@@ -187,7 +187,7 @@ include( "../include/output.inc.php" );
 					   			<input type="text" name="fWebsiteCharset" value="<?php print $tWebsiteCharset; ?>" size="40" />
 					   		</td>
 					   		<td>
-					   			<?php print _("Enter the character set you want to use for the website. Please keep in mind that the characterset must be compatible to the database characterset!" ); ?>
+					   			<?php print _("Enter the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
