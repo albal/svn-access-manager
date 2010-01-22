@@ -946,6 +946,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$tResult								= array();
 	$tErrors								= array();
+	$CONF									= array();
 	
 	$tCreateDatabaseTables					= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
 	$tDropDatabaseTables					= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
@@ -1072,9 +1073,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	if( $tUseMd5 == "md5" ) {
 		$tMd5Yes							= "checked";
 		$tMd5No								= "";
+		$CONF['pwcrypt']					= "md5";
 	} else {
 		$tMd5Yes							= "";
 		$tMd5No								= "checked";
+		$CONF['pwcrypt']					= "crypt";
 	}
 	
 	if( $tViewvcConfig == "YES" ) {
