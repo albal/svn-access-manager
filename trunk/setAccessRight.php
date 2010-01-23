@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	if( isset( $_GET['task'] ) ) {
 		
-		$_SESSION['svn_sessid']['task'] 	= strtolower( $_GET['task'] );
+		$_SESSION['svn_sessid']['task'] 	= escape_string( strtolower( $_GET['task'] ) );
 		
 	} else {
 		
