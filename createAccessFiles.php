@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
-	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )	? $_POST['fViewvcConfig']	: "";
-	$tReload								= isset( $_POST['fReload'] )		? $_POST['fReload']			: "";
+	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )	? escape_string( $_POST['fViewvcConfig'] )	: "";
+	$tReload								= isset( $_POST['fReload'] )		? escape_string( $_POST['fReload'] )		: "";
 	$tRetReload								= array();
 	
 	if( $button == _("Yes") ) {
