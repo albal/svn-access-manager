@@ -22,7 +22,7 @@ These are the steps to update from version 0.3.0.3 to 0.4.0.0
    $CONF['lostPwLinkValid']		= 2;
 
 
-3. Release 0.4.0.0  comes with new features. That means that there are a lot of
+3. Release 0.4.1.0  comes with new features. That means that there are a lot of
    files changed and serveral new files included. Either compare your installation to 
    the current release or install the release from scratch and copy the changed config
    file from your previous installation into your new installation.

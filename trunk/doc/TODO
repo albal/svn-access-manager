@@ -15,13 +15,14 @@ Open:
 
 - support mysqli
 
-- add security question for password reset
 
 
 
 Done:
 
 - add language support for MySQL
+
+- add security question for password reset
 
 - make password complexity configurable
 
