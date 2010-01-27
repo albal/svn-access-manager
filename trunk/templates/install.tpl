@@ -176,7 +176,7 @@ include( "../include/output.inc.php" );
 				<p>&nbsp;</p>
 				
 				<fieldset>
-					<legend><strong><?php print " "._("Website settings")." "; ?></string></legend>
+					<legend><strong><?php print " "._("Website settings / Lost Passwords")." "; ?></strong></legend>
 					<table>
 						<tr>
 				      		<td colspan="4">&nbsp;</td>
@@ -188,6 +188,26 @@ include( "../include/output.inc.php" );
 					   		</td>
 					   		<td>
 					   			<?php print _("Enter the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("Lost password mail sender").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLpwMailSender" value="<?php print $tLpwMailSender;?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the email address to use as sender address for lost password emails."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("Lost password link valid").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLpwLinkValid" value="<?php print $tLpwLinkValid;?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter tne number of days a lost password link will be valid."); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
@@ -514,7 +534,7 @@ include( "../include/output.inc.php" );
 			<table width="100%" cellspacing="0" border="0" cellpadding="0">
    				<tr>
        				<td nowrap>
-						<?php print $CONF['copyright']; ?>
+						<?php $cr = isset( $CONF['copyright'] ) ? $CONF['copyright'] : ""; print $cr; ?>
 					</td>
 					<td nowrap align="right">
 						<?php print $datetime; ?>

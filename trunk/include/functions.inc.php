@@ -777,7 +777,11 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 	$smallLetters		= preg_match( '/[a-z]/', $password );
 	$capitalLetters		= preg_match( '/[A-Z]/', $password );
 	$numbers			= preg_match( '/[0-9]/', $password );
-	$pattern			= '/'.$CONF['passwordSpecialChars'].'/';
+	if( isset( $CONF['passwordSpecialChars'] ) ) {
+		$pattern		= '/'.$CONF['passwordSpecialChars'].'/';
+	} else {
+		$pattern		= '/'.'[\!\"\§\$\%\/\(\)=\?\*\+\#\-\_\.\:\,\;\<\>\|\@]'.'/';
+	}
 	$specialChars		= preg_match( $pattern, $password );
 	$passwordLength		= strlen( $password );
 	$groups				= 0;
@@ -799,18 +803,29 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 	}
 	
 	if( $admin == "y" ) {
-		if( $passwordLength < $CONF['minPasswordlength'] ) {
+		
+		if( isset($CONF['minPasswordlength']) ) {
+			$minPasswordlength	= $CONF['minPasswordlength'];
+		} else {
+			$minPasswordLength	= 14;
+		}
+		if( $passwordLength < $minPasswordLength ) {
 			
 			$retval			= 0;
 			
 		} else {
-		
-			if( isset( $CONF['minPasswordGroups'] ) ) {
 			
-				if( ($CONF['minPasswordGroups'] < 1) or ($CONF['minPasswordGroups'] > 4) ) {
+			if( isset( $CONF['minPasswordGroups'] ) ) {
+				$minPasswordGroups	= $CONF['minPasswordGroups'];
+			} else {
+				$minPasswordGroups	= 4;
+			}
+			if( isset( $minPasswordGroups ) ) {
+			
+				if( ($minPasswordGroups < 1) or ($minPasswordGroups > 4) ) {
 					$minGroups	= 4;
 				} else {
-					$minGroups	= $CONF['minPasswordGroups'];
+					$minGroups	= $minPasswordGroups;
 				}
 				
 			} else {
@@ -830,6 +845,11 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 	
 	} else {
 		
+		if( isset( $CONF['minPasswordlengthUser'] ) ) {
+			$minPasswordlengthUser		= $CONF['minPasswordlengthUser'];
+		} else {
+			$minPasswordLengthUser		= 8;
+		}
 		if( $passwordLength < $CONF['minPasswordlengthUser'] ) {
 			
 			$retval			= 0;

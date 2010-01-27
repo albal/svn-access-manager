@@ -237,6 +237,18 @@ function dropDatabaseTables( $dbh ) {
 	
 	}
 	
+	if( $error == 0 ) {
+		
+		$query								= "DROP TABLE IF EXISTS `svnpasswordreset`";
+		$result								= db_query_install( $query, $dbh );
+		if( mysql_errno() != 0 ) {
+		
+			$error							= 1;
+			$tMessage						= sprintf( _("Cannot drop table %s"), "help" );
+		}
+	
+	}
+	
 	$ret									= array();
 	$ret['error']							= $error;
 	$ret['errormsg']						= $tMessage;
@@ -570,8 +582,8 @@ function createDatabaseTables( $dbh, $charset, $collation ) {
   													`deleted_user` varchar(255) NOT NULL,
   													`password_modified` datetime NOT NULL,
   													`superadmin` tinyint(1) NOT NULL default '0',
-  													`securityquestion varchar(255) default '',
-  													`securityanswer varchar(255) default '',
+  													`securityquestion` varchar(255) default '',
+  													`securityanswer` varchar(255) default '',
   													PRIMARY KEY  (`id`),
   													UNIQUE KEY `idx_userid` (`userid`,`deleted`),
   													KEY `idx_mode` (`locked`),
@@ -793,7 +805,7 @@ function createDatabaseTables( $dbh, $charset, $collation ) {
 	$ret['error']							= $error;
 	$ret['errormsg']						= $tMessage;
 	
-	error_log( $error." - ". $tMessage );
+	#error_log( $error." - ". $tMessage );
 	
 	return $ret;
 	
@@ -823,7 +835,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 	$query									= "SELECT id, allowed_action " .
 											  "  FROM rights " .
 											  " WHERE deleted = '0000-00-00 00:00:00'";
-	error_log( $query );
+	#error_log( $query );
 	$result									= db_query_install( $query, $dbh );
 	error_log( "rows = ".$result['rows'] );
 	
@@ -834,7 +846,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 		
 		$query								= "INSERT INTO users_rights (user_id, right_id, allowed, created, created_user) " .
 											  "VALUES ($uid, $id, '$allowed', now(), 'install')";
-		error_log( $query );
+		#error_log( $query );
 		$resultinsert						= db_query_install( $query, $dbh );
 		
 		if( mysql_errno() != 0 ) {
@@ -856,7 +868,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 	$ret['error']							= $error;
 	$ret['errormsg']						= $tMessage;
 	
-	error_log( "createAdmin: ".$error." - ". $tMessage );
+	#error_log( "createAdmin: ".$error." - ". $tMessage );
 	
 	return $ret;
 	
@@ -866,6 +878,11 @@ initialize_i18n();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
+   	$CONF									= array();
+	$CONF['database_type']					= "mysql";
+	$CONF['database_innodb']                = 'YES';
+	$CONF['copyright']						= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+	
     # common locations where to find grep and svn under linux/unix
    	$svnpath								= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
    	$svnadminpath							= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
@@ -904,6 +921,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tDatabaseCharset						= "latin1";
    	$tDatabaseCollation						= "latin1_german1_ci";
    	$tWebsiteCharset						= "iso8859-15";
+   	$tLpwMailSender							= "";
+   	$tLpwLinkValid							= "";
    	$tErrors								= array();
    	
    	for( $i = 0; $i < count($svnpath); $i++ ) {
@@ -947,6 +966,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tResult								= array();
 	$tErrors								= array();
 	$CONF									= array();
+	$CONF['database_type']					= "mysql";
+	$CONF['database_innodb']                = 'YES';
+	$CONF['copyright']						= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 	
 	$tCreateDatabaseTables					= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
 	$tDropDatabaseTables					= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
@@ -958,6 +980,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tDatabaseCharset						= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
 	$tDatabaseCollation						= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
 	$tWebsiteCharset						= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
+	$tLpwMailSender							= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
+	$tLpwLinkValid							= isset( $_POST['fLpwLinkValid'] ) 			? ( $_POST['fLpwLinkValid'] )			: "";
 	$tUsername								= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
 	$tPassword								= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
 	$tPassword2								= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
@@ -1136,6 +1160,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 		}
 		
+		if( $tLpwMailSender == "" ) {
+			
+			$tErrors[]						= _("Lost password mail sender address is missing!");
+			$error							= 1;
+			
+		} elseif( ! check_email( $tLpwMailSender ) ) {
+			
+			$tErrors[]						= sprintf( _("Lost password mail sender address %s is not a valid email address!" ), $tLpwMailSender );
+			$error							= 1;
+			
+		}
+		
+		if( $tLpwLinkValid == "" ) {
+			
+			$tErrors[]						= _("Lost password days link valid missing!");
+			$error							= 1;
+			
+		} elseif( ! is_numeric( $tLpwLinkValid) ) {
+			
+			$tErrors[]						= _("Lost password days link valid must be numeric!" );
+			$error							= 1;
+			
+		}
+		
 		if( $tUsername == "" ) {
 			
 			$tErrors[]						= _("Administrator username is missing!" );
@@ -1289,6 +1337,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###VIEWVCREALM###', $tViewvcRealm, $content );
 			$content					= str_replace( '###SEPERATEFILESPERREPO###', $tPerRepoFiles, $content );
 			$content					= str_replace( '###SVNADMINCMD###', $tSvnadminCommand, $content );
+			$content					= str_replace( '###WEBSITECHARSET###', $tWebsiteCharset, $content );
+			$content					= str_replace( '###LOSTPWSENDER###', $tLpwMailSender, $content );
+			$content					= str_replace( '###LOSTPWMAXERROR###', 3, $content );
+			$content					= str_replace( '###LOSTPWLINKVALID###', $tLpwLinkValid, $content );
 			
 		} else {
 			
