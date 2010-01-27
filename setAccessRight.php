@@ -115,9 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tRepoPassword							= $_SESSION['svn_sessid']['repopassword'];
 	$tModulePath							= $_SESSION['svn_sessid']['modulepath'];
 	$tPathSelected							= $tModulePath.$_SESSION['svn_sessid']['pathselected'];
-	error_log( $tPathSelected );
+	#error_log( $tPathSelected );
 	$tPathSelected							= str_replace( '//', '/', $tPathSelected );
-	error_log( $tPathSelected );
+	#error_log( $tPathSelected );
 	$tNone									= "checked";
 	$tRecursive								= "checked";
 	
@@ -221,9 +221,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tRepoPassword							= $_SESSION['svn_sessid']['repopassword'];
 	$tModulePath							= $_SESSION['svn_sessid']['modulepath'];
 	$tPathSelected							= $tModulePath.$_SESSION['svn_sessid']['pathselected'];
-	error_log( $tPathSelected );
+	#error_log( $tPathSelected );
 	$tPathSelected							= str_replace( '//', '/', $tPathSelected );
-	error_log( $tPathSelected );
+	#error_log( $tPathSelected );
    	$tAccessRight							= isset( $_POST['fAccessRight']) 	? escape_string( $_POST['fAccessRight'] ) 	: "";
    	$tRecursive								= isset( $_POST['fRecursive'] ) 	? escape_string( $_POST['fRecursive'] )		: "";
    	$tValidFrom								= isset( $_POST['fValidFrom'] )		? escape_string( $_POST['fValidFrom'] )		: "";

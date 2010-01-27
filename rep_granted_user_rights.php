@@ -139,7 +139,7 @@ if( $rightAllowed == "none" ) {
 	
 }		  
 
-error_log( "page_size = ".$CONF['page_size'] );
+#error_log( "page_size = ".$CONF['page_size'] );
 
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {

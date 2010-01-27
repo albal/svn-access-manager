@@ -142,30 +142,32 @@
 			   				$tEdit						= "";
 			   				$tDelete					= "";   				
 			   					
-		   					if(strtolower($tRightsGranted[$id]) == "read") {
-		   						$tNone				= "";
-		   						$tRead				= "selected";
-		   						$tAdd				= "";
-		   						$tEdit				= "";
-		   						$tDelete			= "";
-		   					} elseif(strtolower($tRightsGranted[$id]) == "add" ) {
-		   						$tNone				= "";
-		   						$tRead				= "";
-		   						$tAdd				= "selected";
-		   						$tEdit				= "";
-		   						$tDelete			= "";
-		   					} elseif(strtolower($tRightsGranted[$id]) == "edit" ) {
-		   						$tNone				= "";
-		   						$tRead				= "";
-		   						$tAdd				= "";
-		   						$tEdit				= "selected";
-		   						$tDelete			= "";
-		   					} elseif(strtolower($tRightsGranted[$id]) == "delete" ) {
-		   						$tNone				= "";
-		   						$tRead				= "";
-		   						$tAdd				= "";
-		   						$tEdit				= "";
-		   						$tDelete			= "selected";
+			   				if( isset($tRightsGranted[$id]) ) {
+			   					if(strtolower($tRightsGranted[$id]) == "read") {
+			   						$tNone				= "";
+			   						$tRead				= "selected";
+			   						$tAdd				= "";
+			   						$tEdit				= "";
+			   						$tDelete			= "";
+			   					} elseif(strtolower($tRightsGranted[$id]) == "add" ) {
+			   						$tNone				= "";
+			   						$tRead				= "";
+			   						$tAdd				= "selected";
+			   						$tEdit				= "";
+			   						$tDelete			= "";
+			   					} elseif(strtolower($tRightsGranted[$id]) == "edit" ) {
+			   						$tNone				= "";
+			   						$tRead				= "";
+			   						$tAdd				= "";
+			   						$tEdit				= "selected";
+			   						$tDelete			= "";
+			   					} elseif(strtolower($tRightsGranted[$id]) == "delete" ) {
+			   						$tNone				= "";
+			   						$tRead				= "";
+			   						$tAdd				= "";
+			   						$tEdit				= "";
+			   						$tDelete			= "selected";
+			   					}
 		   					}
 			   				
 			   							   				
