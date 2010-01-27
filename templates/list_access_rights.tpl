@@ -89,7 +89,8 @@
 				        <?php
 				      		if( ($rightAllowed == "add") or
 				      		    ($rightAllowed == "edit") or
-				      		    ($rightAllowed == "delete") ) {
+				      		    ($rightAllowed == "delete") or 
+				      		    ($_SESSION['svn_sessid']['admin'] == "p") ) {
 				      		    
 				      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New access right")."\"  title=\""._("New access right")."\" />     ";
 				      		}
