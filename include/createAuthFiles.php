@@ -33,7 +33,9 @@ function createAuthUserFile( $dbh ) {
 		$tMessage							= "";
 		$dir								= dirname( $CONF['AuthUserFile'] );
 		$entropy							= create_salt();
-		$tempfile							= $dir."/authtemp_".$entropy;
+		$os									= determineOS();
+		$slash								= ($os == "windows") ? "\\" : "/";
+		$tempfile							= $dir.$slash."authtemp_".$entropy;
 			
 		if( $CONF['createUserFile'] == "YES" ) {
 			
@@ -62,6 +64,10 @@ function createAuthUserFile( $dbh ) {
 					@fclose( $fileHandle );
 					
 					if( $retcode == 0 ) {
+						
+						if( ($os == "windows") and file_exists( $CONF['AuthUserFile'] ) ) {
+							unlink( $CONF['AuthUserFile'] );
+						}
 						
 						if( @rename( $tempfile, $CONF['AuthUserFile'] ) ) {
 							
@@ -131,7 +137,9 @@ function createAuthUserFilePerRepo( $dbh ) {
 	$tMessage							= "";
 	$dir								= dirname( $CONF['AuthUserFile'] );
 	$entropy							= create_salt();
-	$tempfile							= $dir."/authtemp_".$entropy;
+	$os									= determineOS();
+	$slash								= ($os == "windows") ? "\\" : "/";
+	$tempfile							= $dir.$slash."authtemp_".$entropy;
 	$curdate							= strftime( "%Y%m%d" );
 		
 	if( $CONF['createUserFile'] == "YES" ) {
@@ -184,6 +192,10 @@ function createAuthUserFilePerRepo( $dbh ) {
 					@fclose( $fileHandle );	
 					
 					if( $retcode == 0 ) {
+						
+						if( ($os == "windows") and file_exists( $authuserfile ) ) {
+							unlink( $authuserfile );
+						}
 						
 						if( @rename( $tempfile, $authuserfile ) ) {
 							
@@ -269,7 +281,9 @@ function createAccessFile( $dbh ) {
 				
 				$dir							= dirname( $CONF['SVNAccessFile'] );
 				$entropy						= create_salt();
-				$tempfile						= $dir."/accesstemp_".$entropy;
+				$os								= determineOS();
+				$slash							= ($os == "windows") ? "\\" : "/";
+				$tempfile						= $dir.$slash."accesstemp_".$entropy;
 			
 				if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
 				
@@ -488,6 +502,10 @@ function createAccessFile( $dbh ) {
 					
 						@fclose( $fileHandle );
 						
+						if( ($os == "windows") and file_exists( $CONF['SVNAccessFile'] ) ) {
+							unlink( $CONF['SVNAccessFile'] );
+						}
+						
 						if( @rename( $tempfile, $CONF['SVNAccessFile'] ) ) {
 							
 							#if( @unlink( $tempfile ) ) {
@@ -565,7 +583,9 @@ function createAccessFilePerRepo( $dbh ) {
 			
 			$dir							= dirname( $CONF['SVNAccessFile'] );
 			$entropy						= create_salt();
-			$tempfile						= $dir."/accesstemp_".$entropy;
+			$os								= determineOS();
+			$slash							= ($os == "windows") ? "\\" : "/";
+			$tempfile						= $dir.$slash."accesstemp_".$entropy;
 			
 			$query						= "SELECT * " .
 										  "  FROM svnrepos " .
@@ -812,6 +832,10 @@ function createAccessFilePerRepo( $dbh ) {
 					
 						@fclose( $fileHandle );
 						
+						if( ($os == "windows") and file_exists( $svnaccessfile ) ) {
+							unlink( $svnaccessfile );
+						}
+						
 						if( @rename( $tempfile, $svnaccessfile ) ) {
 							
 						} else {
@@ -960,13 +984,17 @@ function createViewvcConfig( $dbh ) {
 			
 			$dir							= dirname( $CONF['ViewvcConf'] );
 			$entropy						= create_salt();
-			$tempfile						= $dir."/viewvc_conf_temp_".$entropy;
+			$os									= determineOS();
+			$slash							= ($os == "windows") ? "\\" : "/";
+			$tempfile						= $dir.$slash."viewvc_conf_temp_".$entropy;
 		
 			if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
 	
 				$dir						= dirname( $CONF['ViewvcGroups'] );
 				$entropy					= create_salt();
-				$tempgroups					= $dir."/viewvc_groups_temp_".$entropy;
+				$os							= determineOS();
+				$slash						= ($os == "windows") ? "\\" : "/";
+				$tempgroups					= $dir.$slash."viewvc_groups_temp_".$entropy;
 				
 				if( $groupHandle = @fopen( $tempgroups, 'w' ) ) {
 			
@@ -1253,10 +1281,18 @@ function createViewvcConfig( $dbh ) {
 			
 			if( $retcode == 0 ) {
 				
+				if( ($os == "windows") and file_exists( $CONF['ViewvcGroups'] ) ) {
+					unlink( $CONF['ViewvcGroups'] );
+				}
+						
 				if( @rename( $tempgroups, $CONF['ViewvcGroups'] ) ) {
 						
 					#if( @unlink( $tempgroups ) ) {
 						
+						if( ($os == "windows") and file_exists( $CONF['ViewvcConf'] ) ) {
+							unlink( $CONF['ViewvcConf'] );
+						}
+				
 						if( @rename( $tempfile, $CONF['ViewvcConf'] ) ) {
 							
 							#if( @unlink( $tempfile ) ) {

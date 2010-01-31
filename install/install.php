@@ -837,7 +837,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dbh
 											  " WHERE deleted = '0000-00-00 00:00:00'";
 	#error_log( $query );
 	$result									= db_query_install( $query, $dbh );
-	error_log( "rows = ".$result['rows'] );
+	#error_log( "rows = ".$result['rows'] );
 	
 	while( ($error == 0) and ($row = db_array( $result['result'] )) ) {
 		
