@@ -17,7 +17,7 @@
 				   	<tr>
 				   		<td><strong><?php print _("Repository path").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fRepopath" value="<?php print $tRepopath; ?>" size="40" maxsize="255"  />
+				   			<input type="text" name="fRepopath" value="<?php print no_magic_quotes($tRepopath); ?>" size="40" maxsize="255"  />
 				   		</td>
 				   		<td><?php print _("Path to the repository. If SVN Access Manager runs on the same host as the repository does use file:// for access to te repository. No username and password in required in this case."); ?></td>
 				   	</tr>

@@ -59,16 +59,33 @@
 				   						print "\t\t\t\t\t\t\t\t<option value=\"[back]\">[..]</option>\n";
 				   					}
 				   					
-				   					foreach( $tRepodirs as $dir ) {
-				   					
-				   						$dirs = explode("/", $dir);
-				   						$count = count( $dir ) - 1;
-				   						if( $count >= 0 ) {
-				   							$direntry = $dirs[$count];
-				   							print '\t\t\t\t\t\t\t\t<option value="'.$dir.'">'.$direntry.'</option>\n';
-				   						}
-				   						
+				   					if($fileSelect == 0) {
+										
+										$files = array();
+					   					foreach( $tRepodirs as $dir ) {
+					   					
+					   						#$dirs = explode("/", $dir);
+					   						#$count = count( $dir ) - 1;
+					   						#if( $count >= 0 ) {
+					   						#	$direntry = $dirs[$count];
+					   						#	print '\t\t\t\t\t\t\t\t<option value="'.$dir.'">'.$direntry."/".'</option>\n';
+					   						#} elseif( strtolower($accessControl) == "files" ) {
+					   						#	$files[] = $dir;
+					   						#}
+					   						
+					   						if( preg_match( '/\/$/', $dir ) ) {
+					   							print '\t\t\t\t\t\t\t\t<option value="'.$dir.'">'.$dir.'</option>\n';
+					   						} else {
+					   							$files[] = $dir;
+					   						}
+					   						
+					   					}
+					   					
+					   					foreach( $files as $file ) {
+					   						print '\t\t\t\t\t\t\t\t<option value="'.$file.'">'.$file.'</option>\n';
+					   					}
 				   					}
+				   					
 				   				?>
 				   			</select>
 				   		</td>

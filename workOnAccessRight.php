@@ -36,6 +36,7 @@ $CONF['user_sort_order']						= $preferences['user_sort_order'];
 $CONF['page_size']								= $preferences['page_size'];
 $rightAllowed									= db_check_acl( $SESSID_USERNAME, "Access rights admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']			= "workonaccessright";
+$accessControl									= isset( $CONF['accessControl'] ) ? $CONF['accessControl'] : "dirs";
 
 if( $rightAllowed == "none" ) {
 	
@@ -111,6 +112,7 @@ if( $tProjectIds != "" ) {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly									= "";
+	$fileSelect									= 0;
 	$tTask										= escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
@@ -176,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$os										= determineOs();
 				
 				if( $os == "windows" ) {
-					$tempdir					= "c:\temp";
+					$tempdir					= "c:/temp";
 				} else {
 					$tempdir					= "/var/tmp/";
 				}
@@ -187,8 +189,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$options					= "";
 				}
 				
+				$repopath						= preg_replace( '/\\\/', '/', $tRepoPath );
 				$tRepodirs						= array();
-				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$tRepoPath.'/'.$tModulePath.'|'.$CONF['grep_command'].' "/$"';
+				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath;
+				if( strtolower($accessControl) != "files" ) {
+					$cmd						.= '|'.$CONF['grep_command'].' "/$"';
+				}
+				error_log( $cmd );
 				$errortext						= exec( $cmd, $tRepodirs, $retval );
 				
 				if( $retval == 0 ) {
@@ -197,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					
 				} else {
 					
-					$tMessage					= sprintf( _("Error while accessing svn repository: %s (%s/%s)"), $errortext, $cmd, $retval);
+					$tMessage					= sprintf( _("Error while accessing svn repository: %s (%s / retcode = %s)"), $errortext, $cmd, $retval);
 					
 				}
 				
@@ -358,6 +365,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    	} elseif( ($button == _("Change to directory")) or ($button == "") ) {
    		
+   		$fileSelect							= 0;
+   		
 		if( isset( $_POST['fPath'] ) ) {
    			
    			$tPath							= escape_string( $_POST['fPath'] ) ;
@@ -385,15 +394,40 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		} else {
    		
    			$_SESSION['svn_sessid']['pathcnt']++;
-   			$tPath							= substr( $tPath, 0, (strlen($tPath) - 1) );
-   			$_SESSION['svn_sessid']['path'][ $_SESSION['svn_sessid']['pathcnt'] ]= $tPath;
+   			if( preg_match( '/\/$/', $tPath ) ) {
    				
+   				$tPath						= substr( $tPath, 0, (strlen($tPath) - 1) );
+   				
+   			} else {
+   				$fileSelect					= 1;
+   			}
+   			$_SESSION['svn_sessid']['path'][ $_SESSION['svn_sessid']['pathcnt'] ]= $tPath;
+   			
    		}
    		
    		$tRepodirs							= array();
-   		$arr								= 
    		$tPathSelected						= implode( "/", $_SESSION['svn_sessid']['path'] );
-		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir /var/tmp/ '.$tRepoPath.'/'.$tModulePath.'/'.$tPathSelected.'|'.$CONF['grep_command'].' "/$"';
+		$os									= determineOs();
+				
+		if( $os == "windows" ) {
+			$tempdir						= "c:/temp";
+		} else {
+			$tempdir						= "/var/tmp/";
+		}
+		
+		if( strtolower(substr($tRepoPath, 0, 4) == "http") ) {
+			$options						= " --username $tRepoUser --password $tRepoPassword ";
+		} else {
+			$options						= "";
+		}
+		
+		$tRepodirs							= array();
+		$repopath							= preg_replace( '/\\\/', '/', $tRepoPath );
+		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath.'/'.$tPathSelected;
+		if( strtolower($accessControl) != "files" ) {
+			$cmd							.= '|'.$CONF['grep_command'].' "/$"';
+		}
+		error_log( $cmd );
 		$errortext							= exec( $cmd, $tRepodirs, $retval );
    		
    	} elseif( $button == _("Set access rights") ) {

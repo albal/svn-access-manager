@@ -384,6 +384,14 @@ function check_date ($day, $month, $year) {
 
 
 
+function no_magic_quotes($query) {
+        $data = explode("\\\\",$query);
+        $cleaned = implode("\\",$data);
+        return $cleaned;
+}
+
+
+
 //
 // escape_string
 // Action: Escape a string
@@ -393,14 +401,14 @@ function escape_string ($string) {
    
    	global $CONF;
    
-   	if (get_magic_quotes_gpc () == 0)  {
+   	if (get_magic_quotes_gpc() == 0)  {
    	
    		if( is_array( $string) ) {
    			
    			return $string;
    			
    		} else {
-      	
+
       		if ($CONF['database_type'] == "mysql") { 	
       			$escaped_string = mysql_real_escape_string ($string);
       		}
