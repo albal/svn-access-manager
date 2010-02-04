@@ -126,6 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
    	$tReponame									= escape_string( $_POST['fReponame'] );
    	$tRepopath									= escape_string( $_POST['fRepopath'] );
+   	if( get_magic_quotes_gpc() == 1) {
+   		$tRepopath								= no_magic_quotes( $tRepopath );
+   	}
    	$tRepouser									= escape_string( $_POST['fRepouser'] );
    	$tRepopassword								= escape_string( $_POST['fRepopassword'] );
    	#$tSeparate									= isset( $_POST['fSeparate'] ) 		  ? escape_String( $_POST['fSeparate'] ) : 0;
@@ -221,12 +224,49 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    							
    						} else {
 	   						
+							error_log( "tRepoPath = $tRepopath" );
+	   						
 	   						if( preg_match( '/^file:\//', $tRepopath ) ) {
 	   							
+	   							$os					= determineOs();
+	   							
+	   							if( $os == "windows" ) {
+	   								
+	   								$tRepopath		= no_magic_quotes($tRepopath);
+	   								$svncmd			= no_magic_quotes($CONF['svnadmin_command']);
+	   								
+	   							} else {
+	   								
+	   								$svncmd			= $CONF['svnadmin_command'];
+	   							}
+	   							
 	   							$repopath			= preg_replace( '/^file:\/\//', '', $tRepopath );
-	   							$tCreateRepository 	= $CONF['svnadmin_command']." --pre-1.6-compatible create ".$repopath;
-	   							exec( escapeshellcmd($tCreateRepository), $output, $returncode );
+	   							
+	   							if( $os == "windows" ) {
+	   								
+	   								$repopath		= preg_replace( '/^\//', '', $repopath );
+	   								$repopath		= preg_replace( '/\\\/', '/', $repopath );
+	   								
+	   							}
+	   							
+	   							
+	   							$compatibility		= isset( $CONF['repo_compatibility'] ) ? $CONF['repo_compatibility'] : "--pre-1.4-compatible";
+	   							$tCreateRepository 	= $svncmd." ".$compatibility." create ".$repopath;
+	   							
+	   							error_log( "create: $tCreateRepository");
+	   							
+	   							if( $os == "windows" ) {
+	   							
+	   								exec( $tCreateRepository, $output, $returncode );
+	   									
+	   							} else {
+	   								
+	   								exec( escapeshellcmd($tCreateRepository), $output, $returncode );
+	   									
+	   							}
+	   						
 								sleep(2);
+								
 								if( $returncode != 0 ) {
 									
 									$tMessage		= _("Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!");
