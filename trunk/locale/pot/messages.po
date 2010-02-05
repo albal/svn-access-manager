@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2010-02-05 06:30+0100\n"
+"PO-Revision-Date: 2010-02-06 00:30+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -805,6 +805,10 @@ msgstr "Ein Datenbankfehler ist aufgetreten:"
 msgid "A new user needs a password!"
 msgstr "Ein neuer Benutzer braucht ein Passwort!"
 
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:324
+msgid "Access control level"
+msgstr "Zugriffsschutz auf Ebene"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:45
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:76
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:78
@@ -1054,6 +1058,7 @@ msgstr "Verantwortlichen hinzufügen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1397
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1431
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1449
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1461
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -1176,6 +1181,7 @@ msgstr "Administrator Kennung"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1171
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1201
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1219
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1230
 #, php-format
 msgid "Administrator email address %s is not a valid email address!"
 msgstr "E-Mailadresse des Administrators %s ist nicht gültig!"
@@ -1205,6 +1211,7 @@ msgstr "E-Mailadresse des Administrators %s ist nicht gültig!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1166
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1196
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1214
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1225
 msgid "Administrator email address is missing!"
 msgstr "E-Mailadresse des Administrators fehlt!"
 
@@ -1228,6 +1235,7 @@ msgstr "E-Mailadresse des Administrators fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1161
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1191
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1209
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1220
 msgid "Administrator name is missing!"
 msgstr "Nachname des Administrators fehlt!"
 
@@ -1251,6 +1259,7 @@ msgstr "Nachname des Administrators fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1146
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1176
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1194
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1205
 msgid "Administrator password is missing!"
 msgstr "Passwort des Administrators fehlt!"
 
@@ -1274,6 +1283,7 @@ msgstr "Passwort des Administrators fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1156
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1186
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1204
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1215
 msgid "Administrator password is not strong enough!"
 msgstr "Administrator Passwort ist nicht stark genug!"
 
@@ -1297,6 +1307,7 @@ msgstr "Administrator Passwort ist nicht stark genug!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1151
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1181
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1199
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1210
 msgid "Administrator passwords do not match!"
 msgstr "Administrator Passworte sind verschieden!"
 
@@ -1320,6 +1331,7 @@ msgstr "Administrator Passworte sind verschieden!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1141
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1171
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1189
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1200
 msgid "Administrator username is missing!"
 msgstr "Administrator Kennung fehlt!"
 
@@ -1364,6 +1376,7 @@ msgstr "Auth User Datei fehlt, bitte eintragen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:310
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:315
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:335
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:346
 msgid "Auth User file"
 msgstr "Benutzer Authentifizierungdatei"
 
@@ -1404,6 +1417,7 @@ msgstr "Benutzerauthentifizierungsdatei erfolgreich erstellt aber das Semaphore 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1190
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1220
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1238
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1249
 msgid "Auth user file is missing!"
 msgstr "Benutzer Authentifizierungsdatei fehlt!"
 
@@ -1943,6 +1957,7 @@ msgstr "Passwort kann nicht geändert werden. Bitte versuchen Sie es später noc
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1308
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1342
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1360
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1372
 msgid "Can't write new config.inc.php file!"
 msgstr "kann config.inc.php nicht schreiben!"
 
@@ -2636,6 +2651,7 @@ msgstr "Zugriffsdateien erstellen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:331
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:336
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:356
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:367
 msgid "Create ViewVC configuration"
 msgstr "ViewVC Konfiguration erzeugen"
 
@@ -2712,6 +2728,7 @@ msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:320
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:325
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:345
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:356
 msgid "Create per repository access files"
 msgstr "Zugriffsdateien pro Repository erzeugen"
 
@@ -2792,6 +2809,7 @@ msgstr "Daten aufgrund eines Datenbankfehlers nicht geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1118
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1124
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1142
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1153
 msgid "Database charset is missing!"
 msgstr "Datenbank Zeichensatz fehlt!"
 
@@ -2800,6 +2818,7 @@ msgstr "Datenbank Zeichensatz fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1125
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1131
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1149
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1160
 msgid "Database collation is missing!"
 msgstr "Datenbank Sortierfolge fehlt!"
 
@@ -2835,6 +2854,7 @@ msgstr "Datenbank Fehler"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1097
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1103
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1121
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1132
 msgid "Database host is missing!"
 msgstr "Datenbank Rechner fehlt!"
 
@@ -2858,6 +2878,7 @@ msgstr "Datenbank Rechner fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1111
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1117
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1135
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1146
 msgid "Database name is missing!"
 msgstr "Datenbankname fehlt!"
 
@@ -2892,6 +2913,7 @@ msgstr "Datenbank Einstellungen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1382
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1416
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1434
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1446
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
@@ -2918,6 +2940,7 @@ msgstr "Datenbanktabellen erfolgreich angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1364
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1398
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1416
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1428
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gelöscht"
 
@@ -2941,6 +2964,7 @@ msgstr "Datenbanktabellen erfolgreich gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1104
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1110
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1128
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1139
 msgid "Database user is missing!"
 msgstr "Datenbankbenutzer fehlt!"
 
@@ -3179,6 +3203,10 @@ msgstr "Ausgewählte löschen"
 msgid "Description"
 msgstr "Beschreibung"
 
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:326
+msgid "Directories"
+msgstr "Verzeichnisse"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:76
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:73
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:73
@@ -3238,6 +3266,7 @@ msgstr "E-Mailadresse fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:377
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:382
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:402
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:413
 msgid "Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."
 msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das KOmmando muss für den Webserver Benutzer ausführbar sein. Sie können das mit sudo erreichen."
 
@@ -3247,6 +3276,7 @@ msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das KOmmando mu
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:367
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:372
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:392
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:403
 msgid "Enter the alias you used in your webserver:"
 msgstr "Bitte den Alias der im Webserver verwendet wird eingeben:"
 
@@ -3294,6 +3324,7 @@ msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessen
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:315
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:320
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:340
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:351
 msgid "Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."
 msgstr "Den vollen Pfad und den Namen der Benutzer Authentifizierungsdatei zur Authentifizierung der Benutzer über den Webserver eingeben. Der Webserver muss die Datei schreiben können."
 
@@ -3318,6 +3349,7 @@ msgstr "Den vollen Pfad und den Dateinamen des SVN Zugriffsdatei eingeben. Der W
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:407
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:412
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:432
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:443
 msgid "Enter the full path and the name of the grep command."
 msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 
@@ -3331,6 +3363,7 @@ msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:387
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:392
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:412
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:423
 msgid "Enter the full path and the name of the svn command."
 msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 
@@ -3339,6 +3372,7 @@ msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:397
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:402
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:422
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:433
 msgid "Enter the full path and the name of the svnadmin command."
 msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 
@@ -3348,6 +3382,7 @@ msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:347
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:352
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:372
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:383
 msgid "Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."
 msgstr "Geben Sie den gesamten Pfad zu dem Verzeichnis ein, in das die ViewVC configuration gespeichert werden soll. Der Webserver muss in das Verzeichnis schreiben können."
 
@@ -3369,6 +3404,7 @@ msgstr "Die IP oder den Rechnernamen des MySQL Datenbankservers eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:463
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:468
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:488
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:499
 msgid "Enter the minimal length for administrator passwords."
 msgstr "Die minimale Länge von Administrator Passworten eingeben"
 
@@ -3381,6 +3417,7 @@ msgstr "Die minimale Länge von Administrator Passworten eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:473
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:478
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:498
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:509
 msgid "Enter the minimal length for user passwordws."
 msgstr "Die minimale Länge von Benutzer Passworten eingeben"
 
@@ -3403,6 +3440,7 @@ msgstr "Den Namen der MySQL Datenabnk eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:453
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:458
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:478
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:489
 msgid "Enter the number of records of lists displayed on a page."
 msgstr "Die Anzahl der Datensätze eingeben, die pro Seite angezeigt werden sollen."
 
@@ -3473,6 +3511,7 @@ msgstr "Bitte die Anzahl Tage eingeben, die ein Link für ein vergessenes Passwo
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1343
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1377
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1395
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1407
 msgid "Error copying temporary config file!"
 msgstr "Fehler beim kopieren der temporären Konfig Datei!"
 
@@ -3516,6 +3555,7 @@ msgstr "Fehler beim Anlegen des Administrator Benutzers: %s"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1331
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1365
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1383
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1395
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim Löschen der temporären Konfig Datei"
 
@@ -3789,6 +3829,10 @@ msgstr "Fehler beim Schreiben der Zugriffrechte Aktualisierung"
 msgid "Errormessage"
 msgstr "Fehlermeldung"
 
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:327
+msgid "Files"
+msgstr "Dateien"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/user_list.php:69
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:111
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:67
@@ -3896,6 +3940,7 @@ msgstr "Gewährte Benutzerrechte"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1228
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1258
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1276
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1287
 msgid "Grep command is missinbg!"
 msgstr "Grep Kommando fehlt!"
 
@@ -4713,11 +4758,13 @@ msgstr "Vergessenes Passwort"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1159
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1177
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1188
 msgid "Lost password days link valid missing!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort gültig bleibt fehlen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1164
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1182
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1193
 msgid "Lost password days link valid must be numeric!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort gültig bleibt muss numerisch sein!"
 
@@ -4730,12 +4777,14 @@ msgid "Lost password mail sender"
 msgstr "Absender der Mail"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1170
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1181
 #, php-format
 msgid "Lost password mail sender address %s is not a valid email address!"
 msgstr "Absenderadresse %s ist keine gültige Emailadresse!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1147
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1165
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1176
 msgid "Lost password mail sender address is missing!"
 msgstr "Absenderadresse fehlt!"
 
@@ -4777,6 +4826,7 @@ msgstr "Hauptmenü"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1243
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1273
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1291
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1302
 msgid "Minimal administrator password length is not numeric!"
 msgstr "Minimale Länge von Administrator Passworten ist nicht numerisch!"
 
@@ -4789,6 +4839,7 @@ msgstr "Minimale Länge von Administrator Passworten ist nicht numerisch!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:458
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:463
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:483
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:494
 msgid "Minimal length for admin passwords"
 msgstr "Minimale Länge von Admin Passworten"
 
@@ -4801,6 +4852,7 @@ msgstr "Minimale Länge von Admin Passworten"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:468
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:473
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:493
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:504
 msgid "Minimal length for user passwords"
 msgstr "Minimale Länge von Benutzer Passworten"
 
@@ -4823,6 +4875,7 @@ msgstr "Minimale Länge von Benutzer Passworten"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1248
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1278
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1296
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1307
 msgid "Minimal user password length is not numeric!"
 msgstr "Minimale Länge von Benutzer Passworten ist nicht numerisch!"
 
@@ -4836,6 +4889,7 @@ msgstr "Minimale Länge von Benutzer Passworten ist nicht numerisch!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:420
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:425
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:445
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:456
 msgid "Misc. settings"
 msgstr "Verschiedene Einstellungen"
 
@@ -5200,6 +5254,10 @@ msgstr "Nächster"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:454
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:465
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:506
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:338
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:370
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:476
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:517
 msgid "No"
 msgstr "Nein"
 
@@ -5226,6 +5284,7 @@ msgstr "Nein"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1406
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1440
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1458
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1470
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
@@ -5252,6 +5311,7 @@ msgstr "Keine Datenbanktabellen angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1369
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1403
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1421
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1433
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gelöscht"
 
@@ -5340,6 +5400,7 @@ msgstr "Hinweis"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:448
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:453
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:473
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:484
 msgid "Page size"
 msgstr "Seitengröße"
 
@@ -5364,6 +5425,7 @@ msgstr "Seitengröße"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1233
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1263
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1281
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1292
 msgid "Page size is missing!"
 msgstr "Seitengröße fehlt!"
 
@@ -5388,6 +5450,7 @@ msgstr "Seitengröße fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1238
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1268
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1286
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1297
 msgid "Page size is not numeric!"
 msgstr "Seitengröße ict nicht numerisch!"
 
@@ -6369,6 +6432,7 @@ msgstr "SVN Access Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1180
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1210
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1228
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1239
 msgid "SVN Access File is missing!"
 msgstr "SVN Access Datei fehlt!"
 
@@ -6473,6 +6537,7 @@ msgstr "SVN Access Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1218
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1248
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1266
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1277
 msgid "SVN command is missing!"
 msgstr "SVN Kommando fehlt!"
 
@@ -6618,6 +6683,7 @@ msgstr "Benutzersortierung"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:500
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:505
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:525
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:536
 msgid "Start installation"
 msgstr "Installation starten"
 
@@ -6888,6 +6954,7 @@ msgstr "Subversion Projekt"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1223
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1253
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1271
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1282
 msgid "Svnadmin command missing!"
 msgstr "Svnadmin Kommando fehlt!"
 
@@ -7000,6 +7067,7 @@ msgstr "Änderung der Gruppe %s aufgrund eines Datenbankfehlers fehlgeschlagen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:299
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:304
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:324
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:335
 msgid "Use Auth User File"
 msgstr "Benutzer Authentifikationsdatei"
 
@@ -7013,6 +7081,7 @@ msgstr "Benutzer Authentifikationsdatei"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:437
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:442
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:462
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:473
 msgid "Use JavaScript"
 msgstr "JavaScript benutzen"
 
@@ -7037,6 +7106,7 @@ msgstr "SVN Rechte Datei benutzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:426
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:431
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:451
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:462
 msgid "Use logging"
 msgstr "Protokollierung benutzen"
 
@@ -7048,6 +7118,7 @@ msgstr "Protokollierung benutzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:478
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:483
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:503
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:514
 msgid "Use md5 encryption"
 msgstr "MD5 Verrschlüsselung benutzen"
 
@@ -7358,6 +7429,7 @@ msgstr "Gültig bis"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:342
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:347
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:367
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:378
 msgid "ViewVC configuration directory"
 msgstr "ViewVC Konfigurationsverzeichnis"
 
@@ -7374,6 +7446,7 @@ msgstr "ViewVC Konfigurationsverzeichnis"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1200
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1230
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1248
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1259
 msgid "ViewVC configuration directory is missing!"
 msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 
@@ -7383,6 +7456,7 @@ msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:352
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:357
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:377
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:388
 msgid "ViewVC realm"
 msgstr "ViewVC Realm"
 
@@ -7398,6 +7472,7 @@ msgstr "ViewVC Realm"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1210
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1240
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1258
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1269
 msgid "ViewVC realm is missing!"
 msgstr "ViewVC realm fehlt!"
 
@@ -7412,6 +7487,7 @@ msgstr "ViewVC webserver Alias fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:362
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:367
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:387
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:398
 msgid "ViewVC webserver alias"
 msgstr "ViewVC Webserver Alias"
 
@@ -7427,6 +7503,7 @@ msgstr "ViewVC Webserver Alias"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1205
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1235
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1253
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1264
 msgid "ViewVC webserver alias is missing!"
 msgstr "ViewVC Webserver Alias fehlt!"
 
@@ -7441,6 +7518,7 @@ msgstr "ViewVC Webserver Alias fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:372
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:377
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:397
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:408
 msgid "ViewVC webserver reload command"
 msgstr "ViewVC Webserver Reload Kommando"
 
@@ -7499,6 +7577,7 @@ msgstr "Website Zeichensatz"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1134
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1140
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1158
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1169
 msgid "Website charset is missing!"
 msgstr "Website Zeichensatz fehlt!"
 
@@ -7613,8 +7692,16 @@ msgstr "Falsche Antwort!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:453
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:464
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:505
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:337
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:369
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:475
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:516
 msgid "Yes"
 msgstr "Ja"
+
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:330
+msgid "You can choose whether access control is possible on directories only or on directories and files."
+msgstr "Sie können wählen, ob der Zugriffsschutz auf Verzeichnisebene oder auf Verzeichnis- und Dateiebene möglich sein soll."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnAccessRight.tpl:45
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:45
@@ -7683,6 +7770,7 @@ msgstr "aufsteigend"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1295
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1329
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1347
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1359
 msgid "can't open config template for reading!"
 msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 
@@ -7709,6 +7797,7 @@ msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1315
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1349
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1367
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1379
 msgid "can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie sicher, dass das Verzeichnis für den Webserver Benutzer schreibbat ist!"
 
@@ -7735,6 +7824,7 @@ msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie siche
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1336
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1370
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1388
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1400
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
@@ -7777,6 +7867,7 @@ msgstr "ändern"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:402
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:407
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:427
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:438
 msgid "grep command"
 msgstr "grep Kommando"
 
@@ -7871,6 +7962,7 @@ msgstr "lesen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:382
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:387
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:407
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:418
 msgid "svn command"
 msgstr "svn Kommando"
 
@@ -7879,6 +7971,7 @@ msgstr "svn Kommando"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:392
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:397
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:417
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:428
 msgid "svnadmin command"
 msgstr "svnadmin Kommando"
 
