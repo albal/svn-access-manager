@@ -119,7 +119,7 @@ $CONF['separateFilesPerRepo']	= '###SEPERATEFILESPERREPO###';
 //Limit access control to directories only, change to files if you want to have
 //files listed during access rights management too
 //Valid values are "dirs" or "files"
-$CONF['accessControl']			= "files";
+$CONF['accessControl']			= "###ACCESSCONTROLLEVEL###";
 
 $CONF['mail_password_warn']		= <<<EOM
 

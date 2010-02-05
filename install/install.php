@@ -899,6 +899,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tUseAuthUserFileNo						= "checked";
 	$tLoggingYes							= "checked";
 	$tLoggingNo								= "";
+	$tAccessControlLevelDirs				= "checked";
+	$tAccessControllevelFiles				= "";
    	$tPageSize								= "30";
    	$tJavaScriptYes							= "checked";
    	$tJavaScriptNo							= "";
@@ -989,6 +991,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tName									= isset( $_POST['fName'] )					? ( $_POST['fName'] )					: "";
 	$tUseSvnAccessFile						= isset( $_POST['fUseSvnAccessFile'] )		? ( $_POST['fUseSvnAccessFile'] )		: "";
 	$tSvnAccessFile							= isset( $_POST['fSvnAccessFile'] )			? ( $_POST['fSvnAccessFile'] )			: "";
+	$tAccessControlLevel					= isset( $_POST['fAccessControlLevel'] )	? ( $_POST['fAccessControlLevel'] )		: "";
 	$tUseAuthUserFile						= isset( $_POST['fUseAuthUserFile'] )		? ( $_POST['fUseAuthUserFile'] )		: "";
 	$tAuthUserFile							= isset( $_POST['fAuthUserFile'] )			? ( $_POST['fAuthUserFile'] )			: "";
 	$tSvnCommand							= isset( $_POST['fSvnCommand'] )			? ( $_POST['fSvnCommand'] )				: "";
@@ -1060,6 +1063,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tUseSvnAccessFileYes				= "";
 		$tUseSvnAccessFileNo				= "checked";
+	}
+	
+	if( $tAccessControlLevel == "dirs" ) {
+		$tAccessControlLevelDirs			= "checked";
+		$tAccessControlLevelFiles			= "";
+	} else {
+		$tAccessControlLevelDirs			= "";
+		$tAccessControlLevelFiles			= "checked";
 	}
 	
 	if( $tPerRepoFiles == "YES" ) {
@@ -1321,6 +1332,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###GREPCMD###', $tGrepCommand, $content );
 			$content					= str_replace( '###USEJS###', $tJavaScript, $content );
 			$content					= str_replace( '###SVNACCESSFILE###', $tSvnAccessFile, $content );
+			$content					= str_replace( '###ACCESSCONTROLLEVEL###', $tAccessControllevel );
 			$content					= str_replace( '###SVNAUTHFILE###', $tAuthUserFile, $content );
 			$content					= str_replace( '###CREATEACCESSFILE###', $tUseSvnAccessFile, $content );
 			$content					= str_replace( '###CREATEAUTHFILE###', $tUseAuthUserFile, $content );

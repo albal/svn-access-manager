@@ -321,6 +321,17 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
+					   		<td nowrap><strong><?php print _("Access control level").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fAccessControlLevel" value="dirs" <?php print $tAccessControlLevelDirs; ?> />&nbsp;&nbsp;<?php print _("Directories"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fAccessControlLevel" value="files" <?php print $tAccessControlLevelFiles; ?> />&nbsp;&nbsp;<?php print _("Files"); ?>
+					   		</td>
+					   		<td>
+					   			<?php print _("You can choose whether access control is possible on directories only or on directories and files."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
 					   		<td nowrap><strong><?php print _("Use Auth User File").": "; ?></strong></td>
 					   		<td>
 					   			<input type="radio" name="fUseAuthUserFile" value="YES" <?php print $tUseAuthUserFileYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
