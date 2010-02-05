@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2010-01-27 20:36+0100\n"
+"PO-Revision-Date: 2010-02-05 06:30+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -820,6 +820,8 @@ msgstr "Zugriff verweigert"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:851
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:502
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:851
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:520
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:875
 msgid "Access file successfully created but semaphore could nor be released"
 msgstr "Zugriffsdatei erfolgreich geschrieben aber das Semaphore konnte nicht freigegeben werden"
 
@@ -834,6 +836,8 @@ msgstr "Zugriffsdatei erfolgreich geschrieben aber das Semaphore konnte nicht fr
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:846
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:497
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:846
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:515
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:870
 msgid "Access file successfully created!"
 msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 
@@ -1375,6 +1379,8 @@ msgstr "Auth User Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:225
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:77
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:225
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:83
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:237
 msgid "Auth user file created but semaphore could not be released"
 msgstr "Benutzerauthentifizierungsdatei erfolgreich erstellt aber das Semaphore konnte nicht freigegeben werden"
 
@@ -1409,6 +1415,8 @@ msgstr "Benutzer Authentifizierungsdatei fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:220
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:72
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:220
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:78
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:232
 msgid "Auth user file successfully created!"
 msgstr "Auth User Datei erfolgreich geschrieben!"
 
@@ -1852,6 +1860,13 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:196
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/list_access_rights.tpl:100
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnUser.tpl:211
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:347
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:351
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:360
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:144
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:148
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:153
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:101
 msgid "Back"
 msgstr "Zurück"
 
@@ -1874,6 +1889,8 @@ msgstr "Zugriffsrecht mit Id %s kann nicht gelöscht werden"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:233
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:107
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:233
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:113
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:245
 msgid "Can't set semaphore, another process is writing Auth User File, try again later"
 msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade die Benutzerauthentifizierungsdatei, bitte später noch einmal versuchen"
 
@@ -1892,6 +1909,9 @@ msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:533
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:859
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1309
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:551
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:883
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1345
 msgid "Can't set semaphore, another process is writing access file, try again later"
 msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade die Zugriffsdatei, bitte später noch einmal versuchen"
 
@@ -1934,6 +1954,8 @@ msgstr "kann config.inc.php nicht schreiben!"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:178
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:56
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:178
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:58
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:186
 msgid "Can't write to AuthUser file"
 msgstr "Kann AuthUser Datei nicht schreiben"
 
@@ -2224,6 +2246,8 @@ msgstr "Kann Tabelle %s nicht löschen"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:837
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:525
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:837
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:543
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:861
 #, php-format
 msgid "Cannot open %s for wrtiting"
 msgstr "Kann %s nicht zum schreiben öffnen"
@@ -2236,6 +2260,8 @@ msgstr "Kann %s nicht zum schreiben öffnen"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:211
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:100
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:211
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:106
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:223
 #, php-format
 msgid "Cannot open file %s for writing!"
 msgstr "Kann Datei %s nicht zum schreiben öffnen!"
@@ -2414,6 +2440,39 @@ msgstr "Kann Datei %s nicht zum schreiben öffnen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1232
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1238
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1244
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:319
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:328
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:361
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:390
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:398
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:448
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:467
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:487
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:498
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:646
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:654
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:688
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:718
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:726
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:778
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:817
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:828
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1041
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1048
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1056
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1064
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1072
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1080
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1088
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1208
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1217
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1227
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1242
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1248
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1254
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1260
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1266
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1272
 #, php-format
 msgid "Cannot write to %s"
 msgstr "Kann nicht in %s schreiben"
@@ -2483,6 +2542,10 @@ msgstr "Passwort ändern"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:342
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:359
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:82
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:345
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:349
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:366
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:99
 msgid "Change to directory"
 msgstr "Verzeichnis wechseln"
 
@@ -2550,6 +2613,12 @@ msgstr "Kommando zum Laden der Webserver Konfiguration"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:820
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1286
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1300
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:97
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:205
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:535
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:844
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1322
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1336
 #, php-format
 msgid "Copy from %s to %s failed!"
 msgstr "Kopieren von %s nach %s gescheitert!"
@@ -2619,6 +2688,9 @@ msgstr "Datei für Benutzerauthentifizierung und Benutzerrechte erstellen?"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:540
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:866
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1316
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:558
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:890
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1352
 msgid "Create of access file not configured!"
 msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
 
@@ -2630,6 +2702,8 @@ msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:239
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:113
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:239
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:119
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:251
 msgid "Create of auth user file not configured!"
 msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
 
@@ -3474,6 +3548,7 @@ msgstr "Fehler beim Löschen der temporären Konfig Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnGroupAccessRight.php:324
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnProject.php:412
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:208
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:211
 msgid "Error during database insert"
 msgstr "Fehler beim Einfügen in die Datenbank"
 
@@ -3599,6 +3674,11 @@ msgstr "Fehler beim Einfügen der Zugriffsrechte für den Admin Benutzer"
 #, php-format
 msgid "Error inserting user access right for admin: %s"
 msgstr "Fehler beim Einfügen der Benutzerrechte des Administrators: %s"
+
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:207
+#, php-format
+msgid "Error while accessing svn repository: %s (%s / retcode = %s)"
+msgstr "Fehler beim Zugriff auf das Subversion Repository: %s (%s / retcode = %s)"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:104
 #, php-format
@@ -4299,6 +4379,7 @@ msgstr "Ergebnisse der Installation"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/preferences.php:207
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/rep_access_rights.php:311
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:509
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:457
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ungültiger Knopf %s, hat jemend dran herumgespielt?"
@@ -4342,6 +4423,8 @@ msgstr "Ungültige Daten!"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:296
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:212
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:296
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:219
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:303
 #, php-format
 msgid "Invalid project id %s requested"
 msgstr "Ungültige Projekt-Id %s angefordert"
@@ -4356,6 +4439,7 @@ msgstr "Ungültige Projekt-Id %s angefordert"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:192
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:206
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:206
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:213
 #, php-format
 msgid "Invalid repository id %s requested!"
 msgstr "Ungültige Repository-Id %s angefordert"
@@ -4478,6 +4562,8 @@ msgstr "Ungültige Repository-Id %s angefordert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/deleteUser.php:91
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:153
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:503
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:319
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:361
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ungültige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -5972,6 +6058,8 @@ msgstr "Repository Name"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:248
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:164
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:256
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:167
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:296
 msgid "Repository name is missing, please fill in!"
 msgstr "Repository Name fehlt, bitte eingeben!"
 
@@ -6010,6 +6098,7 @@ msgstr "Repository nicht gelöscht, da es noch in anderen Projekten (%s) verwend
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:306
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:314
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:314
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:354
 msgid "Repository not modified due to database error"
 msgstr "Repository aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -6050,11 +6139,14 @@ msgstr "Repository Pfad"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:253
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:169
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:261
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:172
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:301
 msgid "Repository path missing, please fill in!"
 msgstr "Repository Pfad fehlt, bitte eingeben!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:174
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:174
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:177
 msgid "Repository path must start with file://, http:// or https://!"
 msgstr "Repository Pfad muss mit file://, http:// oder https:// beginnen!"
 
@@ -6080,11 +6172,13 @@ msgstr "Repository erfolgreich gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:209
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:214
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:214
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:217
 msgid "Repository successfully inserted"
 msgstr "Repository erfolgreich geschrieben"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:236
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:236
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:276
 msgid "Repository successfully inserted into database and created in filesystem"
 msgstr "Repository erfolgreich in die Datenbank geschrieben und im Dateisystem angelegt"
 
@@ -6092,12 +6186,14 @@ msgstr "Repository erfolgreich in die Datenbank geschrieben und im Dateisystem a
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:227
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:232
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:232
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:272
 msgid "Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber das Anlegen des repositories im Dateisystem ist fehlgeschlagen. Bitte manuell nachholen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:215
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:220
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:220
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:223
 msgid "Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateisystem angelegt, da kein svnadmin Kommando in der config.inc.php angegebene ist!"
 
@@ -6113,6 +6209,7 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateis
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:300
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:308
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:308
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:348
 msgid "Repository successfully modified"
 msgstr "Repository erfolgreich geändert"
 
@@ -6120,6 +6217,7 @@ msgstr "Repository erfolgreich geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:233
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:241
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:241
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:281
 msgid "Repository sucessfully inserted into database but not created in filesystem because it's not locally hosted!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateisystem angelegt, da nicht lokal!"
 
@@ -6433,6 +6531,7 @@ msgstr "Projektverantwortliche Benutzer auswählen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnAccessRight.tpl:75
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:75
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:92
 msgid "Select the directory you want to descend into and click 'Change to directory' afterwards if no JavaScript is enabled. '..' ascends one level if possible."
 msgstr "Bitte das Verzeichnis auswählen, in das verzweigt werden soll und anschließend 'Verzeichnis wechseln' anklicken, wenn kein JavaScript aktiv ist. '..' wechselt, wenn möglich, eine Ebene nach oben."
 
@@ -6483,6 +6582,10 @@ msgstr "Verzeichnis auswählen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:348
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:399
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:83
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:353
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:355
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:433
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:100
 msgid "Set access rights"
 msgstr "Zugriffsrechte setzen"
 
@@ -6685,6 +6788,9 @@ msgstr "Installation starten"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:189
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:202
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnUser.tpl:210
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:142
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:146
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:159
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -7355,6 +7461,7 @@ msgstr "Viewvc Gruppendatei fehlt, bitte eintragen!"
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:1273
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:1271
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1271
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1307
 msgid "Viewvc access configuration successfully created but semaphore could nor be released"
 msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt aber das Semaphore konnte nicht freigegeben werden"
 
@@ -7365,6 +7472,7 @@ msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt aber das Semaphore konn
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:1268
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:1266
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1266
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/include/createAuthFiles.php:1302
 msgid "Viewvc access configuration successfully created!"
 msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt!"
 
