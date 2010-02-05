@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				if( strtolower($accessControl) != "files" ) {
 					$cmd						.= '|'.$CONF['grep_command'].' "/$"';
 				}
-				error_log( $cmd );
+				#error_log( $cmd );
 				$errortext						= exec( $cmd, $tRepodirs, $retval );
 				
 				if( $retval == 0 ) {
@@ -427,7 +427,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		if( strtolower($accessControl) != "files" ) {
 			$cmd							.= '|'.$CONF['grep_command'].' "/$"';
 		}
-		error_log( $cmd );
+		#error_log( $cmd );
 		$errortext							= exec( $cmd, $tRepodirs, $retval );
    		
    	} elseif( $button == _("Set access rights") ) {

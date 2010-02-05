@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    							
    						} else {
 	   						
-							error_log( "tRepoPath = $tRepopath" );
+							#error_log( "tRepoPath = $tRepopath" );
 	   						
 	   						if( preg_match( '/^file:\//', $tRepopath ) ) {
 	   							
@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   							$compatibility		= isset( $CONF['repo_compatibility'] ) ? $CONF['repo_compatibility'] : "--pre-1.4-compatible";
 	   							$tCreateRepository 	= $svncmd." ".$compatibility." create ".$repopath;
 	   							
-	   							error_log( "create: $tCreateRepository");
+	   							#error_log( "create: $tCreateRepository");
 	   							
 	   							if( $os == "windows" ) {
 	   							
