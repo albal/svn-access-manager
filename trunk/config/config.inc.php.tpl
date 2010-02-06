@@ -100,7 +100,7 @@ $CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)
 
 $CONF['svn_command']			= '###SVNCMD###';
 $CONF['svnadmin_command']		= '###SVNADMINCMD###';
-$CONF['repo_compatibility']		= '--pre-1.5-compatible';
+$CONF['repo_compatibility']		= '###PRECOMPATIBLE###';
 $CONF['grep_command']			= '###GREPCMD###';
 $CONF['use_javascript']			= '###USEJS###';
 
@@ -119,7 +119,7 @@ $CONF['separateFilesPerRepo']	= '###SEPERATEFILESPERREPO###';
 //Limit access control to directories only, change to files if you want to have
 //files listed during access rights management too
 //Valid values are "dirs" or "files"
-$CONF['accessControl']			= "###ACCESSCONTROLLEVEL###";
+$CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
 
 $CONF['mail_password_warn']		= <<<EOM
 
