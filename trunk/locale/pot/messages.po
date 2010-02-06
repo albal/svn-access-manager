@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2010-02-06 00:30+0100\n"
+"PO-Revision-Date: 2010-02-06 00:45+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -3310,7 +3310,7 @@ msgstr "Geben Sie die Sortierfolge ein, die Sie verwenden wollen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:264
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:284
 msgid "Enter the email address of the administrator."
-msgstr "Die E-Mailadresse des Administrators einegben"
+msgstr "Die E-Mailadresse des Administrators eingeben"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:200
 msgid "Enter the email address to use as sender address for lost password emails."
