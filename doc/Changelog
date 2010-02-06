@@ -5,13 +5,12 @@ Change Log
 Release 0.4.1.4
 	- fixed issues with svn and svnadmin command under windows
 	- make repository compatibility configurable with svnadmin create. Default
-	  value is --pre-1.4-compatible. Otherwise add $CONF['repo_compatibility'] to
-	  you config.inc.php. Valid entries are --pre-1.4-compatible, --pre-1.5-compatible,
-	  --pre-1.6-compatible. Keep in mind to check which values your svnadmin
-	  command will accept
+	  value is determined by svnadmin help create command. If no suitable value can
+	  be found, default is assumed as --pre-1.4-compatible
 	- added access rights management for files. From now on access rights can be set
 	  on files too. To make the new behaviour working add $CONF['accessControl'] to
 	  your config.inc.php. Valid entries are "dirs" or "files". "dirs" is the default.
+	- changed installer to reflect the enhancements
 	  
 Release 0.4.1.3
 	- fixed an issue with access file creation under windows
