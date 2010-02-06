@@ -900,7 +900,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tLoggingYes							= "checked";
 	$tLoggingNo								= "";
 	$tAccessControlLevelDirs				= "checked";
-	$tAccessControllevelFiles				= "";
+	$tAccessControlLevelFiles				= "";
    	$tPageSize								= "30";
    	$tJavaScriptYes							= "checked";
    	$tJavaScriptNo							= "";
@@ -1320,6 +1320,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content 					= fread ( $fh_in, filesize ($configtmpl));
 			@fclose( $fh_in );
 			
+			$cmd 						= "$tSvnadminCommand help create";
+			exec( $cmd, $output, $retcode );
+			if( $retcode == 0 ) {
+				
+				$treffer 				= preg_grep( '/\-\-pre\-(.*)\-compatible/', $output );
+				
+				if( count( $treffer ) > 0 ) { 
+					
+					foreach( $treffer as $entry ) {
+		
+					        $entry 		= explode( ":", $entry);
+					        $entry 		= $entry[0];
+					        $entry 		= preg_replace( '/^\s+/', '', $entry );
+					        $entry 		= preg_replace( '/\s+$/', '', $entry );
+					
+					}
+		
+					$preCompatible		= $entry;
+					
+				} else {
+					$preCompatible		= "--pre-1.4-compatible";
+				}
+				
+			} else {
+				$preCompatible			= "--pre-1.4-compatible";
+			}
+			
 			$content 					= str_replace( '###DBHOST###', $tDatabaseHost, $content );
 			$content					= str_replace( '###DBUSER###', $tDatabaseUser, $content );
 			$content					= str_replace( '###DBPASS###', $tDatabasePassword, $content );
@@ -1332,7 +1359,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###GREPCMD###', $tGrepCommand, $content );
 			$content					= str_replace( '###USEJS###', $tJavaScript, $content );
 			$content					= str_replace( '###SVNACCESSFILE###', $tSvnAccessFile, $content );
-			$content					= str_replace( '###ACCESSCONTROLLEVEL###', $tAccessControllevel );
+			$content					= str_replace( '###ACCESSCONTROLLEVEL###', $tAccessControlLevel, $content );
 			$content					= str_replace( '###SVNAUTHFILE###', $tAuthUserFile, $content );
 			$content					= str_replace( '###CREATEACCESSFILE###', $tUseSvnAccessFile, $content );
 			$content					= str_replace( '###CREATEAUTHFILE###', $tUseAuthUserFile, $content );
@@ -1353,6 +1380,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$content					= str_replace( '###LOSTPWSENDER###', $tLpwMailSender, $content );
 			$content					= str_replace( '###LOSTPWMAXERROR###', 3, $content );
 			$content					= str_replace( '###LOSTPWLINKVALID###', $tLpwLinkValid, $content );
+			$content					= str_replace( '###PRECOMPATIBLE###', $preCompatible, $content );
 			
 		} else {
 			
