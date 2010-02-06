@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2010-02-06 00:45+0100\n"
+"PO-Revision-Date: 2010-02-06 20:11+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1059,6 +1059,7 @@ msgstr "Verantwortlichen hinzufügen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1431
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1449
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1461
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1489
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -1384,6 +1385,7 @@ msgstr "Benutzer Authentifizierungdatei"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:70
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:68
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:68
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:77
 msgid "Auth user file"
 msgstr "Auth User Datei"
 
@@ -1881,6 +1883,7 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:148
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:153
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:101
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:103
 msgid "Back"
 msgstr "Zurück"
 
@@ -1958,6 +1961,7 @@ msgstr "Passwort kann nicht geändert werden. Bitte versuchen Sie es später noc
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1342
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1360
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1372
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1400
 msgid "Can't write new config.inc.php file!"
 msgstr "kann config.inc.php nicht schreiben!"
 
@@ -2756,6 +2760,7 @@ msgstr "Repository anlegen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:39
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:39
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:48
 msgid "Create repository in filesystem"
 msgstr "Repository im Dateisystem anlegen"
 
@@ -2914,6 +2919,7 @@ msgstr "Datenbank Einstellungen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1416
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1434
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1446
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1474
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
@@ -2941,6 +2947,7 @@ msgstr "Datenbanktabellen erfolgreich angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1398
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1416
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1428
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1456
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gelöscht"
 
@@ -3512,6 +3519,7 @@ msgstr "Bitte die Anzahl Tage eingeben, die ein Link für ein vergessenes Passwo
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1377
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1395
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1407
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1435
 msgid "Error copying temporary config file!"
 msgstr "Fehler beim kopieren der temporären Konfig Datei!"
 
@@ -3556,6 +3564,7 @@ msgstr "Fehler beim Anlegen des Administrator Benutzers: %s"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1365
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1383
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1395
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1423
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim Löschen der temporären Konfig Datei"
 
@@ -4215,6 +4224,7 @@ msgstr "Wenn Sie separate Konfigurationsdateien für jedes Repository benötigen
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:67
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:65
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:65
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:74
 msgid "If you need separate configuration files for each repository specify the locations of the files here. If you do not give a path and filename config parameters will be used and the filename will be replaced accordingly."
 msgstr "Wenn Sie separate Konfigurationsdateien für jedes Repository benötigen, tragen Sie bitte hier die vollständigen Dateinamen ein. Wird kein Dateiname mit Pfad angegeben, werden die Konfigurationsparameter verwendet und der Dateiname wird entsprechend ersetzt."
 
@@ -5285,6 +5295,7 @@ msgstr "Nein"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1440
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1458
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1470
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1498
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
@@ -5312,6 +5323,7 @@ msgstr "Keine Datenbanktabellen angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1403
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1421
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1433
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1461
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gelöscht"
 
@@ -5611,6 +5623,7 @@ msgstr "Passwörter stimmen nicht überein!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:22
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:22
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:24
 msgid "Path to the repository. If SVN Access Manager runs on the same host as the repository does use file:// for access to te repository. No username and password in required in this case."
 msgstr "Pfad zum Repository. Wenn SVN Access Manager auf derselben Maschine wie das Repository läuft, kann file:// zum Zugriff auf das Repository verwendet werden. Es wird dann kein Benutzername und kein Passwort benötigt."
 
@@ -6169,6 +6182,7 @@ msgstr "Repository aufgrund eines Datenbankfehlers nicht geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:32
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:32
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/deleteRepo.tpl:32
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:41
 msgid "Repository password"
 msgstr "Repository Passwort"
 
@@ -6292,6 +6306,7 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateis
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:25
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:25
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/deleteRepo.tpl:25
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:34
 msgid "Repository user"
 msgstr "Repository Benutzer"
 
@@ -6513,6 +6528,7 @@ msgstr "SVN Webserver Einstellungen"
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:77
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:75
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:75
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:84
 msgid "SVN access file"
 msgstr "SVN Access Datei"
 
@@ -6857,6 +6873,7 @@ msgstr "Installation starten"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:142
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:146
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:159
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:102
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -7005,6 +7022,7 @@ msgstr "Der Benutzer mit der Benutzer-Id %s existiert bereits"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:29
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:29
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:38
 msgid "The username and password if necessary for access to the repository"
 msgstr "Der Benutzername und das Passwort zum Repositoryzugriff, wenn benötigt"
 
@@ -7021,6 +7039,7 @@ msgstr "Es ist kein Hilfepunkt gesetzt"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnRepo.tpl:52
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:52
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:61
 msgid "This only works if SVN Access Manager runs on the same host where the repositories live."
 msgstr "Dies funktioniert nur, wenn SVN Access Manager auf demselben Rechner läuft auf dem die Repositories liegen."
 
@@ -7058,6 +7077,14 @@ msgstr "Unbekannter Benutzer. Hat jemand an den Formulardaten gepielt? Entschuld
 #, php-format
 msgid "Update of group %s failed due to database errors"
 msgstr "Änderung der Gruppe %s aufgrund eines Datenbankfehlers fehlgeschlagen"
+
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:28
+msgid "Use '/' as path separator on Windoes systems. You must write down a repository path e. g. like this: file:///c:/svn/testrepo"
+msgstr "Benutzen Sie '/' als Pfadtrennzeichen auf Windows Systemen. Ein Repository Pfad muss z. B. wie folgt angegeben werden: file:///c:/svn/testrepo"
+
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:28
+msgid "Use '/' as path separator on Windows systems. You must write down a repository path e. g. like this: file:///c:/svn/testrepo"
+msgstr "Benutzen Sie '/' als Pfadtrennzeichen auf Windows Systemen. Ein Repository Pfad muss z. B. wie folgt angegeben werden: file:///c:/svn/testrepo"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:215
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:236
@@ -7771,6 +7798,7 @@ msgstr "aufsteigend"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1329
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1347
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1359
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1387
 msgid "can't open config template for reading!"
 msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 
@@ -7798,6 +7826,7 @@ msgstr "Kann Konfigurations-Template nicht zum Lesen öffnen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1349
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1367
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1379
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1407
 msgid "can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie sicher, dass das Verzeichnis für den Webserver Benutzer schreibbat ist!"
 
@@ -7825,6 +7854,7 @@ msgstr "Kann config.inc.php nicht zum schreiben öffnen. Bitte stellen Sie siche
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1370
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1388
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1400
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:1428
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
