@@ -1,6 +1,6 @@
-Update to V0.4.1.4
+Update to V0.4.1.5
 
-These are the steps to update from version 0.4.1.x to 0.4.1.4
+These are the steps to update from version 0.4.1.x to 0.4.1.5
 
 1. Edit config.inc.php in config folder
 
@@ -8,7 +8,7 @@ These are the steps to update from version 0.4.1.x to 0.4.1.4
    $CONF['repo_compatibility']		= "--pre-1.6-compatible";
    $CONF['accessControl']		= "dirs";
    
-2. Release 0.4.1.4  comes with little new features. That means that there are files 
+2. Release 0.4.1.5  comes with little new features. That means that there are files 
    changed. Either compare your installation to the current release or install the 
    release from scratch and copy the changed config file from your previous 
    installation into your new installation.

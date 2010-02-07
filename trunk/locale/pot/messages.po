@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2010-02-06 20:11+0100\n"
+"PO-Revision-Date: 2010-02-07 09:16+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -804,6 +804,12 @@ msgstr "Ein Datenbankfehler ist aufgetreten:"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:220
 msgid "A new user needs a password!"
 msgstr "Ein neuer Benutzer braucht ein Passwort!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:192
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:336
+#, php-format
+msgid "A repository path must start with '/' after file:// like %s"
+msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:324
 msgid "Access control level"
@@ -1884,6 +1890,10 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:153
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnAccessRight.tpl:101
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:103
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:149
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:154
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:146
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:155
 msgid "Back"
 msgstr "Zurück"
 
@@ -3598,6 +3608,8 @@ msgstr "Fehler beim Löschen der temporären Konfig Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnProject.php:412
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:208
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:211
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:222
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:228
 msgid "Error during database insert"
 msgstr "Fehler beim Einfügen in die Datenbank"
 
@@ -4619,6 +4631,8 @@ msgstr "Ungültige Repository-Id %s angefordert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnUser.php:503
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnAccessRight.php:319
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:361
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:387
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:398
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ungültige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -6136,6 +6150,10 @@ msgstr "Repository Name"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:256
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:167
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:296
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:168
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:307
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:169
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:313
 msgid "Repository name is missing, please fill in!"
 msgstr "Repository Name fehlt, bitte eingeben!"
 
@@ -6175,6 +6193,8 @@ msgstr "Repository nicht gelöscht, da es noch in anderen Projekten (%s) verwend
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:314
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:314
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:354
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:380
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:391
 msgid "Repository not modified due to database error"
 msgstr "Repository aufgrund eines Datenbankfehlers nicht geändert"
 
@@ -6218,12 +6238,20 @@ msgstr "Repository Pfad"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:261
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:172
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:301
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:173
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:312
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:174
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:318
 msgid "Repository path missing, please fill in!"
 msgstr "Repository Pfad fehlt, bitte eingeben!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:174
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:174
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:177
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:178
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:317
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:179
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:323
 msgid "Repository path must start with file://, http:// or https://!"
 msgstr "Repository Pfad muss mit file://, http:// oder https:// beginnen!"
 
@@ -6250,12 +6278,16 @@ msgstr "Repository erfolgreich gelöscht"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:214
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:214
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:217
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:228
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:234
 msgid "Repository successfully inserted"
 msgstr "Repository erfolgreich geschrieben"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:236
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:236
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:276
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:287
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:293
 msgid "Repository successfully inserted into database and created in filesystem"
 msgstr "Repository erfolgreich in die Datenbank geschrieben und im Dateisystem angelegt"
 
@@ -6264,6 +6296,8 @@ msgstr "Repository erfolgreich in die Datenbank geschrieben und im Dateisystem a
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:232
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:232
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:272
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:283
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:289
 msgid "Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber das Anlegen des repositories im Dateisystem ist fehlgeschlagen. Bitte manuell nachholen!"
 
@@ -6271,6 +6305,8 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber das Anlegen des
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:220
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:220
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:223
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:234
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:240
 msgid "Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateisystem angelegt, da kein svnadmin Kommando in der config.inc.php angegebene ist!"
 
@@ -6287,6 +6323,8 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateis
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:308
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:308
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:348
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:374
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:385
 msgid "Repository successfully modified"
 msgstr "Repository erfolgreich geändert"
 
@@ -6295,6 +6333,8 @@ msgstr "Repository erfolgreich geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:241
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:241
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:281
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:292
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:298
 msgid "Repository sucessfully inserted into database but not created in filesystem because it's not locally hosted!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateisystem angelegt, da nicht lokal!"
 
@@ -6874,6 +6914,11 @@ msgstr "Installation starten"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:146
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:159
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnRepo.tpl:102
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:147
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:160
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:144
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:148
+#: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/workOnRepo.php:161
 msgid "Submit"
 msgstr "Abschicken"
 
