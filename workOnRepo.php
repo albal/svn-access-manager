@@ -129,12 +129,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	if( get_magic_quotes_gpc() == 1) {
    		$tRepopath								= no_magic_quotes( $tRepopath );
    	}
+   	$tRepopath									= preg_replace( '/\\\/', '/', $tRepopath );
    	$tRepouser									= escape_string( $_POST['fRepouser'] );
    	$tRepopassword								= escape_string( $_POST['fRepopassword'] );
    	#$tSeparate									= isset( $_POST['fSeparate'] ) 		  ? escape_String( $_POST['fSeparate'] ) : 0;
    	$tAuthUserFile								= isset( $_POST['fAuthUserFile'] ) 	  ? escape_string( $_POST['fAuthUserFile'] ) : "";
    	$tSvnAccessFile								= isset( $_POST['fSvnAccessFile'] )   ? escape_string( $_POST['fSvnAccessFile'] ) : "";
    	$tCreateRepo								= isset( $_POST['fCreateRepo'] )	  ? escape_string( $_POST['fCreateRepo'] ) : "";
+   	$os											= determineOs();
    	
    	if( isset( $_POST['fSubmit'] ) ) {
 		$button									= escape_string( $_POST['fSubmit'] );
@@ -176,6 +178,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				
    				$tMessage						= _("Repository path must start with file://, http:// or https://!");
    				$error							= 1;
+   				
+   			} elseif( preg_match( '/^file:\//', $tRepopath ) ) {
+   			
+   				$tmp							= preg_replace( '/^file:\/\//', '', $tRepopath );;
+   				if( substr( $tmp, 0, 1) != "/" ) {
+   				
+   					if( $os == "windows" ) {
+   						$example				= "file:///c:/svn/testrepo";
+   					} else {
+   						$example				= "file:///svn/testrepo";
+   					}
+   					$tMessage					= sprintf( _("A repository path must start with '/' after file:// like %s" ), $example );
+   					$error						= 1;
+   						
+   				}
    				
    			} else {
 				
@@ -301,6 +318,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage						= _( "Repository path missing, please fill in!" );
    				$error							= 1;
    			
+   			} elseif( (!preg_match( '/^file:\//', $tRepopath )) and (!preg_match( '/^http:\//', $tRepopath )) and (!preg_match( '/^https:\//', $tRepopath )) ) {
+   				
+   				$tMessage						= _("Repository path must start with file://, http:// or https://!");
+   				$error							= 1;
+   				
+   			} elseif( preg_match( '/^file:\//', $tRepopath ) ) {
+   			
+   				$tmp							= preg_replace( '/^file:\/\//', '', $tRepopath );
+   				if( substr( $tmp, 0, 1) != "/" ) {
+   				
+   					if( $os == "windows" ) {
+   						$example				= "file:///c:/svn/testrepo";
+   					} else {
+   						$example				= "file:///svn/testrepo";
+   					}
+   					$tMessage					= sprintf( _("A repository path must start with '/' after file:// like %s" ), $example );
+   					$error						= 1;
+   						
+   				}
+   				
    			} else {
 				
 				if( $error == 0 ) {
