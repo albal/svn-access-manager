@@ -813,7 +813,7 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 	if( $admin == "y" ) {
 		
 		if( isset($CONF['minPasswordlength']) ) {
-			$minPasswordlength	= $CONF['minPasswordlength'];
+			$minPasswordLength	= $CONF['minPasswordlength'];
 		} else {
 			$minPasswordLength	= 14;
 		}
