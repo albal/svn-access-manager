@@ -22,7 +22,7 @@
  
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
-require_once ("./include/db-functions.inc.php");
+require_once ("./include/db-functions-adodb.inc.php");
 require_once ("./include/functions.inc.php");
 include_once ("./include/output.inc.php");
 
@@ -39,15 +39,17 @@ $_SESSION['svn_sessid']['helptopic']		= "general";
    	
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
-   	$query			= "SELECT * " .
-   					  "  FROM svnusers " .
-   					  " WHERE (deleted = '0000-00-00 00:00:00') " .
-   					  "   AND (userid = '".$SESSID_USERNAME."') " .
-   					  "ORDER BY userid ASC";
+   	$schema									= db_determine_schema();
+    
+	$query									= "SELECT * " .
+						   					  "  FROM ".$schema."svnusers " .
+						   					  " WHERE (deleted = '00000000000000') " .
+						   					  "   AND (userid = '".$SESSID_USERNAME."') " .
+						   					  "ORDER BY userid ASC";
 	$result			= db_query( $query, $dbh );
 	if( $result['rows'] == 1 ) {
 		
-		$row				= db_array( $result['result'] );
+		$row				= db_assoc( $result['result'] );
 		$tUserid			= $row['userid'];
 		$tName				= $row['name'];
 		$tGivenname			= $row['givenname'];
@@ -81,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
  	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Submit");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -93,14 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$button									= "undef";
 	}
+	
+	$schema										= db_determine_schema();
  	
  	if( $button == _("Submit") ) {
  		
- 		$tGivenname				= escape_string( $_POST['fGivenname'] );
- 		$tName					= escape_string( $_POST['fName'] );
- 		$tEmail					= escape_string( $_POST['fEmail'] );
- 		$tSecurityQuestion		= escape_string( $_POST['fSecurityQuestion'] );
- 		$tAnswer				= escape_string( $_POST['fAnswer'] );
+ 		$tGivenname				= db_escape_string( $_POST['fGivenname'] );
+ 		$tName					= db_escape_string( $_POST['fName'] );
+ 		$tEmail					= db_escape_string( $_POST['fEmail'] );
+ 		$tSecurityQuestion		= db_escape_string( $_POST['fSecurityQuestion'] );
+ 		$tAnswer				= db_escape_string( $_POST['fAnswer'] );
  		$error					= 0;
  		
  		if( $tName == "" ) {
@@ -135,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  			db_ta( 'BEGIN', $dbh );
  			db_log( $_SESSION['svn_sessid']['username'], "user changed his data( $tName, $tGivenname, $tEmail)", $dbh );
  			
-			$query			= "UPDATE svnusers " .
+			$query			= "UPDATE ".$schema."svnusers " .
 							  "   SET givenname = '$tGivenname', " .
 							  "       name = '$tName', " .
 							  "       emailaddress = '$tEmail', " .
@@ -144,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							  " WHERE (id = ".$_SESSION['svn_sessid']['userid'].")";
 			$result			= db_query( $query, $dbh );
 			
-			if( mysql_errno( $dbh ) == 0 ) {
+			if( $result['rows'] > 0 ) {
 				
 				db_ta( 'COMMIT', $dbh );
 				$tMessage		= _("Changed data successfully" );
@@ -164,14 +168,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  	}
  	
  	$query			= "SELECT * " .
- 					  "  FROM svnusers " .
- 					  " WHERE (deleted = '0000-00-00 00:00:00') " .
+ 					  "  FROM ".$schema."svnusers " .
+ 					  " WHERE (deleted = '00000000000000') " .
  					  "   AND (userid = '".$SESSID_USERNAME."') " .
  					  "ORDER BY userid ASC";
 	$result			= db_query( $query, $dbh );
 	if( $result['rows'] == 1 ) {
 		
-		$row				= db_array( $result['result'] );
+		$row				= db_assoc( $result['result'] );
 		$tUserid			= $row['userid'];
 		$tName				= $row['name'];
 		$tGivenname			= $row['givenname'];

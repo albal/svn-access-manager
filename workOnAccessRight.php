@@ -23,7 +23,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -58,24 +58,26 @@ if( $rightAllowed == "none" ) {
 	
 }		
 
+$schema										= db_determine_schema();
+
 if( $tSeeUserid != -1 ) {
 	$id										= db_getIdByUserid( $SESSID_USERNAME, $dbh );
 	$tProjectIds							= "";
 	$query									= "SELECT * " .
-  					      					  "  FROM svn_projects_responsible " .
+  					      					  "  FROM ".$schema."svn_projects_responsible " .
   					      				  	  " WHERE (user_id = $id) " .
-  					      				  	  "   AND (deleted = '0000-00-00 00:00:00')";
+  					      				  	  "   AND (deleted = '00000000000000')";
 } else {
 	
 	$tProjectIds							= "";
 	$query									= "SELECT * " .
-	  					      				  "  FROM svn_projects_responsible " .
-  						      				  " WHERE (deleted = '0000-00-00 00:00:00')";
+	  					      				  "  FROM ".$schema."svn_projects_responsible " .
+  						      				  " WHERE (deleted = '00000000000000')";
   					      				  
 }
 
 $result									= db_query( $query, $dbh );
-while( $row = db_array( $result['result'] ) ) {
+while( $row = db_assoc( $result['result'] ) ) {
 	
 	if( $tProjectIds == "" ) {
 		
@@ -94,14 +96,14 @@ $tProjects										= array();
 if( $tProjectIds != "" ) {
 	$query										= "SELECT svnprojects.id, svnmodule, modulepath, reponame, " .
 												  "       repopath, repouser, repopassword " .
-												  "  FROM svn_projects_responsible, svnprojects, svnrepos " .
+												  "  FROM ".$schema."svn_projects_responsible, ".$schema."svnprojects, ".$schema."svnrepos " .
 												  " WHERE (svnprojects.id IN (".$tProjectIds.")) " .
 												  "   AND (svn_projects_responsible.project_id = svnprojects.id) " .
 												  "   AND (svnprojects.repo_id = svnrepos.id) " .
-												  "   AND (svn_projects_responsible.deleted = '0000-00-00 00:00:00') " .
-												  "   AND (svnprojects.deleted = '0000-00-00 00:00:00')";
+												  "   AND (svn_projects_responsible.deleted = '00000000000000') " .
+												  "   AND (svnprojects.deleted = '00000000000000')";
 	$result										= db_query( $query, $dbh );
-	while( $row = db_array( $result['result'] ) ) {
+	while( $row = db_assoc( $result['result'] ) ) {
 	
 		$tProjects[ $row['id'] ]				= $row['svnmodule'];
 			
@@ -113,10 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly									= "";
 	$fileSelect									= 0;
-	$tTask										= escape_string( $_GET['task'] );
+	$tTask										= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId									= escape_string( $_GET['id'] );
+		$tId									= db_escape_string( $_GET['id'] );
 		
 	} else {
 
@@ -144,12 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		unset( $_SESSION['svn_sessid']['groupid'] );
    		
 		$query									= "SELECT * " .
-												  "  FROM svnprojects " .
+												  "  FROM ".$schema."svnprojects " .
 												  " WHERE id = ".$_SESSION['svn_sessid']['projectid'];
 		$result									= db_query( $query, $dbh );
 		if( $result['rows'] == 1 ) {
 			
-			$row								= db_array( $result['result'] );
+			$row								= db_assoc( $result['result'] );
 			$tProject							= $row['id'];
 			$tProjectName						= $row['svnmodule'];
 			$_SESSION['svn_sessid']['svnmodule']= $tProjectName;
@@ -160,12 +162,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$_SESSION['svn_sessid']['pathcnt']	= 0;
 			$tRepoId							= $row['repo_id'];
 			$query								= "SELECT * " .
-												  "  FROM svnrepos " .
+												  "  FROM ".$schema."svnrepos " .
 												  " WHERE id = $tRepoId";
 			$result								= db_query( $query, $dbh );
 			if( $result['rows'] == 1 ) {
 				
-				$row							= db_array( $result['result'] );
+				$row							= db_assoc( $result['result'] );
 				$tRepoName						= $row['reponame'];
 				$tRepoPath						= $row['repopath'];
 				$tRepoUser						= $row['repouser'];
@@ -223,12 +225,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    			
    		$tReadonly								= "readonly";
    		$query									= "SELECT * " .
-   												  "  FROM svn_access_rights " .
+   												  "  FROM ".$schema."svn_access_rights " .
    												  " WHERE id = $tId";
 		$result									= db_query( $query, $dbh );
 		if( $result['rows'] == 1 ) {
 			
-			$row								= db_array( $result['result'] );
+			$row								= db_assoc( $result['result'] );
 			$rightid							= $row['id'];
 			$projectid							= $row['project_id'];
 			$tPathSelected						= $row['path'];
@@ -268,12 +270,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			
 		
 			$query								= "SELECT * " .
-												  "  FROM svnprojects " .
+												  "  FROM ".$schema."svnprojects " .
 												  " WHERE id = '$projectid'";
 			$result								= db_query( $query, $dbh );
 			if( $result['rows'] == 1 ) {
 				
-				$row								= db_array( $result['result'] );
+				$row								= db_assoc( $result['result'] );
 				$tProject							= $row['id'];
 				$tProjectName						= $row['svnmodule'];
 				$_SESSION['svn_sessid']['svnmodule']= $tProjectName;
@@ -281,12 +283,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$_SESSION['svn_sessid']['modulepath']	= $tModulePath;
 				$tRepoId							= $row['repo_id'];
 				$query								= "SELECT * " .
-													  "  FROM svnrepos " .
+													  "  FROM ".$schema."svnrepos " .
 													  " WHERE id = $tRepoId";
 				$result								= db_query( $query, $dbh );
 				if( $result['rows'] == 1 ) {
 					
-					$row							= db_array( $result['result'] );
+					$row							= db_assoc( $result['result'] );
 					$tRepoName						= $row['reponame'];
 					$tRepoPath						= $row['repopath'];
 					$tRepoUser						= $row['repouser'];
@@ -340,7 +342,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tModulePath							= $_SESSION['svn_sessid']['modulepath'];
 		
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button								= escape_string( $_POST['fSubmit'] );
+		$button								= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_chdir_x'] ) ) {
 		$button								= _("Change to directory");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -369,7 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
 		if( isset( $_POST['fPath'] ) ) {
    			
-   			$tPath							= escape_string( $_POST['fPath'] ) ;
+   			$tPath							= db_escape_string( $_POST['fPath'] ) ;
    			
 		} else {
 			
@@ -434,7 +436,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    		if( isset( $_POST['fPathSelected'] ) ) {
    		
-   			$tPath							= escape_string( $_POST['fPathSelected'] );
+   			$tPath							= db_escape_string( $_POST['fPathSelected'] );
    			
    		} else {
    			

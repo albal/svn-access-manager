@@ -25,7 +25,7 @@
 				   	<?php
 				   		foreach( $tLogmessages as $entry ) {
 				   		
-				   			list($date, $time)		= splitDateTime( $entry['timestamp'] );
+				   			list($date, $time)		= splitDateTime( $entry['logtimestamp'] );
 				   			
 				   			print "\t\t\t\t\t<tr>\n";
 				   			print "\t\t\t\t\t\t<td align='center' nowrap>".$date." ".$time."</td>\n";

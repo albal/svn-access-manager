@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	if( isset( $_GET['task'] ) ) {
 		
-		$_SESSION['svn_sessid']['task'] 	= escape_string( strtolower( $_GET['task'] ) );
+		$_SESSION['svn_sessid']['task'] 	= db_escape_string( strtolower( $_GET['task'] ) );
 		
 	} else {
 		
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( isset( $_GET['id'] ) ) {
 		
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 		
@@ -74,18 +74,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		
 	}
 	
+	$schema									= db_determine_schema();
+	
 	$_SESSION['svn_sessid']['rightid']		= $tId;
 	
 	if( $_SESSION['svn_sessid']['task'] == "delete" ) {
 		
 		$query								= "SELECT * " .
-											  "  FROM svn_access_rights " .
+											  "  FROM ".$schema."svn_access_rights " .
 											  " WHERE id = $tId";
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {
 			
-			$row							= db_array( $result['result'] );
+			$row							= db_assoc( $result['result'] );
 			$projectid						= $row['project_id'];
 			$userid							= $row['user_id'];
 			$groupid						= $row['group_id'];
@@ -109,26 +111,26 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			
 			
 			$query							= "SELECT * " .
-											  "  FROM svnprojects, svnrepos " .
+											  "  FROM ".$schema."svnprojects, ".$schema."svnrepos " .
 											  " WHERE (svnprojects.id = $projectid) " .
 											  "   AND (repo_id = svnrepos.id)";
 			$result							= db_query( $query, $dbh );
 			if( $result['rows'] == 1 ) {
 				
-				$row						= db_array( $result['result'] );
+				$row						= db_assoc( $result['result'] );
 				$tProjectName				= $row['svnmodule'];
 				$tModulePath				= $row['modulepath'];
 				
 				if( $userid != "0" ) {
 					
 					$query					= "SELECT * " .
-											  "  FROM svnusers " .
+											  "  FROM ".$schema."svnusers " .
 											  " WHERE id = $userid";
 					$result					= db_query( $query, $dbh );
 					
 					if( $result['rows'] == 1 ) {
 						
-						$row				= db_array( $result['result'] );
+						$row				= db_assoc( $result['result'] );
 						$name				= $row['name'];
 						$givenname			= $row['givenname'];
 						if( $givenname != "" ) {
@@ -151,13 +153,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				if( $groupid != "0" ) {
 					
 					$query					= "SELECT * " .
-											  "  FROM svngroups " .
+											  "  FROM ".$schema."svngroups " .
 											  " WHERE id = $groupid";
 					$result					= db_query( $query, $dbh );
 					
 					if( $result['rows'] == 1 ) {
 						
-						$row						= db_array( $result['result'] );
+						$row						= db_assoc( $result['result'] );
 						$tGroups					= $row['groupname'];
 						
 					} else {
@@ -201,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Delete");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -213,6 +215,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$button									= "undef";
 	}
+	
+	$schema									= db_determine_schema();
 	
 	if( $button == _("Delete") ) {
 		
@@ -234,9 +238,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		db_ta( 'BEGIN', $dbh );
 		db_log( $_SESSION['svn_sessid']['username'], "deleted access right $accessright for repository $reponame, path $path, project $projectname", $dbh );
-		
-		$query								= "UPDATE svn_access_rights " .
-											  "   SET deleted = now(), " .
+		$dbnow								= $db_now();
+		$query								= "UPDATE ".$schema."svn_access_rights " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE id = ".$_SESSION['svn_sessid']['rightid'];
 		$result								= db_query( $query, $dbh );

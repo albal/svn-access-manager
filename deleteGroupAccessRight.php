@@ -33,7 +33,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -57,10 +57,10 @@ if( $rightAllowed != "delete" ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
-	$tTask									= escape_string( $_GET['task'] );
+	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 
@@ -71,17 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
 	$_SESSION['svn_sessid']['groupid']		= $tId;
 	
+	$schema									= db_determine_schema();
+	
 	if( $_SESSION['svn_sessid']['task'] == "delete" ) {
 		
 		$query								= "SELECT * " .
-											  "  FROM svn_groups_responsible, svngroups " .
+											  "  FROM ".$schema."svn_groups_responsible, ".$schema."svngroups " .
 											  " WHERE (svn_groups_responsible.id = $tId) " .
 											  "   AND (svngroups.id = svn_groups_responsible.group_id)";
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {
 			
-			$row							= db_array( $result['result'] );
+			$row							= db_assoc( $result['result'] );
 			$tGroup							= $row["groupname"];
 			$tDescription					= $row["description"];
 			$tRights						= $row['allowed'];
@@ -109,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Delete");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -122,10 +124,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
+	$schema									= db_determine_schema();
+	
 	if( $button == _("Delete") ) {
 		
-		$query								= "  UPDATE svn_groups_responsible " .
-											   "    SET deleted = now(), " .
+		$dbnow								= db_now();
+		$query								= "  UPDATE ".$schema."svn_groups_responsible " .
+											   "    SET deleted = '$dbnow', " .
 											   "        deleted_user = '".$_SESSION['svn_sessid']['username'].
 											   "' WHERE id = ".$_SESSION['svn_sessid']['groupid'];
 		

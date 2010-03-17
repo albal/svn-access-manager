@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -49,10 +49,10 @@ if( $rightAllowed == "none" ) {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly								= "";
-	$tTask									= escape_string( $_GET['task'] );
+	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 
@@ -71,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
 	$_SESSION['svn_sessid']['repoid']		= $tId;
 	
+	$schema									= db_determine_schema();
+	
 	if( $_SESSION['svn_sessid']['task'] == "new" ) {
    		
    		$tReponame								= "";
@@ -85,11 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
    		$tReadonly								= "readonly";
-   		$query									= "SELECT * FROM svnrepos WHERE id = $tId";
+   		$query									= "SELECT * " .
+   												  "  FROM ".$schema."svnrepos " .
+   												  " WHERE id = $tId";
 		$result									= db_query( $query, $dbh );
 		if( $result['rows'] == 1 ) {
 			
-			$row								= db_array( $result['result'] );
+			$row								= db_assoc( $result['result'] );
 			$tReponame							= $row['reponame'];
 			$tRepopath							= $row['repopath'];
 			$tRepouser							= $row['repouser'];
@@ -124,22 +128,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
-   	$tReponame									= escape_string( $_POST['fReponame'] );
-   	$tRepopath									= escape_string( $_POST['fRepopath'] );
+   	$tReponame									= db_escape_string( $_POST['fReponame'] );
+   	$tRepopath									= db_escape_string( $_POST['fRepopath'] );
    	if( get_magic_quotes_gpc() == 1) {
    		$tRepopath								= no_magic_quotes( $tRepopath );
    	}
    	$tRepopath									= preg_replace( '/\\\/', '/', $tRepopath );
-   	$tRepouser									= escape_string( $_POST['fRepouser'] );
-   	$tRepopassword								= escape_string( $_POST['fRepopassword'] );
-   	#$tSeparate									= isset( $_POST['fSeparate'] ) 		  ? escape_String( $_POST['fSeparate'] ) : 0;
-   	$tAuthUserFile								= isset( $_POST['fAuthUserFile'] ) 	  ? escape_string( $_POST['fAuthUserFile'] ) : "";
-   	$tSvnAccessFile								= isset( $_POST['fSvnAccessFile'] )   ? escape_string( $_POST['fSvnAccessFile'] ) : "";
-   	$tCreateRepo								= isset( $_POST['fCreateRepo'] )	  ? escape_string( $_POST['fCreateRepo'] ) : "";
+   	$tRepouser									= db_escape_string( $_POST['fRepouser'] );
+   	$tRepopassword								= db_escape_string( $_POST['fRepopassword'] );
+   	#$tSeparate									= isset( $_POST['fSeparate'] ) 		  ? db_escape_string( $_POST['fSeparate'] ) : 0;
+   	$tAuthUserFile								= isset( $_POST['fAuthUserFile'] ) 	  ? db_escape_string( $_POST['fAuthUserFile'] ) : "";
+   	$tSvnAccessFile								= isset( $_POST['fSvnAccessFile'] )   ? db_escape_string( $_POST['fSvnAccessFile'] ) : "";
+   	$tCreateRepo								= isset( $_POST['fCreateRepo'] )	  ? db_escape_string( $_POST['fCreateRepo'] ) : "";
    	$os											= determineOs();
    	
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Submit");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -151,6 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$button									= "undef";
 	}
+	
+	$schema										= db_determine_schema();
    	   	
    	if( $button == _("Back" ) ) {
    	
@@ -198,9 +204,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				
 				if( $error == 0 ) {
 	   				$query						= "SELECT * " .
-	   											  "  FROM svnrepos " .
+	   											  "  FROM ".$schema."svnrepos " .
 	   											  " WHERE (reponame = '$tReponame') " .
-	   											  "   AND (deleted = '0000-00-00 00:00:00')";
+	   											  "   AND (deleted = '00000000000000')";
 	   				$result						= db_query( $query, $dbh );
 	   				
 	   				if( $result['rows'] > 0 ) {
@@ -214,8 +220,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   			   			
    			if( $error == 0 ) {
    				
-   				$query 							= "INSERT INTO svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " .
-   												  "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', now(), '".$_SESSION['svn_sessid']['username']."')";
+   				$dbnow							= db_now();
+   				$query 							= "INSERT INTO ".$schema."svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " .
+   												  "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', '$dbnow', '".$_SESSION['svn_sessid']['username']."')";
    				
    				db_ta( 'BEGIN', $dbh );
    				db_log( $_SESSION['svn_sessid']['username'], "addes repository $tReponame ($tRepopath)", $dbh );
@@ -343,9 +350,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				if( $error == 0 ) {
 	   				
 	   				$query					= "SELECT * " .
-	   										  "  FROM svnrepos " .
+	   										  "  FROM ".$schema."svnrepos " .
 	   										  " WHERE (reponame = '$tReponame') " .
-	   										  "   AND (deleted = '0000-00-00 00:00:00') " .
+	   										  "   AND (deleted = '00000000000000') " .
 	   										  "   AND (id != ".$_SESSION['svn_sessid']['repoid'].")";
 	   				$result					= db_query( $query, $dbh );
 	   				
@@ -362,14 +369,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			if( $error == 0 ) {
    				
    				$reponame					= db_getRepoById( $_SESSION['svn_sessid']['repoid'], $dbh );
-   				$query						=  "UPDATE svnrepos " .
+   				$dbnow						= db_now();
+   				$query						=  "UPDATE ".$schema."svnrepos " .
    											   "   SET reponame = '$tReponame', " .
    											   "       repopath = '$tRepopath', " .
    											   "       repouser = '$tRepouser', " .
    											   "       repopassword = '$tRepopassword', " .
    											   "       auth_user_file='$tAuthUserFile', " .
    											   "       svn_access_file='$tSvnAccessFile', " .
-   											   "       modified = now(), " .
+   											   "       modified = '$dbnow', " .
    											   "       modified_user = '".$_SESSION['svn_sessid']['username']."' " .
    											   " WHERE (id = ".$_SESSION['svn_sessid']['repoid'].")";
    				

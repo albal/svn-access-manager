@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 require ("./include/createAuthFiles.php");
 
 initialize_i18n();
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_y_x'] ) ) {
 		$button									= _("Yes");
 	} elseif( isset( $_POST['fSubmit_n_x'] ) ) {
@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
-	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )	? escape_string( $_POST['fViewvcConfig'] )	: "";
-	$tReload								= isset( $_POST['fReload'] )		? escape_string( $_POST['fReload'] )		: "";
+	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )	? db_escape_string( $_POST['fViewvcConfig'] )	: "";
+	$tReload								= isset( $_POST['fReload'] )		? db_escape_string( $_POST['fReload'] )		: "";
 	$tRetReload								= array();
 	
 	if( $button == _("Yes") ) {

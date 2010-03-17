@@ -70,7 +70,7 @@
 				   			print "\t\t\t\t\t\t<td>".$entry['givenname']."</td>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['emailaddress']."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$pwChanged."</td>\n";
-				   			print "\t\t\t\t\t\t<td align='center'>".$entry['mode']."</td>\n";
+				   			print "\t\t\t\t\t\t<td align='center'>".$entry['user_mode']."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$locked."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$expires."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$admin."</td>\n";

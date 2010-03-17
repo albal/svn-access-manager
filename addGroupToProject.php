@@ -32,7 +32,7 @@ $Id$
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require_once ("./include/functions.inc.php");
-require_once ("./include/db-functions.inc.php");
+require_once ("./include/db-functions-adodb.inc.php");
 include_once ("./include/output.inc.php");
 
 initialize_i18n();
@@ -44,6 +44,8 @@ function addGroupToProject($group, $currentMembers, $dbh) {
 
 	global $CONF;
 	
+	$schema						= db_determine_schema();
+        
 	$cs_array					= array();
 	
 	foreach( $currentMembers as $groupid => $name ) {
@@ -54,12 +56,12 @@ function addGroupToProject($group, $currentMembers, $dbh) {
 	
 	$tGroups								= array();
 	$query									= "SELECT * " .
-											  "  FROM svngroups " .
-											  " WHERE (deleted = '0000-00-00 00:00:00') " .
+											  "  FROM ".$schema."svngroups " .
+											  " WHERE (deleted = '00000000000000') " .
 											  "ORDER BY groupname ASC";
 	$result									= db_query( $query, $dbh );
 	
-	while( $row = db_array( $result['result'] ) ) {
+	while( $row = db_assoc( $result['result'] ) ) {
 		
 		$name								= $row['groupname'];
 		$groupid							= $row['id'];

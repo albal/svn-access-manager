@@ -2,6 +2,13 @@ Change Log
 ==========
 
 
+Release 0.5.0.0
+	- added support for PostgreSQL
+	- added support for Oracle 10g/11g
+	
+Release 0.4.1.6
+	- fixed a typographical error in checkPasswordPolicy function
+	
 Release 0.4.1.5
 	- fixed issues with svn and svnadmin command under windows
 	- make repository compatibility configurable with svnadmin create. Default

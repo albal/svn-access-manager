@@ -89,7 +89,7 @@ function initialize_i18n() {
 //
 function check_session() {
    
-   
+   error_log( "check session" );
    	$s 						= new Session;
 	session_start ();
    
@@ -902,17 +902,15 @@ function checkPasswordPolicy( $password, $admin="y" ) {
 //
 function splitDateTime( $datetime ) {
 	
-	$values 		= array();
-	$dateval		= array();
-	
-	$values 		= explode( " ", $datetime );
-	$date   		= $values[ 0 ];
-	$time   		= $values[ 1 ];
-	$dateval		= explode( "-", $date );
-	$year   		= $dateval[ 0 ];
-	$month  		= $dateval[ 1 ];
-	$day    		= $dateval[ 2 ];
+	$year			= substr( $datetime, 0, 4 );
+	$month			= substr( $datetime, 4, 2 );
+	$day			= substr( $datetime, 6, 2 );
 	$date   		= $day.".".$month.".".$year;
+	
+	$hour			= substr( $datetime, 8, 2 );
+	$min			= substr( $datetime, 10, 2 );
+	$sec			= substr( $datetime, 12, 2 );
+	$time			= $hour.":".$min.":".$sec;
 	
 	return array( $date, $time );	
 }
@@ -945,21 +943,12 @@ function splitValidDate( $date ) {
 //
 function mkUnixTimestampFromDateTime( $datetime ) {
 	
-	$values 		= array();
-	$dateval		= array();
-	$timeval		= array();
-	
-	$values 		= explode( " ", $datetime );
-	$date   		= $values[ 0 ];
-	$time   		= $values[ 1 ];
-	$dateval		= explode( "-", $date );
-	$year   		= $dateval[ 0 ];
-	$month  		= $dateval[ 1 ];
-	$day    		= $dateval[ 2 ];
-	$timeval		= explode( ":", $time );
-	$hour			= $timeval[ 0 ];
-	$min			= $timeval[ 1 ];
-	$sec			= $timeval[ 2 ];
+	$year			= substr( $datetime, 0, 4 );
+	$month			= substr( $datetime, 4, 2 );
+	$day			= substr( $datetime, 6, 2 );
+	$hour			= substr( $datetime, 8, 2 );
+	$min			= substr( $datetime, 10, 2 );
+	$sec			= substr( $datetime, 12, 2 );
 	
 	$timestamp		= mktime( $hour, $min, $sec, $month, $day, $year, -1 );
 	

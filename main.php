@@ -23,7 +23,7 @@
 
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
-require_once ("./include/db-functions.inc.php");
+require_once ("./include/db-functions-adodb.inc.php");
 require_once ("./include/functions.inc.php");
 include_once ("./include/output.inc.php");
 

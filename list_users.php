@@ -23,7 +23,7 @@
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require_once ("./include/functions.inc.php");
-require_once ("./include/db-functions.inc.php");
+require_once ("./include/db-functions-adodb.inc.php");
 include_once ("./include/output.inc.php");
 
 
@@ -32,15 +32,16 @@ function getUsers( $start, $count, $dbh ) {
 
 	global $CONF;
 	
+	$schema				= db_determine_schema();
 	$tUsers				= array();
 	$query				= " SELECT * " .
-						  "   FROM svnusers " .
-						  "   WHERE (deleted = '0000-00-00 00:00:00') " .
-						  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'] .
-						  "   LIMIT $start, $count";
-	$result				= db_query( $query, $dbh );
+						  "   FROM ".$schema."svnusers " .
+						  "   WHERE (deleted = '00000000000000') " .
+						  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
+#						  "   LIMIT $start, $count";
+	$result				= db_query( $query, $dbh, $count, $start );
 	   	
-	while( $row = db_array( $result['result']) ) {
+	while( $row = db_assoc( $result['result']) ) {
 	   
 		$tUsers[] 		= $row;
 	   		
@@ -51,15 +52,16 @@ function getUsers( $start, $count, $dbh ) {
 
 function getCountUsers( $dbh ) {
 
+	$schema				= db_determine_schema();
 	$tUsers				= array();
 	$query				= " SELECT COUNT(*) AS anz " .
-						  "   FROM svnusers " .
-						  "   WHERE (deleted = '0000-00-00 00:00:00') ";
+						  "   FROM ".$schema."svnusers " .
+						  "   WHERE (deleted = '00000000000000') ";
 	$result				= db_query( $query, $dbh );
 	   	
 	if( $result['rows'] == 1 ) {
 		
-		$row			= db_array( $result['result'] );
+		$row			= db_assoc( $result['result'] );
 		$count			= $row['anz'];
 		
 		return $count;
@@ -120,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
 
  	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
 		$button									= _("<<");
 	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {

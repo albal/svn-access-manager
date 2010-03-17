@@ -27,6 +27,14 @@ a:visited, a:active {
 	color: #0000a8;
 }
 
+#installform {
+	height: 680px;
+}
+
+#installfieldset {
+	height: 500px;
+}
+
 #header{
 	background-color:#EAEAE8; /*#C2D8FF;*/
 }
@@ -270,6 +278,16 @@ a:visited, a:active {
     color: maroon;
     padding: 3px 3px 3px 3px;
     text-align: center;
+}
+
+.standoutinst {
+    color: maroon;
+    padding: 3px 3px 3px 3px;
+    text-align: left;
+}
+
+.standoutinst ul {
+	padding-left: 15px;
 }
 
 .error_flag {

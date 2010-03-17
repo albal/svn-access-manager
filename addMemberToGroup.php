@@ -23,7 +23,7 @@
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require_once ("./include/functions.inc.php");
-require_once ("./include/db-functions.inc.php");
+require_once ("./include/db-functions-adodb.inc.php");
 include_once ("./include/output.inc.php");
 
 initialize_i18n();
@@ -34,6 +34,8 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 
 	global $CONF;
 	
+	$schema						= db_determine_schema();
+    
 	$cs_array					= array();
 	
 	foreach( $currentMembers as $userid => $name ) {
@@ -44,13 +46,13 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 	
 	$tUsers						= array();
 	$query						= "SELECT * " .
-								  "  FROM svnusers " .
-								  "	WHERE (deleted = '0000-00-00 00:00:00') " .
+								  "  FROM ".$schema."svnusers " .
+								  "	WHERE (deleted = '00000000000000') " .
 								  "   AND (locked = 0) " .
 								  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result						= db_query( $query, $dbh );
 	
-	while( $row = db_array( $result['result'] ) ) {
+	while( $row = db_assoc( $result['result'] ) ) {
 		
 		$name					= $row['name'];
 		$givenname				= $row['givenname'];

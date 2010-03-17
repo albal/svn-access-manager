@@ -24,31 +24,35 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 include_once ("./addMemberToGroup.php");
 
 
 
 function getAccessRights( $user_id, $start, $count, $dbh ) {
 	
+	global $CONF;
+	
+	$schema									= db_determine_schema();
+    
 	if( $user_id != -1 ) {
 		$id									= db_getIdByUserid( $user_id, $dbh );
 		$tProjectIds						= "";
 		$query								= "SELECT * " .
-	  					      				  "  FROM svn_projects_responsible " .
+	  					      				  "  FROM ".$schema."svn_projects_responsible " .
 	  					      				  " WHERE (user_id = $id) " .
-	  					      				  "   AND (deleted = '0000-00-00 00:00:00')";
+	  					      				  "   AND (deleted = '00000000000000')";
 	} else {
 		
 		$tProjectIds						= "";
 		$query								= "SELECT * " .
-	  					      				  "  FROM svn_projects_responsible " .
-	  					      				  " WHERE (deleted = '0000-00-00 00:00:00')";
+	  					      				  "  FROM ".$schema."svn_projects_responsible " .
+	  					      				  " WHERE (deleted = '00000000000000')";
 	  					      				  
 	}
 	
   	$result									= db_query( $query, $dbh );
-  	while( $row = db_array( $result['result'] ) ) {
+  	while( $row = db_assoc( $result['result'] ) ) {
   		
   		if( $tProjectIds == "" ) {
   			
@@ -69,32 +73,40 @@ function getAccessRights( $user_id, $start, $count, $dbh ) {
 		$query								= "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." .
 											  "       reponame, valid_from, valid_until, path, access_right, recursive," .
 											  "       svn_access_rights.user_id, svn_access_rights.group_id " .
-											  "  FROM svn_access_rights, svnprojects, svnrepos " .
+											  "  FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
 											  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
 											  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
-											  "   AND (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
-											  "ORDER BY svnrepos.reponame, svn_access_rights.path " .
-											  "   LIMIT $start, $count";
-		$result								= db_query( $query, $dbh );
+											  "   AND (svn_access_rights.deleted = '00000000000000') " .
+											  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
+#											  "   LIMIT $start, $count";
+		$result								= db_query( $query, $dbh, $count, $start );
 		
-		while( $row = db_array( $result['result'] ) ) {
+		while( $row = db_assoc( $result['result'] ) ) {
 			
 			$entry							= $row;
 			$userid							= $row['user_id'];
+			if( empty( $userid) ) {
+				$userid						= 0;
+			}
+			
 			$groupid						= $row['group_id'];
+			if( empty( $groupid) ) {
+				$groupid					= 0;
+			}
+			
 			$entry['groupname']				= "";
 			$entry['username']				= "";
 			
 			if( $userid != "0" ) {
 			
 				$query						= "SELECT * " .
-											  "  FROM svnusers " .
+											  "  FROM ".$schema."svnusers " .
 											  " WHERE id = $userid";
 				$resultread					= db_query( $query, $dbh );
 				if( $resultread['rows'] == 1 ) {
 					
-					$row					= db_array( $resultread['result'] );
+					$row					= db_assoc( $resultread['result'] );
 					$entry['username']		= $row['userid'];
 					
 				}
@@ -104,12 +116,12 @@ function getAccessRights( $user_id, $start, $count, $dbh ) {
 			if( $groupid != "0" ) {
 				
 				$query						= "SELECT * " .
-											  "  FROM svngroups " .
+											  "  FROM ".$schema."svngroups " .
 											  " WHERE id = $groupid";
 				$resultread					= db_query( $query, $dbh );
 				if( $resultread['rows'] == 1 ) {
 					
-					$row					= db_array( $resultread['result'] );
+					$row					= db_assoc( $resultread['result'] );
 					$entry['groupname']		= $row['groupname'];
 					
 				} else {
@@ -128,24 +140,28 @@ function getAccessRights( $user_id, $start, $count, $dbh ) {
 
 function getCountAccessRights( $user_id, $dbh ) {
 	
+	global $CONF;
+	
+	$schema									= db_determine_schema();
+    
 	if( $user_id != -1 ) {
 		$id									= db_getIdByUserid( $user_id, $dbh );
 		$tProjectIds						= "";
 		$query								= "SELECT * " .
-	  					      				  "  FROM svn_projects_responsible " .
+	  					      				  "  FROM ".$schema."svn_projects_responsible " .
 	  					      				  " WHERE (user_id = $id) " .
-	  					      				  "   AND (deleted = '0000-00-00 00:00:00')";
+	  					      				  "   AND (deleted = '00000000000000')";
 	} else {
 		
 		$tProjectIds						= "";
 		$query								= "SELECT * " .
-	  					      				  "  FROM svn_projects_responsible " .
-	  					      				  " WHERE (deleted = '0000-00-00 00:00:00')";
+	  					      				  "  FROM ".$schema."svn_projects_responsible " .
+	  					      				  " WHERE (deleted = '00000000000000')";
 	  					      				  
 	}
 	
   	$result									= db_query( $query, $dbh );
-  	while( $row = db_array( $result['result'] ) ) {
+  	while( $row = db_assoc( $result['result'] ) ) {
   		
   		if( $tProjectIds == "" ) {
   			
@@ -163,17 +179,18 @@ function getCountAccessRights( $user_id, $dbh ) {
 	
 		$tAccessRights						= array();
 		$query								= "SELECT COUNT(*) AS anz " .
-											  "  FROM svn_access_rights, svnprojects, svnrepos " .
+											  "  FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
 											  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
 											  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
-											  "   AND (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+											  "   AND (svn_access_rights.deleted = '00000000000000') " .
+											  "GROUP BY svnrepos.reponame, svn_access_rights.path " .
 											  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {
 			
-			$row							= db_array( $result['result'] );
+			$row							= db_assoc( $result['result'] );
 			$count							= $row['anz'];
 			
 			return $count;
@@ -249,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
 		$button									= _("<<");
 	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {
@@ -273,6 +290,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$button									= "undef";
 	}
+	
+	$schema										= db_determine_schema();
 	
 	if( $button == _( "Back" ) ) {
 		
@@ -392,8 +411,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					
 				}
 				
-				$query								= "UPDATE svn_access_rights " .
-													  "   SET deleted = now(), " .
+				$dbnow								= db_now();
+				$query								= "UPDATE ".$schema."svn_access_rights " .
+													  "   SET deleted = '$dbnow', " .
 													  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 													  " WHERE (id = $id)";
 				$result								= db_query( $query, $dbh );

@@ -23,6 +23,8 @@ function createAuthUserFile( $dbh ) {
 	
 	global $CONF;
 	
+	$schema									= db_determine_schema();
+    
 	if( (isset($CONF['separateFilesPerRepo'])) and ($CONF['separateFilesPerRepo'] == "YES") ) {
 		
 		$ret								= createAuthUserFilePerRepo( $dbh );
@@ -44,13 +46,13 @@ function createAuthUserFile( $dbh ) {
 				if( $fileHandle	= @fopen( $tempfile, 'w' ) ) {
 					
 					$query						= "SELECT * " .
-												  "  FROM svnusers " .
-												  " WHERE (deleted = '0000-00-00 00:00:00') " .
+												  "  FROM ".$schema."svnusers " .
+												  " WHERE (deleted = '00000000000000') " .
 												  "   AND (locked = '0') " .
 												  "ORDER BY userid";
 					$result						= db_query( $query, $dbh );
 					
-					while( $row = db_array( $result['result'] ) ) {
+					while( $row = db_assoc( $result['result'] ) ) {
 						
 						if( ! @fwrite( $fileHandle, $row['userid'].":".$row['password']."\n" ) ) {
 							
@@ -133,6 +135,8 @@ function createAuthUserFilePerRepo( $dbh ) {
 	
 	global $CONF;
 	
+	$schema								= db_determine_schema();
+    
 	$retcode 							= 0;
 	$tMessage							= "";
 	$dir								= dirname( $CONF['AuthUserFile'] );
@@ -148,10 +152,10 @@ function createAuthUserFilePerRepo( $dbh ) {
 			
 				
 			$query						= "SELECT * " .
-										  "  FROM svnrepos " .
-										  " WHERE (deleted = '0000-00-00 00:00:00')";
+										  "  FROM ".$schema."svnrepos " .
+										  " WHERE (deleted = '00000000000000')";
 			$resultrepos				= db_query( $query, $dbh );
-			while( $row = db_array( $resultrepos['result'] ) ) {
+			while( $row = db_assoc( $resultrepos['result'] ) ) {
 			
 				$repoid						= $row['id'];
 				$authuserfile				= $row['auth_user_file'];
@@ -163,22 +167,22 @@ function createAuthUserFilePerRepo( $dbh ) {
 				if( $fileHandle	= @fopen( $tempfile, 'w' ) ) {
 												  
 					$query						= "SELECT DISTINCT svnusers.userid, svnusers.password " .
-												  "  FROM svnusers, svn_access_rights, svnrepos, svnprojects " .
+												  "  FROM ".$schema."svnusers, ".$schema."svn_access_rights, ".$schema."svnrepos, ".$schema."svnprojects " .
 												  " WHERE (svnprojects.repo_id=$repoid) " .
 												  "   AND (svn_access_rights.project_id = svnprojects.id) " .
 												  "   AND (svnusers.id = svn_access_rights.user_id) " .
 												  "   AND (svnusers.id = svn_access_rights.user_id) " .
-												  "   AND (svnrepos.deleted = '0000-00-00 00:00:00') " .
-												  "   AND (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+												  "   AND (svnrepos.deleted = '00000000000000') " .
+												  "   AND (svn_access_rights.deleted = '00000000000000') " .
 												  "   AND (svn_access_rights.valid_from <= '$curdate') " .
 												  "   AND (svn_access_rights.valid_until >= '$curdate') " .
-												  "   AND (svnprojects.deleted = '0000-00-00 00:00:00') " .
+												  "   AND (svnprojects.deleted = '00000000000000') " .
 												  "   AND (svnusers.locked = '0') " .
 												  "ORDER BY svnusers.userid";
 												  
 					$result						= db_query( $query, $dbh );
 					
-					while( $row = db_array( $result['result'] ) ) {
+					while( $row = db_assoc( $result['result'] ) ) {
 						
 						if( ! @fwrite( $fileHandle, $row['userid'].":".$row['password']."\n" ) ) {
 							
@@ -264,6 +268,8 @@ function createAccessFile( $dbh ) {
 	
 	global $CONF;
 	
+	$schema									= db_determine_schema();
+	
 	if( (isset($CONF['separateFilesPerRepo'])) and ($CONF['separateFilesPerRepo'] == "YES") ) {
 		
 		$ret								= createAccessFilePerRepo( $dbh );
@@ -293,18 +299,18 @@ function createAccessFile( $dbh ) {
 					
 						# write groups to file
 						$query							= "  SELECT svngroups.groupname, svnusers.userid " .
-														  "    FROM svngroups, svnusers, svn_users_groups " .
-														  "   WHERE (svngroups.deleted = '0000-00-00 00:00:00') " .
+														  "    FROM ".$schema."svngroups, ".$schema."svnusers, ".$schema."svn_users_groups " .
+														  "   WHERE (svngroups.deleted = '00000000000000') " .
 														  "     AND (svn_users_groups.user_id = svnusers.id) " .
 														  "     AND (svn_users_groups.group_id = svngroups.id) " .
-														  "     AND (svnusers.deleted = '0000-00-00 00:00:00') " .
-														  "     AND (svn_users_groups.deleted = '0000-00-00 00:00:00') " .
+														  "     AND (svnusers.deleted = '00000000000000') " .
+														  "     AND (svn_users_groups.deleted = '00000000000000') " .
 														  "ORDER BY svngroups.groupname ASC";
 						$result							= db_query( $query, $dbh );
 						$oldgroup						= "";
 						$users							= "";
 						
-						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
 							
 							if( $oldgroup != $row['groupname'] ) {
 								
@@ -373,11 +379,11 @@ function createAccessFile( $dbh ) {
 	
 						$first						= 1;
 						$query						= "SELECT * " .
-												  	  "  FROM svnusers " .
+												  	  "  FROM ".$schema."svnusers " .
 												  	  " WHERE (superadmin = 1) " .
-												  	  "   AND (deleted = '0000-00-00 00:00:00')";
+												  	  "   AND (deleted = '00000000000000')";
 						$resultusr 					= db_query( $query, $dbh );
-						while( $rowusr = db_array( $resultusr['result'] ) ) {
+						while( $rowusr = db_assoc( $resultusr['result'] ) ) {
 	
 							if( $first == 1 ) {
 								
@@ -409,8 +415,8 @@ function createAccessFile( $dbh ) {
 						# write access rights to file
 						
 						$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
-														  "    FROM svn_access_rights, svnprojects, svnrepos " .
-														  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+														  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
+														  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
 														  "     AND (svn_access_rights.valid_from <= '$curdate') " .
 														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
@@ -418,7 +424,7 @@ function createAccessFile( $dbh ) {
 														  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
 						$result							= db_query( $query, $dbh );
 						
-						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
 							
 							if( $row['access_right'] == "none" ) {
 								
@@ -451,16 +457,16 @@ function createAccessFile( $dbh ) {
 								
 							} 
 							
-							if( $row['user_id'] != "0" ) {
+							if( ($row['user_id'] != "0") and (!empty($row['user_id'])) ) {
 								
 								$query					= "SELECT * " .
-														  "  FROM svnusers " .
+														  "  FROM ".$schema."svnusers " .
 														  " WHERE (id = ".$row['user_id'].")";
 								$resultusr				= db_query( $query, $dbh );
 								
 								if( $resultusr['rows'] == 1 ) {
 									
-									$rowusr				= db_array( $resultusr['result'] );
+									$rowusr				= db_assoc( $resultusr['result'] );
 									if( ! @fwrite( $fileHandle, $rowusr['userid']." = ".$right."\n" ) ) {
 										
 										$retcode		= 5;
@@ -471,16 +477,16 @@ function createAccessFile( $dbh ) {
 								}
 							}
 							
-							if( $row['group_id'] != "0" ) {
+							if( ($row['group_id'] != "0") and (!empty($row['group_id']) ) ) {
 							
 								$query					= "  SELECT * " .
-														  "    FROM svngroups " .
+														  "    FROM ".$schema."svngroups " .
 														  "   WHERE (id = ".$row['group_id'].")";
 								$resultgrp				= db_query( $query, $dbh );
 								
 								if( $resultgrp['rows'] == 1 ) {
 									
-									$rowgrp				= db_array( $resultgrp['result'] );
+									$rowgrp				= db_assoc( $resultgrp['result'] );
 									if( ! @fwrite( $fileHandle, "@".$rowgrp['groupname']." = ".$right."\n" ) ) {
 										
 										$retcode		= 6;
@@ -572,6 +578,8 @@ function createAccessFilePerRepo( $dbh ) {
 	
 	global $CONF;
 	
+	$schema								= db_determine_schema();
+	
 	$retcode 							= 0;
 	$tMessage							= "";
 	$curdate							= strftime( "%Y%m%d" );
@@ -587,11 +595,11 @@ function createAccessFilePerRepo( $dbh ) {
 			$slash							= ($os == "windows") ? "\\" : "/";
 			$tempfile						= $dir.$slash."accesstemp_".$entropy;
 			
-			$query						= "SELECT * " .
-										  "  FROM svnrepos " .
-										  " WHERE (deleted = '0000-00-00 00:00:00')";
-			$resultrepos				= db_query( $query, $dbh );
-			while( $row = db_array( $resultrepos['result'] ) ) {
+			$query							= "SELECT * " .
+											  "  FROM ".$schema."svnrepos " .
+											  " WHERE (deleted = '00000000000000')";
+			$resultrepos					= db_query( $query, $dbh );
+			while( $row = db_assoc( $resultrepos['result'] ) ) {
 			
 				$repoid						= $row['id'];
 				$authuserfile				= $row['auth_user_file'];
@@ -609,7 +617,7 @@ function createAccessFilePerRepo( $dbh ) {
 					
 						# write groups to file		
 						$query							= "  SELECT svngroups.groupname, svnusers.userid " .
-														  "    FROM svngroups, svnusers, svn_users_groups, svnprojects, svn_access_rights, svnrepos " .
+														  "    FROM ".$schema."svngroups, ".$schema."svnusers, ".$schema."svn_users_groups, ".$schema."svnprojects, ".$schema."svn_access_rights, ".$schema."svnrepos " .
 														  "   WHERE (svn_users_groups.user_id = svnusers.id) " .
 														  "     AND (svn_users_groups.group_id = svngroups.id) " .
 														  "     AND (svnprojects.repo_id = svnrepos.id) " .
@@ -617,20 +625,20 @@ function createAccessFilePerRepo( $dbh ) {
 														  "     AND (svnprojects.id = svn_access_rights.project_id) " .
 														  "     AND (svn_access_rights.group_id=svngroups.id) " .
 														  "     AND (svn_access_rights.group_id != 0) " .
-														  "     AND (svn_users_groups.deleted='0000-00-00 00:00:00') " .
-														  "     AND (svn_access_rights.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svn_users_groups.deleted='00000000000000') " .
+														  "     AND (svn_access_rights.deleted='00000000000000') " .
 														  "     AND (svn_access_rights.valid_from <= '$curdate') " .
 														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
-														  "     AND (svnprojects.deleted='0000-00-00 00:00:00') " .
-														  "     AND (svngroups.deleted='0000-00-00 00:00:00') " .
-														  "     AND (svnrepos.deleted='0000-00-00 00:00:00') " .
-														  "     AND (svnusers.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svnprojects.deleted='00000000000000') " .
+														  "     AND (svngroups.deleted='00000000000000') " .
+														  "     AND (svnrepos.deleted='00000000000000') " .
+														  "     AND (svnusers.deleted='00000000000000') " .
 														  "ORDER BY svngroups.groupname ASC";
 						$result							= db_query( $query, $dbh );
 						$oldgroup						= "";
 						$users							= "";
 						
-						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
 							
 							if( $oldgroup != $row['groupname'] ) {
 								
@@ -701,11 +709,11 @@ function createAccessFilePerRepo( $dbh ) {
 	
 						$first						= 1;
 						$query						= "SELECT * " .
-												  	  "  FROM svnusers " .
+												  	  "  FROM ".$schema."svnusers " .
 												  	  " WHERE (superadmin = 1) " .
-												  	  "   AND (deleted = '0000-00-00 00:00:00')";
+												  	  "   AND (deleted = '00000000000000')";
 						$resultusr 					= db_query( $query, $dbh );
-						while( $rowusr = db_array( $resultusr['result'] ) ) {
+						while( $rowusr = db_assoc( $resultusr['result'] ) ) {
 	
 							if( $first == 1 ) {
 								
@@ -736,19 +744,19 @@ function createAccessFilePerRepo( $dbh ) {
 						
 						# write access rights to file
 						$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
-														  "    FROM svn_access_rights, svnprojects, svnrepos " .
-														  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+														  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
+														  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
 														  "     AND (svn_access_rights.valid_from <= '$curdate') " .
 														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 														  "     AND (svnprojects.repo_id = svnrepos.id) " .
 														  "     AND (svnprojects.repo_id=$repoid) " .
-														  "     AND (svnprojects.deleted='0000-00-00 00:00:00') " .
-														  "     AND (svnrepos.deleted='0000-00-00 00:00:00') " .
+														  "     AND (svnprojects.deleted='00000000000000') " .
+														  "     AND (svnrepos.deleted='00000000000000') " .
 														  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
 						$result							= db_query( $query, $dbh );
 						
-						while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
 							
 							if( $row['access_right'] == "none" ) {
 								
@@ -781,16 +789,16 @@ function createAccessFilePerRepo( $dbh ) {
 								
 							} 
 							
-							if( $row['user_id'] != "0" ) {
+							if( ($row['user_id'] != "0") and (!empty($row['user_id'])) ) {
 								
 								$query					= "SELECT * " .
-														  "  FROM svnusers " .
+														  "  FROM ".$schema."svnusers " .
 														  " WHERE (id = ".$row['user_id'].")";
 								$resultusr				= db_query( $query, $dbh );
 								
 								if( $resultusr['rows'] == 1 ) {
 									
-									$rowusr				= db_array( $resultusr['result'] );
+									$rowusr				= db_assoc( $resultusr['result'] );
 									if( ! @fwrite( $fileHandle, $rowusr['userid']." = ".$right."\n" ) ) {
 										
 										$retcode		= 5;
@@ -801,16 +809,16 @@ function createAccessFilePerRepo( $dbh ) {
 								}
 							}
 							
-							if( $row['group_id'] != "0" ) {
+							if( ($row['group_id'] != "0") and (!empty($row['group_id'])) ) {
 							
 								$query					= "  SELECT * " .
-														  "    FROM svngroups " .
+														  "    FROM ".$schema."svngroups " .
 														  "   WHERE (id = ".$row['group_id'].")";
 								$resultgrp				= db_query( $query, $dbh );
 								
 								if( $resultgrp['rows'] == 1 ) {
 									
-									$rowgrp				= db_array( $resultgrp['result'] );
+									$rowgrp				= db_assoc( $resultgrp['result'] );
 									if( ! @fwrite( $fileHandle, "@".$rowgrp['groupname']." = ".$right."\n" ) ) {
 										
 										$retcode		= 6;
@@ -901,15 +909,19 @@ function createAccessFilePerRepo( $dbh ) {
 
 function getGroupMembers( $groupid, $dbh ) {
 	
+	global $CONF;
+	
+	$schema								= db_determine_schema();
+    
 	$members							= array();
 	$query								= "  SELECT userid " .
-										  "    FROM svnusers, svngroups, svn_users_groups " .
+										  "    FROM ".$schema."svnusers, ".$schema."svngroups, ".$schema."svn_users_groups " .
 										  "   WHERE (svngroups.id = $groupid) " .
 										  "     AND (svngroups.id = svn_users_groups.group_id) " .
 										  "     AND (svnusers.id = svn_users_groups.user_id) " .
 										  "ORDER BY userid ASC";
 	$result								= db_query( $query, $dbh );
-	while( $row = db_array( $result['result'] ) ) {
+	while( $row = db_assoc( $result['result'] ) ) {
 		$members[]						= $row['userid'];
 	}
 	
@@ -968,6 +980,8 @@ function createViewvcConfig( $dbh ) {
 
 	global $CONF;
 	
+	$schema								= db_determine_schema();
+	
 	$retcode 							= 0;
 	$tMessage							= "";
 	$curdate							= strftime( "%Y%m%d" );
@@ -984,7 +998,7 @@ function createViewvcConfig( $dbh ) {
 			
 			$dir							= dirname( $CONF['ViewvcConf'] );
 			$entropy						= create_salt();
-			$os									= determineOS();
+			$os								= determineOS();
 			$slash							= ($os == "windows") ? "\\" : "/";
 			$tempfile						= $dir.$slash."viewvc_conf_temp_".$entropy;
 		
@@ -999,8 +1013,8 @@ function createViewvcConfig( $dbh ) {
 				if( $groupHandle = @fopen( $tempgroups, 'w' ) ) {
 			
 					$query						= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
-												  "    FROM svn_access_rights, svnprojects, svnrepos " .
-												  "   WHERE (svn_access_rights.deleted = '0000-00-00 00:00:00') " .
+												  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
+												  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
 												  "     AND (svn_access_rights.valid_from <= '$curdate') " .
 												  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 												  "     AND (svn_access_rights.project_id = svnprojects.id) " .
@@ -1009,7 +1023,7 @@ function createViewvcConfig( $dbh ) {
 					
 					$result						= db_query( $query, $dbh );
 					
-					while( ($row = db_array( $result['result'] )) and ($retcode == 0) ) {
+					while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
 						
 						$checkpath				= $row['repo_id'].$row['path'];
 						
@@ -1095,17 +1109,17 @@ function createViewvcConfig( $dbh ) {
 						
 						if( $row['access_right'] != "none" ) {
 
-							if( $row['user_id'] != "0" ) {
+							if( ($row['user_id'] != "0") and (!empty($row['user_id'])) ) {
 								
 								$query					= "SELECT * " .
-														  "  FROM svnusers " .
+														  "  FROM ".$schema."svnusers " .
 														  " WHERE (id = ".$row['user_id'].")";
 								$resultusr				= db_query( $query, $dbh );
 								
 								if( $resultusr['rows'] == 1 ) {
 									
 									# add user to apache access group
-									$rowusr					= db_array( $resultusr['result'] );
+									$rowusr					= db_assoc( $resultusr['result'] );
 									
 									if( ! in_array( $rowusr['userid'], $groups[$currentgroup] ) ) {
 										
@@ -1117,17 +1131,17 @@ function createViewvcConfig( $dbh ) {
 								}
 							}
 							
-							if( $row['group_id'] != "0" ) {
+							if( ($row['group_id'] != "0") and (!empty($row['group_id'])) ) {
 							
 								$query					= "  SELECT * " .
-														  "    FROM svngroups " .
+														  "    FROM ".$schema."svngroups " .
 														  "   WHERE (id = ".$row['group_id'].")";
 								$resultgrp				= db_query( $query, $dbh );
 								
 								if( $resultgrp['rows'] == 1 ) {
 									
 									# get group members
-									$rowgrp				= db_array( $resultgrp['result'] );
+									$rowgrp				= db_assoc( $resultgrp['result'] );
 									$groupid			= $rowgrp['id'];
 									$members			= getGroupMembers( $groupid, $dbh );
 									
@@ -1146,17 +1160,17 @@ function createViewvcConfig( $dbh ) {
 							
 						} else {
 						
-							if( $row['user_id'] != "0" ) {
+							if( ($row['user_id'] != "0") and (!empty($row['user_id'])) ) {
 								
 								$query					= "SELECT * " .
-														  "  FROM svnusers " .
+														  "  FROM ".$schema."svnusers " .
 														  " WHERE (id = ".$row['user_id'].")";
 								$resultusr				= db_query( $query, $dbh );
 								
 								if( $resultusr['rows'] == 1 ) {
 									
 									# delete user from apache access group
-									$rowusr					= db_array( $resultusr['result'] );
+									$rowusr					= db_assoc( $resultusr['result'] );
 									
 									if( in_array( $rowusr['userid'], $groups[$currentgroup] ) ) {
 										
@@ -1168,17 +1182,17 @@ function createViewvcConfig( $dbh ) {
 								}
 							}
 							
-							if( $row['group_id'] != "0" ) {
+							if( ($row['group_id'] != "0") and (!empty($row['group_id'])) ) {
 							
 								$query					= "  SELECT * " .
-														  "    FROM svngroups " .
+														  "    FROM ".$schema."svngroups " .
 														  "   WHERE (id = ".$row['group_id'].")";
 								$resultgrp				= db_query( $query, $dbh );
 								
 								if( $resultgrp['rows'] == 1 ) {
 									
 									# get group members
-									$rowgrp				= db_array( $resultgrp['result'] );
+									$rowgrp				= db_assoc( $resultgrp['result'] );
 									$groupid			= $rowgrp['id'];
 									$members			= getGroupMembers( $groupid, $dbh );
 									

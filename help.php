@@ -33,7 +33,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 
 $SESSID_USERNAME 							= check_session ();
@@ -43,15 +43,17 @@ $tText 										= array();
 	
 if( isset( $_SESSION['svn_sessid']['helptopic'] ) ) {
 		
+	$schema									= db_determine_schema();
+    
 	$lang									= check_language();
 	$query									= "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
-											  "  FROM help " .
+											  "  FROM ".$schema."help " .
 											  " WHERE topic = '".$_SESSION['svn_sessid']['helptopic']."'";
 	$result									= db_query( $query, $dbh );
 	
 	if( $result['rows'] > 0 ) {
 	
-		$tText								= db_array( $result['result'] );
+		$tText								= db_assoc( $result['result'] );
 		
 	} else {
 		

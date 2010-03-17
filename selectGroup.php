@@ -33,7 +33,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -57,12 +57,14 @@ if( $rightAllowed == "none" ) {
 	
 } 
 
+$schema										= db_determine_schema();
+
 $tGroups									= array();
 $query										= "SELECT * " .
-											  "  FROM svngroups " .
-											  " WHERE (svngroups.deleted = '0000-00-00 00:00:00')";
+											  "  FROM ".$schema."svngroups " .
+											  " WHERE (svngroups.deleted = '00000000000000')";
 $result										= db_query( $query, $dbh );
-while( $row = db_array( $result['result'] ) ) {
+while( $row = db_assoc( $result['result'] ) ) {
 
 	$tGroups[ $row['id'] ]			= $row['groupname'];
 		
@@ -81,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button								= escape_string( $_POST['fSubmit'] );
+		$button								= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button								= _("Select group");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -102,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    	} elseif( $button == _("Select group" ) ) {
    		
-   		$tGroup								= escape_string( $_POST['fGroup'] );
+   		$tGroup								= db_escape_string( $_POST['fGroup'] );
    		$_SESSION['svn_sessid']['groupid']	= $tGroup;
    		
    		db_disconnect( $dbh );
