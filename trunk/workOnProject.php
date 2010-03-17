@@ -23,7 +23,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 include_once ("./addMemberToProject.php");
 include_once ("./addGroupToProject.php");
 
@@ -45,15 +45,17 @@ if( $rightAllowed == "none" ) {
 	header( "Location: nopermission.php" );
 	exit;
 	
-}		  
+}		 
+
+$schema								= db_determine_schema();
 
 $query								= "SELECT * " .
-									  "  FROM svnrepos " .
-									  " WHERE (deleted = '0000-00-00 00:00:00')";
+									  "  FROM ".$schema."svnrepos " .
+									  " WHERE (deleted = '00000000000000')";
 $result								= db_query( $query, $dbh );
 $tRepos								= array();
 
-while( $row = db_array( $result['result'] ) ) {
+while( $row = db_assoc( $result['result'] ) ) {
 	
 	$id								= $row['id'];
 	$name							= $row['reponame'];
@@ -65,10 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tMembers								= array();
 	$tReadonly								= "";
-	$tTask									= escape_string( $_GET['task'] );
+	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 
@@ -117,27 +119,27 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    		$_SESSION['svn_sessid']['projectid']	= $tId;
    		$tReadonly								= "readonly";
    		$query									= "SELECT * " .
-   												  "  FROM svnprojects, svnrepos " .
+   												  "  FROM ".$schema."svnprojects, ".$schema."svnrepos " .
    												  " WHERE (svnprojects.id = $tId) " .
    												  "   AND (svnrepos.id = svnprojects.repo_id)";
 		$result									= db_query( $query, $dbh );
 		if( $result['rows'] == 1 ) {
 			
-			$row								= db_array( $result['result'] );
+			$row								= db_assoc( $result['result'] );
 			$tProject							= $row['svnmodule'];
 			$tModulepath						= $row['modulepath'];
 			$tRepo								= $row['repo_id'];
 			
 			$query								= "SELECT svnusers.userid, svnusers.name, svnusers.givenname " .
-												  "  FROM svnusers, svn_projects_responsible " .
+												  "  FROM ".$schema."svnusers, ".$schema."svn_projects_responsible " .
 												  " WHERE (svn_projects_responsible.project_id = $tId) " .
-												  "   AND (svn_projects_responsible.deleted = '0000-00-00 00:00:00') " .
-												  "   AND (svnusers.deleted = '0000-00-00 00:00:00') " .
+												  "   AND (svn_projects_responsible.deleted = '00000000000000') " .
+												  "   AND (svnusers.deleted = '00000000000000') " .
 												  "   AND (svn_projects_responsible.user_id = svnusers.id) " .
 												  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 			$result								= db_query( $query, $dbh );
 			
-			while( $row = db_array( $result['result'] ) ) {
+			while( $row = db_assoc( $result['result'] ) ) {
 				
 				$userid								= $row['userid'];
 				$name								= $row['name'];
@@ -185,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$buttonadd								= "";
 	
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Submit");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -215,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 	
 	if( isset( $_POST['fSubmitAdd'] ) ) {
-		$buttonadd 								= escape_string( $_POST['fSubmitAdd'] );
+		$buttonadd 								= db_escape_string( $_POST['fSubmitAdd'] );
 	} elseif( isset( $_POST['fSubmitAdd_ok_x'] ) ) {
 		$buttonadd								= _("Add");
 	} elseif( isset( $_POST['fSubmitAdd_ok'] ) ) {
@@ -229,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 	
 	if( isset( $_POST['fSubmitAddGroup'] ) ) {
-		$buttonaddgroup							= escape_string( $_POST['fSubmitAdd'] );
+		$buttonaddgroup							= db_escape_string( $_POST['fSubmitAdd'] );
 	} elseif( isset( $_POST['fSubmitAddGroup_ok_x'] ) ) {
 		$buttonaddgroup							= _("Add");
 	} elseif( isset( $_POST['fSubmitAddGroup_ok'] ) ) {
@@ -244,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	
    	if( isset( $_POST['fProject'] ) ) {
    		
-   		$tProject							= escape_string( $_POST['fProject'] );
+   		$tProject							= db_escape_string( $_POST['fProject'] );
    		
    	} else {
    		
@@ -253,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	
    	if( isset( $_POST['fModulepath'] ) ) {
    		
-   		$tModulepath						= escape_string( $_POST['fModulepath'] );
+   		$tModulepath						= db_escape_string( $_POST['fModulepath'] );
    			
    	} else {
    		
@@ -262,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	
    	if( isset( $_POST['fRepo'] ) ) {
    		
-   		$tRepo								= escape_string( $_POST['fRepo'] );
+   		$tRepo								= db_escape_string( $_POST['fRepo'] );
    		
    	} else {
    			
@@ -271,7 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	
    	if( isset( $_POST['members'] ) ) {
 	
-		$tMembers  							= escape_string($_POST['members']);
+		$tMembers  							= db_escape_string($_POST['members']);
 		
 	} else {
 		
@@ -280,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['groupsallowed'] ) ) {
 		
-		$tGroups							= escape_string( $_POST['groupsallowed'] );
+		$tGroups							= db_escape_string( $_POST['groupsallowed'] );
 		
 	} else {
 		
@@ -385,9 +387,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			} else {
 
    				$query						= "SELECT * " .
-   											  "  FROM svnprojects " .
+   											  "  FROM ".$schema."svnprojects " .
    											  " WHERE (svnmodule = '$tProject') " .
-   											  "   AND (deleted = '0000-00-00 00:00:00')";
+   											  "   AND (deleted = '00000000000000')";
    				$result						= db_query( $query, $dbh );
    				
    				if( $result['rows'] > 0 ) {
@@ -403,8 +405,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				db_ta( 'BEGIN', $dbh );
    				db_log( $_SESSION['svn_sessid']['username'], "project $tProject ($tModulepath) added", $dbh );
    				
-   				$query 						= "INSERT INTO svnprojects (svnmodule, modulepath, repo_id, created, created_user) " .
-   										      "     VALUES ('$tProject', '$tModulepath', '$tRepo', now(), '".$_SESSION['svn_sessid']['username']."')";
+   				$dbnow						= db_now();
+   				$query 						= "INSERT INTO ".$schema."svnprojects (svnmodule, modulepath, repo_id, created, created_user) " .
+   										      "     VALUES ('$tProject', '$tModulepath', '$tRepo', '$dbnow', '".$_SESSION['svn_sessid']['username']."')";
    				
    				$result						= db_query( $query, $dbh );
    				if( $result['rows'] != 1 ) {
@@ -414,25 +417,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    					
    				} else {
    					
-   					$projectid				= mysql_insert_id( $dbh );
+   					$projectid				= db_get_last_insert_id( 'svnprojects', 'id', $dbh );
    					
    					foreach( $_SESSION['svn_sessid']['members'] as $userid => $name ) {
 						
 						$query				= "SELECT * " .
-											  "  FROM svnusers " .
+											  "  FROM ".$schema."svnusers " .
 											  " WHERE (userid = '$userid') " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 						$result				= db_query( $query, $dbh );
 						
 						if( $result['rows'] == 1 ) {
 							
 							db_log( $_SESSION['svn_sessid']['username'], "added project responsible $userid", $dbh );
 							
-							$row			= db_array( $result['result'] );
+							$row			= db_assoc( $result['result'] );
 							$id				= $row['id'];
-														
-							$query			= "INSERT INTO svn_projects_responsible (user_id, project_id, created, created_user) " .
-											  "     VALUES ($id, $projectid, now(), '".$_SESSION['svn_sessid']['username']."')";
+							$dbnow			= db_now();					
+							$query			= "INSERT INTO ".$schema."svn_projects_responsible (user_id, project_id, created, created_user) " .
+											  "     VALUES ($id, $projectid, '$dbnow', '".$_SESSION['svn_sessid']['username']."')";
 							$result			= db_query( $query, $dbh );
 							
 							if( $result['rows'] != 1 ) {
@@ -484,9 +487,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			} else {
 
    				$query						= "SELECT * " .
-   											  "  FROM svnprojects " .
+   											  "  FROM ".$schema."svnprojects " .
    											  " WHERE (svnmodule = '$tProject') " .
-   											  "   AND (deleted = '0000-00-00 00:00:00') " .
+   											  "   AND (deleted = '00000000000000') " .
    											  "   AND (id != ".$_SESSION['svn_sessid']['projectid'].")";
    				$result						= db_query( $query, $dbh );
    				
@@ -500,11 +503,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   			   			
    			if( $error == 0 ) {
    				
-   				$query						=  "UPDATE svnprojects " .
+   				$dbnow						= db_now();
+   				$query						=  "UPDATE ".$schema."svnprojects " .
    											   "   SET svnmodule = '$tProject', " .
    											   "       modulepath = '$tModulepath', " .
    											   "       repo_id = $tRepo, " .
-   											   "       modified = now(), " .
+   											   "       modified = '$dbnow', " .
    											   "       modified_user = '".$_SESSION['svn_sessid']['username']."' " .
    											   " WHERE (id = ".$_SESSION['svn_sessid']['projectid'].")";
    				
@@ -535,12 +539,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					}
 					
 					$query					= "SELECT * " .
-											  "  FROM svn_projects_responsible " .
+											  "  FROM ".$schema."svn_projects_responsible " .
 											  " WHERE (project_id = $projectid) " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 					$result					= db_query( $query, $dbh );
 					
-					while( ($row = db_array( $result['result'])) and ($error == 0) ) {
+					while( ($row = db_assoc( $result['result'])) and ($error == 0) ) {
 						
 						$userid				= db_getUseridById( $row['user_id'], $dbh );
 						$uid				= $row['user_id'];
@@ -550,8 +554,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							
 							db_log( $_SESSION['svn_sessid']['username'], "deleted $userid from $tProject as responsible", $dbh );
 							$id				= $row['id'];
-							$query			= "UPDATE svn_projects_responsible " .
-												 "SET deleted = now(), " .
+							$dbnow			= db_now();
+							$query			= "UPDATE ".$schema."svn_projects_responsible " .
+												 "SET deleted = '$dbnow', " .
 												 "    deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE id = ".$id;
 							$result_del		= db_query( $query, $dbh );
@@ -568,21 +573,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					foreach( $_SESSION['svn_sessid']['members'] as $userid => $name ) {
 						
 						$query				= "SELECT * " .
-											  "  FROM svnusers " .
+											  "  FROM ".$schema."svnusers " .
 											  " WHERE (userid = '$userid') " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 						$result				= db_query( $query, $dbh );
 						
 						if( $result['rows'] == 1 ) {
 							
-							$row			= db_array( $result['result'] );
+							$row			= db_assoc( $result['result'] );
 							$id				= $row['id'];
 														
 							$query			= "SELECT * " .
-											  "  FROM svn_projects_responsible " .
+											  "  FROM ".$schema."svn_projects_responsible " .
 											  " WHERE (user_id = $id) " .
 											  "   AND (project_id = $projectid) " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 							$result			= db_query( $query, $dbh );
 							
 							#print_r($id);
@@ -593,8 +598,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							if( $result['rows'] == 0 ) {
 								
 								db_log( $_SESSION['svn_sessid']['username']," added project responsible $userid to project $tProject", $dbh );
-								$query		= "INSERT INTO svn_projects_responsible (user_id, project_id, created, created_user) " .
-										      "     VALUES ($id, $projectid, now(), '".$_SESSION['svn_sessid']['username']."')";
+								$dbnow		= db_now();
+								$query		= "INSERT INTO ".$schema."svn_projects_responsible (user_id, project_id, created, created_user) " .
+										      "     VALUES ($id, $projectid, '$dbnow', '".$_SESSION['svn_sessid']['username']."')";
 								$result		= db_query( $query, $dbh );
 								
 								if( $result['rows'] == 1 ) {
@@ -650,7 +656,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    		if( isset( $_POST['membersadd'] ) ) {
 		
-			$membersadd 					= escape_string($_POST['membersadd']);
+			$membersadd 					= db_escape_string($_POST['membersadd']);
 			
 		} else {
 			
@@ -661,14 +667,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		foreach( $membersadd as $userid ) {
 			
 			$query							= "SELECT * " .
-											  "  FROM svnusers " .
+											  "  FROM ".$schema."svnusers " .
 											  " WHERE (userid = '$userid') " .
-											  "   AND (deleted = '0000-00-00 00:00:00' )";
+											  "   AND (deleted = '00000000000000' )";
 			$result							= db_query( $query, $dbh );
 			
 			if( $result['rows'] == 1 ) {
 				
-				$row						= db_array( $result['result'] );
+				$row						= db_assoc( $result['result'] );
 				$name						= $row['name'];
 				$givenname					= $row['givenname'];
 				
@@ -706,7 +712,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    		if( isset( $_POST['groupsadd'] ) ) {
 		
-			$groupsadd 						= escape_string($_POST['groupsadd']);
+			$groupsadd 						= db_escape_string($_POST['groupsadd']);
 			
 		} else {
 			
@@ -717,14 +723,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		foreach( $groupsadd as $groupid ) {
 			
 			$query							= "SELECT * " .
-											  "  FROM svngroups " .
+											  "  FROM ".$schema."svngroups " .
 											  " WHERE (id = '$groupid') " .
-											  "   AND (deleted = '0000-00-00 00:00:00' )";
+											  "   AND (deleted = '00000000000000' )";
 			$result							= db_query( $query, $dbh );
 			
 			if( $result['rows'] == 1 ) {
 				
-				$row						= db_array( $result['result'] );
+				$row						= db_assoc( $result['result'] );
 				$name						= $row['groupname'];
 				
 			}

@@ -22,17 +22,17 @@
 /*
 
 File:  lostpassword.php
-$LastChangedDate: 2010-01-19 23:19:26 +0100 (Tue, 19 Jan 2010) $
-$LastChangedBy: kriegeth $
+$LastChangedDate$
+$LastChangedBy$
 
-$Id: lostpassword.php 375 2010-01-19 22:19:26Z kriegeth $
+$Id$
 
 */
 
 
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 require ("./include/functions.inc.php");
 
 initialize_i18n();
@@ -40,6 +40,7 @@ initialize_i18n();
 $SESSID_USERNAME 						= check_session_lpw("n");
 $dbh 									= db_connect ();
 $_SESSION['svn_lpw']['helptopic']		= "lostpassword";
+$schema									= db_determine_schema();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
@@ -59,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$error							= 0;
-   	$tUsername 						= escape_string($_POST['fUsername']);
-   	$tEmailaddress					= escape_string($_POST['fEmailaddress']);
+   	$tUsername 						= db_escape_string($_POST['fUsername']);
+   	$tEmailaddress					= db_escape_string($_POST['fEmailaddress']);
    	$result 						= db_query( "SELECT * " .
-   												"  FROM svnusers " .
+   												"  FROM ".$schema."svnusers " .
    												" WHERE (userid = '$tUsername') " .
    												"   AND (emailaddress = '$tEmailaddress') " .
-   												"   AND (deleted = '0000-00-00 00:00:00')", $dbh );
+   												"   AND (deleted = '00000000000000')", $dbh );
    
    	if ($result['rows'] == 1) {
 

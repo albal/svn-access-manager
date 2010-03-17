@@ -44,7 +44,7 @@ $INCLUDEPATH						= "/home/kriegeth/svn_access_manager";
 require ("$INCLUDEPATH/include/variables.inc.php");
 require ("$INCLUDEPATH/config/config.inc.php");
 require ("$INCLUDEPATH/include/functions.inc.php");
-require ("$INCLUDEPATH/include/db-functions.inc.php");
+require ("$INCLUDEPATH/include/db-functions-adodb.inc.php");
 
 
 ini_set( 'max_execution_time', '3600' );
@@ -62,11 +62,11 @@ $url								= "https://atest.asamnet.de/svn_access_manager/";
 
 $query								= "SELECT * " .
 									  "  FROM svnusers " .
-									  " WHERE (deleted = '0000-00-00 00:00:00') " .
+									  " WHERE (deleted = '00000000000000') " .
 									  "   AND (passwordexpires = 1) ";
 $result								= db_query( $query, $dbh );
 
-while( $row = db_array( $result['result'] ) ) {
+while( $row = db_assoc( $result['result'] ) ) {
 	
 	$userid							= $row['userid'];
 	$id								= $row['id'];

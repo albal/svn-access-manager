@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -33,15 +33,16 @@ check_password_expired();
 $dbh 									= db_connect ();
 $userid									= db_getIdByUserid ( $SESSID_USERNAME, $dbh );
 $_SESSION['svn_sessid']['helptopic']	= "preferences";
+$schema									= db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly								= "";
 	
    	$query									= "SELECT * " .
-   											  "  FROM preferences " .
+   											  "  FROM ".$schema."preferences " .
    											  " WHERE (user_id = $userid) " .
-   											  "   AND (deleted = '0000-00-00 00:00:00')";
+   											  "   AND (deleted = '00000000000000')";
    	$result									= db_query( $query, $dbh );
    	
    	if( $result['rows'] == 0 ) {
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    		
    	} else {
    		
-   		$row								= db_array( $result['result'] );
+   		$row								= db_assoc( $result['result'] );
    		$tPageSize							= $row['page_size'];
    		$tSortField							= $row['user_sort_fields'];
    		$tSortOrder							= $row['user_sort_order'];
@@ -101,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
 		$button									= _("<<");
 	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {
@@ -122,9 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
-   	$tPageSize									= isset( $_POST['fPageSize'] ) 		? escape_string( $_POST['fPageSize'] ) 	: "";
-   	$tSortField									= isset( $_POST['fSortField'] ) 	? escape_string( $_POST['fSortField'] )	: "";
-   	$tSortOrder									= isset( $_POST['fSortOrder'] )		? escape_string( $_POST['fSortOrder'] )	: "";
+   	$tPageSize									= isset( $_POST['fPageSize'] ) 		? db_escape_string( $_POST['fPageSize'] ) 	: "";
+   	$tSortField									= isset( $_POST['fSortField'] ) 	? db_escape_string( $_POST['fSortField'] )	: "";
+   	$tSortOrder									= isset( $_POST['fSortOrder'] )		? db_escape_string( $_POST['fSortOrder'] )	: "";
    	   	
    	if( $button == _("Back" ) ) {
    	
@@ -164,26 +165,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			db_log( $SESSID_USERNAME, 'changed preferences', $dbh );
    			
    			$query							= "SELECT * " .
-   											  "  FROM preferences " .
+   											  "  FROM ".$schema."preferences " .
    											  " WHERE (user_id = $userid) " .
-   											  "   AND (deleted = '0000-00-00 00:00:00')";
+   											  "   AND (deleted = '00000000000000')";
    			$result							= db_query( $query, $dbh );
    			
    			if( $result['rows'] == 0 ) {
    				
-   				$query						= "INSERT INTO preferences (user_id, page_size, user_sort_fields, user_sort_order, created, created_user) " .
-   											  "     VALUES ($userid, $tPageSize, '$tSortField', '$tSortOrder', now(), '$SESSID_USERNAME')";
+   				$dbnow						= db_now();
+   				$query						= "INSERT INTO ".$schema."preferences (user_id, page_size, user_sort_fields, user_sort_order, created, created_user) " .
+   											  "     VALUES ($userid, $tPageSize, '$tSortField', '$tSortOrder', '$dbnow', '$SESSID_USERNAME')";
    				
    			} else {
    				
-   				$query						= "UPDATE preferences " .
+   				$dbnow						= db_now();
+   				$query						= "UPDATE ".$schema."preferences " .
    											  "   SET page_size = $tPageSize, " .
    											  "       user_sort_fields = '$tSortField', " .
    											  "       user_sort_order = '$tSortOrder', " .
-   											  "       modified = now(), " .
+   											  "       modified = '$dbnow', " .
    											  "       modified_user = '$SESSID_USERNAME' " .
    											  " WHERE (user_id = $userid) " .
-   											  "   AND (deleted = '0000-00-00 00:00:00')";
+   											  "   AND (deleted = '00000000000000')";
    											  
    			}
    			
@@ -206,6 +209,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    		$tMessage							= sprintf( _( "Invalid button %s, anyone tampered arround with?" ), $button );
    		
+   	}
+   	
+   	if( $tSortOrder == "ASC" ) {
+   		$tAsc								= "checked";
+   		$tDesc								= "";
+   	} elseif( $tSortOrder == "DESC" ) {
+   		$tDesc								= "checked";
+   		$tAsc								= "";
+   	} else {
+   		$tAsc								= "checked";
+   		$tDesc								= "";
+   	}
+   	
+   	if( $tSortField == "name,givenname" ) {
+   		$tName								= "checked";
+   		$tUserid							= "";
+   	} elseif( $tSortField == "userid") {
+   		$tUserid							= "checked";
+   		$tName								= "";
+   	} else {
+   		$tName								= "checked";
+   		$tUserid							= "";
    	}
    	
    	$header									= "preferences";

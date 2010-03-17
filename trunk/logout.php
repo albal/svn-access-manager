@@ -21,7 +21,7 @@
 
 
 require ("./config/config.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 require ("./include/functions.inc.php");
 
 initialize_i18n();

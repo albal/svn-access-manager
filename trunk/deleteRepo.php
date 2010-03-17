@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 
 $SESSID_USERNAME 							= check_session ();
@@ -47,10 +47,10 @@ if( $rightAllowed != "delete" ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
-	$tTask									= escape_string( $_GET['task'] );
+	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 
@@ -61,16 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
 	$_SESSION['svn_sessid']['repoid']		= $tId;
 	
+	$schema									= db_determine_schema();
+	
 	if( $_SESSION['svn_sessid']['task'] == "delete" ) {
 		
 		$query								= "SELECT * " .
-											  "  FROM svnrepos " .
+											  "  FROM ".$schema."svnrepos " .
 											  " WHERE id = $tId";
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {
 			
-			$row							= db_array( $result['result'] );
+			$row							= db_assoc( $result['result'] );
 			$tReponame						= $row['reponame'];
 			$tRepopath						= $row['repopath'];
 			$tRepouser						= $row['repouser'];
@@ -79,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tClass							= "button";
 			
 			$query							= "SELECT * " .
-											  "  FROM svnprojects " .
-											  " WHERE (deleted = '0000-00-00 00:00:00') " .
+											  "  FROM ".$schema."svnprojects " .
+											  " WHERE (deleted = '00000000000000') " .
 											  "   AND (repo_id = '".$_SESSION['svn_sessid']['repoid']."')";
 			$result							= db_query( $query, $dbh );
 		
@@ -88,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				
 				$repos						= "";
 			
-				while( $row = db_array( $result['result'] ) ) {
+				while( $row = db_assoc( $result['result'] ) ) {
 				
 					if( $repos == "" ) {
 					
@@ -129,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Delete");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -142,11 +144,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
+	$schema									= db_determine_schema();
+	
 	if( $button == _("Delete") ) {
 		
 		$query								= "SELECT * " .
-											  "  FROM svnprojects " .
-											  " WHERE (deleted = '0000-00-00 00:00:00') " .
+											  "  FROM ".$schema."svnprojects " .
+											  " WHERE (deleted = '00000000000000') " .
 											  "   AND (repo_id = '".$_SESSION['svn_sessid']['repoid']."')";
 		$result								= db_query( $query, $dbh );
 		
@@ -157,8 +161,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			db_ta( 'BEGIN', $dbh );
 			db_log( $_SESSION['svn_sessid']['username'], "deleted repository $reponame", $dbh);
 			
-			$query								= "UPDATE svnrepos " .
-												  "   SET deleted = now(), " .
+			$dbnow								= db_now();
+			$query								= "UPDATE ".$schema."svnrepos " .
+												  "   SET deleted = '$dbnow', " .
 												  "       deleted_user = '".$_SESSION['svn_sessid']['username']."'".
   												  " WHERE id = ".$_SESSION['svn_sessid']['repoid'];
 			$result								= db_query( $query, $dbh );
@@ -183,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			$repos								= "";
 			
-			while( $row = db_array( $result['result'] ) ) {
+			while( $row = db_assoc( $result['result'] ) ) {
 				
 				if( $repos == "" ) {
 					

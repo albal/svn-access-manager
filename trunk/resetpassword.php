@@ -22,26 +22,27 @@
 /*
 
 File:  resetpassword.php
-$LastChangedDate: 2010-01-19 23:19:26 +0100 (Tue, 19 Jan 2010) $
-$LastChangedBy: kriegeth $
+$LastChangedDate$
+$LastChangedBy$
 
-$Id: resetpassword.php 375 2010-01-19 22:19:26Z kriegeth $
+$Id$
 
 */
 
 
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 require ("./include/functions.inc.php");
 
 initialize_i18n();
 
 $dbh 									= db_connect ();
+$schema									= db_determine_schema();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
-   $id									= isset( $_GET['id'] ) ? escape_string( $_GET['id'] ) : "";
+   $id									= isset( $_GET['id'] ) ? db_escape_string( $_GET['id'] ) : "";
    $tMessage							= "";
    $tToken								= "";
    $tPassword1							= "";
@@ -54,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$error								= 0;
-	$id									= isset( $_GET['id'] ) ? escape_string( $_GET['id'] ) : "";
-	$tToken								= escape_string( $_POST['fToken'] );
-	$tPassword1							= escape_string( $_POST['fPassword1'] );
-	$tPassword2							= escape_string( $_POST['fPassword2'] );
+	$id									= isset( $_GET['id'] ) ? db_escape_string( $_GET['id'] ) : "";
+	$tToken								= db_escape_string( $_POST['fToken'] );
+	$tPassword1							= db_escape_string( $_POST['fPassword1'] );
+	$tPassword2							= db_escape_string( $_POST['fPassword2'] );
 	
 	if( ($tPassword1 == "") or ($tPassword2 == "") ) {
 		
@@ -72,13 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		
 	   	$query							= "SELECT * " .
-	   									  "  FROM svnpasswordreset " .
+	   									  "  FROM ".$schema."svnpasswordreset " .
 	   									  " WHERE (token = '$tToken') " .
 	   									  "   AND (idstr = '$id')";
 	   	$result							= db_query( $query, $dbh );
 	   	if( $result['rows'] == 1 ) {
 	   		
-	   		$row						= db_array( $result['result'] );
+	   		$row						= db_assoc( $result['result'] );
 	   		$username					= $row['username'];
 	   		$timestamp					= $row['unixtime'];
 	   		$pkey						= $row['id'];
@@ -92,12 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   		} else {
 	   			
 	   			$query					= "SELECT admin " .
-	   									  "  FROM svnusers " .
+	   									  "  FROM ".$schema."svnusers " .
 	   									  " WHERE (userid = '$username') " .
-	   									  "   AND (deleted = '0000-00-00 00:00:00')";
+	   									  "   AND (deleted = '00000000000000')";
 	   			$result					= db_query( $query, $dbh );
 	   			if( $result['rows'] > 0 ) {
-	   				$row				= db_array( $result['result'] );
+	   				$row				= db_assoc( $result['result'] );
 	   				$admin				= $row['admin'];
 	   				if( checkPasswordPolicy( $tPassword1, $admin ) == 0 ) {
    			      
@@ -105,17 +106,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
          				$error			= 1;
          	
 					} else { 
-			   			$password 		= mysql_real_escape_string( pacrypt ($tPassword1), $dbh );
-			   			$query			= "UPDATE svnusers " .
-			   							  "   SET password = '$password' " .
+			   			$password 		= db_escape_string( pacrypt ($tPassword1), $dbh );
+			   			$query			= "UPDATE ".$schema."svnusers " .
+			   							  "   SET password = $password " .
 			   							  " WHERE (userid = '$username') " .
-			   							  "   AND (deleted = '0000-00-00 00:00:00')";
+			   							  "   AND (deleted = '00000000000000')";
 			   									  
 			   			db_ta( "BEGIN", $dbh );
 			   			$result			= db_query( $query, $dbh );
 			   			if( $result['rows'] > 0 ) {
 			   				
-			   				$query		= "DELETE FROM svnpasswordreset " .
+			   				$query		= "DELETE FROM ".$schema."svnpasswordreset " .
 			   							  "      WHERE id = $pkey";
 			   				$result		= db_query( $query, $dbh );
 			   				if( $result['rows'] >= 0 ) {

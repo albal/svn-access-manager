@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -37,6 +37,7 @@ $CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "User admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "deleteuser";
+$schema										= db_determine_schema();
 
 if( $rightAllowed != "delete" ) {
 	
@@ -48,10 +49,10 @@ if( $rightAllowed != "delete" ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
-	$tTask									= escape_string( $_GET['task'] );
+	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 
@@ -65,13 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if( $_SESSION['svn_sessid']['task'] == "delete" ) {
 		
 		$query								= "SELECT * " .
-											  "  FROM svnusers " .
+											  "  FROM ".$schema."svnusers " .
 											  " WHERE id = $tId";
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {
 			
-			$row							= db_array( $result['result'] );
+			$row							= db_assoc( $result['result'] );
 			$tUserid						= $row['userid'];
 			$tName							= $row['name'];
 			$tGivenname						= $row['givenname'];
@@ -103,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Delete");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -120,11 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$userid								= db_getUseridById( $_SESSION['svn_sessid']['userid'], $dbh );
 		$error								= 0;
-		$query								= "UPDATE svnusers " .
-											  "   SET deleted = now(), " .
+		$dbnow								= db_now();
+		$query								= "UPDATE ".$schema."svnusers " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE id = ".$_SESSION['svn_sessid']['userid'].
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 		
 		db_ta( 'BEGIN', $dbh );
 		db_log( $_SESSION['svn_sessid']['username'], "deleted user $userid", $dbh );
@@ -133,11 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		if( $result['rows'] == 1 ) {
 		
-				$query						= "UPDATE svn_access_rights " .
-											  "   SET deleted = now(), " .
+				$dbnow						= db_now();
+				$query						= "UPDATE ".$schema."svn_access_rights " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE (user_id = ".$_SESSION['svn_sessid']['userid'].") " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 				$result						= db_query( $query, $dbh );
 				
 				if( $result['rows'] < 0 ) {
@@ -148,11 +151,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		if( $error == 0 ) {
 		
-				$query						= "UPDATE svn_projects_responsible " .
-											  "   SET deleted = now(), " .
+				$dbnow						= db_now();
+				$query						= "UPDATE ".$schema."svn_projects_responsible " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE user_id = ".$_SESSION['svn_sessid']['userid'].
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 				$result						= db_query( $query, $dbh );
 				
 				if( $result['rows'] < 0 ) {
@@ -163,11 +167,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		if( $error == 0 ) {
 		
-				$query						= "UPDATE svn_users_groups " .
-											  "   SET deleted = now(), " .
+				$dbnow						= db_now();
+				$query						= "UPDATE ".$schema."svn_users_groups " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE user_id = ".$_SESSION['svn_sessid']['userid'].
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 				$result						= db_query( $query, $dbh );
 				
 				if( $result['rows'] < 0 ) {

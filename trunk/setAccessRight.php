@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -51,13 +51,16 @@ if( ($rightAllowed != "edit") and ($rightAllowed != "delete") ) {
 	}
 	
 }		
+
+$schema										= db_determine_schema();
+    
 $tUsers										= array();
 $query										= "SELECT * " .
-											  "  FROM svnusers " .
-											  " WHERE (deleted = '0000-00-00 00:00:00') " .
+											  "  FROM ".$schema."svnusers " .
+											  " WHERE (deleted = '00000000000000') " .
 											  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 $result										= db_query( $query, $dbh );
-while( $row = db_array( $result['result'] ) ) {
+while( $row = db_assoc( $result['result'] ) ) {
 	
 	$id										= $row['userid'];
 	$name									= $row['name'];
@@ -74,11 +77,11 @@ while( $row = db_array( $result['result'] ) ) {
 
 $tGroups									= array();
 $query										= "SELECT * " .
-											  "  FROM svngroups " .
-											  " WHERE (deleted = '0000-00-00 00:00:00')";
+											  "  FROM ".$schema."svngroups " .
+											  " WHERE (deleted = '00000000000000')";
 $result										= db_query( $query, $dbh );
 
-while( $row = db_array( $result['result'] ) ){
+while( $row = db_assoc( $result['result'] ) ){
 	
 	$id										= $row['id'];
 	$groupname								= $row['groupname'];
@@ -90,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	if( isset( $_GET['task'] ) ) {
 		
-		$_SESSION['svn_sessid']['task'] 	= escape_string( strtolower( $_GET['task'] ) );
+		$_SESSION['svn_sessid']['task'] 	= db_escape_string( strtolower( $_GET['task'] ) );
 		
 	} else {
 		
@@ -224,15 +227,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	#error_log( $tPathSelected );
 	$tPathSelected							= str_replace( '//', '/', $tPathSelected );
 	#error_log( $tPathSelected );
-   	$tAccessRight							= isset( $_POST['fAccessRight']) 	? escape_string( $_POST['fAccessRight'] ) 	: "";
-   	$tRecursive								= isset( $_POST['fRecursive'] ) 	? escape_string( $_POST['fRecursive'] )		: "";
-   	$tValidFrom								= isset( $_POST['fValidFrom'] )		? escape_string( $_POST['fValidFrom'] )		: "";
-   	$tValidUntil							= isset( $_POST['fValidUntil'] )	? escape_string( $_POST['fValidUntil'] )	: "";
-   	$tUsers									= isset( $_POST['fUsers'] )			? escape_string( $_POST['fUsers'] )			: array();
-   	$tGroups								= isset( $_POST['fGroups'] )		? escape_string( $_POST['fGroups'] )		: array();
+   	$tAccessRight							= isset( $_POST['fAccessRight']) 	? db_escape_string( $_POST['fAccessRight'] ) 	: "";
+   	$tRecursive								= isset( $_POST['fRecursive'] ) 	? db_escape_string( $_POST['fRecursive'] )		: "";
+   	$tValidFrom								= isset( $_POST['fValidFrom'] )		? db_escape_string( $_POST['fValidFrom'] )		: "";
+   	$tValidUntil							= isset( $_POST['fValidUntil'] )	? db_escape_string( $_POST['fValidUntil'] )	: "";
+   	$tUsers									= isset( $_POST['fUsers'] )			? db_escape_string( $_POST['fUsers'] )			: array();
+   	$tGroups								= isset( $_POST['fGroups'] )		? db_escape_string( $_POST['fGroups'] )		: array();
    	
    	if( isset( $_POST['fSubmit'] ) ) {
-		$button								= escape_string( $_POST['fSubmit'] );
+		$button								= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button								= _("Submit");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -377,8 +380,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			
 	   			$tId							= $_SESSION['svn_sessid']['rightid'];
 	   			$olddata						= db_getRightData( $tId, $dbh );
-	   			$query							= "UPDATE svn_access_rights " .
-	   											  "   SET modified = now(), " .
+	   			$dbnow							= db_now();
+	   			$query							= "UPDATE ".$schema."svn_access_rights " .
+	   											  "   SET modified = '$dbnow', " .
 	   											  "       modified_user = '".$_SESSION['svn_sessid']['username']."', " .
 	   											  "       valid_from = '$validFrom', " .
 	   											  "       valid_until = '$validUntil', " .
@@ -418,19 +422,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		   				$id							= db_getIdByUserid( $userid, $dbh );
 		   				$mode						= db_getUserRightByUserid( $userid, $dbh );
 		   				$query						= "SELECT * " .
-		   											  "  FROM svn_access_rights " .
+		   											  "  FROM ".$schema."svn_access_rights " .
 		   											  " WHERE (user_id = '$id') " .
 		   											  "   AND (path = '$tPathSelected') " .
-		   											  "   AND (deleted = '0000-00-00 00:00:00') " .
+		   											  "   AND (deleted = '00000000000000') " .
 		   											  "   AND (project_id = '$tProjectid') ";
 		   				$result						= db_query( $query, $dbh );
 		   				
-		   				while( ($row = db_array( $result['result'] )) and ($error == 0) ) {
+		   				while( ($row = db_assoc( $result['result'] )) and ($error == 0) ) {
 		   				
 		   					$rightid				= $row['id'];
 		   					$tPathSelected			= $row['path'];
-		   					$query					= "UPDATE svn_access_rights " .
-		   											  "   SET deleted = now(), " .
+		   					$dbnow					= db_now();
+		   					$query					= "UPDATE ".$schema."svn_access_rights " .
+		   											  "   SET deleted = '$dbnow', " .
 		   											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 		   											  " WHERE (id = $rightid)";
 		   					$resultupd				= db_query( $query, $dbh );
@@ -443,9 +448,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		   					db_log( $_SESSION['svn_sessid']['username'], "deleted access right for $userid for $tPathSelected", $dbh );
 		   				}
 		   				
-		   				$query						= "INSERT INTO svn_access_rights " .
+		   				$dbnow						= db_now();
+		   				$query						= "INSERT INTO ".$schema."svn_access_rights " .
 		   											  "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " .
-		   											  "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', now(), '".$_SESSION['svn_sessid']['username']."')";
+		   											  "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '".$_SESSION['svn_sessid']['username']."')";
 		   				$result						= db_query( $query, $dbh );
 		   				if( $result['rows'] != 1 ) {
 		   					
@@ -461,18 +467,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		   				foreach( $tGroups as $groupid ) {
 		   				
 		   					$query						= "SELECT * " .
-		   											      "  FROM svn_access_rights " .
+		   											      "  FROM ".$schema."svn_access_rights " .
 		   											      " WHERE (group_id = '$groupid') " .
 		   											      "   AND (path = '$tPathSelected') " .
-		   											      "   AND (deleted = '0000-00-00 00:00:00') " .
+		   											      "   AND (deleted = '00000000000000') " .
 		   											      "   AND (project_id = '$tProjectid') ";
 			   				$result						= db_query( $query, $dbh );
 			   				
-			   				while( ($row = db_array( $result['result'] )) and ($error == 0) ) {
+			   				while( ($row = db_assoc( $result['result'] )) and ($error == 0) ) {
 			   				
 			   					$rightid				= $row['id'];
-			   					$query					= "UPDATE svn_access_rights " .
-			   											  "   SET deleted = now(), " .
+			   					$dbnow					= db_now();
+			   					$query					= "UPDATE ".$schema."svn_access_rights " .
+			   											  "   SET deleted = '$dbnow', " .
 			   											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 			   											  " WHERE (id = $rightid)";
 			   					$resultupd				= db_query( $query, $dbh );
@@ -485,9 +492,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			   					db_log( $_SESSION['svn_sessid']['username'], "deleted access right for $userid for $tPathSelected", $dbh );
 			   				}
 		   				
-		   					$query						= "INSERT INTO svn_access_rights " .
+		   					$dbnow						= db_now();
+		   					$query						= "INSERT INTO ".$schema."svn_access_rights " .
 		   												  "            (project_id, group_id, path, valid_from, valid_until, access_right, created, created_user) " .
-		   												  "     VALUES ('$tProjectid', '$groupid', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', now(), '".$_SESSION['svn_sessid']['username']."')";
+		   												  "     VALUES ('$tProjectid', '$groupid', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '".$_SESSION['svn_sessid']['username']."')";
 		   					$result						= db_query( $query, $dbh );
 		   					if( $result['rows'] != 1 ) {
 		   					
@@ -528,12 +536,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	
    	$tUsers										= array();
 	$query										= "SELECT * " .
-												  "  FROM svnusers " .
-												  " WHERE (deleted = '0000-00-00 00:00:00') " .
+												  "  FROM ".$schema."svnusers " .
+												  " WHERE (deleted = '00000000000000') " .
 												  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result										= db_query( $query, $dbh );
 	
-	while( $row = db_array( $result['result'] ) ) {
+	while( $row = db_assoc( $result['result'] ) ) {
 		
 		$id										= $row['userid'];
 		$name									= $row['name'];
@@ -550,11 +558,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$tGroups									= array();
 	$query										= "SELECT * " .
-												  "  FROM svngroups " .
-												  " WHERE (deleted = '0000-00-00 00:00:00')";
+												  "  FROM ".$schema."svngroups " .
+												  " WHERE (deleted = '00000000000000')";
 	$result										= db_query( $query, $dbh );
 	
-	while( $row = db_array( $result['result'] ) ){
+	while( $row = db_assoc( $result['result'] ) ){
 		
 		$id										= $row['id'];
 		$groupname								= $row['groupname'];

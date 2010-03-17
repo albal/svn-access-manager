@@ -31,7 +31,7 @@ $Id$
 
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 require ("./include/functions.inc.php");
 
 initialize_i18n();
@@ -39,6 +39,7 @@ initialize_i18n();
 $SESSID_USERNAME 						= check_session_lpw();
 $dbh 									= db_connect();
 $_SESSION['svn_lpw']['helptopic']		= "securityquestion";
+$schema									= db_determine_schema();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
@@ -50,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
    	$tAnswer						= "";
 	$query							= "SELECT * " .
-									  "  FROM svnusers " .
+									  "  FROM ".$schema."svnusers " .
 									  " WHERE userid = '$SESSID_USERNAME'";
 	$result							= db_query( $query, $dbh );
 	if( $result['rows'] == 1 ) {
-		$row						= db_array( $result['result'] );
+		$row						= db_assoc( $result['result'] );
 		$tQuestion					= $row['securityquestion'];
 		
 		if( $tQuestion == "" ) {
@@ -78,14 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$error							= 0;
-   	$tAnswer 						= escape_string ($_POST['fAnswer']);
+   	$tAnswer 						= db_escape_string ($_POST['fAnswer']);
    	$tUsername						= $SESSID_USERNAME;
    	$result 						= db_query( "SELECT * " .
-   												"  FROM svnusers " .
+   												"  FROM ".$schema."svnusers " .
    												" WHERE userid = '$tUsername'", $dbh );
    
    	if ($result['rows'] == 1) {
-      $row							= db_array( $result['result'] );
+      $row							= db_assoc( $result['result'] );
       $tQuestion					= $row['securityquestion'];
       $tEmailaddress				= $row['emailaddress'];
       $givenname					= $row['givenname'];
@@ -106,7 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       	$sender						= isset( $CONF['lostPwSender'] ) ? $CONF['lostPwSender'] : "noreply";
       	$days						= isset( $CONF['lostPwLinkValid']) ? $CONF['lostPwLinkValid'] : 2;
       	
-      	$query						= "INSERT INTO svnpasswordreset (unixtime, username, token, idstr) VALUES (".time().", '$tUsername', '$token', '$idstr')";
+      	$query						= "INSERT INTO ".$schema."svnpasswordreset (unixtime, username, token, idstr) " .
+      								  "     VALUES (".time().", '$tUsername', '$token', '$idstr')";
       	
       	db_ta( "BEGIN", $dbh );
       	$result						= db_query( $query, $dbh );

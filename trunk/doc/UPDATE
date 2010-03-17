@@ -1,3 +1,32 @@
+Update to V0.5.0.0
+
+These are the steps to update from version 0.4.1.x to 0.5.0.0
+
+1. Edit config.inc.php in config folder
+
+   Add the following lines and change the values as needed:
+   $CONF['repo_compatibility']		= "--pre-1.6-compatible";
+   $CONF['accessControl']		= "dirs";
+   
+2. Update the database in case of MySQL database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.4.1.x-to-0.5.0.0 changes some fields and
+   makes the necessary conversions.
+   
+3. Release 0.5.0.0 comes with a complete new database layer and POstgreSQL support. 
+   That means that there are a lot of files changed. Either compare your installation 
+   to the current release or install the release from scratch and copy the changed config 
+   file from your previous installation into your new installation.
+   
+   
+You're finished.
+
+
+----------------------------------------------------------------------------------------
+
+
+
 Update to V0.4.1.5
 
 These are the steps to update from version 0.4.1.x to 0.4.1.5

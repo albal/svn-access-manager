@@ -24,13 +24,14 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
 $dbh 									= db_connect ();
 $SESSID_USERNAME 						= check_session ();
 $_SESSION['svn_sessid']['helptopic']	= "password";
+$schema									= db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
@@ -47,18 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
    $error			  		= 0;
    $fUser             		= $SESSID_USERNAME;
-   $fPassword_current 		= escape_string ($_POST['fPassword_current']);
-   $fPassword         		= escape_string ($_POST['fPassword']);
-   $fPassword2        		= escape_string ($_POST['fPassword2']);
+   $fPassword_current 		= db_escape_string ($_POST['fPassword_current']);
+   $fPassword         		= db_escape_string ($_POST['fPassword']);
+   $fPassword2        		= db_escape_string ($_POST['fPassword2']);
      
    $result = db_query ("SELECT * FROM svnusers WHERE userid = '$fUser'", $dbh);
    
    if ($result['rows'] == 1) {
       
-      $row 				= db_array ($result['result']);
+      $row 				= db_assoc ($result['result']);
       $checked_password = addslashes( pacrypt ($fPassword_current, $row['password']) );
       $result 			= db_query ("SELECT * " .
-      								"  FROM svnusers " .
+      								"  FROM ".$schema."svnusers " .
       								" WHERE userid = '$fUser' " .
       								"   AND password = '$checked_password'", $dbh);
       
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
          
       } else {
       	
-      	$row								= db_array( $result['result'] );
+      	$row								= db_assoc( $result['result'] );
       	$isAdmin							= $row['admin'];
       	
       }
@@ -107,11 +108,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	
       db_ta ("BEGIN", $dbh);
       
-      $password 		= mysql_real_escape_string( pacrypt ($fPassword), $dbh );
+      $password 		= db_escape_string( pacrypt ($fPassword), $dbh );
       $moddate  		= getDateJhjjmmtt();
-      $result   		= db_query ("UPDATE svnusers " .
+      $dbnow			= db_now();
+      $result   		= db_query ("UPDATE ".$schema."svnusers " .
       								"   SET password = '$password', " .
-      								"       password_modified = now() " .
+      								"       password_modified = '$dbnow' " .
       								" WHERE userid = '$fUser'", $dbh);
       
       if ($result['rows'] == 1)       {

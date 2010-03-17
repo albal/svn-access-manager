@@ -10,17 +10,17 @@ Open:
 - add online help
        -> particularly done, more texts to be added.
 
-- support PostgreSQL
-  have a look about mysql_insert_id and PostgreSQL
-
-- support mysqli
-
 - make svn protocol useable
 
 
 
 
 Done:
+
+- support PostgreSQL
+  have a look about mysql_insert_id and PostgreSQL
+
+- support mysqli (not really becessary due to using ADODB database layer)
 
 - add language support for MySQL
 

@@ -97,47 +97,59 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td><strong><?php print _("MySQL Database host").": "; ?></strong></td>
+					   		<td nowrap><strong><?php print _("Database").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fDatabase" value="mysql" <?php print $tDatabaseMySQL; ?> />&nbsp;&nbsp;<?php print _("MySQL"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fDatabase" value="postgres8" <?php print $tDatabasePostgreSQL; ?> />&nbsp;&nbsp;<?php print _("PostgreSQL"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fDatabase" value="oci8" <?php print $tDatabaseOracle; ?> />&nbsp;&nbsp;<?php print _("Oracle"); ?>
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("Database host").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fDatabaseHost" value="<?php print $tDatabaseHost; ?>" size="40" />
 					   		</td>
 					   		<td>
-					   			<?php print _("Enter the ip or the hostname of the MySQL database host"); ?>
+					   			<?php print _("Enter the ip or the hostname of the database host"); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td><strong><?php print _("MySQL Database user").": "; ?></strong></td>
+					   		<td><strong><?php print _("Database user").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fDatabaseUser" value="<?php print $tDatabaseUser; ?>" size="40" />
 					   		</td>
 					   		<td>
-					   			<?php print _("Enter the username for the MySQL database"); ?>
+					   			<?php print _("Enter the username for the database"); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td><strong><?php print _("MySQL Database password").": "; ?></strong></td>
+					   		<td><strong><?php print _("Database password").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fDatabasePassword" value="<?php print $tDatabasePassword; ?>" size="40" />
 					   		</td>
 					   		<td>
-					   			<?php print _("Enter the password for the MySQL database"); ?>
+					   			<?php print _("Enter the password for the database"); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td><strong><?php print _("MySQL Database name").": "; ?></strong></td>
+					   		<td><strong><?php print _("Database name").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fDatabaseName" value="<?php print $tDatabaseName; ?>" size="40" />
 					   		</td>
 					   		<td>
-					   			<?php print _("Enter the name of the MySQL database"); ?>
+					   			<?php print _("Enter the name of the database"); ?>
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td><strong><?php print _("MySQL Database charset").": "; ?></strong></td>
+					   		<td><strong><?php print _("Database charset").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fDatabaseCharset" value="<?php print $tDatabaseCharset; ?>" size="40" />
 					   		</td>
@@ -147,7 +159,7 @@ include( "../include/output.inc.php" );
 					   		<td>&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					   		<td><strong><?php print _("MySQL Database collation").": "; ?></strong></td>
+					   		<td><strong><?php print _("Database collation").": "; ?></strong></td>
 					   		<td>
 					   			<input type="text" name="fDatabaseCollation" value="<?php print $tDatabaseCollation; ?>" size="40" />
 					   		</td>
@@ -156,6 +168,28 @@ include( "../include/output.inc.php" );
 					   		</td>
 					   		<td>&nbsp;</td>
 					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("Database schema").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fDatabaseSchema" value="<?php print $tDatabaseSchema; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the database schema you want to use" ); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<!--
+					   	<tr>
+					   		<td><strong><?php print _("Database tablespace").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fDatabaseTablespace" value="<?php print $tDatabaseTablespace; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the tablespace you want to use" ); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	-->
 					   	<tr>
 					   		<td nowrap><strong><?php print _("Hold sessions in database").": "; ?></strong></td>
 					   		<td>

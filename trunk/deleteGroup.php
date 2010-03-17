@@ -24,7 +24,7 @@ require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require ("./include/functions.inc.php");
 require ("./include/output.inc.php");
-require ("./include/db-functions.inc.php");
+require ("./include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -51,16 +51,18 @@ if( $rightAllowed != "delete" ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
-	$tTask									= escape_string( $_GET['task'] );
+	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
-		$tId								= escape_string( $_GET['id'] );
+		$tId								= db_escape_string( $_GET['id'] );
 		
 	} else {
 
 		$tId								= "";
 
 	}
+	
+	$schema									= db_determine_schema();
 	
 	if( ($rightAllowed != "delete") and ($tId != "" ) and (! array_key_exists( $tId, $tGroupsAllowed ) ) ) {
 	
@@ -76,27 +78,27 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if( $_SESSION['svn_sessid']['task'] == "delete" ) {
 		
 		$query								= "SELECT * " .
-											  "  FROM svngroups " .
+											  "  FROM ".$schema."svngroups " .
 											  " WHERE id = $tId";
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {
 			
-			$row							= db_array( $result['result'] );
+			$row							= db_assoc( $result['result'] );
 			$tGroup							= $row["groupname"];
 			$tDescription					= $row["description"];
 			$tMembers						= "";
 			
 			$query							= "  SELECT svnusers.userid, svnusers.name, svnusers.givenname " .
-											  "    FROM svnusers, svn_users_groups " .
+											  "    FROM ".$schema."svnusers, ".$schema."svn_users_groups " .
 											  "   WHERE (svnusers.id = svn_users_groups.user_id)" .
 											  "     AND (svn_users_groups.group_id = $tId) " .
-											  "     AND (svnusers.deleted = '0000-00-00 00:00:00') " .
-											  "     AND (svn_users_groups.deleted = '0000-00-00 00:00:00') " .
+											  "     AND (svnusers.deleted = '00000000000000') " .
+											  "     AND (svn_users_groups.deleted = '00000000000000') " .
 											  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 			$result							= db_query( $query, $dbh );
 			
-			while( $row = db_array( $result['result'] ) ) {
+			while( $row = db_assoc( $result['result'] ) ) {
 				
 				$userid						= $row['userid'];
 				$name						= $row['name'];
@@ -134,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
 		$button									= _("Delete");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -147,11 +149,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
+	$schema									= db_determine_schema();
+	
 	if( $button == _("Delete") ) {
 		
 		$groupname							= db_getGroupById( $_SESSION['svn_sessid']['groupid'], $dbh );
-		$query								= "  UPDATE svngroups " .
-											   "    SET deleted = now(), " .
+		$dbnow								= db_now();
+		$query								= "  UPDATE ".$schema."svngroups " .
+											   "    SET deleted = '$dbnow', " .
 											   "        deleted_user = '".$_SESSION['svn_sessid']['username'].
 											   "' WHERE id = ".$_SESSION['svn_sessid']['groupid'];
 		
@@ -163,33 +168,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		if( $result['rows'] == 1 ) {
 			
 			$error							= 0;
-			$query							= "UPDATE svn_users_groups " .
-											  "   SET deleted = now(), " .
+			$dbnow							= db_now();
+			$query							= "UPDATE ".$schema."svn_users_groups " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE (group_id = '".$_SESSION['svn_sessid']['groupid']."') " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 											  
 			db_log( $_SESSION['svn_sessid']['username'], "deleted group user relations for $groupname", $dbh );											  
 			$result							= db_query( $query, $dbh );
 			
 			if( $result['rows'] >= 0 ) {
 				
-				$query						= " UPDATE svn_access_rights " .
-											   "   SET deleted = now(), " .
+				$dbnow						= db_now();
+				$query						= " UPDATE ".$schema."svn_access_rights " .
+											   "   SET deleted = '$dbnow', " .
 											   "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											   	"WHERE (group_id = '".$_SESSION['svn_sessid']['groupid']."') " .
-											   	"  AND (deleted = '0000-00-00 00:00:00')";
+											   	"  AND (deleted = '00000000000000')";
 											   	
 				db_log( $_SESSION['svn_sessid']['username'], "deleted access rights for $groupname", $dbh );
 				$result						= db_query( $query, $dbh );
 				
 				if( $result['rows'] >= 0 ) {
 				
-					$query					= "UPDATE svn_groups_responsible " .
-											  "   SET deleted = now(), " .
+					$dbnow					= db_now();
+					$query					= "UPDATE ".$schema."svn_groups_responsible " .
+											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
 											  " WHERE (group_id = '".$_SESSION['svn_sessid']['groupid']."') " .
-											  "   AND (deleted = '0000-00-00 00:00:00')";
+											  "   AND (deleted = '00000000000000')";
 											  
 					db_log( $_SESSION['svn_sessid']['username'], "deleted group responsibles for $groupname", $dbh );
 					$result					= db_query( $query, $dbh );

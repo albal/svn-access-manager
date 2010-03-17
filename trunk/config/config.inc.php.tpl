@@ -44,7 +44,7 @@ $CONF['default_locale']			= 'en_US';
 $CONF['supported_languages']	= array ('de', 'de_DE', 'en', 'en_US');
 
 // Database Config
-$CONF['database_type'] 			= 'mysql';
+$CONF['database_type'] 			= '###DBTYPE###';
 $CONF['database_host'] 			= '###DBHOST###';
 $CONF['database_user'] 			= '###DBUSER###';
 $CONF['database_password'] 		= '###DBPASS###';
@@ -53,6 +53,8 @@ $CONF['database_prefix'] 		= '';
 $CONF['database_innodb']		= 'YES';
 $CONF['database_charset']		= '###DBCHARSET###';
 $CONF['database_collation']		= '###DBCOLLATION###';
+$CONF['database_schema']		= '###DBSCHEMA###';
+$CONF['database_tablespace']	= '###DBTABLESPACE###';
 $CONF['session_in_db']			= '###SESSIONINDB###';
 
 $CONF['website_charset']		= '###WEBSITECHARSET###';
@@ -96,7 +98,7 @@ $CONF['password_expires_warn']	= 50;
 # valid values for pwcrypt are md5 or crypt
 $CONF['pwcrypt']				= '###PWCRYPT###';
 
-$CONF['copyright']				= '(C) 2008 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+$CONF['copyright']				= '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 
 $CONF['svn_command']			= '###SVNCMD###';
 $CONF['svnadmin_command']		= '###SVNADMINCMD###';

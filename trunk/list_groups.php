@@ -23,13 +23,14 @@
 require ("./include/variables.inc.php");
 require ("./config/config.inc.php");
 require_once ("./include/functions.inc.php");
-require_once ("./include/db-functions.inc.php");
+require_once ("./include/db-functions-adodb.inc.php");
 include_once ("./include/output.inc.php");
 
 
 
 function getGroups( $start, $count, $groupAdmin, $tGroupsAllowed, $dbh ) {
 	
+	$schema					= db_determine_schema();
 	$tGroups				= array();
 	
 	if( $groupAdmin == 1 ) {
@@ -48,22 +49,22 @@ function getGroups( $start, $count, $groupAdmin, $tGroupsAllowed, $dbh ) {
 		$grouplist			= "(".$grouplist.")";
 		
 		$query				= "SELECT  * " .
-							  "   FROM svngroups " .
-							  "   WHERE (deleted = '0000-00-00 00:00:00') " .
+							  "   FROM ".$schema."svngroups " .
+							  "   WHERE (deleted = '00000000000000') " .
 							  "     AND (id in $grouplist) " .
-							  "ORDER BY groupname ASC " .
-							  "   LIMIT $start, $count";
+							  "ORDER BY groupname ASC ";
+#							  "   LIMIT $start, $count";
 	} else {
 		$query				= "SELECT  * " .
-							  "   FROM svngroups " .
-							  "   WHERE (deleted = '0000-00-00 00:00:00') " .
-							  "ORDER BY groupname ASC " .
-							  "   LIMIT $start, $count";
+							  "   FROM ".$schema."svngroups " .
+							  "   WHERE (deleted = '00000000000000') " .
+							  "ORDER BY groupname ASC ";
+#							  "   LIMIT $start, $count";
 	}
 	
-	$result				= db_query( $query, $dbh );
+	$result				= db_query( $query, $dbh, $count, $start );
 	   	
-	while( $row = db_array( $result['result']) ) {
+	while( $row = db_assoc( $result['result']) ) {
 	   
 		$tGroups[] 		= $row;
 	   		
@@ -74,6 +75,7 @@ function getGroups( $start, $count, $groupAdmin, $tGroupsAllowed, $dbh ) {
 
 function getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh ) {
 	
+	$schema					= db_determine_schema();
 	$tGroups				= array();
 	
 	if( $groupAdmin == 1 ) {
@@ -91,21 +93,21 @@ function getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh ) {
 		$grouplist			= "(".$grouplist.")";
 		
 		$query				= "SELECT  COUNT(*) AS anz " .
-							  "   FROM svngroups " .
-							  "   WHERE (deleted = '0000-00-00 00:00:00') " .
+							  "   FROM ".$schema."svngroups " .
+							  "   WHERE (deleted = '00000000000000') " .
 							  "     AND (id in $grouplist)";
 		
 	} else {
 		$query				= "SELECT  COUNT(*) AS anz " .
-							  "   FROM svngroups " .
-							  "   WHERE (deleted = '0000-00-00 00:00:00') ";
+							  "   FROM ".$schema."svngroups " .
+							  "   WHERE (deleted = '00000000000000') ";
 	}
 	
 	$result				= db_query( $query, $dbh );
 		
 	if( $result['rows'] == 1 ) {
 		
-		$row			= db_array( $result['result'] );
+		$row			= db_assoc( $result['result'] );
 		$count			= $row['anz'];
 		
 		return $count;
@@ -174,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
  	if( isset( $_POST['fSubmit'] ) ) {
-		$button									= escape_string( $_POST['fSubmit'] );
+		$button									= db_escape_string( $_POST['fSubmit'] );
 	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
 		$button									= _("<<");
 	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {

@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS `help` (
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` datetime NOT NULL,
+  `logtimestamp` datetime NOT NULL,
   `username` varchar(255) NOT NULL,
   `ipaddress` varchar(15) NOT NULL,
   `logmessage` longtext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_timestamp` (`timestamp`)
+  KEY `idx_timestamp` (`logtimestamp`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of log messages';
 
 -- --------------------------------------------------------
@@ -98,18 +98,18 @@ CREATE TABLE IF NOT EXISTS `rights` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `semaphores`
+-- Table structure for table `workinfo`
 --
 
-DROP TABLE IF EXISTS `semaphores`;
-CREATE TABLE IF NOT EXISTS `semaphores` (
+DROP TABLE IF EXISTS `workinfo`;
+CREATE TABLE IF NOT EXISTS `workinfo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `usertimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `action` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='table of semaphores';
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='table of workinfos';
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `semaphores` (
 
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `session` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `session_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `session_expires` int(10) unsigned NOT NULL DEFAULT '0',
   `session_data` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`session`),
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `svnusers` (
   `locked` tinyint(1) NOT NULL DEFAULT '0',
   `emailaddress` varchar(255) COLLATE latin1_german1_ci NOT NULL DEFAULT '',
   `admin` char(1) COLLATE latin1_german1_ci NOT NULL DEFAULT 'n',
-  `mode` varchar(10) COLLATE latin1_german1_ci NOT NULL,
+  `user_mode` varchar(10) COLLATE latin1_german1_ci NOT NULL,
   `created` datetime NOT NULL,
   `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
   `modified` datetime NOT NULL,
