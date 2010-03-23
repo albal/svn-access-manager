@@ -26,16 +26,26 @@ if (ereg ("db-functions-adodb.inc.php", $_SERVER['PHP_SELF'])) {
    
 }
 
+$installBase								= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+
 if ( file_exists ( realpath ( "./include/adodb5/adodb.inc.php" ) ) ) {
 
 	include_once ("./include/adodb5/adodb-exceptions.inc.php");
 	include_once ("./include/adodb5/adodb.inc.php");
 		
-} else {
+} elseif( file_exists ( realpath ( "../include/adodb5/adodb.inc.php" ) ) ) {
 	
 	include_once ("../include/adodb5/adodb-exceptions.inc.php");
 	include_once ("../include/adodb5/adodb.inc.php");
 	
+} elseif( file_exists ( "$installBase/include/adodb5/adodb.inc.php" ) ) {
+	
+	include_once ("$installBase/include/adodb5/adodb-exceptions.inc.php");
+	include_once ("$installBase/include/adodb5/adodb.inc.php");
+	
+} else {
+	
+	die( "can't find adodb.inc.php! Check your installation!\n" );
 }
 
 
@@ -179,7 +189,9 @@ function db_disconnect ($link) {
    	global $DEBUG_TEXT;
    
    	try {
+   		
    		$link->Close();
+   		
    	} catch( exception $e ) {
    		
    	}
@@ -232,6 +244,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
    			} else {
    				$result							= $link->SelectLimit( $query, $limit );
    			}
+   			
    		} else {
    			$result								= $link->Execute( $query );
    		}
@@ -597,7 +610,7 @@ function db_get_last_insert_id($table, $column, $link, $schema="") {
 	global $CONF;
 	
 	if( $schema == "" ) {
-		$schema						= $CONF['database_schema'];
+		$schema						= isset( $CONF['database_schema'] ) ? $CONF['database_schema'] : "";
 	}
 	 
 	if( $id = $link->Insert_Id() ) {
@@ -1048,7 +1061,7 @@ function db_determine_schema() {
     	$schema					= "";
     }
     
-    error_log( "db schema: $schema" );
+    #error_log( "db schema: $schema" );
     
     return( $schema );
 }
@@ -1322,7 +1335,7 @@ class Session {
         }
         
         if( $error == 0 ) {
-        	error_log("session write true" );
+        	#error_log("session write true" );
         	return true;
         } else {
         	return false;

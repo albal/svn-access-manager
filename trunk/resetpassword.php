@@ -30,10 +30,22 @@ $Id$
 */
 
 
-require ("./include/variables.inc.php");
-require ("./config/config.inc.php");
-require ("./include/db-functions-adodb.inc.php");
-require ("./include/functions.inc.php");
+if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+	require( "./config/config.inc.php" );
+} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+	require( "../config/config.inc.php" );
+} elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
+	require( "/etc/svn-access-manager/config.inc.php" );
+} else {
+	die( "can't load config.inc.php. Check your installation!\n'" );
+}
+
+$installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+
+require ("$installBase/include/variables.inc.php");
+#require ("./config/config.inc.php");
+require ("$installBase/include/db-functions-adodb.inc.php");
+require ("$installBase/include/functions.inc.php");
 
 initialize_i18n();
 
@@ -48,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    $tPassword1							= "";
    $tPassword2							= ""; 
    
-   include ("./templates/resetpassword.tpl");
+   include ("$installBase/templates/resetpassword.tpl");
    
 }
 
@@ -125,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			   					
 			   					$tMessage	= _("Your new password was set successfully!" );
 			   					
-			   					include ("./templates/resetpasswordresult.tpl");
+			   					include ("$installBase/templates/resetpasswordresult.tpl");
 			   					db_disconnect ($dbh);
 			   					
 			   					exit;
@@ -163,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   	}
 	}
 	
-   	include ("./templates/resetpassword.tpl");
+   	include ("$installBase/templates/resetpassword.tpl");
    
 } 
 

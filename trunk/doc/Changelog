@@ -5,6 +5,7 @@ Change Log
 Release 0.5.0.0
 	- added support for PostgreSQL
 	- added support for Oracle 10g/11g
+	- divided installer up into 6 pages
 	
 Release 0.4.1.6
 	- fixed a typographical error in checkPasswordPolicy function
