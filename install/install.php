@@ -2237,7 +2237,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 	$tMessage								= "";
 	$pwcrypt								= $dbh->qstr( pacrypt( $password ), get_magic_quotes_gpc() );
 	$dbnow									= db_now();
-	if( $databasetype == "oci8" ) {
+	if( ($databasetype == "oci8") or (substr($databasetype, 0, 8) == "postgres") ) {
 		$query								= "INSERT INTO $schema.svnusers (userid, name, givenname, password, emailaddress, user_mode, admin, created, created_user, password_modified, superadmin) " .
 											  "VALUES ('$userid', '$name', '$givenname', $pwcrypt, '$emailaddress', 'write', 'y', '$dbnow', 'install', '$dbnow', 1)";
 	} else {
@@ -2261,7 +2261,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 		$allowed							= $row['allowed_action'];
 		$id									= $row['id'];
 		$dbnow								= db_now();
-		if( $databasetype == "oci8" ) {
+		if( ($databasetype == "oci8") or (substr($databasetype, 0, 8) == "postgres") ) {
 			$query							= "INSERT INTO $schema.users_rights (user_id, right_id, allowed, created, created_user) " .
 											  "VALUES ($uid, $id, '$allowed', '$dbnow', 'install')";
 		} else {
@@ -2295,6 +2295,69 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 	return $ret;
 	
 }
+
+
+
+function loadHelpTexts( $database, $schema, $dbh ) {
+	
+	$error									= 0;
+	$tMessage								= "";
+	
+	if( file_exists ( realpath ( "./help_texts.sql" ) ) ) {
+		
+		$filename							= "./help_texts.sql";
+		 
+	} elseif( file_exists ( realpath ( "../help_texts.sql" ) ) ) {
+		
+		$filename							= "../help_texts.sql";
+		
+	} else {
+		
+		$filename							= "";
+	}
+
+	if( $filename != "" ) {
+	
+		if( $fh_in = @fopen( $filename, "r" ) ) {
+			
+			db_ta( "BEGIN", $dbh );
+			
+			if (substr($database, 0, 8) == "postgres" ) {
+		    	$schema					= ($schema == "") ? "" : $schema.".";
+		    } elseif( $database == "oci8" ) {
+		    	$schema					= ($schema == "") ? "" : $schema.".";
+		    } else {
+		    	$schema					= "";
+		    }
+			
+			while( ! feof( $fh_in ) ) {
+			
+				$query 						= fgets( $fh_in );
+				if( $query != "" ) {
+
+					$query						= str_replace( " INTO help ", " INTO ".$schema."help ", $query );
+					$result						= db_query_install( $query, $dbh );
+				}
+				
+			}
+			
+			@fclose( $fh_in );
+			
+			if( $error == 0 ) {
+				db_ta( 'COMMIT', $dbh );
+			} else {
+				db_ta( 'ROLLBACK', $dbh );
+			}
+		}	
+	}
+	
+	$ret									= array();
+	$ret['error']							= $error;
+	$ret['errormsg']						= $tMessage;
+	
+	return $ret;
+}
+
 
 
 
@@ -2351,8 +2414,10 @@ function doInstall() {
 	}
 	
 	$configpath								= dirname( $configfile );
-	$confignew								= $configpath."/config.inc.php.new";
+	#$confignew								= $configpath."/config.inc.php.new";
+	$confignew								= "/etc/svn-access-manager/config.inc.php.new";
 	$configtmpl								= $configpath."/config.inc.php.tpl";
+	$configfile								= "/etc/svn-access-manager/config.inc.php";
 	
 	
 	
@@ -2596,6 +2661,12 @@ function doInstall() {
 				$preCompatible			= "--pre-1.4-compatible";
 			}
 			
+			if( isset( $_SERVER['SCRIPT_FILENAME'] ) ) {
+				$installBase			= dirname( dirname( $_SERVER['SCRIPT_FILENAME'] ) );
+			} else {
+				$installBase			= '';
+			}
+			
 			$content					= str_replace( '###DBTYPE###', 				$_SESSION['svn_inst']['database'], $content );
 			$content 					= str_replace( '###DBHOST###', 				$_SESSION['svn_inst']['databaseHost'], $content );
 			$content					= str_replace( '###DBUSER###', 				$_SESSION['svn_inst']['databaseUser'], $content );
@@ -2626,13 +2697,14 @@ function doInstall() {
 			$content					= str_replace( '###VIEWVCLOCATION###', 		$_SESSION['svn_inst']['viewvcAlias'], $content );
 			$content					= str_replace( '###VIEWVCAPACHERELOAD###', 	$_SESSION['svn_inst']['viewvcApacheReload'], $content );
 			$content					= str_replace( '###VIEWVCREALM###', 		$_SESSION['svn_inst']['viewvcRealm'], $content );
-			$content					= str_replace( '###SEPERATEFILESPERREPO###', $_SESSION['svn_inst']['perRepoFiles'], $content );
+			$content					= str_replace( '###SEPERATEFILESPERREPO###',$_SESSION['svn_inst']['perRepoFiles'], $content );
 			$content					= str_replace( '###SVNADMINCMD###', 		$_SESSION['svn_inst']['svnadminCommand'], $content );
 			$content					= str_replace( '###WEBSITECHARSET###', 		$_SESSION['svn_inst']['websiteCharset'], $content );
 			$content					= str_replace( '###LOSTPWSENDER###', 		$_SESSION['svn_inst']['lpwMailSender'], $content );
 			$content					= str_replace( '###LOSTPWMAXERROR###', 		3, $content );
 			$content					= str_replace( '###LOSTPWLINKVALID###', 	$_SESSION['svn_inst']['lpwLinkValid'], $content );
 			$content					= str_replace( '###PRECOMPATIBLE###', 		$preCompatible, $content );
+			$content					= str_replace( '###INSTALLBASE###',			$installBase, $content );
 			
 		} else {
 			
@@ -2705,11 +2777,17 @@ function doInstall() {
 			if( $_SESSION['svn_inst']['dropDatabaseTables'] == "YES" ) {
 		
 				if( strtoupper($_SESSION['svn_inst']['database']) == "MYSQL" ) {
+					
 					$ret				= dropMySQLDatabaseTables( $dbh );
+					
 				} elseif( strtoupper($_SESSION['svn_inst']['database']) == "POSTGRES8") {
+					
 					$ret				= dropPostgresDatabaseTables( $dbh );
+					
 				} elseif( strtoupper($_SESSION['svn_inst']['database']) == "OCI8" ) {
+					
 					$ret				= dropOracleDatabaseTables( $dbh, $_SESSION['svn_inst']['databaseSchema'] );
+					
 				}
 				if( $ret['error'] != 0 ) {
 				
@@ -2730,11 +2808,17 @@ function doInstall() {
 			if( $error == 0 ) {
 				
 				if( strtoupper($_SESSION['svn_inst']['database']) == "MYSQL" ) {
+					
 					$ret				= createMySQLDatabaseTables( $dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'] );
+					
 				} elseif( strtoupper($_SESSION['svn_inst']['database']) == "POSTGRES8") {
+					
 					$ret				= createDatabaseTables( $dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $_SESSION['svn_inst']['databaseTablespace'], $_SESSION['svn_inst']['databaseUser'] );
+					
 				} elseif( strtoupper($_SESSION['svn_inst']['database']) == "OCI8" ) {
+					
 					$ret				= createOracleDatabaseTables( $dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $_SESSION['svn_inst']['databaseTablespace'], $_SESSION['svn_inst']['databaseUser'] );
+					
 				}
 				if( $ret['error'] != 0 ) {
 				
@@ -2751,11 +2835,17 @@ function doInstall() {
 			if( $error == 0 ) {
 				
 				if( strtoupper($_SESSION['svn_inst']['database']) == "MYSQL" ) {
+					
 					$ret				= loadDbData( $dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'] );
+					
 				} elseif( strtoupper($_SESSION['svn_inst']['database']) == "POSTGRES8" ) {
+					
 					$ret				= loadPostgresDbData( $dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'] );
+					
 				} elseif( strtoupper($_SESSION['svn_inst']['database']) == "OCI8" ) {
+					
 					$ret				= loadOracleDbData( $dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'] );
+					
 				}
 				
 				if( $ret['error'] != 0 ) {
@@ -2781,6 +2871,12 @@ function doInstall() {
 					$tResult[]			= _("Admin account successfully created");			
 					
 				}
+			}
+			
+			if( $error == 0 ) {
+				
+				$ret					= loadHelpTexts( $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $dbh );
+				
 			}
 			
 			db_disconnect( $dbh );
@@ -4262,21 +4358,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
 
 ?>
