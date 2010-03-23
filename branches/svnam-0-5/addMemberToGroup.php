@@ -19,12 +19,23 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+	require( "./config/config.inc.php" );
+} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+	require( "../config/config.inc.php" );
+} elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
+	require( "/etc/svn-access-manager/config.inc.php" );
+} else {
+	die( "can't load config.inc.php. Check your installation!\n'" );
+}
 
-require ("./include/variables.inc.php");
-require ("./config/config.inc.php");
-require_once ("./include/functions.inc.php");
-require_once ("./include/db-functions-adodb.inc.php");
-include_once ("./include/output.inc.php");
+$installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+
+require ("$installBase/include/variables.inc.php");
+#require ("./config/config.inc.php");
+require_once ("$installBase/include/functions.inc.php");
+require_once ("$installBase/include/db-functions-adodb.inc.php");
+include_once ("$installBase/include/output.inc.php");
 
 initialize_i18n();
 check_password_expired();
@@ -34,6 +45,7 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 
 	global $CONF;
 	
+	$installBase				= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
 	$schema						= db_determine_schema();
     
 	$cs_array					= array();
@@ -77,6 +89,6 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 	$menu									= "groups";
 	$template								= "addMemberToGroup.tpl";
 	
-	include ("./templates/framework.tpl");
+	include ("$installBase/templates/framework.tpl");
 }
 ?>

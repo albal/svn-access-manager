@@ -29,11 +29,23 @@ $Id$
 
 */
 
-require ("./include/variables.inc.php");
-require ("./config/config.inc.php");
-require_once ("./include/functions.inc.php");
-require_once ("./include/db-functions-adodb.inc.php");
-include_once ("./include/output.inc.php");
+if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+	require( "./config/config.inc.php" );
+} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+	require( "../config/config.inc.php" );
+} elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
+	require( "/etc/svn-access-manager/config.inc.php" );
+} else {
+	die( "can't load config.inc.php. Check your installation!\n'" );
+}
+
+$installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+
+require ("$installBase/include/variables.inc.php");
+#require ("./config/config.inc.php");
+require_once ("$installBase/include/functions.inc.php");
+require_once ("$installBase/include/db-functions-adodb.inc.php");
+include_once ("$installBase/include/output.inc.php");
 
 
 
@@ -136,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$subheader									= "groups";
    	$menu										= "groups";
    
-   	include ("./templates/framework.tpl");
+   	include ("$installBase/templates/framework.tpl");
    	
    	db_disconnect( $dbh );
  
@@ -263,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$subheader		= "groups";
    	$menu			= "groups";
    
-   	include ("./templates/framework.tpl");
+   	include ("$installBase/templates/framework.tpl");
  
  	db_disconnect( $dbh );
 }

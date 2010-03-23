@@ -38,6 +38,8 @@ if (ereg ("config.inc.php", $_SERVER['PHP_SELF'])) {
 }
 
 
+$CONF['install_base']			= '###INSTALLBASE###';
+
 // Language config
 $CONF['default_language'] 		= 'en';
 $CONF['default_locale']			= 'en_US';

@@ -89,7 +89,7 @@ function initialize_i18n() {
 //
 function check_session() {
    
-   error_log( "check session" );
+   	#error_log( "check session" );
    	$s 						= new Session;
 	session_start ();
    
