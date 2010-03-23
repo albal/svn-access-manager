@@ -20,12 +20,23 @@
 */
 
  
+if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+	require( "./config/config.inc.php" );
+} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+	require( "../config/config.inc.php" );
+} elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
+	require( "/etc/svn-access-manager/config.inc.php" );
+} else {
+	die( "can't load config.inc.php. Check your installation!\n'" );
+}
 
-require ("./include/variables.inc.php");
-require ("./config/config.inc.php");
-require_once ("./include/db-functions-adodb.inc.php");
-require_once ("./include/functions.inc.php");
-include_once ("./include/output.inc.php");
+$installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+
+require ("$installBase/include/variables.inc.php");
+#require ("./config/config.inc.php");
+require_once ("$installBase/include/db-functions-adodb.inc.php");
+require_once ("$installBase/include/functions.inc.php");
+include_once ("$installBase/include/output.inc.php");
 
 initialize_i18n();
 
@@ -41,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$subheader	= "main";
    	$menu		= "main";
    
-   	include ("./templates/framework.tpl");
+   	include ("$installBase/templates/framework.tpl");
  
 }
 
@@ -52,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$subheader	= "main";
    	$menu		= "main";
    
-   	include ("./templates/framework.tpl");
+   	include ("$installBase/templates/framework.tpl");
  
 }
 

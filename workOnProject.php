@@ -19,13 +19,25 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
  
-require ("./include/variables.inc.php");
-require ("./config/config.inc.php");
-require ("./include/functions.inc.php");
-require ("./include/output.inc.php");
-require ("./include/db-functions-adodb.inc.php");
-include_once ("./addMemberToProject.php");
-include_once ("./addGroupToProject.php");
+if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+	require( "./config/config.inc.php" );
+} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+	require( "../config/config.inc.php" );
+} elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
+	require( "/etc/svn-access-manager/config.inc.php" );
+} else {
+	die( "can't load config.inc.php. Check your installation!\n'" );
+}
+
+$installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+
+require ("$installBase/include/variables.inc.php");
+#require ("./config/config.inc.php");
+require ("$installBase/include/functions.inc.php");
+require ("$installBase/include/output.inc.php");
+require ("$installBase/include/db-functions-adodb.inc.php");
+include_once ("$installBase/addMemberToProject.php");
+include_once ("$installBase/addGroupToProject.php");
 
 initialize_i18n();
 
@@ -177,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$menu									= "projects";
 	$template								= "workOnProject.tpl";
 	
-   	include ("./templates/framework.tpl");
+   	include ("$installBase/templates/framework.tpl");
 
 }
 
@@ -769,7 +781,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$menu									= "projects";
 	$template								= "workOnProject.tpl";
 	
-   	include ("./templates/framework.tpl");
+   	include ("$installBase/templates/framework.tpl");
    
 }
 
