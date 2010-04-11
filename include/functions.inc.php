@@ -651,6 +651,67 @@ function pacrypt ($pw, $pw_db="") {
 
 
 //
+// pacrypt_install
+// Action: Encrypts password based on config settings
+// Call: pacrypt (string cleartextpassword)
+//
+function pacrypt_install ($pw, $pw_db="", $crypt="") {
+
+	global $CONF, $MAGIC;
+	
+	if( $crypt == "" ) {
+		if( isset( $CONF['pwcrypt'] ) ) {
+			
+			$crypt					= $CONF['pwcrypt'];
+			
+		} else {
+			
+			$crypt					= "crypt";
+			
+		}
+	}
+	
+	$size							= strlen( $MAGIC );
+	if( substr($pw_db, 0, $size) == $MAGIC ) {
+		# md5 crypted password
+		
+		$split_salt 				= preg_split ('/\$/', $pw_db);
+      	if (isset ($split_salt[2])) { 
+      		
+      		$salt					 = $split_salt[2];
+      	}
+      	
+      	$password 					= md5crypt( $pw, $salt );
+      
+	} elseif( $pw_db != "" ) {
+		
+		$salt 						= substr( $pw_db, 0, 2);
+		$password 					= crypt ($pw, $salt);
+		
+	} else {
+		
+		if( $crypt == "md5" ) {
+			
+			$password				= md5crypt( $pw );
+			
+		} else {
+		
+			srand((double)microtime()*1000000);
+		
+			$s1   					= chr( rand( 1, 255 ) );
+			$s2   					= chr( rand( 1, 255 ) );
+			$salt 					= $s1.$s2;	
+			$password 				= crypt ($pw, $salt);		
+		}
+	}
+	
+	return $password;
+}
+
+
+
+
+//
 // md5crypt
 // Action: Creates MD5 encrypted password
 // Call: md5crypt (string cleartextpassword)
