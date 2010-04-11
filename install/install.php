@@ -2233,9 +2233,13 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 	$CONF['database_name'] 					= $_SESSION['svn_inst']['databaseName'];
 	$CONF['database_schema']				= $_SESSION['svn_inst']['databaseSchema'];
 	$CONF['database_tablespace']			= $_SESSION['svn_inst']['databaseTablespace'];
+	$CONF['pwcrypt']						= $_SESSION['svn_inst']['useMd5'];
+	
+	error_log( "crypt algorithm is ".$CONF['pwcrypt'] );
+	
 	$error									= 0;
 	$tMessage								= "";
-	$pwcrypt								= $dbh->qstr( pacrypt( $password ), get_magic_quotes_gpc() );
+	$pwcrypt								= $dbh->qstr( pacrypt_install( $password, "", $CONF['pwcrypt'] ), get_magic_quotes_gpc() );
 	$dbnow									= db_now();
 	if( ($databasetype == "oci8") or (substr($databasetype, 0, 8) == "postgres") ) {
 		$query								= "INSERT INTO $schema.svnusers (userid, name, givenname, password, emailaddress, user_mode, admin, created, created_user, password_modified, superadmin) " .
@@ -2303,52 +2307,54 @@ function loadHelpTexts( $database, $schema, $dbh ) {
 	$error									= 0;
 	$tMessage								= "";
 	
-	if( file_exists ( realpath ( "./help_texts.sql" ) ) ) {
-		
-		$filename							= "./help_texts.sql";
-		 
-	} elseif( file_exists ( realpath ( "../help_texts.sql" ) ) ) {
-		
-		$filename							= "../help_texts.sql";
-		
-	} else {
-		
-		$filename							= "";
-	}
-
-	if( $filename != "" ) {
+	if( $database != "oci8" ) {
+		if( file_exists ( realpath ( "./help_texts.sql" ) ) ) {
+			
+			$filename							= "./help_texts.sql";
+			 
+		} elseif( file_exists ( realpath ( "../help_texts.sql" ) ) ) {
+			
+			$filename							= "../help_texts.sql";
+			
+		} else {
+			
+			$filename							= "";
+		}
 	
-		if( $fh_in = @fopen( $filename, "r" ) ) {
-			
-			db_ta( "BEGIN", $dbh );
-			
-			if (substr($database, 0, 8) == "postgres" ) {
-		    	$schema					= ($schema == "") ? "" : $schema.".";
-		    } elseif( $database == "oci8" ) {
-		    	$schema					= ($schema == "") ? "" : $schema.".";
-		    } else {
-		    	$schema					= "";
-		    }
-			
-			while( ! feof( $fh_in ) ) {
-			
-				$query 						= fgets( $fh_in );
-				if( $query != "" ) {
-
-					$query						= str_replace( " INTO help ", " INTO ".$schema."help ", $query );
-					$result						= db_query_install( $query, $dbh );
+		if( $filename != "" ) {
+		
+			if( $fh_in = @fopen( $filename, "r" ) ) {
+				
+				db_ta( "BEGIN", $dbh );
+				
+				if (substr($database, 0, 8) == "postgres" ) {
+			    	$schema					= ($schema == "") ? "" : $schema.".";
+			    } elseif( $database == "oci8" ) {
+			    	$schema					= ($schema == "") ? "" : $schema.".";
+			    } else {
+			    	$schema					= "";
+			    }
+				
+				while( ! feof( $fh_in ) ) {
+				
+					$query 						= fgets( $fh_in );
+					if( $query != "" ) {
+	
+						$query						= str_replace( " INTO help ", " INTO ".$schema."help ", $query );
+						$result						= db_query_install( $query, $dbh );
+					}
+					
 				}
 				
-			}
-			
-			@fclose( $fh_in );
-			
-			if( $error == 0 ) {
-				db_ta( 'COMMIT', $dbh );
-			} else {
-				db_ta( 'ROLLBACK', $dbh );
-			}
-		}	
+				@fclose( $fh_in );
+				
+				if( $error == 0 ) {
+					db_ta( 'COMMIT', $dbh );
+				} else {
+					db_ta( 'ROLLBACK', $dbh );
+				}
+			}	
+		}
 	}
 	
 	$ret									= array();
