@@ -1,3 +1,10 @@
+#################################################################################################################################################
+#
+# These statements are for upgrading from a MYSQL schema version 0.4.1.x to version 0.5.0.0
+#
+#################################################################################################################################################
+
+
 ALTER TABLE `log` CHANGE `timestamp` `timestamp` VARCHAR( 19 ) NOT NULL;
 UPDATE `log` SET `timestamp` = CONCAT(SUBSTR(`timestamp`,1,4), SUBSTR(`timestamp`,6,2), SUBSTR(`timestamp`,9,2), SUBSTR(`timestamp`,12,2), SUBSTR(`timestamp`,15,2), SUBSTR(`timestamp`,18,2));
 ALTER TABLE `log` CHANGE `timestamp` `timestamp` VARCHAR( 14 ) NOT NULL;

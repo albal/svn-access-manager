@@ -77,10 +77,12 @@
 			
 			<a href="#inst_installer">2.2.4 Using the installer</a><br />
 				<blockquote>
-				<a href="#inst_dbsettings">2.2.4.1 Database settings</a><br />
-				<a href="#inst_adminaccount">2.2.4.2 Administrator account</a><br />
-				<a href="#inst_web server_settings">2.2.4.3 Web server settings</a><br />
-				<a href="#inst_misc_settings">2.2.4.4 Miscellaneous settings</a>
+				<a href="#inst_dbsettings">2.2.4.1 Page 1 - Database settings</a><br />
+                <a href="#inst_dbsettings_2">2.2.4.2 Page 2 - Database settings part 2</a><br />
+                <a href="#inst_website_settings">2.2.4.3 Page 3 - Website settings</a><br />
+				<a href="#inst_adminaccount">2.2.4.4 Page 4 - Administrator account</a><br />
+				<a href="#inst_web server_settings">2.2.4.5 Page 5 - Web server settings</a><br />
+				<a href="#inst_misc_settings">2.2.4.6 Page 6 - Miscellaneous settings</a>
 				</blockquote>
 			</blockqoute>
 			
@@ -303,26 +305,77 @@ http(s)://localhost/svnaccessmanager/install/install.php
 </pre>
 
 <p>It is recommended to use https to access the installer over the internet because of the fact that passwords are sent to the web server!</p>
-<p>After the installer is started, please fill in the values fitting your requirements. Below you find a short description of the several settings. After you finished filling the appropriate values click <em>Start installation</em>. If there are errors please correct them. Otherwise the installer starts and gives you a success information. Additional the web server configuration is printed out.</p>
+<p>After the installer is started, please fill in the values fitting your requirements. Below you find a short description of the several settings. The installer consists of six pages. After you finished filling the appropriate values click <em>Start installation</em>. If there are errors please correct them. Otherwise the installer starts and gives you a success information. Additional the web server configuration is printed out.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_dbsettings">2.2.4.1 Database settings</a></h5>
-<p>The installer can create the database tables during installation. You can select if you want to drop already existing tables or not. The database user must have sufficient rights to do this. Please make sure that the user has the rights to create and drop tables and create and drop indices.</p>
+<h5><a name="inst_dbsettings">2.2.4.1 Page 1 - Database settings</a></h5>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/installer_part1.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part1.png" width="150" height="106" /></a></td>
+        <td>
+            <p>The installer can create the database tables during installation. You can select if you want to drop already existing tables or not. The database user you want to use must have sufficient rights to do this. Please make sure that the user has the rights to create and drop tables and create and drop indices.</p>
+        </td>
+    </tr>
+</table>
+<p>SVN Access Manager support MySQL, PostgeSQL and Oracle databases. Select the database you want to use.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_adminaccount">2.2.4.2 Administrator account</a></h5>
-<p>After a successful installation you need a user to administer SVN Access Manager. This user has all rights within SVN Access Manager. So be careful what password you use. By default the password must consist of lower case letters, upper case letters, digits and special characters. It must have 14 characters at least.</p>
+<h5><a name="inst_dbsettings_2">2.2.4.2 Page 2- Database settings part 2</a></h5>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/installer_part2.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part2.png" width="150" height="106" /></a></td>
+        <td>
+            <p>On this page you have to enter the details about the database you use. Database host, database user and the password  for the user and the database name are necessary. Database collation and database charset are specific to MySQL. The database schema is necessary for Oracle and PostgreSQL</p>
+        </td>
+    </tr>
+</table>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_web server_settings">2.2.4.3 Web server settings</a></h5>
-<p>In the web server section you can decide whether you want to use SVN access control and Apache user authentication. If you want to use the different restrictions you must specify the filenames where to store the generated files. Please keep in mind that the web server user must be able to write the files!</p>
+<h5><a name="inst_website_settings">2.2.4.3 Page 3 - Website settings</a></h5>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/installer_part3.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part3.png" width="150" height="106" /></a></td>
+        <td>
+            <p>On this page you can set the website characterset. This characterset must be compatible with the database characterset. You can also enter the sender for lost password notification mails and the duration a link to reset the password is valid.</p>
+        </td>
+    </tr>
+</table>
+<p><a href="#top">Back to top</a></p>
+
+<h5><a name="inst_adminaccount">2.2.4.4 Page 4 - Administrator account</a></h5>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/installer_part4.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part4.png" width="150" height="106" /></a></td>
+        <td>
+            <p>After a successful installation you need a user to administer SVN Access Manager. This user has all rights within SVN Access Manager. So be careful what password you use. By default the password must consist of lower case letters, upper case letters, digits and special characters. It must have 14 characters at least.</p>
+        </td>
+    </tr>
+</table>
+<p><a href="#top">Back to top</a></p>
+
+<h5><a name="inst_web server_settings">2.2.4.5 Page 5 - Web server settings</a></h5>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/installer_part5.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part5.png" width="150" height="106" /></a></td>
+        <td>
+            <p>In the web server section you can decide whether you want to use SVN access control and Apache user authentication. If you want to use the different restrictions you must specify the filenames where to store the generated files. Please keep in mind that the web server user must be able to write the files!</p>
+        </td>
+    </tr>
+</table>
 <p>To use the ViewVC restrictions you must select to create the configuration files, specify the directory where to write the configuration files, enter the alias you use for ViewVC in the web server and give a command which enables the web server to restart itself. You can find detailed explanations about the setup of the ViewVC restrictions <a href="#inst_web_viewvc">here</a>. You can find information about ViewVC on the <a href="http://www.viewvc.org/" target="_blank">ViewVC Homepage</a>.</p>
 <p>SVN Access Manager makes use of the <em>svn</em> and the <em>grep</em> commands. Please check the installer's suggestions and correct them if necessary.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_misc_settings">2.2.4.4 Miscellaneous settings</a></h5>
-<p>In this section you can decide if you want to use JavaScript or not. JavaScript is needed to make the directory selections easier because you can select a directory the one click.</p>
-<p>SVN Access Manager can do logging. Every action will be logged into a database table and a report will be available.</p>
+<h5><a name="inst_misc_settings">2.2.4.6 Page 6 - Miscellaneous settings</a></h5>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/installer_part6.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part6.png" width="150" height="106" /></a></td>
+        <td>
+            <p>In this section you can decide if you want to use JavaScript or not. JavaScript is needed to make the directory selections easier because you can select a directory the one click.</p>
+            <p>SVN Access Manager can do logging. Every action will be logged into a database table and a report will be available.</p>
+        </td>
+    </tr>
+</table>
 <p>The <em>Page size</em> sets the default value of how many records will be displayed on a screen. This value can be overwritten by the preferences each user can set.</p>
 <p>The password length fields set the minimal length for user and administrator passwords. It is strongly recommended to have strong and long enough passwords. Please keep in mind that a repository which has weak user and administrator passwords can easily be accessed by a malicious user.</p>
 <p>You can use crypt or md5 to crypt the passwords. You can switch the configutation at every time by changing the setting in the <em>config.inc.php</em> file. The passwords are stored encrypted in the database. Once an user changes his password it will be encrypted with the new algorithm.</p>
@@ -397,10 +450,10 @@ need the help of an administrator to recover a lost password.</p>
 		<td><a href="images/add_user.png" target="_blank"><img src="images/thumbs/add_user.png" width="150" height="106" /></a></td>
 		<td valign="middle"><p>A user needs a name and a given name, an unique username and a password. The password strength depends on the user's role. If the user is an administrator the password must be stronger!</p>
 		<p>Normally passwords expire after 90 days. If you do not want the user's password to expire you can disable this feature.</p>
-		<p>The <em>Repository user right</em> determines if a user has write access to repositories. If you specify read here you can not give the user write access to any repository in the defined projects!</p>
 		</td>
 	</tr>
 </table>
+<p>The <em>Repository user right</em> determines if a user has write access to repositories. If you specify read here you can not give the user write access to any repository in the defined projects!</p>
 <p>The global user rights determine what the user is allowed to do. The right can be <em>none</em>, <em>read</em>, <em>edit</em> or <em>delete</em>. Higher rights also include the lower rights. E. g. the delete right includes edit and read.</p>
 <p><a href="#top">Back to top</a></p>
 
@@ -436,7 +489,7 @@ need the help of an administrator to recover a lost password.</p>
 	</tr>
 	<tr valign="top">
 		<td><a href="images/add_repository.png" target="_blank"><img src="images/thumbs/add_repository.png" width="150" height="106" /></a></td>
-		<td>
+		<td valign="top">
 			<p>Each repository needs an unique name, a repository path and if it is accessed by DAV an username and a password to access the remote repository.</p>
 			<p>The repository path must start with <em>file://</em> if SVN Access Manager runs on the same machine as the repository is located.</p>			
 		</td>
