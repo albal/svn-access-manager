@@ -14,7 +14,7 @@ These are the steps to update from version 0.4.1.x to 0.5.0.0
    this update. The script update-0.4.1.x-to-0.5.0.0 changes some fields and
    makes the necessary conversions.
    
-3. Release 0.5.0.0 comes with a complete new database layer and POstgreSQL support. 
+3. Release 0.5.0.0 comes with a complete new database layer and PostgreSQL support. 
    That means that there are a lot of files changed. Either compare your installation 
    to the current release or install the release from scratch and copy the changed config 
    file from your previous installation into your new installation.
