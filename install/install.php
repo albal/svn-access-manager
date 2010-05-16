@@ -84,11 +84,11 @@ function dropOracleDatabaseTables( $dbh, $schema ) {
 		if( $error == 0 ) {
 			
 			$query							= "begin execute immediate 'drop table $schema.$dbtable cascade constraints'; exception when others then null; end;";
-			error_log($query);
+			#error_log($query);
 			$result							= db_query_install( $query, $dbh );
 			$seq							= $dbtable."_seq";
 			$query							= "begin execute immediate 'drop sequence $schema.$seq'; exception when others then null; end;";
-			error_log($query);
+			#error_log($query);
 			$result							= db_query_install( $query, $dbh );
 		}
 		
@@ -2235,7 +2235,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 	$CONF['database_tablespace']			= $_SESSION['svn_inst']['databaseTablespace'];
 	$CONF['pwcrypt']						= $_SESSION['svn_inst']['useMd5'];
 	
-	error_log( "crypt algorithm is ".$CONF['pwcrypt'] );
+	#error_log( "crypt algorithm is ".$CONF['pwcrypt'] );
 	
 	$error									= 0;
 	$tMessage								= "";
@@ -2251,7 +2251,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 	$result									= db_query_install( $query, $dbh );
 	$uid									= db_get_last_insert_id( 'svnusers', 'id', $dbh, $_SESSION['svn_inst']['databaseSchema'] );
 	db_ta( 'COMMIT', $dbh );
-	error_log( "uid read: $uid" );
+	#error_log( "uid read: $uid" );
 		
 	$query									= "SELECT id, allowed_action " .
 											  "  FROM rights " .
@@ -2272,7 +2272,7 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 			$query							= "INSERT INTO users_rights (user_id, right_id, allowed, created, created_user) " .
 											  "VALUES ($uid, $id, '$allowed', '$dbnow', 'install')";
 		}
-		error_log( $query );
+		#error_log( $query );
 		$resultinsert						= db_query_install( $query, $dbh );
 		
 		if( mysql_errno() != 0 ) {
@@ -2306,55 +2306,56 @@ function loadHelpTexts( $database, $schema, $dbh ) {
 	
 	$error									= 0;
 	$tMessage								= "";
+	$filename								= "";
 	
-	if( $database != "oci8" ) {
-		if( file_exists ( realpath ( "./help_texts.sql" ) ) ) {
-			
-			$filename							= "./help_texts.sql";
-			 
-		} elseif( file_exists ( realpath ( "../help_texts.sql" ) ) ) {
-			
-			$filename							= "../help_texts.sql";
-			
-		} else {
-			
-			$filename							= "";
-		}
-	
-		if( $filename != "" ) {
+	if( file_exists ( realpath ( "./$filename" ) ) ) {
 		
-			if( $fh_in = @fopen( $filename, "r" ) ) {
-				
-				db_ta( "BEGIN", $dbh );
-				
-				if (substr($database, 0, 8) == "postgres" ) {
-			    	$schema					= ($schema == "") ? "" : $schema.".";
-			    } elseif( $database == "oci8" ) {
-			    	$schema					= ($schema == "") ? "" : $schema.".";
-			    } else {
-			    	$schema					= "";
-			    }
-				
-				while( ! feof( $fh_in ) ) {
-				
-					$query 						= fgets( $fh_in );
-					if( $query != "" ) {
+		$filename							= "./$filename";
+		 
+	} elseif( file_exists ( realpath ( "../$filename" ) ) ) {
+		
+		$filename							= "../$filename";
+		
+	} else {
+		
+		$filename							= "";
+	}
+
+	if( $filename != "" ) {
 	
-						$query						= str_replace( " INTO help ", " INTO ".$schema."help ", $query );
-						$result						= db_query_install( $query, $dbh );
-					}
-					
+		if( $fh_in = @fopen( $filename, "r" ) ) {
+			
+			db_ta( "BEGIN", $dbh );
+			
+			if (substr($database, 0, 8) == "postgres" ) {
+		    	$schema					= ($schema == "") ? "" : $schema.".";
+		    } elseif( $database == "oci8" ) {
+		    	$schema					= ($schema == "") ? "" : $schema.".";
+		    } else {
+		    	$schema					= "";
+		    }
+			
+			while( ! feof( $fh_in ) ) {
+			
+				$query 						= fgets( $fh_in );
+				if( $query != "" ) {
+
+					$query						= str_replace( " INTO help ", " INTO ".$schema."help ", $query );
+					$query						= preg_replace( '/;$/', '', $query );
+					#error_log( $query );
+					$result						= db_query_install( $query, $dbh );
 				}
 				
-				@fclose( $fh_in );
-				
-				if( $error == 0 ) {
-					db_ta( 'COMMIT', $dbh );
-				} else {
-					db_ta( 'ROLLBACK', $dbh );
-				}
-			}	
-		}
+			}
+			
+			@fclose( $fh_in );
+			
+			if( $error == 0 ) {
+				db_ta( 'COMMIT', $dbh );
+			} else {
+				db_ta( 'ROLLBACK', $dbh );
+			}
+		}	
 	}
 	
 	$ret									= array();
