@@ -185,11 +185,12 @@ testproject3
 <p>To use SVN Access Manager you need at least:
 <ul type="square" compact="true">
 	<li>a working subversion installation</li>
-	<li>a MySQL Database, version 4 or higher</li>
+	<li>a MySQL Database, version 4 or higher, a PostgreSQL 8 or higher database or an Oracle 10g or higher database</li>
 	<li>an Apache web server, version 2.0 or higher with DAV, mod_authz and SVN support</li>
-	<li>PHP version 4 or higher</li>
+	<li>PHP version 4 or higher with working oci8 support if using Oracle database</li>
 </ul>
 </p>
+<p>If you need support installing and configuring Oracle oci8 driver for PHP, please refer to the <a href="http://www.php.net/manual/en/oci8.installation.php" target="_blank">PHP documentation</a>.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_getsoftware">2.1 Download the software</a></h3>
