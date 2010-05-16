@@ -2,11 +2,9 @@ Update to V0.5.0.0
 
 These are the steps to update from version 0.4.1.x to 0.5.0.0
 
-1. Edit config.inc.php in config folder
-
-   Add the following lines and change the values as needed:
-   $CONF['repo_compatibility']		= "--pre-1.6-compatible";
-   $CONF['accessControl']		= "dirs";
+1. config inc.php has moved. From release 0.5.0.0 the config.inc.php file is placed at
+   /etc/svn-access-manager directory. Please move your existing configuration to that
+   directory.
    
 2. Update the database in case of MySQL database
 
@@ -17,7 +15,8 @@ These are the steps to update from version 0.4.1.x to 0.5.0.0
 3. Release 0.5.0.0 comes with a complete new database layer and PostgreSQL support. 
    That means that there are a lot of files changed. Either compare your installation 
    to the current release or install the release from scratch and copy the changed config 
-   file from your previous installation into your new installation.
+   file from your previous installation into your new installation. Remember that the config
+   moved to a new place as described in 1.
    
    
 You're finished.
