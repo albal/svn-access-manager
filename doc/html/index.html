@@ -74,15 +74,17 @@
 				</blockquote>
 				
 			<a href="#inst_db">2.2.3 Setup a MySQL database and a database user</a><br />
+
+            <a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
 			
-			<a href="#inst_installer">2.2.4 Using the installer</a><br />
+			<a href="#inst_installer">2.2.5 Using the installer</a><br />
 				<blockquote>
-				<a href="#inst_dbsettings">2.2.4.1 Page 1 - Database settings</a><br />
-                <a href="#inst_dbsettings_2">2.2.4.2 Page 2 - Database settings part 2</a><br />
-                <a href="#inst_website_settings">2.2.4.3 Page 3 - Website settings</a><br />
-				<a href="#inst_adminaccount">2.2.4.4 Page 4 - Administrator account</a><br />
-				<a href="#inst_web server_settings">2.2.4.5 Page 5 - Web server settings</a><br />
-				<a href="#inst_misc_settings">2.2.4.6 Page 6 - Miscellaneous settings</a>
+				<a href="#inst_dbsettings">2.2.5.1 Page 1 - Database settings</a><br />
+                <a href="#inst_dbsettings_2">2.2.5.2 Page 2 - Database settings part 2</a><br />
+                <a href="#inst_website_settings">2.2.5.3 Page 3 - Website settings</a><br />
+				<a href="#inst_adminaccount">2.2.5.4 Page 4 - Administrator account</a><br />
+				<a href="#inst_web server_settings">2.2.5.5 Page 5 - Web server settings</a><br />
+				<a href="#inst_misc_settings">2.2.5.6 Page 6 - Miscellaneous settings</a>
 				</blockquote>
 			</blockqoute>
 			
@@ -197,13 +199,14 @@ testproject3
 <h3><a name="inst_proc">2.2 Installation procedure</a></h3>
 <p>The installation is divided up in several parts. Just follow the instructions below.</p>
 <p>For the installation description it is assumed that SVN Access Manager ist installed to <em>/home/svnacessmanager</em>, the web server is accessed as <em>localhost</em> and the Subversion Repository and the MySQL database are on the same host. The directory containing the repositories is assumed as <em>/svn/repos</em>. The files needed for authentication and authorization are assumed in <em>/etc/svn</em>.</p>
+<p>The configuration file for SVN Access Manager will be placed in <em>/etc/svn-access-manager</em> directory. Please make sure that your webserver has enough rights to wirte the configuration into this directory.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h4><a name="inst_download">2.2.1 Install the software</a></h4>
 <p>Go to a directory where the software can be accessed by your Apache web server. Unpack the archive. For our example do the following:</p>
 <pre>
 # cd /home/svnaccessmanager
-# tar -xvfz svnaccessmanager-0.3.0.0.tar.gz
+# tar -xvfz svnaccessmanager-0.5.0.0.tar.gz
 </pre>
 <p>Proceed with setting up the Apache web server described in the next step.</p>
 <p><a href="#top">Back to top</a></p>
@@ -252,7 +255,7 @@ CustomLog /var/log/apache2/svn.log "%t %u %{SVN-ACTION}e" env=SVN-ACTION
 	<li>viewvc-apache.conf</li>
 	<li>viewvc-groups</li>
 </ul>
-<p>For user authentication the password file created from SVN Access Manager ist used as well.</p>
+<p>For user authentication the password file created from SVN Access Manager is used as well.</p>
 <p>Example configuration:</p>
 <p>First go to /etc/apache2/sites-available. Create a file "viewvc" containing the following:</p>
 <pre>
@@ -296,9 +299,13 @@ GRANT ALL PRIVILEGES ON `svnadmin` . * TO 'svnadmin'@ 'localhost';
 <p>If you get an error "No database selected" during installation check if the database user has sufficient rights to access and to work with the database!</p>
 <p><a href="#top">Back to top</a></p>
 
-<h4><a name="inst_installer">2.2.4 Using the installer</a></h4>
+<h4><a name="inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a></h4>
+<p>Please refer to the database documentation for information about to setup a PostgreSQL or Oracle database.</p>
+<p><a href="#top">Back to top</a></p>
+
+<h4><a name="inst_installer">2.2.5 Using the installer</a></h4>
 <p class="notice"><strong><u>Important notice:</u></strong><br />Please remove the installer script after finishing the installation. It is a security risk to have the installer on a global accessible site! You can achieve this by removing the install.php script or by making it unaccessible for the user running the web server.</p>
-<p>The installer ist started by entering the following URL into your web browser presuming that you have the alias names as mentioned above. Otherwise please use the values fitting your installation: </p>
+<p>The installer is started by entering the following URL into your web browser presuming that you have the alias names as mentioned above. Otherwise please use the values fitting your installation: </p>
 
 <pre>
 http(s)://localhost/svnaccessmanager/install/install.php
@@ -308,7 +315,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <p>After the installer is started, please fill in the values fitting your requirements. Below you find a short description of the several settings. The installer consists of six pages. After you finished filling the appropriate values click <em>Start installation</em>. If there are errors please correct them. Otherwise the installer starts and gives you a success information. Additional the web server configuration is printed out.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_dbsettings">2.2.4.1 Page 1 - Database settings</a></h5>
+<h5><a name="inst_dbsettings">2.2.5.1 Page 1 - Database settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part1.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part1.png" width="150" height="106" /></a></td>
@@ -320,7 +327,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <p>SVN Access Manager support MySQL, PostgeSQL and Oracle databases. Select the database you want to use.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_dbsettings_2">2.2.4.2 Page 2- Database settings part 2</a></h5>
+<h5><a name="inst_dbsettings_2">2.2.5.2 Page 2- Database settings part 2</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part2.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part2.png" width="150" height="106" /></a></td>
@@ -331,7 +338,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_website_settings">2.2.4.3 Page 3 - Website settings</a></h5>
+<h5><a name="inst_website_settings">2.2.5.3 Page 3 - Website settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part3.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part3.png" width="150" height="106" /></a></td>
@@ -342,7 +349,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_adminaccount">2.2.4.4 Page 4 - Administrator account</a></h5>
+<h5><a name="inst_adminaccount">2.2.3.4 Page 4 - Administrator account</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part4.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part4.png" width="150" height="106" /></a></td>
@@ -353,7 +360,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_web server_settings">2.2.4.5 Page 5 - Web server settings</a></h5>
+<h5><a name="inst_web server_settings">2.2.5.5 Page 5 - Web server settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part5.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part5.png" width="150" height="106" /></a></td>
@@ -366,7 +373,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <p>SVN Access Manager makes use of the <em>svn</em> and the <em>grep</em> commands. Please check the installer's suggestions and correct them if necessary.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_misc_settings">2.2.4.6 Page 6 - Miscellaneous settings</a></h5>
+<h5><a name="inst_misc_settings">2.2.5.6 Page 6 - Miscellaneous settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part6.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part6.png" width="150" height="106" /></a></td>
