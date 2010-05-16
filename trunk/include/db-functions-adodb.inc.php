@@ -135,7 +135,7 @@ function db_connect_install ($dbhost, $dbuser, $dbpassword, $dbname, $charset, $
 	$dbtype											= ($dbtype == "") ? "mysql" : $dbtype;
 	
 	try {
-		error_log( "connect to $dbtype" );
+		#error_log( "connect to $dbtype" );
 		$link 										= &ADONewConnection($dbtype); 
 		if( $dbtype == "oci8" ) {
 			$link->Connect($dbname, $dbuser, $dbpassword );	
@@ -253,7 +253,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
    			$number_rows						= $result->RecordCount();
    		} else {
    			
-   			error_log( "query: >$query<");
+   			#error_log( "query: >$query<");
    			$number_rows						= $link->Affected_Rows();
    		}
    		
@@ -278,7 +278,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
 	    
 	    $error									= 1;
 	  
-	  	error_log( "jumping to $location" );
+	  	#error_log( "jumping to $location" );
 	 	header( "Location: $location");
 	 	exit;
 	}
@@ -433,7 +433,7 @@ function db_log ( $username, $data, $link="" ) {
    		$dbnow											= db_now();
    		$query											= "INSERT INTO ".$schema."log (logtimestamp, username, ipaddress, logmessage) " .
       						  						  	   "VALUES ('$dbnow', '$username', '$REMOTE_ADDR', '$data')";
-      	error_log( "logging: $query" );
+      	#error_log( "logging: $query" );
       	$link->Execute( $query );
       	return true;
       						  
@@ -618,8 +618,8 @@ function db_get_last_insert_id($table, $column, $link, $schema="") {
 	} else {
 		
 		try {
-			error_log( "database = ". $link->databaseType);
-			error_log( "schema = $schema" );
+			#error_log( "database = ". $link->databaseType);
+			#error_log( "schema = $schema" );
 			
 			if( $link->databaseType == "oci8" ) {
 				$query				= "SELECT $schema.$table"."_SEQ.currval AS id FROM dual";

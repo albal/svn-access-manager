@@ -32,7 +32,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
 
-error_log( "install_base is: $installBase" );
+#error_log( "install_base is: $installBase" );
 
 require ("$installBase/include/variables.inc.php");
 #require ("./config/config.inc.php");
@@ -121,15 +121,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	  $s 											= new Session;
       session_start();
       session_register("svn_sessid");
-	  error_log( "session started" );
+	  #error_log( "session started" );
       $_SESSION['svn_sessid']['username'] 			= $fUsername;
       $_SESSION['svn_sessid']['name']				= $tName;
       $_SESSION['svn_sessid']['givenname']			= $tGivenname;
       $_SESSION['svn_sessid']['admin']				= $tAdmin;
       $_SESSION['svn_sessid']['password_expired']	= $tPasswordExpired;
-      error_log( "session data written" );
+      #error_log( "session data written" );
       db_log( $_SESSION['svn_sessid']['username'], "user $tUsername logged in", $dbh );
-	  error_log( "log data written" );
+	  #error_log( "log data written" );
 	  if( $tPasswordExpired == 1 ) {
 	  	
 	  		db_log( $_SESSION['svn_sessid']['username'], "password of user $tUsername expired, force password change", $dbh );
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	  		header("Location: password.php");
 	  		exit;
 	  }
-	  error_log( "main");
+	  #error_log( "main");
 	  db_disconnect ($dbh);
       header("Location: main.php");
       exit;
