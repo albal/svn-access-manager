@@ -545,7 +545,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					
 					$tGroupIds				= array();
 					
-					foreach( $_SESION['svn_sessid']['groups'] as $groupid => $groupname ) {
+					foreach( $_SESSION['svn_sessid']['groups'] as $groupid => $groupname ) {
 						
 						$tGroupIds[]		= $groupid;
 					}
