@@ -1,0 +1,96 @@
+
+
+SVN Access Manager Readme
+
+SVN Access Manager is a powerful tool for managing access to subversion 
+repositories. The tool provides user and group management and access 
+rights (read/write) to dedicated paths in a repository as well.
+
+Subversion grants access rights recursively. That means that creating
+access rights to repositories is not as complex as it seams.
+
+Let's have a small example.
+
+Repository testrepo:
+
+trunk
+     /dir1
+     /dir2
+          /dir3
+          /dir4
+     /dir5
+
+Let's assume that there're two users defined for this repository, user A and
+user B. User A should have read access to the whole repository but should only
+be allowed to write into "dir2" without the sub directories. User B should have
+write access to the whole repository except "dir5". For dir5 he should not have
+any access.
+
+You can set the access rights with SVN Access Manager according to this created
+access file:
+
+[testrepo:/trunk/]
+A = r
+B = rw
+
+[testrepo:/trunk/dir2]
+A = rw
+
+[testrepo:/trunk/dir2/dir3]
+A =
+
+[testrepo:/trunk/dir2/dir4]
+A =
+
+[testrepo:/trunk/dir5]
+B = 
+ 
+
+
+Requirements
+============
+
+To use SVN Access Manager you need
+
+- a working subversion repository
+- Apache 2.0 or higher
+- PHP 4 or higher
+- Mysql 4 or higher
+
+
+
+Installation
+============
+
+For installation please look into the documentation in the html directory.
+
+
+
+Mailinglists
+============
+
+There's a mailinglist for announcements of new releases of SVN Access Manager.
+The list requires a subscription which can be done here.
+
+New releases are announced on freshmeat.net and sourceforge.net as well.
+
+
+
+License
+=======
+
+SVN Access manager is distributed under the GPL v2. You find a copy
+of this license in this folder.
+
+
+
+Warranty
+========
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+
+
