@@ -250,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		db_ta( 'BEGIN', $dbh );
 		db_log( $_SESSION['svn_sessid']['username'], "deleted access right $accessright for repository $reponame, path $path, project $projectname", $dbh );
-		$dbnow								= $db_now();
+		$dbnow								= db_now();
 		$query								= "UPDATE ".$schema."svn_access_rights " .
 											  "   SET deleted = '$dbnow', " .
 											  "       deleted_user = '".$_SESSION['svn_sessid']['username']."' " .
