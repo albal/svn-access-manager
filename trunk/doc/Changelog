@@ -2,6 +2,12 @@ Change Log
 ==========
 
 
+Release 0.5.0.2
+	- fixed a typo in deleteAccessRight.php 
+	
+Release 0.5.0.1
+	- fixed a typo
+	
 Release 0.5.0.0
 	- added support for PostgreSQL
 	- added support for Oracle 10g/11g
