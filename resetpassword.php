@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					} else { 
 			   			$password 		= db_escape_string( pacrypt ($tPassword1), $dbh );
 			   			$query			= "UPDATE ".$schema."svnusers " .
-			   							  "   SET password = $password " .
+			   							  "   SET password = '$password' " .
 			   							  " WHERE (userid = '$username') " .
 			   							  "   AND (deleted = '00000000000000')";
 			   									  
