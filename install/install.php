@@ -2006,7 +2006,7 @@ function loadDbData( $dbh, $charset, $collation, $databasetype ) {
 	if( $error == 0 ) {
 	
 		$query							= "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " .
-										  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
+										  "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
 		$result							= db_query_install( $query, $dbh );
 		
 	}
@@ -2090,7 +2090,7 @@ function loadPostgresDbData( $dbh, $charset, $collation, $databasetype, $schema 
 	if( $error == 0 ) {
 	
 		$query							= "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " .
-										  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
+										  "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
 		$result							= db_query_install( $query, $dbh );
 		
 	}
@@ -2167,7 +2167,7 @@ function loadOracleDbData( $dbh, $charset, $collation, $databasetype, $schema ) 
 	if( $error == 0 ) {
 	
 		$query							= "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " .
-										  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
+										  "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
 		$result							= db_query_install( $query, $dbh );
 		
 	}
@@ -2400,6 +2400,107 @@ function doDbtest() {
 
 
 
+function doLdapTest() {
+	
+	$tErrors								= array();
+	
+	if( $ldap = @ldap_connect( $_SESSION['svn_inst']['ldapHost'], $_SESSION['svn_inst']['ldapPort'] ) ) {
+		
+		if( $rs = @ldap_bind( $ldap, $_SESSION['svn_inst']['ldapBinddn'], $_SESSION['svn_inst']['ldapBindpw']) ) {
+			
+			$tErrors[]						= _("LDAP connection test ok, connection works");
+			
+		} else {
+			
+			$tErrors[]						= sprintf( _("Can't bind to ldap server: %s"), ldap_error( $ldap ) );
+		}
+		
+		@ldap_unbind( $ldap );
+		
+	} else {
+		
+		$tErrors[]							= _("Can't connect to ldap server, hostname/ip and port are ok?");
+		
+	}
+	
+	$tCreateDatabaseTables		= isset( $_SESSION['svn_inst']['createDatabaseTables'] ) ? $_SESSION['svn_inst']['createDatabaseTables'] : ""; 
+	$tDropDatabaseTables		= isset( $_SESSION['svn_inst']['dropDatabaseTables'] ) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
+	$tDatabase					= isset( $_SESSION['svn_inst']['database'] ) ? $_SESSION['svn_inst']['database'] : "";
+	$tSessionInDatabase			= isset( $_SESSION['svn_inst']['sessionInDatabase'] ) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
+	$tUseLdap					= isset( $_SESSION['svn_inst']['useLdap'] ) ? $_SESSION['svn_inst']['useLdap'] : "";
+	$tLdapHost					= isset( $_SESSION['svn_inst']['ldapHost'] ) ? $_SESSION['svn_inst']['ldapHost'] : "";
+	$tLdapPort					= isset( $_SESSION['svn_inst']['ldapPort'] ) ? $_SESSION['svn_inst']['ldapPort'] : "";
+	$tLdapProtocol				= isset( $_SESSION['svn_inst']['ldapProtocol'] ) ? $_SESSION['svn_inst']['ldapProtocol'] : "";
+	$tLdapBinddn				= isset( $_SESSION['svn_inst']['ldapBinddn'] ) ? $_SESSION['svn_inst']['ldapBinddn'] : "";
+	$tLdapBindpw				= isset( $_SESSION['svn_inst']['ldapBindpw'] ) ? $_SESSION['svn_inst']['ldapBindpw'] : "";
+	$tLdapUserdn				= isset( $_SESSION['svn_inst']['ldapUserdn'] ) ? $_SESSION['svn_inst']['ldapUserdn'] : "";
+	$tLdapUserFilter			= isset( $_SESSION['svn_inst']['ldapUserFilter'] ) ? $_SESSION['svn_inst']['ldapUserFilter'] : "";
+	$tLdapUserObjectclass		= isset( $_SESSION['svn_inst']['ldapUserObjectclass'] ) ? $_SESSION['svn_inst']['ldapUserObjectclass'] : "";
+	$tLdapUserAdditionalFilter  = isset( $_SESSION['svn_inst']['ldapUserAdditionalFilter'] ) ? $_SESSION['svn_inst']['ldapUserAdditionalFilter'] : "";
+	
+	if( $tCreateDatabaseTables == "YES" ) {
+		$tCreateDatabaseTablesYes	= "checked";
+		$tCreateDatabaseTablesNo	= "";
+	} else {
+		$tCreateDatabaseTablesYes	= "";
+		$tCreateDatabaseTablesNo	= "checked";
+	}
+	
+	if( $tDropDatabaseTables == "YES" ) {
+		$tDropDatabaseTablesYes		= "checked";
+		$tDropDatabaseTablesNo		= "";
+	} else {
+		$tDropDatabaseTablesYes		= "";
+		$tDropDatabaseTablesNo		= "checked";
+	}
+	
+	if( $tDatabase == "mysql" ) {
+		$tDatabaseMySQL				= "checked";
+		$tDatabasePostgreSQL		= "";
+		$tDatabaseOracle			= "";
+	} elseif( $tDatabase == "postgres8" ) {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "checked";
+		$tDatabaseOracle			= "";
+	} elseif( $tDatabase == "oci8" ) {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "";
+		$tDatabaseOracle			= "checked";
+	} else {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "";
+	}
+	
+	if( $tSessionInDatabase == "YES" ) {
+		$tSessionInDatabaseYes		= "checked";
+		$tSessionInDatabaseNo		= "";
+	} else {
+		$tSessionInDatabaseYes		= "";
+		$tSessionInDatabaseNo		= "checked";
+	}
+	
+	if( $tUseLdap == "YES" ) {
+		$tUseLdapYes				= "checked";
+		$tUseLdapNo					= "";
+	} else {
+		$tUseLdapYes				= "";
+		$tUseLdapNo					= "checked";
+	}
+	
+	if( $tLdapProtocol == "3" ) {
+		$tLdap3						= "checked";
+		$tLdap2						= "";
+	} else {
+		$tLdap3						= "";
+		$tLdap2						= "checked";
+	}
+	
+	include ("../templates/install_page_1.tpl");
+	exit;
+}
+
+
+
 function doInstall() {
 	
 	$tMessage								= "";
@@ -2465,6 +2566,101 @@ function doInstall() {
 			$error						= 1;
 			
 		}
+		
+		if( strtoupper($_SESSION['svn_inst']['useLdap']) == "YES" ) {
+				
+				if( $_SESSION['svn_inst']['ldapHost'] == "" ) {
+					
+					$tErrors[]				= _("LDAP host is missing!");
+					$error					= 1;
+				
+				}
+				
+				if( $_SESSION['svn_inst']['ldapPort'] == "" ) {
+					
+					$tErrors[]				= _("LDAP port is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( ($_SESSION['svn_inst']['ldapProtocol'] != "2") and ($_SESSION['svn_inst']['ldapProtocol'] != "3") ) {
+					
+					$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $_SESSION['svn_inst']['ldapProtocol'] );
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapBinddn'] == "" ) {
+					
+					$tErrors[]				= _("LDAP bind dn is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapBindpw'] == "" ) {
+					
+					$tErrors[]				= _("LDAP bind password is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapUserdn'] == "" ) {
+					
+					$tErrors[]				= _("LDAP user dn is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapUserFilter'] == "" ) {
+					
+					$tErrors[]				= _("LDAP user filter attribute is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapUserObjectclass'] == "" ) {
+					
+					$tErrors[]				= _("LDAP user object class is missing!");
+					$error					= 1;
+										
+				}
+				
+				if( $_SESSION['svn_inst']['ldapAttrUid'] == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for uid is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapAttrName'] == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for name is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapAttrGivenname'] == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for given name is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapAttrMail'] == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for mail is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $_SESSION['svn_inst']['ldapAttrPassword'] == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
+					$error					= 1;
+					
+				}
+				
+			}
 		
 		if( $_SESSION['svn_inst']['websiteCharset'] == "" ) {
 			
@@ -2712,6 +2908,21 @@ function doInstall() {
 			$content					= str_replace( '###LOSTPWLINKVALID###', 	$_SESSION['svn_inst']['lpwLinkValid'], $content );
 			$content					= str_replace( '###PRECOMPATIBLE###', 		$preCompatible, $content );
 			$content					= str_replace( '###INSTALLBASE###',			$installBase, $content );
+			$content					= str_replace( '###USELDAP###',				$_SESSION['svn_inst']['useLdap'], $content );
+			$content					= str_replace( '###BINDDN###',				$_SESSION['svn_inst']['ldapBinddn'], $content );
+			$content					= str_replace( '###BINDPW###',				$_SESSION['svn_inst']['ldapBindpw'], $content );
+			$content					= str_replace( '###USERDN###',				$_SESSION['svn_inst']['ldapUserDn'], $content );
+			$content					= str_replace( '###USERFILTERATTR###',		$_SESSION['svn_inst']['ldapUserFilter'], $content );
+			$content					= str_replace( '###USEROBJECTCLASS###',		$_SESSION['svn_inst']['ldapUserObjectclass'], $content );
+			$content					= str_replace( '###USERADDITIONALFILTER###',$_SESSION['svn_inst']['ldapUserAdditionalFilter'], $content );
+			$content					= str_replace( '###LDAPHOST###',			$_SESSION['svn_inst']['ldapHost'], $content );
+			$content					= str_replace( '###LDAPPORT###',			$_SESSION['svn_inst']['ldapPort'], $content );
+			$content					= str_replace( '###LDAPPROTOCOL###',		$_SESSION['svn_inst']['ldapProtocol'], $content );
+			$content					= str_replace( '###MAPUID###',				$_SESSION['svn_inst']['ldapAttrUid'], $content );
+			$content					= str_replace( '###MAPNAME###',				$_SESSION['svn_inst']['ldapAttrName'], $content );
+			$content					= str_replace( '###MAPGIVENNAME###',		$_SESSION['svn_inst']['ldapAttrGivenname'], $content );
+			$content					= str_replace( '###MAPMAIL###',				$_SESSION['svn_inst']['ldapAttrMail'], $content );
+			$content					= str_replace( '###MAPPASSWORD###',			$_SESSION['svn_inst']['ldapAttrPassword'], $content );
 			
 		} else {
 			
@@ -2969,6 +3180,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tDatabaseOracle						= "";
    	$tSessionInDatabaseYes					= "checked";
    	$tSessionInDatabaseNo					= "";
+   	$tUseLdapYes							= "";
+   	$tUseLdapNo								= "checked";
+   	$tLdapHost								= "";
+   	$tLdapPort								= "636";
+   	$tLdap2									= "";
+   	$tLdap3									= "checked";
+   	$tLdapBinddn							= "";
+   	$tLdapBindpw							= "";
+   	$tLdapUserdn							= "";
+   	$tLdapUserFilter						= "";
+   	$tLdapUserObjectclass					= "";
+   	$tLdapUserAdditionalFilter				= "";
    	
    	$tErrors								= array();
    
@@ -3002,6 +3225,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tDropDatabaseTables			= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
 			$tDatabase						= isset( $_POST['fDatabase'] )				? ( $_POST['fDatabase'] )				: "";
 			$tSessionInDatabase				= isset( $_POST['fSessionInDatabase'])		? ( $_POST['fSessionInDatabase'] )		: "";
+			$tUseLdap						= isset( $_POST['fUseLdap'])				? ( $_POST['fUseLdap'] )				: "";
+			$tLdapHost						= isset( $_POST['fLdapHost'])				? ( $_POST['fLdapHost'])				: "";
+			$tLdapPort						= isset( $_POST['fLdapPort'])				? ( $_POST['fLdapPort'])				: "389";
+			$tLdapProtocol					= isset( $_POST['fLdapProtocol'])			? ( $_POST['fLdapProtocol'])			: "3";
+			$tLdapBinddn					= isset( $_POST['fLdapBinddn'])				? ( $_POST['fLdapBinddn'])				: "";
+			$tLdapBindpw					= isset( $_POST['fLdapBindpw'])				? ( $_POST['fLdapBindpw'])				: "";
+			$tLdapUserdn					= isset( $_POST['fLdapUserdn'])				? ( $_POST['fLdapUserdn'])				: "";
+			$tLdapUserFilter				= isset( $_POST['fLdapUserFilter'])			? ( $_POST['fLdapUserFilter'])			: "";
+			$tLdapUserObjectclass			= isset( $_POST['fLdapUserObjectclass'])	? ( $_POST['fLdapUserObjectclass'])		: "";
+			$tLdapUserAdditionalFilter		= isset( $_POST['fLdapUserAdditionalFilter']) ? ( $_POST['fLdapUserAdditionalFilter']) : "";
 			
 			$_SESSION['svn_inst']['createDatabaseTables']		= $tCreateDatabaseTables;
 			$_SESSION['svn_inst']['dropDatabaseTables']			= $tDropDatabaseTables;
@@ -3016,7 +3249,136 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$tDatabaseCollationDefault	= "";
 			}
 			
+			if( strtoupper($tUseLdap) == "YES" ) {
+				
+				if( $tLdapHost == "" ) {
+					
+					$tErrors[]				= _("LDAP host is missing!");
+					$error					= 1;
+				
+				}
+				
+				if( $tLdapPort == "" ) {
+					
+					$tErrors[]				= _("LDAP port is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( ($tLdapProtocol != "2") and ($tLdapProtocol != "3") ) {
+					
+					$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $tLdapProtocol );
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapBinddn == "" ) {
+					
+					$tErrors[]				= _("LDAP bind dn is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapBindpw == "" ) {
+					
+					$tErrors[]				= _("LDAP bind password is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapUserdn == "" ) {
+					
+					$tErrors[]				= _("LDAP user dn is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapUserFilter == "" ) {
+					
+					$tErrors[]				= _("LDAP user filter attribute is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapUserObjectclass == "" ) {
+					
+					$tErrors[]				= _("LDAP user object class is missing!");
+					$error					= 1;
+										
+				}
+				
+			}
+			
+			if( $tCreateDatabaseTables == "YES" ) {
+				$tCreateDatabaseTablesYes	= "checked";
+				$tCreateDatabaseTablesNo	= "";
+			} else {
+				$tCreateDatabaseTablesYes	= "";
+				$tCreateDatabaseTablesNo	= "checked";
+			}
+			
+			if( $tDropDatabaseTables == "YES" ) {
+				$tDropDatabaseTablesYes		= "checked";
+				$tDropDatabaseTablesNo		= "";
+			} else {
+				$tDropDatabaseTablesYes		= "";
+				$tDropDatabaseTablesNo		= "checked";
+			}
+			
+			if( $tDatabase == "mysql" ) {
+				$tDatabaseMySQL				= "checked";
+				$tDatabasePostgreSQL		= "";
+				$tDatabaseOracle			= "";
+			} elseif( $tDatabase == "postgres8" ) {
+				$tDatabaseMySQL				= "";
+				$tDatabasePostgreSQL		= "checked";
+				$tDatabaseOracle			= "";
+			} elseif( $tDatabase == "oci8" ) {
+				$tDatabaseMySQL				= "";
+				$tDatabasePostgreSQL		= "";
+				$tDatabaseOracle			= "checked";
+			} else {
+				$tDatabaseMySQL				= "";
+				$tDatabasePostgreSQL		= "";
+			}
+			
+			if( $tSessionInDatabase == "YES" ) {
+				$tSessionInDatabaseYes		= "checked";
+				$tSessionInDatabaseNo		= "";
+			} else {
+				$tSessionInDatabaseYes		= "";
+				$tSessionInDatabaseNo		= "checked";
+			}
+			
+			if( $tUseLdap == "YES" ) {
+				$tUseLdapYes				= "checked";
+				$tUseLdapNo					= "";
+			} else {
+				$tUseLdapYes				= "";
+				$tUseLdapNo					= "checked";
+			}
+			
+			if( $tLdapProtocol == "3" ) {
+				$tLdap3						= "checked";
+				$tLdap2						= "";
+			} else {
+				$tLdap3						= "";
+				$tLdap2						= "checked";
+			}
+			
 			if( $error == 0 ) {
+					
+				$_SESSION['svn_inst']['useLdap']					= $tUseLdap;
+				$_SESSION['svn_inst']['ldapHost']					= $tLdapHost;
+				$_SESSION['svn_inst']['ldapPort']					= $tLdapPort;
+				$_SESSION['svn_inst']['ldapProtocol']				= $tLdapProtocol;
+				$_SESSION['svn_inst']['ldapBinddn']					= $tLdapBinddn;
+				$_SESSION['svn_inst']['ldapBindpw']					= $tLdapBindpw;
+				$_SESSION['svn_inst']['ldapUserdn']					= $tLdapUserdn;
+				$_SESSION['svn_inst']['ldapUserFilter']				= $tLdapUserFilter;
+				$_SESSION['svn_inst']['ldapUserObjectclass']		= $tLdapUserObjectclass;
+				$_SESSION['svn_inst']['ldapUserAdditionalFilter']	= $tLdapUserAdditionalFilter;
+				
 				$tDatabaseHost				= isset( $_SESSION['svn_inst']['databaseHost'] ) 		? $_SESSION['svn_inst']['databaseHost'] 		: "";
 				$tDatabaseUser				= isset( $_SESSION['svn_inst']['databaseUser'] ) 		? $_SESSION['svn_inst']['databaseUser'] 		: "";
 				$tDatabasePassword			= isset( $_SESSION['svn_inst']['databasePassword'] ) 	? $_SESSION['svn_inst']['databasePassword'] 	: ""; 
@@ -3025,6 +3387,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$tDatabaseTablespace		= isset( $_SESSION['svn_inst']['databaseTablespace'] ) 	? $_SESSION['svn_inst']['databaseTablespace'] 	: "";
 				$tDatabaseCharset			= isset( $_SESSION['svn_inst']['databaseCharset'] ) 	? $_SESSION['svn_inst']['databaseCharset'] 		: $tDatabaseCharsetDefault;
 				$tDatabaseCollation			= isset( $_SESSION['svn_inst']['databaseCollation'] ) 	? $_SESSION['svn_inst']['databaseCollation'] 	: $tDatabaseCollationDefault;
+				$tLdapAttrUid				= isset( $_SESSION['svn_inst']['ldapAttrUid'] ) 		? $_SESSION['svn_inst']['ldapAttrUid'] 			: "uid";
+				$tLdapAttrName				= isset( $_SESSION['svn_inst']['ldapAttrName'] ) 		? $_SESSION['svn_inst']['ldapAttrName'] 		: "sn";
+				$tLdapAttrGivenname			= isset( $_SESSION['svn_inst']['ldapAttrGivenname'] ) 	? $_SESSION['svn_inst']['ldapAttrGivenname'] 	: "givenName";
+				$tLdapAttrMail				= isset( $_SESSION['svn_inst']['ldapAttrMail'] ) 		? $_SESSION['svn_inst']['ldapAttrMail'] 		: "mail";
+				$tLdapAttrPassword			= isset( $_SESSION['svn_inst']['ldapAttrPassword'] ) 	? $_SESSION['svn_inst']['ldapAttrPassword'] 	: "userPassword";
 		
 				$_SESSION['svn_inst']['page']++;
 				include ("../templates/install_page_2.tpl");
@@ -3048,6 +3415,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tDatabaseTablespace			= isset( $_POST['fDatabaseTablespace'] )	? ( $_POST['fDatabaseTablespace'] )		: "";
 			$tDatabaseCharset				= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
 			$tDatabaseCollation				= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
+			$tLdapAttrUid					= isset( $_POST['fLdapAttrUid'])			? ( $_POST['fLdapAttrUid'])				: "";
+			$tLdapAttrName					= isset( $_POST['fLdapAttrName'])			? ( $_POST['fLdapAttrName'])			: "";
+			$tLdapAttrGivenname				= isset( $_POST['fLdapAttrGivenname'])		? ( $_POST['fLdapAttrGivenname'])		: "";
+			$tLdapAttrMail					= isset( $_POST['fLdapAttrMail'])			? ( $_POST['fLdapAttrMail'])			: "";
+			$tLdapAttrPassword				= isset( $_POST['fLdapAttrPassword'])		? ( $_POST['fLdapAttrPassword'])		: "";
 			
 			if( $tDatabaseHost == "" ) {
 			
@@ -3084,6 +3456,44 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				
 			}
 			
+			if( $_SESSION['svn_inst']['useLdap'] == "YES" ) {
+				
+				if( $tLdapAttrUid == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for uid is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapAttrName == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for name is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapAttrGivenname == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for given name is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapAttrMail == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for mail is missing!");
+					$error					= 1;
+					
+				}
+				
+				if( $tLdapAttrPassword == "" ) {
+					
+					$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
+					$error					= 1;
+					
+				}
+			}
+			
 			if( $error == 0 ) {
 			
 				$_SESSION['svn_inst']['databaseHost']		= $tDatabaseHost;
@@ -3094,6 +3504,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$_SESSION['svn_inst']['databaseTablespace']	= $tDatabaseTablespace;
 				$_SESSION['svn_inst']['databaseCharset']	= $tDatabaseCharset;
 				$_SESSION['svn_inst']['databaseCollation']	= $tDatabaseCollation;
+				$_SESSION['svn_inst']['ldapAttrUid']		= $tLdapAttrUid;
+				$_SESSION['svn_inst']['ldapAttrName']		= $tLdapAttrName;
+				$_SESSION['svn_inst']['ldapAttrGivenname']	= $tLdapAttrGivenname;
+				$_SESSION['svn_inst']['ldapAttrMail']		= $tLdapAttrMail;
+				$_SESSION['svn_inst']['ldapAttrPassword']	= $tLdapAttrPassword;
 			
 				$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 	? $_SESSION['svn_inst']['websiteCharset'] 	: "iso8859-15";
 				$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 	? $_SESSION['svn_inst']['lpwMailSender'] 	: "";
@@ -3689,6 +4104,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$tDropDatabaseTables		= isset( $_SESSION['svn_inst']['dropDatabaseTables'] ) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
 				$tDatabase					= isset( $_SESSION['svn_inst']['database'] ) ? $_SESSION['svn_inst']['database'] : "";
 				$tSessionInDatabase			= isset( $_SESSION['svn_inst']['sessionInDatabase'] ) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
+				$tUseLdap					= isset( $_SESSION['svn_inst']['useLdap'] ) ? $_SESSION['svn_inst']['useLdap'] : "";
+				$tLdapHost					= isset( $_SESSION['svn_inst']['ldapHost'] ) ? $_SESSION['svn_inst']['ldapHost'] : "";
+				$tLdapPort					= isset( $_SESSION['svn_inst']['ldapPort'] ) ? $_SESSION['svn_inst']['ldapPort'] : "";
+				$tLdapProtocol				= isset( $_SESSION['svn_inst']['ldapProtocol'] ) ? $_SESSION['svn_inst']['ldapProtocol'] : "";
+				$tLdapBinddn				= isset( $_SESSION['svn_inst']['ldapBinddn'] ) ? $_SESSION['svn_inst']['ldapBinddn'] : "";
+				$tLdapBindpw				= isset( $_SESSION['svn_inst']['ldapBindpw'] ) ? $_SESSION['svn_inst']['ldapBindpw'] : "";
+				$tLdapUserdn				= isset( $_SESSION['svn_inst']['ldapUserdn'] ) ? $_SESSION['svn_inst']['ldapUserdn'] : "";
+				$tLdapUserFilter			= isset( $_SESSION['svn_inst']['ldapUserFilter'] ) ? $_SESSION['svn_inst']['ldapUserFilter'] : "";
+				$tLdapUserObjectclass		= isset( $_SESSION['svn_inst']['ldapUserObjectclass'] ) ? $_SESSION['svn_inst']['ldapUserObjectclass'] : "";
+				$tLdapUserAdditionalFilter  = isset( $_SESSION['svn_inst']['ldapUserAdditionalFilter'] ) ? $_SESSION['svn_inst']['ldapUserAdditionalFilter'] : "";
 				
 				if( $tCreateDatabaseTables == "YES" ) {
 					$tCreateDatabaseTablesYes	= "checked";
@@ -3731,6 +4156,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$tSessionInDatabaseNo		= "checked";
 				}
 				
+				if( $tUseLdap == "YES" ) {
+					$tUseLdapYes				= "checked";
+					$tUseLdapNo					= "";
+				} else {
+					$tUseLdapYes				= "";
+					$tUseLdapNo					= "checked";
+				}
+				
+				if( $tLdapProtocol == "3" ) {
+					$tLdap3						= "checked";
+					$tLdap2						= "";
+				} else {
+					$tLdap3						= "";
+					$tLdap2						= "checked";
+				}
+				
 				$_SESSION['svn_inst']['page']--;
 				include ("../templates/install_page_1.tpl");
 				exit;
@@ -3741,6 +4182,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$tDropDatabaseTables		= isset( $_SESSION['svn_inst']['dropDatabaseTables'] ) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
 				$tDatabase					= isset( $_SESSION['svn_inst']['database'] ) ? $_SESSION['svn_inst']['database'] : "";
 				$tSessionInDatabase			= isset( $_SESSION['svn_inst']['sessionInDatabase'] ) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
+				$tLdapAttrUid				= isset( $_SESSION['svn_inst']['ldapAttrUid'] ) ? $_SESSION['svn_inst']['ldapAttrUid'] : "uid";
+				$tLdapAttrName				= isset( $_SESSION['svn_inst']['ldapAttrName'] ) ? $_SESSION['svn_inst']['ldapAttrName'] : "sn";
+				$tLdapAttrGivenname			= isset( $_SESSION['svn_inst']['ldapAttrGivenname'] ) ? $_SESSION['svn_inst']['ldapAttrGivenname'] : "givenName";
+				$tLdapAttrMail				= isset( $_SESSION['svn_inst']['ldapAttrMail'] ) ? $_SESSION['svn_inst']['ldapAttrMail'] : "mail";
+				$tLdapAttrPassword			= isset( $_SESSION['svn_inst']['ldapAttrPassword'] ) ? $_SESSION['svn_inst']['ldapAttrPassword'] : "userpassword";
 				
 				if( $tCreateDatabaseTables == "YES" ) {
 					$tCreateDatabaseTablesYes	= "checked";
@@ -4306,6 +4752,203 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		doDbtest();
 			
+	} elseif( isset( $_POST['fSubmit_testldap'] ) ) {
+		
+		$error							= 0;
+		$tCreateDatabaseTables			= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
+		$tDropDatabaseTables			= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
+		$tDatabase						= isset( $_POST['fDatabase'] )				? ( $_POST['fDatabase'] )				: "";
+		$tSessionInDatabase				= isset( $_POST['fSessionInDatabase'])		? ( $_POST['fSessionInDatabase'] )		: "";
+		$tUseLdap						= isset( $_POST['fUseLdap'])				? ( $_POST['fUseLdap'] )				: "";
+		$tLdapHost						= isset( $_POST['fLdapHost'])				? ( $_POST['fLdapHost'])				: "";
+		$tLdapPort						= isset( $_POST['fLdapPort'])				? ( $_POST['fLdapPort'])				: "389";
+		$tLdapProtocol					= isset( $_POST['fLdapProtocol'])			? ( $_POST['fLdapProtocol'])			: "3";
+		$tLdapBinddn					= isset( $_POST['fLdapBinddn'])				? ( $_POST['fLdapBinddn'])				: "";
+		$tLdapBindpw					= isset( $_POST['fLdapBindpw'])				? ( $_POST['fLdapBindpw'])				: "";
+		$tLdapUserdn					= isset( $_POST['fLdapUserdn'])				? ( $_POST['fLdapUserdn'])				: "";
+		$tLdapUserFilter				= isset( $_POST['fLdapUserFilter'])			? ( $_POST['fLdapUserFilter'])			: "";
+		$tLdapUserObjectclass			= isset( $_POST['fLdapUserObjectclass'])	? ( $_POST['fLdapUserObjectclass'])		: "";
+		$tLdapUserAdditionalFilter		= isset( $_POST['fLdapUserAdditionalFilter']) ? ( $_POST['fLdapUserAdditionalFilter']) : "";
+		
+		$_SESSION['svn_inst']['createDatabaseTables']		= $tCreateDatabaseTables;
+		$_SESSION['svn_inst']['dropDatabaseTables']			= $tDropDatabaseTables;
+		$_SESSION['svn_inst']['database']					= $tDatabase;
+		$_SESSION['svn_inst']['sessionInDatabase']			= $tSessionInDatabase;
+		$_SESSION['svn_inst']['useLdap']					= $tUseLdap;
+		$_SESSION['svn_inst']['ldapHost']					= $tLdapHost;
+		$_SESSION['svn_inst']['ldapPort']					= $tLdapPort;
+		$_SESSION['svn_inst']['ldapProtocol']				= $tLdapProtocol;
+		$_SESSION['svn_inst']['ldapBinddn']					= $tLdapBinddn;
+		$_SESSION['svn_inst']['ldapBindpw']					= $tLdapBindpw;
+		$_SESSION['svn_inst']['ldapUserdn']					= $tLdapUserdn;
+		$_SESSION['svn_inst']['ldapUserFilter']				= $tLdapUserFilter;
+		$_SESSION['svn_inst']['ldapUserObjectclass']		= $tLdapUserObjectclass;
+		$_SESSION['svn_inst']['ldapUserAdditionalFilter']	= $tLdapUserAdditionalFilter;
+		
+		if( strtoupper( $tDatabase) == "MYSQL" ) {
+			$tDatabaseCharsetDefault	= "latin1";
+			$tDatabaseCollationDefault	= "latin1_german1_ci";
+		} else {
+			$tDatabaseCharsetDefault	= "";
+			$tDatabaseCollationDefault	= "";
+		}
+		
+		if( strtoupper($tUseLdap) == "YES" ) {
+			
+			if( $tLdapHost == "" ) {
+				
+				$tErrors[]				= _("LDAP host is missing!");
+				$error					= 1;
+			
+			}
+			
+			if( $tLdapPort == "" ) {
+				
+				$tErrors[]				= _("LDAP port is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( ($tLdapProtocol != "2") and ($tLdapProtocol != "3") ) {
+				
+				$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $tLdapProtocol );
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapBinddn == "" ) {
+				
+				$tErrors[]				= _("LDAP bind dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapBindpw == "" ) {
+				
+				$tErrors[]				= _("LDAP bind password is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapUserdn == "" ) {
+				
+				$tErrors[]				= _("LDAP user dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapUserFilter == "" ) {
+				
+				$tErrors[]				= _("LDAP user filter attribute is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapUserObjectclass == "" ) {
+				
+				$tErrors[]				= _("LDAP user object class is missing!");
+				$error					= 1;
+									
+			}
+			
+		}
+		
+		if( $tCreateDatabaseTables == "YES" ) {
+			$tCreateDatabaseTablesYes	= "checked";
+			$tCreateDatabaseTablesNo	= "";
+		} else {
+			$tCreateDatabaseTablesYes	= "";
+			$tCreateDatabaseTablesNo	= "checked";
+		}
+		
+		if( $tDropDatabaseTables == "YES" ) {
+			$tDropDatabaseTablesYes		= "checked";
+			$tDropDatabaseTablesNo		= "";
+		} else {
+			$tDropDatabaseTablesYes		= "";
+			$tDropDatabaseTablesNo		= "checked";
+		}
+		
+		if( $tDatabase == "mysql" ) {
+			$tDatabaseMySQL				= "checked";
+			$tDatabasePostgreSQL		= "";
+			$tDatabaseOracle			= "";
+		} elseif( $tDatabase == "postgres8" ) {
+			$tDatabaseMySQL				= "";
+			$tDatabasePostgreSQL		= "checked";
+			$tDatabaseOracle			= "";
+		} elseif( $tDatabase == "oci8" ) {
+			$tDatabaseMySQL				= "";
+			$tDatabasePostgreSQL		= "";
+			$tDatabaseOracle			= "checked";
+		} else {
+			$tDatabaseMySQL				= "";
+			$tDatabasePostgreSQL		= "";
+		}
+		
+		if( $tSessionInDatabase == "YES" ) {
+			$tSessionInDatabaseYes		= "checked";
+			$tSessionInDatabaseNo		= "";
+		} else {
+			$tSessionInDatabaseYes		= "";
+			$tSessionInDatabaseNo		= "checked";
+		}
+		
+		if( $tUseLdap == "YES" ) {
+			$tUseLdapYes				= "checked";
+			$tUseLdapNo					= "";
+		} else {
+			$tUseLdapYes				= "";
+			$tUseLdapNo					= "checked";
+		}
+		
+		if( $tLdapProtocol == "3" ) {
+			$tLdap3						= "checked";
+			$tLdap2						= "";
+		} else {
+			$tLdap3						= "";
+			$tLdap2						= "checked";
+		}
+		
+		if( $error == 0 ) {
+				
+			$_SESSION['svn_inst']['useLdap']					= $tUseLdap;
+			$_SESSION['svn_inst']['ldapHost']					= $tLdapHost;
+			$_SESSION['svn_inst']['ldapPort']					= $tLdapPort;
+			$_SESSION['svn_inst']['ldapProtocol']				= $tLdapProtocol;
+			$_SESSION['svn_inst']['ldapBinddn']					= $tLdapBinddn;
+			$_SESSION['svn_inst']['ldapBindpw']					= $tLdapBindpw;
+			$_SESSION['svn_inst']['ldapUserdn']					= $tLdapUserdn;
+			$_SESSION['svn_inst']['ldapUserFilter']				= $tLdapUserFilter;
+			$_SESSION['svn_inst']['ldapUserObjectclass']		= $tLdapUserObjectclass;
+			$_SESSION['svn_inst']['ldapUserAdditionalFilter']	= $tLdapUserAdditionalFilter;
+			
+			$tDatabaseHost				= isset( $_SESSION['svn_inst']['databaseHost'] ) 		? $_SESSION['svn_inst']['databaseHost'] 		: "";
+			$tDatabaseUser				= isset( $_SESSION['svn_inst']['databaseUser'] ) 		? $_SESSION['svn_inst']['databaseUser'] 		: "";
+			$tDatabasePassword			= isset( $_SESSION['svn_inst']['databasePassword'] ) 	? $_SESSION['svn_inst']['databasePassword'] 	: ""; 
+			$tDatabaseName				= isset( $_SESSION['svn_inst']['databaseName'] ) 		? $_SESSION['svn_inst']['databaseName'] 		: "";
+			$tDatabaseSchema			= isset( $_SESSION['svn_inst']['databaseSchema'] ) 		? $_SESSION['svn_inst']['databaseSchema'] 		: "";
+			$tDatabaseTablespace		= isset( $_SESSION['svn_inst']['databaseTablespace'] ) 	? $_SESSION['svn_inst']['databaseTablespace'] 	: "";
+			$tDatabaseCharset			= isset( $_SESSION['svn_inst']['databaseCharset'] ) 	? $_SESSION['svn_inst']['databaseCharset'] 		: $tDatabaseCharsetDefault;
+			$tDatabaseCollation			= isset( $_SESSION['svn_inst']['databaseCollation'] ) 	? $_SESSION['svn_inst']['databaseCollation'] 	: $tDatabaseCollationDefault;
+			
+			if( $_SESSION['svn_inst']['useLdap'] == "YES" ) {
+			
+				doLdapTest();
+				
+			} else {
+				
+				$tErrors[]				= _("Testing LDAP connection doesn't make sense if you do not use LDAP!");
+				include ("../templates/install_page_1.tpl");
+				exit;
+			}
+			
+		} else {
+			
+			include ("../templates/install_page_1.tpl");
+			exit;
+		}
+	
 	} elseif( isset( $_POST['fSubmit_install'] ) ) {
 		
 		$CONF['database_type']				= "mysql";

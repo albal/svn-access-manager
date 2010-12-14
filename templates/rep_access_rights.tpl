@@ -75,8 +75,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>          \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />          \n";
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
@@ -86,8 +86,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>\n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />\n";
 				      		}
 				      	?>
 				      </td>

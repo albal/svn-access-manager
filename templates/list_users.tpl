@@ -20,9 +20,6 @@
 				   		<td>
 				   			<?php print _("Email"); ?>
 				   		</td>
-				   		<td align="center">
-				   			<?php print _("Password changed"); ?>
-				   		</td>
 				   		<td>
 				   			<?php print _("Right"); ?>
 				   		</td>
@@ -30,11 +27,21 @@
 				   			<?php print _("Locked"); ?>
 				   		</td>
 				   		<td align="center">
+				   			<?php print _("Password changed"); ?>
+				   		</td>
+				   		<td align="center">
 				   			<?php print _("Password expires"); ?>
 				   		</td>
 				   		<td>
 				   			<?php print _("Administrator"); ?>
 				   		</td>
+				   		<?php
+				   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+				   				print "\t\t\t\t\t\t<td>\n";
+				   				print "\t\t\t\t\t\t\t"._("LDAP User");
+				   				print "\t\t\t\t\t\t</td>\n";
+				   			}
+				   		?>
 				   		<td width="20">&nbsp;</td>
 				   		<td nowrap>
 				   			<?php print _("Action"); ?>
@@ -52,13 +59,15 @@
 				   			
 				   			if( ($rightAllowed == "edit") or
 				   			    ($rightAllowed == "delete" ) ) {
-				   			    $edit				= "<a href=\"workOnUser.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   			    $url				= htmlentities("workOnUser.php?id=".$entry['id']."&task=change");
+				   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 				   			} else {
 				   				$edit				= "";
 				   			}
 				   			
 				   			if( $rightAllowed == "delete" ) {
-				   				$delete				= "<a href=\"deleteUser.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   				$url				= htmlentities("deleteUser.php?id=".$entry['id']."&task=delete");
+				   				$delete				= "<a href=\"$url\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 				   			} else {
 				   				$delete				= "";
 				   			}
@@ -68,12 +77,20 @@
 				   			print "\t\t\t\t\t\t<td>".$entry['userid']."</td>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['name']."</td>\n";
 				   			print "\t\t\t\t\t\t<td>".$entry['givenname']."</td>\n";
-				   			print "\t\t\t\t\t\t<td>".$entry['emailaddress']."</td>\n";
-				   			print "\t\t\t\t\t\t<td align='center'>".$pwChanged."</td>\n";
+				   			print "\t\t\t\t\t\t<td>".$entry['emailaddress']."</td>\n";				   			
 				   			print "\t\t\t\t\t\t<td align='center'>".$entry['user_mode']."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$locked."</td>\n";
+				   			print "\t\t\t\t\t\t<td align='center'>".$pwChanged."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$expires."</td>\n";
 				   			print "\t\t\t\t\t\t<td align='center'>".$admin."</td>\n";
+				   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+				   				if( isset( $entry['ldap'] ) ) {
+				   					$ldap			= ($entry['ldap'] == 1) ? _("yes") : _("no");
+				   				} else {
+				   					$ldap			= _("No");
+				   				}
+				   				print "\t\t\t\t\t\t<td align='center'>".$ldap."</td>\n";
+				   			}
 				   			print "\t\t\t\t\t\t<td> </td>\n";
 				   			print "\t\t\t\t\t\t<td nowrap>".$action."</td>\n";
 				   			print "\t\t\t\t\t\t<td> </td>\n";
@@ -104,8 +121,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>          \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />          \n";
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
@@ -115,8 +132,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>\n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />\n";
 				      		}
 				      	?>
 				      </td>

@@ -2,6 +2,15 @@ Change Log
 ==========
 
 
+Release 0.5.1.0
+	- fixed bug 3125448
+	  restrict rights of an user who only has add user permission to not have the 
+	  possibility to gain more rights by creating users with higher level of rights
+	  
+	- resolved feature requests 1985511, 3079669 and 3109997
+	  added LDAP support to make connections to AD or other LDAP servers possible to
+	  get a single sign on
+	  
 Release 0.5.0.3
 	- fixed bug in resetpassword.php
 	

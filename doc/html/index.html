@@ -75,17 +75,18 @@
 				
 			<a href="#inst_db">2.2.3 Setup a MySQL database and a database user</a><br />
 
-            <a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
+            		<a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
 			
 			<a href="#inst_installer">2.2.5 Using the installer</a><br />
 				<blockquote>
-				<a href="#inst_dbsettings">2.2.5.1 Page 1 - Database settings</a><br />
-                <a href="#inst_dbsettings_2">2.2.5.2 Page 2 - Database settings part 2</a><br />
-                <a href="#inst_website_settings">2.2.5.3 Page 3 - Website settings</a><br />
+				<a href="#inst_dbsettings">2.2.5.1 Page 1 - Database and LDAP settings part 1</a><br />
+                		<a href="#inst_dbsettings_2">2.2.5.2 Page 2 - Database settings part 2</a><br />
+                		<a href="#inst_website_settings">2.2.5.3 Page 3 - Website settings</a><br />
 				<a href="#inst_adminaccount">2.2.5.4 Page 4 - Administrator account</a><br />
 				<a href="#inst_web server_settings">2.2.5.5 Page 5 - Web server settings</a><br />
 				<a href="#inst_misc_settings">2.2.5.6 Page 6 - Miscellaneous settings</a>
 				</blockquote>
+			<a href="#inst_ldap">2.2.6 Using LDAP</a><br />
 			</blockqoute>
 			
 		<a href="#inst_start">2.3 First steps after installation</a>
@@ -316,12 +317,14 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <p>After the installer is started, please fill in the values fitting your requirements. Below you find a short description of the several settings. The installer consists of six pages. After you finished filling the appropriate values click <em>Start installation</em>. If there are errors please correct them. Otherwise the installer starts and gives you a success information. Additional the web server configuration is printed out.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_dbsettings">2.2.5.1 Page 1 - Database settings</a></h5>
+<h5><a name="inst_dbsettings">2.2.5.1 Page 1 - Database and LDAP settings part 1</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part1.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part1.png" width="150" height="106" /></a></td>
         <td>
-            <p>The installer can create the database tables during installation. You can select if you want to drop already existing tables or not. The database user you want to use must have sufficient rights to do this. Please make sure that the user has the rights to create and drop tables and create and drop indices.</p>
+            <p>The installer can create the database tables during installation. You can select if you want to drop already existing tables or not. The database user you want to use must have 
+            sufficient rights to do this. Please make sure that the user has the rights to create and drop tables and create and drop indices.</p>
+            <p>If you want to use LDAP to verify users passwords you can configure the LDAP server, port, protocol and so on in this screen too.</p>
         </td>
     </tr>
 </table>
@@ -350,7 +353,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_adminaccount">2.2.3.4 Page 4 - Administrator account</a></h5>
+<h5><a name="inst_adminaccount">2.2.5.4 Page 4 - Administrator account</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part4.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part4.png" width="150" height="106" /></a></td>
@@ -399,6 +402,12 @@ http(s)://localhost/svnaccessmanager/install/install.php
 	<li>create the projects and assign responsible users to the projects</li>
 </ol>
 </p>
+<p><a href="#top">Back to top</a></p>
+
+<h4><a name="inst_ldap">2.2.6 Using LDAP</a></h4>
+
+<p>Some important notes about using LDAP and connecting existing installations of SVN Access Manager to LDAP.</p>
+
 <p><a href="#top">Back to top</a></p>
 
 <h2><a name="use">3. Using SVN Access Manager</a></h2>

@@ -592,6 +592,91 @@ function generate_password ()
 
 
 
+function make_seed()
+{
+  list($usec, $sec) = explode(' ', microtime());
+  return (float) $sec + ((float) $usec * 100000);
+}
+
+
+
+
+//
+// generatePassword
+// Action: Generates a random password
+// Call: generatePassword ()
+//
+function generatePassword( $admin ) {
+	
+	global $CONF;
+	
+	if( strtolower($admin) == "y" ) {
+		$pwLength		= 14;
+	} else {
+		$pwLength		= 8;
+	}
+	
+	$password			= "";
+
+	while( checkPasswordPolicy( $password, strtolower($admin) ) == 0 ) {
+		
+		$password		= "";
+		
+		for( $i = 1; $i <= $pwLength; $i++ ) {
+			
+			$group			= rand(0, 3);
+			mt_srand(make_seed());
+			
+			switch( $group ) {
+				case 0:
+					$index	= rand(0, 25);
+					$value	= chr( $index + 65 );
+					break;
+					
+				case 1:
+					$index	= rand(0, 25);
+					$value	= chr( $index + 97 );
+					break;
+					
+				case 2:
+					$value	= rand(0, 9);
+					break;
+					
+				case 3:
+					$group	= rand(0, 2);
+					
+					switch( $group ) {
+						case 0:
+							$index	= rand(33,47);
+							break;
+							
+						case 1:
+							$index = 60;
+							while( ($index == 60) or ($index == 62) ) { 
+								$index = rand(58, 64);
+							}
+							break;
+							
+						case 2:
+							$index = rand(91, 96);
+							break;
+							
+					}
+					
+					$value 	= chr( $index );
+					break;
+					
+			}
+			
+			$password		.= $value;
+		}
+	}
+	
+	return( $password );
+}
+
+
+
 //
 // pacrypt
 // Action: Encrypts password based on config settings

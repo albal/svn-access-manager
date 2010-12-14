@@ -81,7 +81,11 @@ function getRightsGranted( $user_id, $dbh ) {
 	}
 	
 	return $tRightsGranted;
-}		
+}	
+
+function getLdapUser() {
+	
+}	
 
 
 initialize_i18n();
@@ -95,6 +99,11 @@ $CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "User admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "workonuser";
+if( $rightAllowed == "add" ) {
+	$tDisabled								= "disabled";
+} else {
+	$tDisabled								= "";
+}
 
 if( $rightAllowed == "none" ) {
 	
@@ -143,6 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tAdministrator							= "n";
 		$tUserRight								= "read";
 		$tRightsGranted							= array();
+		if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+			$tUsers								= get_ldap_users();
+		}
 			
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
@@ -189,16 +201,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
-   	$tUserid								= db_escape_string( $_POST['fUserid'] );
-   	$tName									= db_escape_string( $_POST['fName'] );
-   	$tGivenname								= db_escape_string( $_POST['fGivenname'] );
-   	$tPassword								= db_escape_string( $_POST['fPassword'] );
-   	$tPassword2								= db_escape_string( $_POST['fPassword2'] );
-   	$tEmail									= db_escape_string( $_POST['fEmail'] );
-   	$tPasswordExpires						= db_escape_string( $_POST['fPasswordExpires'] );
-   	$tLocked								= db_escape_string( $_POST['fLocked'] );
-   	$tAdministrator							= db_escape_string( $_POST['fAdministrator'] );
-   	$tUserRight								= db_escape_string( $_POST['fUserRight'] );
+   	$tUserid								= isset($_POST['fUserid']) 			? db_escape_string( $_POST['fUserid'] )				: "";
+   	$tUserid								= explode( ":", $tUserid);
+   	$tUserid								= $tUserid[0];
+   	$tName									= isset($_POST['fName']) 			? db_escape_string( $_POST['fName'] )				: "";
+   	$tGivenname								= isset($_POST['fGivenname']) 		? db_escape_string( $_POST['fGivenname'] )			: "";
+   	$tPassword								= isset($_POST['fPassword']) 		? db_escape_string( $_POST['fPassword'] )			: "";
+   	$tPassword2								= isset($_POST['fPassword2']) 		? db_escape_string( $_POST['fPassword2'] )			: "";
+   	$tEmail									= isset($_POST['fEmail']) 			? db_escape_string( $_POST['fEmail'] )				: "";
+   	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: "0";
+   	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: "";
+   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: "";
+   	$tUserRight								= isset($_POST['fUserRight']) 		? db_escape_string( $_POST['fUserRight'] )			: "";
    	$tRightsAvailable						= getRights( $dbh );
    	
    	if( isset( $_POST['fSubmit'] ) ) {
@@ -234,35 +248,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Userid is missing, please fill in!" );
    				$error						= 1;
    				
+   			} elseif( $tUserid == "default" ) {
+   				
+   				$tMessage					= _( "Please select an user!" );
+   				$error						= 1;
+   				
    			} elseif( $tName == "" ) {
    				
    				$tMessage					= _( "Name missing, please fill in!" );
    				$error						= 1;
-   			
-   			} elseif( ($tPassword == "") and ($tPassword2 == "") ) {
+
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
-				$tMessage					= _( "A new user needs a password!" );
-				$error						= 1;
-				 
-   			} elseif( ($tPassword != "") or ($tPassword2 != "") ) {
+   				if( ($tPassword == "") and ($tPassword2 == "") ) {
    				
-				if( $tPassword != $tPassword2 ) {
-					
-					$tMessage				= _( "Passwords do not match!" );
+					$tMessage				= _( "A new user needs a password!" );
 					$error					= 1;
-					
-				} else {
-					
-					$retval					= checkPasswordPolicy( $tPassword, $tAdministrator );
-					if( $retval == 0 ) {
+   				}
+				 
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
+   				
+	   			if( ($tPassword != "") or ($tPassword2 != "") ) {
+	   				
+					if( $tPassword != $tPassword2 ) {
 						
-						$tMessage			= _( "Password does not match the password policy!" );
+						$tMessage			= _( "Passwords do not match!" );
 						$error				= 1;
+						
+					} else {
+						
+						$retval				= checkPasswordPolicy( $tPassword, $tAdministrator );
+						if( $retval == 0 ) {
+							
+							$tMessage		= _( "Password does not match the password policy!" );
+							$error			= 1;
+							
+						}
 						
 					}
 					
-				}
-				
+	   			}
    			}
    			
    			if( $tEmail == "" ) {
@@ -293,6 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   			   			
    			if( $error == 0 ) {
    				
+   				$tPassword					= ($tPassword == "") ? generatePassword("y") : $tPassword;
    				$pwcrypt					= db_escape_string( pacrypt( $tPassword ), $dbh );
    				$dbnow						= db_now();
    				$query 						= "INSERT INTO ".$schema."svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, created, created_user, password_modified, user_mode) " .
@@ -386,24 +412,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Name missing, please fill in!" );
    				$error						= 1;
    			
-   			} elseif( ($tPassword != "") or ($tPassword2 != "") ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
-				if( $tPassword != $tPassword2 ) {
-					
-					$tMessage				= _( "Passwords do not match!" );
-					$error					= 1;
-					
-				} else {
-					
-					$retval					= checkPasswordPolicy( $tPassword );
-					if( $retval == 0 ) {
+   				if( ($tPassword != "") or ($tPassword2 != "") ) {
+   				
+					if( $tPassword != $tPassword2 ) {
 						
-						$tMessage			= _( "Password does not match the password policy!" );
+						$tMessage			= _( "Passwords do not match!" );
 						$error				= 1;
 						
+					} else {
+						
+						$retval				= checkPasswordPolicy( $tPassword );
+						if( $retval == 0 ) {
+							
+							$tMessage		= _( "Password does not match the password policy!" );
+							$error			= 1;
+							
+						}
+						
 					}
-					
-				}
+				
+   				}
 				
    			}
    			
@@ -539,6 +569,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		$tMessage							= sprintf( _( "Invalid button %s, anyone tampered arround with?" ), $button );
    		
    	}
+   	
+   	if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+		$tUsers								= get_ldap_users();
+	}
    	
    	$header									= "users";
 	$subheader								= "users";

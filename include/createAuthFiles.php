@@ -285,11 +285,11 @@ function createAccessFile( $dbh ) {
 			
 			if( db_set_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
 				
-				$dir							= dirname( $CONF['SVNAccessFile'] );
-				$entropy						= create_salt();
-				$os								= determineOS();
-				$slash							= ($os == "windows") ? "\\" : "/";
-				$tempfile						= $dir.$slash."accesstemp_".$entropy;
+				$dir						= dirname( $CONF['SVNAccessFile'] );
+				$entropy					= create_salt();
+				$os							= determineOS();
+				$slash						= ($os == "windows") ? "\\" : "/";
+				$tempfile					= $dir.$slash."accesstemp_".$entropy;
 			
 				if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
 				
@@ -368,7 +368,8 @@ function createAccessFile( $dbh ) {
 									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
 								} 
 								
-									}
+							}
+							
 							fwrite( $fileHandle, $oldgroup." = ".$users."\n" );
 							
 						}
