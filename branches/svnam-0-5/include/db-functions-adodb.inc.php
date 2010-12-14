@@ -46,6 +46,7 @@ if ( file_exists ( realpath ( "./include/adodb5/adodb.inc.php" ) ) ) {
 } else {
 	
 	die( "can't find adodb.inc.php! Check your installation!\n" );
+	
 }
 
 
@@ -1101,6 +1102,303 @@ function db_escape_string ($string, $link="") {
 	}
 
    	return $escaped_string;
+}
+
+
+
+//
+// ldap_check_user_exists
+// Action: check if an user exists in ldap directory
+// Call: ldap_check_user_exists(string userid)
+//
+function ldap_check_user_exists($userid) {
+	
+	global $CONF;
+	
+	$ret										= 0;
+	
+	if( isset( $CONF['ldap_protocol'] ) ) {
+		$protocol								= $CONF['ldap_protocol'];
+	} else {
+		$protocol								= "2";
+	}
+	
+	$LDAP_CONNECT_OPTIONS = Array(
+         Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
+         Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
+         Array ("OPTION_NAME"=>LDAP_OPT_TIMELIMIT,"OPTION_VALUE" => 30),
+         Array ("OPTION_NAME"=>LDAP_OPT_PROTOCOL_VERSION,"OPTION_VALUE" => $protocol),
+         Array ("OPTION_NAME"=>LDAP_OPT_ERROR_NUMBER,"OPTION_VALUE" => 13),
+         Array ("OPTION_NAME"=>LDAP_OPT_REFERRALS,"OPTION_VALUE" => FALSE),
+         Array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
+	);
+	
+	try {
+		$ldap										= &NewADOConnection( 'ldap' );
+		#error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
+		$ldap->Connect( $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn'] );
+		$ldapOpen									= 1;
+		
+	} catch( exception $e ) {
+		
+		$_SESSION['svn_sessid']['dberror']			= $e->msg;
+      	$_SESSION['svn_sessid']['dbquery']			= sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+      	$_SESSION['svn_sessid']['dbfunction']		= sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+         
+		if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	    $location								= "database_error.php";
+	    } else {
+	  	    $location								= "../database_error.php";
+	  	}
+	  	
+	 	header( "location: $location");
+	 	exit;
+	 	
+	}
+	
+	try {
+		$filter									= "(&(".$CONF['user_filter_attr']."=$userid)(objectclass=".$CONF['user_objectclass']."))";
+		$ldap->SetFetchMode(ADODB_FETCH_ASSOC);
+		$rs										= $ldap->Execute( $filter );
+		if( $rs ) {
+			if( $rs->RecordCount() > 0 ) {
+				$ret							= 1;
+			} else {
+				$ret							= 0;
+			}
+		} else {
+			$ret								= 0;
+		}
+		
+	} catch( exception $e ) {
+		
+		error_log( "Error: ".$e->msg );
+		$ret									= 0;
+	 	
+	}
+	
+	if( $ldapOpen == 1 ) {
+		$ldap->Close();
+	}
+	
+	return( $ret );
+	
+} 
+
+
+
+//
+// get_ldap_users
+// Action: get available users from ldap
+// Call: et_ldap_users()
+//
+function get_ldap_users() {
+	
+	global $CONF;
+	
+	$tUsers										= array();
+	
+	$additionalFilter							= isset( $CONF['additional_user_filter'] ) ? $CONF['additional_user_filter'] : "";
+	
+	if( isset( $CONF['ldap_protocol'] ) ) {
+		$protocol								= $CONF['ldap_protocol'];
+	} else {
+		$protocol								= "2";
+	}
+	
+	$LDAP_CONNECT_OPTIONS = Array(
+         Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
+         Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
+         Array ("OPTION_NAME"=>LDAP_OPT_TIMELIMIT,"OPTION_VALUE" => 30),
+         Array ("OPTION_NAME"=>LDAP_OPT_PROTOCOL_VERSION,"OPTION_VALUE" => $protocol),
+         Array ("OPTION_NAME"=>LDAP_OPT_ERROR_NUMBER,"OPTION_VALUE" => 13),
+         Array ("OPTION_NAME"=>LDAP_OPT_REFERRALS,"OPTION_VALUE" => FALSE),
+         Array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
+	);
+	
+	try {
+		$ldap										= &NewADOConnection( 'ldap' );
+		#error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
+		$ldap->Connect( $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn'] );
+		$ldapOpen									= 1;
+		
+	} catch( exception $e ) {
+		
+		$_SESSION['svn_sessid']['dberror']			= $e->msg;
+      	$_SESSION['svn_sessid']['dbquery']			= sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+      	$_SESSION['svn_sessid']['dbfunction']		= sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+         
+		if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	    $location								= "database_error.php";
+	    } else {
+	  	    $location								= "../database_error.php";
+	  	}
+	  	
+	 	header( "location: $location");
+	 	exit;
+	 	
+	}
+	
+	if( $additionalFilter != "" ) {
+		$filter										= "(&(objectclass=".$CONF['user_objectclass'].")".$additionalFilter.")";
+	} else {
+		$filter										= "(objectclass=".$CONF['user_objectclass'].")";
+	}
+	
+	try {
+		$ldap->SetFetchMode(ADODB_FETCH_ASSOC);
+		$rs										= $ldap->Execute( $filter );
+		if( $rs ) {
+			
+			while( $arr = $rs->FetchRow() ) {
+				
+				$entry							= array();
+				
+				if( isset($CONF['attr_mapping']['uid']) ) {				
+					$entry['uid']				= $arr[$CONF['attr_mapping']['uid']];	
+				} else {
+					$entry['uid']				= $arr['uid'];	
+				}
+				
+				if( isset($CONF['attr_mapping']['name']) ) {				
+					$entry['name']				= $arr[$CONF['attr_mapping']['name']];	
+				} else {
+					$entry['name']				= $arr['sn'];	
+				}
+				
+				if( isset($CONF['attr_mapping']['givenName']) ) {				
+					$entry['givenname']			= $arr[$CONF['attr_mapping']['givenName']];	
+				} else {
+					$entry['givenname']			= $arr['givenName'];	
+				}
+				
+				if( isset($CONF['attr_mapping']['mail']) ) {				
+					$attr						= $CONF['attr_mapping']['mail'];	
+				} else {
+					$attr						= 'mail';	
+				}
+				
+				$entry['emailaddress']			= isset( $arr[$attr] ) ? $arr[$attr] : "";
+				
+				$tUsers[]						= $entry;
+			}
+		}
+		
+	} catch( exception $e ) {
+		
+		$_SESSION['svn_sessid']['dberror']			= $e->msg;
+      	$_SESSION['svn_sessid']['dbquery']			= $filter;
+      	$_SESSION['svn_sessid']['dbfunction']		= "get_ldap_user";
+         
+		if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	    $location								= "database_error.php";
+	    } else {
+	  	    $location								= "../database_error.php";
+	  	}
+	  	
+	 	header( "location: $location");
+	 	exit;
+	 	
+	}
+	
+	if( $ldapOpen == 1 ) {
+		$ldap->Close();
+	}
+	
+	asort( $tUsers );
+	
+	return( $tUsers );
+}
+
+
+
+//
+// check_ldap_password
+// Action: check password against ldap
+// Call: check_ldap_password(string userid, string password)
+//
+function check_ldap_password( $userid, $password ) {
+	
+	global $CONF;
+	
+	$ret										= 0;
+	
+	if( isset( $CONF['ldap_protocol'] ) ) {
+		$protocol								= $CONF['ldap_protocol'];
+	} else {
+		$protocol								= "2";
+	}
+	
+	$LDAP_CONNECT_OPTIONS = Array(
+         Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
+         Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
+         Array ("OPTION_NAME"=>LDAP_OPT_TIMELIMIT,"OPTION_VALUE" => 30),
+         Array ("OPTION_NAME"=>LDAP_OPT_PROTOCOL_VERSION,"OPTION_VALUE" => $protocol),
+         Array ("OPTION_NAME"=>LDAP_OPT_ERROR_NUMBER,"OPTION_VALUE" => 13),
+         Array ("OPTION_NAME"=>LDAP_OPT_REFERRALS,"OPTION_VALUE" => FALSE),
+         Array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
+	);
+	
+	try {
+		$ldap										= &NewADOConnection( 'ldap' );
+		#error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
+		$ldap->Connect( $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn'] );
+		$ldapOpen									= 1;
+		
+	} catch( exception $e ) {
+		
+		$_SESSION['svn_sessid']['dberror']			= $e->msg;
+      	$_SESSION['svn_sessid']['dbquery']			= sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+      	$_SESSION['svn_sessid']['dbfunction']		= sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+         
+		if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+	  	    $location								= "database_error.php";
+	    } else {
+	  	    $location								= "../database_error.php";
+	  	}
+	  	
+	 	header( "location: $location");
+	 	exit;
+	 	
+	}
+	
+	try {
+		$filter									= "(&(".$CONF['user_filter_attr']."=$userid)(objectclass=".$CONF['user_objectclass']."))";
+		$ldap->SetFetchMode(ADODB_FETCH_ASSOC);
+		#error_log("filter = $filter");
+		$rs										= $ldap->Execute( $filter );
+		if( $rs ) {
+			if( $rs->RecordCount() == 1 ) {
+				
+				$arr							= $rs->FetchRow();
+				$dn								= $arr['dn'];
+				#error_log( "dn = $dn" );
+				$ldapUser						= &NewADOConnection( 'ldap' );
+				$ldapUser->Connect( $CONF['ldap_server'], $dn, $password, $CONF['user_dn'] );
+				$ret							= 1;
+				$ldapUser->Close();
+				
+			} else {
+				$ret							= 0;
+				#error_log( "mehrere treffer" );
+			}
+			
+		} else {
+			$ret								= 0;
+		}
+		
+	} catch( exception $e ) {
+		
+		error_log( "Error: ".$e->msg );
+		$ret									= 0;
+	 	
+	}
+	
+	if( $ldapOpen == 1 ) {
+		$ldap->Close();
+	}
+	
+	return( $ret );
 }
 
 

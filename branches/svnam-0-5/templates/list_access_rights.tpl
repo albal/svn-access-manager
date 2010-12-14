@@ -52,12 +52,15 @@
 				   			$action					= "";
 				   			
 				   			if( $rightAllowed == "edit" ) {
-				   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
+				   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 				   			} elseif( $rightAllowed == "delete" ) {
-				   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
+				   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 				   			} elseif( $_SESSION['svn_sessid']['admin'] == "p" ) {
+				   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
 				   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-				   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 				   			}
 				   			
 				   			print "\t\t\t\t\t<tr valign=\"top\">\n";
@@ -106,8 +109,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>          \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />          \n";
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
@@ -117,8 +120,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>\n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />\n";
 				      		}
 				      	?>
 				      </td>

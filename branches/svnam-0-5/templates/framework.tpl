@@ -36,26 +36,26 @@
 ?>
 <head>
   <title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
-  <meta name="GENERATOR" content="Quanta Plus">
-  <meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>">
+  <meta name="GENERATOR" content="Quanta Plus" />
+  <meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>" />
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 </head>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
-			<td width="200px" bgcolor="#EAEAE8">
+			<td width="200" bgcolor="#EAEAE8">
 				<a href="http://www.svn-access-manager.org/" target="_blank">
 					<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
 				</a>
 			</td>
 			<td>
-				<div id="header_right" bgcolor="#EAEAE8">
+				<div id="header_right" class="bgEAEAE8">
 					<?php outputHeader($header); ?>
 				</div>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="200px">
+			<td width="200">
 				<div id="subheader_left">
 					&nbsp;
 				</div>
@@ -67,11 +67,11 @@
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="200px" bgcolor="#EAEAE8">
+			<td width="200" bgcolor="#EAEAE8">
 				<div id="left" class="leftMenu">
-					<ul>
+					<!--<ul> -->
 						<?php outputMenu($menu); ?>
-					</ul>
+					<!--</ul>-->
 				</div>
 			</td>
 			<td>

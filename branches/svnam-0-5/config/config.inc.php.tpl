@@ -159,6 +159,23 @@ Administrator
 
 EOM;
 
+//LDAP stuff
+$CONF['use_ldap']                               = '###USELDAP###';
+$CONF['bind_dn']                                = '###BINDDN###';
+$CONF['bind_pw']                                = '###BINDPW###';
+$CONF['user_dn']                                = '###USERDN###';
+$CONF['user_filter_attr']                       = '###USERFILTERATTR###';
+$CONF['user_objectclass']                       = '###USEROBJECTCLASS###';
+$CONF['additional_user_filter']                 = '###USERADDITIONALFILTER###';
+$CONF['ldap_server']                            = '###LDAPHOST###';
+$CONF['ldap_port']                              = '###LDAPPORT###';
+$CONF['ldap_protocol']                          = '###LDAPPROTOCOL###';
+$CONF['attr_mapping']['uid']                    = '###MAPUID###';
+$CONF['attr_mapping']['name']                   = '###MAPNAME###';
+$CONF['attr_mapping']['givenName']              = '###MAPGIVENNAME###';
+$CONF['attr_mapping']['mail']                   = '###MAPMAIL###';
+$CONF['attr_mapping']['userPassword']           = '###MAPPASSWORD###';
+
 //
 // END OF CONFIG FILE
 //

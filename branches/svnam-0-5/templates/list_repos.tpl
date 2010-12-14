@@ -31,14 +31,16 @@
 				   		
 				   			if( ($rightAllowed == "edit") or
 				   			    ($rightAllowed == "delete" ) ) {
-				   			    $edit				= "<a href=\"workOnRepo.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   			    $url				= htmlentities("workOnRepo.php?id=".$entry['id']."&task=change");
+				   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 				   			} else {
 				   				$edit				= "";
 				   			}
 				   			
 				   			
 				   			if( $rightAllowed == "delete" ) {
-				   				$delete				= "<a href=\"deleteRepo.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   				$url				= htmlentities("deleteRepo.php?id=".$entry['id']."&task=delete");
+				   				$delete				= "<a href=\"$url\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 				   			} else {
 				   				$delete				= "";
 				   			}
@@ -78,8 +80,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>          \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />          \n";
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
@@ -89,8 +91,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>\n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />\n";
 				      		}
 				      	?>
 				      </td>

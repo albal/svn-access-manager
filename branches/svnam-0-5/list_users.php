@@ -55,6 +55,10 @@ function getUsers( $start, $count, $dbh ) {
 	   	
 	while( $row = db_assoc( $result['result']) ) {
 	   
+	   	if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+			$row['ldap']	= ldap_check_user_exists( $row['userid'] );		
+		}
+		
 		$tUsers[] 		= $row;
 	   		
 	}

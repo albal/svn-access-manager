@@ -33,14 +33,16 @@
 				   		
 				   			if( ($rightAllowed == "edit") or
 				   			    ($rightAllowed == "delete" ) ) {
-				   			    $edit				= "<a href=\"workOnGroupAccessRight.php?id=".htmlentities($entry['id'])."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+				   			    $url				= htmlentities("workOnGroupAccessRight.php?id=".$entry['id']."&task=change");
+				   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 				   			} else {
 				   				$edit				= "";
 				   			}
 				   			
 				   			
 				   			if( $rightAllowed == "delete" ) {
-				   				$delete				= "<a href=\"deleteGroupAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+				   				$url				= htmlentities("deleteGroupAccessRight.php?id=".$entry['id']."&task=delete");
+				   				$delete				= "<a href=\"$url\" title=\""._("delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 				   			} else {
 				   				$delete				= "";
 				   			}
@@ -81,8 +83,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>          \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />          \n";
 				      		}
 				      		
 				      		if( $tNextDisabled != "disabled" ) {
@@ -92,8 +94,8 @@
 
 				      		} else {
 				      		
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'> \n";
-				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24'>\n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' /> \n";
+				      			print "\t\t\t\t\t\t<img src='./images/clear.gif' width='24' height='24' />\n";
 				      		}
 				      	?>
 				      </td>

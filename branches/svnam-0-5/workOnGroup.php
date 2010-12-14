@@ -287,6 +287,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tMessage						= _("Group description is missing. Please fill in!" );
 			$error							= 1;
 			
+		} elseif( count( $_SESSION['svn_sessid']['members'] ) == 0 ) {
+			
+			$tMessage						= _("A group must have one member at least! Otherwise delete the whole group!");
+			$error							= 1;
+			
 		} else {
 			
 			if( $_SESSION['svn_sessid']['task'] == "new" ) {
