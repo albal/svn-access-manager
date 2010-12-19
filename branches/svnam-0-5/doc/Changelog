@@ -11,6 +11,12 @@ Release 0.5.1.0
 	  added LDAP support to make connections to AD or other LDAP servers possible to
 	  get a single sign on
 	  
+	- fixed bug 3137282 and 3137284
+	  fixed paging issues with group list and access right list
+	  
+	- fixed bug 3139077
+	  now an user can't get write access on a particular directory when set to read only globally
+	  
 Release 0.5.0.3
 	- fixed bug in resetpassword.php
 	

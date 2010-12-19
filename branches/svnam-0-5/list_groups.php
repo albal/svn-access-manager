@@ -224,8 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  	} elseif( $button == _("<<") ) {
 		
 		$_SESSION['svn_sessid']['groupcounter']		= 0;
-		$tGroups									= getGroups( 0, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountGroups( $dbh );
+		$tGroups									= getGroups( 0, $CONF['page_size'], $groupAdmin, $tGroupsAllowed, $dbh );
+		$tCountRecords								= getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh );
 		$tPrevDisabled								= "disabled";
    	
    		if( $tCountRecords <= $CONF['page_size'] ) {
@@ -249,8 +249,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		}
 		
 		$start										= $_SESSION['svn_sessid']['groupcounter'] * $CONF['page_size'];
-		$tGroups									= getGroups( $start, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountGroups( $dbh );
+		$tGroups									= getGroups( $start, $CONF['page_size'], $groupAdmin, $tGroupsAllowed, $dbh );
+		$tCountRecords								= getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh );
    	
    		if( $tCountRecords <= $CONF['page_size'] ) {
 		
@@ -262,8 +262,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$_SESSION['svn_sessid']['groupcounter']++;
 		$start										= $_SESSION['svn_sessid']['groupcounter'] * $CONF['page_size'];
-		$tGroups									= getGroups( $start, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountGroups( $dbh );
+		$tGroups									= getGroups( $start, $CONF['page_size'], $groupAdmin, $tGroupsAllowed, $dbh );
+		$tCountRecords								= getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh );
 		
 		$tRemainingRecords							= $tCountRecords - $start - $CONF['page_size'];
 		
@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 	} elseif( $button == _(">>") ) {
 		
-		$count										= getCountGroups( $dbh );
+		$count										= getCountGroups( $groupAdmin, $tGroupsAllowed, $dbh );
 		$rest   									= $count % $CONF['page_size'];
 		if( $rest != 0 ) {
 			
@@ -290,7 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		}
 		
 		$_SESSION['svn_sessid']['groupcounter'] 	= floor($count / $CONF['page_size'] );
-		$tGroups									= getGroups( $start, $CONF['page_size'], $dbh );
+		$tGroups									= getGroups( $start, $CONF['page_size'], $groupAdmin, $tGroupsAllowed, $dbh );
 		$tNextDisabled								= "disabled";
 				
 	} else {

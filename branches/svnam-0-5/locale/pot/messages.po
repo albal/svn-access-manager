@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2010-05-16 10:34+0100\n"
+"PO-Revision-Date: 2010-12-19 08:37+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -9737,7 +9737,7 @@ msgstr "Benutzer existiert nicht!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/setAccessRight.php:358
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/setAccessRight.php:370
 msgid "User is not allowed to have write access, global right is read only"
-msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. DAs globale Recht ist \"nur lesen\""
+msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale Recht ist \"nur lesen\""
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:30
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/rep_granted_user_rights.tpl:30
