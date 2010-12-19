@@ -195,9 +195,8 @@ function getCountAccessRights( $user_id, $dbh ) {
 											  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
 											  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
-											  "   AND (svn_access_rights.deleted = '00000000000000') " .
-											  "GROUP BY svnrepos.reponame, svn_access_rights.path " .
-											  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
+											  "   AND (svn_access_rights.deleted = '00000000000000') ";
+											  
 		$result								= db_query( $query, $dbh );
 		
 		if( $result['rows'] == 1 ) {

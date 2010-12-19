@@ -375,6 +375,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			
 	   	}
 	   	
+	   	if( $error == 0 ) {
+	   		
+	   		if( $_SESSION['svn_sessid']['task'] == "change" ) {
+	   	
+	   			$mode						= db_getUserRightByUserid( $_SESSION['svn_sessid']['userid'], $dbh );
+	   			if( ($tAccessRight == "write") and ($mode != "write") ) {
+		   			
+		   			$tMessage				= _("User is not allowed to have write access, global right is read only" );
+		   			$error					= 1;
+	   			}
+	   			
+	   		}
+	   	
+	   	}
+	   	
 	   	if( ($_SESSION['svn_sessid']['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0) ) {
 	   		
 	   		$tMessage						= _("No user and no group selected!");
@@ -599,6 +614,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		
 		$tGid								= "";
+		
+	}
+	
+	if ( $_SESSION['svn_sessid']['task'] == "change" ) {
+		
+		$tReadonly							= "disabled";
+		
+	} else {
+		
+		$tReadonly							= "";
 		
 	}
    	

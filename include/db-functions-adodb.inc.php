@@ -1087,17 +1087,17 @@ function db_escape_string ($string, $link="") {
   		if( $link == "" ) {
       			$newConnection					= 1;
       			$link							= db_connect();
-      		} else {
+      	} else {
       			$newConnection					= 0;
-      		}
+      	}
       		
-      		$escaped_string						= $link->qstr( $string, get_magic_quotes_gpc() );
-      		$escaped_string						= preg_replace( '/^\'/', "", $escaped_string );
-      		$escaped_string						= preg_replace( '/\'$/', "", $escaped_string );
-      		
-      		if( $newConnection == 1 ) {
-      			db_disconnect( $link );
-      		}
+  		$escaped_string							= $link->qstr( $string, get_magic_quotes_gpc() );
+  		$escaped_string							= preg_replace( '/^\'/', "", $escaped_string );
+  		$escaped_string							= preg_replace( '/\'$/', "", $escaped_string );
+  		
+  		if( $newConnection == 1 ) {
+  			db_disconnect( $link );
+  		}
    
 	}
 
