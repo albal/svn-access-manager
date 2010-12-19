@@ -15,7 +15,10 @@ Release 0.5.1.0
 	  fixed paging issues with group list and access right list
 	  
 	- fixed bug 3139077
-	  now an user can't get write access on a particular directory when set to read only globally
+	  now an user can't get write access on a particular directories when set to read only globally
+	  
+	- fixed bug 3138664
+	  issue with db_escape_string db link
 	  
 Release 0.5.0.3
 	- fixed bug in resetpassword.php

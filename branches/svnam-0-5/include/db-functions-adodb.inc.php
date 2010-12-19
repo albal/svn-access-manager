@@ -1084,7 +1084,7 @@ function db_escape_string ($string, $link="") {
 		
 	} else {
   	
-  		if( $link == "" ) {
+  		if( empty($link) ) {
       			$newConnection					= 1;
       			$link							= db_connect();
       	} else {
