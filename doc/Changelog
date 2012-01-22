@@ -2,6 +2,17 @@ Change Log
 ==========
 
 
+Release 0.5.5.0
+    - new installer
+    
+    - included jquery and javascript tables. It is now possible to sort the
+      table contents by clicking into the head of the columns
+      
+    - removed sort user by and sort user order from preferences due to sortable
+      tables
+    
+    - added LDAP support
+    
 Release 0.5.1.0
 	- fixed bug 3125448
 	  restrict rights of an user who only has add user permission to not have the 

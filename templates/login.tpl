@@ -68,7 +68,7 @@ include( "./include/output.inc.php" );
 				   </tr>
 				   <tr>
 				      <td><?php print _('Password') . ":"; ?></td>
-				      <td><input type="password" name="fPassword" /></td>
+				      <td><input type="password" name="fPassword" autocomplete="off" /></td>
 				   </tr>
 				   <tr>
 				      <td colspan="2">&nbsp;</td>

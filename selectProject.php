@@ -44,8 +44,6 @@ $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $uId										= db_getIdByUserid( $SESSID_USERNAME, $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "selectproject";
