@@ -60,6 +60,7 @@ $CONF['database_tablespace']	= '###DBTABLESPACE###';
 $CONF['session_in_db']			= '###SESSIONINDB###';
 
 $CONF['website_charset']		= '###WEBSITECHARSET###';
+$CONF['website_url']			= '###WEBSITEURL###';
 
 // Sort order for user
 $CONF['user_sort_fields']		= "name,givenname";

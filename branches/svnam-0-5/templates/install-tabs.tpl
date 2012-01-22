@@ -396,6 +396,16 @@ include( "../include/output.inc.php" );
 							<tr>
 					      		<td colspan="4">&nbsp;</td>
 					   		</tr>
+					   		<tr>
+						   		<td nowrap><strong><?php print _("SVN Access Manager Website URL").": "; ?></strong></td>
+						   		<td>
+						   			<input type="text" name="fWebsiteUrl" value="<?php print $tWebsiteUrl; ?>" size="40" />
+						   		</td>
+						   		<td>
+						   			<?php print _("Enter the URL which should be printed into expired password warning mail!" ); ?>
+						   		</td>
+						   		<td>&nbsp;</td>
+						   	</tr>
 							<tr>
 						   		<td nowrap><strong><?php print _("Website characterset").": "; ?></strong></td>
 						   		<td>
@@ -672,6 +682,7 @@ include( "../include/output.inc.php" );
 						   		</td>
 						   		<td>&nbsp;</td>
 						   	</tr>
+						   	<!--
 						   	<tr>
 						   		<td nowrap><strong><?php print _("Use JavaScript").": "; ?></strong></td>
 						   		<td>
@@ -683,6 +694,7 @@ include( "../include/output.inc.php" );
 						   		</td>
 						   		<td>&nbsp;</td>
 						   	</tr>
+						   	-->
 						   	<tr>
 						   		<td nowrap><strong><?php print _("Page size").": "; ?></strong></td>
 						   		<td>
