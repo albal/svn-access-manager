@@ -53,9 +53,9 @@
 					   		print "\t\t\t\t\t\t<tr>\n";
 						   	print "\t\t\t\t\t\t\t<td><strong>"._("Password").": </strong></td>\n";
 						   	print "\t\t\t\t\t\t\t<td>\n";
-						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword\" value=\"$tPassword\" size=\"40\" maxsize=\"255\" />\n";
+						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword\" value=\"$tPassword\" size=\"40\" maxsize=\"255\" autocomplete=\"off\" />\n";
 						   	print "\t\t\t\t\t\t\t</td>\n";
-						   	print "\t\t\t\t\t\t\t\<td>&nbsp;</td>\n";
+						   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
 							print "\t\t\t\t\t\t</tr>\n";
 						   	print "\t\t\t\t\t\t<tr>\n";
 						   	print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Retype password").": </strong></td>\n";
@@ -74,25 +74,27 @@
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
-				   	<tr>
-				   		<?php
-				   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
-				   				print "\t\t\t\t\t\t\t<td nowrap><strong><"._("Password expires").": </strong></td>\n";
-				   				print "\t\t\t\t\t\t\t<td>\n";
-				   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\">\n";
-			   					if( $tPasswordExpires == 0 ) {
-			   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
-			   						print "\t\t\t\t\t\t\t\t<option value='1'>"._("yes")."</option>\n";
-			   					} else {
-			   						print "\t\t\t\t\t\t\t\t<option value='0'>"._("no")."</option>\n";
-			   						print "\t\t\t\t\t\t\t\t<option value='1' selected>"._("yes")."</option>\n";
-			   					}
-				   				print "\t\t\t\t\t\t\t\t</select>\n";
-				   				print "\t\t\t\t\t\t\t</td>\n";
-				   				print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
-				   			}
-				   		?>
-				   	</tr>
+				   	
+			   		<?php
+			   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
+			   				print "\n\t\t\t\t\t\t<tr>\n";
+			   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";
+			   				print "\t\t\t\t\t\t\t<td>\n";
+			   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\">\n";
+		   					if( $tPasswordExpires == 0 ) {
+		   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
+		   						print "\t\t\t\t\t\t\t\t<option value='1'>"._("yes")."</option>\n";
+		   					} else {
+		   						print "\t\t\t\t\t\t\t\t<option value='0'>"._("no")."</option>\n";
+		   						print "\t\t\t\t\t\t\t\t<option value='1' selected>"._("yes")."</option>\n";
+		   					}
+			   				print "\t\t\t\t\t\t\t\t</select>\n";
+			   				print "\t\t\t\t\t\t\t</td>\n";
+			   				print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+			   				print "\t\t\t\t\t\t</tr>\n";
+			   			}
+			   		?>
+				   	
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Locked").": "; ?></strong></td>
 				   		<td>

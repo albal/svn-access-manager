@@ -159,17 +159,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			$error							= 1;
    			$tMessage						= _("Records per page must contain digits only!" );
    			
-   		} elseif( $tSortField == "" ) {
+   		} 
+   		#elseif( $tSortField == "" ) {
    			
-   			$error							= 1;
-   			$tMessage						= _("Please select the user sort fields!" );
+   		#	$error							= 1;
+   		#	$tMessage						= _("Please select the user sort fields!" );
    			
-   		} elseif( $tSortOrder == "" ) {
+   		#} elseif( $tSortOrder == "" ) {
    			
-   			$error							= 1;
-   			$tMessage						= -_("Please select the user sort order!" );
+   		#	$error							= 1;
+   		#	$tMessage						= -_("Please select the user sort order!" );
    			
-   		}
+   		#}
    		
    		if( $error == 0 ) {
    			

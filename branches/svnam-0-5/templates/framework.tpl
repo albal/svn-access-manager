@@ -35,10 +35,23 @@
 	}
 ?>
 <head>
-  <title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
-  <meta name="GENERATOR" content="Quanta Plus" />
-  <meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>" />
-  <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+  	<title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
+  	<meta name="GENERATOR" content="Quanta Plus" />
+  	<meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>" />
+  	<!--<link rel="stylesheet" type="text/css" href="./style/lhelstyle.css" />-->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="./style/lhelie.css" />
+	<![endif]-->
+	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
+	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+	
+	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
+	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
+	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
+	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
+	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 </head>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">

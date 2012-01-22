@@ -144,8 +144,6 @@ check_password_expired();
 $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Reports", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "rep_access_rights";
 
@@ -187,14 +185,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( isset( $_POST['fSubmit'] ) ) {
 		$button									= db_escape_string( $_POST['fSubmit'] );
-	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
-		$button									= _("<<");
-	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {
-		$button									= _("<");
-	} elseif( isset( $_POST['fSubmit_n_x'] ) ) {
-		$button									= _(">");			
-	} elseif( isset( $_POST['fSubmit_l_x'] ) ) {
-		$button									= _(">>");
 	} elseif( isset( $_POST['fSubmit_date_x'] ) ) {
 		$button									= _("Create report");
 	} elseif( isset( $_POST['fSubmit_date'] ) ) {
@@ -242,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$valid									= $year.$month.$day;
 			$_SESSION['svn_sessid']['valid']		= $valid;
 			$_SESSION['svn_sessid']['rightcounter']	= 0;
-   			$tAccessRights							= getAccessRights( $_SESSION['svn_sessid']['valid'], 0, $CONF['page_size'], $dbh );
+   			$tAccessRights							= getAccessRights( $_SESSION['svn_sessid']['valid'], 0, -1, $dbh );
    			$tCountRecords							= getCountAccessRights( $_SESSION['svn_sessid']['valid'], $dbh );
    			$tPrevDisabled							= "disabled";
 	
@@ -253,79 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			}
 			
 		}
-			
-	} elseif( $button == _("<<") ) {
-		
-		$_SESSION['svn_sessid']['rightcounter']		= 0;
-		$tAccessRights								= getAccessRights( $_SESSION['svn_sessid']['valid'], 0, $CONF['page_size'], $dbh );
-   		$tCountRecords								= getCountAccessRights( $_SESSION['svn_sessid']['valid'], $dbh );
-   		$tPrevDisabled								= "disabled";
-	
-		if( $tCountRecords <= $CONF['page_size'] ) {
-		
-			$tNextDisabled 							= "disabled";
-		
-		}
-		
-	} elseif( $button == _("<") ) {
-		
-		$_SESSION['svn_sessid']['rightcounter']--;
-		if( $_SESSION['svn_sessid']['rightcounter'] < 0 ) {
-			
-			$_SESSION['svn_sessid']['rightcounter']	= 0;
-			$tPrevDisabled							= "disabled";
-			
-		} elseif( $_SESSION['svn_sessid']['rightcounter'] == 0 ) {
-			
-			$tPrevDisabled							= "disabled";
-			
-		}
-		
-		$start										= $_SESSION['svn_sessid']['rightcounter'] * $CONF['page_size'];
-		$tAccessRights								= getAccessRights( $_SESSION['svn_sessid']['valid'], 0, $CONF['page_size'], $dbh );
-   		$tCountRecords								= getCountAccessRights( $_SESSION['svn_sessid']['valid'], $dbh );
-	
-		if( $tCountRecords <= $CONF['page_size'] ) {
-		
-			$tNextDisabled 							= "disabled";
-		
-		}
-		
-	} elseif( $button == _(">") ) {
-		
-		$_SESSION['svn_sessid']['rightcounter']++;
-		$start										= $_SESSION['svn_sessid']['rightcounter'] * $CONF['page_size'];
-		$tAccessRights								= getAccessRights( $_SESSION['svn_sessid']['valid'], $start, $CONF['page_size'], $dbh );
-   		$tCountRecords								= getCountAccessRights( $_SESSION['svn_sessid']['valid'], $dbh );
-		$tRemainingRecords							= $tCountRecords - $start - $CONF['page_size'];
-		
-		if( $tRemainingRecords <= 0 ) {
-			
-			$tNextDisabled							= "disabled";
-			
-		}
-		
-	} elseif( $button == _(">>") ) {
-		
-		$count										= getCountAccessRights( $_SESSION['svn_sessid']['valid'], $dbh );
-		$rest   									= $count % $CONF['page_size'];
-		if( $rest != 0 ) {
-			
-			$start									= $count - $rest + 1;
-			$_SESSION['svn_sessid']['rightcounter'] = floor($count / $CONF['page_size'] );
-			
-		} else {
-		
-			#$start									= $count - 1;
-			$start									= $count - $CONF['page_size'] - 1;
-			$_SESSION['svn_sessid']['rightcounter'] = floor($count / $CONF['page_size'] ) - 1;
-			
-		}
-		
-		
-		$tAccessRights								= getAccessRights( $_SESSION['svn_sessid']['valid'], $start, $CONF['page_size'], $dbh );
-		$tNextDisabled								= "disabled";
-				
+						
 	} else {
 		
 		$tMessage									= sprintf( _( "Invalid button %s, anyone tampered arround with?" ), $button );
