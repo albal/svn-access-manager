@@ -1,9 +1,6 @@
-Update to V0.5.2.0
+Update to V0.5.5.0
 
-
-Update to V0.5.1.0
-
-These are the steps to update from version 0.5.0.x to 0.5.1.0
+These are the steps to update from version 0.5.0.x to 0.5.5.0
 
 1. Edit config.inc.php in /etc/svn-access-manager directory.
 
@@ -31,7 +28,7 @@ These are the steps to update from version 0.5.0.x to 0.5.1.0
    There are some explanations regarding LDAP connection and issues which can occur
    connecting your environment to LDAP!
    
-2. Release 0.5.1.0  comes with new features. That means that there are a lot of files 
+2. Release 0.5.5.0  comes with new features. That means that there are a lot of files 
    changed. Either compare your installation to the current release or install the 
    release from scratch and copy the changed config file from your previous 
    installation into your new installation.

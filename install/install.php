@@ -2594,98 +2594,105 @@ function doInstall() {
 		
 		if( strtoupper($_SESSION['svn_inst']['useLdap']) == "YES" ) {
 				
-				if( $_SESSION['svn_inst']['ldapHost'] == "" ) {
-					
-					$tErrors[]				= _("LDAP host is missing!");
-					$error					= 1;
+			if( $_SESSION['svn_inst']['ldapHost'] == "" ) {
 				
-				}
+				$tErrors[]				= _("LDAP host is missing!");
+				$error					= 1;
+			
+			}
+			
+			if( $_SESSION['svn_inst']['ldapPort'] == "" ) {
 				
-				if( $_SESSION['svn_inst']['ldapPort'] == "" ) {
-					
-					$tErrors[]				= _("LDAP port is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( ($_SESSION['svn_inst']['ldapProtocol'] != "2") and ($_SESSION['svn_inst']['ldapProtocol'] != "3") ) {
-					
-					$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $_SESSION['svn_inst']['ldapProtocol'] );
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapBinddn'] == "" ) {
-					
-					$tErrors[]				= _("LDAP bind dn is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapBindpw'] == "" ) {
-					
-					$tErrors[]				= _("LDAP bind password is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapUserdn'] == "" ) {
-					
-					$tErrors[]				= _("LDAP user dn is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapUserFilter'] == "" ) {
-					
-					$tErrors[]				= _("LDAP user filter attribute is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapUserObjectclass'] == "" ) {
-					
-					$tErrors[]				= _("LDAP user object class is missing!");
-					$error					= 1;
-										
-				}
-				
-				if( $_SESSION['svn_inst']['ldapAttrUid'] == "" ) {
-					
-					$tErrors[]				= _("LDAP attribute mapping for uid is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapAttrName'] == "" ) {
-					
-					$tErrors[]				= _("LDAP attribute mapping for name is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapAttrGivenname'] == "" ) {
-					
-					$tErrors[]				= _("LDAP attribute mapping for given name is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapAttrMail'] == "" ) {
-					
-					$tErrors[]				= _("LDAP attribute mapping for mail is missing!");
-					$error					= 1;
-					
-				}
-				
-				if( $_SESSION['svn_inst']['ldapAttrPassword'] == "" ) {
-					
-					$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
-					$error					= 1;
-					
-				}
+				$tErrors[]				= _("LDAP port is missing!");
+				$error					= 1;
 				
 			}
+			
+			if( ($_SESSION['svn_inst']['ldapProtocol'] != "2") and ($_SESSION['svn_inst']['ldapProtocol'] != "3") ) {
+				
+				$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $_SESSION['svn_inst']['ldapProtocol'] );
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapBinddn'] == "" ) {
+				
+				$tErrors[]				= _("LDAP bind dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapBindpw'] == "" ) {
+				
+				$tErrors[]				= _("LDAP bind password is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapUserdn'] == "" ) {
+				
+				$tErrors[]				= _("LDAP user dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapUserFilter'] == "" ) {
+				
+				$tErrors[]				= _("LDAP user filter attribute is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapUserObjectclass'] == "" ) {
+				
+				$tErrors[]				= _("LDAP user object class is missing!");
+				$error					= 1;
+									
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrUid'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for uid is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrName'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for name is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrGivenname'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for given name is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrMail'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for mail is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrPassword'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
+				$error					= 1;
+				
+			}
+			
+		}
+		
+		if( $_SESSION['svn_inst']['websiteUrl'] == "" ) {
+			
+			$tErrors[]						= _("SVN Access Mabager website url is missing!");
+			$error							= 1;
+			
+		}
 		
 		if( $_SESSION['svn_inst']['websiteCharset'] == "" ) {
 			
@@ -2908,7 +2915,7 @@ function doInstall() {
 			$content					= str_replace( '###PAGESIZE###', 			$_SESSION['svn_inst']['pageSize'], $content );
 			$content					= str_replace( '###SVNCMD###', 				$_SESSION['svn_inst']['svnCommand'], $content );
 			$content					= str_replace( '###GREPCMD###', 			$_SESSION['svn_inst']['grepCommand'], $content );
-			$content					= str_replace( '###USEJS###', 				$_SESSION['svn_inst']['javaScript'], $content );
+			$content					= str_replace( '###USEJS###', 				'YES', $content );
 			$content					= str_replace( '###SVNACCESSFILE###', 		$_SESSION['svn_inst']['svnAccessFile'], $content );
 			$content					= str_replace( '###ACCESSCONTROLLEVEL###', 	$_SESSION['svn_inst']['accessControlLevel'], $content );
 			$content					= str_replace( '###SVNAUTHFILE###', 		$_SESSION['svn_inst']['authUserFile'], $content );
@@ -2928,6 +2935,7 @@ function doInstall() {
 			$content					= str_replace( '###SEPERATEFILESPERREPO###',$_SESSION['svn_inst']['perRepoFiles'], $content );
 			$content					= str_replace( '###SVNADMINCMD###', 		$_SESSION['svn_inst']['svnadminCommand'], $content );
 			$content					= str_replace( '###WEBSITECHARSET###', 		$_SESSION['svn_inst']['websiteCharset'], $content );
+			$content					= str_replace( '###WEBSITEURL###',			$_SESSION['svn_inst']['websiteUrl'], $content );
 			$content					= str_replace( '###LOSTPWSENDER###', 		$_SESSION['svn_inst']['lpwMailSender'], $content );
 			$content					= str_replace( '###LOSTPWMAXERROR###', 		3, $content );
 			$content					= str_replace( '###LOSTPWLINKVALID###', 	$_SESSION['svn_inst']['lpwLinkValid'], $content );
@@ -3238,6 +3246,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tLdapAttrMail							= "";
 	$tLdapAttrPassword						= "";
 	$tWebsiteCharset						= "";
+	$tWebsiteUrl							= "";
 	$tLpwMailSender							= "";
 	$tLpwLinkValid							= "";
 	$tUsername								= "";
@@ -3421,6 +3430,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrGivenname					= isset( $_POST['fLdapAttrGivenname'])		? ( $_POST['fLdapAttrGivenname'])		: "";
 	$tLdapAttrMail						= isset( $_POST['fLdapAttrMail'])			? ( $_POST['fLdapAttrMail'])			: "";
 	$tLdapAttrPassword					= isset( $_POST['fLdapAttrPassword'])		? ( $_POST['fLdapAttrPassword'])		: "";
+	$tWebsiteUrl						= isset( $_POST['fWebsiteUrl'])				? ( $_POST['fWebsiteUrl'])				: "";
 	$tWebsiteCharset					= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
 	$tLpwMailSender						= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
 	$tLpwLinkValid						= isset( $_POST['fLpwLinkValid'] ) 			? ( $_POST['fLpwLinkValid'] )			: "";
@@ -3479,6 +3489,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['ldapAttrGivenname']			= $tLdapAttrGivenname;
 	$_SESSION['svn_inst']['ldapAttrMail']				= $tLdapAttrMail;
 	$_SESSION['svn_inst']['ldapAttrPassword']			= $tLdapAttrPassword;	
+	$_SESSION['svn_inst']['websiteUrl']					= $tWebsiteUrl;
 	$_SESSION['svn_inst']['websiteCharset']				= $tWebsiteCharset;
 	$_SESSION['svn_inst']['lpwMailSender']				= $tLpwMailSender;
 	$_SESSION['svn_inst']['lpwLinkValid']				= $tLpwLinkValid;	
@@ -3652,6 +3663,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$error					= 1;
 				
 			}
+		}
+		
+		if( $tWebsiteUrl == "" ) {
+			
+			$tErrors[]						= _("SVN Access Manger Website URL is missing!");
+			$error							= 1;
+			
 		}
 
 		if( $tWebsiteCharset == "" ) {
@@ -3853,15 +3871,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrGivenname			= isset( $_SESSION['svn_inst']['ldapAttrGivenname'] ) 	? $_SESSION['svn_inst']['ldapAttrGivenname'] 	: "givenName";
 	$tLdapAttrMail				= isset( $_SESSION['svn_inst']['ldapAttrMail'] ) 		? $_SESSION['svn_inst']['ldapAttrMail'] 		: "mail";
 	$tLdapAttrPassword			= isset( $_SESSION['svn_inst']['ldapAttrPassword'] ) 	? $_SESSION['svn_inst']['ldapAttrPassword'] 	: "userPassword";
-	$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 	? $_SESSION['svn_inst']['websiteCharset'] 	: "iso8859-15";
-	$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 	? $_SESSION['svn_inst']['lpwMailSender'] 	: "";
-	$tLpwLinkValid				= isset( $_SESSION['svn_inst']['lpwLinkValid'] ) 	? $_SESSION['svn_inst']['lpwLinkValid'] 	: "";
-	$tUsername					= isset( $_SESSION['svn_inst']['username'] ) ? $_SESSION['svn_inst']['username'] : "";
-	$tPassword					= isset( $_SESSION['svn_inst']['password'] ) ? $_SESSION['svn_inst']['password'] : "";
-	$tPassword2					= isset( $_SESSION['svn_inst']['password2'] ) ? $_SESSION['svn_inst']['password2'] : "";
-	$tGivenname					= isset( $_SESSION['svn_inst']['givenname'] ) ? $_SESSION['svn_inst']['givenname'] : "";
-	$tName						= isset( $_SESSION['svn_inst']['name'] ) ? $_SESSION['svn_inst']['name'] : "";
-	$tAdminEmail				= isset( $_SESSION['svn_inst']['adminEmail'] ) ? $_SESSION['svn_inst']['adminEmail'] : "";
+	$tWebisteUrl				= isset( $_SESSION['svn_inst']['webisteUrl'])			? $_SESSION['svn_inst']['websiteUrl']			: "";
+	$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 		? $_SESSION['svn_inst']['websiteCharset'] 		: "iso8859-15";
+	$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 		? $_SESSION['svn_inst']['lpwMailSender'] 		: "";
+	$tLpwLinkValid				= isset( $_SESSION['svn_inst']['lpwLinkValid'] ) 		? $_SESSION['svn_inst']['lpwLinkValid'] 		: "";
+	$tUsername					= isset( $_SESSION['svn_inst']['username'] ) 			? $_SESSION['svn_inst']['username'] 			: "";
+	$tPassword					= isset( $_SESSION['svn_inst']['password'] ) 			? $_SESSION['svn_inst']['password'] 			: "";
+	$tPassword2					= isset( $_SESSION['svn_inst']['password2'] ) 			? $_SESSION['svn_inst']['password2'] 			: "";
+	$tGivenname					= isset( $_SESSION['svn_inst']['givenname'] ) 			? $_SESSION['svn_inst']['givenname'] 			: "";
+	$tName						= isset( $_SESSION['svn_inst']['name'] ) 				? $_SESSION['svn_inst']['name'] 				: "";
+	$tAdminEmail				= isset( $_SESSION['svn_inst']['adminEmail'] ) 			? $_SESSION['svn_inst']['adminEmail'] 			: "";
 	$tUseSvnAccessFile			= isset( $_SESSION['svn_inst']['useSvnAccessFile'] ) 	? $_SESSION['svn_inst']['useSvnAccessFile'] 	: "";
 	$tSvnAccessFile				= isset( $_SESSION['svn_inst']['svnAccessFile'] ) 		? $_SESSION['svn_inst']['svnAccessFile'] 		: "";
 	$tAccessControlLevel		= isset( $_SESSION['svn_inst']['accessControlLevel'] ) 	? $_SESSION['svn_inst']['accessControlLevel'] 	: "dirs";

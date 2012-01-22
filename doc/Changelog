@@ -5,15 +5,17 @@ Change Log
 Release 0.5.5.0
     - new installer
     
-    - included jquery and javascript tables. It is now possible to sort the
+    - included jquery and JavaScript tables. It is now possible to sort the
       table contents by clicking into the head of the columns
       
     - removed sort user by and sort user order from preferences due to sortable
       tables
+      
+    - removed selection for use of JaveScript in installer
+      because JavaScript is now necessary for JQuery
     
     - added LDAP support
     
-Release 0.5.1.0
 	- fixed bug 3125448
 	  restrict rights of an user who only has add user permission to not have the 
 	  possibility to gain more rights by creating users with higher level of rights
