@@ -219,6 +219,7 @@ function outputMenu($area) {
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_log.php\">"._("Log")."</a></li>\n";
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_locked_users.php\">"._("Locked users")."</a></li>\n";
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_granted_user_rights.php\">"._("Granted user rights")."</a></li>\n";
+		print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_show_user.php\">"._("Show user")."</a></li>\n";
 		print "\t\t\t\t\t<li class='leftMenu'>&nbsp;</li>\n";
 		print "\t\t\t\t</ul>\n";
 		

@@ -16,6 +16,9 @@ Release 0.5.5.0
     
     - added LDAP support
     
+    - added report to user's groups and access rights
+      feature request ID 3155553
+    
 	- fixed bug 3125448
 	  restrict rights of an user who only has add user permission to not have the 
 	  possibility to gain more rights by creating users with higher level of rights
