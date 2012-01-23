@@ -889,3 +889,100 @@ a:visited, a:active {
 #accessrightlist_table tr.odd {
 	background-color: #e3e3e3;
 }
+
+
+
+#showusergroup_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#showusergroup_table td {padding-left:1px; padding-right:1px;font-size:1em;}
+#showusergroup_table th {white-space:nowrap;}
+#showusergroup_table td[headers~=ui-table-showusergroup_table-header-1] {white-space:nowrap; text-align:left;}
+#showusergroup_table td[headers~=ui-table-showusergroup_table-header-2] {text-align:left;}
+
+#showusergroup_table th { 	
+	border: 1px solid #cccccc; 
+}
+#showusergroup_table th a {	
+	/*padding: 0.5em 2em 0.5em 0.7em; */
+	padding: 0.5em 2em 0.5em 0.7em;
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#showusergroup_table th a:hover {
+	text-decoration:none;
+}	
+#showusergroup_table th.ui-table-desc a {	
+	background: url(./images/desc.gif) right center no-repeat;
+}
+#showusergroup_table th.ui-table-asc a{	
+	background: url(./images/asc.gif) right center no-repeat;
+}
+#showusergroup_table th.ui-table-desc a:hover,	
+#showusergroup_table th.ui-table-desc a:active,	
+#showusergroup_table th.ui-table-desc a:focus, 
+#showusergroup_table th a:hover,	
+#showusergroup_table th a:active,	
+#showusergroup_table th a:focus{	
+	background: url(./images/asc.gif) right center no-repeat;
+}
+#showusergroup_table th.ui-table-asc a:hover, 
+#showusergroup_table th.ui-table-asc a:active, 
+#showusergroup_table th.ui-table-asc a:focus{	
+	background: url(./images/desc.gif) right center no-repeat;
+}
+#showusergroup_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}
+#showusergroup_table tr.odd {
+	background-color: #e3e3e3;
+}
+
+
+#showuserright_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#showuserright_table td {padding-left:1px; padding-right:1px;font-size:1em;}
+#showuserright_table th {white-space:nowrap;}
+#showuserright_table td[headers~=ui-table-showuserright_table-header-1] {white-space:nowrap; text-align:left;}
+#showuserright_table td[headers~=ui-table-showuserright_table-header-2] {text-align:left;}
+
+#showuserright_table th { 	
+	border: 1px solid #cccccc; 
+}
+#showuserright_table th a {	
+	/*padding: 0.5em 2em 0.5em 0.7em; */
+	padding: 0.5em 2em 0.5em 0.7em;
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#showuserright_table th a:hover {
+	text-decoration:none;
+}	
+#showuserright_table th.ui-table-desc a {	
+	background: url(./images/desc.gif) right center no-repeat;
+}
+#showuserright_table th.ui-table-asc a{	
+	background: url(./images/asc.gif) right center no-repeat;
+}
+#showuserright_table th.ui-table-desc a:hover,	
+#showuserright_table th.ui-table-desc a:active,	
+#showuserright_table th.ui-table-desc a:focus, 
+#showuserright_table th a:hover,	
+#showuserright_table th a:active,	
+#showuserright_table th a:focus{	
+	background: url(./images/asc.gif) right center no-repeat;
+}
+#showuserright_table th.ui-table-asc a:hover, 
+#showuserright_table th.ui-table-asc a:active, 
+#showuserright_table th.ui-table-asc a:focus{	
+	background: url(./images/desc.gif) right center no-repeat;
+}
+#showuserright_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}
+#showuserright_table tr.odd {
+	background-color: #e3e3e3;
+}
