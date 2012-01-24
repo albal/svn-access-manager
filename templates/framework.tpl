@@ -53,52 +53,75 @@
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 </head>
-<body>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
-		<tr valign="top">
-			<td width="200" bgcolor="#EAEAE8">
-				<a href="http://www.svn-access-manager.org/" target="_blank">
-					<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
-				</a>
-			</td>
-			<td>
-				<div id="header_right" class="bgEAEAE8">
-					<?php outputHeader($header); ?>
-				</div>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="200">
-				<div id="subheader_left">
-					&nbsp;
-				</div>
-			</td>
-			<td>
-				<div id="subheader_right">
-					<?php outputSubHeader($subheader); ?>
-				</div>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="200" bgcolor="#EAEAE8">
-				<div id="left" class="leftMenu">
-					<!--<ul> -->
-						<?php outputMenu($menu); ?>
-					<!--</ul>-->
-				</div>
-			</td>
-			<td>
-				<div id="right">
-					<?php include( "./templates/".$template ); ?>
-				</div>
-			
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<?php include( "footer.tpl" ); ?>
-			</td>
-		</tr>
-	</table>
+<body  class="noscript">
+	<script type="text/javascript">
+		$("body").removeClass("noscript");
+	</script>
+	
+	<div class="disabled">
+		
+		<div class="logoBar">
+			<a href="#">
+				<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+			</a>
+		</div>
+		
+		<!-- BEGIN Liquid Middle Column -->	
+		<div class="Content">
+		   
+			<p><?php print _("Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"); ?></p>
+
+		</div>
+		<!-- END Liquid Middle Column -->	
+	</div>
+
+	<div class="enabled">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td width="200" bgcolor="#EAEAE8">
+					<a href="http://www.svn-access-manager.org/" target="_blank">
+						<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+					</a>
+				</td>
+				<td>
+					<div id="header_right" class="bgEAEAE8">
+						<?php outputHeader($header); ?>
+					</div>
+				</td>
+			</tr>
+			<tr valign="top">
+				<td width="200">
+					<div id="subheader_left">
+						&nbsp;
+					</div>
+				</td>
+				<td>
+					<div id="subheader_right">
+						<?php outputSubHeader($subheader); ?>
+					</div>
+				</td>
+			</tr>
+			<tr valign="top">
+				<td width="200" bgcolor="#EAEAE8">
+					<div id="left" class="leftMenu">
+						<!--<ul> -->
+							<?php outputMenu($menu); ?>
+						<!--</ul>-->
+					</div>
+				</td>
+				<td>
+					<div id="right">
+						<?php include( "./templates/".$template ); ?>
+					</div>
+				
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<?php include( "footer.tpl" ); ?>
+				</td>
+			</tr>
+		</table>
+	</dvi>    
 </body>
 </html>

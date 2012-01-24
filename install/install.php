@@ -2689,7 +2689,7 @@ function doInstall() {
 		
 		if( $_SESSION['svn_inst']['websiteUrl'] == "" ) {
 			
-			$tErrors[]						= _("SVN Access Mabager website url is missing!");
+			$tErrors[]						= _("SVN Access Manager website url is missing!");
 			$error							= 1;
 			
 		}
