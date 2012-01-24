@@ -458,8 +458,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			$tPath							= "/".$tPath;
    		}
    		
+   		$tPath								= preg_replace( '/\/$/','', $tPath );
+   		
    		$_SESSION['svn_sessid']['pathselected']	= $tPath;
-   			
+   		
    		db_disconnect( $dbh );
    		header( "location: setAccessRight.php" );
    		exit;

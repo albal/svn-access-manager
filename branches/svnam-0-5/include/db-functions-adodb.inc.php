@@ -1329,14 +1329,14 @@ function check_ldap_password( $userid, $password ) {
 		$protocol								= "2";
 	}
 	
-	$LDAP_CONNECT_OPTIONS = Array(
-         Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
-         Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
-         Array ("OPTION_NAME"=>LDAP_OPT_TIMELIMIT,"OPTION_VALUE" => 30),
-         Array ("OPTION_NAME"=>LDAP_OPT_PROTOCOL_VERSION,"OPTION_VALUE" => $protocol),
-         Array ("OPTION_NAME"=>LDAP_OPT_ERROR_NUMBER,"OPTION_VALUE" => 13),
-         Array ("OPTION_NAME"=>LDAP_OPT_REFERRALS,"OPTION_VALUE" => FALSE),
-         Array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
+	$LDAP_CONNECT_OPTIONS = array(
+         array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
+         array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
+         array ("OPTION_NAME"=>LDAP_OPT_TIMELIMIT,"OPTION_VALUE" => 30),
+         array ("OPTION_NAME"=>LDAP_OPT_PROTOCOL_VERSION,"OPTION_VALUE" => $protocol),
+         array ("OPTION_NAME"=>LDAP_OPT_ERROR_NUMBER,"OPTION_VALUE" => 13),
+         array ("OPTION_NAME"=>LDAP_OPT_REFERRALS,"OPTION_VALUE" => FALSE),
+         array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
 	);
 	
 	try {

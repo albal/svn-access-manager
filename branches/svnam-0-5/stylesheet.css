@@ -602,7 +602,7 @@ a:visited, a:active {
 #grantedrights_table table[aria-labelledby~=table-caption] {table-layout: auto;}
 #grantedrights_table td {padding-left:1px; padding-right:1px;font-size:1em;}
 #grantedrights_table th {white-space:nowrap;}
-#grantedrights_table td[headers~=ui-table-grantedrights_table-header-1] {white-space:nowrap; text-align:center;}
+#grantedrights_table td[headers~=ui-table-grantedrights_table-header-1] {white-space:nowrap; text-align:left;}
 
 #grantedrights_table th { 	
 	border: 1px solid #cccccc; 
@@ -986,3 +986,10 @@ a:visited, a:active {
 #showuserright_table tr.odd {
 	background-color: #e3e3e3;
 }
+
+
+#disabled {display:none;}
+.noscript .enabled {display:none;}
+.noscript .disabled {display:block;}
+.enabled {display:block}
+.disabled{display:none}

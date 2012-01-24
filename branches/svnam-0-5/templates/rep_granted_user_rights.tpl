@@ -5,7 +5,7 @@
 				<table id="grantedrights_table">
 				   	<thead>
 				   		<tr>
-					   		<th>
+					   		<th class="ui-table-deactivate">
 					   			&nbsp;
 					   		</th>
 					   		<th>
@@ -14,7 +14,7 @@
 					   		<th>
 					   			<strong><?php print _("Username"); ?></strong>
 					   		</th>
-					   		<th align="center">
+					   		<th class="ui-table-deactivate">
 					   			<strong><?php print _("Granted rights"); ?></strong>
 					   		</th>
 					   	</tr>

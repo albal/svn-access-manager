@@ -18,6 +18,18 @@ Release 0.5.5.0
     
     - added report to user's groups and access rights
       feature request ID 3155553
+      
+    - changed generation of per repository access files
+      feature request 3234233
+      
+    - fixed bug 3275587
+      trailing slashes in access file are removed
+      
+    - fixed bug 3275587
+      fixed issue in "User expired" cronjob mail
+      
+    - fixed bug 3141126
+      paging on "rep_granted_user_rights.php" works now
     
 	- fixed bug 3125448
 	  restrict rights of an user who only has add user permission to not have the 

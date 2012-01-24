@@ -114,7 +114,6 @@ function getCountGrantedRights( $dbh ) {
 	$query									= " SELECT COUNT(*) AS anz " .
 											  "   FROM ".$schema."svnusers " .
 											  "  WHERE (deleted = '00000000000000') " .
-											  "GROUP BY ".$CONF['user_sort_fields']." " .
 						  				      "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 	$result									= db_query( $query, $dbh );
 	   	
