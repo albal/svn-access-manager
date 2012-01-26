@@ -99,7 +99,11 @@ include( "../include/output.inc.php" );
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
-							   		<td colspan="3"><?php print _("Please fill in the values in the following tabs to start the installation of SVN Access Manager. For automatic database installation you need to have a database user with sufficient rights."); ?></td>
+							   		<td colspan="3">
+							   			<?php 
+							   				print _("Please fill in the values in the following tabs to start the installation of SVN Access Manager. For automatic database installation you need to have a database user with sufficient rights."); 
+							   		    ?>
+							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
@@ -107,19 +111,28 @@ include( "../include/output.inc.php" );
 									<td>&nbsp;</td>
 								</tr>
 							   	<tr>
-							   		<td colspan="3"><?php print _("Please be sure that the webserver is able to write the config directory '/etc/svn-access-manager/' on Unix/Linux to create the config.inc.php file for you. To achieve this you can change the directory permissions to 'word writeable' for the time of installation. Please set the directory permissions back after installation."); ?></td>
+							   		<td colspan="3">
+							   			<?php 
+							   				print _("Please be sure that the webserver is able to write the config directory '/etc/svn-access-manager/' on Unix/Linux to create the config.inc.php file for you. To achieve this you can either change the owner of the directory to the webserver user or change the directory permissions to 'word writable' for the time of installation. Please set the directory permissions back after installation if you set the permissions to 'world writable'."); 
+							   			?>
+							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
 							      	<td colspan="3">&nbsp;</td>
 							   	</tr>
-							   	<tr>
-							   		<td colspan="3"><?php print _("Please take care that in your php.ini the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!");?></td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							      	<td colspan="3">&nbsp;</td>
-							   	</tr>
+							   	<?php
+							   		if( ini_get( 'mysql.allow_persistent' ) != 1 ) {
+							   			print "\t\t\t<tr>\n";
+							   			print "\t\t\t\t<td colspan='3'>"._("Please make sure that in your php.ini file the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!")."</td>\n";
+							   			print "\t\t\t\t<td>&nbsp;</td>\n";
+							   			print "\t\t\t</tr>\n";
+							   			print "\t\t\t<tr>\n";
+							   			print "\t\t\t\t<td colspan='3'>&nbsp;</td>\n";
+							   			print "\t\t\t\t<td>&nbsp;</td>\n";
+							   			print "\t\t\t</tr>\n";
+							   		}
+							   	?>							   
 							</table>
 						</div>
 						<div id="tabs-1" class="buttn">
