@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-01-24 07:43+0100\n"
+"PO-Revision-Date: 2012-01-26 22:01+0100\n"
 "Last-Translator: Thomas Krieger <tom@tom-krieger.de>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,7 @@ msgstr "--- Benutzer auswählen ---"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:251
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:171
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:265
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:307
 msgid "2"
 msgstr "2"
 
@@ -90,6 +91,7 @@ msgstr "2"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:252
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:172
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:266
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:308
 msgid "3"
 msgstr "3"
 
@@ -1176,6 +1178,7 @@ msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:517
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:87
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:541
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:583
 msgid "Access control level"
 msgstr "Zugriffsschutz auf Ebene"
 
@@ -1206,6 +1209,8 @@ msgstr "Zugriff verweigert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:884
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:527
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:884
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:534
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:892
 msgid "Access file successfully created but semaphore could nor be released"
 msgstr "Zugriffsdatei erfolgreich geschrieben aber das Semaphore konnte nicht freigegeben werden"
 
@@ -1230,6 +1235,8 @@ msgstr "Zugriffsdatei erfolgreich geschrieben aber das Semaphore konnte nicht fr
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:879
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:522
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:879
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:529
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:887
 msgid "Access file successfully created!"
 msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 
@@ -1596,6 +1603,7 @@ msgstr "Admin Kennung erfolgreich angelegt"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:313
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:476
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:500
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:542
 msgid "Admin email address"
 msgstr "E-Mailadresse des Administrators"
 
@@ -1614,6 +1622,7 @@ msgstr "E-Mailadresse des Administrators"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:273
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:436
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:460
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:502
 msgid "Admin password"
 msgstr "Passwort des Administrators"
 
@@ -1632,6 +1641,7 @@ msgstr "Passwort des Administrators"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:263
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:426
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:450
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:492
 msgid "Admin username"
 msgstr "Benutzername des Administrators"
 
@@ -1648,6 +1658,7 @@ msgstr "Benutzername des Administrators"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:293
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:456
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:480
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:522
 msgid "Admin's given name"
 msgstr "Vorname des Administrators"
 
@@ -1672,6 +1683,7 @@ msgstr "Vorname des Administrators"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:303
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:466
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:490
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:532
 msgid "Admin's name"
 msgstr "Name des Administrators"
 
@@ -1720,6 +1732,7 @@ msgstr "Verwaltung"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:50
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnUser.tpl:116
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:64
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:86
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -2111,6 +2124,7 @@ msgstr "Administratoren haben eine strengere Passwort Richtline als normale Benu
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/setAccessRight.tpl:81
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/setAccessRight.tpl:81
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:67
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:58
 msgid "Allowed groups"
 msgstr "Erlaubte Gruppen"
 
@@ -2122,6 +2136,7 @@ msgstr "Erlaubte Gruppen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/setAccessRight.tpl:62
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/setAccessRight.tpl:62
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:60
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:51
 msgid "Allowed users"
 msgstr "Erlaubte Benutzer"
 
@@ -2160,6 +2175,7 @@ msgstr "Auth User Datei fehlt, bitte eintragen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:539
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:109
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:563
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:605
 msgid "Auth User file"
 msgstr "Benutzer Authentifizierungdatei"
 
@@ -2187,6 +2203,7 @@ msgstr "Auth User Datei"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:241
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:85
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:241
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:246
 msgid "Auth user file created but semaphore could not be released"
 msgstr "Benutzerauthentifizierungsdatei erfolgreich erstellt aber das Semaphore konnte nicht freigegeben werden"
 
@@ -2242,6 +2259,7 @@ msgstr "Benutzer Authentifizierungsdatei fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:236
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:80
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:236
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:241
 msgid "Auth user file successfully created!"
 msgstr "Auth User Datei erfolgreich geschrieben!"
 
@@ -3049,6 +3067,7 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/selectGroup.php:100
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/selectGroup.php:104
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/selectGroup.php:109
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:70
 msgid "Back"
 msgstr "Zurück"
 
@@ -3102,6 +3121,7 @@ msgstr "Verbindung zu LDAP Server nicht möglich. Hostname/IP und Port sind korr
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:249
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:115
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:249
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:254
 msgid "Can't set semaphore, another process is writing Auth User File, try again later"
 msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade die Benutzerauthentifizierungsdatei, bitte später noch einmal versuchen"
 
@@ -3135,6 +3155,9 @@ msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:558
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:892
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1360
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:565
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:900
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1368
 msgid "Can't set semaphore, another process is writing access file, try again later"
 msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade die Zugriffsdatei, bitte später noch einmal versuchen"
 
@@ -3207,6 +3230,7 @@ msgstr "kann config.inc.php nicht schreiben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:190
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:60
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:190
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:195
 msgid "Can't write to AuthUser file"
 msgstr "Kann AuthUser Datei nicht schreiben"
 
@@ -3556,6 +3580,8 @@ msgstr "Kann Tabelle %s nicht löschen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:870
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:550
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:870
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:557
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:878
 #, php-format
 msgid "Cannot open %s for wrtiting"
 msgstr "Kann %s nicht zum schreiben öffnen"
@@ -3576,6 +3602,7 @@ msgstr "Kann %s nicht zum schreiben öffnen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:227
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:108
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:227
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:232
 #, php-format
 msgid "Cannot open file %s for writing!"
 msgstr "Kann Datei %s nicht zum schreiben öffnen!"
@@ -3916,6 +3943,35 @@ msgstr "Kann Datei %s nicht zum schreiben öffnen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1275
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1281
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1287
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:330
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:339
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:372
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:402
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:410
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:462
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:481
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:501
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:512
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:662
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:670
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:704
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:734
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:742
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:795
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:814
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:834
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:845
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1064
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1111
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1231
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1240
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1250
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1265
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1271
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1277
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1283
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1289
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1295
 #, php-format
 msgid "Cannot write to %s"
 msgstr "Kann nicht in %s schreiben"
@@ -4067,6 +4123,7 @@ msgstr "Mitglied zum Hinzufügen auswählen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:255
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:175
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:269
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:311
 msgid "Choose the protocol for LDAP server communication."
 msgstr "Bitte das Protokoll für die LDAP Kommunikation auswählen."
 
@@ -4151,6 +4208,11 @@ msgstr "Kommando zum Laden der Webserver Konfiguration"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:853
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1337
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1351
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:214
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:549
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:861
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1345
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1359
 #, php-format
 msgid "Copy from %s to %s failed!"
 msgstr "Kopieren von %s nach %s gescheitert!"
@@ -4180,6 +4242,7 @@ msgstr "Zugriffsdateien erstellen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:560
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:130
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:584
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:626
 msgid "Create ViewVC configuration"
 msgstr "ViewVC Konfiguration erzeugen"
 
@@ -4216,6 +4279,7 @@ msgstr "Konfiguration erzeugen und Datenbanktabellen anlegen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:88
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:78
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:102
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:144
 msgid "Create datbase tables"
 msgstr "Datenbanktabellen anlegen"
 
@@ -4260,6 +4324,9 @@ msgstr "Datei für Benutzerauthentifizierung und Benutzerrechte erstellen?"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:565
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:899
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1367
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:572
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:907
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1375
 msgid "Create of access file not configured!"
 msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
 
@@ -4279,6 +4346,7 @@ msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:255
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:121
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:255
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:260
 msgid "Create of auth user file not configured!"
 msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
 
@@ -4295,6 +4363,7 @@ msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:549
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:119
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:573
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:615
 msgid "Create per repository access files"
 msgstr "Zugriffsdateien pro Repository erzeugen"
 
@@ -4333,6 +4402,8 @@ msgstr "Zugriffsdateien pro Repository erzeugen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_show_user.php:171
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:189
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:196
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:195
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:200
 msgid "Create report"
 msgstr "Bericht erstellen"
 
@@ -4421,6 +4492,8 @@ msgstr "Daten aufgrund eines Datenbankfehlers nicht geändert"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:100
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:61
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:124
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:83
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:166
 msgid "Database"
 msgstr "Datenbank"
 
@@ -4431,6 +4504,7 @@ msgstr "Datenbank"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:152
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:173
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:187
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:229
 msgid "Database charset"
 msgstr "Datenbank Zeichensatz"
 
@@ -4476,6 +4550,7 @@ msgstr "Datenbank Zeichensatz fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:162
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:183
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:197
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:239
 msgid "Database collation"
 msgstr "Datenbank Sortierung"
 
@@ -4539,6 +4614,7 @@ msgstr "Datenbank Fehler"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:112
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:133
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:147
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:189
 msgid "Database host"
 msgstr "Datenbank Server"
 
@@ -4599,6 +4675,7 @@ msgstr "Datenbank Rechner fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:142
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:163
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:177
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:219
 msgid "Database name"
 msgstr "Datenbank Name"
 
@@ -4659,6 +4736,7 @@ msgstr "Datenbankname fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:132
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:153
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:167
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:209
 msgid "Database password"
 msgstr "Datenbank Passwort"
 
@@ -4669,6 +4747,7 @@ msgstr "Datenbank Passwort"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:172
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:193
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:207
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:249
 msgid "Database schema"
 msgstr "Datenbank Schema"
 
@@ -4809,6 +4888,7 @@ msgstr "Datenbanktest in Ordnung, Verbindung ok"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:122
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:143
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:157
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:199
 msgid "Database user"
 msgstr "Datenbank Benutzer"
 
@@ -5102,6 +5182,7 @@ msgstr "Datum für Zugriffsrechte Bericht"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteUser.php:119
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteUser.php:123
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteUser.php:130
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:69
 msgid "Delete"
 msgstr "Löschen"
 
@@ -5252,6 +5333,7 @@ msgstr "Beschreibung"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:519
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:89
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:543
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:585
 msgid "Directories"
 msgstr "Verzeichnisse"
 
@@ -5267,6 +5349,7 @@ msgstr "Verzeichnisse"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:99
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:89
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:113
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:155
 msgid "Drop existing datbase tables"
 msgstr "Vorhandene Datenbanktabellen löschen"
 
@@ -5352,6 +5435,7 @@ msgstr "E-Mailadresse fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:606
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:176
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:630
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:672
 msgid "Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."
 msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das KOmmando muss für den Webserver Benutzer ausführbar sein. Sie können das mit sudo erreichen."
 
@@ -5359,10 +5443,12 @@ msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das KOmmando mu
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:315
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:235
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:329
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:371
 msgid "Enter additional filters for users if needed."
 msgstr "Wenn benötigt, zusätzliche Filter für benutzer eintragen."
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:405
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:447
 msgid "Enter the URL which should be printed into expired password warning mail!"
 msgstr "Bitte die URL eintragen, die in der Email zum abgelaufenen Passwort eingetragen werden soll!"
 
@@ -5380,6 +5466,7 @@ msgstr "Bitte die URL eintragen, die in der Email zum abgelaufenen Passwort eing
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:596
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:166
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:620
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:662
 msgid "Enter the alias you used in your webserver:"
 msgstr "Bitte den Alias der im Webserver verwendet wird eingeben:"
 
@@ -5387,6 +5474,7 @@ msgstr "Bitte den Alias der im Webserver verwendet wird eingeben:"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:192
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:365
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:379
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:421
 msgid "Enter the attribute containing the user password."
 msgstr "Bitte das Attribut eintragen, dass das Benutzerpasswort enthält."
 
@@ -5394,6 +5482,7 @@ msgstr "Bitte das Attribut eintragen, dass das Benutzerpasswort enthält."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:182
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:355
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:369
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:411
 msgid "Enter the attribute for the email address."
 msgstr "Bitte das Attribut eintragen, dass die E-Mailadresse enthält."
 
@@ -5401,6 +5490,7 @@ msgstr "Bitte das Attribut eintragen, dass die E-Mailadresse enthält."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:172
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:345
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:359
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:401
 msgid "Enter the attribute for the given name."
 msgstr "Bitte das Attribut eintragen, dass den Vornamen enthält."
 
@@ -5408,6 +5498,7 @@ msgstr "Bitte das Attribut eintragen, dass den Vornamen enthält."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:162
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:335
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:349
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:391
 msgid "Enter the attribute for the name."
 msgstr "Bitte das Attribut eintragen, dass den Nachnamen enthält."
 
@@ -5415,6 +5506,7 @@ msgstr "Bitte das Attribut eintragen, dass den Nachnamen enthält."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:152
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:325
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:339
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:381
 msgid "Enter the attribute for the uid."
 msgstr "Bitte der Attribut eintragen, dass die User-ID (uid) enthält."
 
@@ -5422,6 +5514,7 @@ msgstr "Bitte der Attribut eintragen, dass die User-ID (uid) enthält."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:295
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:215
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:309
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:351
 msgid "Enter the attribute to search for users."
 msgstr "Bitte das Attribut zur Suche nach Benutzern eingeben."
 
@@ -5435,6 +5528,7 @@ msgstr "Bitte das Attribut zur Suche nach Benutzern eingeben."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:157
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:178
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:192
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:234
 msgid "Enter the character set you want to use"
 msgstr "Geben Sie den Zeichensatz ein, den Sie verwenden wollen"
 
@@ -5446,6 +5540,7 @@ msgstr "Geben Sie den Zeichensatz ein, den Sie verwenden wollen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:224
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:391
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:415
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:457
 msgid "Enter the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!"
 msgstr "Tragen Sie den Zeichensatz ein, den Sie für die SVN Access manager Website verwenden wollen. Bedenken Sie bitte, dass der Zeichensatz mit dem Datenbank Zeichensatz kompatibel sein muss!"
 
@@ -5464,6 +5559,7 @@ msgstr "Tragen Sie den Zeichensatz ein, den Sie für die Website verwenden wolle
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:167
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:188
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:202
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:244
 msgid "Enter the collation you want to use"
 msgstr "Geben Sie die Sortierfolge ein, die Sie verwenden wollen"
 
@@ -5474,6 +5570,7 @@ msgstr "Geben Sie die Sortierfolge ein, die Sie verwenden wollen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:177
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:198
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:212
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:254
 msgid "Enter the database schema you want to use"
 msgstr "Bitte geben Sie das Datenbank Schema ein, dass Sie benutzen wollen!"
 
@@ -5481,6 +5578,7 @@ msgstr "Bitte geben Sie das Datenbank Schema ein, dass Sie benutzen wollen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:265
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:185
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:279
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:321
 msgid "Enter the dn to use for connect to the LDAP server."
 msgstr "Bitte den DN zur Verbindung mit dem LDAP Server eingeben."
 
@@ -5488,6 +5586,7 @@ msgstr "Bitte den DN zur Verbindung mit dem LDAP Server eingeben."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:285
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:205
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:299
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:341
 msgid "Enter the dn where the users are found on the LDAP server."
 msgstr "Bitte den DN eingeben, unter dem die benutzer zu finden sind."
 
@@ -5506,6 +5605,7 @@ msgstr "Bitte den DN eingeben, unter dem die benutzer zu finden sind."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:318
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:481
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:505
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:547
 msgid "Enter the email address of the administrator."
 msgstr "Die E-Mailadresse des Administrators eingeben"
 
@@ -5517,6 +5617,7 @@ msgstr "Die E-Mailadresse des Administrators eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:234
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:401
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:425
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:467
 msgid "Enter the email address to use as sender address for lost password emails."
 msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessenen Passwort benutzt werden soll!"
 
@@ -5536,6 +5637,7 @@ msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessen
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:544
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:114
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:568
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:610
 msgid "Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."
 msgstr "Den vollen Pfad und den Namen der Benutzer Authentifizierungsdatei zur Authentifizierung der Benutzer über den Webserver eingeben. Der Webserver muss die Datei schreiben können."
 
@@ -5554,6 +5656,7 @@ msgstr "Den vollen Pfad und den Namen der Benutzer Authentifizierungsdatei zur A
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:512
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:82
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:536
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:578
 msgid "Enter the full path and the name of the SVN Access file. The webserver must be able to write the file."
 msgstr "Den vollen Pfad und den Dateinamen des SVN Zugriffsdatei eingeben. Der Webserver muss die Datei schreiben können."
 
@@ -5575,6 +5678,7 @@ msgstr "Den vollen Pfad und den Dateinamen des SVN Zugriffsdatei eingeben. Der W
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:636
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:206
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:660
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:702
 msgid "Enter the full path and the name of the grep command."
 msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 
@@ -5596,6 +5700,7 @@ msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:616
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:186
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:640
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:682
 msgid "Enter the full path and the name of the svn command."
 msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 
@@ -5612,6 +5717,7 @@ msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:626
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:196
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:650
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:692
 msgid "Enter the full path and the name of the svnadmin command."
 msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 
@@ -5629,6 +5735,7 @@ msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:576
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:146
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:600
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:642
 msgid "Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."
 msgstr "Geben Sie den gesamten Pfad zu dem Verzeichnis ein, in das die ViewVC configuration gespeichert werden soll. Der Webserver muss in das Verzeichnis schreiben können."
 
@@ -5636,6 +5743,7 @@ msgstr "Geben Sie den gesamten Pfad zu dem Verzeichnis ein, in das die ViewVC co
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:234
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:154
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:248
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:290
 msgid "Enter the ip or the hostname of the LDAP server"
 msgstr "Bitte die IP oder den Hostnamen des LDAP Servers eingeben."
 
@@ -5655,6 +5763,7 @@ msgstr "Die IP oder den Rechnernamen des MySQL Datenbankservers eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:117
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:138
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:152
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:194
 msgid "Enter the ip or the hostname of the database host"
 msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein!"
 
@@ -5675,6 +5784,7 @@ msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:533
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:688
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:714
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:756
 msgid "Enter the minimal length for administrator passwords."
 msgstr "Die minimale Länge von Administrator Passworten eingeben"
 
@@ -5695,6 +5805,7 @@ msgstr "Die minimale Länge von Administrator Passworten eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:543
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:698
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:724
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:766
 msgid "Enter the minimal length for user passwordws."
 msgstr "Die minimale Länge von Benutzer Passworten eingeben"
 
@@ -5714,6 +5825,7 @@ msgstr "Den Namen der MySQL Datenabnk eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:147
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:168
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:182
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:224
 msgid "Enter the name of the database"
 msgstr "Bitte geben Se den Namen der Datenbank ein!"
 
@@ -5735,6 +5847,7 @@ msgstr "Bitte geben Se den Namen der Datenbank ein!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:523
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:678
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:704
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:746
 msgid "Enter the number of records of lists displayed on a page."
 msgstr "Die Anzahl der Datensätze eingeben, die pro Seite angezeigt werden sollen."
 
@@ -5742,6 +5855,7 @@ msgstr "Die Anzahl der Datensätze eingeben, die pro Seite angezeigt werden soll
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:305
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:225
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:319
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:361
 msgid "Enter the object class which identifies the users."
 msgstr "Bitte das Object angeben, dass die benutzer identifiziert."
 
@@ -5749,6 +5863,7 @@ msgstr "Bitte das Object angeben, dass die benutzer identifiziert."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:275
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:195
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:289
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:331
 msgid "Enter the password for connect to the LDAP server."
 msgstr "Bitte das Passwort zur Verbindung mit dem LDAP Server eingeben."
 
@@ -5776,6 +5891,7 @@ msgstr "Das Passwort für den Benutzer der MySQL Datenbank eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:278
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:441
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:465
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:507
 msgid "Enter the password for the admin user. It must be 14 characters at least and consinst of digits, lower case characters, upper case characters and special characters."
 msgstr "Das Passwort für den Administrator eingeben. Es muss mindestens 14 Stellen lang sein und Ziffern, Klein- und Großbuchstaben und Sonderzeichen enthalten."
 
@@ -5786,6 +5902,7 @@ msgstr "Das Passwort für den Administrator eingeben. Es muss mindestens 14 Stel
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:137
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:158
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:172
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:214
 msgid "Enter the password for the database"
 msgstr "Bitte geben Sie das Passwort zur Datenbank ein!"
 
@@ -5793,6 +5910,7 @@ msgstr "Bitte geben Sie das Passwort zur Datenbank ein!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:244
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:164
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:258
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:300
 msgid "Enter the port to connect to the LDAP server"
 msgstr "Bitte das protokoll zur Verbindung mit dem LDAP Server eingeben."
 
@@ -5826,6 +5944,7 @@ msgstr "Den Benutzer für die MySQL Datenbank eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:268
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:431
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:455
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:497
 msgid "Enter the username for the administrator account."
 msgstr "Den Benutzernamen für die Administrator Kennung eingeben"
 
@@ -5836,6 +5955,7 @@ msgstr "Den Benutzernamen für die Administrator Kennung eingeben"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:127
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:148
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:162
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:204
 msgid "Enter the username for the database"
 msgstr "Bitte geben Sie den Datenbank Benutzer ein!"
 
@@ -5847,6 +5967,7 @@ msgstr "Bitte geben Sie den Datenbank Benutzer ein!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:244
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:411
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:435
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:477
 msgid "Enter tne number of days a lost password link will be valid."
 msgstr "Bitte die Anzahl Tage eingeben, die ein Link für ein vergessenes Passwort gültig bleibt!"
 
@@ -6342,6 +6463,7 @@ msgstr "Fehlermeldung"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:520
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:90
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:544
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:586
 msgid "Files"
 msgstr "Dateien"
 
@@ -6439,6 +6561,7 @@ msgstr "Vorname"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:167
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:340
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:354
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:396
 msgid "Givenname"
 msgstr "Vorname"
 
@@ -6901,6 +7024,7 @@ msgstr "Hilfe"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:40
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:40
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:751
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:793
 msgid "Hints and errors"
 msgstr "Hinweise und Fehler"
 
@@ -6916,6 +7040,7 @@ msgstr "Hinweise und Fehler"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:122
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:112
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:136
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:178
 msgid "Hold sessions in database"
 msgstr "Session in Datenbank ablegen"
 
@@ -7031,11 +7156,13 @@ msgstr "Einfügen der Projekt/Benutzer-Relation (%s/%s) aufgrund eines Datenbank
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:53
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:67
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:89
 msgid "Install errors"
 msgstr "Installtionsfehler"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:58
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:72
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:94
 msgid "Installation instructions"
 msgstr "Anweisungen zur Installation"
 
@@ -7048,6 +7175,7 @@ msgstr "Ergebnisse der Installation"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:46
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:60
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:82
 msgid "Instructions"
 msgstr "Anweisungen"
 
@@ -7280,6 +7408,7 @@ msgstr "Anweisungen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroupAccessRight.php:389
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:249
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:223
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:267
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ungültiger Knopf %s, hat jemend dran herumgespielt?"
@@ -7609,8 +7738,14 @@ msgstr "Ungültiger Transaktionstyp %s"
 msgid "Invalid userid %s requested!"
 msgstr "Ungültige Benutzer-Id %s angefordert"
 
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/framework.tpl:72
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:61
+msgid "Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"
+msgstr "JavaScript ist ausgeschaltet. Diese Seite benötigt JavaScript um korrekt zu funktionieren. Bitte schalten Sie JavaScript in Ihrem Browser ein!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:48
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:62
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:84
 msgid "LDAP"
 msgstr "LDAP"
 
@@ -7688,6 +7823,7 @@ msgstr "LDAP Attribut das das Passwort abbildet fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:260
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:180
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:274
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:316
 msgid "LDAP bind dn"
 msgstr "LDAP Bind Dn"
 
@@ -7711,6 +7847,7 @@ msgstr "LDAP Bind Dn is missing!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:270
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:190
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:284
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:326
 msgid "LDAP bind password"
 msgstr "LDAP Bind Passwort"
 
@@ -7742,6 +7879,7 @@ msgstr "LDAP Verbindungstest ok, die verbindung funktioniert"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:229
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:149
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:243
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:285
 msgid "LDAP host"
 msgstr "LDAP Server"
 
@@ -7765,6 +7903,7 @@ msgstr "LDAP Server fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:239
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:159
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:253
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:295
 msgid "LDAP port"
 msgstr "LDAP Port"
 
@@ -7788,6 +7927,7 @@ msgstr "LDAP Port fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:249
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:169
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:263
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:305
 msgid "LDAP protocol"
 msgstr "LDAP protokoll"
 
@@ -7802,6 +7942,7 @@ msgstr "LDAP Einstellungen - Teil 1"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:310
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:230
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:324
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:366
 msgid "LDAP user additional filter"
 msgstr "LDAP zusätzlicher Benutzerfilter"
 
@@ -7809,6 +7950,7 @@ msgstr "LDAP zusätzlicher Benutzerfilter"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:280
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:200
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:294
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:336
 msgid "LDAP user dn"
 msgstr "LDAP Benutzer DN"
 
@@ -7832,6 +7974,7 @@ msgstr "LDAP benutzer DN fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:290
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:210
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:304
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:346
 msgid "LDAP user filter attribute"
 msgstr "LDAP Benutzerfilter Attribut"
 
@@ -7855,6 +7998,7 @@ msgstr "LDAP benutzerfilter Attribut fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:300
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:220
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:314
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:356
 msgid "LDAP user object class"
 msgstr "LDAP benutzer Objektklasse"
 
@@ -8122,6 +8266,7 @@ msgstr "Anzahl Tage die ein Link zum vergessenen Passwort gültig bleibt muss nu
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:239
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:406
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:430
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:472
 msgid "Lost password link valid"
 msgstr "Gültigkeitsdauer Link"
 
@@ -8133,6 +8278,7 @@ msgstr "Gültigkeitsdauer Link"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:229
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:396
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:420
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:462
 msgid "Lost password mail sender"
 msgstr "Absender der Mail"
 
@@ -8223,6 +8369,7 @@ msgstr "M"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:177
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:350
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:364
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:406
 msgid "Mail"
 msgstr "Mail"
 
@@ -8306,6 +8453,7 @@ msgstr "Minimale Länge von Administrator Passworten ist nicht numerisch!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:528
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:683
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:709
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:751
 msgid "Minimal length for admin passwords"
 msgstr "Minimale Länge von Admin Passworten"
 
@@ -8326,6 +8474,7 @@ msgstr "Minimale Länge von Admin Passworten"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:538
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:693
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:719
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:761
 msgid "Minimal length for user passwords"
 msgstr "Minimale Länge von Benutzer Passworten"
 
@@ -8386,6 +8535,7 @@ msgstr "Minimale Länge von Benutzer Passworten ist nicht numerisch!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:52
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:66
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:88
 msgid "Misc."
 msgstr "Diverse"
 
@@ -8436,6 +8586,7 @@ msgstr "Mein Zugang"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:112
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:102
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:126
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:168
 msgid "MySQL"
 msgstr "MySQL"
 
@@ -8514,6 +8665,7 @@ msgstr "MySQL Datenbank Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:330
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnUser.tpl:38
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:344
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:386
 msgid "Name"
 msgstr "Name"
 
@@ -9037,6 +9189,16 @@ msgstr "Nächste Seite"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:87
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:91
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:139
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:147
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:158
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:181
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:277
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:565
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:597
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:618
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:629
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:720
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:774
 msgid "No"
 msgstr "Nein"
 
@@ -9230,6 +9392,7 @@ msgstr "UngültigesDatum: %s"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/rep_access_rights.php:228
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:220
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:218
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/rep_access_rights.php:224
 #, php-format
 msgid "Not a valid date: %s (%s-%s-%s)"
 msgstr "Kein gültiges Datum: %s (%s-%s-%s)"
@@ -9247,6 +9410,7 @@ msgstr "Hinweis"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:114
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:104
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:128
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:170
 msgid "Oracle"
 msgstr "Oracle"
 
@@ -9313,6 +9477,7 @@ msgstr "Seite 6/6"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:518
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:673
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:699
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:741
 msgid "Page size"
 msgstr "Seitengröße"
 
@@ -9467,6 +9632,7 @@ msgstr "Seitengröße ict nicht numerisch!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnUser.tpl:54
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/main.tpl:13
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:374
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:416
 msgid "Password"
 msgstr "Passwort"
 
@@ -9706,6 +9872,10 @@ msgstr "Bitte beantworten Sie die folgende Frage!"
 msgid "Please be sure that the webserver is able to write the config directory '/etc/svn-access-manager/' on Unix/Linux to create the config.inc.php file for you. To achieve this you can change the directory permissions to 'word writeable' for the time of installation. Please set the directory permissions back after installation."
 msgstr "Bitte stellen Sie sicher, dass der Webserver das Konfigurationsverzeichnis '/etc/svn-access-manager/' unter Unix/Linux schreiben darf um die Datei config.inc.php erzeugen zu können. Um dies zu erreichen können Sie die Zugriffsrechte des Verzeichnisses während der Installation auf 'für jedermann schreibbar' stellen. Nach der Installation sollten Sie die alten Rechte wiederherstellen."
 
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:116
+msgid "Please be sure that the webserver is able to write the config directory '/etc/svn-access-manager/' on Unix/Linux to create the config.inc.php file for you. To achieve this you can either change the owner of the directory to the webserver user or change the directory permissions to 'word writable' for the time of installation. Please set the directory permissions back after installation if you set the permissions to 'world writable'."
+msgstr "Bitte stellen Sie sicher, dass der Webserver das Konfigurationsverzeichnis '/etc/svn-access-manager/' unter Unix/Linux schreiben darf um die Datei config.inc.php erzeugen zu können. Um dies zu erreichen können Sie die Zugriffsrechte des Verzeichnisses während der Installation auf 'für jedermann schreibbar' stellen. Nach der Installation sollten Sie die alten Rechte wiederherstellen."
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:50
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:47
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:47
@@ -9755,6 +9925,7 @@ msgstr "Bitte das neue Passwort zweimal eingeben!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:66
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:80
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:104
 msgid "Please fill in the values in the following tabs to start the installation of SVN Access Manager. For automatic database installation you need to have a database user with sufficient rights."
 msgstr "Bitte füllen Sie die Felder in den folgenden Tabs aus, um die Installation von SVN Access Manager zu starten. Um die Datenbank automatisch einzurichten, brauchen Sie einen Datenbankbenutzer mit ausrechenden Rechten."
 
@@ -9808,6 +9979,14 @@ msgstr "Bitte den Namen eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/securityquestion.php:134
 msgid "Please follow the link below and enter the security token you got after answering the security question."
 msgstr "Bitte folgen Sie dem Link unten und geben Sie das Sicherheitstoken, das Sie nach der Beantwortung der Sicherheitsfrage bekommen haben, ein."
+
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:127
+msgid "Please make sure that in your php.ini file the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!"
+msgstr "Bitte stellen Sie sicher, dass in Ihrer php.ini Datei die Variable mysql.allow_persistent auf On steht! Ansonsten haben Sie Probleme mit dem Login nach der Installation. Bitte setzen Sie die Variable mysql.allow_persistent auf On bevor Sie mit der Installation fortfahren. Vergessen Sie nicht, Ihren Webserver nach dem Ändern der Variablen mysql.allow_persistent neu zu starten!"
+
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:127
+msgid "Please make sure that in your php.ini file the varibale mysql.allow_persistent is set to on! Otherwise you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!"
+msgstr "Bitte stellen Sie sicher, dass in Ihrer php.ini Datei die Variable mysql.allow_persistent auf On steht! Ansonsten haben Sie Probleme mit dem Login nach der Installation. Bitte setzen Sie die Variable mysql.allow_persistent auf On bevor Sie mit der Installation fortfahren. Vergessen Sie nicht, Ihren Webserver nach dem Ändern der Variablen mysql.allow_persistent neu zu starten!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteRepo.tpl:46
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/deleteRepo.tpl:46
@@ -9887,6 +10066,7 @@ msgstr "Bitte die Felder für die Benutzersortierung auswählen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:113
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:103
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:127
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:169
 msgid "PostgreSQL"
 msgstr "PostgreSQL"
 
@@ -10873,6 +11053,7 @@ msgstr "Ergebnisse des Installationsprozesses:"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:283
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:446
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:470
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:512
 msgid "Retype admin password"
 msgstr "Admin Passwort wiederholen"
 
@@ -10910,6 +11091,7 @@ msgstr "Passwort wiederholen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:288
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:451
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:475
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:517
 msgid "Retype the admin's password."
 msgstr "Admin Passwort wiederholen"
 
@@ -10960,6 +11142,7 @@ msgstr "Erlaubte Rechte"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:507
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:77
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:531
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:573
 msgid "SVN Access File"
 msgstr "SVN Access Datei"
 
@@ -11113,6 +11296,7 @@ msgstr "SVN Access Manager"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/installresult.tpl:25
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:24
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:51
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:73
 msgid "SVN Access Manager Installation"
 msgstr "SVN Access Manager Installation"
 
@@ -11144,6 +11328,7 @@ msgid "SVN Access Manager Online Help"
 msgstr "SVN Access Manager Online Hilfe"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:400
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:442
 msgid "SVN Access Manager Website URL"
 msgstr "SVN Access Manager URL Webseite"
 
@@ -11157,6 +11342,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:51
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:65
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:87
 msgid "SVN Webserver"
 msgstr "SVN Webserver"
 
@@ -11487,6 +11673,7 @@ msgstr "Benutzersortierung"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:570
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:753
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:779
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:821
 msgid "Start installation"
 msgstr "Installation starten"
 
@@ -11966,6 +12153,7 @@ msgstr "Beachten Sie, dass Sie eine gültige E-Mailadresse eingegeben haben. Ans
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:375
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:251
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:389
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:431
 msgid "Test LDAP connection"
 msgstr "LDAP verbindung testen"
 
@@ -11974,6 +12162,7 @@ msgstr "LDAP verbindung testen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:208
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:207
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:221
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:263
 msgid "Test database connection"
 msgstr "Datenbankverbindung testen"
 
@@ -12103,6 +12292,7 @@ msgstr "Token"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_2.tpl:147
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:320
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:334
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:376
 msgid "Uid"
 msgstr "Uid"
 
@@ -12164,6 +12354,7 @@ msgstr "Benutzen Sie '/' als Pfadtrennzeichen auf Windows Systemen. Ein Reposito
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:528
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:98
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:552
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:594
 msgid "Use Auth User File"
 msgstr "Benutzer Authentifikationsdatei"
 
@@ -12185,6 +12376,7 @@ msgstr "Benutzer Authentifikationsdatei"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:507
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:662
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:687
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:729
 msgid "Use JavaScript"
 msgstr "JavaScript benutzen"
 
@@ -12192,6 +12384,7 @@ msgstr "JavaScript benutzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:218
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_1.tpl:138
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:232
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:274
 msgid "Use LDAP"
 msgstr "LDAP benutzen"
 
@@ -12210,6 +12403,7 @@ msgstr "LDAP benutzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:496
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:66
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:520
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:562
 msgid "Use SVN Access File"
 msgstr "SVN Rechte Datei benutzen"
 
@@ -12231,6 +12425,7 @@ msgstr "SVN Rechte Datei benutzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:496
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:651
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:675
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:717
 msgid "Use logging"
 msgstr "Protokollierung benutzen"
 
@@ -12250,6 +12445,7 @@ msgstr "Protokollierung benutzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:548
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:703
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:729
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:771
 msgid "Use md5 encryption"
 msgstr "MD5 Verrschlüsselung benutzen"
 
@@ -12687,6 +12883,7 @@ msgstr "Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/setAccessRight.tpl:48
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_access_rights.tpl:21
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:46
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:37
 msgid "Valid from"
 msgstr "Gültig von"
 
@@ -12707,6 +12904,7 @@ msgstr "Gültig von"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/setAccessRight.tpl:55
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_access_rights.tpl:24
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:53
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/deleteAccessRight.tpl:44
 msgid "Valid until"
 msgstr "Gültig bis"
 
@@ -12724,6 +12922,7 @@ msgstr "Gültig bis"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:571
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:141
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:595
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:637
 msgid "ViewVC configuration directory"
 msgstr "ViewVC Konfigurationsverzeichnis"
 
@@ -12784,6 +12983,7 @@ msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:581
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:151
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:605
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:647
 msgid "ViewVC realm"
 msgstr "ViewVC Realm"
 
@@ -12848,6 +13048,7 @@ msgstr "ViewVC webserver Alias fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:591
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:161
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:615
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:657
 msgid "ViewVC webserver alias"
 msgstr "ViewVC Webserver Alias"
 
@@ -12912,6 +13113,7 @@ msgstr "ViewVC Webserver Alias fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:601
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:171
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:625
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:667
 msgid "ViewVC webserver reload command"
 msgstr "ViewVC Webserver Reload Kommando"
 
@@ -12937,6 +13139,7 @@ msgstr "Viewvc Gruppendatei fehlt, bitte eintragen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:1321
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:1322
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1322
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1330
 msgid "Viewvc access configuration successfully created but semaphore could nor be released"
 msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt aber das Semaphore konnte nicht freigegeben werden"
 
@@ -12952,6 +13155,7 @@ msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt aber das Semaphore konn
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:1316
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/include/createAuthFiles.php:1317
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1317
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/createAuthFiles.php:1325
 msgid "Viewvc access configuration successfully created!"
 msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt!"
 
@@ -12972,6 +13176,7 @@ msgstr "Viewvc Gruppendatei"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:49
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:63
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:85
 msgid "Website"
 msgstr "Webseite"
 
@@ -12984,6 +13189,7 @@ msgstr "Webseite"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install.tpl:219
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:386
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:410
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:452
 msgid "Website characterset"
 msgstr "Website Zeichensatz"
 
@@ -13238,6 +13444,16 @@ msgstr "Falsche Antwort!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:85
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:89
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:100
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:146
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:157
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:180
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:276
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:564
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:596
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:617
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:628
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:719
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:773
 msgid "Yes"
 msgstr "Ja"
 
@@ -13249,6 +13465,7 @@ msgstr "Ja"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:523
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:93
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:547
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:589
 msgid "You can choose whether access control is possible on directories only or on directories and files."
 msgstr "Sie können wählen, ob der Zugriffsschutz auf Verzeichnisebene oder auf Verzeichnis- und Dateiebene möglich sein soll."
 
@@ -13512,6 +13729,7 @@ msgstr "ändern"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:631
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:201
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:655
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:697
 msgid "grep command"
 msgstr "grep Kommando"
 
@@ -13682,6 +13900,7 @@ msgstr "lesen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:611
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:181
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:635
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:677
 msgid "svn command"
 msgstr "svn Kommando"
 
@@ -13698,6 +13917,7 @@ msgstr "svn Kommando"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:621
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install_page_5.tpl:191
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:645
+#: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:687
 msgid "svnadmin command"
 msgstr "svnadmin Kommando"
 
