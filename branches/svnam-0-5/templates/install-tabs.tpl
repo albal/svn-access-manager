@@ -124,7 +124,7 @@ include( "../include/output.inc.php" );
 							   	<?php
 							   		if( ini_get( 'mysql.allow_persistent' ) != 1 ) {
 							   			print "\t\t\t<tr>\n";
-							   			print "\t\t\t\t<td colspan='3'>"._("Please make sure that in your php.ini file the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!")."</td>\n";
+							   			print "\t\t\t\t<td colspan='3'>"._("Please make sure that in your php.ini file the varibale mysql.allow_persistent is set to on! Otherwise you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!")."</td>\n";
 							   			print "\t\t\t\t<td>&nbsp;</td>\n";
 							   			print "\t\t\t</tr>\n";
 							   			print "\t\t\t<tr>\n";
