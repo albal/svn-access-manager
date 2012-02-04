@@ -25,7 +25,7 @@ $Id$
 
 */
 
-if (ereg ("output.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match ("/output.inc.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;

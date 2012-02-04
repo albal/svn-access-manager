@@ -28,7 +28,7 @@ ini_set( 'display_startup_errors', 'On' );
 ini_set( 'log_errors', 'On' );
 ini_set( 'html_errors', 'Off' );
  
-if (ereg ("functions.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match("/functions.inc.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;

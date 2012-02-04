@@ -55,7 +55,7 @@ $schema									= db_determine_schema();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
-   	if (!ereg ("lostpassword.php", $_SERVER['HTTP_REFERER'])) {
+   	if (!preg_match ("/lostpassword.php/", $_SERVER['HTTP_REFERER'])) {
    	
    		header("Location: lostpassword.php");
    		exit;	

@@ -132,7 +132,31 @@ include( "../include/output.inc.php" );
 							   			print "\t\t\t\t<td>&nbsp;</td>\n";
 							   			print "\t\t\t</tr>\n";
 							   		}
-							   	?>							   
+							   	?>		
+							   		<tr>
+							      	<td colspan="3">&nbsp;</td>
+							   	</tr>
+								<tr>
+									<td>
+										<?php print _("Base directory").": ";?>
+									</td>
+									<td colspan="2" align="left">
+										<?php print $tBaseDir;?>
+									</td>
+									<td>&nbsp;</td>
+								</tr>   
+								<tr>
+									<td>
+										<?php print _("Configuration directory").": ";?>
+									</td>
+									<td align="left">
+										<?php print $tConfigDir;?>
+									</td>
+									<td align="left">
+										<?php print $tConfigWritable;?>
+									</td>
+									<td>&nbsp;</td>
+								</tr>  
 							</table>
 						</div>
 						<div id="tabs-1" class="buttn">
