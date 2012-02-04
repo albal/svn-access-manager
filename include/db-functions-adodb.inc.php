@@ -19,7 +19,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
  
-if (ereg ("db-functions-adodb.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match ("/db-functions-adodb\.inc\.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;
@@ -219,7 +219,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
    // database prefix workaround
 	if (!empty ($CONF['database_prefix'])) {
   
-  		if (eregi ("^SELECT", $query)) {
+  		if (preg_match ("/^SELECT/i", $query)) {
  			$query 								= substr ($query, 0, 14) . $CONF['database_prefix'] . substr ($query, 14);
   		} else {
      		$query 								= substr ($query, 0, 6) . $CONF['database_prefix'] . substr ($query, 7);
@@ -230,7 +230,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
    		
    		if ($CONF['database_type'] != "mysql") {
 	   		
-	   		if (eregi ("LIMIT", $query)) { 
+	   		if (preg_match ("/LIMIT/i", $query)) { 
 		        
 		        $search							= "/LIMIT (\w+), (\w+)/";
 		        $replace 						= "LIMIT \$2 OFFSET \$1";
@@ -250,7 +250,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
    			$result								= $link->Execute( $query );
    		}
    		
-   		if (eregi ("^SELECT", $query)) {
+   		if (preg_match ("/^SELECT/i", $query)) {
    			$number_rows						= $result->RecordCount();
    		} else {
    			
@@ -312,7 +312,7 @@ function db_query_install ($query, $link, $limit=-1, $offset=-1) {
 	// database prefix workaround
 	if (!empty ($CONF['database_prefix'])) {
   
-  		if (eregi ("^SELECT", $query)) {
+  		if (preg_match ("/^SELECT/i", $query)) {
  			$query 								= substr ($query, 0, 14) . $CONF['database_prefix'] . substr ($query, 14);
   		} else {
      		$query 								= substr ($query, 0, 6) . $CONF['database_prefix'] . substr ($query, 7);
@@ -323,7 +323,7 @@ function db_query_install ($query, $link, $limit=-1, $offset=-1) {
    		
    		if ($CONF['database_type'] != "mysql") {
 	   		
-	   		if (eregi ("LIMIT", $query)) { 
+	   		if (preg_match ("/LIMIT/i", $query)) { 
 		        $search							= "/LIMIT (\w+), (\w+)/";
 		        $replace 						= "LIMIT \$2 OFFSET \$1";
 		        $query 							= preg_replace ($search, $replace, $query); 
@@ -340,7 +340,7 @@ function db_query_install ($query, $link, $limit=-1, $offset=-1) {
    		} else {
    			$result								= $link->Execute( $query );
    		}
-   		if (eregi ("^SELECT", $query)) {
+   		if (preg_match("/^SELECT/i", $query)) {
    			$number_rows						= $result->RecordCount();
    		} else {
    			$number_rows						= $link->Affected_rows();

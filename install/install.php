@@ -2535,24 +2535,49 @@ function doInstall() {
 	if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 		
 		$configfile							= realpath ( "./config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
 		
 	} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
 		
 		$configfile							= realpath ( "../config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
 		
 	} else {
 		
-		$configfile							= "../config/config.inc.php";
+		$configfile							= realpath( "../config/" );
+		$tBaseDir							= dirname($configfile);
+			
+	}
+	
+	if( determineOs() == "windows" ) {
+		
+		$tConfigDir							= $tBaseDir."\config";
+		$configpath							= $tBaseDir."\config";
+		$configtmpl							= $configpath."\config.inc.php.tpl";
+		$confignew							= $configpath."\config.inc.php.new";
+		$configfile							= $configpath."\config.inc.php";
+		
+	} else {
+		
+		$tConfigDir							= "/etc/svn-access-manager";
+		$configpath							= $tBaseDir."/config";
+		$configtmpl							= $configpath."/config.inc.php.tpl";
+		$confignew							= $tConfigDir."/config.inc.php.new";
+		$configfile							= $tConfigDir."/config.inc.php";
 		
 	}
 	
-	$configpath								= dirname( $configfile );
-	#$confignew								= $configpath."/config.inc.php.new";
-	$confignew								= "/etc/svn-access-manager/config.inc.php.new";
-	$configtmpl								= $configpath."/config.inc.php.tpl";
-	$configfile								= "/etc/svn-access-manager/config.inc.php";
+	if( is_writable( $tConfigDir ) ) {
+		$tConfigWritable					= _("writable");
+	} else {
+		$tConfigWritable					= _("not writable");
+	}
 	
-	
+	if( ! is_writable( dirname( $configfile) ) ) {
+		
+		$tErrors							= sprintf( _("Config directory %s not writable!"), dirname($configfile) );
+		$error								= 1;
+	}
 	
 	
 	if( $error == 0 ) {
@@ -2959,7 +2984,7 @@ function doInstall() {
 			
 		} else {
 			
-			$tErrors[] 					= _("can't open config template for reading!");
+			$tErrors[] 					= sprintf( _("can't open config template %s for reading!"), $configtmpl );
 			$error						= 1;
 			
 		}
@@ -3278,6 +3303,39 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$error									= 0;
 	$tPage									= 0;
 	
+	if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+		
+		$configfile							= realpath ( "./config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
+		
+	} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+		
+		$configfile							= realpath ( "../config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
+		
+	} else {
+		
+		$configfile							= realpath( "../config/" );
+		$tBaseDir							= dirname($configfile);
+			
+	}
+	
+	if( determineOs() == "windows" ) {
+		
+		$tConfigDir							= $tBaseDir."\config";
+		
+	} else {
+		
+		$tConfigDir							= "/etc/svn-access-manager";
+		
+	}
+	
+	if( is_writable( $tConfigDir ) ) {
+		$tConfigWritable					= _("writable");
+	} else {
+		$tConfigWritable					= _("not writable");
+	}
+	
 	# common locations where to find grep and svn under linux/unix
    	$svnpath								= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
    	$svnadminpath							= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
@@ -3402,6 +3460,39 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$CONF									= array();
 	$CONF['database_innodb']                = 'YES';
 	$CONF['copyright']						= '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+	
+	if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+		
+		$configfile							= realpath ( "./config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
+		
+	} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+		
+		$configfile							= realpath ( "../config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
+		
+	} else {
+		
+		$configfile							= realpath( "../config/" );
+		$tBaseDir							= dirname($configfile);
+			
+	}
+	
+	if( determineOs() == "windows" ) {
+		
+		$tConfigDir							= $tBaseDir."\config";
+		
+	} else {
+		
+		$tConfigDir							= "/etc/svn-access-manager";
+		
+	}
+	
+	if( is_writable( $tConfigDir ) ) {
+		$tConfigWritable					= _("writable");
+	} else {
+		$tConfigWritable					= _("not writable");
+	}
 	
 	$tCreateDatabaseTables				= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
 	$tDropDatabaseTables				= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";

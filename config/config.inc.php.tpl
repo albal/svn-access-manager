@@ -30,7 +30,7 @@ $Id$
 */
 
 
-if (ereg ("config.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match ("/config.inc.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;
