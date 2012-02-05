@@ -521,7 +521,7 @@ include( "../include/output.inc.php" );
 							   			<input type="text" name="fUsername" value="<?php print $tUsername; ?>" size="40" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the username for the administrator account."); ?>
+							   			<?php print _("Enter the username for the administrator account. If you use LDAP you must use a admin user which exists in the LDAP!"); ?>
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
