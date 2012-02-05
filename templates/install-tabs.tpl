@@ -113,7 +113,10 @@ include( "../include/output.inc.php" );
 							   	<tr>
 							   		<td colspan="3">
 							   			<?php 
-							   				print _("Please be sure that the webserver is able to write the config directory '/etc/svn-access-manager/' on Unix/Linux to create the config.inc.php file for you. To achieve this you can either change the owner of the directory to the webserver user or change the directory permissions to 'word writable' for the time of installation. Please set the directory permissions back after installation if you set the permissions to 'world writable'."); 
+							   				printf( _("Please be sure that the webserver is able to write the config directory '%s' to create the config.inc.php file for you. "), $tConfigDir );	 
+							   				if( determineOs() != "windows" ) {
+							   					print _("To achieve this on Linux/Unix systems you can either change the owner of the directory to the webserver user or change the directory permissions to 'world writable' for the time of installation. Please set the directory permissions back after installation if you set the permissions to 'world writable'.");
+							   				}
 							   			?>
 							   		</td>
 							   		<td>&nbsp;</td>
