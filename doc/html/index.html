@@ -246,7 +246,54 @@ CustomLog /var/log/apache2/svn.log "%t %u %{SVN-ACTION}e" env=SVN-ACTION
 
 <p>The configuration above assumes that no anonymous access to the repository is allowed. If you need anonymous read access you have to limit the <em>Require valid-user</em> to write operations. See the <a href="http://httpd.apache.org/docs/" target="_blank">Apache web server documentation</a> for further information.</p>
 <p>After adding this don't forget to reload your web server to make sure the configuration changes are active. </p>
-<p>Btw. The settings above are printed out from the installer after a successful installation. The installer output is modifies according to your settings.</p>
+<p>Btw. The settings above are printed out from the installer after a successful installation. The installer output is modified according to your settings.</p>
+<p>If you plan to use LDAP authentication you can use a configuration similar tp this:</p>
+<pre>
+LDAPSharedCacheSize 200000
+LDAPCacheEntries 1024
+LDAPCacheTTL 600
+LDAPOpCacheEntries 1024
+LDAPOpCacheTTL 600
+
+LoadModule dav_svn_module     modules/mod_dav_svn.so
+LoadModule authz_svn_module   modules/mod_authz_svn.so
+
+Alias /svnstyle /usr/share/doc/subversion-1.4.2/tools/xslt/
+
+&lt;Location /svn/repos&gt;
+        DAV svn
+        SVNParentPath /svn/repos
+
+        SSLRequireSSL
+        AllowOverride               ALL
+        Satisfy                     All
+        AuthType                    Basic
+        AuthBasicProvider           ldap
+        AuthName                    "SVN LDAP Auth Test"
+        AuthLDAPURL                 "ldap://127.0.0.1:389/ou=people, \\
+                                    ou=example?uid?sub?(objectclass=*)"
+        AuthLDAPBindDN              ou=apache,ou=example
+        AuthLDAPBindPassword        password
+        AuthLDAPGroupAttribute      member
+        AuthLDAPGroupAttributeIsDN  on
+        AuthzLDAPAuthoritative      off
+        AuthLDAPCompareDNOnServer   On
+        Require valid-user
+
+        AuthzSVNAccessFile /etc/svn/svn-access
+
+	SVNIndexXSLT /svnstyle/svnindex.xsl
+
+</Location>
+
+LogFormat "%t %u %{SVN-ACTION}e" svn_common
+CustomLog svn_common env=SVN-ACTION
+
+#CustomLog logs/svn.log "%t %u %{SVN-ACTION}e" env=SVN-ACTION
+</pre>
+
+<p>After adding this don't forget to reload your web server to make sure the configuration changes are active. </p>
+<p>Btw. The settings above are printed out from the installer after a successful installation. The installer output is modified according to your settings.</p>
 <p><a href="#top">Back to top</a></p>
 <p>&nbsp;</p>
 
@@ -348,9 +395,13 @@ http(s)://localhost/svnaccessmanager/install/install.php
         <td><a href="images/installer_new_part3.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part3.png" width="150" height="106" /></a></td>
         <td>
             <p>SVN Access Manager can use an external LDAP directory for authentication of users. Please fill in the values to connect to the LDAP server and specify the attribute mapping if necessray.</p>
+	    <p>You have to fill in the values neeeded. Keep in mind that the attribute mappings are not checked during installation. You will get a lot of ugly warnings if the mappings will not match your LDAP.</p>
         </td>
     </tr>
 </table>
+<p>Using LDAP will change the behaviour of SVN Access Manager. You will not be able to add users with your own uswernames. The users will be fetched from the LDAP directory and you can only add the users to SVN Access manager to give the users the chance to work with your subversion repository.</p>
+<p class="notice"><strong><u>Impoartant notice:</u></strong><br/>The admin user you choose must exist in the LDAP directory you connect to. Otherwise you will not be able to login to SVN Access Manager!</p>
+<p>You will have to setup your Webserver to work with LDAP authorization. After installation on the result page a sample configuration for Apache webserver will be shown depending on your input.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h5><a name="inst_website_settings">2.2.5.4 Website settings</a></h5>
