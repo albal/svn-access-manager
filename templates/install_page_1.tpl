@@ -69,7 +69,7 @@ include( "../include/output.inc.php" );
 				</table>
 				
 				<fieldset>
-					<legend><strong><?php print " "._("Database settings")." "; ?></strong></legend>
+					<legend><strong><?php print " "._("Database settings - Part 1")." "; ?></strong></legend>
 					<table>
 						<tr>
 				      		<td colspan="4">&nbsp;</td>
@@ -127,13 +127,128 @@ include( "../include/output.inc.php" );
 				
 				<p>&nbsp;</p>
 				
+				<fieldset>
+					<legend><strong><?php print " "._("LDAP settings - Part 1")." "; ?></strong></legend>
+					
+					<table>
+						<tr>
+				      		<td colspan="4">&nbsp;</td>
+				   		</tr>
+				   		<tr>
+					   		<td nowrap><strong><?php print _("Use LDAP").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fUseLdap" value="YES" <?php print $tUseLdapYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fUseLdap" value="NO" <?php print $tUseLdapNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+					   		</td>
+					   		<td>
+					   			&nbsp;
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP host").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapHost" value="<?php print $tLdapHost; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the ip or the hostname of the LDAP server"); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP port").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapPort" value="<?php print $tLdapPort; ?>" size="5" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the port to connect to the LDAP server"); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td nowrap><strong><?php print _("LDAP protocol").": "; ?></strong></td>
+					   		<td>
+					   			<input type="radio" name="fLdapProtocol" value="2" <?php print $tLdap2; ?> />&nbsp;&nbsp;<?php print _("2"); ?>&nbsp;&nbsp;&nbsp;
+				   				<input type="radio" name="fLdapProtocol" value="3" <?php print $tLdap3; ?> />&nbsp;&nbsp;<?php print _("3"); ?>
+					   		</td>
+					   		<td>
+					   			<?php print _("Choose the protocol for LDAP server communication."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP bind dn").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapBinddn" value="<?php print $tLdapBinddn; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the dn to use for connect to the LDAP server."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP bind password").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapBindpw" value="<?php print $tLdapBindpw; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the password for connect to the LDAP server."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP user dn").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapUserdn" value="<?php print $tLdapUserdn; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the dn where the users are found on the LDAP server."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP user filter attribute").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapUserFilter" value="<?php print $tLdapUserFilter; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the attribute to search for users."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP user object class").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapUserObjectclass" value="<?php print $tLdapUserObjectclass; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the object class which identifies the users."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("LDAP user additional filter").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapUserAdditionalFilter" value="<?php print $tLdapUserAdditionalFilter; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter additional filters for users if needed."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					</table>
+				</fieldset>
+				
+				<p>&nbsp;</p>
+				
 				<table>
 				   	<tr>
 				      	<td colspan="4">&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				      	<td colspan="4" class="hlp_center">
-				      		<input class="button" type="submit" name="fSubmit_next" value="<?php print _("Next page"); ?>" />
+				      		<input class="button" type="submit" name="fSubmit_next" value="<?php print _("Next page"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      		<input class="button" type="submit" name="fSubmit_testldap" value="<?php print _("Test LDAP connection"); ?>" />
 				      	</td>
 				   	</tr>
 				</table>
