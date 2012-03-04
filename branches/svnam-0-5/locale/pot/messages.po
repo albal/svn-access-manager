@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-02-05 09:38+0100\n"
+"PO-Revision-Date: 2012-03-04 08:58+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -6075,7 +6075,7 @@ msgstr "E-Mailadresse fehlt, bitte eingeben!"
 #: ../../templates/install.tpl:447
 #: ../../templates/install-tabs.tpl:699
 msgid "Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."
-msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das KOmmando muss f&uuml;r den Webserver Benutzer ausf&uuml;hrbar sein. Sie k&ouml;nnen das mit sudo erreichen."
+msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das Kommando muss f&uuml;r den Webserver Benutzer ausf&uuml;hrbar sein. Sie k&ouml;nnen das mit sudo erreichen."
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:235
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:315
@@ -6711,6 +6711,10 @@ msgstr "Den Benutzer f&uuml;r die MySQL Datenbank eingeben"
 #: ../../templates/install-tabs.tpl:524
 msgid "Enter the username for the administrator account."
 msgstr "Den Benutzernamen f&uuml;r die Administrator Kennung eingeben"
+
+#: ../../templates/install-tabs.tpl:524
+msgid "Enter the username for the administrator account. If you use LDAP you must use a admin user which exists in the LDAP!"
+msgstr "Geben Sie den Benutzernamen des Administrator Kontos ein. Wenn Sie LDAP benutzen, m&uuml;ssen Sie ein Konto verwenden, das im LDAP existiert!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:126
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install.tpl:127
@@ -8700,6 +8704,7 @@ msgstr "Ung&uuml;ltige Benutzer-Id %s angefordert"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:61
 #: ../../templates/framework.tpl:72
 #: ../../templates/install-tabs.tpl:61
+#: ../../templates/framework.tpl:97
 msgid "Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"
 msgstr "JavaScript ist ausgeschaltet. Diese Seite ben&ouml;tigt JavaScript um korrekt zu funktionieren. Bitte schalten Sie JavaScript in Ihrem Browser ein!"
 
@@ -13245,6 +13250,10 @@ msgstr "Benutzer ausw&auml;hlen"
 msgid "Selected directory"
 msgstr "Verzeichnis ausw&auml;hlen"
 
+#: ../../templates/framework.tpl:62
+msgid "Session expired. Please re-login!"
+msgstr "Sitzung abgelaufen! Bitte erneut anmelden!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnAccessRight.tpl:83
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:301
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:295
@@ -15531,6 +15540,10 @@ msgstr "Sie haben eine Email erhalten um Ihr Passwort zur&uuml;ckzusetzen! Bitte
 #: ../../resetpassword.php:138
 msgid "Your new password was set successfully!"
 msgstr "Ihr neues Passwort wurde erfolgreich eingetragen!"
+
+#: ../../templates/framework.tpl:72
+msgid "Your session expired! Please re-login!"
+msgstr "Ihre Sitzung ist abgelaufen! Bitte erneut anmelden!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/resetpassword.php:151
 #: /export/home/kriegeth/workspace/svn_access_manager/resetpassword.php:151

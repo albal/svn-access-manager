@@ -52,6 +52,31 @@
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
+	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
+	<script language="javascript" type="text/javascript">
+		
+		$(document).ready(function() {
+            
+            sess_ok = "<?php list( $ret, $dummy) = check_session_status(); print $ret;?>";
+            if(sess_ok != "1") {
+                    alert("<?php print _('Session expired. Please re-login!');?>");
+                    window.location.href = "login.php";
+            }
+        });             
+                
+        $(document).everyTime(5000, function checkSession() {
+             $.ajax({
+                url: 'checkSession.php',
+                success: function(newVal) {
+                    if (newVal != 1) {
+                            alert('<?php print _("Your session expired! Please re-login!");?>');
+                            window.location.href = "login.php";
+                    }
+                  }
+                });
+        });
+		
+	</script>
 </head>
 <body  class="noscript">
 	<script type="text/javascript">

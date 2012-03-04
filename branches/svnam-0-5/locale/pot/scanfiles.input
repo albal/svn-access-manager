@@ -7,6 +7,7 @@
 ../../list_group_admins.php
 ../../rep_log.php
 ../../logout.php
+../../checkSession.php
 ../../resetpassword.php
 ../../lib/jquery-ui/development-bundle/demos/tabs/ajax/content4-broken.php
 ../../lib/jquery-ui/development-bundle/demos/tabs/ajax/content3-slow.php

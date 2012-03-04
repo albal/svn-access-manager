@@ -116,7 +116,7 @@ function check_session_lpw( $redirect="y" ) {
    
    
    	$s 						= new Session;
-	session_start ();
+	@session_start ();
    
    	if (!session_is_registered ("svn_lpw"))  {
      
@@ -138,6 +138,34 @@ function check_session_lpw( $redirect="y" ) {
    
    	return $SESSID_USERNAME;
 }
+
+
+
+//
+// check_session_status
+// Action: Check if a session already exists, if not redirect to login.php
+// Call: check_session_status ()
+//
+function check_session_status() {
+
+
+        $ret                             = 0;
+        @session_start ();
+
+        if (!session_is_registered ("svn_sessid"))  {
+
+                $ret                        = 0;
+
+        } else {
+
+                $ret                    = 1;
+                $SESSID_USERNAME        = $_SESSION['svn_sessid']['username'];
+
+        }
+
+        return array( $ret, $SESSID_USERNAME );
+}
+
 
 
 
