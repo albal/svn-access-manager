@@ -820,11 +820,14 @@ include( "../include/output.inc.php" );
 							   					print "\t\t\t\t<p><strong>"._("Hints and errors").":</strong></p>\n";
 							   					print "\t\t\t\t<ul>\n";
 							   					
-							   					foreach( $tErrors as $tMessage ) {
-							   					
-							   						print "\t\t\t\t\t<li>".$tMessage."</li>";
-							   					
-							   					} 
+							   					if( is_array( $tErrors ) ) {
+								   					
+								   					foreach( $tErrors as $tMessage ) {
+								   					
+								   						print "\t\t\t\t\t<li>".$tMessage."</li>";
+								   					
+								   					} 
+							   					}
 							   					
 							   					print "\t\t\t\t</ul>\n";
 							   				}
