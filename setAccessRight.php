@@ -27,7 +27,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -44,8 +44,6 @@ $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Access rights admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "setaccessright";
@@ -375,6 +373,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			
 	   	}
 	   	
+	   	if( $error == 0 ) {
+	   		
+	   		if( $_SESSION['svn_sessid']['task'] == "change" ) {
+	   	
+	   			$mode						= db_getUserRightByUserid( $_SESSION['svn_sessid']['userid'], $dbh );
+	   			if( ($tAccessRight == "write") and ($mode != "write") ) {
+		   			
+		   			$tMessage				= _("User is not allowed to have write access, global right is read only" );
+		   			$error					= 1;
+	   			}
+	   			
+	   		}
+	   	
+	   	}
+	   	
 	   	if( ($_SESSION['svn_sessid']['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0) ) {
 	   		
 	   		$tMessage						= _("No user and no group selected!");
@@ -599,6 +612,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		
 		$tGid								= "";
+		
+	}
+	
+	if ( $_SESSION['svn_sessid']['task'] == "change" ) {
+		
+		$tReadonly							= "disabled";
+		
+	} else {
+		
+		$tReadonly							= "";
 		
 	}
    	
