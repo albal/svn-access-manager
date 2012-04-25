@@ -1,0 +1,593 @@
+/*Disable Default Spacing */
+* {margin:0;padding:0;}
+
+body {margin:0;padding:0;font-family:arial,verdana,sans-serif;font-weight:lighter;text-align:center;color:#000;font-size:100.01%}
+
+#disabled {display:none;}
+.noscript .enabled {display:none;}
+.noscript .disabled {display:block;}
+.enabled {display:block}
+.disabled{display:none}
+
+#main {height:1%;overflow:auto;}
+#main, #header, #footer {width:64em;margin:auto;}
+#mainpart {float:right;width:51.5em;}
+#header {background-color:#efeff8;overflow:auto;}
+
+
+.logoBar {vertical-align:bottom;background-color:#efeff8;}
+
+#logo {margin:0;float:left;border:none;background-color:#efeff8;}
+#logoNav ul {list-style:none;text-align:right;background-color:#efeff8;}
+#logoNav li {list-style:none;font-size:0.8em;}
+#logoNav a {text-decoration:none;color:#333;}
+#logoNav a:hover {text-decoration:underline;}
+
+#footer {clear:both;}
+
+#leftNav {
+	background-color:#e0eaf7;
+	/* width:167px;*/
+	/*min-width:135px;
+	max-width:167px;*/
+	/*margin-right:824px;*/
+	width:12.5em;
+	padding-top:20px;
+	padding-right:5px;
+	margin:0;
+	border-right-color:#b4c8de;
+	border-right-style:solid;
+	border-right-width:2px;
+	vertical-align: top;
+	text-align:left;
+	height:1%;
+	overflow:auto;
+	/*white-space:nowrap;*/
+}
+#leftNav ul {
+	margin-left:10px;
+	list-style:none;
+}
+
+#leftNav li {
+	font-size: 1em;
+	color: #000000;
+}
+#leftNav .actNav {
+	background:#e0eaf7 url(../images/arrow_nav_left.gif) left no-repeat;text-align:left;
+	padding-left:12px;
+}
+#leftNav li a {
+	text-decoration:none;
+	color:#000000;
+}
+
+
+#content {
+	width:750px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:10px;
+	padding-top:5px;
+	text-align:left;
+}
+
+#footer {
+	height:16px;
+	border-top-color:#b4c8de;
+	border-top-style:solid;
+	border-top-width:2px;
+	text-align:center;
+}
+
+/*
+	Form styles
+*/
+
+#edit_form {
+	text-align:left;
+}
+
+#edit_form form {
+    border:0px solid #004f6e;
+    background: #ffffff;
+    margin:0;
+	width: 100%;
+    /* padding:17px 0 10px 0; */
+}
+
+#edit_form fieldset {
+    /* padding:0 40px 35px 52px; */
+	/*padding:0 20px 0px 20px;*/
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left:0;
+	padding-right:0;
+    border:0px solid transparent;
+	width:100%;
+}
+
+#edit_form .fieldset_left {
+    padding:0 40px 35px 5px;
+    border:0px solid transparent;
+}
+
+#edit_form fieldset legend {
+    font-weight:bold;
+    font-size:2em;
+    font-decoration: underline;
+    padding:0;
+    margin:0 0 10px 0;
+    color:#004f6e;
+}
+
+#edit_form fieldset ul {
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+
+#edit_form li {
+    float:left;
+    margin:0 0 5px 0;
+    padding:0;
+    /*width:500px;*/
+    width: 100%;
+}
+
+#edit_form label {
+    float:left;
+    line-height:167%;
+    width:150px;
+    min-width:50px;
+    cursor: pointer;
+}
+
+#edit_form label.label_small {
+    float:left;
+    line-height:167%;
+    width:60px;
+    min-width:20px;
+    cursor: pointer;
+}
+
+#edit_form label.label_medium {
+    float:left;
+    line-height:167%;
+    width:100px;
+    min-width:20px;
+    cursor: pointer;
+}
+
+#edit_form input{
+    float:left;
+    height:20px;
+    width: 161px;
+    border:1px solid #000; /*#1795be;*/
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    padding:0;
+    background:#FCFFCA;
+    font-size:100%;
+}
+
+#edit_form input.inputButton {
+    float:left;
+    height:24px;
+    width: 24px;
+    border: 0px;
+    background: #fff;
+}
+
+#edit_form .imgButton {
+	background-color:#fff;
+	border: 0px solid transparent;
+}
+
+#edit_form input.readonly {
+   background: #DAF7FF;
+}
+
+#edit_form input.mandatory {
+   border:2px solid #00f;
+}
+
+#edit_form input.tiny {
+    width:16px;
+}
+
+#edit_form input.small {
+    width:38px;
+}
+
+#edit_form input.number {
+    width:73px;
+}
+
+#edit_form input.medium {
+    width:117px;
+}
+
+#edit_form input.large {
+    width:220px;
+}
+
+#edit_form input.large_nofloat {
+    width:220px;
+    float: none;
+}
+
+#edit_form input.huge {
+    width:280px;
+}
+
+#edit_form input.megahuge {
+    width:450px;
+}
+
+#edit_form sp_select {
+	float:left;
+}
+	
+#edit_form select.large {
+    width:180px;
+}
+
+#edit_form select.huge {
+    width:280px;
+}
+
+#edit_form input.radio {
+	background:#fff;
+}
+
+#edit_form input.image {
+	background: #fff;
+	border: 0px solid transparent;
+}
+
+.inputSpace {
+    margin:0 4px 0 0;
+}
+
+.inputSpaceButton {
+    margin:0 15px 0 0;
+}
+
+#edit_form input:active, input:hover, input:focus {
+    background-color: #d9f0f9;
+}
+
+#edit_form em {
+    font-weight:bold;
+    font-size:142%;
+    color:#E00;
+}
+
+#edit_form input.error {
+    border-color:#E00;
+    color:#E00;
+    background-color:#FFDCE5;
+}
+
+#edit_form select.error {
+    border-color:#E00;
+    color:#E00;
+    background-color:#FFDCE5;
+}
+
+#edit_form textarea.error {
+    border-color:#E00;
+    color:#E00;
+    background-color:#FFDCE5;
+}
+
+#edit_form input.btnCancel, input.btnSend {
+    margin: 15px 0 0 0;
+    float:left;
+    width:85px;
+    height:22px;
+    font-weight: normal;
+    color: #004f6e;
+    text-align: center;
+    padding:0;
+    border:1px solid #0B6487;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    cursor:pointer;
+    background-color: #FFF;
+}
+
+#edit_form input.btnSend  {
+    float:right;
+    font-weight:bold;
+    color:#FFF;
+    margin:0px 0px 0 0;
+    background: #1795be url(./images/bg_btnSend.png) 0px 0px repeat-x;
+ }
+ 
+#edit_form input.btnSend:hover, input.btnSend:active, input.btnSend:focus {
+    background-image:url(./images/bg_btnSendActive.png);
+}
+
+#edit_form table {
+	width:90%;
+}
+#edit_form th {
+	font-weight: bold;
+	background-color: #ddeeff;
+	white-space:nowrap;
+	font-size: 1em;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#edit_form td {
+	padding-left: 5px;
+	padding-right:5px;
+	/*white-space:nowrap;*/
+}
+
+#edit_form a {
+	color:#000000;
+	text-decoration:none;
+}
+#edit_form a:hover, a:active {
+	color:#0000ff;
+	text-decoration:none;
+}
+#edit_form a:visited {
+	text-decoration:none;
+}
+
+.tr_highlight {
+	background-color: #e3e3e3;
+}
+
+.nowrap {
+	white-space:nowrap;
+	clear:both;
+}
+
+#leftColumn {
+ 	float: left;
+	width: 50%;
+}
+ 
+#rightColumn {
+ 	float: right;
+	width: 50%;
+}
+ 
+#dlgLeftColumn {
+ 	float: left;
+	width: 49%;
+	padding: 10 10 10 10;
+	white-space:nowrap;
+	border-right-color: #fff;
+	border-right-style: solid;
+	border-right-width: 1pt;
+}
+ 
+#dlgRightColumn {
+ 	float: right;
+	width: 49%;
+	padding: 10 10 10 10;
+	white-space:nowrap;
+}
+ 
+#handles {
+
+}
+ 
+#single {
+ 	clear: both;
+	width: 100%;
+	padding: 10 10 10 10;
+}
+ 
+.tableheader {
+	font-weight: bold;
+}
+
+.tbNowrap {
+	white-space: nowrap;
+}
+
+.tbAlignRight {
+	text-align: right;
+}
+
+.tbAlignLeft {
+	text-align: left;
+}
+
+.tbAlignCenter {
+	text-align: center;
+}
+
+.tbAlignTop {
+	vertical-align:top;
+}
+
+.tr-odd {
+	background-color: #e3e3e3;
+}
+
+#search {
+	width:25em;
+}
+
+#edit_form input.ui-autocomplete-loading { background: white url('./ui-lightness/images/ui-anim_basic_16x16.gif') right center no-repeat; }
+
+#therapist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#therapist_table td {padding-left:20px; padding-right:20px;}
+#therapist_table th {white-space:nowrap;}
+#therapist_table td[headers~=ui-table-ftp_table-header-4] {text-align:right;}
+#therapist_table td[headers~=ui-table-mysql_table-header-1] {text-align:right;}
+
+#therapist_table th { 	
+	border: 1px solid #cccccc; 
+}
+#therapist_table th a {	
+	padding: 0.5em 2em 0.5em 0.7em; 
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#therapist_table th a:hover {
+	text-decoration:none;
+}	
+#therapist_table th.ui-table-desc a {	
+	background: url(desc.gif) right center no-repeat;
+}
+#therapist_table th.ui-table-asc a{	
+	background: url(asc.gif) right center no-repeat;
+}
+#therapist_table th.ui-table-desc a:hover,	
+#therapist_table th.ui-table-desc a:active,	
+#therapist_table th.ui-table-desc a:focus, 
+#therapist_table th a:hover,	
+#therapist_table th a:active,	
+#therapist_table th a:focus{	
+	background: url(../images/asc.gif) right center no-repeat;
+}
+#therapist_table th.ui-table-asc a:hover, 
+#therapist_table th.ui-table-asc a:active, 
+#therapist_table th.ui-table-asc a:focus{	
+	background: url(../images/desc.gif) right center no-repeat;
+}
+#therapist_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}
+
+#childsearch_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#childsearch_table td {padding-left:20px; padding-right:20px;}
+#childsearch_table th {white-space:nowrap;}
+#childsearch_table td[headers~=ui-table-ftp_table-header-4] {text-align:right;}
+#childsearch_table td[headers~=ui-table-mysql_table-header-1] {text-align:right;}
+
+#childsearch_table th { 	
+	border: 1px solid #cccccc; 
+}
+#childsearch_table th a {	
+	padding: 0.5em 2em 0.5em 0.7em; 
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#childsearch_table th a:hover {
+	text-decoration:none;
+}	
+#childsearch_table th.ui-table-desc a {	
+	background: url(desc.gif) right center no-repeat;
+}
+#childsearch_table th.ui-table-asc a{	
+	background: url(asc.gif) right center no-repeat;
+}
+#childsearch_table th.ui-table-desc a:hover,	
+#childsearch_table th.ui-table-desc a:active,	
+#childsearch_table th.ui-table-desc a:focus, 
+#childsearch_table th a:hover,	
+#childsearch_table th a:active,	
+#childsearch_table th a:focus{	
+	background: url(../images/asc.gif) right center no-repeat;
+}
+#childsearch_table th.ui-table-asc a:hover, 
+#childsearch_table th.ui-table-asc a:active, 
+#childsearch_table th.ui-table-asc a:focus{	
+	background: url(../images/desc.gif) right center no-repeat;
+}
+#childsearch_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}
+
+#fulldoku_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#fulldoku_table td {padding-left:20px; padding-right:20px;}
+#fulldoku_table th {white-space:nowrap;}
+#fulldoku_table td[headers~=ui-table-ftp_table-header-4] {text-align:right;}
+#fulldoku_table td[headers~=ui-table-mysql_table-header-1] {text-align:right;}
+
+#fulldoku_table th { 	
+	border: 1px solid #cccccc; 
+}
+#fulldoku_table th a {	
+	padding: 0.5em 2em 0.5em 0.7em; 
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#fulldoku_table th a:hover {
+	text-decoration:none;
+}	
+#fulldoku_table th.ui-table-desc a {	
+	background: url(desc.gif) right center no-repeat;
+}
+#fulldoku_table th.ui-table-asc a{	
+	background: url(asc.gif) right center no-repeat;
+}
+#fulldoku_table th.ui-table-desc a:hover,	
+#fulldoku_table th.ui-table-desc a:active,	
+#fulldoku_table th.ui-table-desc a:focus, 
+#fulldoku_table th a:hover,	
+#fulldoku_table th a:active,	
+#fulldoku_table th a:focus{	
+	background: url(../images/asc.gif) right center no-repeat;
+}
+#fulldoku_table th.ui-table-asc a:hover, 
+#fulldoku_table th.ui-table-asc a:active, 
+#fulldoku_table th.ui-table-asc a:focus{	
+	background: url(../images/desc.gif) right center no-repeat;
+}
+#fulldoku_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}
+
+#childdoku_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#childdoku_table td {padding-left:20px; padding-right:20px;}
+#childdoku_table th {white-space:nowrap;}
+#childdoku_table td[headers~=ui-table-ftp_table-header-4] {text-align:right;}
+#childdoku_table td[headers~=ui-table-mysql_table-header-1] {text-align:right;}
+
+#childdoku_table th { 	
+	border: 1px solid #cccccc; 
+}
+#childdoku_table th a {	
+	padding: 0.5em 2em 0.5em 0.7em; 
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#childdoku_table th a:hover {
+	text-decoration:none;
+}	
+#childdoku_table th.ui-table-desc a {	
+	background: url(desc.gif) right center no-repeat;
+}
+#childdoku_table th.ui-table-asc a{	
+	background: url(asc.gif) right center no-repeat;
+}
+#childdoku_table th.ui-table-desc a:hover,	
+#childdoku_table th.ui-table-desc a:active,	
+#childdoku_table th.ui-table-desc a:focus, 
+#childdoku_table th a:hover,	
+#childdoku_table th a:active,	
+#childdoku_table th a:focus{	
+	background: url(../images/asc.gif) right center no-repeat;
+}
+#childdoku_table th.ui-table-asc a:hover, 
+#childdoku_table th.ui-table-asc a:active, 
+#childdoku_table th.ui-table-asc a:focus{	
+	background: url(../images/desc.gif) right center no-repeat;
+}
+#childdoku_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}

@@ -1,0 +1,185 @@
+Change Log
+==========
+
+
+Release 0.5.51.
+	- Bugfix in installer
+	
+Release 0.5.5.0
+    - new installer
+    
+    - included jquery and JavaScript tables. It is now possible to sort the
+      table contents by clicking into the head of the columns
+      
+    - removed sort user by and sort user order from preferences due to sortable
+      tables
+      
+    - removed selection for use of JaveScript in installer
+      because JavaScript is now necessary for JQuery
+    
+    - added LDAP support
+    
+    - added report to user's groups and access rights
+      feature request ID 3155553
+      
+    - changed generation of per repository access files
+      feature request 3234233
+      
+    - fixed bug 3275587
+      trailing slashes in access file are removed
+      
+    - fixed bug 3275587
+      fixed issue in "User expired" cronjob mail
+      
+    - fixed bug 3141126
+      paging on "rep_granted_user_rights.php" works now
+    
+	- fixed bug 3125448
+	  restrict rights of an user who only has add user permission to not have the 
+	  possibility to gain more rights by creating users with higher level of rights
+	  
+	- resolved feature requests 1985511, 3079669 and 3109997
+	  added LDAP support to make connections to AD or other LDAP servers possible to
+	  get a single sign on
+	  
+	- fixed bug 3137282 and 3137284
+	  fixed paging issues with group list and access right list
+	  
+	- fixed bug 3139077
+	  now an user can't get write access on a particular directories when set to read only globally
+	  
+	- fixed bug 3138664
+	  issue with db_escape_string db link
+	  
+Release 0.5.0.3
+	- fixed bug in resetpassword.php
+	
+Release 0.5.0.2
+	- fixed a typo in deleteAccessRight.php 
+	
+Release 0.5.0.1
+	- fixed a typo
+	
+Release 0.5.0.0
+	- added support for PostgreSQL
+	- added support for Oracle 10g/11g
+	- divided installer up into 6 pages
+	
+Release 0.4.1.6
+	- fixed a typographical error in checkPasswordPolicy function
+	
+Release 0.4.1.5
+	- fixed issues with svn and svnadmin command under windows
+	- make repository compatibility configurable with svnadmin create. Default
+	  value is determined by svnadmin help create command. If no suitable value can
+	  be found, default is assumed as --pre-1.4-compatible
+	- added access rights management for files. From now on access rights can be set
+	  on files too. To make the new behaviour working add $CONF['accessControl'] to
+	  your config.inc.php. Valid entries are "dirs" or "files". "dirs" is the default.
+	- changed installer to reflect the enhancements
+	  
+Release 0.4.1.3
+	- fixed an issue with access file creation under windows
+	
+Release 0.4.1.2
+ 	- fixed several bugs in the installer
+ 	
+Release 0.4.1.1
+	- fixed a bug which makes it project administrators impossible to manage access
+	  rights for projects they are responsible for
+	  
+Release 0.4.1.0
+	- fixed bug 2929680: 
+	  added configurable language support for MySQL to installer and changed db connect
+	  function accordingly.
+	- added security question to allow users to reset their password themselves
+	   
+Release 0.4.0.3
+	- fixed a bug in list project screen
+	- added two constants to make password complexity configurable. Passwords must consist
+	  of lower-case, upper-case characters, digits and special characters. Normally an administrator
+	  has to use all for groups, a normal user has to use three groups at least. Two constants are 
+	  added ($CONF['minPasswordGroups'] and $CONF['minPasswordGroupsUser']) to enable configuration.
+	  If not set or out of range (1 - 4) 3 is assumed for normal users and 4 is assumed for 
+	  administrators.
+	 
+Release 0.4.0.1 
+	- fixed bug 2926359
+	  do not set 'session.save_handler' to user if sessions are not stored in database.
+	  
+Release 0.4.0.0
+	- added additional global right "add" which allows only to add new entries but do not allow to change
+	  any existing entries
+	- changed listing functions to only display available actions (e. g. edit, delete)
+	- added functionality to let users administer some groups their self as granted by administrator
+	- added functionality to create repositories from the web interface. This only works if SVN Access Manager 
+	  is running on the same hosts where the repositories live. This is due to the fact that svnadmin only
+	  accepts a path not an URL.
+	
+Release 0.3.0.3
+	- minor corrections in install.php, removed typo in installer
+	
+Release 0.3.0.2
+	- fixed issues with windows installations regarding using http(s) protocol for repository access
+	- fixed issue with md5 crypting of passwords under windows
+	 
+Release 0.3.0.1
+	- fixed Bug 2008661, thanx to Matthias Hoertzsch
+	- added check that at leased one user or one group is selected while adding an access right
+	
+Release 0.3.0.0
+	- added creation of access control files for ViewVC (Apache webserver only)
+	- improved logging
+	- improved installer
+	- changed and completed language files
+	
+Release 0.2.3.0
+	- fixed issues with access file creation
+	- added md5 encrypted passwords
+	
+Release 0.2.1.3
+	- fixed issue with access file creation
+	- added help texts
+	- added additional installer template
+	
+Release 0.2.1.2
+	- fixed title of locked user report
+	- added texts to German language file
+	
+Release 0.2.1.1
+	- added icon for locked user in granted user rights report
+	- fixed issue with scrolling in granted user rights report
+	
+Release 0.2.1.0
+	- use the same sort order for users in all masks
+	- defined user selectable preferences for different sort orders
+	- modified granted right report to show the correct number of lines per page
+	- fixed installer bug with session handling
+	
+Release 0.2.0.2
+  	- fixed bug 1985204 (remove project fails) - Thanx to Andy L.
+  	- fixed a typo in scrolling function, jump to the last page now works
+  	- fixed issue with access right selection. A project responsible user couldn't see
+  	  access rights belonging to his project. Now he can.
+  	  
+Release 0.2.0.1
+	- added table help to installer
+	
+Release 0.2.0.0
+	- force user to change password after login if password is expired
+	- corrected invalid img tag in templates
+	- added online help
+	- corrected permission problem regarding repository access rights
+	- fixed locale problem with IE 
+	- fixed issue with double '/' in subversion directory
+	- added cronjob for creating access rights files automatically
+	- added cronjob for locking out users with expired passwords
+	
+Release 0.1.0.2
+	- bugfix release
+
+Release 0.1.0.1
+	- bugfix release
+
+Release 0.1.0.0
+	- first alpha release

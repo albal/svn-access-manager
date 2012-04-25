@@ -1,0 +1,73 @@
+
+To Do's
+=======
+
+
+Open:
+
+- add online help
+       -> particularly done, more texts to be added.
+
+- make svn protocol useable
+
+- import existing svn access files
+
+
+
+
+Done:
+
+- integrate LDAP for users and groups, Feature Request ID: 1985511
+
+- support PostgreSQL
+  have a look about mysql_insert_id and PostgreSQL
+
+- support mysqli (not really becessary due to using ADODB database layer)
+
+- add language support for MySQL
+
+- add security question for password reset
+
+- make password complexity configurable
+
+- create new repositories from the webserver
+  This is only possible if SVN Access Manager runs on the same host where the 
+  repositories live. svnadmin command only acceps a path to the repository not
+  an URL
+  	-> done in version 0.4.0.0
+
+- project groups, Feature Request ID: 2849937
+  It would be nice to give project responsible users the right to administer some, 
+  but not all, groups.
+  	-> done in version 0.4.0.0
+  
+ - user management, Feature Request ID: 2776151
+   add global access right "add" which only allows to add new entries but does not
+   allow to change any existing entries
+   	-> done in version 0.4.0.0
+ 
+- per repository auth files, Feature Request ID: 2540612
+      -> done in version 0.4.0.0
+
+- check project responsible and grant access to repository access rights administration
+      -> solved
+      
+- delete repository rights if a project or repository is deleted 
+      -> solved
+      
+- delete repository rights if a user or group is deleted
+      -> solved
+
+- cron jobs for access right creation and user lockout
+       -> jobs are included, documentation is to be written
+
+- take user to password change if password is expired
+       -> done
+
+- log project with granted access rights
+	-> check log messages and use clear text instead of database ids
+	-> done
+
+- use the same sort order for users (sort by name and given name or enable preferences for sort order)
+	-> user selectable sort order implemented
+	-> done
