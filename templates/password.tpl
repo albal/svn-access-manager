@@ -9,17 +9,17 @@
 		   </tr>
 		   <tr>
 		      <td><strong><?php print _("Current password").": "; ?></strong></td>
-		      <td><input type="password" name="fPassword_current" /></td>
+		      <td><input type="password" name="fPassword_current" autocomplete="off" /></td>
 		      <td><?php print $pPassword_password_current_text; ?></td>
 		   </tr>
 		   <tr>
 		      <td><strong><?php print _("New password").": "; ?></strong></td>
-		      <td><input type="password" name="fPassword" /></td>
+		      <td><input type="password" name="fPassword" autocomplete="off" /></td>
 		      <td><?php print $pPassword_password_text; ?></td>
 		   </tr>
 		   <tr>
 		      <td><strong><?php print _("Retype new password").": "; ?></strong></td>
-		      <td><input type="password" name="fPassword2" /></td>
+		      <td><input type="password" name="fPassword2" autocomplete="off" /></td>
 		      <td>&nbsp;</td>
 		   </tr>
 		   <tr>

@@ -140,6 +140,63 @@ include( "../include/output.inc.php" );
 				
 				<p>&nbsp;</p>
 				
+				<fieldset>
+					<legend><strong><?php print " "._("LDAP settings - Part 1")." "; ?></strong></legend>
+					<table>
+						<tr>
+					   		<td><strong><?php print _("Uid").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapAttrUid" value="<?php print $tLdapAttrUid; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the attribute for the uid."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("Name").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapAttrName" value="<?php print $tLdapAttrName; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the attribute for the name."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("Givenname").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapAttrGivenname" value="<?php print $tLdapAttrGivenname; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the attribute for the given name."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("Mail").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapAttrMail" value="<?php print $tLdapAttrMail; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the attribute for the email address."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					   	<tr>
+					   		<td><strong><?php print _("Password").": "; ?></strong></td>
+					   		<td>
+					   			<input type="text" name="fLdapAttrPassword" value="<?php print $tLdapAttrPassword; ?>" size="40" />
+					   		</td>
+					   		<td>
+					   			<?php print _("Enter the attribute containing the user password."); ?>
+					   		</td>
+					   		<td>&nbsp;</td>
+					   	</tr>
+					</table>
+				</fieldset>
+				<p>&nbsp;</p>
+				
 				<table>
 				   	<tr>
 				      	<td colspan="4">&nbsp;</td>

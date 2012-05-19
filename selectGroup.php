@@ -36,7 +36,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -53,8 +53,6 @@ $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $uId										= db_getIdByUserid( $SESSID_USERNAME, $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "selectproject";
