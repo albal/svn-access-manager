@@ -407,8 +407,8 @@ function createAccessFile( $dbh ) {
 							if( ! @fwrite( $fileHandle, $rowusr['userid']." = r\n" ) ) {
 										
 								$retcode				= 5;
-								$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
 								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+								$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
 							}
 									
 						}
@@ -456,6 +456,9 @@ function createAccessFile( $dbh ) {
 								
 								$oldpath				= $row['repo_id'].$row['path'];
 								$tPath					= preg_replace( '/\/$/', '', $row['path'] );
+								if( $tPath == "" ) {
+									$tPath				= "/";
+								}
 								if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$tPath."]\n" ) ) {
 									
 									$retcode			= 4;
@@ -652,7 +655,6 @@ function createAccessFilePerRepo( $dbh ) {
 								
 								if( $users != "" ) {
 									
-									if( $groupwritten == 0 ) {
 										
 										$groupwritten		= 1;
 										
@@ -660,6 +662,7 @@ function createAccessFilePerRepo( $dbh ) {
 											
 											$retcode		= 1;
 											$tMessage		= sprintf( _("Cannot write to %s"), $tempfile );
+									if( $groupwritten == 0 ) {
 											db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
 										} 
 									}
@@ -788,7 +791,10 @@ function createAccessFilePerRepo( $dbh ) {
 							if( $checkpath != $oldpath ) {
 								
 								$oldpath				= $row['repo_id'].$row['path'];
-								$tPath					=preg_replace( '/\/$/', '', $row['path'] );
+								$tPath					= preg_replace( '/\/$/', '', $row['path'] );
+								if( $tPath == "" ) {
+									$tPath				= "/";
+								}
 								if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$tPath."]\n" ) ) {
 									
 									$retcode			= 4;

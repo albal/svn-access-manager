@@ -2,7 +2,10 @@ Change Log
 ==========
 
 
-Release 0.5.5.1.
+Release 0.5.5.2
+	- Bugfix in creating repository access files
+	
+Release 0.5.5.1
 	- Bugfix in installer
 	
 Release 0.5.5.0
