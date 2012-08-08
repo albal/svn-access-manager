@@ -595,7 +595,7 @@ function db_getIdByUserid ($userid, $link) {
 //
 function db_now() {
 	
-	$date					= date('YmdGis');
+	$date					= date('YmdHis');
 	return $date;
 }
 
