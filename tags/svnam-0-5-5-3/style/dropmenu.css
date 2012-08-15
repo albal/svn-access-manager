@@ -1,0 +1,78 @@
+/*	---------------------------------------------------------
+ 
+ 	Essentials
+*/
+.dropmenu { 
+	margin: 0; 
+	padding: 0; 
+	height: 24px;
+}
+
+
+
+
+
+/*	---------------------------------------------------------
+
+ 	Optional but recommended
+*/
+/* .dropmenu ul { width: 130px; background-color: #FF0; } */
+
+
+
+
+
+/*	---------------------------------------------------------
+
+ 	Theming
+*/
+
+
+
+/* 		All items 			*/
+.dropmenu li a {
+	text-decoration: none;
+}
+.dropmenu li a, 
+.dropmenu li span { 
+	color: white; 
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0px;
+}
+
+
+
+/*		Topitems			*/
+
+
+/*			standard		*/
+.dropmenu .toplevel	{					background-color: #99ccff; 
+}
+
+/*			onmouseover		*/
+.dropmenu .toplevel.hover { 			background-color: #99ccff; }
+
+/*			current page	*/
+.dropmenu .toplevel.selected { 			background-color: #99ccff; }
+
+/*			current page onmouseover	*/
+.dropmenu .toplevel.hover.selected { 	background-color: #333; }
+
+
+
+/*		Subitems			*/
+
+
+/*			standard		*/
+.dropmenu .sublevel {					background-color: #99ccff;
+}
+
+/*			onmouseover		*/
+.dropmenu .sublevel.hover {				background-color: #99ccff; }
+
+/*			current page	*/
+.dropmenu .sublevel.selected { 			background-color: #99ccff; }
+
+/*			current page onmouseover	*/
+.dropmenu .sublevel.hover.selected {	background-color: #333; }
