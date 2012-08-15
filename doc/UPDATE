@@ -1,3 +1,46 @@
+Update to V0.5.5.0
+
+These are the steps to update from version 0.5.0.x to 0.5.5.0
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following lines and set the values as needed:
+   $CONF['use_ldap']                               = 'YES/NO';
+   $CONF['bind_dn']                                = 'ou=example,ou=org';
+   $CONF['bind_pw']                                = '';
+   $CONF['user_dn']                                = 'ou=people,ou=example,ou=org';
+   $CONF['user_filter_attr']                       = 'uid';
+   $CONF['user_objectclass']                       = 'inetOrgPerson';
+   $CONF['additional_user_filter']                 = '';
+   $CONF['ldap_server']                            = '';
+   $CONF['ldap_port']                              = '';
+   $CONF['ldap_protocol']                          = '3';
+   $CONF['attr_mapping']['uid']                    = 'uid';
+   $CONF['attr_mapping']['name']                   = 'sn';
+   $CONF['attr_mapping']['givenName']              = 'givenName';
+   $CONF['attr_mapping']['mail']                   = 'mail';
+   $CONF['attr_mapping']['userPassword']           = 'userPassword';
+
+   Keep in mind that the entries above are an example. Change as needed to work with
+   your environment! If you do not need LDAP add $CONF['use_ldap'] = 'NO' at least.
+   
+   Please refer to the documentation at http://svn-access-mana.sourceforge.net/
+   There are some explanations regarding LDAP connection and issues which can occur
+   connecting your environment to LDAP!
+   
+2. Release 0.5.5.0  comes with new features. That means that there are a lot of files 
+   changed. Either compare your installation to the current release or install the 
+   release from scratch and copy the changed config file from your previous 
+   installation into your new installation.
+   
+   
+You're finished.
+
+
+----------------------------------------------------------------------------------------
+
+
+
 Update to V0.5.0.0
 
 These are the steps to update from version 0.4.1.x to 0.5.0.0
