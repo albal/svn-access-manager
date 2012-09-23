@@ -162,12 +162,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if( $lang == "de" ) {
 		
 		$tDate								= "TT.MM.JJJJ";
+		$tDate								= date("d").".".date("m").".".date("Y");
 		$tDateFormat						= "dd-mm-yy";
 		$tLocale							= "de";
 		
 	} else {
 		
 		$tDate								= "MM/DD/YYYY";
+		$tDate								= date("m")."/".date("d")."/".date("Y");
 		$tDateFormat						= "mm-dd-yy";
 		$tLocale							= "en";
 	}

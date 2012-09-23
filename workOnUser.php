@@ -148,7 +148,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tPasswordExpires						= 1;
 		$tLocked								= 0;
 		$tAdministrator							= "n";
-		$tUserRight								= "read";
+		if( isset( $CONF['userDefaultAccess'] ) ) {
+			$tUserRight							= $CONF['userDefaultAccess'];
+		} else {
+			$tUserRight							= "read";
+		}
 		$tRightsGranted							= array();
 		if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
 			$tUsers								= get_ldap_users();

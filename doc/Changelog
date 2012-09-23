@@ -2,6 +2,15 @@ Change Log
 ==========
 
 
+Release 0.5.5.4
+	- Added text about password change time (ID: 3566309)
+	- configurable default user access right (ID: 3569311)
+	- preset date instead of date description in access right report (ID: 3570520)
+	- added an error message if a project responsible user is missing (ID: 3569291)
+	
+Release 0.5.5.3
+  	- some minor changes
+  	
 Release 0.5.5.2
 	- Bugfix in creating repository access files
 	

@@ -2981,6 +2981,7 @@ function doInstall() {
 			$content					= str_replace( '###MAPGIVENNAME###',		$_SESSION['svn_inst']['ldapAttrGivenname'], $content );
 			$content					= str_replace( '###MAPMAIL###',				$_SESSION['svn_inst']['ldapAttrMail'], $content );
 			$content					= str_replace( '###MAPPASSWORD###',			$_SESSION['svn_inst']['ldapAttrPassword'], $content );
+			$content					= str_replace( '###USERDEFAULTACCESS###',	$_SESSION['svn_inst']['userDefaultAccess'], $content );
 			
 		} else {
 			
@@ -3176,12 +3177,13 @@ function doInstall() {
 		
 	} else {
 	
-		$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 		? $_SESSION['svn_inst']['logging'] 			: "YES";
-		$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 		? $_SESSION['svn_inst']['javaScript'] 		: "YES";
-		$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 		? $_SESSION['svn_inst']['pageSize'] 		: "30";
-		$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 	? $_SESSION['svn_inst']['minAdminPwSize'] 	: "14";
-		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 	? $_SESSION['svn_inst']['minUserPwSize'] 	: "8"; 
-		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 			? $_SESSION['svn_inst']['useMd5'] 			: "md5";
+		$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 			? $_SESSION['svn_inst']['logging'] 				: "YES";
+		$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 			? $_SESSION['svn_inst']['javaScript'] 			: "YES";
+		$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 			? $_SESSION['svn_inst']['pageSize'] 			: "30";
+		$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
+		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
+		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";
+		$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
 		
 		if( $tJavaScript == "YES" ) {
 			$tJavaScriptYes				= "checked";
@@ -3207,6 +3209,14 @@ function doInstall() {
 			$tMd5Yes					= "";
 			$tMd5No						= "checked";
 			$CONF['pwcrypt']			= "crypt";
+		}
+		
+		if( $tUserDefaultAccess == "read" ) {
+			$tUserDefaultAccessread		= "checked";
+			$tUserDefaultAccessWrite	= "";
+		} else {
+			$tUserDefaultAccessread		= "";
+			$tUserDefaultAccessWrite	= "checked";
 		}
 		
 	}
@@ -3296,6 +3306,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tPerRepoFiles							= "";
 	$tLogging								= "";
 	$tJavaScript							= "";
+	$tUserDefaultAccess						= "";
 	$tPageSize								= 30;
 	$tMinAdminPwSize						= 14;
 	$tMinUserPwSize							= 8;
@@ -3438,6 +3449,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tMd5No								= "checked";
 	}
 	
+	if( $tUserDefaultAccess == "write" ) {
+		$tUserDefaultAccessWrite			= "checked";
+		$tUserDefaultAccessRead				= "";
+	} else {
+		$tUserDefaultAccessWrite			= "";
+		$tUserDefaultAccessRead				= "checked";
+	}
+	
    	$tErrors								= array();
    
    	include ("../templates/install-tabs.tpl");
@@ -3551,6 +3570,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tMinAdminPwSize					= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
 	$tMinUserPwSize						= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
 	$tUseMd5							= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
+	$tUserDefaultAccess					= isset( $_POST['fUserDefaultAccess'] )		? ( $_POST['fUserDefaultAccess'] )		: "";
 	$error								= 0;
 	
 	$_SESSION['svn_inst']['createDatabaseTables']		= $tCreateDatabaseTables;
@@ -3610,6 +3630,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
 	$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
 	$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
+	$_SESSION['svn_inst']['userDefaultAccess']			= $tUserDefaultAccess;
 	
 	if( isset( $_POST['fSubmit_install'] ) or isset( $_POST['fSubmit_install_x'] ) ) {
 			
@@ -4025,12 +4046,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		}
    	}	
    	
-   	$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 		? $_SESSION['svn_inst']['logging'] 			: "YES";
-	$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 		? $_SESSION['svn_inst']['javaScript'] 		: "YES";
-	$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 		? $_SESSION['svn_inst']['pageSize'] 		: "30";
-	$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 	? $_SESSION['svn_inst']['minAdminPwSize'] 	: "14";
-	$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 	? $_SESSION['svn_inst']['minUserPwSize'] 	: "8"; 
-	$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 			? $_SESSION['svn_inst']['useMd5'] 			: "md5";		
+   	$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 			? $_SESSION['svn_inst']['logging'] 				: "YES";
+	$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 			? $_SESSION['svn_inst']['javaScript'] 			: "YES";
+	$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 			? $_SESSION['svn_inst']['pageSize'] 			: "30";
+	$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
+	$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
+	$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";	
+	$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
 	
 	#
 	# inialize fieds
@@ -4165,6 +4187,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tMd5Yes					= "";
 		$tMd5No						= "checked";
 		$CONF['pwcrypt']			= "crypt";
+	}
+	
+	if( $tUserDefaultAccess == "read" ) {
+		$tUserDefaultAccessRead		= "checked";
+		$tUserDefaultAccess			= "";
+	} else {
+		$tUserDefaultAccessRead		= "";
+		$tUserDefaultAccess			= "checkaed";
 	}
 		
 	include ("../templates/install-tabs.tpl");	

@@ -8,6 +8,12 @@
 		      <td colspan=3>&nbsp;</td>
 		   </tr>
 		   <tr>
+			 <td colspan=3><?php print _( "Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords."); ?></td>
+		   </tr>
+		    <tr>
+		      <td colspan=3>&nbsp;</td>
+		   </tr>
+		   <tr>
 		      <td><strong><?php print _("Current password").": "; ?></strong></td>
 		      <td><input type="password" name="fPassword_current" autocomplete="off" /></td>
 		      <td><?php print $pPassword_password_current_text; ?></td>

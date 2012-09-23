@@ -125,6 +125,9 @@ $CONF['separateFilesPerRepo']	= '###SEPERATEFILESPERREPO###';
 //files listed during access rights management too
 //Valid values are "dirs" or "files"
 $CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
+// Set users default access right
+// valid values are; read, write
+$CONF['userDefaultAccess'] 		= '###USERDEFAULTACCESS###';
 
 $CONF['mail_password_warn']		= <<<EOM
 

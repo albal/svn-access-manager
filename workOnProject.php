@@ -393,6 +393,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				
    				$tMessage					= _( "Subversion module path missing, please fill in!" );
    				$error						= 1;
+   				
+   			} elseif( empty($tMembers) ) {
+                                
+				$tMessage                  = _( "Project responsible user missing, please fill in!" );
+				$error                     = 1;
    			
    			} else {
 
@@ -494,6 +499,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Subversion module path missing, please fill in!" );
    				$error						= 1;
    			
+   			} elseif( empty($tMembers) ) {
+                                
+				$tMessage                  = _( "Project responsible user missing, please fill in!" );
+				$error                     = 1;
+				
    			} else {
 
    				$query						= "SELECT * " .
