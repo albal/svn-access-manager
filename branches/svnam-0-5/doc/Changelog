@@ -8,6 +8,8 @@ Release 0.5.5.4
 	- preset date instead of date description in access right report (ID: 3570520)
 	- added an error message if a project responsible user is missing (ID: 3569291)
 	
+	Thanks to everyone sending patches!
+	
 Release 0.5.5.3
   	- some minor changes
   	
