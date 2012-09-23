@@ -121,9 +121,6 @@ include( "../include/output.inc.php" );
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
-							   	<tr>
-							      	<td colspan="3">&nbsp;</td>
-							   	</tr>
 							   	<?php
 							   		if( ini_get( 'mysql.allow_persistent' ) != 1 ) {
 							   			print "\t\t\t<tr>\n";
@@ -135,9 +132,20 @@ include( "../include/output.inc.php" );
 							   			print "\t\t\t\t<td>&nbsp;</td>\n";
 							   			print "\t\t\t</tr>\n";
 							   		}
-							   	?>		
-							   		<tr>
-							      	<td colspan="3">&nbsp;</td>
+							   	
+							   		if( ini_get( 'date.timezone' ) == "" ) {
+							   			print "\t\t\t<tr>\n";
+							   			print "\t\t\t\t<td colspan='3'>"._("Please make sure that in your php.ini file the varibale date.timezone is set to a value according to your timezone. Don't forget to restart your webserver after changing the value of date.timezone!")."</td>\n";
+							   			print "\t\t\t\t<td>&nbsp;</td>\n";
+							   			print "\t\t\t</tr>\n";
+							   			print "\t\t\t<tr>\n";
+							   			print "\t\t\t\t<td colspan='3'>&nbsp;</td>\n";
+							   			print "\t\t\t\t<td>&nbsp;</td>\n";
+							   			print "\t\t\t</tr>\n";
+							   		}
+							   	?>
+							   	<tr>
+							   		<td colspan="3">&nbsp;</td>
 							   	</tr>
 								<tr>
 									<td>
@@ -802,6 +810,17 @@ include( "../include/output.inc.php" );
 							   		</td>
 							   		<td>
 							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("User default access right").": "; ?></strong></td>
+							   		<td>
+							   			<input type="radio" name="fUserDefaultAccess" value="read" <?php print $tUserDefaultAccessRead; ?> />&nbsp;&nbsp;<?php print _("read"); ?>&nbsp;&nbsp;&nbsp;
+						   				<input type="radio" name="fUserDefaultAccess" value="write" <?php print $tUserDefaultAccessWrite; ?> />&nbsp;&nbsp;<?php print _("write"); ?>
+							   		</td>
+							   		<td>
+							   			<?php print _("Set the default user access right for repositories."); ?>
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
