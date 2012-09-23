@@ -2,6 +2,69 @@ Change Log
 ==========
 
 
+Release 0.5.5.4
+	- Added text about password change time (ID: 3566309)
+	- configurable default user access right (ID: 3569311)
+	- preset date instead of date description in access right report (ID: 3570520)
+	- added an error message if a project responsible user is missing (ID: 3569291)
+	
+	Thanks to everyone sending patches!
+	
+Release 0.5.5.3
+  	- some minor changes
+  	
+Release 0.5.5.2
+	- Bugfix in creating repository access files
+	
+Release 0.5.5.1
+	- Bugfix in installer
+	
+Release 0.5.5.0
+    - new installer
+    
+    - included jquery and JavaScript tables. It is now possible to sort the
+      table contents by clicking into the head of the columns
+      
+    - removed sort user by and sort user order from preferences due to sortable
+      tables
+      
+    - removed selection for use of JaveScript in installer
+      because JavaScript is now necessary for JQuery
+    
+    - added LDAP support
+    
+    - added report to user's groups and access rights
+      feature request ID 3155553
+      
+    - changed generation of per repository access files
+      feature request 3234233
+      
+    - fixed bug 3275587
+      trailing slashes in access file are removed
+      
+    - fixed bug 3275587
+      fixed issue in "User expired" cronjob mail
+      
+    - fixed bug 3141126
+      paging on "rep_granted_user_rights.php" works now
+    
+	- fixed bug 3125448
+	  restrict rights of an user who only has add user permission to not have the 
+	  possibility to gain more rights by creating users with higher level of rights
+	  
+	- resolved feature requests 1985511, 3079669 and 3109997
+	  added LDAP support to make connections to AD or other LDAP servers possible to
+	  get a single sign on
+	  
+	- fixed bug 3137282 and 3137284
+	  fixed paging issues with group list and access right list
+	  
+	- fixed bug 3139077
+	  now an user can't get write access on a particular directories when set to read only globally
+	  
+	- fixed bug 3138664
+	  issue with db_escape_string db link
+	  
 Release 0.5.0.3
 	- fixed bug in resetpassword.php
 	

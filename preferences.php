@@ -27,7 +27,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -159,17 +159,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			$error							= 1;
    			$tMessage						= _("Records per page must contain digits only!" );
    			
-   		} elseif( $tSortField == "" ) {
+   		} 
+   		#elseif( $tSortField == "" ) {
    			
-   			$error							= 1;
-   			$tMessage						= _("Please select the user sort fields!" );
+   		#	$error							= 1;
+   		#	$tMessage						= _("Please select the user sort fields!" );
    			
-   		} elseif( $tSortOrder == "" ) {
+   		#} elseif( $tSortOrder == "" ) {
    			
-   			$error							= 1;
-   			$tMessage						= -_("Please select the user sort order!" );
+   		#	$error							= 1;
+   		#	$tMessage						= -_("Please select the user sort order!" );
    			
-   		}
+   		#}
    		
    		if( $error == 0 ) {
    			
