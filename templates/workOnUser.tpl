@@ -74,8 +74,34 @@
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
-				   	
 			   		<?php
+						if (isset($CONF['column_custom1'])) {
+                                                        print "\n\t\t\t\t\t\t<tr>\n";
+                                                        print "\t\t\t\t\t\t\t<td nowrap><strong>".$CONF['column_custom1'].": </strong></td>\n";
+                                                        print "\t\t\t\t\t\t\t<td>\n";
+                                                        print "\t\t\t\t\t\t\t\t<input type='text' name='fCustom1' value=".$tCustom1." size='40' maxsize='255' />\n";
+                                                        print "\t\t\t\t\t\t\t</td>\n";
+                                                        print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+                                                        print "\t\t\t\t\t\t</tr>\n";
+						}
+                                                if (isset($CONF['column_custom2'])) {
+                                                        print "\n\t\t\t\t\t\t<tr>\n";
+                                                        print "\t\t\t\t\t\t\t<td nowrap><strong>".$CONF['column_custom2'].": </strong></td>\n";
+                                                        print "\t\t\t\t\t\t\t<td>\n";
+                                                        print "\t\t\t\t\t\t\t\t<input type='text' name='fCustom2' value=".$tCustom2." size='40' maxsize='255' />\n";
+                                                        print "\t\t\t\t\t\t\t</td>\n";
+                                                        print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+                                                        print "\t\t\t\t\t\t</tr>\n";
+                                                }
+                                                if (isset($CONF['column_custom3'])) {
+                                                        print "\n\t\t\t\t\t\t<tr>\n";
+                                                        print "\t\t\t\t\t\t\t<td nowrap><strong>".$CONF['column_custom3'].": </strong></td>\n";
+                                                        print "\t\t\t\t\t\t\t<td>\n";
+                                                        print "\t\t\t\t\t\t\t\t<input type='text' name='fCustom3' value=".$tCustom3." size='40' maxsize='255' />\n";
+                                                        print "\t\t\t\t\t\t\t</td>\n";
+                                                        print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+                                                        print "\t\t\t\t\t\t</tr>\n";
+                                                }
 			   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
 			   				print "\n\t\t\t\t\t\t<tr>\n";
 			   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";

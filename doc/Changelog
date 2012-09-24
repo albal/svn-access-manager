@@ -2,6 +2,11 @@ Change Log
 ==========
 
 
+Release 0.5.5.5
+	- Added three custom fields (ID: 3555321)
+	
+	Thanks to dafraggy for submitting the patch!
+	
 Release 0.5.5.4
 	- Added text about password change time (ID: 3566309)
 	- configurable default user access right (ID: 3569311)

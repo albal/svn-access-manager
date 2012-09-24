@@ -12,12 +12,13 @@ Open:
 
 - import existing svn access files
 
-- Custom Fields in User administration
 
 
 
 
 Done:
+
+- Custom Fields in User administration
 
 - integrate LDAP for users and groups, Feature Request ID: 1985511
 
