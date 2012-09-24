@@ -145,6 +145,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tName									= "";
 		$tGivenname								= "";
 		$tEmail									= "";
+		$tCustom1								= "''";
+		$tCustom2								= "''";
+		$tCustom3								= "''";
 		$tPasswordExpires						= 1;
 		$tLocked								= 0;
 		$tAdministrator							= "n";
@@ -172,6 +175,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tName								= $row['name'];
 			$tGivenname							= $row['givenname'];
 			$tEmail								= $row['emailaddress'];
+			$tCustom1						= (empty($row['custom1']) ? "''" : $row['custom1']);
+			$tCustom2                                               = (empty($row['custom2']) ? "''" : $row['custom2']);
+			$tCustom3                                               = (empty($row['custom3']) ? "''" : $row['custom3']);
 			$tPasswordExpires					= $row['passwordexpires'];
 			$tLocked							= $row['locked'];
 			$tAdministrator						= $row['admin'];
@@ -211,6 +217,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tPassword								= isset($_POST['fPassword']) 		? db_escape_string( $_POST['fPassword'] )			: "";
    	$tPassword2								= isset($_POST['fPassword2']) 		? db_escape_string( $_POST['fPassword2'] )			: "";
    	$tEmail									= isset($_POST['fEmail']) 			? db_escape_string( $_POST['fEmail'] )				: "";
+	$tCustom1	= isset($_POST['fCustom1'])	? db_escape_string( $_POST['fCustom1'] )	: "";
+	$tCustom2       = isset($_POST['fCustom2'])     ? db_escape_string( $_POST['fCustom2'] )        : "";
+	$tCustom3       = isset($_POST['fCustom3'])     ? db_escape_string( $_POST['fCustom3'] )        : "";
    	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: "0";
    	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: "";
    	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: "";
@@ -323,8 +332,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tPassword					= ($tPassword == "") ? generatePassword("y") : $tPassword;
    				$pwcrypt					= db_escape_string( pacrypt( $tPassword ), $dbh );
    				$dbnow						= db_now();
-   				$query 						= "INSERT INTO ".$schema."svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, created, created_user, password_modified, user_mode) " .
-   						                      "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
+   				$query 						= "INSERT INTO ".$schema."svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, custom1, custom2, custom3, admin, created, created_user, password_modified, user_mode) " .
+   						                      "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
    				
    				db_ta( 'BEGIN', $dbh );
    				db_log( $_SESSION['svn_sessid']['username'], "added user $tUserid, $tName, $tGivenname", $dbh ); 
@@ -473,6 +482,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    											   "   SET name 			= '$tName', " .
    											   "       givenname 		= '$tGivenname', " .
    											   "       emailaddress 	= '$tEmail', " .
+											   "       custom1         = '$tCustom1', " .
+											   "       custom2         = '$tCustom2', " .
+											   "       custom3         = '$tCustom3', " .
    											   "       passwordexpires 	= '$tPasswordExpires', " .
    											   "       locked 			= '$tLocked', " .
    											   "       admin 			= '$tAdministrator', " .

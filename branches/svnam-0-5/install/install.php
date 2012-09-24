@@ -430,7 +430,10 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    password_modified character varying(14) NOT NULL DEFAULT '00000000000000',
 												    superadmin smallint DEFAULT 0::smallint NOT NULL,
 												    securityquestion character varying(255) DEFAULT ''::character varying,
-												    securityanswer character varying(255) DEFAULT ''::character varying
+												    securityanswer character varying(255) DEFAULT ''::character varying,
+												    custom1 character varying(255) DEFAULT''::character varying,
+												    custom2 character varying(255) DEFAULT''::character varying,
+												    custom3 character varying(255) DEFAULT''::character varying
 												);";
 	$result									= db_query_install( $query, $dbh );
 	$query									= "ALTER TABLE $schema.svnusers OWNER TO $dbuser;";
@@ -1254,6 +1257,9 @@ function createOracleDatabaseTables( $dbh, $tDatabaseCharset, $tDatabaseCollatio
 												    \"SUPERADMIN\"        NUMBER(1,0) DEFAULT 0 NOT NULL ENABLE,
 												    \"SECURITYQUESTION\"  VARCHAR2(255 BYTE) DEFAULT '',
 												    \"SECURITYANSWER\"    VARCHAR2(255 BYTE) DEFAULT '',
+												    \"CUSTOM1\"           VARCHAR2(255 BYTE) DEFAULT '',
+												    \"CUSTOM2\"           VARCHAR2(255 BYTE) DEFAULT '',
+												    \"CUSTOM3\"           VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT SVNUSERS_PK PRIMARY KEY (\"ID\")  ENABLE
 												  )";
 	$result									= db_query_install( $query, $dbh );
@@ -1876,6 +1882,9 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`superadmin` tinyint(1) NOT NULL default '0',
   													`securityquestion` varchar(255) default '',
   													`securityanswer` varchar(255) default '',
+  													`custom1` varchar(255) default '',
+  													`custom2` varchar(255) default '',
+  													`custom3` varchar(255) default '',
   													PRIMARY KEY  (`id`),
   													UNIQUE KEY `idx_userid` (`userid`,`deleted`),
   													KEY `idx_mode` (`locked`),
@@ -2982,6 +2991,25 @@ function doInstall() {
 			$content					= str_replace( '###MAPMAIL###',				$_SESSION['svn_inst']['ldapAttrMail'], $content );
 			$content					= str_replace( '###MAPPASSWORD###',			$_SESSION['svn_inst']['ldapAttrPassword'], $content );
 			$content					= str_replace( '###USERDEFAULTACCESS###',	$_SESSION['svn_inst']['userDefaultAccess'], $content );
+			if( $_SESSION['svn_inst']['custom1'] == "" ) {
+				$custom1				= "NULL";
+			} else {
+				$custom1				= "'".$_SESSION['svn_inst']['custom1']."'";
+			}
+			if( $_SESSION['svn_inst']['custom2'] == "" ) {
+				$custom2				= "NULL";
+			} else {
+				$custom2				= "'".$_SESSION['svn_inst']['custom2']."'";
+			}
+			if( $_SESSION['svn_inst']['custom3'] == "" ) {
+				$custom3				= "NULL";
+			} else {
+				$custom3				= "'".$_SESSION['svn_inst']['custom3']."'";
+			}
+			
+			$content					= str_replace( '###CUSTOM1###',				$custom1, $content );
+			$content					= str_replace( '###CUSTOM2###',				$custom2, $content );
+			$content					= str_replace( '###CUSTOM3###',				$custom3, $content );
 			
 		} else {
 			
@@ -3184,6 +3212,9 @@ function doInstall() {
 		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
 		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";
 		$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
+		$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
+		$tCustom2						= isset( $_SESSION['svn_inst']['custom2'] )				? $_SESSION['svn_inst']['custom2']				: "";
+		$tCustom3						= isset( $_SESSION['svn_inst']['custom3'] )				? $_SESSION['svn_inst']['custom3']				: "";
 		
 		if( $tJavaScript == "YES" ) {
 			$tJavaScriptYes				= "checked";
@@ -3311,6 +3342,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tMinAdminPwSize						= 14;
 	$tMinUserPwSize							= 8;
 	$tUseMd5								= "";
+	$tCustom1								= "";
+	$tCustom2								= "";
+	$tCustom3								= "";
 	$error									= 0;
 	$tPage									= 0;
 	
@@ -3571,6 +3605,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tMinUserPwSize						= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
 	$tUseMd5							= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
 	$tUserDefaultAccess					= isset( $_POST['fUserDefaultAccess'] )		? ( $_POST['fUserDefaultAccess'] )		: "";
+	$tCustom1							= isset( $_POST['fCustom1'] )				? ( $_POST['fCustom1'] )				: "";
+	$tCustom2							= isset( $_POST['fCustom2'] )				? ( $_POST['fCustom2'] )				: "";
+	$tCustom3							= isset( $_POST['fCustom3'] )				? ( $_POST['fCustom3'] )				: "";
 	$error								= 0;
 	
 	$_SESSION['svn_inst']['createDatabaseTables']		= $tCreateDatabaseTables;
@@ -3631,6 +3668,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
 	$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
 	$_SESSION['svn_inst']['userDefaultAccess']			= $tUserDefaultAccess;
+	$_SESSION['svn_inst']['custom1']					= $tCustom1;
+	$_SESSION['svn_inst']['custom2']					= $tCustom2;
+	$_SESSION['svn_inst']['custom3']					= $tCustom3;
 	
 	if( isset( $_POST['fSubmit_install'] ) or isset( $_POST['fSubmit_install_x'] ) ) {
 			
@@ -4053,6 +4093,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
 	$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";	
 	$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
+	$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
+	$tCustom2						= isset( $_SESSION['svn_inst']['custom2'] )				? $_SESSION['svn_inst']['custom2']				: "";
+	$tCustom3						= isset( $_SESSION['svn_inst']['custom3'] )				? $_SESSION['svn_inst']['custom3']				: "";
 	
 	#
 	# inialize fieds

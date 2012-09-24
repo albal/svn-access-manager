@@ -129,6 +129,11 @@ $CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
 // valid values are; read, write
 $CONF['userDefaultAccess'] 		= '###USERDEFAULTACCESS###';
 
+// Custom Fields
+$CONF['column_custom1']			= ###CUSTOM1###;
+$CONF['column_custom2']			= ###CUSTOM2###;
+$CONF['column_custom3']			= ###CUSTOM3###;
+
 $CONF['mail_password_warn']		= <<<EOM
 
 Dear %s,

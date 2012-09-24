@@ -262,6 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   					
 	   				} else {
 	   					
+	   					$_SESSION['svn_sessid']['groupid'] = db_get_last_insert_id( 'svn_groups_responsibles', 'id', $dbh );
 	   					db_ta( 'COMMIT', $dbh );
 	   					
 	   					$tMessage				= _( "Group responsible user successfully inserted" );

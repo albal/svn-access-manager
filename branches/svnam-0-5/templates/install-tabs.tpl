@@ -798,7 +798,7 @@ include( "../include/output.inc.php" );
 							   			<input type="text" name="fMinUserPwSize" value="<?php print $tMinUserPwSize; ?>" size="4" maxsize="4" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the minimal length for user passwordws."); ?>
+							   			<?php print _("Enter the minimal length for user passwords."); ?>
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -815,12 +815,42 @@ include( "../include/output.inc.php" );
 							   	</tr>
 							   	<tr>
 							   		<td nowrap><strong><?php print _("User default access right").": "; ?></strong></td>
-							   		<td>
+							   		<td nowrap>
 							   			<input type="radio" name="fUserDefaultAccess" value="read" <?php print $tUserDefaultAccessRead; ?> />&nbsp;&nbsp;<?php print _("read"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fUserDefaultAccess" value="write" <?php print $tUserDefaultAccessWrite; ?> />&nbsp;&nbsp;<?php print _("write"); ?>
 							   		</td>
 							   		<td>
 							   			<?php print _("Set the default user access right for repositories."); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("Custom field 1").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fCustom1" value="<?php print $tCustom1; ?>" size="40" maxsize="255" />
+							   		</td>
+							   		<td>
+							   			<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("Custom field 2").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fCustom2" value="<?php print $tCustom2; ?>" size="40" maxsize="255" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("Custom field 3").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fCustom3" value="<?php print $tCustom3; ?>" size="40" maxsize="255" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
