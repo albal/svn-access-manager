@@ -235,7 +235,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$error							= 1;
    				
    			} else {
-   				
+   			
+   				$tGroupResponsibleId			= -1;	
    				$userid							= db_getIdByUserid( $tUser, $dbh );
    				$groupid						= $_SESSION['svn_sessid']['groupid'];
    				$groupname						= db_getGroupById( $groupid, $dbh );
@@ -262,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   					
 	   				} else {
 	   					
-	   					$_SESSION['svn_sessid']['groupid'] = db_get_last_insert_id( 'svn_groups_responsibles', 'id', $dbh );
+	   					$tGroupResponsibleId	= db_get_last_insert_id( 'svn_groups_responsibles', 'id', $dbh );
 	   					db_ta( 'COMMIT', $dbh );
 	   					
 	   					$tMessage				= _( "Group responsible user successfully inserted" );
