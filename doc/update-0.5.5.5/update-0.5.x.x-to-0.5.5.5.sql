@@ -4,6 +4,6 @@
 #
 #################################################################################################################################################
 
-ALTER TABLE `svnusers` ADD `custom1` VARCHAR( 255 ) NOT NULL ,
-ADD `custom2` VARCHAR( 255 ) NOT NULL ,
-ADD `custom3` VARCHAR( 255 ) NOT NULL 
+ALTER TABLE `svnusers` ADD `custom1` VARCHAR( 255 ) ,
+ADD `custom2` VARCHAR( 255 ) ,
+ADD `custom3` VARCHAR( 255 );
