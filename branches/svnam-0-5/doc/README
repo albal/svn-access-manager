@@ -54,7 +54,7 @@ To use SVN Access Manager you need
 
 - a working subversion repository
 - Apache 2.0 or higher
-- PHP 4 or higher
+- PHP 4 or higher with php mysql and php ldap
 - Mysql 4 or higher
 
 
