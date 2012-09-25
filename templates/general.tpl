@@ -48,7 +48,7 @@
 				   			<strong><?php print _("Security question").": "; ?></strong>
 				   		</td>
 				   		<td>
-				   			<input type="text" name="fSecurityQuestion" value="<?php print $tSecurityQuestion;?>" size="40" maxsize=255" /> 
+				   			<input type="text" name="fSecurityQuestion" value="<?php print $tSecurityQuestion;?>" size="40" maxsize="255" /> 
 				   		</td>
 				   		<td><?php print _("Question to answer before a password reset."); ?></td>
 				   	</tr>

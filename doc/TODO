@@ -5,8 +5,6 @@ To Do's
 
 Open:
 
-- integrate LDAP for users and groups, Feature Request ID: 1985511
-
 - add online help
        -> particularly done, more texts to be added.
 
@@ -17,7 +15,12 @@ Open:
 
 
 
+
 Done:
+
+- Custom Fields in User administration
+
+- integrate LDAP for users and groups, Feature Request ID: 1985511
 
 - support PostgreSQL
   have a look about mysql_insert_id and PostgreSQL

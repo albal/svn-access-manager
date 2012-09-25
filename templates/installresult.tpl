@@ -82,7 +82,57 @@ include( "../include/output.inc.php" );
 				   	</tr>
 				   	<tr>
 				   		<td colspan="3">
-				   			<?php print <<<EOM
+				   			<?php 
+				   			if( $_SESSION['svn_inst']['useLdap'] == "YES" ) {
+				   				printf( "
+&lt;----- snip ----&gt;<br />
+&nbsp;<br />
+LDAPSharedCacheSize&nbsp;200000<br />
+LDAPCacheEntries&nbsp;1024<br />
+LDAPCacheTTL&nbsp;600<br />
+LDAPOpCacheEntries&nbsp;1024<br />
+LDAPOpCacheTTL&nbsp;600<br />
+&nbsp;<br />
+LoadModule dav_svn_module&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modules/mod_dav_svn.so<br />
+LoadModule authz_svn_module&nbsp;&nbsp;&nbsp;modules/mod_authz_svn.so<br />
+&nbsp;<br />
+Alias /svnstyle /usr/share/doc/subversion-1.4.2/tools/xslt/<br />
+&nbsp;<br />
+<Location /svn/repos><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAV svn<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVNParentPath /svn/repos<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSLRequireSSL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AllowOverride&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Satisfy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthType&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthBasicProvider&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ldap<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthName&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"SVN LDAP Auth Test\"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthLDAPURL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"ldap://%s:%s/%s?%s?sub?(objectclass=*)\"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthLDAPBindDN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthLDAPBindPassword&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthLDAPGroupAttribute&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;member<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthLDAPGroupAttributeIsDN&nbsp;&nbsp;&nbsp;on<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthzLDAPAuthoritative&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;off<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthLDAPCompareDNOnServer&nbsp;&nbsp;&nbsp;&nbsp;On<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Require&nbsp;valid-user<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthzSVNAccessFile&nbsp;%s<br />
+", $_SESSION['svn_inst']['ldapHost'], $_SESSION['svn_inst']['ldapPort'], $_SESSION['svn_inst']['ldapUserdn'], $_SESSION['svn_inst']['ldapUserFilter'], $_SESSION['svn_inst']['ldapBinddn'], $_SESSION['svn_inst']['ldapBindpw'], $_SESSION['svn_inst']['svnAccessFile'] );
+								print <<<EOM
+ <br />
+        SVNIndexXSLT /svnstyle/svnindex.xsl<br />
+ <br />
+</Location><br />
+ <br />
+LogFormat "%t %u %{SVN-ACTION}e" svn_common<br />
+CustomLog svn_common env=SVN-ACTION<br />
+ <br />
+#CustomLog logs/svn.log "%t %u %{SVN-ACTION}e" env=SVN-ACTION<br />
+&lt;----- snip ----&gt;
+EOM;
+				   			} else {
+				   				print <<<EOM
 &lt;----- snip -----&gt;<br />
  <br />
 Alias /svnstyle /var/www/apache2-default<br />
@@ -106,9 +156,11 @@ Alias /svnstyle /var/www/apache2-default<br />
  <br />
 CustomLog logs/svn.log \"%t %u %{SVN-ACTION}e\" env=SVN-ACTION<br />
  <br />
+php_admin_flag safe_mode off<br /> 
  &lt;----- snip -----&gt;
 EOM;
-?>
+							}
+							?>
 				   		</td>
 				   	</tr>
 				   	<tr>
