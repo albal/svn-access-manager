@@ -282,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$query									= "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " .
 													   "  FROM ".$schema."svnusers, ".$schema."svn_groups_responsible, ".$schema."svngroups " .
 													   " WHERE (svngroups.id = svn_groups_responsible.group_id) " .
-													   "   AND (svn_groups_responsible.id=".$_SESSION['svn_sessid']['groupid'].") " .
+													   "   AND (svn_groups_responsible.id=".$tGroupResponsibleId.") " .
 													   "   AND (svnusers.id = svn_groups_responsible.user_id) " .
 													   "   AND (svnusers.deleted = '00000000000000') " .
 													   "   AND (svngroups.deleted = '00000000000000') " .
