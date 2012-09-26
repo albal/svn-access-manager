@@ -1,3 +1,13 @@
+Update to V0.5.5.6
+
+This release is a bug fix release. Either compare your installation to the 
+   current release or install the release from scratch and copy the changed 
+   config file from your previous installation into your new installation.
+   
+#-------------------------------------------------------------------------------------------#
+
+
+
 Update to V0.5.5.5
 
 These are the steps to update from version 0.5.5.4 to 0.5.5.5
