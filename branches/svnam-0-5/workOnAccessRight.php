@@ -463,7 +463,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		$_SESSION['svn_sessid']['pathselected']	= $tPath;
    		
    		db_disconnect( $dbh );
-   		header( "location: setAccessRight.php" );
+   		header( "location: setAccessRight.php?task=".$_SESSION['svn_sessid']['task'] );
    		exit;
    		
    	} else {
