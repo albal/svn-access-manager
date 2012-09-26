@@ -676,6 +676,40 @@ function db_getUserRightByUserid ($userid, $link) {
 
 
 //
+// db_getGroupRightByGroupid 
+// Action: check a group and return the lowest privilege of an user
+// Call: db_getGroupRightByGroupid (string groupid, resource link)
+//
+function db_getGroupRightByGroupid($groupid, $link) {
+	
+	global $CONF;
+	
+	$mode			= "";
+	$schema			= db_determine_schema();
+	$result			= db_query( "SELECT svnusers.user_mode ".
+								"  FROM svnusers, svngroups, svn_users_groups ".
+								" WHERE (svngroups.id = $groupid) ".
+								"   AND (svn_users_groups.group_id = svngroups.id) ".
+								"   AND (svn_users_groups.user_id = svnusers.id) ".
+								"   AND (svnusers.deleted = '00000000000000') ".
+								"   AND (svngroups.deleted = '00000000000000') ".
+								"   AND (svn_users_groups.deleted = '00000000000000')", $link);
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		if((strtolower($row['user_mode']) == "write") and ($mode == "") ) {
+			$mode	= strtolower($row['user_mode']);
+		} elseif(strtolower($row['user_mode']) == "read") {
+			$mode	= strtolower($row['user_mode']);
+		}
+		
+	}
+	
+	return $mode;
+}
+
+
+
+//
 // db_getRepoById
 // Action: get repository by id
 // Call: db_getRepobyId (string id, ressource link)
@@ -695,6 +729,37 @@ function db_getRepoById ($id, $link) {
 		$reponame	= $row['reponame'];
 		
 		return $reponame;
+	
+	} else {
+		
+		return false;
+		
+	}		
+	
+}
+
+
+
+//
+// db_getRepoByName
+// Action: get repository by name
+// Call: db_getRepobyId (string reponame, ressource link)
+//
+function db_getRepoByName ($reponame, $link) {
+	
+	global $CONF;
+	
+	$schema			= db_determine_schema();
+    
+	$result			= db_query( "SELECT * " .
+								"  FROM ".$schema."svnrepos " .
+								" WHERE (reponame = '$reponame') ", $link);
+	if( $result['rows'] == 1 ) {
+		
+		$row		= db_assoc( $result['result'] );
+		$id			= $row['id'];
+		
+		return $id;
 	
 	} else {
 		

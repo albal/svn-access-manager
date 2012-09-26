@@ -210,23 +210,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    						
    				}
    				
-   			} else {
+   			} 
 				
-				if( $error == 0 ) {
-	   				$query						= "SELECT * " .
-	   											  "  FROM ".$schema."svnrepos " .
-	   											  " WHERE (reponame = '$tReponame') " .
-	   											  "   AND (deleted = '00000000000000')";
-	   				$result						= db_query( $query, $dbh );
-	   				
-	   				if( $result['rows'] > 0 ) {
-	   					
-	   					$tMessage				= _( "The repository with the name $tReponame exists already" );
-	   					$error					= 1;
-	   					
-	   				} 
-				}
-   			}
+			if( $error == 0 ) {
+   				$query							= "SELECT * " .
+   											  	  "  FROM ".$schema."svnrepos " .
+   											 	  " WHERE (reponame = '$tReponame') " .
+   											  	  "   AND (deleted = '00000000000000')";
+   				error_log( $query );
+   				$result							= db_query( $query, $dbh );
+   				
+   				if( $result['rows'] > 0 ) {
+   					
+   					$tMessage					= sprintf( _( "The repository with the name %s exists already" ), $tReponame );
+   					$error						= 1;
+   					
+   				} 
+			}
   			   			
    			if( $error == 0 ) {
    				
