@@ -121,6 +121,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		
 	}
 	
+	$lang									= check_language();
+			
+	if( $lang == "de" ) {
+		
+		$tDate								= "TT.MM.JJJJ";
+		$tDate								= date("d").".".date("m").".".date("Y");
+		$tDateFormat						= "dd-mm-yy";
+		$tLocale							= "de";
+		
+	} else {
+		
+		$tDate								= "MM/DD/YYYY";
+		$tDate								= date("m")."/".date("d")."/".date("Y");
+		$tDateFormat						= "mm-dd-yy";
+		$tLocale							= "en";
+	}
+	
 	$tProjectName							= $_SESSION['svn_sessid']['svnmodule'];
    	$tRepoName								= $_SESSION['svn_sessid']['reponame'];
 	$tRepoPath								= $_SESSION['svn_sessid']['repopath'];
@@ -240,9 +257,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tAccessRight							= isset( $_POST['fAccessRight']) 	? db_escape_string( $_POST['fAccessRight'] ) 	: "";
    	$tRecursive								= isset( $_POST['fRecursive'] ) 	? db_escape_string( $_POST['fRecursive'] )		: "";
    	$tValidFrom								= isset( $_POST['fValidFrom'] )		? db_escape_string( $_POST['fValidFrom'] )		: "";
-   	$tValidUntil							= isset( $_POST['fValidUntil'] )	? db_escape_string( $_POST['fValidUntil'] )	: "";
+   	$tValidUntil							= isset( $_POST['fValidUntil'] )	? db_escape_string( $_POST['fValidUntil'] )		: "";
    	$tUsers									= isset( $_POST['fUsers'] )			? db_escape_string( $_POST['fUsers'] )			: array();
-   	$tGroups								= isset( $_POST['fGroups'] )		? db_escape_string( $_POST['fGroups'] )		: array();
+   	$tGroups								= isset( $_POST['fGroups'] )		? db_escape_string( $_POST['fGroups'] )			: array();
+   	
+   	$lang									= check_language();
+			
+	if( $lang == "de" ) {
+		
+		$tDate								= "TT.MM.JJJJ";
+		$tDate								= date("d").".".date("m").".".date("Y");
+		$tDateFormat						= "dd-mm-yy";
+		$tLocale							= "de";
+		
+	} else {
+		
+		$tDate								= "MM/DD/YYYY";
+		$tDate								= date("m")."/".date("d")."/".date("Y");
+		$tDateFormat						= "mm-dd-yy";
+		$tLocale							= "en";
+	}
    	
    	if( isset( $_POST['fSubmit'] ) ) {
 		$button								= db_escape_string( $_POST['fSubmit'] );
