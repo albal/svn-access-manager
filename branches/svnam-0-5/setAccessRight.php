@@ -430,19 +430,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   			error_log( "userid = ".$_SESSION['svn_sessid']['userid']."   groupid = ".$_SESSION['svn_sessid']['groupid']);
 	   			
 	   			if( $_SESSION['svn_sessid']['userid'] != 0 ) {
+	   				
 	   				$mode					= db_getUserRightByUserid( $_SESSION['svn_sessid']['userid'], $dbh );
 	   				if( ($tAccessRight == "write") and ($mode != "write") ) {
 		   			
 		   				$tMessage			= _("User is not allowed to have write access, global right is read only" );
 		   				$error				= 1;
 	   				}
+	   				
 	   			} elseif( $_SESSION['svn_sessid']['groupid'] != 0 ) {
+	   				
 	   				$mode					= db_getGroupRightByGroupid(  $_SESSION['svn_sessid']['groupid'], $dbh );
-	   				$groupName				= db_getGroupById ( $_SESSION['svn_sessid']['groupid'], $dbh );
-	   				$tMessage				= sprintf( _("Group %s contains an user with no global write permission!"), $groupName );
-	   				$error					= 1;
+	   				if( ($tAccessRight == "write") and ($mode != "write") ) {
+	   					$groupName			= db_getGroupById ( $_SESSION['svn_sessid']['groupid'], $dbh );
+	   					$tMessage			= sprintf( _("Group %s contains an user with no global write permission!"), $groupName );
+	   					$error				= 1;
+	   				}
+	   				
 	   			} else {
+	   				
 	   				$mode					= "undefined";
+	   				
 	   			}
 	   			
 	   		}
@@ -451,7 +459,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   		   	
 	   	if( ($_SESSION['svn_sessid']['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0) ) {
 	   		
-	   		$tMessage						= _("No user and no group selected!");
+	   		$tMessage						= _("No user or no group selected!");
 	   		$error							= 1; 
 	   		
 	   	}

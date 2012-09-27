@@ -256,19 +256,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			
 			}
 
-			$lang								= strtolower( check_language() );
+			#$lang								= strtolower( check_language() );
 			
-			if( $lang == "de" ) {
+			#if( $lang == "de" ) {
 			
 				$validfrom						= substr($validfrom, 6, 2).".".substr($validfrom, 4, 2).".".substr($validfrom, 0, 4);
 				$validuntil						= substr($validuntil, 6, 2).".".substr($validuntil, 4, 2).".".substr($validuntil, 0, 4);
 				
-			} else {
+			#} else {
 				
-				$validfrom						= substr($validfrom, 4, 2).".".substr($validfrom, 0, 2).".".substr($validfrom, 0, 4);
-				$validuntil						= substr($validuntil, 4, 2).".".substr($validuntil, 0, 2).".".substr($validuntil, 0, 4);
+			#	$validfrom						= substr($validfrom, 4, 2).".".substr($validfrom, 0, 2).".".substr($validfrom, 0, 4);
+			#	$validuntil						= substr($validuntil, 4, 2).".".substr($validuntil, 0, 2).".".substr($validuntil, 0, 4);
 				
-			}
+			#}
 			
 			$_SESSION['svn_sessid']['pathselected']	=$tPathSelected;
 			$_SESSION['svn_sessid']['validfrom']	= $validfrom;

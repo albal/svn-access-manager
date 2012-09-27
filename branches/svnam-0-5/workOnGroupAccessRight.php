@@ -70,7 +70,8 @@ $schema											= db_determine_schema();
 $tUsers											= array();
 $query											= "SELECT * " .
 												  "  FROM ".$schema."svnusers " .
-												  " WHERE (deleted = '00000000000000')";
+												  " WHERE (deleted = '00000000000000') ".
+												  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 $result											= db_query( $query, $dbh );
 while( $row = db_assoc( $result['result'] ) ) {
 	
