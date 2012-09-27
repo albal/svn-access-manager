@@ -3,6 +3,9 @@ Change Log
 
 
 Release 0.5.5.6
+    - Bug fix and enhancement for ID: 3571582
+      sorting changes for include/createAuthFiles.php
+      
 	- Bug fix for ID: 3571941
 	  When creating new access rights an neither group nor user is selected, 
 	  there is no error message

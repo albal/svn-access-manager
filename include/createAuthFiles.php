@@ -310,7 +310,7 @@ function createAccessFile( $dbh ) {
 														  "     AND (svn_users_groups.group_id = svngroups.id) " .
 														  "     AND (svnusers.deleted = '00000000000000') " .
 														  "     AND (svn_users_groups.deleted = '00000000000000') " .
-														  "ORDER BY svngroups.groupname ASC";
+														  "ORDER BY svngroups.groupname ASC, svnusers.userid ASC";
 						$result							= db_query( $query, $dbh );
 						$oldgroup						= "";
 						$users							= "";
@@ -419,7 +419,11 @@ function createAccessFile( $dbh ) {
 					if( $retcode == 0 ) {
 						
 						# write access rights to file
-						
+						if( isset( $CONF['repoPathSortOrder']) ) {
+							$pathSort					= $CONF['repoPathSortOrder'];
+						} else {
+							$pathSort					= "ASC";
+						}
 						$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
 														  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
 														  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
@@ -427,7 +431,7 @@ function createAccessFile( $dbh ) {
 														  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 														  "     AND (svnprojects.repo_id = svnrepos.id) " .
-														  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
+														  "ORDER BY svnrepos.reponame ASC, svn_access_rights.path ".$pathSort.", access_right DESC";
 						error_log( $query );
 						$result							= db_query( $query, $dbh );
 						
@@ -644,7 +648,7 @@ function createAccessFilePerRepo( $dbh ) {
 														  "     AND (svngroups.deleted='00000000000000') " .
 														  "     AND (svnrepos.deleted='00000000000000') " .
 														  "     AND (svnusers.deleted='00000000000000') " .
-														  "ORDER BY svngroups.groupname ASC";
+														  "ORDER BY svngroups.groupname ASC, svnusers.userid ASC";
 						$result							= db_query( $query, $dbh );
 						$oldgroup						= "";
 						$users							= "";
@@ -754,6 +758,11 @@ function createAccessFilePerRepo( $dbh ) {
 					if( $retcode == 0 ) {
 						
 						# write access rights to file
+						if( isset( $CONF['repoPathSortOrder']) ) {
+							$pathSort					= $CONF['repoPathSortOrder'];
+						} else {
+							$pathSort					= "ASC";
+						}
 						$query							= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
 														  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
 														  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
@@ -764,7 +773,7 @@ function createAccessFilePerRepo( $dbh ) {
 														  "     AND (svnprojects.repo_id=$repoid) " .
 														  "     AND (svnprojects.deleted='00000000000000') " .
 														  "     AND (svnrepos.deleted='00000000000000') " .
-														  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
+														  "ORDER BY svnrepos.reponame ASC, svn_access_rights.path ".$pathSort.", access_right DESC";
 						$result							= db_query( $query, $dbh );
 						
 						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
@@ -1027,6 +1036,11 @@ function createViewvcConfig( $dbh ) {
 				
 				if( $groupHandle = @fopen( $tempgroups, 'w' ) ) {
 			
+					if( isset( $CONF['repoPathSortOrder']) ) {
+						$pathSort				= $CONF['repoPathSortOrder'];
+					} else {
+						$pathSort				= "ASC";
+					}
 					$query						= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
 												  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
 												  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
@@ -1034,7 +1048,7 @@ function createViewvcConfig( $dbh ) {
 												  "     AND (svn_access_rights.valid_until >= '$curdate') " .
 												  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 												  "     AND (svnprojects.repo_id = svnrepos.id) " .
-												  "ORDER BY svnprojects.repo_id ASC, svn_access_rights.path ASC, svn_access_rights.access_right DESC";
+												  "ORDER BY svnrepos.reponame ASC, svn_access_rights.path ".$pathSort.", svn_access_rights.access_right DESC";
 					
 					$result						= db_query( $query, $dbh );
 					

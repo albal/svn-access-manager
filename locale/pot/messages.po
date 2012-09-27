@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-09-27 20:19+0100\n"
+"PO-Revision-Date: 2012-09-27 21:15+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1220,6 +1220,10 @@ msgstr "Ein neuer Benutzer braucht ein Passwort!"
 msgid "A repository path must start with '/' after file:// like %s"
 msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
 
+#: ../../templates/install-tabs.tpl:663
+msgid "ASC"
+msgstr "aufsteigend"
+
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:324
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:355
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install.tpl:358
@@ -1277,6 +1281,8 @@ msgstr "Zugriff verweigert"
 #: ../../include/createAuthFiles.php:898
 #: ../..//include/createAuthFiles.php:537
 #: ../..//include/createAuthFiles.php:898
+#: ../../include/createAuthFiles.php:541
+#: ../../include/createAuthFiles.php:907
 msgid "Access file successfully created but semaphore could nor be released"
 msgstr "Zugriffsdatei erfolgreich geschrieben aber das Semaphore konnte nicht freigegeben werden"
 
@@ -1309,6 +1315,8 @@ msgstr "Zugriffsdatei erfolgreich geschrieben aber das Semaphore konnte nicht fr
 #: ../../include/createAuthFiles.php:893
 #: ../..//include/createAuthFiles.php:532
 #: ../..//include/createAuthFiles.php:893
+#: ../../include/createAuthFiles.php:536
+#: ../../include/createAuthFiles.php:902
 msgid "Access file successfully created!"
 msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 
@@ -1765,6 +1773,7 @@ msgstr "Verantwortlichen hinzuf&uuml;gen"
 #: ../../install/install.php:3176
 #: ../..//install/install-alt.php:3089
 #: ../..//install/install.php:3176
+#: ../../install/install.php:3177
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -2062,6 +2071,7 @@ msgstr "Administrator Kennung"
 #: ../..//install/install-alt.php:4347
 #: ../..//install/install.php:2802
 #: ../..//install/install.php:3896
+#: ../../install/install.php:3908
 #, php-format
 msgid "Administrator email address %s is not a valid email address!"
 msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
@@ -2138,6 +2148,7 @@ msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
 #: ../..//install/install-alt.php:4342
 #: ../..//install/install.php:2797
 #: ../..//install/install.php:3891
+#: ../../install/install.php:3903
 msgid "Administrator email address is missing!"
 msgstr "E-Mailadresse des Administrators fehlt!"
 
@@ -2208,6 +2219,7 @@ msgstr "E-Mailadresse des Administrators fehlt!"
 #: ../..//install/install-alt.php:4335
 #: ../..//install/install.php:2790
 #: ../..//install/install.php:3884
+#: ../../install/install.php:3896
 msgid "Administrator name is missing!"
 msgstr "Nachname des Administrators fehlt!"
 
@@ -2278,6 +2290,7 @@ msgstr "Nachname des Administrators fehlt!"
 #: ../..//install/install-alt.php:4318
 #: ../..//install/install.php:2771
 #: ../..//install/install.php:3867
+#: ../../install/install.php:3879
 msgid "Administrator password is missing!"
 msgstr "Passwort des Administrators fehlt!"
 
@@ -2348,6 +2361,7 @@ msgstr "Passwort des Administrators fehlt!"
 #: ../..//install/install-alt.php:4328
 #: ../..//install/install.php:2783
 #: ../..//install/install.php:3877
+#: ../../install/install.php:3889
 msgid "Administrator password is not strong enough!"
 msgstr "Administrator Passwort ist nicht stark genug!"
 
@@ -2418,6 +2432,7 @@ msgstr "Administrator Passwort ist nicht stark genug!"
 #: ../..//install/install-alt.php:4323
 #: ../..//install/install.php:2778
 #: ../..//install/install.php:3872
+#: ../../install/install.php:3884
 msgid "Administrator passwords do not match!"
 msgstr "Administrator Passworte sind verschieden!"
 
@@ -2488,6 +2503,7 @@ msgstr "Administrator Passworte sind verschieden!"
 #: ../..//install/install-alt.php:4311
 #: ../..//install/install.php:2764
 #: ../..//install/install.php:3860
+#: ../../install/install.php:3872
 msgid "Administrator username is missing!"
 msgstr "Administrator Kennung fehlt!"
 
@@ -3817,6 +3833,9 @@ msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade
 #: ../..//include/createAuthFiles.php:568
 #: ../..//include/createAuthFiles.php:906
 #: ../..//include/createAuthFiles.php:1374
+#: ../../include/createAuthFiles.php:572
+#: ../../include/createAuthFiles.php:915
+#: ../../include/createAuthFiles.php:1388
 msgid "Can't set semaphore, another process is writing access file, try again later"
 msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade die Zugriffsdatei, bitte sp&auml;ter noch einmal versuchen"
 
@@ -3882,6 +3901,7 @@ msgstr "Passwort kann nicht ge&auml;ndert werden. Bitte versuchen Sie es sp&auml
 #: ../../install/install.php:3029
 #: ../..//install/install-alt.php:2942
 #: ../..//install/install.php:3029
+#: ../../install/install.php:3030
 msgid "Can't write new config.inc.php file!"
 msgstr "kann config.inc.php nicht schreiben!"
 
@@ -4299,6 +4319,8 @@ msgstr "Kann Tabelle %s nicht l&ouml;schen"
 #: ../../include/createAuthFiles.php:884
 #: ../..//include/createAuthFiles.php:560
 #: ../..//include/createAuthFiles.php:884
+#: ../../include/createAuthFiles.php:564
+#: ../../include/createAuthFiles.php:893
 #, php-format
 msgid "Cannot open %s for wrtiting"
 msgstr "Kann %s nicht zum schreiben &ouml;ffnen"
@@ -4786,6 +4808,35 @@ msgstr "Kann Datei %s nicht zum schreiben &ouml;ffnen!"
 #: ../..//include/createAuthFiles.php:1289
 #: ../..//include/createAuthFiles.php:1295
 #: ../..//include/createAuthFiles.php:1301
+#: ../../include/createAuthFiles.php:469
+#: ../../include/createAuthFiles.php:488
+#: ../../include/createAuthFiles.php:508
+#: ../../include/createAuthFiles.php:519
+#: ../../include/createAuthFiles.php:668
+#: ../../include/createAuthFiles.php:677
+#: ../../include/createAuthFiles.php:711
+#: ../../include/createAuthFiles.php:741
+#: ../../include/createAuthFiles.php:749
+#: ../../include/createAuthFiles.php:810
+#: ../../include/createAuthFiles.php:829
+#: ../../include/createAuthFiles.php:849
+#: ../../include/createAuthFiles.php:860
+#: ../../include/createAuthFiles.php:1084
+#: ../../include/createAuthFiles.php:1091
+#: ../../include/createAuthFiles.php:1099
+#: ../../include/createAuthFiles.php:1107
+#: ../../include/createAuthFiles.php:1115
+#: ../../include/createAuthFiles.php:1123
+#: ../../include/createAuthFiles.php:1131
+#: ../../include/createAuthFiles.php:1251
+#: ../../include/createAuthFiles.php:1260
+#: ../../include/createAuthFiles.php:1270
+#: ../../include/createAuthFiles.php:1285
+#: ../../include/createAuthFiles.php:1291
+#: ../../include/createAuthFiles.php:1297
+#: ../../include/createAuthFiles.php:1303
+#: ../../include/createAuthFiles.php:1309
+#: ../../include/createAuthFiles.php:1315
 #, php-format
 msgid "Cannot write to %s"
 msgstr "Kann nicht in %s schreiben"
@@ -5106,6 +5157,9 @@ msgstr "Konfigurationsverzeichnis"
 #: ../..//include/createAuthFiles.php:867
 #: ../..//include/createAuthFiles.php:1351
 #: ../..//include/createAuthFiles.php:1365
+#: ../../include/createAuthFiles.php:556
+#: ../../include/createAuthFiles.php:876
+#: ../../include/createAuthFiles.php:1379
 #, php-format
 msgid "Copy from %s to %s failed!"
 msgstr "Kopieren von %s nach %s gescheitert!"
@@ -5148,6 +5202,7 @@ msgstr "Zugriffsdateien erstellen"
 #: ../..//templates/install-tabs.tpl:661
 #: ../..//templates/install.tpl:401
 #: ../..//templates/install_page_5.tpl:130
+#: ../../templates/install-tabs.tpl:672
 msgid "Create ViewVC configuration"
 msgstr "ViewVC Konfiguration erzeugen"
 
@@ -5255,6 +5310,9 @@ msgstr "Datei f&uuml;r Benutzerauthentifizierung und Benutzerrechte erstellen?"
 #: ../..//include/createAuthFiles.php:575
 #: ../..//include/createAuthFiles.php:913
 #: ../..//include/createAuthFiles.php:1381
+#: ../../include/createAuthFiles.php:579
+#: ../../include/createAuthFiles.php:922
+#: ../../include/createAuthFiles.php:1395
 msgid "Create of access file not configured!"
 msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
 
@@ -5414,16 +5472,19 @@ msgstr "Aktuelles Passwort nicht eingegeben!"
 
 #: ../../templates/install-tabs.tpl:828
 #: ../..//templates/install-tabs.tpl:828
+#: ../../templates/install-tabs.tpl:839
 msgid "Custom field 1"
 msgstr "Benutzerdefiniertes Feld 1"
 
 #: ../../templates/install-tabs.tpl:838
 #: ../..//templates/install-tabs.tpl:838
+#: ../../templates/install-tabs.tpl:849
 msgid "Custom field 2"
 msgstr "Benutzerdefiniertes Feld 2"
 
 #: ../../templates/install-tabs.tpl:848
 #: ../..//templates/install-tabs.tpl:848
+#: ../../templates/install-tabs.tpl:859
 msgid "Custom field 3"
 msgstr "Benutzerdefiniertes Feld 3"
 
@@ -5455,6 +5516,10 @@ msgstr "DB Funktion"
 #: ../..//templates/database_error_install.tpl:47
 msgid "DB Query"
 msgstr "DB Abfrage"
+
+#: ../../templates/install-tabs.tpl:664
+msgid "DEC"
+msgstr "absteigend"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:106
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:120
@@ -5568,6 +5633,7 @@ msgstr "Datenbank Zeichensatz"
 #: ../..//install/install-alt.php:4081
 #: ../..//install/install.php:2617
 #: ../..//install/install.php:3714
+#: ../../install/install.php:3726
 msgid "Database charset is missing!"
 msgstr "Datenbank Zeichensatz fehlt!"
 
@@ -5642,6 +5708,7 @@ msgstr "Datenbank Sortierung"
 #: ../..//install/install-alt.php:4088
 #: ../..//install/install.php:2624
 #: ../..//install/install.php:3721
+#: ../../install/install.php:3733
 msgid "Database collation is missing!"
 msgstr "Datenbank Sortierfolge fehlt!"
 
@@ -5755,6 +5822,7 @@ msgstr "Datenbank Server"
 #: ../..//install/install-alt.php:4060
 #: ../..//install/install.php:2596
 #: ../..//install/install.php:3693
+#: ../../install/install.php:3705
 msgid "Database host is missing!"
 msgstr "Datenbank Rechner fehlt!"
 
@@ -5844,6 +5912,7 @@ msgstr "Datenbank Name"
 #: ../..//install/install-alt.php:4074
 #: ../..//install/install.php:2610
 #: ../..//install/install.php:3707
+#: ../../install/install.php:3719
 msgid "Database name is missing!"
 msgstr "Datenbankname fehlt!"
 
@@ -5977,6 +6046,8 @@ msgstr "Datenbankeintsllungen - Teil 2"
 #: ../..//install/install-alt.php:3075
 #: ../..//install/install.php:3134
 #: ../..//install/install.php:3162
+#: ../../install/install.php:3135
+#: ../../install/install.php:3163
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
@@ -6025,6 +6096,7 @@ msgstr "Datenbanktabellen erfolgreich angelegt"
 #: ../../install/install.php:3104
 #: ../..//install/install-alt.php:3017
 #: ../..//install/install.php:3104
+#: ../../install/install.php:3105
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gel&ouml;scht"
 
@@ -6138,6 +6210,7 @@ msgstr "Datenbank Benutzer"
 #: ../..//install/install-alt.php:4067
 #: ../..//install/install.php:2603
 #: ../..//install/install.php:3700
+#: ../../install/install.php:3712
 msgid "Database user is missing!"
 msgstr "Datenbankbenutzer fehlt!"
 
@@ -6768,6 +6841,7 @@ msgstr "E-Mailadresse fehlt, bitte eingeben!"
 #: ../..//templates/install-tabs.tpl:707
 #: ../..//templates/install.tpl:447
 #: ../..//templates/install_page_5.tpl:176
+#: ../../templates/install-tabs.tpl:718
 msgid "Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."
 msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das Kommando muss f&uuml;r den Webserver Benutzer ausf&uuml;hrbar sein. Sie k&ouml;nnen das mit sudo erreichen."
 
@@ -6817,6 +6891,7 @@ msgstr "Bitte die URL eintragen, die in der Email zum abgelaufenen Passwort eing
 #: ../..//templates/install-tabs.tpl:697
 #: ../..//templates/install.tpl:437
 #: ../..//templates/install_page_5.tpl:166
+#: ../../templates/install-tabs.tpl:708
 msgid "Enter the alias you used in your webserver:"
 msgstr "Bitte den Alias der im Webserver verwendet wird eingeben:"
 
@@ -7149,6 +7224,7 @@ msgstr "Den vollen Pfad und den Dateinamen des SVN Zugriffsdatei eingeben. Der W
 #: ../..//templates/install-tabs.tpl:737
 #: ../..//templates/install.tpl:477
 #: ../..//templates/install_page_5.tpl:206
+#: ../../templates/install-tabs.tpl:748
 msgid "Enter the full path and the name of the grep command."
 msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 
@@ -7179,6 +7255,7 @@ msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 #: ../..//templates/install-tabs.tpl:717
 #: ../..//templates/install.tpl:457
 #: ../..//templates/install_page_5.tpl:186
+#: ../../templates/install-tabs.tpl:728
 msgid "Enter the full path and the name of the svn command."
 msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 
@@ -7204,6 +7281,7 @@ msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 #: ../..//templates/install-tabs.tpl:727
 #: ../..//templates/install.tpl:467
 #: ../..//templates/install_page_5.tpl:196
+#: ../../templates/install-tabs.tpl:738
 msgid "Enter the full path and the name of the svnadmin command."
 msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 
@@ -7230,6 +7308,7 @@ msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 #: ../..//templates/install-tabs.tpl:677
 #: ../..//templates/install.tpl:417
 #: ../..//templates/install_page_5.tpl:146
+#: ../../templates/install-tabs.tpl:688
 msgid "Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."
 msgstr "Geben Sie den gesamten Pfad zu dem Verzeichnis ein, in das die ViewVC configuration gespeichert werden soll. Der Webserver muss in das Verzeichnis schreiben k&ouml;nnen."
 
@@ -7301,11 +7380,13 @@ msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein!"
 #: ../..//templates/install-tabs.tpl:791
 #: ../..//templates/install.tpl:533
 #: ../..//templates/install_page_6.tpl:103
+#: ../../templates/install-tabs.tpl:802
 msgid "Enter the minimal length for administrator passwords."
 msgstr "Die minimale L&auml;nge von Administrator Passworten eingeben"
 
 #: ../../templates/install-tabs.tpl:801
 #: ../..//templates/install-tabs.tpl:801
+#: ../../templates/install-tabs.tpl:812
 msgid "Enter the minimal length for user passwords."
 msgstr "Bitte die minimale L&auml;nge des Passwortes f&uuml; Benutzer eingeben."
 
@@ -7392,6 +7473,7 @@ msgstr "Bitte geben Se den Namen der Datenbank ein!"
 #: ../..//templates/install-tabs.tpl:781
 #: ../..//templates/install.tpl:523
 #: ../..//templates/install_page_6.tpl:93
+#: ../../templates/install-tabs.tpl:792
 msgid "Enter the number of records of lists displayed on a page."
 msgstr "Die Anzahl der Datens&auml;tze eingeben, die pro Seite angezeigt werden sollen."
 
@@ -7595,6 +7677,7 @@ msgstr "Bitte die Anzahl Tage eingeben, die ein Link f&uuml;r ein vergessenes Pa
 #: ../../install/install.php:3064
 #: ../..//install/install-alt.php:2977
 #: ../..//install/install.php:3064
+#: ../../install/install.php:3065
 #, php-format
 msgid "Error copying temporary config file %s to %s!"
 msgstr "Fehler beim Kopieren der tempor&auml;ren Konfigurationsdatei von %s nach %s!"
@@ -7693,6 +7776,7 @@ msgstr "Fehler beim Anlegen des Administrator Benutzers: %s"
 #: ../../install/install.php:3052
 #: ../..//install/install-alt.php:2965
 #: ../..//install/install.php:3052
+#: ../../install/install.php:3053
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim L&ouml;schen der tempor&auml;ren Konfig Datei"
 
@@ -8402,6 +8486,7 @@ msgstr "Gew&auml;hrte Benutzerrechte"
 #: ../..//install/install-alt.php:4433
 #: ../..//install/install.php:2860
 #: ../..//install/install.php:3941
+#: ../../install/install.php:3953
 msgid "Grep command is missinbg!"
 msgstr "Grep Kommando fehlt!"
 
@@ -8917,6 +9002,7 @@ msgstr "Hilfe"
 #: ../..//templates/install_page_4.tpl:40
 #: ../..//templates/install_page_5.tpl:40
 #: ../..//templates/install_page_6.tpl:40
+#: ../../templates/install-tabs.tpl:880
 msgid "Hints and errors"
 msgstr "Hinweise und Fehler"
 
@@ -8985,6 +9071,7 @@ msgstr "Wenn Sie separate Konfigurationsdateien f&uuml;r jedes Repository ben&ou
 
 #: ../../templates/install-tabs.tpl:833
 #: ../..//templates/install-tabs.tpl:833
+#: ../../templates/install-tabs.tpl:844
 msgid "If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."
 msgstr "Wenn Sie benutzerdefinierte Felder nutzen wollen, geben Sie bitte die Bezeichnung des Feldes ein. Wenn Sie nichts eintragen, wird das Feld nicht benutzt."
 
@@ -9491,6 +9578,7 @@ msgstr "Ung&uuml;ltige Projekt-Id %s angefordert"
 #: ../..//install/install-alt.php:4814
 #: ../..//install/install.php:2647
 #: ../..//install/install.php:3744
+#: ../../install/install.php:3756
 #, php-format
 msgid "Invalid protocol version %s!"
 msgstr "Ung&uuml;ltige protokollversion: %s"
@@ -9842,6 +9930,7 @@ msgstr "LDAP benutzer"
 #: ../..//install/install-alt.php:3477
 #: ../..//install/install.php:2703
 #: ../..//install/install.php:3800
+#: ../../install/install.php:3812
 msgid "LDAP attribute mapping for given name is missing!"
 msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 
@@ -9871,6 +9960,7 @@ msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 #: ../..//install/install-alt.php:3484
 #: ../..//install/install.php:2710
 #: ../..//install/install.php:3807
+#: ../../install/install.php:3819
 msgid "LDAP attribute mapping for mail is missing!"
 msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 
@@ -9900,6 +9990,7 @@ msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 #: ../..//install/install-alt.php:3470
 #: ../..//install/install.php:2696
 #: ../..//install/install.php:3793
+#: ../../install/install.php:3805
 msgid "LDAP attribute mapping for name is missing!"
 msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 
@@ -9929,6 +10020,7 @@ msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 #: ../..//install/install-alt.php:3463
 #: ../..//install/install.php:2689
 #: ../..//install/install.php:3786
+#: ../../install/install.php:3798
 msgid "LDAP attribute mapping for uid is missing!"
 msgstr "LDAP Attribut das die UID abbildet fehlt!"
 
@@ -9958,6 +10050,7 @@ msgstr "LDAP Attribut das die UID abbildet fehlt!"
 #: ../..//install/install-alt.php:3491
 #: ../..//install/install.php:2717
 #: ../..//install/install.php:3814
+#: ../../install/install.php:3826
 msgid "LDAP attribute mapping for user password is missing!"
 msgstr "LDAP Attribut das das Passwort abbildet fehlt!"
 
@@ -10008,6 +10101,7 @@ msgstr "LDAP Bind Dn"
 #: ../..//install/install-alt.php:4821
 #: ../..//install/install.php:2654
 #: ../..//install/install.php:3751
+#: ../../install/install.php:3763
 msgid "LDAP bind dn is missing!"
 msgstr "LDAP Bind Dn is missing!"
 
@@ -10058,6 +10152,7 @@ msgstr "LDAP Bind Passwort"
 #: ../..//install/install-alt.php:4828
 #: ../..//install/install.php:2661
 #: ../..//install/install.php:3758
+#: ../../install/install.php:3770
 msgid "LDAP bind password is missing!"
 msgstr "LDAP Bind Passwort fehlt!"
 
@@ -10122,6 +10217,7 @@ msgstr "LDAP Server"
 #: ../..//install/install-alt.php:4800
 #: ../..//install/install.php:2633
 #: ../..//install/install.php:3730
+#: ../../install/install.php:3742
 msgid "LDAP host is missing!"
 msgstr "LDAP Server fehlt!"
 
@@ -10181,6 +10277,7 @@ msgstr "LDAP Port"
 #: ../..//install/install-alt.php:4807
 #: ../..//install/install.php:2640
 #: ../..//install/install.php:3737
+#: ../../install/install.php:3749
 msgid "LDAP port is missing!"
 msgstr "LDAP Port fehlt!"
 
@@ -10274,6 +10371,7 @@ msgstr "LDAP Benutzer DN"
 #: ../..//install/install-alt.php:4835
 #: ../..//install/install.php:2668
 #: ../..//install/install.php:3765
+#: ../../install/install.php:3777
 msgid "LDAP user dn is missing!"
 msgstr "LDAP benutzer DN fehlt!"
 
@@ -10324,6 +10422,7 @@ msgstr "LDAP Benutzerfilter Attribut"
 #: ../..//install/install-alt.php:4842
 #: ../..//install/install.php:2675
 #: ../..//install/install.php:3772
+#: ../../install/install.php:3784
 msgid "LDAP user filter attribute is missing!"
 msgstr "LDAP benutzerfilter Attribut fehlt!"
 
@@ -10374,6 +10473,7 @@ msgstr "LDAP benutzer Objektklasse"
 #: ../..//install/install-alt.php:4849
 #: ../..//install/install.php:2682
 #: ../..//install/install.php:3779
+#: ../../install/install.php:3791
 msgid "LDAP user object class is missing!"
 msgstr "LDAP benutzer Objektklasse fehlt!"
 
@@ -10643,6 +10743,7 @@ msgstr "Vergessenes Passwort"
 #: ../..//install/install-alt.php:4264
 #: ../..//install/install.php:2752
 #: ../..//install/install.php:3848
+#: ../../install/install.php:3860
 msgid "Lost password days link valid missing!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt fehlen!"
 
@@ -10695,6 +10796,7 @@ msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt feh
 #: ../..//install/install-alt.php:4269
 #: ../..//install/install.php:2757
 #: ../..//install/install.php:3853
+#: ../../install/install.php:3865
 msgid "Lost password days link valid must be numeric!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt muss numerisch sein!"
 
@@ -10786,6 +10888,7 @@ msgstr "Absender der Mail"
 #: ../..//install/install-alt.php:4257
 #: ../..//install/install.php:2745
 #: ../..//install/install.php:3841
+#: ../../install/install.php:3853
 #, php-format
 msgid "Lost password mail sender address %s is not a valid email address!"
 msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
@@ -10839,6 +10942,7 @@ msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
 #: ../..//install/install-alt.php:4252
 #: ../..//install/install.php:2740
 #: ../..//install/install.php:3836
+#: ../../install/install.php:3848
 msgid "Lost password mail sender address is missing!"
 msgstr "Absenderadresse fehlt!"
 
@@ -10965,6 +11069,7 @@ msgstr "Hauptmen&uuml;"
 #: ../..//install/install-alt.php:4979
 #: ../..//install/install.php:2881
 #: ../..//install/install.php:3962
+#: ../../install/install.php:3974
 msgid "Minimal administrator password length is not numeric!"
 msgstr "Minimale L&auml;nge von Administrator Passworten ist nicht numerisch!"
 
@@ -10994,6 +11099,7 @@ msgstr "Minimale L&auml;nge von Administrator Passworten ist nicht numerisch!"
 #: ../..//templates/install-tabs.tpl:786
 #: ../..//templates/install.tpl:528
 #: ../..//templates/install_page_6.tpl:98
+#: ../../templates/install-tabs.tpl:797
 msgid "Minimal length for admin passwords"
 msgstr "Minimale L&auml;nge von Admin Passworten"
 
@@ -11023,6 +11129,7 @@ msgstr "Minimale L&auml;nge von Admin Passworten"
 #: ../..//templates/install-tabs.tpl:796
 #: ../..//templates/install.tpl:538
 #: ../..//templates/install_page_6.tpl:108
+#: ../../templates/install-tabs.tpl:807
 msgid "Minimal length for user passwords"
 msgstr "Minimale L&auml;nge von Benutzer Passworten"
 
@@ -11102,6 +11209,7 @@ msgstr "Minimale L&auml;nge von Benutzer Passworten"
 #: ../..//install/install-alt.php:4986
 #: ../..//install/install.php:2888
 #: ../..//install/install.php:3969
+#: ../../install/install.php:3981
 msgid "Minimal user password length is not numeric!"
 msgstr "Minimale L&auml;nge von Benutzer Passworten ist nicht numerisch!"
 
@@ -11984,6 +12092,10 @@ msgstr "N&auml;chste Seite"
 #: ../..//templates/install_page_6.tpl:80
 #: ../..//templates/install_page_6.tpl:121
 #: ../..//templates/list_users.tpl:109
+#: ../../templates/install-tabs.tpl:675
+#: ../../templates/install-tabs.tpl:766
+#: ../../templates/install-tabs.tpl:778
+#: ../../templates/install-tabs.tpl:820
 msgid "No"
 msgstr "Nein"
 
@@ -12032,6 +12144,7 @@ msgstr "Nein"
 #: ../../install/install.php:3191
 #: ../..//install/install-alt.php:3104
 #: ../..//install/install.php:3191
+#: ../../install/install.php:3192
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
@@ -12080,6 +12193,7 @@ msgstr "Keine Datenbanktabellen angelegt"
 #: ../../install/install.php:3109
 #: ../..//install/install-alt.php:3022
 #: ../..//install/install.php:3109
+#: ../../install/install.php:3110
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gel&ouml;scht"
 
@@ -12377,6 +12491,7 @@ msgstr "Seite 6/6"
 #: ../..//templates/install-tabs.tpl:776
 #: ../..//templates/install.tpl:518
 #: ../..//templates/install_page_6.tpl:88
+#: ../../templates/install-tabs.tpl:787
 msgid "Page size"
 msgstr "Seitengr&ouml;&szlig;e"
 
@@ -12458,6 +12573,7 @@ msgstr "Seitengr&ouml;&szlig;e"
 #: ../..//install/install-alt.php:4965
 #: ../..//install/install.php:2867
 #: ../..//install/install.php:3948
+#: ../../install/install.php:3960
 msgid "Page size is missing!"
 msgstr "Seitengr&ouml;&szlig;e fehlt!"
 
@@ -12539,6 +12655,7 @@ msgstr "Seitengr&ouml;&szlig;e fehlt!"
 #: ../..//install/install-alt.php:4972
 #: ../..//install/install.php:2874
 #: ../..//install/install.php:3955
+#: ../../install/install.php:3967
 msgid "Page size is not numeric!"
 msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 
@@ -14797,6 +14914,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../../install/install.php:3782
 #: ../../install/install.php:3822
 #: ../..//install/install.php:3822
+#: ../../install/install.php:3834
 msgid "SVN Access Manger Website URL is missing!"
 msgstr "SVN Access Manager Webseiten URL fehlt!"
 
@@ -14840,6 +14958,10 @@ msgstr "SVN Webserver Einstellungen"
 #: ../..//templates/workOnRepo.tpl:84
 msgid "SVN access file"
 msgstr "SVN Access Datei"
+
+#: ../../templates/install-tabs.tpl:661
+msgid "SVN access file sort order"
+msgstr "Sortierung SVN Zugriffsdatei"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:917
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:947
@@ -14909,6 +15031,7 @@ msgstr "SVN Access Datei"
 #: ../..//install/install-alt.php:4419
 #: ../..//install/install.php:2846
 #: ../..//install/install.php:3927
+#: ../../install/install.php:3939
 msgid "SVN command is missing!"
 msgstr "SVN Kommando fehlt!"
 
@@ -15159,6 +15282,7 @@ msgstr "Zugriffsrechte setzen"
 
 #: ../../templates/install-tabs.tpl:823
 #: ../..//templates/install-tabs.tpl:823
+#: ../../templates/install-tabs.tpl:834
 msgid "Set the default user access right for repositories."
 msgstr "Standard Zugriffsrecht f&uuml;r Benutzer auf Repositories festlegen."
 
@@ -15244,6 +15368,7 @@ msgstr "Benutzersortierung"
 #: ../..//templates/install-tabs.tpl:900
 #: ../..//templates/install.tpl:570
 #: ../..//templates/install_page_6.tpl:143
+#: ../../templates/install-tabs.tpl:911
 msgid "Start installation"
 msgstr "Installation starten"
 
@@ -15844,6 +15969,7 @@ msgstr "Subversion Projekt"
 #: ../..//install/install-alt.php:4426
 #: ../..//install/install.php:2853
 #: ../..//install/install.php:3934
+#: ../../install/install.php:3946
 msgid "Svnadmin command missing!"
 msgstr "Svnadmin Kommando fehlt!"
 
@@ -15899,6 +16025,7 @@ msgstr "Datenbankverbindung testen"
 #: ../../install/install.php:4007
 #: ../..//install/install-alt.php:4941
 #: ../..//install/install.php:4007
+#: ../../install/install.php:4019
 msgid "Testing LDAP connection doesn't make sense if you do not use LDAP!"
 msgstr "LDAP Verbindungstest sinnlos, wenn lDAP nicht benutzt wird!"
 
@@ -16171,6 +16298,7 @@ msgstr "Benutzer Authentifikationsdatei"
 #: ../..//templates/install-tabs.tpl:764
 #: ../..//templates/install.tpl:507
 #: ../..//templates/install_page_6.tpl:77
+#: ../../templates/install-tabs.tpl:775
 msgid "Use JavaScript"
 msgstr "JavaScript benutzen"
 
@@ -16242,6 +16370,7 @@ msgstr "SVN Rechte Datei benutzen"
 #: ../..//templates/install-tabs.tpl:752
 #: ../..//templates/install.tpl:496
 #: ../..//templates/install_page_6.tpl:66
+#: ../../templates/install-tabs.tpl:763
 msgid "Use logging"
 msgstr "Protokollierung benutzen"
 
@@ -16270,6 +16399,7 @@ msgstr "Protokollierung benutzen"
 #: ../..//templates/install-tabs.tpl:806
 #: ../..//templates/install.tpl:548
 #: ../..//templates/install_page_6.tpl:118
+#: ../../templates/install-tabs.tpl:817
 msgid "Use md5 encryption"
 msgstr "MD5 Verrschl&uuml;sselung benutzen"
 
@@ -16439,6 +16569,7 @@ msgstr "Benutzer Verwaltung / Benutzer &auml;ndern"
 
 #: ../../templates/install-tabs.tpl:817
 #: ../..//templates/install-tabs.tpl:817
+#: ../../templates/install-tabs.tpl:828
 msgid "User default access right"
 msgstr "Standard Zugriffsrecht f&uuml;r Benutzer"
 
@@ -16877,6 +17008,7 @@ msgstr "G&uuml;ltig bis"
 #: ../..//templates/install-tabs.tpl:672
 #: ../..//templates/install.tpl:412
 #: ../..//templates/install_page_5.tpl:141
+#: ../../templates/install-tabs.tpl:683
 msgid "ViewVC configuration directory"
 msgstr "ViewVC Konfigurationsverzeichnis"
 
@@ -16940,6 +17072,7 @@ msgstr "ViewVC Konfigurationsverzeichnis"
 #: ../..//install/install-alt.php:4397
 #: ../..//install/install.php:2828
 #: ../..//install/install.php:3905
+#: ../../install/install.php:3917
 msgid "ViewVC configuration directory is missing!"
 msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 
@@ -16966,6 +17099,7 @@ msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 #: ../..//templates/install-tabs.tpl:682
 #: ../..//templates/install.tpl:422
 #: ../..//templates/install_page_5.tpl:151
+#: ../../templates/install-tabs.tpl:693
 msgid "ViewVC realm"
 msgstr "ViewVC Realm"
 
@@ -17028,6 +17162,7 @@ msgstr "ViewVC Realm"
 #: ../..//install/install-alt.php:4411
 #: ../..//install/install.php:2838
 #: ../..//install/install.php:3919
+#: ../../install/install.php:3931
 msgid "ViewVC realm is missing!"
 msgstr "ViewVC realm fehlt!"
 
@@ -17059,6 +17194,7 @@ msgstr "ViewVC webserver Alias fehlt!"
 #: ../..//templates/install-tabs.tpl:692
 #: ../..//templates/install.tpl:432
 #: ../..//templates/install_page_5.tpl:161
+#: ../../templates/install-tabs.tpl:703
 msgid "ViewVC webserver alias"
 msgstr "ViewVC Webserver Alias"
 
@@ -17121,6 +17257,7 @@ msgstr "ViewVC Webserver Alias"
 #: ../..//install/install-alt.php:4404
 #: ../..//install/install.php:2833
 #: ../..//install/install.php:3912
+#: ../../install/install.php:3924
 msgid "ViewVC webserver alias is missing!"
 msgstr "ViewVC Webserver Alias fehlt!"
 
@@ -17152,6 +17289,7 @@ msgstr "ViewVC Webserver Alias fehlt!"
 #: ../..//templates/install-tabs.tpl:702
 #: ../..//templates/install.tpl:442
 #: ../..//templates/install_page_5.tpl:171
+#: ../../templates/install-tabs.tpl:713
 msgid "ViewVC webserver reload command"
 msgstr "ViewVC Webserver Reload Kommando"
 
@@ -17181,6 +17319,7 @@ msgstr "Viewvc Gruppendatei fehlt, bitte eintragen!"
 #: ../../include/createAuthFiles.php:1330
 #: ../../include/createAuthFiles.php:1336
 #: ../..//include/createAuthFiles.php:1336
+#: ../../include/createAuthFiles.php:1350
 msgid "Viewvc access configuration successfully created but semaphore could nor be released"
 msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt aber das Semaphore konnte nicht freigegeben werden"
 
@@ -17200,6 +17339,7 @@ msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt aber das Semaphore konn
 #: ../../include/createAuthFiles.php:1325
 #: ../../include/createAuthFiles.php:1331
 #: ../..//include/createAuthFiles.php:1331
+#: ../../include/createAuthFiles.php:1345
 msgid "Viewvc access configuration successfully created!"
 msgstr "Viewvc Zugriffskonfiguration erfolgreich erzeugt!"
 
@@ -17301,6 +17441,7 @@ msgstr "Website Zeichensatz"
 #: ../..//install/install-alt.php:4245
 #: ../..//install/install.php:2733
 #: ../..//install/install.php:3829
+#: ../../install/install.php:3841
 msgid "Website charset is missing!"
 msgstr "Website Zeichensatz fehlt!"
 
@@ -17634,6 +17775,10 @@ msgstr "Falsche Antwort!"
 #: ../..//templates/install_page_6.tpl:68
 #: ../..//templates/install_page_6.tpl:79
 #: ../..//templates/install_page_6.tpl:120
+#: ../../templates/install-tabs.tpl:674
+#: ../../templates/install-tabs.tpl:765
+#: ../../templates/install-tabs.tpl:777
+#: ../../templates/install-tabs.tpl:819
 msgid "Yes"
 msgstr "Ja"
 
@@ -17759,6 +17904,7 @@ msgstr "aufsteigend"
 #: ../../install/install.php:2988
 #: ../../install/install.php:3016
 #: ../..//install/install.php:3016
+#: ../../install/install.php:3017
 #, php-format
 msgid "can't open config template %s for reading!"
 msgstr "Konfigurationstemplate %s ist nicht lesbar!"
@@ -17851,6 +17997,7 @@ msgstr "Kann Konfigurations-Template nicht zum Lesen &ouml;ffnen!"
 #: ../../install/install.php:3036
 #: ../..//install/install-alt.php:2949
 #: ../..//install/install.php:3036
+#: ../../install/install.php:3037
 msgid "can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Kann config.inc.php nicht zum schreiben &ouml;ffnen. Bitte stellen Sie sicher, dass das Verzeichnis f&uuml;r den Webserver Benutzer schreibbat ist!"
 
@@ -17899,6 +18046,7 @@ msgstr "Kann config.inc.php nicht zum schreiben &ouml;ffnen. Bitte stellen Sie s
 #: ../../install/install.php:3057
 #: ../..//install/install-alt.php:2970
 #: ../..//install/install.php:3057
+#: ../../install/install.php:3058
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
@@ -17997,6 +18145,7 @@ msgstr "&auml;ndern"
 #: ../..//templates/install-tabs.tpl:732
 #: ../..//templates/install.tpl:472
 #: ../..//templates/install_page_5.tpl:201
+#: ../../templates/install-tabs.tpl:743
 msgid "grep command"
 msgstr "grep Kommando"
 
@@ -18192,6 +18341,8 @@ msgstr "keine"
 #: ../..//install/install.php:2582
 #: ../..//install/install.php:3381
 #: ../..//install/install.php:3547
+#: ../../install/install.php:3383
+#: ../../install/install.php:3557
 msgid "not writable"
 msgstr "nicht schreibbar"
 
@@ -18233,6 +18384,7 @@ msgstr "nicht schreibbar"
 #: ../../templates/workOnUser.tpl:165
 #: ../../templates/workOnUser.tpl:168
 #: ../../templates/workOnUser.tpl:236
+#: ../../templates/install-tabs.tpl:830
 msgid "read"
 msgstr "lesen"
 
@@ -18263,6 +18415,7 @@ msgstr "lesen"
 #: ../..//templates/install-tabs.tpl:712
 #: ../..//templates/install.tpl:452
 #: ../..//templates/install_page_5.tpl:181
+#: ../../templates/install-tabs.tpl:723
 msgid "svn command"
 msgstr "svn Kommando"
 
@@ -18288,6 +18441,7 @@ msgstr "svn Kommando"
 #: ../..//templates/install-tabs.tpl:722
 #: ../..//templates/install.tpl:462
 #: ../..//templates/install_page_5.tpl:191
+#: ../../templates/install-tabs.tpl:733
 msgid "svnadmin command"
 msgstr "svnadmin Kommando"
 
@@ -18305,6 +18459,8 @@ msgstr "svnadmin Kommando"
 #: ../..//install/install.php:2580
 #: ../..//install/install.php:3379
 #: ../..//install/install.php:3545
+#: ../../install/install.php:3381
+#: ../../install/install.php:3555
 msgid "writable"
 msgstr "schreibbar"
 
@@ -18328,6 +18484,7 @@ msgstr "schreibbar"
 #: ../..//templates/workOnUser.tpl:168
 #: ../../templates/workOnUser.tpl:166
 #: ../../templates/workOnUser.tpl:169
+#: ../../templates/install-tabs.tpl:831
 msgid "write"
 msgstr "schreiben"
 

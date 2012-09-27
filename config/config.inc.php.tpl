@@ -129,6 +129,9 @@ $CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
 // valid values are; read, write
 $CONF['userDefaultAccess'] 		= '###USERDEFAULTACCESS###';
 
+// SVN access file repository path sort order, vallowed values are ASC or DESC
+$CONF['repoPathSortOrder']		= '###REPOPATHSORTORDER###'; 
+
 // Custom Fields
 $CONF['column_custom1']			= ###CUSTOM1###;
 $CONF['column_custom2']			= ###CUSTOM2###;
