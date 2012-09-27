@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-09-26 21:32+0100\n"
+"PO-Revision-Date: 2012-09-27 20:19+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1564,6 +1564,11 @@ msgstr "Aktion"
 #: ../..//workOnProject.php:248
 #: ../..//workOnProject.php:675
 #: ../..//workOnProject.php:731
+#: ../../workOnProject.php:233
+#: ../../workOnProject.php:235
+#: ../../workOnProject.php:247
+#: ../../workOnProject.php:249
+#: ../../workOnProject.php:677
 msgid "Add"
 msgstr "Hinzuf&uuml;gen"
 
@@ -1590,6 +1595,9 @@ msgstr "Hinzuf&uuml;gen"
 #: ../..//workOnProject.php:218
 #: ../..//workOnProject.php:220
 #: ../..//workOnProject.php:340
+#: ../../workOnProject.php:219
+#: ../../workOnProject.php:221
+#: ../../workOnProject.php:342
 msgid "Add group"
 msgstr "Gruppe hinzuf&uuml;gen"
 
@@ -1706,6 +1714,9 @@ msgstr "Projektverantwortlichen hinzuf&uuml;gen"
 #: ../..//workOnProject.php:210
 #: ../..//workOnProject.php:212
 #: ../..//workOnProject.php:303
+#: ../../workOnProject.php:211
+#: ../../workOnProject.php:213
+#: ../../workOnProject.php:304
 msgid "Add responsible"
 msgstr "Verantwortlichen hinzuf&uuml;gen"
 
@@ -1960,6 +1971,7 @@ msgstr "Verwaltung"
 #: ../..//templates/list_group_admins.tpl:15
 #: ../..//templates/list_users.tpl:56
 #: ../..//templates/workOnUser.tpl:142
+#: ../../templates/workOnUser.tpl:143
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -2487,6 +2499,7 @@ msgstr "Administrator Kennung fehlt!"
 #: ../../templates/workOnUser.tpl:130
 #: ../../templates/workOnUser.tpl:156
 #: ../..//templates/workOnUser.tpl:156
+#: ../../templates/workOnUser.tpl:157
 msgid "Admins have a stronger password policy than normal users."
 msgstr "Administratoren haben eine strengere Passwort Richtline als normale Benutzer."
 
@@ -3673,6 +3686,13 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../setAccessRight.php:269
 #: ../../setAccessRight.php:273
 #: ../../setAccessRight.php:315
+#: ../../workOnGroupAccessRight.php:204
+#: ../../workOnGroupAccessRight.php:206
+#: ../../workOnGroupAccessRight.php:215
+#: ../../workOnProject.php:205
+#: ../../workOnProject.php:209
+#: ../../workOnProject.php:377
+#: ../../templates/workOnUser.tpl:267
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4009,6 +4029,11 @@ msgstr "Kann AuthUser Datei nicht schreiben"
 #: ../..//workOnProject.php:252
 #: ../..//workOnProject.php:722
 #: ../..//workOnProject.php:772
+#: ../../workOnProject.php:237
+#: ../../workOnProject.php:239
+#: ../../workOnProject.php:251
+#: ../../workOnProject.php:253
+#: ../../workOnProject.php:724
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -6470,6 +6495,7 @@ msgstr "L&ouml;schen von %s fehlgeschlagen!"
 #: ../../workOnProject.php:576
 #: ../../workOnProject.php:586
 #: ../..//workOnProject.php:586
+#: ../../workOnProject.php:588
 #, php-format
 msgid "Delete of svn_projects_responsible record with id %s failed"
 msgstr "L&ouml;schen des Projektverantwortlichen mit der Id %s fehlgeschlagen!"
@@ -7734,6 +7760,9 @@ msgstr "Fehler beim L&ouml;schen der tempor&auml;ren Konfig Datei"
 #: ../..//workOnRepo.php:245
 #: ../../workOnGroupAccessRight.php:262
 #: ../../workOnGroupAccessRight.php:342
+#: ../../workOnGroupAccessRight.php:263
+#: ../../workOnGroupAccessRight.php:343
+#: ../../workOnProject.php:432
 msgid "Error during database insert"
 msgstr "Fehler beim Einf&uuml;gen in die Datenbank"
 
@@ -8015,6 +8044,8 @@ msgstr "Fehler beim Zugriff auf das Subversion Repository: %s (%s/%s)"
 #: ../..//setAccessRight.php:513
 #: ../../setAccessRight.php:530
 #: ../../setAccessRight.php:574
+#: ../../setAccessRight.php:538
+#: ../../setAccessRight.php:582
 msgid "Error while deleting access right"
 msgstr "Fehler beim L&ouml;schen des Zugriffsrechts"
 
@@ -8038,6 +8069,7 @@ msgstr "Fehler beim L&ouml;schen des Zugriffsrechts"
 #: ../../setAccessRight.php:527
 #: ../..//setAccessRight.php:527
 #: ../../setAccessRight.php:588
+#: ../../setAccessRight.php:596
 #, php-format
 msgid "Error while inserting access right for group %s"
 msgstr "Fehler beim Einf&uuml;gen des Zugriffsrechtes f&uuml;r Gruppe %s"
@@ -8062,6 +8094,7 @@ msgstr "Fehler beim Einf&uuml;gen des Zugriffsrechtes f&uuml;r Gruppe %s"
 #: ../../setAccessRight.php:483
 #: ../..//setAccessRight.php:483
 #: ../../setAccessRight.php:544
+#: ../../setAccessRight.php:552
 #, php-format
 msgid "Error while inserting access right for user %s"
 msgstr "Fehler beim Einf&uuml;gen des Zugriffsrechtes f&uuml;r Benutzer %s"
@@ -8110,6 +8143,7 @@ msgstr "Fehler beim Aktualisieren von Recht id %s beim L&ouml;schen"
 #: ../../setAccessRight.php:435
 #: ../..//setAccessRight.php:435
 #: ../../setAccessRight.php:496
+#: ../../setAccessRight.php:504
 msgid "Error while writing access right modification"
 msgstr "Fehler beim Schreiben der Zugriffrechte Aktualisierung"
 
@@ -8420,6 +8454,7 @@ msgstr "Gruppe"
 
 #: ../../setAccessRight.php:442
 #: ../../setAccessRight.php:420
+#: ../../setAccessRight.php:446
 #, php-format
 msgid "Group %s contains an user with no global write permission!"
 msgstr "Gruppe %s enth&auml;lt einen Benutzer ohne globale Schreibberechtigung!"
@@ -8682,6 +8717,7 @@ msgstr "Gruppenverantworlicher wegnen Datenbankfehler nicht gel&ouml;scht"
 #: ../../workOnGroupAccessRight.php:353
 #: ../..//workOnGroupAccessRight.php:354
 #: ../../workOnGroupAccessRight.php:354
+#: ../../workOnGroupAccessRight.php:355
 #, php-format
 msgid "Group responsible user for group %s (%s) does not exist!"
 msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s) existiert nicht!"
@@ -8697,6 +8733,7 @@ msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s) existiert nicht!"
 #: ../../workOnGroupAccessRight.php:274
 #: ../..//workOnGroupAccessRight.php:275
 #: ../../workOnGroupAccessRight.php:275
+#: ../../workOnGroupAccessRight.php:276
 #, php-format
 msgid "Group responsible user for group %s (%s/%s) already exists!"
 msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s/%s) existiert bereits!"
@@ -8713,6 +8750,7 @@ msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s/%s) existiert bereits!"
 #: ../../workOnGroupAccessRight.php:347
 #: ../..//workOnGroupAccessRight.php:348
 #: ../../workOnGroupAccessRight.php:348
+#: ../../workOnGroupAccessRight.php:349
 msgid "Group responsible user successfully changed"
 msgstr "Gruppenverantwortlicher erfogreich ge&auml;ndert"
 
@@ -8728,6 +8766,7 @@ msgstr "Gruppenverantwortlicher erfogreich ge&auml;ndert"
 #: ../../workOnGroupAccessRight.php:268
 #: ../..//workOnGroupAccessRight.php:269
 #: ../../workOnGroupAccessRight.php:269
+#: ../../workOnGroupAccessRight.php:270
 msgid "Group responsible user successfully inserted"
 msgstr "Gruppenverantwortlicher erfolgreich eingef&uuml;gt"
 
@@ -8988,6 +9027,7 @@ msgstr "Einf&uuml;gen der Benutzer-Gruppen Relation f&uuml;r Benutzer Id %s und 
 #: ../../workOnProject.php:453
 #: ../../workOnProject.php:458
 #: ../..//workOnProject.php:458
+#: ../../workOnProject.php:460
 #, php-format
 msgid "Insert of user project relation failed for user_id %s and project_id %s"
 msgstr "Einf&uuml;gen der Projekt-Benutzer Relation f&uuml;r Benutzer-Id %s und Pojekt-Id %s fehlgeschlagen"
@@ -9032,6 +9072,7 @@ msgstr "Einf&uuml;gen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Daten
 #: ../../workOnProject.php:622
 #: ../../workOnProject.php:632
 #: ../..//workOnProject.php:632
+#: ../../workOnProject.php:634
 #, php-format
 msgid "Insert of user/project relation (%s/%s) failed due to database error"
 msgstr "Einf&uuml;gen der Projekt/Benutzer-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -9337,6 +9378,8 @@ msgstr "Anweisungen"
 #: ../..//workOnUser.php:583
 #: ../../workOnGroupAccessRight.php:391
 #: ../../setAccessRight.php:619
+#: ../../workOnGroupAccessRight.php:392
+#: ../../setAccessRight.php:627
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -9360,6 +9403,7 @@ msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
 #: ../../workOnProject.php:773
 #: ../../workOnProject.php:783
 #: ../..//workOnProject.php:783
+#: ../../workOnProject.php:735
 #, php-format
 msgid "Invalid button (%s/%s), anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf(%s/%s), hat jemand daran herumgespielt?"
@@ -9704,6 +9748,10 @@ msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
 #: ../..//workOnUser.php:195
 #: ../..//workOnUser.php:577
 #: ../../workOnGroupAccessRight.php:386
+#: ../../workOnGroupAccessRight.php:187
+#: ../../workOnGroupAccessRight.php:387
+#: ../../workOnProject.php:182
+#: ../../workOnProject.php:673
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -10412,6 +10460,7 @@ msgstr "Liste der gesperrten Benutzer"
 #: ../..//templates/general.tpl:75
 #: ../..//templates/list_users.tpl:47
 #: ../..//templates/workOnUser.tpl:125
+#: ../../templates/workOnUser.tpl:126
 msgid "Locked"
 msgstr "Gesperrt"
 
@@ -12085,6 +12134,10 @@ msgstr "Kein Neuladen bauftragt"
 msgid "No user and no group selected!"
 msgstr "Weder einen Benutzer noch eine Gruppe ausgew&auml;hlt!"
 
+#: ../../setAccessRight.php:462
+msgid "No user or no group selected!"
+msgstr "Kein Benutzer oder keine Gruppe ausgew&auml;hlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/lostpassword.php:86
 #: /export/home/kriegeth/workspace/svn_access_manager/lostpassword.php:86
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/lostpassword.php:87
@@ -12670,6 +12723,7 @@ msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie"
 #: ../..//templates/deleteUser.tpl:39
 #: ../..//templates/list_users.tpl:53
 #: ../..//templates/workOnUser.tpl:107
+#: ../../templates/workOnUser.tpl:108
 msgid "Password expires"
 msgstr "Passwort laeuft ab"
 
@@ -13036,6 +13090,8 @@ msgstr "Bitte einen Benutzer ausw&auml;hlen!"
 #: ../..//workOnGroupAccessRight.php:234
 #: ../..//workOnGroupAccessRight.php:315
 #: ../../workOnGroupAccessRight.php:315
+#: ../../workOnGroupAccessRight.php:235
+#: ../../workOnGroupAccessRight.php:316
 msgid "Please select right!"
 msgstr "Bitte Recht ausw&auml;hlen!"
 
@@ -13079,6 +13135,8 @@ msgstr "Bitte die Felder f&uuml;r die Benutzersortierung ausw&auml;hlen!"
 #: ../..//workOnGroupAccessRight.php:229
 #: ../..//workOnGroupAccessRight.php:310
 #: ../../workOnGroupAccessRight.php:310
+#: ../../workOnGroupAccessRight.php:230
+#: ../../workOnGroupAccessRight.php:311
 msgid "Please select user!"
 msgstr "Bitte Benutzer ausw&auml;hlen!"
 
@@ -13336,6 +13394,7 @@ msgstr "Projekt aufgrund von Datenbankfehlern beim L&ouml;schen der Benutzer/Pro
 #: ../../workOnProject.php:640
 #: ../../workOnProject.php:650
 #: ../..//workOnProject.php:650
+#: ../../workOnProject.php:652
 msgid "Project not modified due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
@@ -13343,6 +13402,8 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 #: ../../workOnProject.php:504
 #: ../..//workOnProject.php:399
 #: ../..//workOnProject.php:504
+#: ../../workOnProject.php:401
+#: ../../workOnProject.php:506
 msgid "Project responsible user missing, please fill in!"
 msgstr "Verantwortlicher Benutzer f&uuml;r das Projekt feht. Bitte eintragen!"
 
@@ -13548,6 +13609,9 @@ msgstr "Neuladen der Webserver Konfiguration fehlgeschlagen"
 #: ../..//workOnProject.php:222
 #: ../..//workOnProject.php:224
 #: ../..//workOnProject.php:351
+#: ../../workOnProject.php:223
+#: ../../workOnProject.php:225
+#: ../../workOnProject.php:353
 msgid "Remove group"
 msgstr "Gruppe ls&ouml;chen"
 
@@ -13638,6 +13702,9 @@ msgstr "Mitglied l&ouml;schen"
 #: ../..//workOnProject.php:214
 #: ../..//workOnProject.php:216
 #: ../..//workOnProject.php:314
+#: ../../workOnProject.php:215
+#: ../../workOnProject.php:217
+#: ../../workOnProject.php:316
 msgid "Remove responsible"
 msgstr "Verantwortlichen l&ouml;schen"
 
@@ -14205,6 +14272,7 @@ msgstr "Repository Benutzer"
 #: ../../templates/workOnUser.tpl:133
 #: ../../templates/workOnUser.tpl:159
 #: ../..//templates/workOnUser.tpl:159
+#: ../../templates/workOnUser.tpl:160
 msgid "Repository user right"
 msgstr "Repository Benutzerrecht"
 
@@ -14879,6 +14947,7 @@ msgstr "Verzeichnis ausw&auml;hlen"
 #: ../../templates/workOnUser.tpl:153
 #: ../../templates/workOnUser.tpl:179
 #: ../..//templates/workOnUser.tpl:179
+#: ../../templates/workOnUser.tpl:180
 msgid "Select global user rights"
 msgstr "Globale Benutzerrechte ausw&auml;hlen"
 
@@ -15082,6 +15151,9 @@ msgstr "Sitzung abgelaufen! Bitte erneut anmelden!"
 #: ../..//workOnGroupAccessRight.php:207
 #: ../..//workOnGroupAccessRight.php:209
 #: ../..//workOnGroupAccessRight.php:220
+#: ../../workOnGroupAccessRight.php:208
+#: ../../workOnGroupAccessRight.php:210
+#: ../../workOnGroupAccessRight.php:221
 msgid "Set access rights"
 msgstr "Zugriffsrechte setzen"
 
@@ -15552,6 +15624,10 @@ msgstr "Installation starten"
 #: ../../setAccessRight.php:267
 #: ../../setAccessRight.php:271
 #: ../../setAccessRight.php:321
+#: ../../workOnProject.php:203
+#: ../../workOnProject.php:207
+#: ../../workOnProject.php:383
+#: ../../templates/workOnUser.tpl:266
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -15640,6 +15716,8 @@ msgstr "Subversion Modulpfad"
 #: ../../workOnProject.php:499
 #: ../..//workOnProject.php:394
 #: ../..//workOnProject.php:499
+#: ../../workOnProject.php:396
+#: ../../workOnProject.php:501
 msgid "Subversion module path missing, please fill in!"
 msgstr "Subversion Modulpfad fehlt, bitte eingeben!"
 
@@ -15669,6 +15747,7 @@ msgstr "Subversion Projekt"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnProject.php:389
 #: ../../workOnProject.php:389
 #: ../..//workOnProject.php:389
+#: ../../workOnProject.php:391
 msgid "Subversion project is missing, please fill in!"
 msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 
@@ -15690,6 +15769,7 @@ msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 #: ../../workOnProject.php:489
 #: ../../workOnProject.php:494
 #: ../..//workOnProject.php:494
+#: ../../workOnProject.php:496
 msgid "Subversion project name is missing, please fill in!"
 msgstr "Subversion projektname fehlt, bitte eingeben!"
 
@@ -15956,6 +16036,7 @@ msgstr "Dieser Pfad wird den ausgew&auml;hlten Verzeichnissen vorangestellt."
 #: ../../templates/workOnUser.tpl:147
 #: ../../templates/workOnUser.tpl:173
 #: ../..//templates/workOnUser.tpl:173
+#: ../../templates/workOnUser.tpl:174
 msgid "This right overrules the repository access right settings. A user with read permission only can't get write access to any repository!"
 msgstr "Dieses Recht &uuml;bersteuert die Repository Zugriffsrechte. Ein Benutzer mit nur Leseberechtigung kann keinen Schreibzugriff zu irgendwelchen Repositories bekommen!"
 
@@ -16321,6 +16402,8 @@ msgstr "Benutzer"
 #: ../..//workOnGroup.php:492
 #: ../..//workOnProject.php:465
 #: ../..//workOnProject.php:640
+#: ../../workOnProject.php:467
+#: ../../workOnProject.php:642
 #, php-format
 msgid "User %s not found!"
 msgstr "Benutzer %s nicht gefunden!"
@@ -16395,6 +16478,7 @@ msgstr "Benutzer existiert nicht!"
 #: ../..//setAccessRight.php:383
 #: ../../setAccessRight.php:404
 #: ../../setAccessRight.php:436
+#: ../../setAccessRight.php:437
 msgid "User is not allowed to have write access, global right is read only"
 msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale Recht ist \"nur lesen\""
 
@@ -17656,6 +17740,7 @@ msgstr "Ihr Benutzer wurde zwischenzeitlich gel&ouml;scht!"
 #: ../../templates/workOnUser.tpl:214
 #: ../../templates/workOnUser.tpl:240
 #: ../..//templates/workOnUser.tpl:240
+#: ../../templates/workOnUser.tpl:241
 msgid "add"
 msgstr "hinzuf&uuml;gen"
 
@@ -17850,6 +17935,7 @@ msgstr "config.inc.php erfolgreich angelegt"
 #: ../..//templates/list_groups.tpl:39
 #: ../..//templates/workOnGroupAccessRight.tpl:62
 #: ../..//templates/workOnUser.tpl:249
+#: ../../templates/workOnUser.tpl:250
 msgid "delete"
 msgstr "l&ouml;schen"
 
@@ -17880,6 +17966,7 @@ msgstr "absteigend"
 #: ../../templates/workOnUser.tpl:245
 #: ../..//templates/workOnGroupAccessRight.tpl:61
 #: ../..//templates/workOnUser.tpl:245
+#: ../../templates/workOnUser.tpl:246
 msgid "edit"
 msgstr "&auml;ndern"
 
@@ -18041,6 +18128,12 @@ msgstr "grep Kommando"
 #: ../..//templates/workOnUser.tpl:133
 #: ../..//templates/workOnUser.tpl:147
 #: ../..//templates/workOnUser.tpl:150
+#: ../../templates/workOnUser.tpl:112
+#: ../../templates/workOnUser.tpl:115
+#: ../../templates/workOnUser.tpl:131
+#: ../../templates/workOnUser.tpl:134
+#: ../../templates/workOnUser.tpl:148
+#: ../../templates/workOnUser.tpl:151
 msgid "no"
 msgstr "Nein"
 
@@ -18081,6 +18174,7 @@ msgstr "Nein"
 #: ../..//deleteAccessRight.php:159
 #: ../..//deleteAccessRight.php:183
 #: ../..//templates/workOnUser.tpl:229
+#: ../../templates/workOnUser.tpl:230
 msgid "none"
 msgstr "keine"
 
@@ -18136,6 +18230,9 @@ msgstr "nicht schreibbar"
 #: ../..//templates/workOnUser.tpl:164
 #: ../..//templates/workOnUser.tpl:167
 #: ../..//templates/workOnUser.tpl:235
+#: ../../templates/workOnUser.tpl:165
+#: ../../templates/workOnUser.tpl:168
+#: ../../templates/workOnUser.tpl:236
 msgid "read"
 msgstr "lesen"
 
@@ -18229,6 +18326,8 @@ msgstr "schreibbar"
 #: ../..//templates/install-tabs.tpl:820
 #: ../..//templates/workOnUser.tpl:165
 #: ../..//templates/workOnUser.tpl:168
+#: ../../templates/workOnUser.tpl:166
+#: ../../templates/workOnUser.tpl:169
 msgid "write"
 msgstr "schreiben"
 
@@ -18360,6 +18459,12 @@ msgstr "schreiben"
 #: ../..//templates/workOnUser.tpl:134
 #: ../..//templates/workOnUser.tpl:148
 #: ../..//templates/workOnUser.tpl:151
+#: ../../templates/workOnUser.tpl:113
+#: ../../templates/workOnUser.tpl:116
+#: ../../templates/workOnUser.tpl:132
+#: ../../templates/workOnUser.tpl:135
+#: ../../templates/workOnUser.tpl:149
+#: ../../templates/workOnUser.tpl:152
 msgid "yes"
 msgstr "Ja"
 

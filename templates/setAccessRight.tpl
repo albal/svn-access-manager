@@ -49,14 +49,14 @@
 				   		<td>
 				   			<input id="validFrom" type="text" name="fValidFrom" value="<?php print $tValidFrom; ?>" size="11" maxlength="10" />
 				   		</td>
-				   		<td><?php print _("Format MM.DD.YYYY"); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td><strong><?php print _("Valid until").": "; ?></strong></td>
 				   		<td>
 				   			<input id="validUntil" type="text" name="fValidUntil" value="<?php print $tValidUntil; ?>" size="11" maxlength="10" />
 				   		</td>
-				   		<td><?php print _("Format MM.DD.YYYY"); ?> </td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr valign="top">
 				   		<td><strong><?php print _("Allowed users").": "; ?></strong></td>
@@ -116,18 +116,13 @@
 				</table>
 			</form>
 			<script>
-					var year     = "<?php print date('Y');?>";
-					var month    = "<?php print date('m') - 1;?>";
-					var day      = "<?php print date('d');?>";
-					
+				
 					$( "#validUntil" ).datepicker({
-						maxDate: new Date(year, month, day),
 						regional: ['<?php print $tLocale;?>'],
 						altFormat: ['<?php print $tDateFormat;?>'],
 					});
 					
 					$( "#validFrom" ).datepicker({
-						maxDate: new Date(year, month, day),
 						regional: ['<?php print $tLocale;?>'],
 						altFormat: ['<?php print $tDateFormat;?>'],
 					});

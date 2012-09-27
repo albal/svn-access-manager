@@ -169,6 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$_SESSION['svn_sessid']['project']		= $tProject;
 			$_SESSION['svn_sessid']['modulepath']	= $tModulepath;
 			$_SESSION['svn_sessid']['repo']			= $tRepo;
+			$_SESSION['svn_sessid']['groups']		= array();
 							
 		} else {
 		
@@ -305,6 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		$_SESSION['svn_sessid']['project']		= $tProject;
 		$_SESSION['svn_sessid']['modulepath']	= $tModulepath;
 		$_SESSION['svn_sessid']['repo']			= $tRepo;
+		$_SESSION['svn_sessid']['groups']		= $tGroups;
 			
    		addMemberToGroup($tGroups, $_SESSION['svn_sessid']['members'], $dbh );
 
@@ -499,7 +501,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Subversion module path missing, please fill in!" );
    				$error						= 1;
    			
-   			} elseif( empty($tMembers) ) {
+   			} elseif( empty($_SESSION['svn_sessid']['members']) ) {
                                 
 				$tMessage                  = _( "Project responsible user missing, please fill in!" );
 				$error                     = 1;
@@ -720,56 +722,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		exit;
 		
    	} elseif( $buttonadd == _("Cancel") ) {
-   	
-   		$project							= $_SESSION['svn_sessid']['projectid'];
-		$task								= $_SESSION['svn_sessid']['task'];
-		
-		db_disconnect( $dbh );
-		header("Location: workOnProject.php?id=$project&task=relist");
-		exit;
-		
-   	} elseif( $buttonaddgroup == _("Add") ) {
-   		
-   		if( isset( $_POST['groupsadd'] ) ) {
-		
-			$groupsadd 						= db_escape_string($_POST['groupsadd']);
-			
-		} else {
-			
-			$groupsadd						= array();
-			
-		}
-		
-		foreach( $groupsadd as $groupid ) {
-			
-			$query							= "SELECT * " .
-											  "  FROM ".$schema."svngroups " .
-											  " WHERE (id = '$groupid') " .
-											  "   AND (deleted = '00000000000000' )";
-			$result							= db_query( $query, $dbh );
-			
-			if( $result['rows'] == 1 ) {
-				
-				$row						= db_assoc( $result['result'] );
-				$name						= $row['groupname'];
-				
-			}
-			
-			$_SESSION['svn_sessid']['groups'][$groupid]		= $name;
-			
-		}
-		
-		$project							= $_SESSION['svn_sessid']['projectid'];
-		$tProject							= $_SESSION['svn_sessid']['project'];
-		$tModulepath						= $_SESSION['svn_sessid']['modulepath'];
-		$tRepo								= $_SESSION['svn_sessid']['repo'];
-		$tMembers							= $_SESSION['svn_sessid']['members'];
-
-		db_disconnect( $dbh );
-		header("Location: workOnProject.php?id=$project&task=relist");
-		exit;
-		
-   	} elseif( $buttonaddgroup == _("Cancel") ) {
    	
    		$project							= $_SESSION['svn_sessid']['projectid'];
 		$task								= $_SESSION['svn_sessid']['task'];
