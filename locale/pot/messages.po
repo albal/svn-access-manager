@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-09-27 21:15+0100\n"
+"PO-Revision-Date: 2012-09-27 22:09+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -3709,6 +3709,9 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../workOnProject.php:209
 #: ../../workOnProject.php:377
 #: ../../templates/workOnUser.tpl:267
+#: ../../workOnAccessRight.php:367
+#: ../../workOnAccessRight.php:371
+#: ../../workOnAccessRight.php:380
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4985,6 +4988,9 @@ msgstr "Passwort &auml;ndern"
 #: ../..//workOnAccessRight.php:357
 #: ../..//workOnAccessRight.php:361
 #: ../..//workOnAccessRight.php:378
+#: ../../workOnAccessRight.php:365
+#: ../../workOnAccessRight.php:369
+#: ../../workOnAccessRight.php:386
 msgid "Change to directory"
 msgstr "Verzeichnis wechseln"
 
@@ -8067,6 +8073,7 @@ msgstr "Fehler beim Einf&uuml;gen der Benutzerrechte des Administrators: %s"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnAccessRight.php:219
 #: ../../workOnAccessRight.php:219
 #: ../..//workOnAccessRight.php:219
+#: ../../workOnAccessRight.php:227
 #, php-format
 msgid "Error while accessing svn repository: %s (%s / retcode = %s)"
 msgstr "Fehler beim Zugriff auf das Subversion Repository: %s (%s / retcode = %s)"
@@ -9467,6 +9474,7 @@ msgstr "Anweisungen"
 #: ../../setAccessRight.php:619
 #: ../../workOnGroupAccessRight.php:392
 #: ../../setAccessRight.php:627
+#: ../../workOnAccessRight.php:488
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -9541,6 +9549,8 @@ msgstr "Ung&uuml;ltige Daten!"
 #: ../../workOnAccessRight.php:315
 #: ../..//workOnAccessRight.php:231
 #: ../..//workOnAccessRight.php:315
+#: ../../workOnAccessRight.php:239
+#: ../../workOnAccessRight.php:323
 #, php-format
 msgid "Invalid project id %s requested"
 msgstr "Ung&uuml;ltige Projekt-Id %s angefordert"
@@ -9601,6 +9611,7 @@ msgstr "Ung&uuml;ltige protokollversion: %s"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnAccessRight.php:225
 #: ../../workOnAccessRight.php:225
 #: ../..//workOnAccessRight.php:225
+#: ../../workOnAccessRight.php:233
 #, php-format
 msgid "Invalid repository id %s requested!"
 msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
@@ -9840,6 +9851,7 @@ msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
 #: ../../workOnGroupAccessRight.php:387
 #: ../../workOnProject.php:182
 #: ../../workOnProject.php:673
+#: ../../workOnAccessRight.php:339
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -15277,6 +15289,9 @@ msgstr "Sitzung abgelaufen! Bitte erneut anmelden!"
 #: ../../workOnGroupAccessRight.php:208
 #: ../../workOnGroupAccessRight.php:210
 #: ../../workOnGroupAccessRight.php:221
+#: ../../workOnAccessRight.php:373
+#: ../../workOnAccessRight.php:375
+#: ../../workOnAccessRight.php:462
 msgid "Set access rights"
 msgstr "Zugriffsrechte setzen"
 
