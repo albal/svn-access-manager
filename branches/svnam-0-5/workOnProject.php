@@ -396,7 +396,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Subversion module path missing, please fill in!" );
    				$error						= 1;
    				
-   			} elseif( empty($tMembers) ) {
+   			} elseif( empty($_SESSION['svn_sessid']['members']) ) {
                                 
 				$tMessage                  = _( "Project responsible user missing, please fill in!" );
 				$error                     = 1;

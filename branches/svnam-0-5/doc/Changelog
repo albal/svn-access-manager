@@ -3,6 +3,9 @@ Change Log
 
 
 Release 0.5.5.6
+    - Bug fix for ID: 3572496
+      incorrect error message in workOnAccessRight.php (step 2)
+      
     - Bug fix and enhancement for ID: 3571582
       sorting changes for include/createAuthFiles.php
       

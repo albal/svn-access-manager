@@ -204,14 +204,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$repopath						= preg_replace( '/\\\/', '/', $tRepoPath );
 				$tRepodirs						= array();
 				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath;
-				if( strtolower($accessControl) != "files" ) {
-					$cmd						.= '|'.$CONF['grep_command'].' "/$"';
-				}
-				#error_log( $cmd );
-				$errortext						= exec( $cmd, $tRepodirs, $retval );
+				$errortext						= exec( $cmd, $tRepodirsArr, $retval );
 				
 				if( $retval == 0 ) {
-					
+				
+					if( strtolower($accessControl) != "files" ) {
+						
+						foreach( $tRepodirsArr as $repo ) {
+							
+							if( preg_match( '/\/$/', $repo) ) {
+								$tRepodirs[]	= $repo;
+							}
+						}
+						
+					} else {
+						$tRepodirs				= $tRepodirsArr;
+					}
 					$tPathSelected				= "";
 					
 				} else {
@@ -436,11 +444,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tRepodirs							= array();
 		$repopath							= preg_replace( '/\\\/', '/', $tRepoPath );
 		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath.'/'.$tPathSelected;
+		$errortext							= exec( $cmd, $tRepodirsArr, $retval );
+		
 		if( strtolower($accessControl) != "files" ) {
-			$cmd							.= '|'.$CONF['grep_command'].' "/$"';
+						
+			foreach( $tRepodirsArr as $repo ) {
+				
+				if( preg_match( '/\/$/', $repo) ) {
+					$tRepodirs[]			= $repo;
+				}
+			}
+			
+		} else {
+			$tRepodirs						= $tRepodirsArr;
 		}
-		#error_log( $cmd );
-		$errortext							= exec( $cmd, $tRepodirs, $retval );
    		
    	} elseif( $button == _("Set access rights") ) {
    		
