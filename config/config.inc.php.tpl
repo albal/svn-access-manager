@@ -30,7 +30,7 @@ $Id$
 */
 
 
-if (ereg ("config.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match ("/config.inc.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;
@@ -60,6 +60,7 @@ $CONF['database_tablespace']	= '###DBTABLESPACE###';
 $CONF['session_in_db']			= '###SESSIONINDB###';
 
 $CONF['website_charset']		= '###WEBSITECHARSET###';
+$CONF['website_url']			= '###WEBSITEURL###';
 
 // Sort order for user
 $CONF['user_sort_fields']		= "name,givenname";
@@ -124,6 +125,17 @@ $CONF['separateFilesPerRepo']	= '###SEPERATEFILESPERREPO###';
 //files listed during access rights management too
 //Valid values are "dirs" or "files"
 $CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
+// Set users default access right
+// valid values are; read, write
+$CONF['userDefaultAccess'] 		= '###USERDEFAULTACCESS###';
+
+// SVN access file repository path sort order, vallowed values are ASC or DESC
+$CONF['repoPathSortOrder']		= '###REPOPATHSORTORDER###'; 
+
+// Custom Fields
+$CONF['column_custom1']			= ###CUSTOM1###;
+$CONF['column_custom2']			= ###CUSTOM2###;
+$CONF['column_custom3']			= ###CUSTOM3###;
 
 $CONF['mail_password_warn']		= <<<EOM
 
@@ -158,6 +170,23 @@ SVN Access Manager
 Administrator
 
 EOM;
+
+//LDAP stuff
+$CONF['use_ldap']                               = '###USELDAP###';
+$CONF['bind_dn']                                = '###BINDDN###';
+$CONF['bind_pw']                                = '###BINDPW###';
+$CONF['user_dn']                                = '###USERDN###';
+$CONF['user_filter_attr']                       = '###USERFILTERATTR###';
+$CONF['user_objectclass']                       = '###USEROBJECTCLASS###';
+$CONF['additional_user_filter']                 = '###USERADDITIONALFILTER###';
+$CONF['ldap_server']                            = '###LDAPHOST###';
+$CONF['ldap_port']                              = '###LDAPPORT###';
+$CONF['ldap_protocol']                          = '###LDAPPROTOCOL###';
+$CONF['attr_mapping']['uid']                    = '###MAPUID###';
+$CONF['attr_mapping']['name']                   = '###MAPNAME###';
+$CONF['attr_mapping']['givenName']              = '###MAPGIVENNAME###';
+$CONF['attr_mapping']['mail']                   = '###MAPMAIL###';
+$CONF['attr_mapping']['userPassword']           = '###MAPPASSWORD###';
 
 //
 // END OF CONFIG FILE

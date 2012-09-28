@@ -44,7 +44,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 #$INCLUDEPATH						= ".";
@@ -68,7 +68,7 @@ initialize_i18n();
 
 
 $dbh								= db_connect();
-$url								= "https://atest.asamnet.de/svn_access_manager/";
+$url								= $CONF['website_url'];
 
 $query								= "SELECT * " .
 									  "  FROM svnusers " .
@@ -107,7 +107,7 @@ while( $row = db_assoc( $result['result'] ) ) {
 		
 		if( $resultupd['rows'] == 1 ) {
 		
-			$mailtext				= sprintf( $CONF['mail_password_warn'], $name, $CONF['password_expires'], $url );
+			$mailtext				= sprintf( $CONF['mail_password_warn'], $name, $url, $CONF['password_expires'] );
 			$mailtext				= wordwrap( $mailtext, 70 );
 			$header					= "From: ".$CONF['admin_email']."\r\n" .
 									  "Reply-To: ".$CONF['admin_email'];

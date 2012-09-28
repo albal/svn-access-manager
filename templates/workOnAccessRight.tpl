@@ -1,5 +1,5 @@
 		<?php
-			if( $CONF['use_javascript'] == "YES" ) {
+			#if( $CONF['use_javascript'] == "YES" ) {
 			
 				echo "\t\t\t<script language=\"JavaScript1.3\">\n"; 
 				echo "\t\t\t\tfunction onChangeDir() {\n";
@@ -8,9 +8,9 @@
 				echo "\t\t\t</script>\n";
 
 				$tChangeFunction = 'onchange="onChangeDir();"';
-			} else {
-				$tChangeFunction = "";
-			}
+			#} else {
+			#	$tChangeFunction = "";
+			#}
 		?>
 		<div id="edit_form">
 			<form name="workOnAccessRight" method="post">
