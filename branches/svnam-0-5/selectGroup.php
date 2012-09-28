@@ -72,7 +72,8 @@ $schema										= db_determine_schema();
 $tGroups									= array();
 $query										= "SELECT * " .
 											  "  FROM ".$schema."svngroups " .
-											  " WHERE (svngroups.deleted = '00000000000000')";
+											  " WHERE (svngroups.deleted = '00000000000000') ".
+											  "ORDER BY svngroups.groupname ASC";
 $result										= db_query( $query, $dbh );
 while( $row = db_assoc( $result['result'] ) ) {
 

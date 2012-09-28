@@ -112,7 +112,8 @@ if( $tProjectIds != "" ) {
 											  "   AND (svn_projects_responsible.project_id = svnprojects.id) " .
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
 											  "   AND (svn_projects_responsible.deleted = '00000000000000') " .
-											  "   AND (svnprojects.deleted = '00000000000000')";
+											  "   AND (svnprojects.deleted = '00000000000000') " .
+											  "ORDER BY svnprojects.svnmodule ASC";
 	$result									= db_query( $query, $dbh );
 	while( $row = db_assoc( $result['result'] ) ) {
 	
