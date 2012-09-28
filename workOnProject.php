@@ -61,7 +61,8 @@ $schema								= db_determine_schema();
 
 $query								= "SELECT * " .
 									  "  FROM ".$schema."svnrepos " .
-									  " WHERE (deleted = '00000000000000')";
+									  " WHERE (deleted = '00000000000000') " .
+									  "ORDER BY svnrepos.reponame";
 $result								= db_query( $query, $dbh );
 $tRepos								= array();
 
