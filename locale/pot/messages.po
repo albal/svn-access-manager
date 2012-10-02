@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-09-28 23:21+0100\n"
+"PO-Revision-Date: 2012-10-02 23:52+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1449,6 +1449,10 @@ msgstr "Zugriffsrechte Verwaltung"
 #: ../..//templates/list_projects.tpl:18
 #: ../..//templates/list_repos.tpl:21
 #: ../..//templates/list_users.tpl:59
+#: ../../templates/searchresult_groups.tpl:15
+#: ../../templates/list_users.tpl:71
+#: ../../templates/searchresult_users.tpl:59
+#: ../../templates/list_groups.tpl:27
 msgid "Action"
 msgstr "Aktion"
 
@@ -1988,6 +1992,8 @@ msgstr "Verwaltung"
 #: ../..//templates/list_users.tpl:56
 #: ../..//templates/workOnUser.tpl:142
 #: ../../templates/workOnUser.tpl:143
+#: ../../templates/list_users.tpl:68
+#: ../../templates/searchresult_users.tpl:56
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -3731,6 +3737,12 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../selectGroup.php:101
 #: ../../selectGroup.php:105
 #: ../../selectGroup.php:110
+#: ../../list_users.php:215
+#: ../../templates/searchresult_groups.tpl:65
+#: ../../templates/list_users.tpl:145
+#: ../../templates/searchresult_users.tpl:133
+#: ../../templates/list_groups.tpl:77
+#: ../../list_groups.php:264
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4940,6 +4952,10 @@ msgstr "Kann nicht in %s schreiben"
 #: ../..//templates/list_projects.tpl:31
 #: ../..//templates/list_repos.tpl:32
 #: ../..//templates/list_users.tpl:79
+#: ../../templates/searchresult_groups.tpl:31
+#: ../../templates/list_users.tpl:91
+#: ../../templates/searchresult_users.tpl:79
+#: ../../templates/list_groups.tpl:43
 msgid "Change"
 msgstr "&Auml;ndern"
 
@@ -6556,6 +6572,10 @@ msgstr "Datum f&uuml;r Zugriffsrechte Bericht"
 #: ../..//templates/list_projects.tpl:39
 #: ../..//templates/list_repos.tpl:40
 #: ../..//templates/list_users.tpl:86
+#: ../../templates/searchresult_groups.tpl:39
+#: ../../templates/list_users.tpl:98
+#: ../../templates/searchresult_users.tpl:86
+#: ../../templates/list_groups.tpl:51
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -6778,6 +6798,8 @@ msgstr "Vorhandene Datenbanktabellen l&ouml;schen"
 #: ../../templates/general.tpl:39
 #: ../..//templates/general.tpl:39
 #: ../..//templates/list_users.tpl:18
+#: ../../templates/list_users.tpl:30
+#: ../../templates/searchresult_users.tpl:18
 msgid "Email"
 msgstr "E-Mail"
 
@@ -8404,6 +8426,8 @@ msgstr "Allgemeine Funktionen"
 #: ../..//templates/list_users.tpl:15
 #: ../..//templates/rep_locked_users.tpl:21
 #: ../..//templates/workOnUser.tpl:45
+#: ../../templates/list_users.tpl:27
+#: ../../templates/searchresult_users.tpl:15
 msgid "Given name"
 msgstr "Vorname"
 
@@ -8706,6 +8730,8 @@ msgstr "Gruppenverwaltungsrechte bearbeiten / Schritt 1: Gruppe ausw&auml;hlen"
 #: ../../templates/list_group_admins.tpl:12
 #: ../..//templates/list_group_admins.tpl:12
 #: ../..//templates/list_groups.tpl:12
+#: ../../templates/searchresult_groups.tpl:12
+#: ../../templates/list_groups.tpl:24
 msgid "Group description"
 msgstr "Gruppenbeschreibung"
 
@@ -8758,6 +8784,8 @@ msgstr "Mitglied in Gruppen"
 #: ../..//templates/list_group_admins.tpl:9
 #: ../..//templates/list_groups.tpl:9
 #: ../..//templates/rep_show_user_result.tpl:10
+#: ../../templates/searchresult_groups.tpl:9
+#: ../../templates/list_groups.tpl:21
 msgid "Group name"
 msgstr "Gruppenname"
 
@@ -9513,6 +9541,8 @@ msgstr "Anweisungen"
 #: ../../setAccessRight.php:627
 #: ../../workOnAccessRight.php:488
 #: ../../setAccessRight.php:628
+#: ../../list_users.php:223
+#: ../../list_groups.php:272
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -9954,6 +9984,8 @@ msgstr "LDAP"
 #: ../../templates/list_users.tpl:38
 #: ../../templates/list_users.tpl:39
 #: ../..//templates/list_users.tpl:39
+#: ../../templates/list_users.tpl:51
+#: ../../templates/searchresult_users.tpl:39
 msgid "LDAP User"
 msgstr "LDAP benutzer"
 
@@ -10614,6 +10646,8 @@ msgstr "Liste der gesperrten Benutzer"
 #: ../..//templates/list_users.tpl:47
 #: ../..//templates/workOnUser.tpl:125
 #: ../../templates/workOnUser.tpl:126
+#: ../../templates/list_users.tpl:59
+#: ../../templates/searchresult_users.tpl:47
 msgid "Locked"
 msgstr "Gesperrt"
 
@@ -11435,6 +11469,8 @@ msgstr "MySQL Datenbank Benutzer"
 #: ../..//templates/list_users.tpl:12
 #: ../..//templates/rep_locked_users.tpl:18
 #: ../..//templates/workOnUser.tpl:38
+#: ../../templates/list_users.tpl:24
+#: ../../templates/searchresult_users.tpl:12
 msgid "Name"
 msgstr "Name"
 
@@ -11628,6 +11664,9 @@ msgstr "Neues Zugriffsrecht"
 #: ../..//list_groups.php:202
 #: ../..//templates/list_group_admins.tpl:65
 #: ../..//templates/list_groups.tpl:61
+#: ../../templates/searchresult_groups.tpl:61
+#: ../../templates/list_groups.tpl:73
+#: ../../list_groups.php:258
 msgid "New group"
 msgstr "Neue Gruppe"
 
@@ -11811,6 +11850,9 @@ msgstr "Neues Repository"
 #: ../..//list_users.php:145
 #: ../..//list_users.php:152
 #: ../..//templates/list_users.tpl:129
+#: ../../list_users.php:209
+#: ../../templates/list_users.tpl:141
+#: ../../templates/searchresult_users.tpl:129
 msgid "New user"
 msgstr "Neuer Benutzer"
 
@@ -12149,6 +12191,8 @@ msgstr "N&auml;chste Seite"
 #: ../../templates/install-tabs.tpl:766
 #: ../../templates/install-tabs.tpl:778
 #: ../../templates/install-tabs.tpl:820
+#: ../../templates/list_users.tpl:121
+#: ../../templates/searchresult_users.tpl:109
 msgid "No"
 msgstr "Nein"
 
@@ -12250,6 +12294,10 @@ msgstr "Keine Datenbanktabellen angelegt"
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gel&ouml;scht"
 
+#: ../../list_groups.php:238
+msgid "No group found!"
+msgstr "Keine Gruppe gefunden!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/help.php:58
 #: /export/home/kriegeth/workspace/svn_access_manager/help.php:64
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/help.php:58
@@ -12288,6 +12336,11 @@ msgstr "Keine Hilfe gefunden"
 msgid "No reload sheduled"
 msgstr "Kein Neuladen bauftragt"
 
+#: ../../list_users.php:167
+#: ../../list_groups.php:217
+msgid "No search string given!"
+msgstr "Kein Suchbegriff angegeben!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/setAccessRight.php:365
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/setAccessRight.php:365
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/setAccessRight.php:368
@@ -12300,6 +12353,10 @@ msgstr "Kein Neuladen bauftragt"
 #: ../../setAccessRight.php:454
 msgid "No user and no group selected!"
 msgstr "Weder einen Benutzer noch eine Gruppe ausgew&auml;hlt!"
+
+#: ../../list_users.php:189
+msgid "No user found!"
+msgstr "Kein Benutzer gefunden!"
 
 #: ../../setAccessRight.php:462
 #: ../../setAccessRight.php:463
@@ -12475,6 +12532,10 @@ msgstr "Oracle"
 #: ../..//templates/rep_log.tpl:50
 #: ../..//templates/rep_show_user_result.tpl:57
 #: ../..//templates/rep_show_user_result.tpl:64
+#: ../../templates/searchresult_groups.tpl:80
+#: ../../templates/list_users.tpl:161
+#: ../../templates/searchresult_users.tpl:149
+#: ../../templates/list_groups.tpl:92
 msgid "Page"
 msgstr "Seite"
 
@@ -12811,6 +12872,8 @@ msgstr "Passwort&auml;nderung aufgrund eines Datenbankfehlers fehlgeschlagen"
 #: ../../templates/list_users.tpl:27
 #: ../../templates/list_users.tpl:50
 #: ../..//templates/list_users.tpl:50
+#: ../../templates/list_users.tpl:62
+#: ../../templates/searchresult_users.tpl:50
 msgid "Password changed"
 msgstr "Passwort ge&auml;ndert"
 
@@ -12897,6 +12960,8 @@ msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie"
 #: ../..//templates/list_users.tpl:53
 #: ../..//templates/workOnUser.tpl:107
 #: ../../templates/workOnUser.tpl:108
+#: ../../templates/list_users.tpl:65
+#: ../../templates/searchresult_users.tpl:53
 msgid "Password expires"
 msgstr "Passwort laeuft ab"
 
@@ -14635,6 +14700,8 @@ msgstr "Admin Passwort wiederholen"
 #: ../../templates/list_users.tpl:44
 #: ../..//templates/list_group_admins.tpl:18
 #: ../..//templates/list_users.tpl:44
+#: ../../templates/list_users.tpl:56
+#: ../../templates/searchresult_users.tpl:44
 msgid "Right"
 msgstr "Recht"
 
@@ -15098,6 +15165,39 @@ msgstr "Sortierung SVN Zugriffsdatei"
 msgid "SVN command is missing!"
 msgstr "SVN Kommando fehlt!"
 
+#: ../../templates/list_users.tpl:11
+#: ../../templates/list_groups.tpl:11
+msgid "Search"
+msgstr "Suchen"
+
+#: ../../templates/list_groups.tpl:7
+msgid "Search group"
+msgstr "Gruppe suchen"
+
+#: ../../templates/list_groups.tpl:9
+msgid "Search group by description or name."
+msgstr "Gruppe &uuml;ber Name oder Beschreibung suchen."
+
+#: ../../templates/searchresult_groups.tpl:2
+msgid "Search group result"
+msgstr "Ergebnis der Suche nach Gruppen"
+
+#: ../../templates/list_groups.tpl:11
+msgid "Search group."
+msgstr "Gruppe suchen."
+
+#: ../../templates/list_users.tpl:7
+msgid "Search user"
+msgstr "Benutzer suchen"
+
+#: ../../templates/list_users.tpl:9
+msgid "Search user by uid or name."
+msgstr "Benutzer nach Uid oder name suchen."
+
+#: ../../templates/list_users.tpl:11
+msgid "Search user."
+msgstr "Benutzer suchen."
+
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/general.tpl:48
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/general.tpl:48
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/general.tpl:48
@@ -15258,6 +15358,10 @@ msgstr "Benutzer ausw&auml;hlen"
 #: ../..//templates/workOnAccessRight.tpl:39
 msgid "Selected directory"
 msgstr "Verzeichnis ausw&auml;hlen"
+
+#: ../../templates/searchresult_users.tpl:3
+msgid "Serach user result"
+msgstr "Ergebnis der Suche nach Benutzern"
 
 #: ../../templates/framework.tpl:62
 #: ../..//templates/framework.tpl:62
@@ -16833,6 +16937,8 @@ msgstr "Anzuzeigender Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/list_users.tpl:9
 #: ../../templates/list_users.tpl:9
 #: ../..//templates/list_users.tpl:9
+#: ../../templates/list_users.tpl:21
+#: ../../templates/searchresult_users.tpl:9
 msgid "UserId"
 msgstr "Benutzerkennung"
 
@@ -18170,6 +18276,8 @@ msgstr "config.inc.php erfolgreich angelegt"
 #: ../..//templates/workOnGroupAccessRight.tpl:62
 #: ../..//templates/workOnUser.tpl:249
 #: ../../templates/workOnUser.tpl:250
+#: ../../templates/searchresult_groups.tpl:39
+#: ../../templates/list_groups.tpl:51
 msgid "delete"
 msgstr "l&ouml;schen"
 
@@ -18369,6 +18477,14 @@ msgstr "grep Kommando"
 #: ../../templates/workOnUser.tpl:134
 #: ../../templates/workOnUser.tpl:148
 #: ../../templates/workOnUser.tpl:151
+#: ../../templates/list_users.tpl:81
+#: ../../templates/list_users.tpl:82
+#: ../../templates/list_users.tpl:83
+#: ../../templates/list_users.tpl:119
+#: ../../templates/searchresult_users.tpl:69
+#: ../../templates/searchresult_users.tpl:70
+#: ../../templates/searchresult_users.tpl:71
+#: ../../templates/searchresult_users.tpl:107
 msgid "no"
 msgstr "Nein"
 
@@ -18473,6 +18589,13 @@ msgstr "nicht schreibbar"
 #: ../../templates/install-tabs.tpl:830
 msgid "read"
 msgstr "lesen"
+
+#: ../../list_users.php:149
+#: ../../list_users.php:151
+#: ../../list_groups.php:199
+#: ../../list_groups.php:201
+msgid "search"
+msgstr "suchen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:236
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:257
@@ -18708,6 +18831,14 @@ msgstr "schreiben"
 #: ../../templates/workOnUser.tpl:135
 #: ../../templates/workOnUser.tpl:149
 #: ../../templates/workOnUser.tpl:152
+#: ../../templates/list_users.tpl:81
+#: ../../templates/list_users.tpl:82
+#: ../../templates/list_users.tpl:83
+#: ../../templates/list_users.tpl:119
+#: ../../templates/searchresult_users.tpl:69
+#: ../../templates/searchresult_users.tpl:70
+#: ../../templates/searchresult_users.tpl:71
+#: ../../templates/searchresult_users.tpl:107
 msgid "yes"
 msgstr "Ja"
 
