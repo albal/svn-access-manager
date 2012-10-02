@@ -2315,7 +2315,7 @@ function loadHelpTexts( $database, $schema, $dbh ) {
 	
 	$error									= 0;
 	$tMessage								= "";
-	$filename								= "";
+	$filename								= "help_texts.sql";
 	
 	if( file_exists ( realpath ( "./$filename" ) ) ) {
 		

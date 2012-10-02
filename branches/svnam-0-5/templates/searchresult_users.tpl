@@ -1,18 +1,6 @@
 		<div id="edit_form">
 			<form name="user_list" method="post">
-				<h3><?php print _("User administration"); ?></h3>
-				<p>&nbsp;</p>
-				<table>
-					<tr>
-						<td><?php print _("Search user");?>: </td>
-						<td>
-							<input id="search" class="large" type="text" name="fSearch" value="" title="<?php print _("Search user by uid or name.");?>" />&nbsp;&nbsp;
-                           	<span style="white-space:nowrap;">
-                            	<input class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search user.");?>" />
-                            </span>
-                    	</td>   
-					</tr>
-				</table>                                        
+				<h3><?php print _("Serach user result"); ?></h3>
 				<p>&nbsp;</p>
 				<table id="userlist_table">
 				   	<thead>
@@ -74,7 +62,7 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		foreach( $tUsers as $entry ) {
+					   		foreach( $tArray as $entry ) {
 					   		
 					   			list($date, $time)		= splitDateTime( $entry['password_modified'] );
 					   			$pwChanged 				= $date." ".$time; 
@@ -161,45 +149,6 @@
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
-					
-					$("#search").autocomplete({
-                        source: function( request, response ) {
-                                $.ajax({
-                                        url: "searchrpc.php",
-                                        dataType: "jsonp",
-                                        data: {
-                                                maxRows: 10,
-                                                name_startsWith: request.term,
-                                                db: "people"
-                                        },
-                                        success: function( data ) {
-                                                var retarr =[];
-                                                $.each(data, function(i, val){
-                                                        myName = $("<div/>").html(val.name).text();
-                                                        if(myName == "Session expired!") {
-                                                                window.location.href="login.php";
-                                                        }
-                                                        retarr.push(myName);
-                                                });
-                                                response(retarr);
-                                        }
-                                });
-                        },
-                        minLength: 1,
-                        select: function( event, ui ) {
-                                var name = ui.item.value;
-                                $("#search").val(name);
-                                document.user_list.submit();
-                        },
-                        open: function() {
-                                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-                        },
-                        close: function() {
-                                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                        }
-
-                	});
-					
 					
 					$("#edit_form *").tooltip({
 						showURL: false
