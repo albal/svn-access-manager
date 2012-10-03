@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-02 23:52+0100\n"
+"PO-Revision-Date: 2012-10-03 08:57+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1453,6 +1453,8 @@ msgstr "Zugriffsrechte Verwaltung"
 #: ../../templates/list_users.tpl:71
 #: ../../templates/searchresult_users.tpl:59
 #: ../../templates/list_groups.tpl:27
+#: ../../templates/searchresult_repos.tpl:21
+#: ../../templates/list_repos.tpl:33
 msgid "Action"
 msgstr "Aktion"
 
@@ -3743,6 +3745,9 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../templates/searchresult_users.tpl:133
 #: ../../templates/list_groups.tpl:77
 #: ../../list_groups.php:264
+#: ../../list_repos.php:208
+#: ../../templates/searchresult_repos.tpl:68
+#: ../../templates/list_repos.tpl:80
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4956,6 +4961,8 @@ msgstr "Kann nicht in %s schreiben"
 #: ../../templates/list_users.tpl:91
 #: ../../templates/searchresult_users.tpl:79
 #: ../../templates/list_groups.tpl:43
+#: ../../templates/searchresult_repos.tpl:32
+#: ../../templates/list_repos.tpl:44
 msgid "Change"
 msgstr "&Auml;ndern"
 
@@ -6576,6 +6583,8 @@ msgstr "Datum f&uuml;r Zugriffsrechte Bericht"
 #: ../../templates/list_users.tpl:98
 #: ../../templates/searchresult_users.tpl:86
 #: ../../templates/list_groups.tpl:51
+#: ../../templates/searchresult_repos.tpl:40
+#: ../../templates/list_repos.tpl:52
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -9543,6 +9552,7 @@ msgstr "Anweisungen"
 #: ../../setAccessRight.php:628
 #: ../../list_users.php:223
 #: ../../list_groups.php:272
+#: ../../list_repos.php:216
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -11800,6 +11810,9 @@ msgstr "Neues Projekt"
 #: ../..//list_repos.php:139
 #: ../..//list_repos.php:146
 #: ../..//templates/list_repos.tpl:64
+#: ../../list_repos.php:202
+#: ../../templates/searchresult_repos.tpl:64
+#: ../../templates/list_repos.tpl:76
 msgid "New repository"
 msgstr "Neues Repository"
 
@@ -12338,6 +12351,7 @@ msgstr "Kein Neuladen bauftragt"
 
 #: ../../list_users.php:167
 #: ../../list_groups.php:217
+#: ../../list_repos.php:161
 msgid "No search string given!"
 msgstr "Kein Suchbegriff angegeben!"
 
@@ -12355,6 +12369,7 @@ msgid "No user and no group selected!"
 msgstr "Weder einen Benutzer noch eine Gruppe ausgew&auml;hlt!"
 
 #: ../../list_users.php:189
+#: ../../list_repos.php:182
 msgid "No user found!"
 msgstr "Kein Benutzer gefunden!"
 
@@ -12536,6 +12551,8 @@ msgstr "Oracle"
 #: ../../templates/list_users.tpl:161
 #: ../../templates/searchresult_users.tpl:149
 #: ../../templates/list_groups.tpl:92
+#: ../../templates/searchresult_repos.tpl:83
+#: ../../templates/list_repos.tpl:95
 msgid "Page"
 msgstr "Seite"
 
@@ -12832,6 +12849,8 @@ msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 #: ../..//templates/login.tpl:70
 #: ../..//templates/main.tpl:13
 #: ../..//templates/workOnUser.tpl:54
+#: ../../templates/searchresult_repos.tpl:18
+#: ../../templates/list_repos.tpl:30
 msgid "Password"
 msgstr "Passwort"
 
@@ -14142,6 +14161,8 @@ msgstr "Repository kann nicht gel&ouml;scht werden, weil sich die Projekte (%s) 
 #: ../..//templates/deleteRepo.tpl:11
 #: ../..//templates/list_repos.tpl:9
 #: ../..//templates/workOnRepo.tpl:11
+#: ../../templates/searchresult_repos.tpl:9
+#: ../../templates/list_repos.tpl:21
 msgid "Repository name"
 msgstr "Repository Name"
 
@@ -14286,6 +14307,8 @@ msgstr "Repository Passwort"
 #: ../..//templates/deleteRepo.tpl:18
 #: ../..//templates/list_repos.tpl:12
 #: ../..//templates/workOnRepo.tpl:18
+#: ../../templates/searchresult_repos.tpl:12
+#: ../../templates/list_repos.tpl:24
 msgid "Repository path"
 msgstr "Repository Pfad"
 
@@ -14355,6 +14378,10 @@ msgstr "Repository Pfad fehlt, bitte eingeben!"
 #: ../..//workOnRepo.php:340
 msgid "Repository path must start with file://, http:// or https://!"
 msgstr "Repository Pfad muss mit file://, http:// oder https:// beginnen!"
+
+#: ../../templates/searchresult_repos.tpl:2
+msgid "Repository search result"
+msgstr "Suchergebnis Repository Suche"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:123
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteRepo.php:128
@@ -15167,6 +15194,7 @@ msgstr "SVN Kommando fehlt!"
 
 #: ../../templates/list_users.tpl:11
 #: ../../templates/list_groups.tpl:11
+#: ../../templates/list_repos.tpl:11
 msgid "Search"
 msgstr "Suchen"
 
@@ -15186,7 +15214,16 @@ msgstr "Ergebnis der Suche nach Gruppen"
 msgid "Search group."
 msgstr "Gruppe suchen."
 
+#: ../../templates/list_repos.tpl:9
+msgid "Search repository by user or name."
+msgstr "Repository nach Benutzername oder Repositpry Name suchen."
+
+#: ../../templates/list_repos.tpl:11
+msgid "Search repository."
+msgstr "Repository suchen."
+
 #: ../../templates/list_users.tpl:7
+#: ../../templates/list_repos.tpl:7
 msgid "Search user"
 msgstr "Benutzer suchen"
 
@@ -16612,6 +16649,8 @@ msgstr "MD5 Verrschl&uuml;sselung benutzen"
 #: ../..//templates/list_repos.tpl:15
 #: ../..//templates/rep_access_rights.tpl:15
 #: ../..//templates/rep_show_user.tpl:11
+#: ../../templates/searchresult_repos.tpl:15
+#: ../../templates/list_repos.tpl:27
 msgid "User"
 msgstr "Benutzer"
 
@@ -18594,6 +18633,8 @@ msgstr "lesen"
 #: ../../list_users.php:151
 #: ../../list_groups.php:199
 #: ../../list_groups.php:201
+#: ../../list_repos.php:143
+#: ../../list_repos.php:145
 msgid "search"
 msgstr "suchen"
 

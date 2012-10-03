@@ -139,11 +139,67 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("New repository");
 	} elseif( isset( $_POST['fSubmit_back'] ) ) {
 		$button									= _("Back" );
+	} elseif( isset( $_POST['fSearchBtn'] ) ) {
+        $button                                 = _("search");
+    } elseif( isset( $_POST['fSearchBtn_x'] ) ) {
+        $button                                 = _("search");
 	} else {
 		$button									= "undef";
 	}
+	
+	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
  	
- 	if( $button == _("New repository") ) {
+ 	if( ($button == "search") or ($tSearch != "") ) {
+
+    	$tSearch                               	= html_entity_decode($tSearch);
+    	$_SESSION['svn_sessid']['search']       = $tSearch;
+        $_SESSION['svn_sessid']['searchtype']   = "repos";
+        
+    	if( $tSearch == "" ) {
+
+        	$tErrorClass                    	= "error";
+            $tMessage                       	= _("No search string given!");
+            $tRepos								= array();
+
+        } else {
+    	
+    		$tArray								= array();
+    		$query								= "SELECT * ".
+    											  "  FROM ".$schema."svnrepos ".
+    											  " WHERE (repouser like '%$tSearch%') ".
+    											  "    OR (reponame like '%$tSearch%') ".
+    											  "ORDER BY reponame ASC";
+    		$result								= db_query( $query, $dbh );
+    		while( $row = db_assoc( $result['result'])) {
+    			
+    			$tArray[]						= $row;
+    			
+    		}
+    		
+    		if( count($tArray) == 0 ) {
+    			
+    			$tErrorClass                    = "info";
+                $tMessage                       = _("No user found!");
+    			
+    		} elseif( count($tArray) == 1) {
+    			
+    			$id								= $tArray[0]['id'];
+    			$url							= "workOnRepo.php?id=".urlencode($id)."&task=change";
+    			db_disconnect( $dbh );
+    			header( "location: $url" );
+    			exit;
+    			
+    		} else {
+    			
+    			db_disconnect( $dbh );
+    			$_SESSION['svn_sessid']['searchresult']	= $tArray;
+                header("location: searchresult.php");
+                exit;
+                
+    		}
+    	}
+    	
+ 	} elseif( $button == _("New repository") ) {
  		
  		db_disconnect( $dbh );
  		header( "Location: workOnRepo.php?task=new" );
