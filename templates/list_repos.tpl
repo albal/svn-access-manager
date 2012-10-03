@@ -123,7 +123,7 @@
                         select: function( event, ui ) {
                                 var name = ui.item.value;
                                 $("#search").val(name);
-                                document.user_list.submit();
+                                document.repo_list.submit();
                         },
                         open: function() {
                                 $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
