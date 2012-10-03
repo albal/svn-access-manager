@@ -908,6 +908,13 @@ function md5crypt ($pw, $salt="", $magic="") {
 
 }
 
+function digestcrypt($userid, $realm, $password) {
+	
+	$pw		 						= md5( $userid . ':' . $realm . ':' . $password );
+	
+	return( $pw );
+}
+
 function create_salt () {
 	
    srand ((double) microtime ()*1000000);
