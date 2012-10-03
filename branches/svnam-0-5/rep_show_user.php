@@ -119,6 +119,20 @@ function getAccessRightsForUser( $tUserId, $tGroups, $dbh ) {
 	return( $tAccessRights );
 } 
 
+function getUserData( $tUserId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$query				= "SELECT * ".
+						  "  FROM ".$schema."svnusers ".
+						  " WHERE (id = $tUserId)";
+	$result				= db_query( $query, $dbh );
+	$row				= db_assoc( $result['result'] );
+	
+	return( $row );
+}
+
 
 initialize_i18n();
 
@@ -173,6 +187,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tUserId								= isset( $_POST['fUser'] ) ? db_escape_string( $_POST['fUser'] ) : "";
 		$_SESSION['svn_sessid']['user']			= $tUserId;
 		$tUser									= db_getUseridById( $tUserId, $dbh );
+		$tUserData								= getUserData( $tUserId, $dbh );
+		$tUsername								= $tUserData['userid'];
+		$tAdministrator							= $tUserData['admin'] == "y" ? _("Yes") : _("No");
+		$tName									= $tUserData['name'];
+		$tGivenname								= $tUserData['givenname'];
+		$tEmailAddress							= $tUserData['emailaddress'];
+		$tLocked								= $tUserData['locked'] == 0 ? _("No") : _("Yes");
+		$tPasswordExpires						= $tUserData['passwordexpires'] == 1 ? _("Yes") : _("No");
+		$tAccessRight							= $tUserData['user_mode'];
 		$lang									= check_language();
 		$tGroups								= getGroupsForUser( $tUserId, $dbh );
 		$tAccessRights							= getAccessRightsForUser( $tUserId, $tGroups, $dbh );

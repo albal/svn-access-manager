@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-03 08:57+0100\n"
+"PO-Revision-Date: 2012-10-03 10:57+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,7 @@ msgstr ""
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_show_user_result.tpl:31
 #: ../../templates/rep_show_user_result.tpl:31
 #: ../..//templates/rep_show_user_result.tpl:31
+#: ../../templates/rep_show_user_result.tpl:62
 msgid " SVN Module"
 msgstr "SVN Modul"
 
@@ -1341,6 +1342,7 @@ msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 #: ../..//templates/rep_show_user_result.tpl:35
 #: ../..//templates/setAccessRight.tpl:30
 #: ../..//templates/workOnGroupAccessRight.tpl:37
+#: ../../templates/rep_show_user_result.tpl:66
 msgid "Access right"
 msgstr "Zugriffsrecht"
 
@@ -1393,6 +1395,7 @@ msgstr "Zugriffsreche verwaltung / Rechte l&ouml;schen"
 #: ../../include/output.inc.php:98
 #: ../..//include/output.inc.php:98
 #: ../..//templates/rep_show_user_result.tpl:26
+#: ../../templates/rep_show_user_result.tpl:57
 msgid "Access rights"
 msgstr "Zugriffsrechte"
 
@@ -1996,6 +1999,7 @@ msgstr "Verwaltung"
 #: ../../templates/workOnUser.tpl:143
 #: ../../templates/list_users.tpl:68
 #: ../../templates/searchresult_users.tpl:56
+#: ../../templates/rep_show_user_result.tpl:10
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -5471,6 +5475,9 @@ msgstr "Zugriffsdateien pro Repository erzeugen"
 #: ../..//rep_show_user.php:171
 #: ../..//templates/getDateForAccessRights.tpl:21
 #: ../..//templates/rep_show_user.tpl:36
+#: ../../rep_show_user.php:178
+#: ../../rep_show_user.php:180
+#: ../../rep_show_user.php:185
 msgid "Create report"
 msgstr "Bericht erstellen"
 
@@ -6747,6 +6754,7 @@ msgstr "Ausgew&auml;hlte l&ouml;schen"
 #: ../..//templates/deleteGroupAccessRight.tpl:18
 #: ../..//templates/rep_show_user_result.tpl:11
 #: ../..//templates/workOnGroup.tpl:21
+#: ../../templates/rep_show_user_result.tpl:42
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -6831,6 +6839,7 @@ msgstr "E-Mail"
 #: ../..//templates/deleteUser.tpl:32
 #: ../..//templates/lostpassword.tpl:65
 #: ../..//templates/workOnUser.tpl:71
+#: ../../templates/rep_show_user_result.tpl:21
 msgid "Email address"
 msgstr "E-Mailadresse"
 
@@ -8458,6 +8467,7 @@ msgstr "Vorname"
 #: ../../templates/install-tabs.tpl:431
 #: ../..//templates/install-tabs.tpl:431
 #: ../..//templates/install_page_2.tpl:167
+#: ../../templates/rep_show_user_result.tpl:17
 msgid "Givenname"
 msgstr "Vorname"
 
@@ -8774,6 +8784,7 @@ msgstr "Gruppenmitglieder"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_show_user_result.tpl:5
 #: ../../templates/rep_show_user_result.tpl:5
 #: ../..//templates/rep_show_user_result.tpl:5
+#: ../../templates/rep_show_user_result.tpl:36
 msgid "Group membership"
 msgstr "Mitglied in Gruppen"
 
@@ -8795,6 +8806,7 @@ msgstr "Mitglied in Gruppen"
 #: ../..//templates/rep_show_user_result.tpl:10
 #: ../../templates/searchresult_groups.tpl:9
 #: ../../templates/list_groups.tpl:21
+#: ../../templates/rep_show_user_result.tpl:41
 msgid "Group name"
 msgstr "Gruppenname"
 
@@ -9553,6 +9565,7 @@ msgstr "Anweisungen"
 #: ../../list_users.php:223
 #: ../../list_groups.php:272
 #: ../../list_repos.php:216
+#: ../../rep_show_user.php:205
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -10658,6 +10671,7 @@ msgstr "Liste der gesperrten Benutzer"
 #: ../../templates/workOnUser.tpl:126
 #: ../../templates/list_users.tpl:59
 #: ../../templates/searchresult_users.tpl:47
+#: ../../templates/rep_show_user_result.tpl:24
 msgid "Locked"
 msgstr "Gesperrt"
 
@@ -11353,6 +11367,7 @@ msgstr "Ge&auml;ndert von Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_show_user_result.tpl:34
 #: ../../templates/rep_show_user_result.tpl:34
 #: ../..//templates/rep_show_user_result.tpl:34
+#: ../../templates/rep_show_user_result.tpl:65
 msgid "Module path"
 msgstr "Modul Pfad"
 
@@ -11481,6 +11496,7 @@ msgstr "MySQL Datenbank Benutzer"
 #: ../..//templates/workOnUser.tpl:38
 #: ../../templates/list_users.tpl:24
 #: ../../templates/searchresult_users.tpl:12
+#: ../../templates/rep_show_user_result.tpl:14
 msgid "Name"
 msgstr "Name"
 
@@ -12206,6 +12222,9 @@ msgstr "N&auml;chste Seite"
 #: ../../templates/install-tabs.tpl:820
 #: ../../templates/list_users.tpl:121
 #: ../../templates/searchresult_users.tpl:109
+#: ../../rep_show_user.php:192
+#: ../../rep_show_user.php:196
+#: ../../rep_show_user.php:197
 msgid "No"
 msgstr "Nein"
 
@@ -12553,6 +12572,8 @@ msgstr "Oracle"
 #: ../../templates/list_groups.tpl:92
 #: ../../templates/searchresult_repos.tpl:83
 #: ../../templates/list_repos.tpl:95
+#: ../../templates/rep_show_user_result.tpl:88
+#: ../../templates/rep_show_user_result.tpl:95
 msgid "Page"
 msgstr "Seite"
 
@@ -12981,6 +13002,7 @@ msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie"
 #: ../../templates/workOnUser.tpl:108
 #: ../../templates/list_users.tpl:65
 #: ../../templates/searchresult_users.tpl:53
+#: ../../templates/rep_show_user_result.tpl:28
 msgid "Password expires"
 msgstr "Passwort laeuft ab"
 
@@ -13109,6 +13131,7 @@ msgstr "Passw&ouml;rter stimmen nicht &uuml;berein!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_show_user_result.tpl:33
 #: ../../templates/rep_show_user_result.tpl:33
 #: ../..//templates/rep_show_user_result.tpl:33
+#: ../../templates/rep_show_user_result.tpl:64
 msgid "Path"
 msgstr "Pfad"
 
@@ -13975,6 +13998,7 @@ msgstr "Verantwortlichen l&ouml;schen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_show_user_result.tpl:32
 #: ../../templates/rep_show_user_result.tpl:32
 #: ../..//templates/rep_show_user_result.tpl:32
+#: ../../templates/rep_show_user_result.tpl:63
 msgid "Reporitory"
 msgstr "Repository"
 
@@ -14061,6 +14085,10 @@ msgstr "Repositories"
 #: ../..//templates/workOnProject.tpl:28
 msgid "Repository"
 msgstr "Repository"
+
+#: ../../templates/rep_show_user_result.tpl:31
+msgid "Repository access right"
+msgstr "Repository Zugriffsrecht"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:100
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:146
@@ -17092,6 +17120,7 @@ msgstr "Benutzerkennung fehlt, bitte eingeben!"
 #: ../..//templates/rep_locked_users.tpl:15
 #: ../..//templates/rep_log.tpl:12
 #: ../..//templates/workOnUser.tpl:11
+#: ../../templates/rep_show_user_result.tpl:7
 msgid "Username"
 msgstr "Benutzername"
 
@@ -18010,6 +18039,9 @@ msgstr "Falsche Antwort!"
 #: ../../templates/install-tabs.tpl:765
 #: ../../templates/install-tabs.tpl:777
 #: ../../templates/install-tabs.tpl:819
+#: ../../rep_show_user.php:192
+#: ../../rep_show_user.php:196
+#: ../../rep_show_user.php:197
 msgid "Yes"
 msgstr "Ja"
 
