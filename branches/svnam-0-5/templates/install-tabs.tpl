@@ -814,6 +814,37 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
+							   		<td nowrap><strong><?php print _("Password expire days").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fPasswordExpire" value="<?php print $tPasswordExpire; ?>" size="4" maxsize="4" />
+							   		</td>
+							   		<td>
+							   			<?php print _("Enter the days a password is valid before it expires."); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+						   		<tr>
+							   		<td nowrap><strong><?php print _("Warn password expires days").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fPasswordExpireWarn" value="<?php print $tPasswordExpireWarn; ?>" size="4" maxsize="4" />
+							   		</td>
+							   		<td>
+							   			<?php print _("Enter the number of days after a user is warned before his password expires."); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("Passwords expire").": "; ?></strong></td>
+							   		<td>
+							   			<input type="radio" name="fExpirePassword" value="1" <?php print $tExpirePasswordYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+						   				<input type="radio" name="fExpirePassword" value="0" <?php print $tExpirePasswordNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+							   		</td>
+							   		<td>
+							   			<?php print _("Default value for password expiration.");?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
 							   		<td nowrap><strong><?php print _("Use md5 encryption").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fUseMd5" value="md5" <?php print $tMd5Yes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;

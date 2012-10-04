@@ -148,7 +148,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tCustom1								= "''";
 		$tCustom2								= "''";
 		$tCustom3								= "''";
-		$tPasswordExpires						= 1;
+		if( isset( $CONF['expire_password'] ) ) {
+			$tPasswordExpires					= $CONF['expire_password'];
+		} else {
+			$tPasswordExpires					= 1;
+		}
 		$tLocked								= 0;
 		$tAdministrator							= "n";
 		if( isset( $CONF['userDefaultAccess'] ) ) {
