@@ -661,7 +661,7 @@ include( "../include/output.inc.php" );
 							   		<td nowrap><strong><?php print _("SVN access file sort order").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fPathSortOrder" value="ASC" <?php print $tPathSortOrderAsc; ?> />&nbsp;&nbsp;<?php print _("ASC"); ?>&nbsp;&nbsp;&nbsp;
-						   				<input type="radio" name="fPathSortOrder" value="DESC" <?php print $tPathSortOrderdESC; ?> />&nbsp;&nbsp;<?php print _("DESC"); ?>
+						   				<input type="radio" name="fPathSortOrder" value="DESC" <?php print $tPathSortOrderDesc; ?> />&nbsp;&nbsp;<?php print _("DESC"); ?>
 							   		</td>
 							   		<td>
 							   			&nbsp;
