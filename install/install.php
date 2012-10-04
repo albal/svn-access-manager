@@ -2992,6 +2992,9 @@ function doInstall() {
 			$content					= str_replace( '###MAPMAIL###',				$_SESSION['svn_inst']['ldapAttrMail'], $content );
 			$content					= str_replace( '###MAPPASSWORD###',			$_SESSION['svn_inst']['ldapAttrPassword'], $content );
 			$content					= str_replace( '###USERDEFAULTACCESS###',	$_SESSION['svn_inst']['userDefaultAccess'], $content );
+			$content					= str_replace( '*###PASSWORDEXPIRES###',	$_SESSION['svn_inst']['passwordExpires'], $content );
+			$content					= str_replace( '###PASSWORDEXPIRESWARN###',	$_SESSION['svn_inst']['passwordExpiresWarn'], $content );
+			$content					= str_replace( '###EXPIREPASSWORD###',		$_SESSION['svn_inst']['expirePassword'], $content );
 			if( $_SESSION['svn_inst']['custom1'] == "" ) {
 				$custom1				= "NULL";
 			} else {
@@ -3211,6 +3214,7 @@ function doInstall() {
 		$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 			? $_SESSION['svn_inst']['pageSize'] 			: "30";
 		$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
 		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
+		$tExpirePassword				= isset( $_SESSION['svn_inst']['expirePassword'] )		? $_SESSION['svn_inst']['expirePassword']		: 1;
 		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";
 		$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
 		$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
@@ -3231,6 +3235,14 @@ function doInstall() {
 		} else {
 			$tLoggingYes				= "";
 			$tLoggingNo					= "checked";
+		}
+		
+		if( $tExpirePassword == 1 ) {
+			$tExpirePasswordYes			= "checked";
+			$tExpirePasswordNo			= "";
+		} else {
+			$tExpirePasswordYes			= "";
+			$tExpirePasswordNo			= "checked";
 		}
 		
 		if( $tUseMd5 == "md5" ) {
@@ -3343,6 +3355,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tPageSize								= 30;
 	$tMinAdminPwSize						= 14;
 	$tMinUserPwSize							= 8;
+	$tExpirePassword						= 1;
 	$tUseMd5								= "";
 	$tCustom1								= "";
 	$tCustom2								= "";
@@ -3486,6 +3499,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tLoggingNo							= "checked";
 	}
 	
+	if( $tExpirePassword == 1 ) {
+		$tExpirePasswordYes					= "checked";
+		$tExpirePasswordNo					= "";	
+	} else {
+		$tExpirePasswordYes					= "";
+		$tExpirePasswordNo					= "checked";
+	}
+	
 	if( $tUseMd5 == "md5" ) {
 		$tMd5Yes							= "checked";
 		$tMd5No								= "";
@@ -3616,6 +3637,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tPageSize							= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
 	$tMinAdminPwSize					= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
 	$tMinUserPwSize						= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
+	$tPasswordExpire					= isset( $_POST['fPasswordExpire'] )		? ( $_POST['fPasswordExpire'] )			: 60;
+	$tPasswordExpireWarn				= isset( $_POST['fPasswordExpireWarn'] )	? ( $_POST['fPasswordExpireWarn'] )		: 50;
+	$tExpirePassword					= isset( $_POST['fExpirePassword'] )		? ( $_POST['fExpirePassword'] )			: 1;
 	$tUseMd5							= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
 	$tUserDefaultAccess					= isset( $_POST['fUserDefaultAccess'] )		? ( $_POST['fUserDefaultAccess'] )		: "";
 	$tCustom1							= isset( $_POST['fCustom1'] )				? ( $_POST['fCustom1'] )				: "";
@@ -3680,6 +3704,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['pageSize']					= $tPageSize;
 	$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
 	$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
+	$_SESSION['svn_inst']['passwordExpire']				= $tPasswordExpire;
+	$_SESSION['svn_inst']['passwordExpireWarn']			= $tPasswordfExpireWarn;
+	$_SESSION['svn_inst']['expirePassword']				= $tExpirePassword;
 	$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
 	$_SESSION['svn_inst']['userDefaultAccess']			= $tUserDefaultAccess;
 	$_SESSION['svn_inst']['custom1']					= $tCustom1;
@@ -3984,7 +4011,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$error							= 1;
 			
 		}
+		
+		if( ! is_numeric( $tPasswordExpire ) ) {
+			
+			$tErrors[]						= _("Password expire days not numeric!" );
+			$error							= 1;
+			
+		}
 
+		if( ! is_numeric( $tPasswordExpireWarn ) ) {
+			
+			$tErrors[]						= _("Password expire warn days not numeric!" );
+			$error							= 1;
+			
+		}
+		
+		if( $tPasswordExpireWarn >= $tPasswordExpire ) {
+			
+			$tErrors[]						= _("Password expire days must not be smaller or equal than password expire warn days!");
+			$error							= 1;
+			
+		}
+		
 		#
 		# install process
 		#		
@@ -4106,6 +4154,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 			? $_SESSION['svn_inst']['pageSize'] 			: "30";
 	$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
 	$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
+	$tPasswordExpire				= isset( $_SESSION['svn_inst']['passwordExpire'] )		? $_SESSION['svn_inst']['passwordExpire']		: 60;
+	$tPasswordExpireWarn			= isset( $_SESSION['svn_inst']['passwordExpireWarn'] )	? $_SESSION['svn_inst']['passwordExpireWarn']	: 50;
+	$tExpirePassword				= isset( $_SESSION['svn_inst']['expirePassword'] )		? $_SESSION['svn_inst']['expirePassword']		: 1;
 	$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";	
 	$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
 	$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
@@ -4243,6 +4294,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tLoggingYes				= "";
 		$tLoggingNo					= "checked";
+	}
+	
+	if( $tExpirePassword == 1 ) {
+		$tExpirePasswordYes			= "checked";
+		$tExpirePasswordNo			= "";
+	} else {
+		$tExpirePasswordYes			= "";
+		$tExpirePasswordNo			= "checked";
 	}
 	
 	if( $tUseMd5 == "md5" ) {

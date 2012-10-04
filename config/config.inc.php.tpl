@@ -96,8 +96,12 @@ $CONF['minPasswordlengthUser']	= ###MINPWUSER###;
 // If the values are out of range, for user 3 is assumed and for admins 4 is assumed
 $CONF['minPasswordGroups']		= 4;
 $CONF['minPasswordGroupsUser']	= 3;
-$CONF['password_expires']		= 60;
-$CONF['password_expires_warn']	= 50;
+
+// password expiry stuff
+$CONF['password_expires']		= ###PASSWORDEXPIRES###;
+$CONF['password_expires_warn']	= ###PASSWORDEXPIRESWARN###;
+$CONF['expire_password']		= '###EXPIREPASSWORD###';
+
 # valid values for pwcrypt are md5 or crypt
 $CONF['pwcrypt']				= '###PWCRYPT###';
 
