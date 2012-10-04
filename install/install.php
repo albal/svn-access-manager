@@ -2584,7 +2584,7 @@ function doInstall() {
 	
 	if( ! is_writable( dirname( $configfile) ) ) {
 		
-		$tErrors							= sprintf( _("Config directory %s not writable!"), dirname($configfile) );
+		$tErrors[]							= sprintf( _("Config directory %s not writable!"), dirname($configfile) );
 		$error								= 1;
 	}
 	
@@ -3034,7 +3034,7 @@ function doInstall() {
 			
 		} else {
 			
-			$tErrors[] 					= _("can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!" );
+			$tErrors[] 					= sprintf( _("can't open %s for writing. Please make sure the config directory is writeable for the webserver user!" ), $confignew );
 			$error						= 1;
 		}
 		
@@ -3377,6 +3377,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		
 	}
 	
+	clearstatcache();
 	if( is_writable( $tConfigDir ) ) {
 		$tConfigWritable					= _("writable");
 	} else {
@@ -3551,6 +3552,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 	}
 	
+	clearstatcache();
 	if( is_writable( $tConfigDir ) ) {
 		$tConfigWritable					= _("writable");
 	} else {
@@ -4255,10 +4257,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if( $tUserDefaultAccess == "read" ) {
 		$tUserDefaultAccessRead		= "checked";
-		$tUserDefaultAccess			= "";
+		$tUserDefaultAccessWrite	= "";
 	} else {
 		$tUserDefaultAccessRead		= "";
-		$tUserDefaultAccess			= "checkaed";
+		$tUserDefaultAccessWrite	= "checkaed";
 	}
 		
 	include ("../templates/install-tabs.tpl");	
