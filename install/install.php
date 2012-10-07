@@ -2992,8 +2992,8 @@ function doInstall() {
 			$content					= str_replace( '###MAPMAIL###',				$_SESSION['svn_inst']['ldapAttrMail'], $content );
 			$content					= str_replace( '###MAPPASSWORD###',			$_SESSION['svn_inst']['ldapAttrPassword'], $content );
 			$content					= str_replace( '###USERDEFAULTACCESS###',	$_SESSION['svn_inst']['userDefaultAccess'], $content );
-			$content					= str_replace( '*###PASSWORDEXPIRES###',	$_SESSION['svn_inst']['passwordExpires'], $content );
-			$content					= str_replace( '###PASSWORDEXPIRESWARN###',	$_SESSION['svn_inst']['passwordExpiresWarn'], $content );
+			$content					= str_replace( '###PASSWORDEXPIRES###',		$_SESSION['svn_inst']['passwordExpire'], $content );
+			$content					= str_replace( '###PASSWORDEXPIRESWARN###',	$_SESSION['svn_inst']['passwordExpireWarn'], $content );
 			$content					= str_replace( '###EXPIREPASSWORD###',		$_SESSION['svn_inst']['expirePassword'], $content );
 			if( $_SESSION['svn_inst']['custom1'] == "" ) {
 				$custom1				= "NULL";
@@ -3356,6 +3356,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tMinAdminPwSize						= 14;
 	$tMinUserPwSize							= 8;
 	$tExpirePassword						= 1;
+	$tPasswordExpire						= 60;
+	$tPasswordExpireWarn					= 50;
 	$tUseMd5								= "";
 	$tCustom1								= "";
 	$tCustom2								= "";
@@ -3705,7 +3707,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
 	$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
 	$_SESSION['svn_inst']['passwordExpire']				= $tPasswordExpire;
-	$_SESSION['svn_inst']['passwordExpireWarn']			= $tPasswordfExpireWarn;
+	$_SESSION['svn_inst']['passwordExpireWarn']			= $tPasswordExpireWarn;
 	$_SESSION['svn_inst']['expirePassword']				= $tExpirePassword;
 	$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
 	$_SESSION['svn_inst']['userDefaultAccess']			= $tUserDefaultAccess;
