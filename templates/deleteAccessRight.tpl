@@ -33,15 +33,6 @@
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
-				   	<!--
-				   	<tr>
-				   		<td><strong><?php print _("Recursive access").": "; ?></strong></td>
-				   		<td>
-				   			<input type="checkbox" name="fRecursive" value="1" <?php print $tRecursive; ?> />
-				   		</td>
-				   		<td><?php print _("If checked the access rights are valid for the selected directory itself and all directories below it."); ?></td>
-				   	</tr>
-				   	-->
 				   	<tr>
 				   		<td><strong><?php print _("Valid from").": "; ?></strong></td>
 				   		<td>
