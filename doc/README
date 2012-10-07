@@ -54,7 +54,7 @@ To use SVN Access Manager you need
 
 - a working subversion repository
 - Apache 2.0 or higher
-- PHP 4 or higher
+- PHP 4 or higher with php mysql and php ldap
 - Mysql 4 or higher
 
 
@@ -73,6 +73,13 @@ There's a mailinglist for announcements of new releases of SVN Access Manager.
 The list requires a subscription which can be done here.
 
 New releases are announced on freshmeat.net and sourceforge.net as well.
+
+
+
+Credits
+=======
+
+SVN Access Manager uses JQuery, JQuery UI and Aria Tables. 
 
 
 

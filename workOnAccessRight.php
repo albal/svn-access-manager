@@ -26,7 +26,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -43,8 +43,6 @@ $SESSID_USERNAME 								= check_session ();
 check_password_expired();
 $dbh 											= db_connect ();
 $preferences									= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']						= $preferences['user_sort_fields'];
-$CONF['user_sort_order']						= $preferences['user_sort_order'];
 $CONF['page_size']								= $preferences['page_size'];
 $rightAllowed									= db_check_acl( $SESSID_USERNAME, "Access rights admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']			= "workonaccessright";
@@ -206,14 +204,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$repopath						= preg_replace( '/\\\/', '/', $tRepoPath );
 				$tRepodirs						= array();
 				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath;
-				if( strtolower($accessControl) != "files" ) {
-					$cmd						.= '|'.$CONF['grep_command'].' "/$"';
-				}
-				#error_log( $cmd );
-				$errortext						= exec( $cmd, $tRepodirs, $retval );
+				$errortext						= exec( $cmd, $tRepodirsArr, $retval );
 				
 				if( $retval == 0 ) {
-					
+				
+					if( strtolower($accessControl) != "files" ) {
+						
+						foreach( $tRepodirsArr as $repo ) {
+							
+							if( preg_match( '/\/$/', $repo) ) {
+								$tRepodirs[]	= $repo;
+							}
+						}
+						
+					} else {
+						$tRepodirs				= $tRepodirsArr;
+					}
 					$tPathSelected				= "";
 					
 				} else {
@@ -258,19 +264,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			
 			}
 
-			$lang								= strtolower( check_language() );
+			#$lang								= strtolower( check_language() );
 			
-			if( $lang == "de" ) {
+			#if( $lang == "de" ) {
 			
 				$validfrom						= substr($validfrom, 6, 2).".".substr($validfrom, 4, 2).".".substr($validfrom, 0, 4);
 				$validuntil						= substr($validuntil, 6, 2).".".substr($validuntil, 4, 2).".".substr($validuntil, 0, 4);
 				
-			} else {
+			#} else {
 				
-				$validfrom						= substr($validfrom, 4, 2).".".substr($validfrom, 0, 2).".".substr($validfrom, 0, 4);
-				$validuntil						= substr($validuntil, 4, 2).".".substr($validuntil, 0, 2).".".substr($validuntil, 0, 4);
+			#	$validfrom						= substr($validfrom, 4, 2).".".substr($validfrom, 0, 2).".".substr($validfrom, 0, 4);
+			#	$validuntil						= substr($validuntil, 4, 2).".".substr($validuntil, 0, 2).".".substr($validuntil, 0, 4);
 				
-			}
+			#}
 			
 			$_SESSION['svn_sessid']['pathselected']	=$tPathSelected;
 			$_SESSION['svn_sessid']['validfrom']	= $validfrom;
@@ -438,11 +444,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tRepodirs							= array();
 		$repopath							= preg_replace( '/\\\/', '/', $tRepoPath );
 		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath.'/'.$tPathSelected;
+		$errortext							= exec( $cmd, $tRepodirsArr, $retval );
+		
 		if( strtolower($accessControl) != "files" ) {
-			$cmd							.= '|'.$CONF['grep_command'].' "/$"';
+						
+			foreach( $tRepodirsArr as $repo ) {
+				
+				if( preg_match( '/\/$/', $repo) ) {
+					$tRepodirs[]			= $repo;
+				}
+			}
+			
+		} else {
+			$tRepodirs						= $tRepodirsArr;
 		}
-		#error_log( $cmd );
-		$errortext							= exec( $cmd, $tRepodirs, $retval );
    		
    	} elseif( $button == _("Set access rights") ) {
    		
@@ -460,10 +475,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			$tPath							= "/".$tPath;
    		}
    		
+   		$tPath								= preg_replace( '/\/$/','', $tPath );
+   		
    		$_SESSION['svn_sessid']['pathselected']	= $tPath;
-   			
+   		
    		db_disconnect( $dbh );
-   		header( "location: setAccessRight.php" );
+   		header( "location: setAccessRight.php?task=".$_SESSION['svn_sessid']['task'] );
    		exit;
    		
    	} else {
