@@ -58,9 +58,10 @@ if( $ret == 0 ) {
 	$schema																= db_determine_schema();
 	$query																= "SELECT id, name " .
 																		  "  FROM ".$schema."svnusers " .
-																		  " WHERE (userid like '%$filter%') ".
+																		  " WHERE ((userid like '%$filter%') ".
 																		  "    OR (name like '%$filter%') ".
-																		  "    OR (givenname like '%$filter%')".
+																		  "    OR (givenname like '%$filter%')) ".
+																		  "   AND (deleted = '00000000000000') ".
 																		  "ORDER BY name ASC, givenname ASC";
 	$result																= db_query( $query, $dbh );
 	while( $row = db_assoc( $result['result'] ) ) {
@@ -84,8 +85,9 @@ if( $ret == 0 ) {
 	$schema																= db_determine_schema();
 	$query																= "SELECT id, groupname " .
 																		  "  FROM ".$schema."svngroups " .
-																		  " WHERE (groupname like '%$filter%') ".
-																		  "    OR (description like '%$filter%') ".
+																		  " WHERE ((groupname like '%$filter%') ".
+																		  "    OR (description like '%$filter%')) ".
+																		  "   AND (deleted = '00000000000000') ".
 																		  "ORDER BY groupname ASC";
 	$result																= db_query( $query, $dbh );
 	while( $row = db_assoc( $result['result'] ) ) {
@@ -105,8 +107,9 @@ if( $ret == 0 ) {
 	$schema																= db_determine_schema();
 	$query																= "SELECT id, reponame " .
 																		  "  FROM ".$schema."svnrepos " .
-																		  " WHERE (repouser like '%$filter%') ".
-																		  "    OR (reponame like '%$filter%') ".
+																		  " WHERE ((repouser like '%$filter%') ".
+																		  "    OR (reponame like '%$filter%')) ".
+																		  "   AND (deleted = '00000000000000') ".
 																		  "ORDER BY reponame ASC";
 	$result																= db_query( $query, $dbh );
 	while( $row = db_assoc( $result['result'] ) ) {
@@ -120,6 +123,27 @@ if( $ret == 0 ) {
 	
 	db_disconnect( $dbh );
 		
+} elseif( strtolower($db) == "projects" ) {
+	
+	$dbh																= db_connect();
+	$schema																= db_determine_schema();
+	$query																= "SELECT * ".
+    											  						  "  FROM ".$schema."svnprojects ".
+    											  						  " WHERE (svnmodule like '%$filter%') ".
+    											  						  "   AND (deleted = '00000000000000') ".
+    											  						  "ORDER BY svnmodule ASC";
+  	$result																= db_query( $query, $dbh );
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		$data															= array();
+		$data['name']													= $row['svnmodule'];
+		$data['id']														= $row['id'];
+		$tArray[]														= $data;
+		
+	}
+	
+	db_disconnect( $dbh );
+	
 }
 
 $data                                                                   = json_encode($tArray);

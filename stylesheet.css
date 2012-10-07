@@ -892,6 +892,55 @@ a:visited, a:active {
 
 
 
+#showuserproject_table table[aria-labelledby~=table-caption] {table-layout: auto;}
+#showuserproject_table td {padding-left:1px; padding-right:1px;font-size:1em;}
+#showuserproject_table th {white-space:nowrap;}
+#showuserproject_table td[headers~=ui-table-showuserproject_table-header-1] {white-space:nowrap; text-align:left;}
+#showuserproject_table td[headers~=ui-table-showuserproject_table-header-2] {text-align:left;}
+
+#showuserproject_table th { 	
+	border: 1px solid #cccccc; 
+}
+#showuserproject_table th a {	
+	/*padding: 0.5em 2em 0.5em 0.7em; */
+	padding: 0.5em 2em 0.5em 0.7em;
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+#showuserproject_table th a:hover {
+	text-decoration:none;
+}	
+#showuserproject_table th.ui-table-desc a {	
+	background: url(./images/desc.gif) right center no-repeat;
+}
+#showuserproject_table th.ui-table-asc a{	
+	background: url(./images/asc.gif) right center no-repeat;
+}
+#showuserproject_table th.ui-table-desc a:hover,	
+#showuserproject_table th.ui-table-desc a:active,	
+#showuserproject_table th.ui-table-desc a:focus, 
+#showuserproject_table th a:hover,	
+#showuserproject_table th a:active,	
+#showuserproject_table th a:focus{	
+	background: url(./images/asc.gif) right center no-repeat;
+}
+#showuserproject_table th.ui-table-asc a:hover, 
+#showuserproject_table th.ui-table-asc a:active, 
+#showuserproject_table th.ui-table-asc a:focus{	
+	background: url(./images/desc.gif) right center no-repeat;
+}
+#showuserproject_table .ui-state-active {
+	background: #99CCFF none repeat scroll 0 0;
+}
+#showuserproject_table tr.odd {
+	background-color: #e3e3e3;
+}
+
+
+
 #showusergroup_table table[aria-labelledby~=table-caption] {table-layout: auto;}
 #showusergroup_table td {padding-left:1px; padding-right:1px;font-size:1em;}
 #showusergroup_table th {white-space:nowrap;}

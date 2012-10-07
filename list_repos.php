@@ -166,8 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     		$tArray								= array();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svnrepos ".
-    											  " WHERE (repouser like '%$tSearch%') ".
-    											  "    OR (reponame like '%$tSearch%') ".
+    											  " WHERE ((repouser like '%$tSearch%') ".
+    											  "    OR (reponame like '%$tSearch%')) ".
+    											  "   AND (deleted = '00000000000000') ".
     											  "ORDER BY reponame ASC";
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {
