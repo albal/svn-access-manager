@@ -1,19 +1,7 @@
 		<div id="edit_form">
-			<h3><?php print _("Project administration"); ?></h3>
+			<h3><?php print _("Project search result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="project_list" method="post">
-				<table>
-					<tr>
-						<td><?php print _("Search project");?>: </td>
-						<td>
-							<input id="search" class="large" type="text" name="fSearch" value="" title="<?php print _("Search project by name.");?>" />&nbsp;&nbsp;
-                           	<span style="white-space:nowrap;">
-                            	<input class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search project.");?>" />
-                            </span>
-                    	</td>   
-					</tr>
-				</table>                                        
-				<p>&nbsp;</p>
 				<table id="projectlist_table">
 				   	<thead>
 				   		<tr>
@@ -33,7 +21,7 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		foreach( $tProjects as $entry ) {
+					   		foreach( $tArray as $entry ) {
 					   		
 					   			$id						= $entry['id'];
 					   			
@@ -93,44 +81,6 @@
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
-					
-					$("#search").autocomplete({
-                        source: function( request, response ) {
-                                $.ajax({
-                                        url: "searchrpc.php",
-                                        dataType: "jsonp",
-                                        data: {
-                                                maxRows: 10,
-                                                name_startsWith: request.term,
-                                                db: "projects"
-                                        },
-                                        success: function( data ) {
-                                                var retarr =[];
-                                                $.each(data, function(i, val){
-                                                        myName = $("<div/>").html(val.name).text();
-                                                        if(myName == "Session expired!") {
-                                                                window.location.href="login.php";
-                                                        }
-                                                        retarr.push(myName);
-                                                });
-                                                response(retarr);
-                                        }
-                                });
-                        },
-                        minLength: 1,
-                        select: function( event, ui ) {
-                                var name = ui.item.value;
-                                $("#search").val(name);
-                                document.project_list.submit();
-                        },
-                        open: function() {
-                                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-                        },
-                        close: function() {
-                                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                        }
-
-                	});
 					
 					$("#edit_form *").tooltip({
 						showURL: false

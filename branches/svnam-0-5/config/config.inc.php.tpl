@@ -100,6 +100,7 @@ $CONF['minPasswordGroupsUser']	= 3;
 // password expiry stuff
 $CONF['password_expires']		= ###PASSWORDEXPIRES###;
 $CONF['password_expires_warn']	= ###PASSWORDEXPIRESWARN###;
+// define default value for password expire, allowed values 0 and 1
 $CONF['expire_password']		= '###EXPIREPASSWORD###';
 
 # valid values for pwcrypt are md5 or crypt

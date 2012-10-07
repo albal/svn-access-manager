@@ -84,6 +84,32 @@ function getGroupsForUser( $tUserId, $dbh ) {
 	return( $tGroups );
 }
 
+function getProjectResponsibleForUser( $tUserId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$tProjects			= array();
+	$query				= "SELECT svnmodule, reponame ".
+						  "  FROM ".$schema."svnprojects, ".$schema."svn_projects_responsible, ".$schema."svnrepos ".
+						  " WHERE (svn_projects_responsible.user_id = '$tUserId') ".
+						  "   AND (svn_projects_responsible.deleted = '00000000000000') ".
+						  "   AND (svn_projects_responsible.project_id = svnprojects.id) ".
+						  "   AND (svnprojects.deleted = '00000000000000') ".
+						  "   AND (svnprojects.repo_id = svnrepos.id) ".
+						  "   AND (svnrepos.deleted = '00000000000000') ".
+						  "ORDER BY svnmodule ASC";
+	$result				= db_query( $query, $dbh );
+	
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		$tProjects[]	= $row;
+		
+	}
+	
+	return( $tProjects );
+}
+
 function getAccessRightsForUser( $tUserId, $tGroups, $dbh ) {
 	
 	global $CONF;
@@ -199,6 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$lang									= check_language();
 		$tGroups								= getGroupsForUser( $tUserId, $dbh );
 		$tAccessRights							= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
+		$tProjects								= getProjectResponsibleForUser( $tUserId, $dbh );
 		
 	} else {
 		

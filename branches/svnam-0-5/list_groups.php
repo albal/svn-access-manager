@@ -222,8 +222,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     		$tArray								= array();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svngroups ".
-    											  " WHERE (groupname like '%$tSearch%') ".
-    											  "    OR (description like '%$tSearch%') ".
+    											  " WHERE ((groupname like '%$tSearch%') ".
+    											  "    OR (description like '%$tSearch%')) ".
+    											  "   AND (deleted = '00000000000000') ".
     											  "ORDER BY groupname ASC";
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {

@@ -54,6 +54,27 @@
 					</tbody>
 				</table>
 				<p>&nbsp;</p>
+				<h3><?php print _("Project responsible");?></h3>
+				<p>&nbsp;</p>
+				<table id="showuserproject_table">
+					<thead>
+						<tr>
+							<th><?php print _("SVN Module");?></th>
+							<th><?php print _("Repository name");?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							foreach( $tProjects as $entry ) {
+								print "\t\t\t<tr>\n";
+								print "\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
+								print "\t\t\t\t<td>".$entry['reponame']."</td>\n";
+								print "\t\t\t</tr>\n";
+							}
+						?>
+					</tbody>
+				</table>
+				<p>&nbsp;</p>
 				<h3><?php print _("Access rights");?></h3>
 				<p>&nbsp;</p>
 				<table id="showuserright_table">
@@ -83,6 +104,13 @@
 			</form>
 			<script type="text/javascript">
 					$("#showusergroup_table").ariaSorTable({
+						rowsToShow: <?php print $CONF['page_size'];?>,
+						pager: true,
+						textPager: '<?php print _("Page").":"; ?>',
+						onInit: function(){	}
+					});
+					
+					$("#showuserproject_table").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',

@@ -194,6 +194,30 @@
 							
 							print "\t\t\t\t\t</tr>\n";
 							
+							print "\t\t\t\t\t<tr>\n";
+							
+							print "\t\t\t\t\t\t<td><a href=\"rep_show_users.php\"><img border=\"0\" src=\"./images/reports.png\" alt=\"Show access rights of a user\" /></a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td><a href=\"rep_show_user.php\">"._("Show user access rights")."</a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t</tr>\n";
+							
 						}
 
 					?>

@@ -172,9 +172,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     		$tArray								= array();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svnusers ".
-    											  " WHERE (userid like '%$tSearch%') ".
+    											  " WHERE ((userid like '%$tSearch%') ".
     											  "    OR (name like '%$tSearch%') ".
-    											  "    OR (givenname like '%$tSearch%') ".
+    											  "    OR (givenname like '%$tSearch%')) ".
+    											  "   AND (deöeted = '00000000000000') ".
     											  "ORDER BY name ASC , givenname ASC";
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {
