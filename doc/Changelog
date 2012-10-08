@@ -4,7 +4,7 @@ Change Log
 
 Release 0.5.5.9
 	- Bug fix ID: 3575421
-	  search filed issue
+	  search field issue
 	  
 	- added some default values for files and directories 
 	  in the installer
