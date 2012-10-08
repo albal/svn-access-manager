@@ -156,7 +156,6 @@ Alias /svnstyle /var/www/apache2-default<br />
  <br />
 CustomLog logs/svn.log \"%t %u %{SVN-ACTION}e\" env=SVN-ACTION<br />
  <br />
-php_admin_flag safe_mode off<br /> 
  &lt;----- snip -----&gt;
 EOM;
 							}
