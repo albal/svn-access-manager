@@ -56,7 +56,7 @@ if( $ret == 0 ) {
 
 	$dbh																= db_connect();
 	$schema																= db_determine_schema();
-	$query																= "SELECT id, name " .
+	$query																= "SELECT id, name, givenname " .
 																		  "  FROM ".$schema."svnusers " .
 																		  " WHERE ((userid like '%$filter%') ".
 																		  "    OR (name like '%$filter%') ".
