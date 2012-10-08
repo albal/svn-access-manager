@@ -222,6 +222,8 @@
 ../..//resetpassword.php
 ../..//scripts/cronjobs/cron_createAccessFiles.php
 ../..//scripts/cronjobs/cron_lockUserWithExpiredPasswords.php
+../..//searchresult.php
+../..//searchrpc.php
 ../..//securityquestion.php
 ../..//selectGroup.php
 ../..//selectProject.php
@@ -276,6 +278,10 @@
 ../..//templates/rep_show_user_result.tpl
 ../..//templates/resetpassword.tpl
 ../..//templates/resetpasswordresult.tpl
+../..//templates/searchresult_groups.tpl
+../..//templates/searchresult_projects.tpl
+../..//templates/searchresult_repos.tpl
+../..//templates/searchresult_users.tpl
 ../..//templates/securityquestion.tpl
 ../..//templates/securityquestionresult.tpl
 ../..//templates/selectGroup.tpl
