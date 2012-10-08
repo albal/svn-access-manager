@@ -54,15 +54,18 @@ To use SVN Access Manager you need
 
 - a working subversion repository
 - Apache 2.0 or higher
-- PHP 4 or higher with php mysql and php ldap
-- Mysql 4 or higher
+- PHP 4 or higher with php mysql and php ldap,
+  recommended is PHP 5.3
+- Mysql 4 or higher, recommended is MySQL 5
 
 
 
 Installation
 ============
 
-For installation please look into the documentation in the html directory.
+For installation please look into the documentation in the html directory or
+simply install the RPM provided on 
+https://sourceforge.net/projects/svn-access-mana/files/
 
 
 
@@ -81,12 +84,15 @@ Credits
 
 SVN Access Manager uses JQuery, JQuery UI and Aria Tables. 
 
+Thanx to Maik and Jan for a lot of testing and providing patches
+to fix some bugs.
+
 
 
 License
 =======
 
-SVN Access manager is distributed under the GPL v2. You find a copy
+SVN Access Manager is distributed under the GPL v2. You find a copy
 of this license in this folder.
 
 
