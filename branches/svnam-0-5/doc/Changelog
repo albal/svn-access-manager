@@ -9,6 +9,9 @@ Release 0.5.5.9
 	- added some default values for files and directories 
 	  in the installer
 	  
+	- Fixed ID: 3563502
+	  added selinux module (experimantal)
+	  
 Release 0.5.5.8
 	- Bug fix in the installer
 	
