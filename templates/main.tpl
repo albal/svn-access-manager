@@ -1,6 +1,6 @@
 		
 			<table>
-					<tr valin="center">
+					<tr>
 						<td colspan='15' align="left"><h3><?php print _("General functions"); ?></h3></td>
 					</tr>
 					<tr>
@@ -9,15 +9,15 @@
 						<td><a href="general.php"><?php print _("General"); ?></a></td>
 						<td width="20">&nbsp;</td>
 						<td><a href="password.php"><img border="0" src="./images/password.png" alt="Password" /></a></td>
-						<td width=5">&nbsp;</td>
+						<td width="5">&nbsp;</td>
 						<td><a href="password.php"><?php print _("Password"); ?></a></td>
 						<td width="20">&nbsp;</td>
 						<td><a href="password_policy.php"><img border="0" src="./images/info.png" alt="Password Policy" /></a></td>
-						<td width=5">&nbsp;</td>
+						<td width="5">&nbsp;</td>
 						<td><a href="password_policy.php"><?php print _("Password policy"); ?></a></td>
 						<td width="20">&nbsp;</td>
 						<td><a href="preferences.php"><img border="0" src="./images/macros.png" alt="Preferences" /></a></td>
-						<td width=5">&nbsp;</td>
+						<td width="5">&nbsp;</td>
 						<td><a href="preferences.php"><?php print _("Preferences"); ?></a></td>
 					</tr>
 					<?php
@@ -46,7 +46,7 @@
 							print "\t\t\t\t\t\t<td colspan='15'>&nbsp;</td>\n";
 							print "\t\t\t\t\t</tr>\n";
 							print "\t\t\t\t\t<tr>\n";
-							print "\t\t\t\t\t\t<td colspan='15'><hr></td>\n";
+							print "\t\t\t\t\t\t<td colspan='15'><hr /></td>\n";
 							print "\t\t\t\t\t</tr>\n";
 							print "\t\t\t\t\t<tr>\n";
 							print "\t\t\t\t\t\t<td colspan='15'>&nbsp;</td>\n";
@@ -54,7 +54,7 @@
 							print "\t\t\t\t\t<tr>\n";
 							print "\t\t\t\t\t\t<td colspan='15' align=\"left\"><h3>"._("Administration")."</h3></td>\n";
 							print "\t\t\t\t\t</tr>\n";
-							print "\t\t\t\t\t<tr valign=\"center\">\n";
+							print "\t\t\t\t\t<tr>\n";
 							
 						}
 						
@@ -162,7 +162,7 @@
 							print "\t\t\t\t\t\t<td colspan='15'>&nbsp;</td>\n";
 							print "\t\t\t\t\t</tr>\n";
 							print "\t\t\t\t\t<tr>\n";
-							print "\t\t\t\t\t\t<td colspan='15'><hr></td>\n";
+							print "\t\t\t\t\t\t<td colspan='15'><hr /></td>\n";
 							print "\t\t\t\t\t</tr>\n";
 							print "\t\t\t\t\t<tr>\n";
 							print "\t\t\t\t\t\t<td colspan='15'>&nbsp;</td>\n";
@@ -170,7 +170,7 @@
 							print "\t\t\t\t\t<tr>\n";
 							print "\t\t\t\t\t\t<td colspan='15' align=\"left\"><h3>"._("Reports")."</h3></td>\n";
 							print "\t\t\t\t\t</tr>\n";
-							print "\t\t\t\t\t<tr valign=\"center\">\n";
+							print "\t\t\t\t\t<tr>\n";
 							
 							print "\t\t\t\t\t\t<td><a href=\"rep_access_rights.php\"><img border=\"0\" src=\"./images/reports.png\" alt=\"Show repository access report\" /></a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
@@ -190,6 +190,30 @@
 							print "\t\t\t\t\t\t<td><a href=\"rep_granted_user_rights.php\"><img border=\"0\" src=\"./images/reports.png\" alt=\"Show granted user rights report\" /></a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
 							print "\t\t\t\t\t\t<td><a href=\"rep_granted_user_rights.php\">"._("Granted user rights")."</a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t</tr>\n";
+							
+							print "\t\t\t\t\t<tr>\n";
+							
+							print "\t\t\t\t\t\t<td><a href=\"rep_show_users.php\"><img border=\"0\" src=\"./images/reports.png\" alt=\"Show access rights of a user\" /></a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td><a href=\"rep_show_user.php\">"._("Show user access rights")."</a></td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
+							
+							print "\t\t\t\t\t\t<td> </td>\n";
+							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
+							print "\t\t\t\t\t\t<td> </td>\n";
 							print "\t\t\t\t\t\t<td width=\"20\"> </td>\n";
 							
 							print "\t\t\t\t\t</tr>\n";

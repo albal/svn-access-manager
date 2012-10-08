@@ -27,7 +27,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -44,8 +44,6 @@ $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Repository admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "workonrepo";
@@ -212,23 +210,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    						
    				}
    				
-   			} else {
+   			} 
 				
-				if( $error == 0 ) {
-	   				$query						= "SELECT * " .
-	   											  "  FROM ".$schema."svnrepos " .
-	   											  " WHERE (reponame = '$tReponame') " .
-	   											  "   AND (deleted = '00000000000000')";
-	   				$result						= db_query( $query, $dbh );
-	   				
-	   				if( $result['rows'] > 0 ) {
-	   					
-	   					$tMessage				= _( "The repository with the name $tReponame exists already" );
-	   					$error					= 1;
-	   					
-	   				} 
-				}
-   			}
+			if( $error == 0 ) {
+   				$query							= "SELECT * " .
+   											  	  "  FROM ".$schema."svnrepos " .
+   											 	  " WHERE (reponame = '$tReponame') " .
+   											  	  "   AND (deleted = '00000000000000')";
+   				error_log( $query );
+   				$result							= db_query( $query, $dbh );
+   				
+   				if( $result['rows'] > 0 ) {
+   					
+   					$tMessage					= sprintf( _( "The repository with the name %s exists already" ), $tReponame );
+   					$error						= 1;
+   					
+   				} 
+			}
   			   			
    			if( $error == 0 ) {
    				
