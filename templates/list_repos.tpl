@@ -4,7 +4,7 @@
 			<form name="repo_list" method="post">
 				<table>
 					<tr>
-						<td><?php print _("Search user");?>: </td>
+						<td><?php print _("Search repositories");?>: </td>
 						<td>
 							<input id="search" class="large" type="text" name="fSearch" value="" title="<?php print _("Search repository by user or name.");?>" />&nbsp;&nbsp;
                            	<span style="white-space:nowrap;">

@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     											  " WHERE ((userid like '%$tSearch%') ".
     											  "    OR (name like '%$tSearch%') ".
     											  "    OR (givenname like '%$tSearch%')) ".
-    											  "   AND (deöeted = '00000000000000') ".
+    											  "   AND (deleted = '00000000000000') ".
     											  "ORDER BY name ASC , givenname ASC";
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {
