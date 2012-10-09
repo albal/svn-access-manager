@@ -59,8 +59,10 @@ if( $ret == 0 ) {
 	$query																= "SELECT id, name, givenname " .
 																		  "  FROM ".$schema."svnusers " .
 																		  " WHERE ((userid like '%$filter%') ".
-																		  "    OR (name like '%$filter%') ".
-																		  "    OR (givenname like '%$filter%')) ".
+																		  "    OR  (CONCAT(givenname, ' ', name) like '%$filter%') ".
+																		  "    OR  (CONCAT(name, ' ', givenname) like '%$filter%') ".
+																		  "    OR  (name like '%$filter%') ".
+																		  "    OR  (givenname like '%$filter%')) ".
 																		  "   AND (deleted = '00000000000000') ".
 																		  "ORDER BY name ASC, givenname ASC";
 	$result																= db_query( $query, $dbh );
