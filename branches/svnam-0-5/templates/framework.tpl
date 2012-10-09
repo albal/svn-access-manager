@@ -65,8 +65,10 @@
         });             
                 
         $(document).everyTime(5000, function checkSession() {
+             var dDate = new Date();
+			 var iTimeStamp = dDate.getTime();
              $.ajax({
-                url: 'checkSession.php',
+                url: 'checkSession.php?antiCache='+iTimeStamp,
                 success: function(newVal) {
                     if (newVal != 1) {
                             alert('<?php print _("Your session expired! Please re-login!");?>');

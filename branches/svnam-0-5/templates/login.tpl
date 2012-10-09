@@ -47,7 +47,7 @@ include( "./include/output.inc.php" );
 			</div>
 		</div>
 		<div id="login">
-			<form name="login" method="post">
+			<form name="login" method="post" autocomplete="off">
 				<table id="login_table" cellspacing="10">
 				   <tr>
 				      <td colspan="2" align="center">

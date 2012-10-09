@@ -2,6 +2,13 @@ Change Log
 ==========
 
 
+Release 0.5.5.10
+	- Feature request ID: 3575716
+	  checkSession.php with Anti-Cache Parameter
+	  
+	- Bug fix ID: 3575725
+	  field order list_users.tpl wrong when using ldap
+	  
 Release 0.5.5.9
 	- Bug fix ID: 3575421
 	  search field issue

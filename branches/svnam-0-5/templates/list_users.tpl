@@ -29,29 +29,23 @@
 					   		<th class="ui-table-default">
 					   			<?php print _("Email"); ?>
 					   		</th>
-                                <?php
-                                        if (isset($CONF['column_custom1'])) {
-                                                print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
-                                                print "\t\t\t\t\t\t\t"._($CONF['column_custom1']);
-                                                print "\t\t\t\t\t\t</th>\n";
-                                        }
-                                        if (isset($CONF['column_custom2'])) {
-                                                print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
-                                                print "\t\t\t\t\t\t\t"._($CONF['column_custom2']);
-                                                print "\t\t\t\t\t\t</th>\n";
-                                        }
-                                        if (isset($CONF['column_custom3'])) {
-                                                print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
-                                                print "\t\t\t\t\t\t\t"._($CONF['column_custom3']);
-                                                print "\t\t\t\t\t\t</th>\n";
-                                        }
-
-                                        if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
-                                                print "\t\t\t\t\t\t<th class=\"ui-state-default\">\n";
-                                                print "\t\t\t\t\t\t\t"._("LDAP User");
-                                                print "\t\t\t\t\t\t</th>\n";
-                                        }
-                                ?>
+                            <?php
+                                    if (isset($CONF['column_custom1'])) {
+                                            print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
+                                            print "\t\t\t\t\t\t\t"._($CONF['column_custom1']);
+                                            print "\t\t\t\t\t\t</th>\n";
+                                    }
+                                    if (isset($CONF['column_custom2'])) {
+                                            print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
+                                            print "\t\t\t\t\t\t\t"._($CONF['column_custom2']);
+                                            print "\t\t\t\t\t\t</th>\n";
+                                    }
+                                    if (isset($CONF['column_custom3'])) {
+                                            print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
+                                            print "\t\t\t\t\t\t\t"._($CONF['column_custom3']);
+                                            print "\t\t\t\t\t\t</th>\n";
+                                    }
+                            ?>
 					   		<th class="ui-table-default">
 					   			<?php print _("Right"); ?>
 					   		</th>
@@ -67,6 +61,13 @@
 					   		<th class="ui-table-default">
 					   			<?php print _("Administrator"); ?>
 					   		</th>
+					   		<?php
+					   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+                                            print "\t\t\t\t\t\t<th class=\"ui-state-default\">\n";
+                                            print "\t\t\t\t\t\t\t"._("LDAP User");
+                                            print "\t\t\t\t\t\t</th>\n";
+                                    }
+					   		?>
 					   		<th class="ui-table-deactivate">
 					   			<?php print _("Action"); ?>
 					   		</th>
