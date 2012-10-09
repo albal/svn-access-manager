@@ -169,10 +169,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         } else {
     	
+    		$schema								= db_determine_schema();
     		$tArray								= array();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svnusers ".
     											  " WHERE ((userid like '%$tSearch%') ".
+    											  "    OR  (CONCAT(givenname, ' ', name) like '%$tSearch%') ".
+												  "    OR  (CONCAT(name, ' ', givenname) like '%$tSearch%') ".
     											  "    OR (name like '%$tSearch%') ".
     											  "    OR (givenname like '%$tSearch%')) ".
     											  "   AND (deleted = '00000000000000') ".
