@@ -13,6 +13,7 @@ Release 0.5.5.10
 	  $schema is not set is fixed
 	  searching by name and givenname or vice versa is now possible
 	  
+	- md5 is now default encryption in installer
 	  
 Release 0.5.5.9
 	- Bug fix ID: 3575421
