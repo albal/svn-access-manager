@@ -3358,7 +3358,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tExpirePassword						= 1;
 	$tPasswordExpire						= 60;
 	$tPasswordExpireWarn					= 50;
-	$tUseMd5								= "";
+	$tUseMd5								= "md5";
 	$tCustom1								= "";
 	$tCustom2								= "";
 	$tCustom3								= "";
