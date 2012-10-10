@@ -133,8 +133,10 @@ $CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
 // Set users default access right
 // valid values are; read, write
 $CONF['userDefaultAccess'] 		= '###USERDEFAULTACCESS###';
+// annonymous access option, allowed values are 0 or 1
+$CONF['write_anonymous_access_rights']	 = ###WRITEANONACCESS###;
 
-// SVN access file repository path sort order, vallowed values are ASC or DESC
+// SVN access file repository path sort order, allowed values are ASC or DESC
 $CONF['repoPathSortOrder']		= '###REPOPATHSORTORDER###'; 
 
 // Custom Fields

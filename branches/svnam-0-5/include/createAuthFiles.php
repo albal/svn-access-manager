@@ -410,6 +410,17 @@ function createAccessFile( $dbh ) {
 								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
 								$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
 							}
+							
+							if( isset( $CONF['write_anonymous_access_rights'] ) and ( $CONF['write_anonymous_access_rights'] == 1 ) ) {
+								
+								if( ! @fwrite( $fileHandle, "\$anonymous = r\n" ) ) {
+											
+									$retcode				= 5;
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+								}
+							
+							}
 									
 						}
 						
@@ -748,6 +759,17 @@ function createAccessFilePerRepo( $dbh ) {
 								$retcode				= 5;
 								$tMessage				= sprintf( _("Cannot write to %s"), $tempfile );
 								db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+							}
+							
+							if( isset( $CONF['write_anonymous_access_rights'] ) and ( $CONF['write_anonymous_access_rights'] == 1 ) ) {
+								
+								if( ! @fwrite( $fileHandle, "\$anonymous = r\n" ) ) {
+											
+									$retcode				= 5;
+									db_unset_semaphore( 'createaccessfile', 'sem', $dbh );
+									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );
+								}
+							
 							}
 									
 						}

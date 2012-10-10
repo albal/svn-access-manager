@@ -2968,6 +2968,7 @@ function doInstall() {
 			$content					= str_replace( '###VIEWVCREALM###', 		$_SESSION['svn_inst']['viewvcRealm'], $content );
 			$content					= str_replace( '###SEPERATEFILESPERREPO###',$_SESSION['svn_inst']['perRepoFiles'], $content );
 			$content					= str_replace( '###REPOPATHSORTORDER###',	$_SESSION['svn_inst']['pathSortOrder'], $content );
+			$content					= str_replace( '###WRITEANONACCESS###',		$_SESSION['svn_inst']['anonAccess'], $content );
 			$content					= str_replace( '###SVNADMINCMD###', 		$_SESSION['svn_inst']['svnadminCommand'], $content );
 			$content					= str_replace( '###WEBSITECHARSET###', 		$_SESSION['svn_inst']['websiteCharset'], $content );
 			$content					= str_replace( '###WEBSITEURL###',			$_SESSION['svn_inst']['websiteUrl'], $content );
@@ -3349,6 +3350,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tViewvcRealm							= "ViewVC"; 
 	$tPerRepoFiles							= "";
 	$tPathSortOrder							= "ASC";
+	$tAnonAccess							= 0;
 	$tLogging								= "";
 	$tJavaScript							= "";
 	$tUserDefaultAccess						= "";
@@ -3475,6 +3477,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} else {
 		$tPathSortOrderAsc					= "";
 		$tPathSortOrderDesc					= "checked";
+	}
+	
+	if( $tAnonAccess == 1 ) {
+		$tAnonAccessYes						= "checked";
+		$tAnonAccessNo						= "";
+	} else {
+		$tAnonAccessYes						= "";
+		$tAnonAccessNo						= "checked";
 	}
 	
 	if( $tViewvcConfig == "YES" ) {
@@ -3634,6 +3644,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tViewvcRealm						= isset( $_POST['fViewvcRealm'] )			? ( $_POST['fViewvcRealm'] )			: ""; 
 	$tPerRepoFiles						= isset( $_POST['fPerRepoFiles'] )			? ( $_POST['fPerRepoFiles'] )			: "";
 	$tPathSortOrder						= isset( $_POST['fPathSortOrder'] )			? ( $_POST['fPathSortOrder'] )			: "ASC";
+	$tAnonAccess						= isset( $_POST['fAnonAccess'] )			? ( $_POST['fAnonAccess'] )			: 0;
 	$tLogging							= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
 	$tJavaScript						= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
 	$tPageSize							= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
@@ -3701,6 +3712,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['viewvcRealm']				= $tViewvcRealm; 
 	$_SESSION['svn_inst']['perRepoFiles']				= $tPerRepoFiles;  	
 	$_SESSION['svn_inst']['pathSortOrder']				= $tPathSortOrder;
+	$_SESSION['svn_inst']['anonAccess']					= $tAnonAccess;
 	$_SESSION['svn_inst']['logging']					= $tLogging;
 	$_SESSION['svn_inst']['javaScript']					= $tJavaScript;
 	$_SESSION['svn_inst']['pageSize']					= $tPageSize;
@@ -4112,6 +4124,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tViewvcRealm				= isset( $_SESSION['svn_inst']['viewvcRealm'] ) 		? $_SESSION['svn_inst']['viewvcRealm'] 			: "ViewVC Access Control";
 	$tPerRepoFiles				= isset( $_SESSION['svn_inst']['perRepoFiles'] ) 		? $_SESSION['svn_inst']['perRepoFiles'] 		: "";
 	$tPathSortOrder				= isset( $_SESSION['svn_inst']['psthSortOrder'] )		? $_SESSION['svn_inst']['pathSortOrder']		: "ASC";
+	$tAnonAccess				= isset( $_SESSION['svn_inst']['anonAccess'] )			? $_SESSION['svn_inst']['anonAccess']			: 0;
 	
 	# common locations where to find grep and svn under linux/unix
    	$svnpath					= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
@@ -4272,6 +4285,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tPathSortOrderAsc			= "";
 		$tPathSortOrderDesc			= "checked";
+	}
+	
+	if( $tAnonAccess == 1 ) {
+		$tAnonAccessYes				= "checked";
+		$tAnonAccessNo				= "";
+	} else {
+		$tAnonAccessYes				= "";
+		$tAnonAccessNo				= "checked";
 	}
 	
 	if( $tViewvcConfig == "YES" ) {
