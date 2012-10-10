@@ -669,6 +669,17 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
+							   		<td nowrap><strong><?php print _("Anonymous access").": "; ?></strong></td>
+							   		<td>
+							   			<input type="radio" name="fAnonAccess" value="1" <?php print $tAnonAccessYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+						   				<input type="radio" name="fAnonAccess" value="0" <?php print $tAnonAccessNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
 							   		<td nowrap><strong><?php print _("Create ViewVC configuration").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fViewvcConfig" value="YES" <?php print $tViewvcConfigYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;

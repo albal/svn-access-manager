@@ -1,9 +1,20 @@
 Update to V0.5.5.10
 
-Version 0.5.5.10 is a bug fix release. Either compare your 
+These are the steps to update from version 0.5.5.8/9 to 0.5.5.10
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following line and set the value as needed:
+   // anonymous access option, allowed values are 0 or 1
+	$CONF['write_anonymous_access_rights']	 = 0/1;
+
+2. Release 0.5.5.10 comes with a new feature of granting anonymous access. 
+   That means that there are a lot of files changed. Either compare your 
    installation to the current release or install the release from scratch and 
    copy the changed config file from your previous installation into your new 
    installation.
+   
+You're finished. 
 
 #-------------------------------------------------------------------------------------------#
 
