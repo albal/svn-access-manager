@@ -484,15 +484,36 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 								<tr>
-							   		<td nowrap><strong><?php print _("Website characterset").": "; ?></strong></td>
+							   		<td nowrap><strong><?php print _("Website character set").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fWebsiteCharset" value="<?php print $tWebsiteCharset; ?>" size="40" />
+							   			<select name="fWebsiteCharset">
+							   				<?php
+							   					if( $tWebsiteCharset == "" ) {
+							   						$selected				= "selected=selected";
+							   					} else {
+							   						$selected				= "";
+							   					}
+							   					
+							   					print "\t\t\t\t<option value='' $selected>"._("--- Select character set ---")."</option>\n";
+							   					
+							   					foreach( $WEBCHARSETS as $entry ) {
+							   					
+							   						if( strtolower($tWebsiteCharset) == strtolower($entry) ) {
+							   							$selected 			= "selected=selected";
+							   						} else {
+							   							$selected			= "";
+							   						}
+							   						
+							   						print "\t\t\t\t<option value='".strtolower($entry)."' $selected>".strtolower($entry)."</option>\n";
+							   					}
+							   				?>
+							   			</select>
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>
+							   			<?php print _("Select the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>
 							   		</td>
 							   		<td>&nbsp;</td>
-							   	</tr>
+							   	</tr>                                
 							   	<tr>
 							   		<td nowrap><strong><?php print _("Lost password mail sender").": "; ?></strong></td>
 							   		<td>
@@ -669,13 +690,13 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Anonymous access").": "; ?></strong></td>
+							   		<td nowrap><strong><?php print _("Anonymous read access").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fAnonAccess" value="1" <?php print $tAnonAccessYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fAnonAccess" value="0" <?php print $tAnonAccessNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
 							   		</td>
 							   		<td>
-							   			&nbsp;
+							   			<?php print _("This option allowes you to create an entry '\$anonymous = r' for the top level directory of each repository.");?>
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
