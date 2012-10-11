@@ -20,6 +20,9 @@ Release 0.5.5.10
 	  
 	- website charset is now a drop down in the installer
 	
+	- Bug Fix ID: 3576317
+	  typo in install.php
+	  
 	  
 Release 0.5.5.9
 	- Bug fix ID: 3575421

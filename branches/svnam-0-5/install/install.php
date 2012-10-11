@@ -4600,7 +4600,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tUserDefaultAccessWrite	= "";
 	} else {
 		$tUserDefaultAccessRead		= "";
-		$tUserDefaultAccessWrite	= "checkaed";
+		$tUserDefaultAccessWrite	= "checked";
 	}
 		
 	include ("../templates/install-tabs.tpl");	
