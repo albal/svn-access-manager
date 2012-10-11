@@ -395,11 +395,13 @@ class ADORecordSet_ldap extends ADORecordSet{
         }
 	    
 	    $this->fields = ldap_get_attributes( $this->connection->_connectionID, $this->_entryID );
+	    $myDn         = ldap_get_dn( $this->connection->_connectionID, $this->_entryID );
 	    $this->_numOfFields = $this->fields['count'];	
 	    switch ( $this->fetchMode ) {
             
             case LDAP_ASSOC:
             $this->fields = $this->GetRowAssoc();
+            $this->fields['dn'] = $myDn;
             break;
             
             case LDAP_NUM:

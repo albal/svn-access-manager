@@ -35,6 +35,264 @@ require ("../include/db-functions-adodb.inc.php");
 require ("../include/functions.inc.php");
 
 
+$WEBCHARSETS								= array( 'ISO_8859-1', 
+													'ISO_8859-2', 
+													'ISO_8859-3', 
+													'ISO_8859-4', 
+													'ISO_8859-5', 
+													'ISO_8859-6', 
+													'ISO_8859-6-E', 
+													'ISO_8859-6-I', 
+													'ISO_8859-7', 
+													'ISO_8859-8', 
+													'ISO_8859-8-E', 
+													'ISO_8859-8-I', 
+													'ISO_8859-9', 
+													'ISO_8859-supp', 
+													'ISO-8859-10', 
+													'ISO-8859-13', 
+													'ISO-8859-14', 
+													'ISO-8859-15', 
+													'ISO-8859-16', 
+													'UTF-7', 
+													'UTF-8', 
+													'UTF-16', 
+													'UTF-16BE', 
+													'UTF-16LE', 
+													'UTF-32', 
+													'UTF-32BE', 
+													'UTF-32LE', 
+													'ISO-8859-1-Windows-3.0-Latin-1', 
+													'ISO-8859-1-Windows-3.1-Latin-1', 
+													'ISO-8858-2-Windows-Latin-2', 
+													'ISO-8859-9-Windows-Latin-5', 
+													'Adobe-Standard-Encoding', 
+													'Adobe-Symbol-Encoding', 
+													'Amiga-1251', 
+													'ANSI_X3.110-1983', 
+													'ANSI_X3.4-1968', 
+													'ASMO_449', 
+													'Big5', 
+													'Big5-HKSCS', 
+													'BOCU-1', 
+													'BRF', 
+													'BS_4730', 
+													'BS_viewdata', 
+													'CESU-8', 
+													'CP50220', 
+													'CP51932', 
+													'CSA_Z243.4-1985-1', 
+													'CSA_Z243.4-1985-2', 
+													'CSA_Z243.4-1985-gr', 
+													'CSN_369103', 
+													'DEC-MCS', 
+													'DIN_66003', 
+													'dk-us', 
+													'DS_2089', 
+													'EBCDIC-AT-DE', 
+													'EBCDIC-AT-DE-A', 
+													'EBCDIC-CA-FR', 
+													'EBCDIC-DK-NO', 
+													'EBCDIC-DK-NO-A', 
+													'EBCDIC-ES', 
+													'EBCDIC-ES-A', 
+													'EBCDIC-ES-S', 
+													'EBCDIC-FI-SE', 
+													'EBCDIC-FI-SE-A', 
+													'EBCDIC-FR', 
+													'EBCDIC-IT', 
+													'EBCDIC-PT', 
+													'EBCDIC-UK', 
+													'EBCDIC-US', 
+													'ECMA-cyrillic', 
+													'ES', 
+													'ES2', 
+													'EUC-KR', 
+													'Extended_UNIX_Code_Fixed_Width_for_Japanese', 
+													'Extended_UNIX_Code_Packed_Format_for_Japanese', 
+													'GB18030', 
+													'GB_1988-80', 
+													'GB2312', 
+													'GB_2312-80', 
+													'GBK', 
+													'GOST_19768-74', 
+													'greek7', 
+													'greek7-old', 
+													'greek-ccitt', 
+													'HP-DeskTop', 
+													'HP-Legal', 
+													'HP-Math8', 
+													'HP-Pi-font', 
+													'hp-roman8', 
+													'HZ-GB-2312', 
+													'IBM00858', 
+													'IBM00924', 
+													'IBM01140', 
+													'IBM01141', 
+													'IBM01142', 
+													'IBM01143', 
+													'IBM01144', 
+													'IBM01145', 
+													'IBM01146', 
+													'IBM01147', 
+													'IBM01148', 
+													'IBM01149', 
+													'IBM037', 
+													'IBM038', 
+													'IBM1026', 
+													'IBM1047', 
+													'IBM273', 
+													'IBM274', 
+													'IBM275', 
+													'IBM277', 
+													'IBM278', 
+													'IBM280', 
+													'IBM281', 
+													'IBM284', 
+													'IBM285', 
+													'IBM290', 
+													'IBM297', 
+													'IBM420', 
+													'IBM423', 
+													'IBM424', 
+													'IBM437', 
+													'IBM500', 
+													'IBM775', 
+													'IBM850', 
+													'IBM851', 
+													'IBM852', 
+													'IBM855', 
+													'IBM857', 
+													'IBM860', 
+													'IBM861', 
+													'IBM862', 
+													'IBM863', 
+													'IBM864', 
+													'IBM865', 
+													'IBM866', 
+													'IBM868', 
+													'IBM869', 
+													'IBM870', 
+													'IBM871', 
+													'IBM880', 
+													'IBM891', 
+													'IBM903', 
+													'IBM904', 
+													'IBM905', 
+													'IBM918', 
+													'IBM-Symbols', 
+													'IBM-Thai', 
+													'IEC_P27-1', 
+													'INIS', 
+													'INIS-8', 
+													'INIS-cyrillic', 
+													'INVARIANT', 
+													'ISO_10367-box', 
+													'ISO-10646-J-1', 
+													'ISO-10646-UCS-2', 
+													'ISO-10646-UCS-4', 
+													'ISO-10646-UCS-Basic', 
+													'ISO-10646-Unicode-Latin1', 
+													'ISO-10646-UTF-1', 
+													'ISO-11548-1', 
+													'ISO-2022-CN', 
+													'ISO-2022-CN-EXT', 
+													'ISO-2022-JP', 
+													'ISO-2022-JP-2', 
+													'ISO-2022-KR', 
+													'ISO_2033-1983', 
+													'ISO_5427', 
+													'ISO_5427', 
+													'ISO_5428', 
+													'ISO_646.basic', 
+													'ISO_646.irv', 
+													'ISO_6937-2-25', 
+													'ISO_6937-2-add', 
+													'iso-ir-90', 
+													'ISO-Unicode-IBM-1261', 
+													'ISO-Unicode-IBM-1264', 
+													'ISO-Unicode-IBM-1265', 
+													'ISO-Unicode-IBM-1268', 
+													'ISO-Unicode-IBM-1276', 
+													'IT', 
+													'JIS_C6220-1969-jp', 
+													'JIS_C6220-1969-ro', 
+													'JIS_C6226-1978', 
+													'JIS_C6226-1983', 
+													'JIS_C6229-1984-a', 
+													'JIS_C6229-1984-b', 
+													'JIS_C6229-1984-b-add', 
+													'JIS_C6229-1984-hand', 
+													'JIS_C6229-1984-hand-add', 
+													'JIS_C6229-1984-kana', 
+													'JIS_Encoding', 
+													'JIS_X0201', 
+													'JIS_X0212-1990', 
+													'JUS_I.B1.002', 
+													'JUS_I.B1.003-mac', 
+													'JUS_I.B1.003-serb', 
+													'KOI7-switched', 
+													'KOI8-R', 
+													'KOI8-U', 
+													'KS_C_5601-1987', 
+													'KSC5636', 
+													'KZ-1048', 
+													'latin-greek', 
+													'Latin-greek-1', 
+													'latin-lap', 
+													'macintosh', 
+													'Microsoft-Publishing', 
+													'MNEM', 
+													'MNEMONIC', 
+													'MSZ_7795.3', 
+													'NATS-DANO', 
+													'NATS-DANO-ADD', 
+													'NATS-SEFI', 
+													'NATS-SEFI-ADD', 
+													'NC_NC00-10', 
+													'NF_Z_62-010', 
+													'NF_Z_62-010_(1973)', 
+													'NS_4551-1', 
+													'NS_4551-2', 
+													'OSD_EBCDIC_DF03_IRV', 
+													'OSD_EBCDIC_DF04_1', 
+													'OSD_EBCDIC_DF04_15', 
+													'PC8-Danish-Norwegian', 
+													'PC8-Turkish', 
+													'PT', 
+													'PT2', 
+													'PTCP154', 
+													'SCSU', 
+													'SEN_850200_B', 
+													'SEN_850200_C', 
+													'Shift_JIS', 
+													'T.101-G2', 
+													'T.61-7bit', 
+													'T.61-8bit', 
+													'TIS-620', 
+													'TSCII', 
+													'UNICODE-1-1', 
+													'UNICODE-1-1-UTF-7', 
+													'UNKNOWN-8BIT', 
+													'us-dk', 
+													'Ventura-International', 
+													'Ventura-Math', 
+													'Ventura-US', 
+													'videotex-suppl', 
+													'VIQR', 
+													'VISCII', 
+													'windows-1250', 
+													'windows-1251', 
+													'windows-1252', 
+													'windows-1253', 
+													'windows-1254', 
+													'windows-1255', 
+													'windows-1256', 
+													'windows-1257', 
+													'windows-1258', 
+													'Windows-31J', 
+													'windows-874'
+												    );
 
 $DBTABLES									= array( 'help', 'log', 'preferences', 'rights', 'workinfo', 'sessions', 
 													 'svngroups', 'svnmailinglists', 'svnpasswordreset', 'svnprojects', 'svnrepos', 'svnusers', 
@@ -430,7 +688,10 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    password_modified character varying(14) NOT NULL DEFAULT '00000000000000',
 												    superadmin smallint DEFAULT 0::smallint NOT NULL,
 												    securityquestion character varying(255) DEFAULT ''::character varying,
-												    securityanswer character varying(255) DEFAULT ''::character varying
+												    securityanswer character varying(255) DEFAULT ''::character varying,
+												    custom1 character varying(255) DEFAULT''::character varying,
+												    custom2 character varying(255) DEFAULT''::character varying,
+												    custom3 character varying(255) DEFAULT''::character varying
 												);";
 	$result									= db_query_install( $query, $dbh );
 	$query									= "ALTER TABLE $schema.svnusers OWNER TO $dbuser;";
@@ -1254,6 +1515,9 @@ function createOracleDatabaseTables( $dbh, $tDatabaseCharset, $tDatabaseCollatio
 												    \"SUPERADMIN\"        NUMBER(1,0) DEFAULT 0 NOT NULL ENABLE,
 												    \"SECURITYQUESTION\"  VARCHAR2(255 BYTE) DEFAULT '',
 												    \"SECURITYANSWER\"    VARCHAR2(255 BYTE) DEFAULT '',
+												    \"CUSTOM1\"           VARCHAR2(255 BYTE) DEFAULT '',
+												    \"CUSTOM2\"           VARCHAR2(255 BYTE) DEFAULT '',
+												    \"CUSTOM3\"           VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT SVNUSERS_PK PRIMARY KEY (\"ID\")  ENABLE
 												  )";
 	$result									= db_query_install( $query, $dbh );
@@ -1876,6 +2140,9 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`superadmin` tinyint(1) NOT NULL default '0',
   													`securityquestion` varchar(255) default '',
   													`securityanswer` varchar(255) default '',
+  													`custom1` varchar(255) default '',
+  													`custom2` varchar(255) default '',
+  													`custom3` varchar(255) default '',
   													PRIMARY KEY  (`id`),
   													UNIQUE KEY `idx_userid` (`userid`,`deleted`),
   													KEY `idx_mode` (`locked`),
@@ -2006,7 +2273,7 @@ function loadDbData( $dbh, $charset, $collation, $databasetype ) {
 	if( $error == 0 ) {
 	
 		$query							= "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " .
-										  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
+										  "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
 		$result							= db_query_install( $query, $dbh );
 		
 	}
@@ -2090,7 +2357,7 @@ function loadPostgresDbData( $dbh, $charset, $collation, $databasetype, $schema 
 	if( $error == 0 ) {
 	
 		$query							= "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " .
-										  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
+										  "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
 		$result							= db_query_install( $query, $dbh );
 		
 	}
@@ -2167,7 +2434,7 @@ function loadOracleDbData( $dbh, $charset, $collation, $databasetype, $schema ) 
 	if( $error == 0 ) {
 	
 		$query							= "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " .
-										  "VALUES ('Project admin', 'Administer projects', 'Projecte verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
+										  "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
 		$result							= db_query_install( $query, $dbh );
 		
 	}
@@ -2306,7 +2573,7 @@ function loadHelpTexts( $database, $schema, $dbh ) {
 	
 	$error									= 0;
 	$tMessage								= "";
-	$filename								= "";
+	$filename								= "help_texts.sql";
 	
 	if( file_exists ( realpath ( "./$filename" ) ) ) {
 		
@@ -2371,6 +2638,7 @@ function loadHelpTexts( $database, $schema, $dbh ) {
 function doDbtest() {
 
 	$tErrors						= array();
+	$error							= 0;
 	$CONF['database_host'] 			= $_SESSION['svn_inst']['databaseHost'];
 	$CONF['database_user'] 			= $_SESSION['svn_inst']['databaseUser'];
 	$CONF['database_password'] 		= $_SESSION['svn_inst']['databasePassword'];
@@ -2382,8 +2650,10 @@ function doDbtest() {
 	
 	if( is_array( $dbh ) ) {
 		$tErrors[]					= $dbh['error'];
+		$error						= 1;
 	} else {
 		$tErrors[]					= _("Database test ok, connection works");
+		$error						= 1;
 	}
 	
 	$tDatabaseHost					= isset( $_SESSION['svn_inst']['databaseHost'] ) 		? $_SESSION['svn_inst']['databaseHost'] : "";
@@ -2394,8 +2664,131 @@ function doDbtest() {
 	$tDatabaseTablespace			= isset( $_SESSION['svn_inst']['databaseTablespace'] ) 	? $_SESSION['svn_inst']['databaseTablespace'] : "";
 	$tDatabaseCharset				= isset( $_SESSION['svn_inst']['databaseCharset'] ) 	? $_SESSION['svn_inst']['databaseCharset'] : "";
 	$tDatabaseCollation				= isset( $_SESSION['svn_inst']['databaseCollation'] ) 	? $_SESSION['svn_inst']['databaseCollation'] : "";
-				
-	include ("../templates/install_page_2.tpl");
+	
+	if( $error == 0 ) {
+		$tPage						= 1;
+	} else {
+		$tPage						= 7;
+	}
+	
+	$ret							= array();
+	$ret['page']					= $tPage;
+	$ret['errors']					= $tErrors;		
+	return( $ret );
+}
+
+
+
+function doLdapTest() {
+	
+	$tErrors								= array();
+	$error									= 0;
+	$tPage									= 2;
+	
+	if( $ldap = @ldap_connect( $_SESSION['svn_inst']['ldapHost'], $_SESSION['svn_inst']['ldapPort'] ) ) {
+		
+		if( $rs = @ldap_bind( $ldap, $_SESSION['svn_inst']['ldapBinddn'], $_SESSION['svn_inst']['ldapBindpw']) ) {
+			
+			$tErrors[]						= _("LDAP connection test ok, connection works");
+			$error							= 1;
+			
+		} else {
+			
+			$tErrors[]						= sprintf( _("Can't bind to ldap server: %s"), ldap_error( $ldap ) );
+			$error							= 1;
+		}
+		
+		@ldap_unbind( $ldap );
+		
+	} else {
+		
+		$tErrors[]							= _("Can't connect to ldap server, hostname/ip and port are ok?");
+		$error								= 1;
+		
+	}
+	
+	$tCreateDatabaseTables		= isset( $_SESSION['svn_inst']['createDatabaseTables'] ) ? $_SESSION['svn_inst']['createDatabaseTables'] : ""; 
+	$tDropDatabaseTables		= isset( $_SESSION['svn_inst']['dropDatabaseTables'] ) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
+	$tDatabase					= isset( $_SESSION['svn_inst']['database'] ) ? $_SESSION['svn_inst']['database'] : "";
+	$tSessionInDatabase			= isset( $_SESSION['svn_inst']['sessionInDatabase'] ) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
+	$tUseLdap					= isset( $_SESSION['svn_inst']['useLdap'] ) ? $_SESSION['svn_inst']['useLdap'] : "";
+	$tLdapHost					= isset( $_SESSION['svn_inst']['ldapHost'] ) ? $_SESSION['svn_inst']['ldapHost'] : "";
+	$tLdapPort					= isset( $_SESSION['svn_inst']['ldapPort'] ) ? $_SESSION['svn_inst']['ldapPort'] : "";
+	$tLdapProtocol				= isset( $_SESSION['svn_inst']['ldapProtocol'] ) ? $_SESSION['svn_inst']['ldapProtocol'] : "";
+	$tLdapBinddn				= isset( $_SESSION['svn_inst']['ldapBinddn'] ) ? $_SESSION['svn_inst']['ldapBinddn'] : "";
+	$tLdapBindpw				= isset( $_SESSION['svn_inst']['ldapBindpw'] ) ? $_SESSION['svn_inst']['ldapBindpw'] : "";
+	$tLdapUserdn				= isset( $_SESSION['svn_inst']['ldapUserdn'] ) ? $_SESSION['svn_inst']['ldapUserdn'] : "";
+	$tLdapUserFilter			= isset( $_SESSION['svn_inst']['ldapUserFilter'] ) ? $_SESSION['svn_inst']['ldapUserFilter'] : "";
+	$tLdapUserObjectclass		= isset( $_SESSION['svn_inst']['ldapUserObjectclass'] ) ? $_SESSION['svn_inst']['ldapUserObjectclass'] : "";
+	$tLdapUserAdditionalFilter  = isset( $_SESSION['svn_inst']['ldapUserAdditionalFilter'] ) ? $_SESSION['svn_inst']['ldapUserAdditionalFilter'] : "";
+	
+	if( $tCreateDatabaseTables == "YES" ) {
+		$tCreateDatabaseTablesYes	= "checked";
+		$tCreateDatabaseTablesNo	= "";
+	} else {
+		$tCreateDatabaseTablesYes	= "";
+		$tCreateDatabaseTablesNo	= "checked";
+	}
+	
+	if( $tDropDatabaseTables == "YES" ) {
+		$tDropDatabaseTablesYes		= "checked";
+		$tDropDatabaseTablesNo		= "";
+	} else {
+		$tDropDatabaseTablesYes		= "";
+		$tDropDatabaseTablesNo		= "checked";
+	}
+	
+	if( $tDatabase == "mysql" ) {
+		$tDatabaseMySQL				= "checked";
+		$tDatabasePostgreSQL		= "";
+		$tDatabaseOracle			= "";
+	} elseif( $tDatabase == "postgres8" ) {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "checked";
+		$tDatabaseOracle			= "";
+	} elseif( $tDatabase == "oci8" ) {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "";
+		$tDatabaseOracle			= "checked";
+	} else {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "";
+	}
+	
+	if( $tSessionInDatabase == "YES" ) {
+		$tSessionInDatabaseYes		= "checked";
+		$tSessionInDatabaseNo		= "";
+	} else {
+		$tSessionInDatabaseYes		= "";
+		$tSessionInDatabaseNo		= "checked";
+	}
+	
+	if( $tUseLdap == "YES" ) {
+		$tUseLdapYes				= "checked";
+		$tUseLdapNo					= "";
+	} else {
+		$tUseLdapYes				= "";
+		$tUseLdapNo					= "checked";
+	}
+	
+	if( $tLdapProtocol == "3" ) {
+		$tLdap3						= "checked";
+		$tLdap2						= "";
+	} else {
+		$tLdap3						= "";
+		$tLdap2						= "checked";
+	}
+	
+	if( $error == 0 ) {
+		$tPage						= 2;
+	} else {
+		$tPage						= 7;
+	}
+	
+	$ret							= array();
+	$ret['page']					= $tPage;
+	$ret['errors']					= $tErrors;		
+	return( $ret );
 }
 
 
@@ -2409,24 +2802,49 @@ function doInstall() {
 	if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 		
 		$configfile							= realpath ( "./config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
 		
 	} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
 		
 		$configfile							= realpath ( "../config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
 		
 	} else {
 		
-		$configfile							= "../config/config.inc.php";
+		$configfile							= realpath( "../config/" );
+		$tBaseDir							= dirname($configfile);
+			
+	}
+	
+	if( determineOs() == "windows" ) {
+		
+		$tConfigDir							= $tBaseDir."\config";
+		$configpath							= $tBaseDir."\config";
+		$configtmpl							= $configpath."\config.inc.php.tpl";
+		$confignew							= $configpath."\config.inc.php.new";
+		$configfile							= $configpath."\config.inc.php";
+		
+	} else {
+		
+		$tConfigDir							= "/etc/svn-access-manager";
+		$configpath							= $tBaseDir."/config";
+		$configtmpl							= $configpath."/config.inc.php.tpl";
+		$confignew							= $tConfigDir."/config.inc.php.new";
+		$configfile							= $tConfigDir."/config.inc.php";
 		
 	}
 	
-	$configpath								= dirname( $configfile );
-	#$confignew								= $configpath."/config.inc.php.new";
-	$confignew								= "/etc/svn-access-manager/config.inc.php.new";
-	$configtmpl								= $configpath."/config.inc.php.tpl";
-	$configfile								= "/etc/svn-access-manager/config.inc.php";
+	if( is_writable( $tConfigDir ) ) {
+		$tConfigWritable					= _("writable");
+	} else {
+		$tConfigWritable					= _("not writable");
+	}
 	
-	
+	if( ! is_writable( dirname( $configfile) ) ) {
+		
+		$tErrors[]							= sprintf( _("Config directory %s not writable!"), dirname($configfile) );
+		$error								= 1;
+	}
 	
 	
 	if( $error == 0 ) {
@@ -2463,6 +2881,108 @@ function doInstall() {
 			
 			$tErrors[]					= _("Database collation is missing!" );
 			$error						= 1;
+			
+		}
+		
+		if( strtoupper($_SESSION['svn_inst']['useLdap']) == "YES" ) {
+				
+			if( $_SESSION['svn_inst']['ldapHost'] == "" ) {
+				
+				$tErrors[]				= _("LDAP host is missing!");
+				$error					= 1;
+			
+			}
+			
+			if( $_SESSION['svn_inst']['ldapPort'] == "" ) {
+				
+				$tErrors[]				= _("LDAP port is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( ($_SESSION['svn_inst']['ldapProtocol'] != "2") and ($_SESSION['svn_inst']['ldapProtocol'] != "3") ) {
+				
+				$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $_SESSION['svn_inst']['ldapProtocol'] );
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapBinddn'] == "" ) {
+				
+				$tErrors[]				= _("LDAP bind dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapBindpw'] == "" ) {
+				
+				$tErrors[]				= _("LDAP bind password is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapUserdn'] == "" ) {
+				
+				$tErrors[]				= _("LDAP user dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapUserFilter'] == "" ) {
+				
+				$tErrors[]				= _("LDAP user filter attribute is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapUserObjectclass'] == "" ) {
+				
+				$tErrors[]				= _("LDAP user object class is missing!");
+				$error					= 1;
+									
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrUid'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for uid is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrName'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for name is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrGivenname'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for given name is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrMail'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for mail is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $_SESSION['svn_inst']['ldapAttrPassword'] == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
+				$error					= 1;
+				
+			}
+			
+		}
+		
+		if( $_SESSION['svn_inst']['websiteUrl'] == "" ) {
+			
+			$tErrors[]						= _("SVN Access Manager website url is missing!");
+			$error							= 1;
 			
 		}
 		
@@ -2687,7 +3207,7 @@ function doInstall() {
 			$content					= str_replace( '###PAGESIZE###', 			$_SESSION['svn_inst']['pageSize'], $content );
 			$content					= str_replace( '###SVNCMD###', 				$_SESSION['svn_inst']['svnCommand'], $content );
 			$content					= str_replace( '###GREPCMD###', 			$_SESSION['svn_inst']['grepCommand'], $content );
-			$content					= str_replace( '###USEJS###', 				$_SESSION['svn_inst']['javaScript'], $content );
+			$content					= str_replace( '###USEJS###', 				'YES', $content );
 			$content					= str_replace( '###SVNACCESSFILE###', 		$_SESSION['svn_inst']['svnAccessFile'], $content );
 			$content					= str_replace( '###ACCESSCONTROLLEVEL###', 	$_SESSION['svn_inst']['accessControlLevel'], $content );
 			$content					= str_replace( '###SVNAUTHFILE###', 		$_SESSION['svn_inst']['authUserFile'], $content );
@@ -2705,17 +3225,58 @@ function doInstall() {
 			$content					= str_replace( '###VIEWVCAPACHERELOAD###', 	$_SESSION['svn_inst']['viewvcApacheReload'], $content );
 			$content					= str_replace( '###VIEWVCREALM###', 		$_SESSION['svn_inst']['viewvcRealm'], $content );
 			$content					= str_replace( '###SEPERATEFILESPERREPO###',$_SESSION['svn_inst']['perRepoFiles'], $content );
+			$content					= str_replace( '###REPOPATHSORTORDER###',	$_SESSION['svn_inst']['pathSortOrder'], $content );
+			$content					= str_replace( '###WRITEANONACCESS###',		$_SESSION['svn_inst']['anonAccess'], $content );
 			$content					= str_replace( '###SVNADMINCMD###', 		$_SESSION['svn_inst']['svnadminCommand'], $content );
 			$content					= str_replace( '###WEBSITECHARSET###', 		$_SESSION['svn_inst']['websiteCharset'], $content );
+			$content					= str_replace( '###WEBSITEURL###',			$_SESSION['svn_inst']['websiteUrl'], $content );
 			$content					= str_replace( '###LOSTPWSENDER###', 		$_SESSION['svn_inst']['lpwMailSender'], $content );
 			$content					= str_replace( '###LOSTPWMAXERROR###', 		3, $content );
 			$content					= str_replace( '###LOSTPWLINKVALID###', 	$_SESSION['svn_inst']['lpwLinkValid'], $content );
 			$content					= str_replace( '###PRECOMPATIBLE###', 		$preCompatible, $content );
 			$content					= str_replace( '###INSTALLBASE###',			$installBase, $content );
+			$content					= str_replace( '###USELDAP###',				$_SESSION['svn_inst']['useLdap'], $content );
+			$content					= str_replace( '###BINDDN###',				$_SESSION['svn_inst']['ldapBinddn'], $content );
+			$content					= str_replace( '###BINDPW###',				$_SESSION['svn_inst']['ldapBindpw'], $content );
+			$content					= str_replace( '###USERDN###',				$_SESSION['svn_inst']['ldapUserdn'], $content );
+			$content					= str_replace( '###USERFILTERATTR###',		$_SESSION['svn_inst']['ldapUserFilter'], $content );
+			$content					= str_replace( '###USEROBJECTCLASS###',		$_SESSION['svn_inst']['ldapUserObjectclass'], $content );
+			$content					= str_replace( '###USERADDITIONALFILTER###',$_SESSION['svn_inst']['ldapUserAdditionalFilter'], $content );
+			$content					= str_replace( '###LDAPHOST###',			$_SESSION['svn_inst']['ldapHost'], $content );
+			$content					= str_replace( '###LDAPPORT###',			$_SESSION['svn_inst']['ldapPort'], $content );
+			$content					= str_replace( '###LDAPPROTOCOL###',		$_SESSION['svn_inst']['ldapProtocol'], $content );
+			$content					= str_replace( '###MAPUID###',				$_SESSION['svn_inst']['ldapAttrUid'], $content );
+			$content					= str_replace( '###MAPNAME###',				$_SESSION['svn_inst']['ldapAttrName'], $content );
+			$content					= str_replace( '###MAPGIVENNAME###',		$_SESSION['svn_inst']['ldapAttrGivenname'], $content );
+			$content					= str_replace( '###MAPMAIL###',				$_SESSION['svn_inst']['ldapAttrMail'], $content );
+			$content					= str_replace( '###MAPPASSWORD###',			$_SESSION['svn_inst']['ldapAttrPassword'], $content );
+			$content					= str_replace( '###USERDEFAULTACCESS###',	$_SESSION['svn_inst']['userDefaultAccess'], $content );
+			$content					= str_replace( '###PASSWORDEXPIRES###',		$_SESSION['svn_inst']['passwordExpire'], $content );
+			$content					= str_replace( '###PASSWORDEXPIRESWARN###',	$_SESSION['svn_inst']['passwordExpireWarn'], $content );
+			$content					= str_replace( '###EXPIREPASSWORD###',		$_SESSION['svn_inst']['expirePassword'], $content );
+			if( $_SESSION['svn_inst']['custom1'] == "" ) {
+				$custom1				= "NULL";
+			} else {
+				$custom1				= "'".$_SESSION['svn_inst']['custom1']."'";
+			}
+			if( $_SESSION['svn_inst']['custom2'] == "" ) {
+				$custom2				= "NULL";
+			} else {
+				$custom2				= "'".$_SESSION['svn_inst']['custom2']."'";
+			}
+			if( $_SESSION['svn_inst']['custom3'] == "" ) {
+				$custom3				= "NULL";
+			} else {
+				$custom3				= "'".$_SESSION['svn_inst']['custom3']."'";
+			}
+			
+			$content					= str_replace( '###CUSTOM1###',				$custom1, $content );
+			$content					= str_replace( '###CUSTOM2###',				$custom2, $content );
+			$content					= str_replace( '###CUSTOM3###',				$custom3, $content );
 			
 		} else {
 			
-			$tErrors[] 					= _("can't open config template for reading!");
+			$tErrors[] 					= sprintf( _("can't open config template %s for reading!"), $configtmpl );
 			$error						= 1;
 			
 		}
@@ -2735,7 +3296,7 @@ function doInstall() {
 			
 		} else {
 			
-			$tErrors[] 					= _("can't open config.inc.php for writing. Please make sure the config directory is writeable for the webserver user!" );
+			$tErrors[] 					= sprintf( _("can't open %s for writing. Please make sure the config directory is writeable for the webserver user!" ), $confignew );
 			$error						= 1;
 		}
 		
@@ -2903,15 +3464,21 @@ function doInstall() {
 		$tSvnAccessFile					= isset( $_SESSION['svn_inst']['svnAccessFile'] ) ? $_SESSION['svn_inst']['svnAccessFile'] : "";
 		
 		include ("../templates/installresult.tpl");
+		exit ;
 		
 	} else {
 	
-		$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 		? $_SESSION['svn_inst']['logging'] 			: "YES";
-		$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 		? $_SESSION['svn_inst']['javaScript'] 		: "YES";
-		$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 		? $_SESSION['svn_inst']['pageSize'] 		: "30";
-		$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 	? $_SESSION['svn_inst']['minAdminPwSize'] 	: "14";
-		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 	? $_SESSION['svn_inst']['minUserPwSize'] 	: "8"; 
-		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 			? $_SESSION['svn_inst']['useMd5'] 			: "md5";
+		$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 			? $_SESSION['svn_inst']['logging'] 				: "YES";
+		$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 			? $_SESSION['svn_inst']['javaScript'] 			: "YES";
+		$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 			? $_SESSION['svn_inst']['pageSize'] 			: "30";
+		$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
+		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
+		$tExpirePassword				= isset( $_SESSION['svn_inst']['expirePassword'] )		? $_SESSION['svn_inst']['expirePassword']		: 1;
+		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";
+		$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
+		$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
+		$tCustom2						= isset( $_SESSION['svn_inst']['custom2'] )				? $_SESSION['svn_inst']['custom2']				: "";
+		$tCustom3						= isset( $_SESSION['svn_inst']['custom3'] )				? $_SESSION['svn_inst']['custom3']				: "";
 		
 		if( $tJavaScript == "YES" ) {
 			$tJavaScriptYes				= "checked";
@@ -2929,6 +3496,14 @@ function doInstall() {
 			$tLoggingNo					= "checked";
 		}
 		
+		if( $tExpirePassword == 1 ) {
+			$tExpirePasswordYes			= "checked";
+			$tExpirePasswordNo			= "";
+		} else {
+			$tExpirePasswordYes			= "";
+			$tExpirePasswordNo			= "checked";
+		}
+		
 		if( $tUseMd5 == "md5" ) {
 			$tMd5Yes					= "checked";
 			$tMd5No						= "";
@@ -2938,14 +3513,28 @@ function doInstall() {
 			$tMd5No						= "checked";
 			$CONF['pwcrypt']			= "crypt";
 		}
-				
-		include ("../templates/install_page_6.tpl");
+		
+		if( $tUserDefaultAccess == "read" ) {
+			$tUserDefaultAccessread		= "checked";
+			$tUserDefaultAccessWrite	= "";
+		} else {
+			$tUserDefaultAccessread		= "";
+			$tUserDefaultAccessWrite	= "checked";
+		}
 		
 	}
-}
+	
+	$ret								= array();
+	$ret['page']						= 7;
+	$ret['errors']						= $tErrors;
+	
+	return( $ret );
+}	
 
-
-
+#----------------------------------------------------------------------------------------------------------------------#
+# main section
+#----------------------------------------------------------------------------------------------------------------------#
+	
 initialize_i18n();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -2958,7 +3547,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$CONF									= array();
 	$CONF['database_type']					= "mysql";
 	$CONF['database_innodb']                = 'YES';
-	$CONF['copyright']						= '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+	$CONF['copyright']						= '(C) 2008, 2009, 2010, 2011 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 	
    	$tCreateDatabaseTablesYes				= "checked";
    	$tCreateDatabaseTablesNo				= "";
@@ -2969,10 +3558,244 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	$tDatabaseOracle						= "";
    	$tSessionInDatabaseYes					= "checked";
    	$tSessionInDatabaseNo					= "";
+   	$tUseLdapYes							= "";
+   	$tUseLdapNo								= "checked";
+   	$tLdapHost								= "";
+   	$tLdapPort								= "389";
+   	$tLdap2									= "";
+   	$tLdap3									= "checked";
+   	$tLdapBinddn							= "";
+   	$tLdapBindpw							= "";
+   	$tLdapUserdn							= "";
+   	$tLdapUserFilter						= "";
+   	$tLdapUserObjectclass					= "";
+   	$tLdapUserAdditionalFilter				= "";
+   	$tDatabaseHost							= "";
+	$tDatabaseUser							= "";
+	$tDatabasePassword						= "";
+	$tDatabaseName							= "";
+	$tDatabaseSchema						= "";
+	$tDatabaseTablespace					= "";
+	$tDatabaseCharset						= "";
+	$tDatabaseCollation						= "";
+	$tLdapAttrUid							= "";
+	$tLdapAttrName							= "";
+	$tLdapAttrGivenname						= "";
+	$tLdapAttrMail							= "";
+	$tLdapAttrPassword						= "";
+	$tWebsiteCharset						= "";
+	$tWebsiteUrl							= "";
+	$tLpwMailSender							= "";
+	$tLpwLinkValid							= "";
+	$tUsername								= "";
+	$tPassword								= "";
+	$tPassword2								= "";
+	$tGivenname								= "";
+	$tName									= "";
+	$tAdminEmail							= "";
+	$tUseSvnAccessFile						= "";
+	$tSvnAccessFile							= "/etc/svn/svnaccess";
+	$tAccessControlLevel					= "";
+	$tUseAuthUserFile						= "";
+	$tAuthUserFile							= "/etc/svn/svnpasswd";
+	$tSvnCommand							= "";
+	$tSvnadminCommand						= "";
+	$tGrepCommand							= "";
+	$tViewvcConfig							= "";
+	$tViewvcConfigDir						= "/etc/svn";
+	$tViewvcAlias							= "/viewvc";
+	$tViewvcApacheReload					= "";
+	$tViewvcRealm							= "ViewVC"; 
+	$tPerRepoFiles							= "";
+	$tPathSortOrder							= "ASC";
+	$tAnonAccess							= 0;
+	$tLogging								= "";
+	$tJavaScript							= "";
+	$tUserDefaultAccess						= "";
+	$tPageSize								= 30;
+	$tMinAdminPwSize						= 14;
+	$tMinUserPwSize							= 8;
+	$tExpirePassword						= 1;
+	$tPasswordExpire						= 60;
+	$tPasswordExpireWarn					= 50;
+	$tUseMd5								= "md5";
+	$tCustom1								= "";
+	$tCustom2								= "";
+	$tCustom3								= "";
+	$error									= 0;
+	$tPage									= 0;
+	
+	if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
+		
+		$configfile							= realpath ( "./config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
+		
+	} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
+		
+		$configfile							= realpath ( "../config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
+		
+	} else {
+		
+		$configfile							= realpath( "../config/" );
+		$tBaseDir							= dirname($configfile);
+			
+	}
+	
+	if( determineOs() == "windows" ) {
+		
+		$tConfigDir							= $tBaseDir."\config";
+		
+	} else {
+		
+		$tConfigDir							= "/etc/svn-access-manager";
+		
+	}
+	
+	clearstatcache();
+	if( is_writable( $tConfigDir ) ) {
+		$tConfigWritable					= _("writable");
+	} else {
+		$tConfigWritable					= _("not writable");
+	}
+	
+	# common locations where to find grep and svn under linux/unix
+   	$svnpath								= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
+   	$svnadminpath							= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
+   	$greppath								= array('/usr/local/bin/grep', '/usr/bin/grep', '/bin/grep');
+   	$apachepath								= array('/etc/init.d/httpd', '/etc/init.d/apache2', '/etc/init.d/apache');
    	
+   	for( $i = 0; $i < count($svnpath); $i++ ) {
+   		if( file_exists( $svnpath[$i] ) ) {
+   			if( $tSvnCommand == "" ) {
+   				$tSvnCommand				= $svnpath[$i];
+   			}
+   		}
+   	}
+   	
+   	for( $i = 0; $i < count($svnadminpath); $i++ ) {
+   		if( file_exists( $svnadminpath[$i] ) ) {
+   			if( $tSvnadminCommand == "" ) {
+   				$tSvnadminCommand			= $svnadminpath[$i];
+   			}
+   		}
+   	}
+   	
+   	for( $i=0; $i < count($greppath ); $i++ ) {
+   		if( file_exists( $greppath[$i] ) ) {
+   			if( $tGrepCommand == "" ) {
+   				$tGrepCommand				= $greppath[$i];
+   			}
+   		}
+   	}
+   
+   	for( $i=0; $i < count($apachepath); $i++ ) {
+   		if( file_exists($apachepath[$i] ) ) {
+   			if( $tViewvcApacheReload == "" ) {
+   				$tViewvcApacheReload		= "sudo ".$apachepath[$i]." graceful";
+   			}
+   		}
+   	}
+			   	
+	if( $tUseAuthUserFile == "YES" ) {
+		$tUseAuthUserFileYes				= "checked";
+		$tUseAuthUSerFileNo					= "";	
+	} else {
+		$tUseAuthUserFileYes				= "";
+		$tUseAuthUserFileNo					= "checked";
+	}
+	
+	if( $tUseSvnAccessFile == "YES" ) {
+		$tUseSvnAccessFileYes				= "checked";
+		$tUseSvnAccessFileNo				= "";
+	} else {
+		$tUseSvnAccessFileYes				= "";
+		$tUseSvnAccessFileNo				= "checked";
+	}
+	
+	if( $tAccessControlLevel == "dirs" ) {
+		$tAccessControlLevelDirs			= "checked";
+		$tAccessControlLevelFiles			= "";
+	} else {
+		$tAccessControlLevelDirs			= "";
+		$tAccessControlLevelFiles			= "checked";
+	}
+	
+	if( $tPerRepoFiles == "YES" ) {
+		$tPerRepoFilesYes					= "checked";
+		$tPerRepoFilesNo					= "";
+	} else {
+		$tPerRepoFilesYes					= "";
+		$tPerRepoFilesNo					= "checked";
+	}
+	
+	if( $tPathSortOrder == "ASC" ) {
+		$tPathSortOrderAsc					= "checked";
+		$tPathSortOrderDesc					= "";
+	} else {
+		$tPathSortOrderAsc					= "";
+		$tPathSortOrderDesc					= "checked";
+	}
+	
+	if( $tAnonAccess == 1 ) {
+		$tAnonAccessYes						= "checked";
+		$tAnonAccessNo						= "";
+	} else {
+		$tAnonAccessYes						= "";
+		$tAnonAccessNo						= "checked";
+	}
+	
+	if( $tViewvcConfig == "YES" ) {
+		$tViewvcConfigYes					= "checked";
+		$tViewvcConfigNo					= "";
+	} else {
+		$tViewvcConfigYes					= "";
+		$tViewvcConfigNo					= "checked";
+	}
+	
+	if( $tJavaScript == "YES" ) {
+		$tJavaScriptYes						= "checked";
+		$tJavaScriptNo						= "";
+	} else {
+		$tJavaScriptYes						= "";
+		$tJavaScriptNo						= "checked";
+	}
+	
+	if( $tLogging == "YES" ) {
+		$tLoggingYes						= "checked";
+		$tLoggingNo							= "";
+	} else {
+		$tLoggingYes						= "";
+		$tLoggingNo							= "checked";
+	}
+	
+	if( $tExpirePassword == 1 ) {
+		$tExpirePasswordYes					= "checked";
+		$tExpirePasswordNo					= "";	
+	} else {
+		$tExpirePasswordYes					= "";
+		$tExpirePasswordNo					= "checked";
+	}
+	
+	if( $tUseMd5 == "md5" ) {
+		$tMd5Yes							= "checked";
+		$tMd5No								= "";
+	} else {
+		$tMd5Yes							= "";
+		$tMd5No								= "checked";
+	}
+	
+	if( $tUserDefaultAccess == "write" ) {
+		$tUserDefaultAccessWrite			= "checked";
+		$tUserDefaultAccessRead				= "";
+	} else {
+		$tUserDefaultAccessWrite			= "";
+		$tUserDefaultAccessRead				= "checked";
+	}
+	
    	$tErrors								= array();
    
-   	include ("../templates/install_page_1.tpl");
+   	include ("../templates/install-tabs.tpl");
    
 }
 
@@ -2993,1330 +3816,446 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$CONF['database_innodb']                = 'YES';
 	$CONF['copyright']						= '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 	
-	if( isset( $_POST['fSubmit_next'] ) ) {
+	if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 		
-		if( $_SESSION['svn_inst']['page'] == "1" ) {
-			
-			$error							= 0;
-			$tCreateDatabaseTables			= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
-			$tDropDatabaseTables			= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
-			$tDatabase						= isset( $_POST['fDatabase'] )				? ( $_POST['fDatabase'] )				: "";
-			$tSessionInDatabase				= isset( $_POST['fSessionInDatabase'])		? ( $_POST['fSessionInDatabase'] )		: "";
-			
-			$_SESSION['svn_inst']['createDatabaseTables']		= $tCreateDatabaseTables;
-			$_SESSION['svn_inst']['dropDatabaseTables']			= $tDropDatabaseTables;
-			$_SESSION['svn_inst']['database']					= $tDatabase;
-			$_SESSION['svn_inst']['sessionInDatabase']			= $tSessionInDatabase;
-			
-			if( strtoupper( $tDatabase) == "MYSQL" ) {
-				$tDatabaseCharsetDefault	= "latin1";
-				$tDatabaseCollationDefault	= "latin1_german1_ci";
-			} else {
-				$tDatabaseCharsetDefault	= "";
-				$tDatabaseCollationDefault	= "";
-			}
-			
-			if( $error == 0 ) {
-				$tDatabaseHost				= isset( $_SESSION['svn_inst']['databaseHost'] ) 		? $_SESSION['svn_inst']['databaseHost'] 		: "";
-				$tDatabaseUser				= isset( $_SESSION['svn_inst']['databaseUser'] ) 		? $_SESSION['svn_inst']['databaseUser'] 		: "";
-				$tDatabasePassword			= isset( $_SESSION['svn_inst']['databasePassword'] ) 	? $_SESSION['svn_inst']['databasePassword'] 	: ""; 
-				$tDatabaseName				= isset( $_SESSION['svn_inst']['databaseName'] ) 		? $_SESSION['svn_inst']['databaseName'] 		: "";
-				$tDatabaseSchema			= isset( $_SESSION['svn_inst']['databaseSchema'] ) 		? $_SESSION['svn_inst']['databaseSchema'] 		: "";
-				$tDatabaseTablespace		= isset( $_SESSION['svn_inst']['databaseTablespace'] ) 	? $_SESSION['svn_inst']['databaseTablespace'] 	: "";
-				$tDatabaseCharset			= isset( $_SESSION['svn_inst']['databaseCharset'] ) 	? $_SESSION['svn_inst']['databaseCharset'] 		: $tDatabaseCharsetDefault;
-				$tDatabaseCollation			= isset( $_SESSION['svn_inst']['databaseCollation'] ) 	? $_SESSION['svn_inst']['databaseCollation'] 	: $tDatabaseCollationDefault;
+		$configfile							= realpath ( "./config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
 		
-				$_SESSION['svn_inst']['page']++;
-				include ("../templates/install_page_2.tpl");
-				exit;
-			
-			} else {
-				
-				include ("../templates/install_page_1.tpl");
-				exit;
-				
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "2" ) {
-			
-			$error							= 0;
-			$tDatabaseHost					= isset( $_POST['fDatabaseHost'] )			? ( $_POST['fDatabaseHost'] )			: "";
-			$tDatabaseUser					= isset( $_POST['fDatabaseUser'] )			? ( $_POST['fDatabaseUser'] )			: "";
-			$tDatabasePassword				= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
-			$tDatabaseName					= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
-			$tDatabaseSchema				= isset( $_POST['fDatabaseSchema'] )		? ( $_POST['fDatabaseSchema'] )			: "";
-			$tDatabaseTablespace			= isset( $_POST['fDatabaseTablespace'] )	? ( $_POST['fDatabaseTablespace'] )		: "";
-			$tDatabaseCharset				= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
-			$tDatabaseCollation				= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
-			
-			if( $tDatabaseHost == "" ) {
-			
-				$tErrors[]					= _("Database host is missing!");
-				$error						= 1;
-				
-			}
-			
-			if( $tDatabaseUser == "" ) {
-				
-				$tErrors[]					= _("Database user is missing!");
-				$error						= 1;
-				
-			} 
-			
-			if( $tDatabaseName == "" ) {
-				
-				$tErrors[]					= _("Database name is missing!" );
-				$error						= 1;
-				
-			} 
-			
-			if( $tDatabaseCharset == "" ) {
-				
-				$tErrors[]					= _("Database charset is missing!" );
-				$error						= 1;
-				
-			} 
-			
-			if( $tDatabaseCollation == "" ) {
-				
-				$tErrors[]					= _("Database collation is missing!" );
-				$error						= 1;
-				
-			}
-			
-			if( $error == 0 ) {
-			
-				$_SESSION['svn_inst']['databaseHost']		= $tDatabaseHost;
-				$_SESSION['svn_inst']['databaseUser']		= $tDatabaseUser;
-				$_SESSION['svn_inst']['databasePassword']	= $tDatabasePassword;
-				$_SESSION['svn_inst']['databaseName']		= $tDatabaseName;
-				$_SESSION['svn_inst']['databaseSchema']		= $tDatabaseSchema;
-				$_SESSION['svn_inst']['databaseTablespace']	= $tDatabaseTablespace;
-				$_SESSION['svn_inst']['databaseCharset']	= $tDatabaseCharset;
-				$_SESSION['svn_inst']['databaseCollation']	= $tDatabaseCollation;
-			
-				$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 	? $_SESSION['svn_inst']['websiteCharset'] 	: "iso8859-15";
-				$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 	? $_SESSION['svn_inst']['lpwMailSender'] 	: "";
-				$tLpwLinkValid				= isset( $_SESSION['svn_inst']['lpwLinkValid'] ) 	? $_SESSION['svn_inst']['lpwLinkValid'] 	: "";
-				
-				$_SESSION['svn_inst']['page']++;
-				include ("../templates/install_page_3.tpl");
-				exit;
-			
-			} else {
-				
-				include ("../templates/install_page_2.tpl");
-			exit;
-			
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "3" ) {
-			
-			$error							= 0;
-			$tWebsiteCharset				= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
-			$tLpwMailSender					= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
-			$tLpwLinkValid					= isset( $_POST['fLpwLinkValid'] ) 			? ( $_POST['fLpwLinkValid'] )			: "";
-			
-			if( $tWebsiteCharset == "" ) {
-			
-				$tErrors[]						= _("Website charset is missing!");
-				$error							= 1;
-				
-			}
-			
-			if( $tLpwMailSender == "" ) {
-				
-				$tErrors[]						= _("Lost password mail sender address is missing!");
-				$error							= 1;
-				
-			} elseif( ! check_email( $tLpwMailSender ) ) {
-				
-				$tErrors[]						= sprintf( _("Lost password mail sender address %s is not a valid email address!" ), $tLpwMailSender );
-				$error							= 1;
-				
-			}
-			
-			if( $tLpwLinkValid == "" ) {
-				
-				$tErrors[]						= _("Lost password days link valid missing!");
-				$error							= 1;
-				
-			} elseif( ! is_numeric( $tLpwLinkValid) ) {
-				
-				$tErrors[]						= _("Lost password days link valid must be numeric!" );
-				$error							= 1;
-				
-			}
+	} elseif( file_exists ( realpath ( "../config/config.inc.php" ) ) ) {
 		
-			if( $error == 0 ) {
-				
-				$_SESSION['svn_inst']['websiteCharset']			= $tWebsiteCharset;
-				$_SESSION['svn_inst']['lpwMailSender']			= $tLpwMailSender;
-				$_SESSION['svn_inst']['lpwLinkValid']			= $tLpwLinkValid;
-				
-				$tUsername					= isset( $_SESSION['svn_inst']['username'] ) ? $_SESSION['svn_inst']['username'] : "";
-				$tPassword					= isset( $_SESSION['svn_inst']['password'] ) ? $_SESSION['svn_inst']['password'] : "";
-				$tPassword2					= isset( $_SESSION['svn_inst']['password2'] ) ? $_SESSION['svn_inst']['password2'] : "";
-				$tGivenname					= isset( $_SESSION['svn_inst']['givenname'] ) ? $_SESSION['svn_inst']['givenname'] : "";
-				$tName						= isset( $_SESSION['svn_inst']['name'] ) ? $_SESSION['svn_inst']['name'] : "";
-				$tAdminEmail				= isset( $_SESSION['svn_inst']['adminEmail'] ) ? $_SESSION['svn_inst']['adminEmail'] : "";
-				
-				$_SESSION['svn_inst']['page']++;
-				include ("../templates/install_page_4.tpl");
-				exit;
-			
-			} else {
-				
-				include ("../templates/install_page_3.tpl");
-				exit;
-				
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "4" ) {
-			
-			$error							= 0;
-			$tUsername						= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
-			$tPassword						= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
-			$tPassword2						= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
-			$tGivenname						= isset( $_POST['fGivenname'] ) 			? ( $_POST['fGivenname'] )				: "";
-			$tName							= isset( $_POST['fName'] )					? ( $_POST['fName'] )					: "";
-			$tAdminEmail					= isset( $_POST['fAdminEmail'] )			? ( $_POST['fAdminEmail'] )				: "";
-			
-			if( $tUsername == "" ) {
-				
-				$tErrors[]						= _("Administrator username is missing!" );
-				$error							= 1;
-				
-			}
-			
-			if( ($tPassword == "") or ($tPassword2 == "") ) {
-				
-				$tErrors[]						= _("Administrator password is missing!" );
-				$error							= 1;
-				
-			} elseif( $tPassword != $tPassword2 ) {
-				
-				$tErrors[]						= _("Administrator passwords do not match!" );
-				$error							= 1;
-				
-			} elseif( checkPasswordPolicy( $tPassword, 'y' ) == 0 ) {
-				
-				$tErrors[]						= _("Administrator password is not strong enough!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tName == "" ) {
-				
-				$tErrors[]						= _("Administrator name is missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tAdminEmail == "" ) {
-				
-				$tErrors[]						= _("Administrator email address is missing!" );
-				$error							= 1;
-				
-			} elseif( ! check_email($tAdminEmail) ) {
-				
-				$tErrors[]						= sprintf( _("Administrator email address %s is not a valid email address!"), $tAdminEmail );
-				$error							= 1;
-				
-			}
+		$configfile							= realpath ( "../config/config.inc.php" );
+		$tBaseDir							= dirname(dirname( $configfile ));
 		
-			if( $error == 0 ) {
-				
-				$_SESSION['svn_inst']['username']				= $tUsername; 
-				$_SESSION['svn_inst']['password']				= $tPassword;
-				$_SESSION['svn_inst']['password2']				= $tPassword2;
-				$_SESSION['svn_inst']['givenname']				= $tGivenname;
-				$_SESSION['svn_inst']['name']					= $tName;
-				$_SESSION['svn_inst']['adminEmail']				= $tAdminEmail;
-			   	
-			   	$tUseSvnAccessFile			= isset( $_SESSION['svn_inst']['useSvnAccessFile'] ) 	? $_SESSION['svn_inst']['useSvnAccessFile'] 	: "";
-				$tSvnAccessFile				= isset( $_SESSION['svn_inst']['svnAccessFile'] ) 		? $_SESSION['svn_inst']['svnAccessFile'] 		: "";
-				$tAccessControlLevel		= isset( $_SESSION['svn_inst']['accessControlLevel'] ) 	? $_SESSION['svn_inst']['accessControlLevel'] 	: "dirs";
-				$tUseAuthUserFile			= isset( $_SESSION['svn_inst']['useAuthUserFile'] ) 	? $_SESSION['svn_inst']['useAuthUserFile'] 		: "";
-				$tAuthUserFile				= isset( $_SESSION['svn_inst']['authUserFile'] ) 		? $_SESSION['svn_inst']['authUserFile'] 		: "";
-				$tSvnCommand				= isset( $_SESSION['svn_inst']['svnCommand'] ) 			? $_SESSION['svn_inst']['svnCommand'] 			: "";
-				$tSvnadminCommand			= isset( $_SESSION['svn_inst']['svnadminCommand'] ) 	? $_SESSION['svn_inst']['svnadminCommand'] 		: "";
-				$tGrepCommand				= isset( $_SESSION['svn_inst']['grepCommand'] ) 		? $_SESSION['svn_inst']['grepCommand'] 			: "";
-				$tViewvcConfig				= isset( $_SESSION['svn_inst']['viewvcConfig'] ) 		? $_SESSION['svn_inst']['viewvcConfig'] 		: "";
-				$tViewvcConfigDir			= isset( $_SESSION['svn_inst']['viewvcConfigDir'] ) 	? $_SESSION['svn_inst']['viewvcConfigDir'] 		: "";
-				$tViewvcAlias				= isset( $_SESSION['svn_inst']['viewvcAlias'] ) 		? $_SESSION['svn_inst']['viewvcAlias'] 			: "/viewvc"; 
-				$tViewvcApacheReload		= isset( $_SESSION['svn_inst']['viewvcApacheReload'] ) 	? $_SESSION['svn_inst']['viewvcApacheReload'] 	: "";
-				$tViewvcRealm				= isset( $_SESSION['svn_inst']['viewvcRealm'] ) 		? $_SESSION['svn_inst']['viewvcRealm'] 			: "ViewVC Access Control";
-				$tPerRepoFiles				= isset( $_SESSION['svn_inst']['perRepoFiles'] ) 		? $_SESSION['svn_inst']['perRepoFiles'] 		: "";
-				
-				# common locations where to find grep and svn under linux/unix
-			   	$svnpath					= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
-			   	$svnadminpath				= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
-			   	$greppath					= array('/usr/local/bin/grep', '/usr/bin/grep', '/bin/grep');
-			   	$apachepath					= array('/etc/init.d/httpd', '/etc/init.d/apache2', '/etc/init.d/apache');
-			   	
-			   	for( $i = 0; $i < count($svnpath); $i++ ) {
-			   		if( file_exists( $svnpath[$i] ) ) {
-			   			if( $tSvnCommand == "" ) {
-			   				$tSvnCommand		= $svnpath[$i];
-			   			}
-			   		}
-			   	}
-			   	
-			   	for( $i = 0; $i < count($svnadminpath); $i++ ) {
-			   		if( file_exists( $svnadminpath[$i] ) ) {
-			   			if( $tSvnadminCommand == "" ) {
-			   				$tSvnadminCommand		= $svnadminpath[$i];
-			   			}
-			   		}
-			   	}
-			   	
-			   	for( $i=0; $i < count($greppath ); $i++ ) {
-			   		if( file_exists( $greppath[$i] ) ) {
-			   			if( $tGrepCommand == "" ) {
-			   				$tGrepCommand		= $greppath[$i];
-			   			}
-			   		}
-			   	}
-			   
-			   	for( $i=0; $i < count($apachepath); $i++ ) {
-			   		if( file_exists($apachepath[$i] ) ) {
-			   			if( $tViewvcApacheReload == "" ) {
-			   				$tViewvcApacheReload= "sudo ".$apachepath[$i]." graceful";
-			   			}
-			   		}
-			   	}
-				
-				if( $tUseAuthUserFile == "YES" ) {
-					$tUseAuthUserFileYes		= "checked";
-					$tUseAuthUSerFileNo			= "";	
-				} else {
-					$tUseAuthUserFileYes		= "";
-					$tUseAuthUserFileNo			= "checked";
-				}
-				
-				if( $tUseSvnAccessFile == "YES" ) {
-					$tUseSvnAccessFileYes		= "checked";
-					$tUseSvnAccessFileNo		= "";
-				} else {
-					$tUseSvnAccessFileYes		= "";
-					$tUseSvnAccessFileNo		= "checked";
-				}
-				
-				if( $tAccessControlLevel == "dirs" ) {
-					$tAccessControlLevelDirs	= "checked";
-					$tAccessControlLevelFiles	= "";
-				} else {
-					$tAccessControlLevelDirs	= "";
-					$tAccessControlLevelFiles	= "checked";
-				}
-				
-				if( $tPerRepoFiles == "YES" ) {
-					$tPerRepoFilesYes			= "checked";
-					$tPerRepoFilesNo			= "";
-				} else {
-					$tPerRepoFilesYes			= "";
-					$tPerRepoFilesNo			= "checked";
-				}
-				
-				if( $tViewvcConfig == "YES" ) {
-					$tViewvcConfigYes			= "checked";
-					$tViewvcConfigNo			= "";
-				} else {
-					$tViewvcConfigYes			= "";
-					$tViewvcConfigNo			= "checked";
-				}
-				
-				$_SESSION['svn_inst']['page']++;
-				include ("../templates/install_page_5.tpl");
-				exit;
-				
-			} else {
-				
-				if( $tUseAuthUserFile == "YES" ) {
-					$tUseAuthUserFileYes		= "checked";
-					$tUseAuthUSerFileNo			= "";	
-				} else {
-					$tUseAuthUserFileYes		= "";
-					$tUseAuthUserFileNo			= "checked";
-				}
-				
-				if( $tUseSvnAccessFile == "YES" ) {
-					$tUseSvnAccessFileYes		= "checked";
-					$tUseSvnAccessFileNo		= "";
-				} else {
-					$tUseSvnAccessFileYes		= "";
-					$tUseSvnAccessFileNo		= "checked";
-				}
-				
-				if( $tAccessControlLevel == "dirs" ) {
-					$tAccessControlLevelDirs	= "checked";
-					$tAccessControlLevelFiles	= "";
-				} else {
-					$tAccessControlLevelDirs	= "";
-					$tAccessControlLevelFiles	= "checked";
-				}
-				
-				if( $tPerRepoFiles == "YES" ) {
-					$tPerRepoFilesYes			= "checked";
-					$tPerRepoFilesNo			= "";
-				} else {
-					$tPerRepoFilesYes			= "";
-					$tPerRepoFilesNo			= "checked";
-				}
-				
-				if( $tViewvcConfig == "YES" ) {
-					$tViewvcConfigYes			= "checked";
-					$tViewvcConfigNo			= "";
-				} else {
-					$tViewvcConfigYes			= "";
-					$tViewvcConfigNo			= "checked";
-				}
-				
-				include ("../templates/install_page_4.tpl");
-				exit;
-				
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "5" ) {
-   	
-   			$error							= 0;
-			$tUseSvnAccessFile				= isset( $_POST['fUseSvnAccessFile'] )		? ( $_POST['fUseSvnAccessFile'] )		: "";
-			$tSvnAccessFile					= isset( $_POST['fSvnAccessFile'] )			? ( $_POST['fSvnAccessFile'] )			: "";
-			$tAccessControlLevel			= isset( $_POST['fAccessControlLevel'] )	? ( $_POST['fAccessControlLevel'] )		: "";
-			$tUseAuthUserFile				= isset( $_POST['fUseAuthUserFile'] )		? ( $_POST['fUseAuthUserFile'] )		: "";
-			$tAuthUserFile					= isset( $_POST['fAuthUserFile'] )			? ( $_POST['fAuthUserFile'] )			: "";
-			$tSvnCommand					= isset( $_POST['fSvnCommand'] )			? ( $_POST['fSvnCommand'] )				: "";
-			$tSvnadminCommand				= isset( $_POST['fSvnadminCommand'] )		? ( $_POST['fSvnadminCommand'] )		: "";
-			$tGrepCommand					= isset( $_POST['fGrepCommand'] )			? ( $_POST['fGrepCommand'] )			: "";
-			$tViewvcConfig					= isset( $_POST['fViewvcConfig'] )			? ( $_POST['fViewvcConfig'] )			: "";
-			$tViewvcConfigDir				= isset( $_POST['fViewvcConfigDir'] ) 		? ( $_POST['fViewvcConfigDir'] )		: "";
-			$tViewvcAlias					= isset( $_POST['fViewvcAlias'] )			? ( $_POST['fViewvcAlias'] )			: "";
-			$tViewvcApacheReload			= isset( $_POST['fViewvcApacheReload'] )	? ( $_POST['fViewvcApacheReload'] )		: "";
-			$tViewvcRealm					= isset( $_POST['fViewvcRealm'] )			? ( $_POST['fViewvcRealm'] )			: ""; 
-			$tPerRepoFiles					= isset( $_POST['fPerRepoFiles'] )			? ( $_POST['fPerRepoFiles'] )			: "";
-			
-			if( $tViewvcConfig == "YES" ) {
+	} else {
 		
-				if( $tViewvcConfigDir == "" ) {
-					
-					$tErrors[]					= _("ViewVC configuration directory is missing!");
-					$error						= 1;
-					
-				} 
-				
-				if( $tViewvcAlias == "" ) {
-					
-					$tErrors[]					= _("ViewVC webserver alias is missing!");
-					$error						= 1;
-					
-				} 
-				
-				if( $tViewvcRealm == "" ) {
-					
-					$tErrors[]					= _("ViewVC realm is missing!" );
-					$error						= 1;
-					
-				}
-			}
+		$configfile							= realpath( "../config/" );
+		$tBaseDir							= dirname($configfile);
 			
-			if( $tSvnCommand == "" ) {
-				
-				$tErrors[]						= _("SVN command is missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tSvnadminCommand == "" ) { 
-			
-				$tErrors[]						= _("Svnadmin command missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tGrepCommand == "" ) {
-				
-				$tErrors[]						= _("Grep command is missinbg!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $error == 0 ) {
-				
-				$_SESSION['svn_inst']['useSvnAccessFile']				= $tUseSvnAccessFile;
-				$_SESSION['svn_inst']['svnAccessFile']					= $tSvnAccessFile; 
-				$_SESSION['svn_inst']['accessControlLevel']				= $tAccessControlLevel; 
-				$_SESSION['svn_inst']['useAuthUserFile']				= $tUseAuthUserFile; 
-				$_SESSION['svn_inst']['authUserFile']					= $tAuthUserFile; 
-				$_SESSION['svn_inst']['svnCommand']						= $tSvnCommand; 
-				$_SESSION['svn_inst']['svnadminCommand']				= $tSvnadminCommand; 
-				$_SESSION['svn_inst']['grepCommand']					= $tGrepCommand; 
-				$_SESSION['svn_inst']['viewvcConfig']					= $tViewvcConfig; 
-				$_SESSION['svn_inst']['viewvcConfigDir']				= $tViewvcConfigDir; 
-				$_SESSION['svn_inst']['viewvcAlias']					= $tViewvcAlias; 
-				$_SESSION['svn_inst']['viewvcApacheReload']				= $tViewvcApacheReload; 
-				$_SESSION['svn_inst']['viewvcRealm']					= $tViewvcRealm; 
-				$_SESSION['svn_inst']['perRepoFiles']					= $tPerRepoFiles;  
-				
-				$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 		? $_SESSION['svn_inst']['logging'] 			: "YES";
-				$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 		? $_SESSION['svn_inst']['javaScript'] 		: "YES";
-				$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 		? $_SESSION['svn_inst']['pageSize'] 		: "30";
-				$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 	? $_SESSION['svn_inst']['minAdminPwSize'] 	: "14";
-				$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 	? $_SESSION['svn_inst']['minUserPwSize'] 	: "8"; 
-				$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 			? $_SESSION['svn_inst']['useMd5'] 			: "md5";
-				
-				if( $tJavaScript == "YES" ) {
-					$tJavaScriptYes				= "checked";
-					$tJavaScriptNo				= "";
-				} else {
-					$tJavaScriptYes				= "";
-					$tJavaScriptNo				= "checked";
-				}
-				
-				if( $tLogging == "YES" ) {
-					$tLoggingYes				= "checked";
-					$tLoggingNo					= "";
-				} else {
-					$tLoggingYes				= "";
-					$tLoggingNo					= "checked";
-				}
-				
-				if( $tUseMd5 == "md5" ) {
-					$tMd5Yes					= "checked";
-					$tMd5No						= "";
-					$CONF['pwcrypt']			= "md5";
-				} else {
-					$tMd5Yes					= "";
-					$tMd5No						= "checked";
-					$CONF['pwcrypt']			= "crypt";
-				}
+	}
+	
+	if( determineOs() == "windows" ) {
 		
-				$_SESSION['svn_inst']['page']++;
-				include ("../templates/install_page_6.tpl");
-				exit;
-			
-			} else {
-				
-				if( $tUseAuthUserFile == "YES" ) {
-					$tUseAuthUserFileYes		= "checked";
-					$tUseAuthUSerFileNo			= "";	
-				} else {
-					$tUseAuthUserFileYes		= "";
-					$tUseAuthUserFileNo			= "checked";
-				}
-				
-				if( $tUseSvnAccessFile == "YES" ) {
-					$tUseSvnAccessFileYes		= "checked";
-					$tUseSvnAccessFileNo		= "";
-				} else {
-					$tUseSvnAccessFileYes		= "";
-					$tUseSvnAccessFileNo		= "checked";
-				}
-				
-				if( $tAccessControlLevel == "dirs" ) {
-					$tAccessControlLevelDirs	= "checked";
-					$tAccessControlLevelFiles	= "";
-				} else {
-					$tAccessControlLevelDirs	= "";
-					$tAccessControlLevelFiles	= "checked";
-				}
-				
-				if( $tPerRepoFiles == "YES" ) {
-					$tPerRepoFilesYes			= "checked";
-					$tPerRepoFilesNo			= "";
-				} else {
-					$tPerRepoFilesYes			= "";
-					$tPerRepoFilesNo			= "checked";
-				}
-				
-				if( $tViewvcConfig == "YES" ) {
-					$tViewvcConfigYes			= "checked";
-					$tViewvcConfigNo			= "";
-				} else {
-					$tViewvcConfigYes			= "";
-					$tViewvcConfigNo			= "checked";
-				}
-				
-				include ("../templates/install_page_5.tpl");
-				exit;
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "6" ) {
-			
-			$error							= 0;
-			$tLogging						= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
-			$tJavaScript					= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
-			$tPageSize						= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
-			$tMinAdminPwSize				= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
-			$tMinUserPwSize					= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
-			$tUseMd5						= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
-			
-			if( $tPageSize == "" ) {
-				
-				$tErrors[]						= _("Page size is missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( ! is_numeric($tPageSize) ) {
-				
-				$tErrors[]						= _("Page size is not numeric!" );
-				$error							= 1;
-				
-			} 
-			
-			if( ! is_numeric( $tMinAdminPwSize) ) {
-				
-				$tErrors[]						= _("Minimal administrator password length is not numeric!" );
-				$error							= 1;
-				
-			} 
-			
-			if( ! is_numeric( $tMinUserPwSize ) ) {
-				
-				$tErrors[]						= _("Minimal user password length is not numeric!" );
-				$error							= 1;
-				
-			}
+		$tConfigDir							= $tBaseDir."\config";
 		
-			if( $error == 0 ) {
-				
-				$_SESSION['svn_inst']['logging']					= $tLogging;
-				$_SESSION['svn_inst']['javaScript']					= $tJavaScript;
-				$_SESSION['svn_inst']['pageSize']					= $tPageSize;
-				$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
-				$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
-				$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
-				
-			} else {
-				
-				if( $tJavaScript == "YES" ) {
-					$tJavaScriptYes				= "checked";
-					$tJavaScriptNo				= "";
-				} else {
-					$tJavaScriptYes				= "";
-					$tJavaScriptNo				= "checked";
-				}
-				
-				if( $tLogging == "YES" ) {
-					$tLoggingYes				= "checked";
-					$tLoggingNo					= "";
-				} else {
-					$tLoggingYes				= "";
-					$tLoggingNo					= "checked";
-				}
-				
-				if( $tUseMd5 == "md5" ) {
-					$tMd5Yes					= "checked";
-					$tMd5No						= "";
-					$CONF['pwcrypt']			= "md5";
-				} else {
-					$tMd5Yes					= "";
-					$tMd5No						= "checked";
-					$CONF['pwcrypt']			= "crypt";
-				}
-				
-				include ("../templates/install_page_6.tpl");
-				exit;
-			}
-			
-		} else {
-						
-		}
+	} else {
 		
-	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$tConfigDir							= "/etc/svn-access-manager";
 		
-		if( $_SESSION['svn_inst']['page'] == "1" ) {
+	}
+	
+	clearstatcache();
+	if( is_writable( $tConfigDir ) ) {
+		$tConfigWritable					= _("writable");
+	} else {
+		$tConfigWritable					= _("not writable");
+	}
+	
+	$tCreateDatabaseTables				= isset( $_POST['fCreateDatabaseTables'] ) 	? ( $_POST['fCreateDatabaseTables'] )	: "";
+	$tDropDatabaseTables				= isset( $_POST['fDropDatabaseTables'] ) 	? ( $_POST['fDropDatabaseTables'] )		: "";
+	$tDatabase							= isset( $_POST['fDatabase'] )				? ( $_POST['fDatabase'] )				: "";
+	$tSessionInDatabase					= isset( $_POST['fSessionInDatabase'])		? ( $_POST['fSessionInDatabase'] )		: "";
+	$tUseLdap							= isset( $_POST['fUseLdap'])				? ( $_POST['fUseLdap'] )				: "";
+	$tLdapHost							= isset( $_POST['fLdapHost'])				? ( $_POST['fLdapHost'])				: "";
+	$tLdapPort							= isset( $_POST['fLdapPort'])				? ( $_POST['fLdapPort'])				: "389";
+	$tLdapProtocol						= isset( $_POST['fLdapProtocol'])			? ( $_POST['fLdapProtocol'])			: "3";
+	$tLdapBinddn						= isset( $_POST['fLdapBinddn'])				? ( $_POST['fLdapBinddn'])				: "";
+	$tLdapBindpw						= isset( $_POST['fLdapBindpw'])				? ( $_POST['fLdapBindpw'])				: "";
+	$tLdapUserdn						= isset( $_POST['fLdapUserdn'])				? ( $_POST['fLdapUserdn'])				: "";
+	$tLdapUserFilter					= isset( $_POST['fLdapUserFilter'])			? ( $_POST['fLdapUserFilter'])			: "";
+	$tLdapUserObjectclass				= isset( $_POST['fLdapUserObjectclass'])	? ( $_POST['fLdapUserObjectclass'])		: "";
+	$tLdapUserAdditionalFilter			= isset( $_POST['fLdapUserAdditionalFilter']) ? ( $_POST['fLdapUserAdditionalFilter']) : "";
+	$tDatabaseHost						= isset( $_POST['fDatabaseHost'] )			? ( $_POST['fDatabaseHost'] )			: "";
+	$tDatabaseUser						= isset( $_POST['fDatabaseUser'] )			? ( $_POST['fDatabaseUser'] )			: "";
+	$tDatabasePassword					= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
+	$tDatabaseName						= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
+	$tDatabaseSchema					= isset( $_POST['fDatabaseSchema'] )		? ( $_POST['fDatabaseSchema'] )			: "";
+	$tDatabaseTablespace				= isset( $_POST['fDatabaseTablespace'] )	? ( $_POST['fDatabaseTablespace'] )		: "";
+	$tDatabaseCharset					= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
+	$tDatabaseCollation					= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
+	$tLdapAttrUid						= isset( $_POST['fLdapAttrUid'])			? ( $_POST['fLdapAttrUid'])				: "";
+	$tLdapAttrName						= isset( $_POST['fLdapAttrName'])			? ( $_POST['fLdapAttrName'])			: "";
+	$tLdapAttrGivenname					= isset( $_POST['fLdapAttrGivenname'])		? ( $_POST['fLdapAttrGivenname'])		: "";
+	$tLdapAttrMail						= isset( $_POST['fLdapAttrMail'])			? ( $_POST['fLdapAttrMail'])			: "";
+	$tLdapAttrPassword					= isset( $_POST['fLdapAttrPassword'])		? ( $_POST['fLdapAttrPassword'])		: "";
+	$tWebsiteUrl						= isset( $_POST['fWebsiteUrl'])				? ( $_POST['fWebsiteUrl'])				: "";
+	$tWebsiteCharset					= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
+	$tLpwMailSender						= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
+	$tLpwLinkValid						= isset( $_POST['fLpwLinkValid'] ) 			? ( $_POST['fLpwLinkValid'] )			: "";
+	$tUsername							= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
+	$tPassword							= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
+	$tPassword2							= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
+	$tGivenname							= isset( $_POST['fGivenname'] ) 			? ( $_POST['fGivenname'] )				: "";
+	$tName								= isset( $_POST['fName'] )					? ( $_POST['fName'] )					: "";
+	$tAdminEmail						= isset( $_POST['fAdminEmail'] )			? ( $_POST['fAdminEmail'] )				: "";
+	$tUseSvnAccessFile					= isset( $_POST['fUseSvnAccessFile'] )		? ( $_POST['fUseSvnAccessFile'] )		: "";
+	$tSvnAccessFile						= isset( $_POST['fSvnAccessFile'] )			? ( $_POST['fSvnAccessFile'] )			: "";
+	$tAccessControlLevel				= isset( $_POST['fAccessControlLevel'] )	? ( $_POST['fAccessControlLevel'] )		: "";
+	$tUseAuthUserFile					= isset( $_POST['fUseAuthUserFile'] )		? ( $_POST['fUseAuthUserFile'] )		: "";
+	$tAuthUserFile						= isset( $_POST['fAuthUserFile'] )			? ( $_POST['fAuthUserFile'] )			: "";
+	$tSvnCommand						= isset( $_POST['fSvnCommand'] )			? ( $_POST['fSvnCommand'] )				: "";
+	$tSvnadminCommand					= isset( $_POST['fSvnadminCommand'] )		? ( $_POST['fSvnadminCommand'] )		: "";
+	$tGrepCommand						= isset( $_POST['fGrepCommand'] )			? ( $_POST['fGrepCommand'] )			: "";
+	$tViewvcConfig						= isset( $_POST['fViewvcConfig'] )			? ( $_POST['fViewvcConfig'] )			: "";
+	$tViewvcConfigDir					= isset( $_POST['fViewvcConfigDir'] ) 		? ( $_POST['fViewvcConfigDir'] )		: "";
+	$tViewvcAlias						= isset( $_POST['fViewvcAlias'] )			? ( $_POST['fViewvcAlias'] )			: "";
+	$tViewvcApacheReload				= isset( $_POST['fViewvcApacheReload'] )	? ( $_POST['fViewvcApacheReload'] )		: "";
+	$tViewvcRealm						= isset( $_POST['fViewvcRealm'] )			? ( $_POST['fViewvcRealm'] )			: ""; 
+	$tPerRepoFiles						= isset( $_POST['fPerRepoFiles'] )			? ( $_POST['fPerRepoFiles'] )			: "";
+	$tPathSortOrder						= isset( $_POST['fPathSortOrder'] )			? ( $_POST['fPathSortOrder'] )			: "ASC";
+	$tAnonAccess						= isset( $_POST['fAnonAccess'] )			? ( $_POST['fAnonAccess'] )			: 0;
+	$tLogging							= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
+	$tJavaScript						= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
+	$tPageSize							= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
+	$tMinAdminPwSize					= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
+	$tMinUserPwSize						= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
+	$tPasswordExpire					= isset( $_POST['fPasswordExpire'] )		? ( $_POST['fPasswordExpire'] )			: 60;
+	$tPasswordExpireWarn				= isset( $_POST['fPasswordExpireWarn'] )	? ( $_POST['fPasswordExpireWarn'] )		: 50;
+	$tExpirePassword					= isset( $_POST['fExpirePassword'] )		? ( $_POST['fExpirePassword'] )			: 1;
+	$tUseMd5							= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
+	$tUserDefaultAccess					= isset( $_POST['fUserDefaultAccess'] )		? ( $_POST['fUserDefaultAccess'] )		: "";
+	$tCustom1							= isset( $_POST['fCustom1'] )				? ( $_POST['fCustom1'] )				: "";
+	$tCustom2							= isset( $_POST['fCustom2'] )				? ( $_POST['fCustom2'] )				: "";
+	$tCustom3							= isset( $_POST['fCustom3'] )				? ( $_POST['fCustom3'] )				: "";
+	$error								= 0;
+	
+	$_SESSION['svn_inst']['createDatabaseTables']		= $tCreateDatabaseTables;
+	$_SESSION['svn_inst']['dropDatabaseTables']			= $tDropDatabaseTables;
+	$_SESSION['svn_inst']['database']					= $tDatabase;
+	$_SESSION['svn_inst']['sessionInDatabase']			= $tSessionInDatabase;		
+	$_SESSION['svn_inst']['useLdap']					= $tUseLdap;
+	$_SESSION['svn_inst']['ldapHost']					= $tLdapHost;
+	$_SESSION['svn_inst']['ldapPort']					= $tLdapPort;
+	$_SESSION['svn_inst']['ldapProtocol']				= $tLdapProtocol;
+	$_SESSION['svn_inst']['ldapBinddn']					= $tLdapBinddn;
+	$_SESSION['svn_inst']['ldapBindpw']					= $tLdapBindpw;
+	$_SESSION['svn_inst']['ldapUserdn']					= $tLdapUserdn;
+	$_SESSION['svn_inst']['ldapUserFilter']				= $tLdapUserFilter;
+	$_SESSION['svn_inst']['ldapUserObjectclass']		= $tLdapUserObjectclass;
+	$_SESSION['svn_inst']['ldapUserAdditionalFilter']	= $tLdapUserAdditionalFilter;
+	$_SESSION['svn_inst']['databaseHost']				= $tDatabaseHost;
+	$_SESSION['svn_inst']['databaseUser']				= $tDatabaseUser;
+	$_SESSION['svn_inst']['databasePassword']			= $tDatabasePassword;
+	$_SESSION['svn_inst']['databaseName']				= $tDatabaseName;
+	$_SESSION['svn_inst']['databaseSchema']				= $tDatabaseSchema;
+	$_SESSION['svn_inst']['databaseTablespace']			= $tDatabaseTablespace;
+	$_SESSION['svn_inst']['databaseCharset']			= $tDatabaseCharset;
+	$_SESSION['svn_inst']['databaseCollation']			= $tDatabaseCollation;
+	$_SESSION['svn_inst']['ldapAttrUid']				= $tLdapAttrUid;
+	$_SESSION['svn_inst']['ldapAttrName']				= $tLdapAttrName;
+	$_SESSION['svn_inst']['ldapAttrGivenname']			= $tLdapAttrGivenname;
+	$_SESSION['svn_inst']['ldapAttrMail']				= $tLdapAttrMail;
+	$_SESSION['svn_inst']['ldapAttrPassword']			= $tLdapAttrPassword;	
+	$_SESSION['svn_inst']['websiteUrl']					= $tWebsiteUrl;
+	$_SESSION['svn_inst']['websiteCharset']				= $tWebsiteCharset;
+	$_SESSION['svn_inst']['lpwMailSender']				= $tLpwMailSender;
+	$_SESSION['svn_inst']['lpwLinkValid']				= $tLpwLinkValid;	
+	$_SESSION['svn_inst']['username']					= $tUsername; 
+	$_SESSION['svn_inst']['password']					= $tPassword;
+	$_SESSION['svn_inst']['password2']					= $tPassword2;
+	$_SESSION['svn_inst']['givenname']					= $tGivenname;
+	$_SESSION['svn_inst']['name']						= $tName;
+	$_SESSION['svn_inst']['adminEmail']					= $tAdminEmail;	
+	$_SESSION['svn_inst']['useSvnAccessFile']			= $tUseSvnAccessFile;
+	$_SESSION['svn_inst']['svnAccessFile']				= $tSvnAccessFile; 
+	$_SESSION['svn_inst']['accessControlLevel']			= $tAccessControlLevel; 
+	$_SESSION['svn_inst']['useAuthUserFile']			= $tUseAuthUserFile; 
+	$_SESSION['svn_inst']['authUserFile']				= $tAuthUserFile; 
+	$_SESSION['svn_inst']['svnCommand']					= $tSvnCommand; 
+	$_SESSION['svn_inst']['svnadminCommand']			= $tSvnadminCommand; 
+	$_SESSION['svn_inst']['grepCommand']				= $tGrepCommand; 
+	$_SESSION['svn_inst']['viewvcConfig']				= $tViewvcConfig; 
+	$_SESSION['svn_inst']['viewvcConfigDir']			= $tViewvcConfigDir; 
+	$_SESSION['svn_inst']['viewvcAlias']				= $tViewvcAlias; 
+	$_SESSION['svn_inst']['viewvcApacheReload']			= $tViewvcApacheReload; 
+	$_SESSION['svn_inst']['viewvcRealm']				= $tViewvcRealm; 
+	$_SESSION['svn_inst']['perRepoFiles']				= $tPerRepoFiles;  	
+	$_SESSION['svn_inst']['pathSortOrder']				= $tPathSortOrder;
+	$_SESSION['svn_inst']['anonAccess']					= $tAnonAccess;
+	$_SESSION['svn_inst']['logging']					= $tLogging;
+	$_SESSION['svn_inst']['javaScript']					= $tJavaScript;
+	$_SESSION['svn_inst']['pageSize']					= $tPageSize;
+	$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
+	$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
+	$_SESSION['svn_inst']['passwordExpire']				= $tPasswordExpire;
+	$_SESSION['svn_inst']['passwordExpireWarn']			= $tPasswordExpireWarn;
+	$_SESSION['svn_inst']['expirePassword']				= $tExpirePassword;
+	$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
+	$_SESSION['svn_inst']['userDefaultAccess']			= $tUserDefaultAccess;
+	$_SESSION['svn_inst']['custom1']					= $tCustom1;
+	$_SESSION['svn_inst']['custom2']					= $tCustom2;
+	$_SESSION['svn_inst']['custom3']					= $tCustom3;
+	
+	if( isset( $_POST['fSubmit_install'] ) or isset( $_POST['fSubmit_install_x'] ) ) {
 			
-		} elseif( $_SESSION['svn_inst']['page'] == "2" ) {
-			
-			$error							= 0;
-			$tDatabaseHost					= isset( $_POST['fDatabaseHost'] )			? ( $_POST['fDatabaseHost'] )			: "";
-			$tDatabaseUser					= isset( $_POST['fDatabaseUser'] )			? ( $_POST['fDatabaseUser'] )			: "";
-			$tDatabasePassword				= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
-			$tDatabaseName					= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
-			$tDatabaseSchema				= isset( $_POST['fDatabaseSchema'] )		? ( $_POST['fDatabaseSchema'] )			: "";
-			$tDatabaseTablespace			= isset( $_POST['fDatabaseTablespace'] )	? ( $_POST['fDatabaseTablespace'] )		: "";
-			$tDatabaseCharset				= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
-			$tDatabaseCollation				= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
-			
-			if( $tDatabaseHost == "" ) {
-			
-				$tErrors[]					= _("Database host is missing!");
-				$error						= 1;
-				
-			}
-			
-			if( $tDatabaseUser == "" ) {
-				
-				$tErrors[]					= _("Database user is missing!");
-				$error						= 1;
-				
-			} 
-			
-			if( $tDatabaseName == "" ) {
-				
-				$tErrors[]					= _("Database name is missing!" );
-				$error						= 1;
-				
-			} 
-			
-			if( $tDatabaseCharset == "" ) {
-				
-				$tErrors[]					= _("Database charset is missing!" );
-				$error						= 1;
-				
-			} 
-			
-			if( $tDatabaseCollation == "" ) {
-				
-				$tErrors[]					= _("Database collation is missing!" );
-				$error						= 1;
-				
-			}
-			
-			if( $error == 0 ) {
-				$_SESSION['svn_inst']['databaseHost']		= $tDatabaseHost;
-				$_SESSION['svn_inst']['databaseUser']		= $tDatabaseUser;
-				$_SESSION['svn_inst']['databasePassword']	= $tDatabasePassword;
-				$_SESSION['svn_inst']['databaseName']		= $tDatabaseName;
-				$_SESSION['svn_inst']['databaseSchema']		= $tDatabaseSchema;
-				$_SESSION['svn_inst']['databaseTablespace']	= $tDatabaseTablespace;
-				$_SESSION['svn_inst']['databaseCharset']	= $tDatabaseCharset;
-				$_SESSION['svn_inst']['databaseCollation']	= $tDatabaseCollation;
-				
-				$tCreateDatabaseTables		= isset( $_SESSION['svn_inst']['createDatabaseTables'] ) ? $_SESSION['svn_inst']['createDatabaseTables'] : ""; 
-				$tDropDatabaseTables		= isset( $_SESSION['svn_inst']['dropDatabaseTables'] ) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
-				$tDatabase					= isset( $_SESSION['svn_inst']['database'] ) ? $_SESSION['svn_inst']['database'] : "";
-				$tSessionInDatabase			= isset( $_SESSION['svn_inst']['sessionInDatabase'] ) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
-				
-				if( $tCreateDatabaseTables == "YES" ) {
-					$tCreateDatabaseTablesYes	= "checked";
-					$tCreateDatabaseTablesNo	= "";
-				} else {
-					$tCreateDatabaseTablesYes	= "";
-					$tCreateDatabaseTablesNo	= "checked";
-				}
-				
-				if( $tDropDatabaseTables == "YES" ) {
-					$tDropDatabaseTablesYes		= "checked";
-					$tDropDatabaseTablesNo		= "";
-				} else {
-					$tDropDatabaseTablesYes		= "";
-					$tDropDatabaseTablesNo		= "checked";
-				}
-				
-				if( $tDatabase == "mysql" ) {
-					$tDatabaseMySQL				= "checked";
-					$tDatabasePostgreSQL		= "";
-					$tDatabaseOracle			= "";
-				} elseif( $tDatabase == "postgres8" ) {
-					$tDatabaseMySQL				= "";
-					$tDatabasePostgreSQL		= "checked";
-					$tDatabaseOracle			= "";
-				} elseif( $tDatabase == "oci8" ) {
-					$tDatabaseMySQL				= "";
-					$tDatabasePostgreSQL		= "";
-					$tDatabaseOracle			= "checked";
-				} else {
-					$tDatabaseMySQL				= "";
-					$tDatabasePostgreSQL		= "";
-				}
-				
-				if( $tSessionInDatabase == "YES" ) {
-					$tSessionInDatabaseYes		= "checked";
-					$tSessionInDatabaseNo		= "";
-				} else {
-					$tSessionInDatabaseYes		= "";
-					$tSessionInDatabaseNo		= "checked";
-				}
-				
-				$_SESSION['svn_inst']['page']--;
-				include ("../templates/install_page_1.tpl");
-				exit;
-			
-			} else {
-				
-				$tCreateDatabaseTables		= isset( $_SESSION['svn_inst']['createDatabaseTables'] ) ? $_SESSION['svn_inst']['createDatabaseTables'] : ""; 
-				$tDropDatabaseTables		= isset( $_SESSION['svn_inst']['dropDatabaseTables'] ) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
-				$tDatabase					= isset( $_SESSION['svn_inst']['database'] ) ? $_SESSION['svn_inst']['database'] : "";
-				$tSessionInDatabase			= isset( $_SESSION['svn_inst']['sessionInDatabase'] ) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
-				
-				if( $tCreateDatabaseTables == "YES" ) {
-					$tCreateDatabaseTablesYes	= "checked";
-					$tCreateDatabaseTablesNo	= "";
-				} else {
-					$tCreateDatabaseTablesYes	= "";
-					$tCreateDatabaseTablesNo	= "checked";
-				}
-				
-				if( $tDropDatabaseTables == "YES" ) {
-					$tDropDatabaseTablesYes		= "checked";
-					$tDropDatabaseTablesNo		= "";
-				} else {
-					$tDropDatabaseTablesYes		= "";
-					$tDropDatabaseTablesNo		= "checked";
-				}
-				
-				if( $tDatabase == "mysql" ) {
-					$tDatabaseMySQL				= "checked";
-					$tDatabasePostgreSQL		= "";
-					$tDatabaseOracle			= "";
-				} elseif( $tDatabase == "postgres8" ) {
-					$tDatabaseMySQL				= "";
-					$tDatabasePostgreSQL		= "checked";
-					$tDatabaseOracle			= "";
-				} elseif( $tDatabase == "oci8" ) {
-					$tDatabaseMySQL				= "";
-					$tDatabasePostgreSQL		= "";
-					$tDatabaseOracle			= "checked";
-				} else {
-					$tDatabaseMySQL				= "";
-					$tDatabasePostgreSQL		= "";
-				}
-				
-				if( $tSessionInDatabase == "YES" ) {
-					$tSessionInDatabaseYes		= "checked";
-					$tSessionInDatabaseNo		= "";
-				} else {
-					$tSessionInDatabaseYes		= "";
-					$tSessionInDatabaseNo		= "checked";
-				}
-				
-				include ("../templates/install_page_2.tpl");
-				exit;
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "3" ) {
-			
-			$error							= 0;
-			$tWebsiteCharset				= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
-			$tLpwMailSender					= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
-			$tLpwLinkValid					= isset( $_POST['fLpwLinkValid'] ) 			? ( $_POST['fLpwLinkValid'] )			: "";
-			
-			if( $tWebsiteCharset == "" ) {
-			
-				$tErrors[]						= _("Website charset is missing!");
-				$error							= 1;
-				
-			}
-			
-			if( $tLpwMailSender == "" ) {
-				
-				$tErrors[]						= _("Lost password mail sender address is missing!");
-				$error							= 1;
-				
-			} elseif( ! check_email( $tLpwMailSender ) ) {
-				
-				$tErrors[]						= sprintf( _("Lost password mail sender address %s is not a valid email address!" ), $tLpwMailSender );
-				$error							= 1;
-				
-			}
-			
-			if( $tLpwLinkValid == "" ) {
-				
-				$tErrors[]						= _("Lost password days link valid missing!");
-				$error							= 1;
-				
-			} elseif( ! is_numeric( $tLpwLinkValid) ) {
-				
-				$tErrors[]						= _("Lost password days link valid must be numeric!" );
-				$error							= 1;
-				
-			}
-			
-			if( $error == 0 ) {
-				$_SESSION['svn_inst']['websiteCharset']			= $tWebsiteCharset;
-				$_SESSION['svn_inst']['lpwMailSender']			= $tLpwMailSender;
-				$_SESSION['svn_inst']['lpwLinkValid']			= $tLpwLinkValid;
-				
-				$tDatabaseHost				= isset( $_SESSION['svn_inst']['databaseHost'] ) 		? $_SESSION['svn_inst']['databaseHost'] 		: "";
-				$tDatabaseUser				= isset( $_SESSION['svn_inst']['databaseUser'] ) 		? $_SESSION['svn_inst']['databaseUser'] 		: "";
-				$tDatabasePassword			= isset( $_SESSION['svn_inst']['databasePassword'] ) 	? $_SESSION['svn_inst']['databasePassword'] 	: ""; 
-				$tDatabaseName				= isset( $_SESSION['svn_inst']['databaseName'] ) 		? $_SESSION['svn_inst']['databaseName'] 		: "";
-				$tDatabaseSchema			= isset( $_SESSION['svn_inst']['databaseSchema'] ) 		? $_SESSION['svn_inst']['databaseSchema'] 		: "";
-				$tDatabaseTablespace		= isset( $_SESSION['svn_inst']['databaseTablespace'] ) 	? $_SESSION['svn_inst']['databaseTablespace'] 	: "";
-				$tDatabaseCharset			= isset( $_SESSION['svn_inst']['databaseCharset'] ) 	? $_SESSION['svn_inst']['databaseCharset'] 		: $tDatabaseCharsetDefault;
-				$tDatabaseCollation			= isset( $_SESSION['svn_inst']['databaseCollation'] ) 	? $_SESSION['svn_inst']['databaseCollation'] 	: $tDatabaseCollationDefault;
-				
-				$_SESSION['svn_inst']['page']--;
-				include ("../templates/install_page_2.tpl");
-				exit;
-			
-			} else {
-				
-				include ("../templates/install_page_3.tpl");
-				exit;
-				
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "4" ) {
-			
-			$error							= 0;
-			$tUsername						= isset( $_POST['fUsername'] ) 				? ( $_POST['fUsername'] )				: "";
-			$tPassword						= isset( $_POST['fPassword'] )				? ( $_POST['fPassword'] )				: "";
-			$tPassword2						= isset( $_POST['fPassword2'] )				? ( $_POST['fPassword2'] )				: "";
-			$tGivenname						= isset( $_POST['fGivenname'] ) 			? ( $_POST['fGivenname'] )				: "";
-			$tName							= isset( $_POST['fName'] )					? ( $_POST['fName'] )					: "";
-			$tAdminEmail					= isset( $_POST['fAdminEmail'] )			? ( $_POST['fAdminEmail'] )				: "";
-			
-			if( $tUsername == "" ) {
-				
-				$tErrors[]						= _("Administrator username is missing!" );
-				$error							= 1;
-				
-			}
-			
-			if( ($tPassword == "") or ($tPassword2 == "") ) {
-				
-				$tErrors[]						= _("Administrator password is missing!" );
-				$error							= 1;
-				
-			} elseif( $tPassword != $tPassword2 ) {
-				
-				$tErrors[]						= _("Administrator passwords do not match!" );
-				$error							= 1;
-				
-			} elseif( checkPasswordPolicy( $tPassword, 'y' ) == 0 ) {
-				
-				$tErrors[]						= _("Administrator password is not strong enough!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tName == "" ) {
-				
-				$tErrors[]						= _("Administrator name is missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tAdminEmail == "" ) {
-				
-				$tErrors[]						= _("Administrator email address is missing!" );
-				$error							= 1;
-				
-			} elseif( ! check_email($tAdminEmail) ) {
-				
-				$tErrors[]						= sprintf( _("Administrator email address %s is not a valid email address!"), $tAdminEmail );
-				$error							= 1;
-				
-			}
-			
-			if( $error == 0 ) {
-				$_SESSION['svn_inst']['username']				= $tUsername; 
-				$_SESSION['svn_inst']['password']				= $tPassword;
-				$_SESSION['svn_inst']['password2']				= $tPassword2;
-				$_SESSION['svn_inst']['givenname']				= $tGivenname;
-				$_SESSION['svn_inst']['name']					= $tName;
-				$_SESSION['svn_inst']['adminEmail']				= $tAdminEmail;
-				
-				$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 	? $_SESSION['svn_inst']['websiteCharset'] 	: "iso8859-15";
-				$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 	? $_SESSION['svn_inst']['lpwMailSender'] 	: "";
-				$tLpwLinkValid				= isset( $_SESSION['svn_inst']['lpwLinkValid'] ) 	? $_SESSION['svn_inst']['lpwLinkValid'] 	: "";
-				
-				$_SESSION['svn_inst']['page']--;
-				include ("../templates/install_page_3.tpl");
-				exit;
-			
-			} else {
-				
-				include ("../templates/install_page_4.tpl");
-				exit;
-				
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "5" ) {
-			
-			$error							= 0;
-			$tUseSvnAccessFile				= isset( $_POST['fUseSvnAccessFile'] )		? ( $_POST['fUseSvnAccessFile'] )		: "";
-			$tSvnAccessFile					= isset( $_POST['fSvnAccessFile'] )			? ( $_POST['fSvnAccessFile'] )			: "";
-			$tAccessControlLevel			= isset( $_POST['fAccessControlLevel'] )	? ( $_POST['fAccessControlLevel'] )		: "";
-			$tUseAuthUserFile				= isset( $_POST['fUseAuthUserFile'] )		? ( $_POST['fUseAuthUserFile'] )		: "";
-			$tAuthUserFile					= isset( $_POST['fAuthUserFile'] )			? ( $_POST['fAuthUserFile'] )			: "";
-			$tSvnCommand					= isset( $_POST['fSvnCommand'] )			? ( $_POST['fSvnCommand'] )				: "";
-			$tSvnadminCommand				= isset( $_POST['fSvnadminCommand'] )		? ( $_POST['fSvnadminCommand'] )		: "";
-			$tGrepCommand					= isset( $_POST['fGrepCommand'] )			? ( $_POST['fGrepCommand'] )			: "";
-			$tViewvcConfig					= isset( $_POST['fViewvcConfig'] )			? ( $_POST['fViewvcConfig'] )			: "";
-			$tViewvcConfigDir				= isset( $_POST['fViewvcConfigDir'] ) 		? ( $_POST['fViewvcConfigDir'] )		: "";
-			$tViewvcAlias					= isset( $_POST['fViewvcAlias'] )			? ( $_POST['fViewvcAlias'] )			: "/viewvc";
-			$tViewvcApacheReload			= isset( $_POST['fViewvcApacheReload'] )	? ( $_POST['fViewvcApacheReload'] )		: "";
-			$tViewvcRealm					= isset( $_POST['fViewvcRealm'] )			? ( $_POST['fViewvcRealm'] )			: "ViewVC Access Control"; 
-			$tPerRepoFiles					= isset( $_POST['fPerRepoFiles'] )			? ( $_POST['fPerRepoFiles'] )			: "";
-			
-			if( $tViewvcConfig == "YES" ) {
-		
-				if( $tViewvcConfigDir == "" ) {
-					
-					$tErrors[]					= _("ViewVC configuration directory is missing!");
-					$error						= 1;
-					
-				} 
-				
-				if( $tViewvcAlias == "" ) {
-					
-					$tErrors[]					= _("ViewVC webserver alias is missing!");
-					$error						= 1;
-					
-				} 
-				
-				if( $tViewvcRealm == "" ) {
-					
-					$tErrors[]					= _("ViewVC realm is missing!" );
-					$error						= 1;
-					
-				}
-			}
-			
-			if( $tSvnCommand == "" ) {
-				
-				$tErrors[]						= _("SVN command is missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tSvnadminCommand == "" ) { 
-			
-				$tErrors[]						= _("Svnadmin command missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $tGrepCommand == "" ) {
-				
-				$tErrors[]						= _("Grep command is missinbg!" );
-				$error							= 1;
-				
-			} 
-			
-			if( $error == 0 ) {
-				
-				$_SESSION['svn_inst']['useSvnAccessFile']				= $tUseSvnAccessFile;
-				$_SESSION['svn_inst']['svnAccessFile']					= $tSvnAccessFile; 
-				$_SESSION['svn_inst']['accessControlLevel']				= $tAccessControlLevel; 
-				$_SESSION['svn_inst']['useAuthUserFile']				= $tUseAuthUserFile; 
-				$_SESSION['svn_inst']['authUserFile']					= $tAuthUserFile; 
-				$_SESSION['svn_inst']['svnCommand']						= $tSvnCommand; 
-				$_SESSION['svn_inst']['svnadminCommand']				= $tSvnadminCommand; 
-				$_SESSION['svn_inst']['grepCommand']					= $tGrepCommand; 
-				$_SESSION['svn_inst']['viewvcConfig']					= $tViewvcConfig; 
-				$_SESSION['svn_inst']['viewvcConfigDir']				= $tViewvcConfigDir; 
-				$_SESSION['svn_inst']['viewvcAlias']					= $tViewvcAlias; 
-				$_SESSION['svn_inst']['viewvcApacheReload']				= $tViewvcApacheReload; 
-				$_SESSION['svn_inst']['viewvcRealm']					= $tViewvcRealm; 
-				$_SESSION['svn_inst']['perRepoFiles']					= $tPerRepoFiles;  
-				
-				$tUsername						= isset( $_SESSION['svn_inst']['username'] ) ? $_SESSION['svn_inst']['username'] : "";
-				$tPassword						= isset( $_SESSION['svn_inst']['password'] ) ? $_SESSION['svn_inst']['password'] : "";
-				$tPassword2						= isset( $_SESSION['svn_inst']['password2'] ) ? $_SESSION['svn_inst']['password2'] : "";
-				$tGivenname						= isset( $_SESSION['svn_inst']['givenname'] ) ? $_SESSION['svn_inst']['givenname'] : "";
-				$tName							= isset( $_SESSION['svn_inst']['name'] ) ? $_SESSION['svn_inst']['name'] : "";
-				$tAdminEmail					= isset( $_SESSION['svn_inst']['adminEmail'] ) ? $_SESSION['svn_inst']['adminEmail'] : "";
-				
-				if( $tUseAuthUserFile == "YES" ) {
-					$tUseAuthUserFileYes		= "checked";
-					$tUseAuthUSerFileNo			= "";	
-				} else {
-					$tUseAuthUserFileYes		= "";
-					$tUseAuthUserFileNo			= "checked";
-				}
-				
-				if( $tUseSvnAccessFile == "YES" ) {
-					$tUseSvnAccessFileYes		= "checked";
-					$tUseSvnAccessFileNo		= "";
-				} else {
-					$tUseSvnAccessFileYes		= "";
-					$tUseSvnAccessFileNo		= "checked";
-				}
-				
-				if( $tAccessControlLevel == "dirs" ) {
-					$tAccessControlLevelDirs	= "checked";
-					$tAccessControlLevelFiles	= "";
-				} else {
-					$tAccessControlLevelDirs	= "";
-					$tAccessControlLevelFiles	= "checked";
-				}
-				
-				if( $tPerRepoFiles == "YES" ) {
-					$tPerRepoFilesYes			= "checked";
-					$tPerRepoFilesNo			= "";
-				} else {
-					$tPerRepoFilesYes			= "";
-					$tPerRepoFilesNo			= "checked";
-				}
-				
-				if( $tViewvcConfig == "YES" ) {
-					$tViewvcConfigYes			= "checked";
-					$tViewvcConfigNo			= "";
-				} else {
-					$tViewvcConfigYes			= "";
-					$tViewvcConfigNo			= "checked";
-				}
-				
-				$_SESSION['svn_inst']['page']--;
-				include ("../templates/install_page_4.tpl");
-				exit;
-				
-			} else {
-				
-				if( $tUseAuthUserFile == "YES" ) {
-					$tUseAuthUserFileYes		= "checked";
-					$tUseAuthUSerFileNo			= "";	
-				} else {
-					$tUseAuthUserFileYes		= "";
-					$tUseAuthUserFileNo			= "checked";
-				}
-				
-				if( $tUseSvnAccessFile == "YES" ) {
-					$tUseSvnAccessFileYes		= "checked";
-					$tUseSvnAccessFileNo		= "";
-				} else {
-					$tUseSvnAccessFileYes		= "";
-					$tUseSvnAccessFileNo		= "checked";
-				}
-				
-				if( $tAccessControlLevel == "dirs" ) {
-					$tAccessControlLevelDirs	= "checked";
-					$tAccessControlLevelFiles	= "";
-				} else {
-					$tAccessControlLevelDirs	= "";
-					$tAccessControlLevelFiles	= "checked";
-				}
-				
-				if( $tPerRepoFiles == "YES" ) {
-					$tPerRepoFilesYes			= "checked";
-					$tPerRepoFilesNo			= "";
-				} else {
-					$tPerRepoFilesYes			= "";
-					$tPerRepoFilesNo			= "checked";
-				}
-				
-				if( $tViewvcConfig == "YES" ) {
-					$tViewvcConfigYes			= "checked";
-					$tViewvcConfigNo			= "";
-				} else {
-					$tViewvcConfigYes			= "";
-					$tViewvcConfigNo			= "checked";
-				}
-				
-				include ("../templates/install_page_5.tpl");
-				exit;
-				
-			}
-			
-		} elseif( $_SESSION['svn_inst']['page'] == "6" ) {
-			
-			$error							= 0;
-			$tLogging						= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
-			$tJavaScript					= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
-			$tPageSize						= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
-			$tMinAdminPwSize				= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
-			$tMinUserPwSize					= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
-			$tUseMd5						= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
-			
-			if( $tPageSize == "" ) {
-				
-				$tErrors[]						= _("Page size is missing!" );
-				$error							= 1;
-				
-			} 
-			
-			if( ! is_numeric($tPageSize) ) {
-				
-				$tErrors[]						= _("Page size is not numeric!" );
-				$error							= 1;
-				
-			} 
-			
-			if( ! is_numeric( $tMinAdminPwSize) ) {
-				
-				$tErrors[]						= _("Minimal administrator password length is not numeric!" );
-				$error							= 1;
-				
-			} 
-			
-			if( ! is_numeric( $tMinUserPwSize ) ) {
-				
-				$tErrors[]						= _("Minimal user password length is not numeric!" );
-				$error							= 1;
-				
-			}
-			
-			if( $error == 0 ) {
-				
-				$_SESSION['svn_inst']['logging']					= $tLogging;
-				$_SESSION['svn_inst']['javaScript']					= $tJavaScript;
-				$_SESSION['svn_inst']['pageSize']					= $tPageSize;
-				$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
-				$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
-				$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
-			
-				$tUseSvnAccessFile			= isset( $_SESSION['svn_inst']['useSvnAccessFile'] ) 	? $_SESSION['svn_inst']['useSvnAccessFile'] 	: "";
-				$tSvnAccessFile				= isset( $_SESSION['svn_inst']['svnAccessFile'] ) 		? $_SESSION['svn_inst']['svnAccessFile'] 		: "";
-				$tAccessControlLevel		= isset( $_SESSION['svn_inst']['accessControlLevel'] ) 	? $_SESSION['svn_inst']['accessControlLevel'] 	: "";
-				$tUseAuthUserFile			= isset( $_SESSION['svn_inst']['useAuthUserFile'] ) 	? $_SESSION['svn_inst']['useAuthUserFile'] 		: "";
-				$tAuthUserFile				= isset( $_SESSION['svn_inst']['authUserFile'] ) 		? $_SESSION['svn_inst']['authUserFile'] 		: "";
-				$tSvnCommand				= isset( $_SESSION['svn_inst']['svnCommand'] ) 			? $_SESSION['svn_inst']['svnCommand'] 			: "";
-				$tSvnadminCommand			= isset( $_SESSION['svn_inst']['svnadminCommand'] ) 	? $_SESSION['svn_inst']['svnadminCommand'] 		: "";
-				$tGrepCommand				= isset( $_SESSION['svn_inst']['grepCommand'] ) 		? $_SESSION['svn_inst']['grepCommand'] 			: "";
-				$tViewvcConfig				= isset( $_SESSION['svn_inst']['viewvcConfig'] ) 		? $_SESSION['svn_inst']['viewvcConfig'] 		: "";
-				$tViewvcConfigDir			= isset( $_SESSION['svn_inst']['viewvcConfigDir'] ) 	? $_SESSION['svn_inst']['viewvcConfigDir'] 		: "";
-				$tViewvcAlias				= isset( $_SESSION['svn_inst']['viewvcAlias'] ) 		? $_SESSION['svn_inst']['viewvcAlias'] 			: ""; 
-				$tViewvcApacheReload		= isset( $_SESSION['svn_inst']['viewvcApacheReload'] ) 	? $_SESSION['svn_inst']['viewvcApacheReload'] 	: "";
-				$tViewvcRealm				= isset( $_SESSION['svn_inst']['viewvcRealm'] ) 		? $_SESSION['svn_inst']['viewvcRealm'] 			: "";
-				$tPerRepoFiles				= isset( $_SESSION['svn_inst']['perRepoFiles'] ) 		? $_SESSION['svn_inst']['perRepoFiles'] 		: "";
-				
-				# common locations where to find grep and svn under linux/unix
-			   	$svnpath					= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
-			   	$svnadminpath				= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
-			   	$greppath					= array('/usr/local/bin/grep', '/usr/bin/grep', '/bin/grep');
-			   	$apachepath					= array('/etc/init.d/httpd', '/etc/init.d/apache2', '/etc/init.d/apache');
-			   	
-			   	for( $i = 0; $i < count($svnpath); $i++ ) {
-			   		if( file_exists( $svnpath[$i] ) ) {
-			   			if( $tSvnCommand == "" ) {
-			   				$tSvnCommand		= $svnpath[$i];
-			   			}
-			   		}
-			   	}
-			   	
-			   	for( $i = 0; $i < count($svnadminpath); $i++ ) {
-			   		if( file_exists( $svnadminpath[$i] ) ) {
-			   			if( $tSvnadminCommand == "" ) {
-			   				$tSvnadminCommand		= $svnadminpath[$i];
-			   			}
-			   		}
-			   	}
-			   	
-			   	for( $i=0; $i < count($greppath ); $i++ ) {
-			   		if( file_exists( $greppath[$i] ) ) {
-			   			if( $tGrepCommand == "" ) {
-			   				$tGrepCommand		= $greppath[$i];
-			   			}
-			   		}
-			   	}
-			   
-			   	for( $i=0; $i < count($apachepath); $i++ ) {
-			   		if( file_exists($apachepath[$i] ) ) {
-			   			if( $tViewvcApacheReload == "" ) {
-			   				$tViewvcApacheReload= "sudo ".$apachepath[$i]." graceful";
-			   			}
-			   		}
-			   	}
-				
-				if( $tUseAuthUserFile == "YES" ) {
-					$tUseAuthUserFileYes		= "checked";
-					$tUseAuthUSerFileNo			= "";	
-				} else {
-					$tUseAuthUserFileYes		= "";
-					$tUseAuthUserFileNo			= "checked";
-				}
-				
-				if( $tUseSvnAccessFile == "YES" ) {
-					$tUseSvnAccessFileYes		= "checked";
-					$tUseSvnAccessFileNo		= "";
-				} else {
-					$tUseSvnAccessFileYes		= "";
-					$tUseSvnAccessFileNo		= "checked";
-				}
-				
-				if( $tAccessControlLevel == "dirs" ) {
-					$tAccessControlLevelDirs	= "checked";
-					$tAccessControlLevelFiles	= "";
-				} else {
-					$tAccessControlLevelDirs	= "";
-					$tAccessControlLevelFiles	= "checked";
-				}
-				
-				if( $tPerRepoFiles == "YES" ) {
-					$tPerRepoFilesYes			= "checked";
-					$tPerRepoFilesNo			= "";
-				} else {
-					$tPerRepoFilesYes			= "";
-					$tPerRepoFilesNo			= "checked";
-				}
-				
-				if( $tViewvcConfig == "YES" ) {
-					$tViewvcConfigYes			= "checked";
-					$tViewvcConfigNo			= "";
-				} else {
-					$tViewvcConfigYes			= "";
-					$tViewvcConfigNo			= "checked";
-				}
-				
-				$_SESSION['svn_inst']['page']--;
-				include ("../templates/install_page_5.tpl");
-				exit;
-			
-			} else {
-				
-				if( $tJavaScript == "YES" ) {
-					$tJavaScriptYes				= "checked";
-					$tJavaScriptNo				= "";
-				} else {
-					$tJavaScriptYes				= "";
-					$tJavaScriptNo				= "checked";
-				}
-				
-				if( $tLogging == "YES" ) {
-					$tLoggingYes				= "checked";
-					$tLoggingNo					= "";
-				} else {
-					$tLoggingYes				= "";
-					$tLoggingNo					= "checked";
-				}
-				
-				if( $tUseMd5 == "md5" ) {
-					$tMd5Yes					= "checked";
-					$tMd5No						= "";
-					$CONF['pwcrypt']			= "md5";
-				} else {
-					$tMd5Yes					= "";
-					$tMd5No						= "checked";
-					$CONF['pwcrypt']			= "crypt";
-				}
-				
-				include ("../templates/install_page_6.tpl");
-				exit;
-			}
-			
-		} else {
-			
-		}
-		
-	} elseif( isset( $_POST['fSubmit_testdb'] ) ) {
-		
-		$tDatabaseHost						= isset( $_POST['fDatabaseHost'] )			? ( $_POST['fDatabaseHost'] )			: "";
-		$tDatabaseUser						= isset( $_POST['fDatabaseUser'] )			? ( $_POST['fDatabaseUser'] )			: "";
-		$tDatabasePassword					= isset( $_POST['fDatabasePassword'] )		? ( $_POST['fDatabasePassword'] )		: "";
-		$tDatabaseName						= isset( $_POST['fDatabaseName'] )			? ( $_POST['fDatabaseName'] )			: "";
-		$tDatabaseSchema					= isset( $_POST['fDatabaseSchema'] )		? ( $_POST['fDatabaseSchema'] )			: "";
-		$tDatabaseTablespace				= isset( $_POST['fDatabaseTablespace'] )	? ( $_POST['fDatabaseTablespace'] )		: "";
-		$tDatabaseCharset					= isset( $_POST['fDatabaseCharset'] )		? ( $_POST['fDatabaseCharset'] )		: "";
-		$tDatabaseCollation					= isset( $_POST['fDatabaseCollation'] )		? ( $_POST['fDatabaseCollation'] )		: "";
-		
-		$_SESSION['svn_inst']['databaseHost']				= $tDatabaseHost;
-		$_SESSION['svn_inst']['databaseUser']				= $tDatabaseUser;
-		$_SESSION['svn_inst']['databasePassword']			= $tDatabasePassword;
-		$_SESSION['svn_inst']['databaseName']				= $tDatabaseName;
-		$_SESSION['svn_inst']['databaseSchema']				= $tDatabaseSchema;
-		$_SESSION['svn_inst']['databaseTablespace']			= $tDatabaseTablespace;
-		$_SESSION['svn_inst']['databaseCharset']			= $tDatabaseCharset;
-		$_SESSION['svn_inst']['databaseCollation']			= $tDatabaseCollation;
-		
-		doDbtest();
-			
-	} elseif( isset( $_POST['fSubmit_install'] ) ) {
-		
-		$CONF['database_type']				= "mysql";
 		$error								= 0;
-		$tLogging							= isset( $_POST['fLogging'] )				? ( $_POST['fLogging'] )				: "";
-		$tJavaScript						= isset( $_POST['fJavaScript'] )			? ( $_POST['fJavaScript'] )				: "";
-		$tPageSize							= isset( $_POST['fPageSize'] )				? ( $_POST['fPageSize'] )				: 30;
-		$tMinAdminPwSize					= isset( $_POST['fMinAdminPwSize'] )		? ( $_POST['fMinAdminPwSize'] )			: 14;
-		$tMinUserPwSize						= isset( $_POST['fMinUserPwSize'] 	)		? ( $_POST['fMinUserPwSize'] )			: 8;
-		$tUseMd5							= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
+		$CONF['database_type']				= $_SESSION['svn_inst']['database'];
+		#
+		# check fields
+		#
+			
+		if( strtoupper( $tDatabase) == "MYSQL" ) {
+			$tDatabaseCharsetDefault		= "latin1";
+			$tDatabaseCollationDefault		= "latin1_german1_ci";
+		} else {
+			$tDatabaseCharsetDefault		= "";
+			$tDatabaseCollationDefault		= "";
+		}
 		
+		if( $tDatabaseHost == "" ) {
+		
+			$tErrors[]					= _("Database host is missing!");
+			$error						= 1;
+			
+		}
+		
+		if( $tDatabaseUser == "" ) {
+			
+			$tErrors[]					= _("Database user is missing!");
+			$error						= 1;
+			
+		} 
+		
+		if( $tDatabaseName == "" ) {
+			
+			$tErrors[]					= _("Database name is missing!" );
+			$error						= 1;
+			
+		} 
+		
+		if( $tDatabaseCharset == "" ) {
+			
+			$tErrors[]					= _("Database charset is missing!" );
+			$error						= 1;
+			
+		} 
+		
+		if( $tDatabaseCollation == "" ) {
+			
+			$tErrors[]					= _("Database collation is missing!" );
+			$error						= 1;
+			
+		}
+			
+		if( strtoupper($tUseLdap) == "YES" ) {
+			
+			if( $tLdapHost == "" ) {
+				
+				$tErrors[]				= _("LDAP host is missing!");
+				$error					= 1;
+			
+			}
+			
+			if( $tLdapPort == "" ) {
+				
+				$tErrors[]				= _("LDAP port is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( ($tLdapProtocol != "2") and ($tLdapProtocol != "3") ) {
+				
+				$tErrors[]				= sprintf( _("Invalid protocol version %s!"), $tLdapProtocol );
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapBinddn == "" ) {
+				
+				$tErrors[]				= _("LDAP bind dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapBindpw == "" ) {
+				
+				$tErrors[]				= _("LDAP bind password is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapUserdn == "" ) {
+				
+				$tErrors[]				= _("LDAP user dn is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapUserFilter == "" ) {
+				
+				$tErrors[]				= _("LDAP user filter attribute is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapUserObjectclass == "" ) {
+				
+				$tErrors[]				= _("LDAP user object class is missing!");
+				$error					= 1;
+									
+			}
+			
+			if( $tLdapAttrUid == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for uid is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapAttrName == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for name is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapAttrGivenname == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for given name is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapAttrMail == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for mail is missing!");
+				$error					= 1;
+				
+			}
+			
+			if( $tLdapAttrPassword == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
+				$error					= 1;
+				
+			}
+		}
+		
+		if( $tWebsiteUrl == "" ) {
+			
+			$tErrors[]						= _("SVN Access Manger Website URL is missing!");
+			$error							= 1;
+			
+		}
+
+		if( $tWebsiteCharset == "" ) {
+		
+			$tErrors[]						= _("Website charset is missing!");
+			$error							= 1;
+			
+		}
+		
+		if( $tLpwMailSender == "" ) {
+			
+			$tErrors[]						= _("Lost password mail sender address is missing!");
+			$error							= 1;
+			
+		} elseif( ! check_email( $tLpwMailSender ) ) {
+			
+			$tErrors[]						= sprintf( _("Lost password mail sender address %s is not a valid email address!" ), $tLpwMailSender );
+			$error							= 1;
+			
+		}
+		
+		if( $tLpwLinkValid == "" ) {
+			
+			$tErrors[]						= _("Lost password days link valid missing!");
+			$error							= 1;
+			
+		} elseif( ! is_numeric( $tLpwLinkValid) ) {
+			
+			$tErrors[]						= _("Lost password days link valid must be numeric!" );
+			$error							= 1;
+			
+		}
+				
+		if( $tUsername == "" ) {
+			
+			$tErrors[]						= _("Administrator username is missing!" );
+			$error							= 1;
+			
+		}
+		
+		if( ($tPassword == "") or ($tPassword2 == "") ) {
+			
+			$tErrors[]						= _("Administrator password is missing!" );
+			$error							= 1;
+			
+		} elseif( $tPassword != $tPassword2 ) {
+			
+			$tErrors[]						= _("Administrator passwords do not match!" );
+			$error							= 1;
+			
+		} elseif( checkPasswordPolicy( $tPassword, 'y' ) == 0 ) {
+			
+			$tErrors[]						= _("Administrator password is not strong enough!" );
+			$error							= 1;
+			
+		} 
+		
+		if( $tName == "" ) {
+			
+			$tErrors[]						= _("Administrator name is missing!" );
+			$error							= 1;
+			
+		} 
+		
+		if( $tAdminEmail == "" ) {
+			
+			$tErrors[]						= _("Administrator email address is missing!" );
+			$error							= 1;
+			
+		} elseif( ! check_email($tAdminEmail) ) {
+			
+			$tErrors[]						= sprintf( _("Administrator email address %s is not a valid email address!"), $tAdminEmail );
+			$error							= 1;
+			
+		}
+					
+		if( $tViewvcConfig == "YES" ) {
+	
+			if( $tViewvcConfigDir == "" ) {
+				
+				$tErrors[]					= _("ViewVC configuration directory is missing!");
+				$error						= 1;
+				
+			} 
+			
+			if( $tViewvcAlias == "" ) {
+				
+				$tErrors[]					= _("ViewVC webserver alias is missing!");
+				$error						= 1;
+				
+			} 
+			
+			if( $tViewvcRealm == "" ) {
+				
+				$tErrors[]					= _("ViewVC realm is missing!" );
+				$error						= 1;
+				
+			}
+		}
+		
+		if( $tSvnCommand == "" ) {
+			
+			$tErrors[]						= _("SVN command is missing!" );
+			$error							= 1;
+			
+		} 
+		
+		if( $tSvnadminCommand == "" ) { 
+		
+			$tErrors[]						= _("Svnadmin command missing!" );
+			$error							= 1;
+			
+		} 
+		
+		if( $tGrepCommand == "" ) {
+			
+			$tErrors[]						= _("Grep command is missinbg!" );
+			$error							= 1;
+			
+		} 
+			
 		if( $tPageSize == "" ) {
 			
 			$tErrors[]						= _("Page size is missing!" );
@@ -4344,28 +4283,327 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$error							= 1;
 			
 		}
-	
+		
+		if( ! is_numeric( $tPasswordExpire ) ) {
+			
+			$tErrors[]						= _("Password expire days not numeric!" );
+			$error							= 1;
+			
+		}
+
+		if( ! is_numeric( $tPasswordExpireWarn ) ) {
+			
+			$tErrors[]						= _("Password expire warn days not numeric!" );
+			$error							= 1;
+			
+		}
+		
+		if( $tPasswordExpireWarn >= $tPasswordExpire ) {
+			
+			$tErrors[]						= _("Password expire days must not be smaller or equal than password expire warn days!");
+			$error							= 1;
+			
+		}
+		
+		#
+		# install process
+		#		
 		if( $error == 0 ) {
-			
-			$_SESSION['svn_inst']['logging']					= $tLogging;
-			$_SESSION['svn_inst']['javaScript']					= $tJavaScript;
-			$_SESSION['svn_inst']['pageSize']					= $tPageSize;
-			$_SESSION['svn_inst']['minAdminPwSize']				= $tMinAdminPwSize;
-			$_SESSION['svn_inst']['minUserPwSize']				= $tMinUserPwSize;
-			$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
-			
-			doInstall();
+				
+			$ret							= doInstall();
+			$tPage							= $ret['page'];
+			$tErrors						= $ret['errors'];
 			
 		} else {
 			
-			include ("../templates/install_page_6.tpl");
-			exit;
-				
+			$tPage							= 7;
 		}
-	
+			
+	} elseif( isset( $_POST['fSubmit_testdb'] ) or isset( $_POST['fSubmit_testdb_x'] ) ) {
 		
-	}
+		$ret								= doDbtest();
+		$tPage								= $ret['page'];
+		$tErrors							= $ret['errors'];
+			
+	} elseif( isset( $_POST['fSubmit_testldap'] ) or isset( $_POST['fSubmit_testldap_x'] ) ) {
+		
+		$error								= 0;
+			
+		
+		if( $_SESSION['svn_inst']['useLdap'] == "YES" ) {
+		
+			$ret							= doLdapTest();
+			$tPage							= $ret['page'];
+			$tErrors						= $ret['errors'];
+			
+		} else {
+			
+			$tErrors[]						= _("Testing LDAP connection doesn't make sense if you do not use LDAP!");
+			$tPage							= 7;
+		}
+			
+	} 
 
+	$tDatabaseHost				= isset( $_SESSION['svn_inst']['databaseHost'] ) 		? $_SESSION['svn_inst']['databaseHost'] 		: "";
+	$tDatabaseUser				= isset( $_SESSION['svn_inst']['databaseUser'] ) 		? $_SESSION['svn_inst']['databaseUser'] 		: "";
+	$tDatabasePassword			= isset( $_SESSION['svn_inst']['databasePassword'] ) 	? $_SESSION['svn_inst']['databasePassword'] 	: ""; 
+	$tDatabaseName				= isset( $_SESSION['svn_inst']['databaseName'] ) 		? $_SESSION['svn_inst']['databaseName'] 		: "";
+	$tDatabaseSchema			= isset( $_SESSION['svn_inst']['databaseSchema'] ) 		? $_SESSION['svn_inst']['databaseSchema'] 		: "";
+	$tDatabaseTablespace		= isset( $_SESSION['svn_inst']['databaseTablespace'] ) 	? $_SESSION['svn_inst']['databaseTablespace'] 	: "";
+	$tDatabaseCharset			= isset( $_SESSION['svn_inst']['databaseCharset'] ) 	? $_SESSION['svn_inst']['databaseCharset'] 		: $tDatabaseCharsetDefault;
+	$tDatabaseCollation			= isset( $_SESSION['svn_inst']['databaseCollation'] ) 	? $_SESSION['svn_inst']['databaseCollation'] 	: $tDatabaseCollationDefault;
+	$tLdapAttrUid				= isset( $_SESSION['svn_inst']['ldapAttrUid'] ) 		? $_SESSION['svn_inst']['ldapAttrUid'] 			: "uid";
+	$tLdapAttrName				= isset( $_SESSION['svn_inst']['ldapAttrName'] ) 		? $_SESSION['svn_inst']['ldapAttrName'] 		: "sn";
+	$tLdapAttrGivenname			= isset( $_SESSION['svn_inst']['ldapAttrGivenname'] ) 	? $_SESSION['svn_inst']['ldapAttrGivenname'] 	: "givenName";
+	$tLdapAttrMail				= isset( $_SESSION['svn_inst']['ldapAttrMail'] ) 		? $_SESSION['svn_inst']['ldapAttrMail'] 		: "mail";
+	$tLdapAttrPassword			= isset( $_SESSION['svn_inst']['ldapAttrPassword'] ) 	? $_SESSION['svn_inst']['ldapAttrPassword'] 	: "userPassword";
+	$tWebisteUrl				= isset( $_SESSION['svn_inst']['webisteUrl'])			? $_SESSION['svn_inst']['websiteUrl']			: "";
+	$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 		? $_SESSION['svn_inst']['websiteCharset'] 		: "iso8859-15";
+	$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 		? $_SESSION['svn_inst']['lpwMailSender'] 		: "";
+	$tLpwLinkValid				= isset( $_SESSION['svn_inst']['lpwLinkValid'] ) 		? $_SESSION['svn_inst']['lpwLinkValid'] 		: "";
+	$tUsername					= isset( $_SESSION['svn_inst']['username'] ) 			? $_SESSION['svn_inst']['username'] 			: "";
+	$tPassword					= isset( $_SESSION['svn_inst']['password'] ) 			? $_SESSION['svn_inst']['password'] 			: "";
+	$tPassword2					= isset( $_SESSION['svn_inst']['password2'] ) 			? $_SESSION['svn_inst']['password2'] 			: "";
+	$tGivenname					= isset( $_SESSION['svn_inst']['givenname'] ) 			? $_SESSION['svn_inst']['givenname'] 			: "";
+	$tName						= isset( $_SESSION['svn_inst']['name'] ) 				? $_SESSION['svn_inst']['name'] 				: "";
+	$tAdminEmail				= isset( $_SESSION['svn_inst']['adminEmail'] ) 			? $_SESSION['svn_inst']['adminEmail'] 			: "";
+	$tUseSvnAccessFile			= isset( $_SESSION['svn_inst']['useSvnAccessFile'] ) 	? $_SESSION['svn_inst']['useSvnAccessFile'] 	: "";
+	$tSvnAccessFile				= isset( $_SESSION['svn_inst']['svnAccessFile'] ) 		? $_SESSION['svn_inst']['svnAccessFile'] 		: "";
+	$tAccessControlLevel		= isset( $_SESSION['svn_inst']['accessControlLevel'] ) 	? $_SESSION['svn_inst']['accessControlLevel'] 	: "dirs";
+	$tUseAuthUserFile			= isset( $_SESSION['svn_inst']['useAuthUserFile'] ) 	? $_SESSION['svn_inst']['useAuthUserFile'] 		: "";
+	$tAuthUserFile				= isset( $_SESSION['svn_inst']['authUserFile'] ) 		? $_SESSION['svn_inst']['authUserFile'] 		: "";
+	$tSvnCommand				= isset( $_SESSION['svn_inst']['svnCommand'] ) 			? $_SESSION['svn_inst']['svnCommand'] 			: "";
+	$tSvnadminCommand			= isset( $_SESSION['svn_inst']['svnadminCommand'] ) 	? $_SESSION['svn_inst']['svnadminCommand'] 		: "";
+	$tGrepCommand				= isset( $_SESSION['svn_inst']['grepCommand'] ) 		? $_SESSION['svn_inst']['grepCommand'] 			: "";
+	$tViewvcConfig				= isset( $_SESSION['svn_inst']['viewvcConfig'] ) 		? $_SESSION['svn_inst']['viewvcConfig'] 		: "";
+	$tViewvcConfigDir			= isset( $_SESSION['svn_inst']['viewvcConfigDir'] ) 	? $_SESSION['svn_inst']['viewvcConfigDir'] 		: "";
+	$tViewvcAlias				= isset( $_SESSION['svn_inst']['viewvcAlias'] ) 		? $_SESSION['svn_inst']['viewvcAlias'] 			: "/viewvc"; 
+	$tViewvcApacheReload		= isset( $_SESSION['svn_inst']['viewvcApacheReload'] ) 	? $_SESSION['svn_inst']['viewvcApacheReload'] 	: "";
+	$tViewvcRealm				= isset( $_SESSION['svn_inst']['viewvcRealm'] ) 		? $_SESSION['svn_inst']['viewvcRealm'] 			: "ViewVC Access Control";
+	$tPerRepoFiles				= isset( $_SESSION['svn_inst']['perRepoFiles'] ) 		? $_SESSION['svn_inst']['perRepoFiles'] 		: "";
+	$tPathSortOrder				= isset( $_SESSION['svn_inst']['psthSortOrder'] )		? $_SESSION['svn_inst']['pathSortOrder']		: "ASC";
+	$tAnonAccess				= isset( $_SESSION['svn_inst']['anonAccess'] )			? $_SESSION['svn_inst']['anonAccess']			: 0;
+	
+	# common locations where to find grep and svn under linux/unix
+   	$svnpath					= array('/usr/local/bin/svn', '/usr/bin/svn', '/bin/svn');
+   	$svnadminpath				= array('/usr/local/bin/svnadmin', '/usr/bin/svnadmin', '/bin/svnadmin');
+   	$greppath					= array('/usr/local/bin/grep', '/usr/bin/grep', '/bin/grep');
+   	$apachepath					= array('/etc/init.d/httpd', '/etc/init.d/apache2', '/etc/init.d/apache');
+   	
+   	for( $i = 0; $i < count($svnpath); $i++ ) {
+   		if( file_exists( $svnpath[$i] ) ) {
+   			if( $tSvnCommand == "" ) {
+   				$tSvnCommand		= $svnpath[$i];
+   			}
+   		}
+   	}
+   	
+   	for( $i = 0; $i < count($svnadminpath); $i++ ) {
+   		if( file_exists( $svnadminpath[$i] ) ) {
+   			if( $tSvnadminCommand == "" ) {
+   				$tSvnadminCommand		= $svnadminpath[$i];
+   			}
+   		}
+   	}
+   	
+   	for( $i=0; $i < count($greppath ); $i++ ) {
+   		if( file_exists( $greppath[$i] ) ) {
+   			if( $tGrepCommand == "" ) {
+   				$tGrepCommand		= $greppath[$i];
+   			}
+   		}
+   	}
+   
+   	for( $i=0; $i < count($apachepath); $i++ ) {
+   		if( file_exists($apachepath[$i] ) ) {
+   			if( $tViewvcApacheReload == "" ) {
+   				$tViewvcApacheReload= "sudo ".$apachepath[$i]." graceful";
+   			}
+   		}
+   	}	
+   	
+   	$tLogging						= isset( $_SESSION['svn_inst']['logging'] ) 			? $_SESSION['svn_inst']['logging'] 				: "YES";
+	$tJavaScript					= isset( $_SESSION['svn_inst']['javaScript'] ) 			? $_SESSION['svn_inst']['javaScript'] 			: "YES";
+	$tPageSize						= isset( $_SESSION['svn_inst']['pageSize'] ) 			? $_SESSION['svn_inst']['pageSize'] 			: "30";
+	$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
+	$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
+	$tPasswordExpire				= isset( $_SESSION['svn_inst']['passwordExpire'] )		? $_SESSION['svn_inst']['passwordExpire']		: 60;
+	$tPasswordExpireWarn			= isset( $_SESSION['svn_inst']['passwordExpireWarn'] )	? $_SESSION['svn_inst']['passwordExpireWarn']	: 50;
+	$tExpirePassword				= isset( $_SESSION['svn_inst']['expirePassword'] )		? $_SESSION['svn_inst']['expirePassword']		: 1;
+	$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";	
+	$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
+	$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
+	$tCustom2						= isset( $_SESSION['svn_inst']['custom2'] )				? $_SESSION['svn_inst']['custom2']				: "";
+	$tCustom3						= isset( $_SESSION['svn_inst']['custom3'] )				? $_SESSION['svn_inst']['custom3']				: "";
+	
+	#
+	# inialize fieds
+	#
+		
+	if( strtoupper( $tDatabase) == "MYSQL" ) {
+		$tDatabaseCharsetDefault		= "latin1";
+		$tDatabaseCollationDefault		= "latin1_german1_ci";
+	} else {
+		$tDatabaseCharsetDefault		= "";
+		$tDatabaseCollationDefault		= "";
+	}
+	
+	if( $tCreateDatabaseTables == "YES" ) {
+		$tCreateDatabaseTablesYes	= "checked";
+		$tCreateDatabaseTablesNo	= "";
+	} else {
+		$tCreateDatabaseTablesYes	= "";
+		$tCreateDatabaseTablesNo	= "checked";
+	}
+	
+	if( $tDropDatabaseTables == "YES" ) {
+		$tDropDatabaseTablesYes		= "checked";
+		$tDropDatabaseTablesNo		= "";
+	} else {
+		$tDropDatabaseTablesYes		= "";
+		$tDropDatabaseTablesNo		= "checked";
+	}
+	
+	if( $tDatabase == "mysql" ) {
+		$tDatabaseMySQL				= "checked";
+		$tDatabasePostgreSQL		= "";
+		$tDatabaseOracle			= "";
+	} elseif( $tDatabase == "postgres8" ) {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "checked";
+		$tDatabaseOracle			= "";
+	} elseif( $tDatabase == "oci8" ) {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "";
+		$tDatabaseOracle			= "checked";
+	} else {
+		$tDatabaseMySQL				= "";
+		$tDatabasePostgreSQL		= "";
+	}
+	
+	if( $tSessionInDatabase == "YES" ) {
+		$tSessionInDatabaseYes		= "checked";
+		$tSessionInDatabaseNo		= "";
+	} else {
+		$tSessionInDatabaseYes		= "";
+		$tSessionInDatabaseNo		= "checked";
+	}
+	
+	if( $tUseLdap == "YES" ) {
+		$tUseLdapYes				= "checked";
+		$tUseLdapNo					= "";
+	} else {
+		$tUseLdapYes				= "";
+		$tUseLdapNo					= "checked";
+	}
+	
+	if( $tLdapProtocol == "3" ) {
+		$tLdap3						= "checked";
+		$tLdap2						= "";
+	} else {
+		$tLdap3						= "";
+		$tLdap2						= "checked";
+	}
+	
+	if( $tUseAuthUserFile == "YES" ) {
+		$tUseAuthUserFileYes		= "checked";
+		$tUseAuthUSerFileNo			= "";	
+	} else {
+		$tUseAuthUserFileYes		= "";
+		$tUseAuthUserFileNo			= "checked";
+	}
+	
+	if( $tUseSvnAccessFile == "YES" ) {
+		$tUseSvnAccessFileYes		= "checked";
+		$tUseSvnAccessFileNo		= "";
+	} else {
+		$tUseSvnAccessFileYes		= "";
+		$tUseSvnAccessFileNo		= "checked";
+	}
+	
+	if( $tAccessControlLevel == "dirs" ) {
+		$tAccessControlLevelDirs	= "checked";
+		$tAccessControlLevelFiles	= "";
+	} else {
+		$tAccessControlLevelDirs	= "";
+		$tAccessControlLevelFiles	= "checked";
+	}
+	
+	if( $tPerRepoFiles == "YES" ) {
+		$tPerRepoFilesYes			= "checked";
+		$tPerRepoFilesNo			= "";
+	} else {
+		$tPerRepoFilesYes			= "";
+		$tPerRepoFilesNo			= "checked";
+	}
+	
+	if( $tPathSortOrder == "ASC" ) {
+		$tPathSortOrderAsc			= "checked";
+		$tPathSortOrderDesc			= "";
+	} else {
+		$tPathSortOrderAsc			= "";
+		$tPathSortOrderDesc			= "checked";
+	}
+	
+	if( $tAnonAccess == 1 ) {
+		$tAnonAccessYes				= "checked";
+		$tAnonAccessNo				= "";
+	} else {
+		$tAnonAccessYes				= "";
+		$tAnonAccessNo				= "checked";
+	}
+	
+	if( $tViewvcConfig == "YES" ) {
+		$tViewvcConfigYes			= "checked";
+		$tViewvcConfigNo			= "";
+	} else {
+		$tViewvcConfigYes			= "";
+		$tViewvcConfigNo			= "checked";
+	}
+	
+	if( $tJavaScript == "YES" ) {
+		$tJavaScriptYes				= "checked";
+		$tJavaScriptNo				= "";
+	} else {
+		$tJavaScriptYes				= "";
+		$tJavaScriptNo				= "checked";
+	}
+	
+	if( $tLogging == "YES" ) {
+		$tLoggingYes				= "checked";
+		$tLoggingNo					= "";
+	} else {
+		$tLoggingYes				= "";
+		$tLoggingNo					= "checked";
+	}
+	
+	if( $tExpirePassword == 1 ) {
+		$tExpirePasswordYes			= "checked";
+		$tExpirePasswordNo			= "";
+	} else {
+		$tExpirePasswordYes			= "";
+		$tExpirePasswordNo			= "checked";
+	}
+	
+	if( $tUseMd5 == "md5" ) {
+		$tMd5Yes					= "checked";
+		$tMd5No						= "";
+		$CONF['pwcrypt']			= "md5";
+	} else {
+		$tMd5Yes					= "";
+		$tMd5No						= "checked";
+		$CONF['pwcrypt']			= "crypt";
+	}
+	
+	if( $tUserDefaultAccess == "read" ) {
+		$tUserDefaultAccessRead		= "checked";
+		$tUserDefaultAccessWrite	= "";
+	} else {
+		$tUserDefaultAccessRead		= "";
+		$tUserDefaultAccessWrite	= "checked";
+	}
+		
+	include ("../templates/install-tabs.tpl");	
 }
 
 ?>

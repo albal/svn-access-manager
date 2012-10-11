@@ -47,16 +47,16 @@
 				   	<tr>
 				   		<td><strong><?php print _("Valid from").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fValidFrom" value="<?php print $tValidFrom; ?>" size="11" maxlength="10" />
+				   			<input id="validFrom" type="text" name="fValidFrom" value="<?php print $tValidFrom; ?>" size="11" maxlength="10" />
 				   		</td>
-				   		<td><?php print _("Format MM.DD.YYYY"); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td><strong><?php print _("Valid until").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fValidUntil" value="<?php print $tValidUntil; ?>" size="11" maxlength="10" />
+				   			<input id="validUntil" type="text" name="fValidUntil" value="<?php print $tValidUntil; ?>" size="11" maxlength="10" />
 				   		</td>
-				   		<td><?php print _("Format MM.DD.YYYY"); ?> </td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr valign="top">
 				   		<td><strong><?php print _("Allowed users").": "; ?></strong></td>
@@ -115,4 +115,16 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				
+					$( "#validUntil" ).datepicker({
+						regional: ['<?php print $tLocale;?>'],
+						altFormat: ['<?php print $tDateFormat;?>'],
+					});
+					
+					$( "#validFrom" ).datepicker({
+						regional: ['<?php print $tLocale;?>'],
+						altFormat: ['<?php print $tDateFormat;?>'],
+					});
+			</script>
 		</div>

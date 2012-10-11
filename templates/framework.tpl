@@ -35,57 +35,120 @@
 	}
 ?>
 <head>
-  <title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
-  <meta name="GENERATOR" content="Quanta Plus">
-  <meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>">
-  <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+  	<title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
+  	<meta name="GENERATOR" content="Quanta Plus" />
+  	<meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>" />
+  	<!--<link rel="stylesheet" type="text/css" href="./style/lhelstyle.css" />-->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="./style/lhelie.css" />
+	<![endif]-->
+	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
+	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+	
+	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
+	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
+	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
+	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
+	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
+	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
+	<script language="javascript" type="text/javascript">
+		
+		$(document).ready(function() {
+            
+            sess_ok = "<?php list( $ret, $dummy) = check_session_status(); print $ret;?>";
+            if(sess_ok != "1") {
+                    alert("<?php print _('Session expired. Please re-login!');?>");
+                    window.location.href = "login.php";
+            }
+        });             
+                
+        $(document).everyTime(5000, function checkSession() {
+             var dDate = new Date();
+			 var iTimeStamp = dDate.getTime();
+             $.ajax({
+                url: 'checkSession.php?antiCache='+iTimeStamp,
+                success: function(newVal) {
+                    if (newVal != 1) {
+                            alert('<?php print _("Your session expired! Please re-login!");?>');
+                            window.location.href = "login.php";
+                    }
+                  }
+                });
+        });
+		
+	</script>
 </head>
-<body>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
-		<tr valign="top">
-			<td width="200px" bgcolor="#EAEAE8">
-				<a href="http://www.svn-access-manager.org/" target="_blank">
-					<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
-				</a>
-			</td>
-			<td>
-				<div id="header_right" bgcolor="#EAEAE8">
-					<?php outputHeader($header); ?>
-				</div>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="200px">
-				<div id="subheader_left">
-					&nbsp;
-				</div>
-			</td>
-			<td>
-				<div id="subheader_right">
-					<?php outputSubHeader($subheader); ?>
-				</div>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="200px" bgcolor="#EAEAE8">
-				<div id="left" class="leftMenu">
-					<ul>
-						<?php outputMenu($menu); ?>
-					</ul>
-				</div>
-			</td>
-			<td>
-				<div id="right">
-					<?php include( "./templates/".$template ); ?>
-				</div>
-			
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<?php include( "footer.tpl" ); ?>
-			</td>
-		</tr>
-	</table>
+<body  class="noscript">
+	<script type="text/javascript">
+		$("body").removeClass("noscript");
+	</script>
+	
+	<div class="disabled">
+		
+		<div class="logoBar">
+			<a href="#">
+				<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+			</a>
+		</div>
+		
+		<!-- BEGIN Liquid Middle Column -->	
+		<div class="Content">
+		   
+			<p><?php print _("Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"); ?></p>
+
+		</div>
+		<!-- END Liquid Middle Column -->	
+	</div>
+
+	<div class="enabled">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td width="200" bgcolor="#EAEAE8">
+					<a href="http://www.svn-access-manager.org/" target="_blank">
+						<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+					</a>
+				</td>
+				<td>
+					<div id="header_right" class="bgEAEAE8">
+						<?php outputHeader($header); ?>
+					</div>
+				</td>
+			</tr>
+			<tr valign="top">
+				<td width="200">
+					<div id="subheader_left">
+						&nbsp;
+					</div>
+				</td>
+				<td>
+					<div id="subheader_right">
+						<?php outputSubHeader($subheader); ?>
+					</div>
+				</td>
+			</tr>
+			<tr valign="top">
+				<td width="200" bgcolor="#EAEAE8">
+					<div id="left" class="leftMenu">
+						<!--<ul> -->
+							<?php outputMenu($menu); ?>
+						<!--</ul>-->
+					</div>
+				</td>
+				<td>
+					<div id="right">
+						<?php include( "./templates/".$template ); ?>
+					</div>
+				
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<?php include( "footer.tpl" ); ?>
+				</td>
+			</tr>
+		</table>
+	</dvi>    
 </body>
 </html>
