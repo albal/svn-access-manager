@@ -474,7 +474,11 @@ function createAccessFile( $dbh ) {
 								if( $tPath == "" ) {
 									$tPath				= "/";
 								}
-								if( ! @fwrite( $fileHandle, "\n[".$row['reponame'].":".$tPath."]\n" ) ) {
+								$repoName = $row['reponame'] . ":";
+                                if ($repoName == "/:") {
+                                        $repoName 		= "";
+                                }
+                                if( ! @fwrite( $fileHandle, "\n[".$repoName.$tPath."]\n" ) ) {
 									
 									$retcode			= 4;
 									$tMessage			= sprintf( _("Cannot write to %s"), $tempfile );

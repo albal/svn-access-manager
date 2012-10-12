@@ -60,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	#error_log( "user = $fUsername");
    	$result 						= db_query( "SELECT password " .
    												"  FROM ".$schema."svnusers " .
-   												" WHERE userid = '$fUsername' AND deleted = '00000000000000'", $dbh );
+   												" WHERE (userid = '$fUsername')" .
+   												"   AND (deleted = '00000000000000')", $dbh );
    
    	if ($result['rows'] == 1) {
 
@@ -69,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	  	  if( check_ldap_password( $fUsername, $fPassword ) == 1 ) {
 		  	  $result 				= db_query( "SELECT * " .
 		      									"  FROM ".$schema."svnusers " .
-		      									" WHERE userid = '$fUsername' " .
-		      									"   AND deleted = '00000000000000'", $dbh );
+		      									" WHERE (userid = '$fUsername') " .
+		      									"   AND (deleted = '00000000000000')", $dbh );
 	  	  } else {
 	  	  	
 	  	  	$error 					= 1;
@@ -85,8 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	      $password 				= addslashes( pacrypt ($fPassword, $row['password']) );
 	      $result 					= db_query( "SELECT * " .
 	      										"  FROM ".$schema."svnusers " .
-	      										" WHERE userid = '$fUsername' " .
-	      										"   AND password = '$password'", $dbh );
+	      										" WHERE (userid = '$fUsername') " .
+	      										"   AND (password = '$password')", $dbh );
 	      	  
 	  }
 	  
