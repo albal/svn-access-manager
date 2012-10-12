@@ -1,6 +1,6 @@
 		<div id="edit_form">
 			<form action="rep_show_group.php" name="show_group" method="post">
-				<h3><?php print sprintf( _("Show user %s"), $tUser );?></h3>
+				<h3><?php print sprintf( _("Show group %s"), $tGroupname );?></h3>
 				<p>&nbsp;</p>
 				<table id="groupdetails">
 					<tr>
@@ -43,15 +43,17 @@
 							<th><?php print _("Username");?></th>
 							<th><?php print _("Givenname");?></th>
 							<th><?php print _("Name");?></th>
+							<th><?php print _("Access right");?></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
 							foreach( $tAdmins as $entry ) {
 								print "\t\t\t<tr>\n";
-								print "\t\t\t\t<td>".$entry['uerid']."</td>\n";
+								print "\t\t\t\t<td>".$entry['userid']."</td>\n";
 								print "\t\t\t\t<td>".$entry['givenname']."</td>\n";
 								print "\t\t\t\t<td>".$entry['name']."</td>\n";
+								print "\t\t\t\t<td>".$entry['allowed']."</td>\n";
 								print "\t\t\t</tr>\n";
 							}
 						?>

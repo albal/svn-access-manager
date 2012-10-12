@@ -68,9 +68,9 @@ function getUsersForGroup( $tGroupId, $dbh ) {
 	$schema				= db_determine_schema();
 	$tUsers				= array();
 	$query				= "SELECT * ".
-						  "  FROM ".$schema."svnuserss, ".$schema."svn_users_groups ".
+						  "  FROM ".$schema."svnusers, ".$schema."svn_users_groups ".
 						  " WHERE (svn_users_groups.group_id = '$tGroupId') ".
-						  "   AND (svn_users_groups.group_id = svngroups.id) ".
+						  "   AND (svn_users_groups.group_id = svnusers.id) ".
 						  "   AND (svnusers.deleted = '00000000000000') ".
 						  "   AND (svn_users_groups.deleted = '00000000000000')";
 	$result				= db_query( $query, $dbh );
@@ -89,28 +89,28 @@ function getGroupAdminsForGroup( $tGroupId, $dbh ) {
 	global $CONF;
 	
 	$schema				= db_determine_schema();
-	$tProjects			= array();
-	$query				= "SELECT svnmodule, reponame ".
-						  "  FROM ".$schema."svnprojects, ".$schema."svn_projects_responsible, ".$schema."svnrepos ".
-						  " WHERE (svn_projects_responsible.user_id = '$tUserId') ".
-						  "   AND (svn_projects_responsible.deleted = '00000000000000') ".
-						  "   AND (svn_projects_responsible.project_id = svnprojects.id) ".
-						  "   AND (svnprojects.deleted = '00000000000000') ".
-						  "   AND (svnprojects.repo_id = svnrepos.id) ".
-						  "   AND (svnrepos.deleted = '00000000000000') ".
-						  "ORDER BY svnmodule ASC";
+	$tAdmins			= array();
+	$query				= "SELECT svnusers.userid, svnusers.name, svnusers.givenname, svn_groups_responsible.allowed ".
+						  "  FROM ".$schema."svnusers, ".$schema."svn_groups_responsible, ".$schema."svngroups ".
+						  " WHERE (svn_groups_responsible.group_id = '$tGroupId') ".
+						  "   AND (svn_groups_responsible.deleted = '00000000000000') ".
+						  "   AND (svn_groups_responsible.user_id = svnusers.id) ".
+						  "   AND (svnusers.deleted = '00000000000000') ".
+						  "   AND (svngroups.id = svn_groups_responsible.group_id) ".
+						  "   AND (svngroups.deleted = '00000000000000') ".
+						  "ORDER BY userid ASC";
 	$result				= db_query( $query, $dbh );
 	
 	while( $row = db_assoc( $result['result'] ) ) {
 		
-		$tProjects[]	= $row;
+		$tAdmins[]		= $row;
 		
 	}
 	
-	return( $tProjects );
+	return( $tAdmins );
 }
 
-function getAccessRightsForGroup( $tGroupId, $tGroups, $dbh ) {
+function getAccessRightsForGroup( $tGroupId, $dbh ) {
 	
 	global $CONF;
 	
@@ -122,17 +122,9 @@ function getAccessRightsForGroup( $tGroupId, $tGroups, $dbh ) {
 						  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
 						  "     AND (svn_access_rights.valid_from <= '$curdate') " .
 						  "     AND (svn_access_rights.valid_until >= '$curdate') " .
-						  "     AND (svn_access_rights.project_id = svnprojects.id) ";
-	if( count( $tGroups ) > 0 ) {
-		$query			.="     AND ((svn_access_rights.user_id = $tUserId) ";
-		foreach( $tGroups as $entry ) {
-			$query		.="    OR (svn_access_rights.group_id = ".$entry['id'].") ";
-		}
-		$query			.="       ) ";
-	} else {
-		$query			.="     AND (svn_access_rights.user_id = $tUserId) ";
-	}
-	$query				.="     AND (svnprojects.repo_id = svnrepos.id) " .
+						  "     AND (svn_access_rights.project_id = svnprojects.id) " .
+						  "     AND (svn_access_rights.group_id = $tGroupId) " .
+						  "     AND (svnprojects.repo_id = svnrepos.id) " .
 						  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
 
 	$result				= db_query( $query, $dbh );
@@ -183,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$lang									= check_language();
 	$tGroups								= getGroups(0, -1, $dbh );
 	
-	$template								= "rep_show_user.tpl";
+	$template								= "rep_show_group.tpl";
    	$header									= "reports";
    	$subheader								= "reports";
    	$menu									= "reports";
@@ -214,10 +206,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$_SESSION['svn_sessid']['group']		= $tGroupId;
 		$tGroupData								= getGroupData( $tGroupId, $dbh );
 		$tGroupname								= $tGroupData['groupname'];
-		$tDescription							= $tGroupdata['description'];
+		$tDescription							= $tGroupData['description'];
 		$lang									= check_language();
 		$tUsers									= getUsersForGroup( $tGroupId, $dbh );
-		$tAccessRights							= getAccessRightsForGroup( $tGroupId, $tGroups, $dbh );
+		$tAccessRights							= getAccessRightsForGroup( $tGroupId, $dbh );
 		$tAdmins								= getGroupAdminsForGroup( $tGroupId, $dbh );
 		
 	} else {
