@@ -458,6 +458,27 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
+							   		<td><strong><?php print _("LDAP User sort attribute").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrUserSort" value="<?php print $tLdapAttrUserSort; ?>" size="40" />
+							   		</td>
+							   		<td>
+							   			<?php print _("Enter the attribute to be used for sorting users."); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("LDAP user sort order").": "; ?></strong></td>
+							   		<td>
+							   			<input type="radio" name="fLdapUserSort" value="ASC" <?php print $tLdapUserSortAsc; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+						   				<input type="radio" name="fLdapUserSort" value="DESC" <?php print $tLdapUserSortDesc; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
 						   			<td colspan="4">
 						   				&nbsp;
 						   			</td>

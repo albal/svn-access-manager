@@ -3583,6 +3583,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tLdapAttrGivenname						= "";
 	$tLdapAttrMail							= "";
 	$tLdapAttrPassword						= "";
+	$tLdapAttrUserSort						= "";
+	$tLdapUserSort							= "ASC";
 	$tWebsiteCharset						= "";
 	$tWebsiteUrl							= "";
 	$tLpwMailSender							= "";
@@ -3737,6 +3739,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tPathSortOrderDesc					= "checked";
 	}
 	
+	if( $tLdapUserSort == "ASC" ) {
+		$tLdapUserSortAsc					= "checked";
+		$tLdapUserSortDesc					= "";
+	} else {
+		$tLdapUserSortAsc					= "";
+		$tLdapUserSortDesc					= "checked";
+	}
+	
 	if( $tAnonAccess == 1 ) {
 		$tAnonAccessYes						= "checked";
 		$tAnonAccessNo						= "";
@@ -3877,6 +3887,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrGivenname					= isset( $_POST['fLdapAttrGivenname'])		? ( $_POST['fLdapAttrGivenname'])		: "";
 	$tLdapAttrMail						= isset( $_POST['fLdapAttrMail'])			? ( $_POST['fLdapAttrMail'])			: "";
 	$tLdapAttrPassword					= isset( $_POST['fLdapAttrPassword'])		? ( $_POST['fLdapAttrPassword'])		: "";
+	$tLdapAttrUserSort					= isset( $_POST['svn_inst']['fLdapAttrUserSort']) ? ( $_POST['fLdapAttrUserSort'] )	: "";
+	$tLdapUserSort						= isset( $_POST['fLdapUserSort'] )			? ( $_POST['fLdapUserSort'] )			: "ASC";
 	$tWebsiteUrl						= isset( $_POST['fWebsiteUrl'])				? ( $_POST['fWebsiteUrl'])				: "";
 	$tWebsiteCharset					= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
 	$tLpwMailSender						= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
@@ -3944,7 +3956,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['ldapAttrName']				= $tLdapAttrName;
 	$_SESSION['svn_inst']['ldapAttrGivenname']			= $tLdapAttrGivenname;
 	$_SESSION['svn_inst']['ldapAttrMail']				= $tLdapAttrMail;
-	$_SESSION['svn_inst']['ldapAttrPassword']			= $tLdapAttrPassword;	
+	$_SESSION['svn_inst']['ldapAttrPassword']			= $tLdapAttrPassword;
+	$_SESSION['svn_inst']['ldapAttrUserSort']			= $tLdapAttrUserSort;
+	$_SESSION['svn_inst']['ldapUserSort']				= $tLdapUserSort;	
 	$_SESSION['svn_inst']['websiteUrl']					= $tWebsiteUrl;
 	$_SESSION['svn_inst']['websiteCharset']				= $tWebsiteCharset;
 	$_SESSION['svn_inst']['lpwMailSender']				= $tLpwMailSender;
@@ -4127,6 +4141,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$tErrors[]				= _("LDAP attribute mapping for user password is missing!");
 				$error					= 1;
 				
+			}
+			
+			if( $tLdapAttrSortUser == "" ) {
+				
+				$tErrors[]				= _("LDAP attribute for sorting users missing!" );
+				$error					= 1;
+				
+			}
+			
+			if( ($tLdapUserSort != "ASC") and ($tLdapUserSort != "DESC") ) {
+				
+				$tErrors[]				= sprintf( _("LDAP user sort order is missing or invalid: %s"), $tLdapUserSort );
 			}
 		}
 		
@@ -4357,6 +4383,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrGivenname			= isset( $_SESSION['svn_inst']['ldapAttrGivenname'] ) 	? $_SESSION['svn_inst']['ldapAttrGivenname'] 	: "givenName";
 	$tLdapAttrMail				= isset( $_SESSION['svn_inst']['ldapAttrMail'] ) 		? $_SESSION['svn_inst']['ldapAttrMail'] 		: "mail";
 	$tLdapAttrPassword			= isset( $_SESSION['svn_inst']['ldapAttrPassword'] ) 	? $_SESSION['svn_inst']['ldapAttrPassword'] 	: "userPassword";
+	$tLdapAttrUserSort			= isset( $_SESSION['svn_inst']['ldapAttrUserSort'] )	? $_SESSION['svn_inst']['ldapAttrUserSort']		: "sn";
+	$tLdapUserSort				= isset( $_SESSION['svn_inst']['ldapUserSort'] )		? $_SESSION['svn_inst']['ldapUserSort']			: "ASC";
 	$tWebisteUrl				= isset( $_SESSION['svn_inst']['webisteUrl'])			? $_SESSION['svn_inst']['websiteUrl']			: "";
 	$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 		? $_SESSION['svn_inst']['websiteCharset'] 		: "iso8859-15";
 	$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 		? $_SESSION['svn_inst']['lpwMailSender'] 		: "";
@@ -4543,6 +4571,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		$tPathSortOrderAsc			= "";
 		$tPathSortOrderDesc			= "checked";
+	}
+	
+	if( $tLdapUserSort == "ASC" ) {
+		$tLdapUserSortAsc					= "checked";
+		$tLdapUserSortDesc					= "";
+	} else {
+		$tLdapUserSortAsc					= "";
+		$tLdapUserSortDesc					= "checked";
 	}
 	
 	if( $tAnonAccess == 1 ) {

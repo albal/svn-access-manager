@@ -1217,4 +1217,32 @@ function encode_subject($in_str, $charset) {
     } 
     return $out_str; 
 }
+
+
+
+//
+// sortLdapUsers
+// Action: sort ldap user by a preconfigured field
+// Call: sortLdapUsers( string $a, string $b )
+//
+function sortLdapUsers($a,$b) {
+        global $CONF;
+        $sortOrder = "ASC";
+        $aValue = $a[$CONF['ldap_sort_field']];
+        $bValue = $b[$CONF['ldap_sort_field']];
+
+        $aValue = strtolower($aValue);
+        $bValue = strtolower($bValue);
+
+        if (isset($CONF['ldap_sort_order']) && $CONF['ldap_sort_order'] == "DESC")
+        {
+                // sort desc
+                return $aValue<$bValue;
+        }
+        else
+        {
+                // sort asc
+                return $aValue>$bValue;
+        }
+}
 ?>

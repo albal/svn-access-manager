@@ -1345,6 +1345,11 @@ function get_ldap_users() {
 				
 				$entry['emailaddress']			= isset( $arr[$attr] ) ? $arr[$attr] : "";
 				
+				if (isset($CONF['ldap_uservalues_encode']) && $CONF['ldap_uservalues_encode']) {
+                	$entry['name'] 				= htmlentities($entry['name']);
+                	$entry['givenname'] 		= htmlentities($entry['givenname']);
+        		}
+				
 				$tUsers[]						= $entry;
 			}
 		}
@@ -1370,7 +1375,7 @@ function get_ldap_users() {
 		$ldap->Close();
 	}
 	
-	asort( $tUsers );
+	usort($tUsers, "sortLdapUsers");
 	
 	return( $tUsers );
 }

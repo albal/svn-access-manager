@@ -2,6 +2,23 @@ Change Log
 ==========
 
 
+Release 0.5.5.11
+	- Feature request ID: 3576275
+	  Encoding LDAP name and givenname to handle German umlauts
+	  
+	- Feature request ID: 3576273
+	  Sorting LDAP Users
+	  
+	- Feature request ID: 3576346
+	  Writing root access rights
+	  
+	- Feature request ID: 3576692
+	  Report "show group"
+	  
+	  
+	Thanks to Tobias for sending a lot of patches
+	
+	  
 Release 0.5.5.10
 	- Feature request ID: 3575716
 	  checkSession.php with Anti-Cache Parameter
