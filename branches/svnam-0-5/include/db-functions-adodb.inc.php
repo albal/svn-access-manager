@@ -1424,16 +1424,28 @@ function check_ldap_password( $userid, $password ) {
 		$_SESSION['svn_sessid']['dberror']			= $e->msg;
       	$_SESSION['svn_sessid']['dbquery']			= sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
       	$_SESSION['svn_sessid']['dbfunction']		= sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+      	
+      	$tErrorMessage								= strtolower( $_SESSION['svn_sessid']['dberror'] );
+      	
+      	if( isset($CONF['ldap_bind_use_login_data']) 	and 
+      	    ($CONF['ldap_bind_use_login_data'] == 1) 	and 
+      	    strpos( $tErrorMessage, "invalid") 			and 
+      	    strpos( $tErrorMessage, "credentials") 
+      	) {
+      		$ldapOpen								= 0;
+      		$ret									= 0;
+      		
+      	} else {
          
-		if ( file_exists ( realpath ( "database_error.php" ) ) ) {
-	  	    $location								= "database_error.php";
-	    } else {
-	  	    $location								= "../database_error.php";
-	  	}
-	  	
-	 	header( "location: $location");
-	 	exit;
-	 	
+			if ( file_exists ( realpath ( "database_error.php" ) ) ) {
+		  	    $location							= "database_error.php";
+		    } else {
+		  	    $location							= "../database_error.php";
+		  	}
+		  	
+		 	header( "location: $location");
+		 	exit;
+      	}
 	}
 	
 	try {
@@ -1474,7 +1486,6 @@ function check_ldap_password( $userid, $password ) {
 	
 	return( $ret );
 }
-
 
 
 

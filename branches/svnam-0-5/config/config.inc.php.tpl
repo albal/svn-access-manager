@@ -194,9 +194,14 @@ $CONF['attr_mapping']['name']                   = '###MAPNAME###';
 $CONF['attr_mapping']['givenName']              = '###MAPGIVENNAME###';
 $CONF['attr_mapping']['mail']                   = '###MAPMAIL###';
 $CONF['attr_mapping']['userPassword']           = '###MAPPASSWORD###';
+// sort field to sort ldap users
 $CONF['ldap_sort_field']                        = '###LDAPSORTATTR###';
 // sort order for ldap sort, allowed values are ASC and DESC
 $CONF['ldap_sort_order']                        = '###LDAPSORTORDER###';
+// use login data for ldap bind, allowed values are 0 and 1
+$CONF['ldap_bind_use_login_data']				= ###LDAPBINDUSELOGINDATA###;
+// LDAP bind dn suffix
+$CONF['ldap_bind_dn_suffix']					= '###LDAPBINDDNSUFFIX###';
 
 //
 // END OF CONFIG FILE

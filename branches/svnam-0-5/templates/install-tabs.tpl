@@ -470,11 +470,32 @@ include( "../include/output.inc.php" );
 							   	<tr>
 							   		<td nowrap><strong><?php print _("LDAP user sort order").": "; ?></strong></td>
 							   		<td>
-							   			<input type="radio" name="fLdapUserSort" value="ASC" <?php print $tLdapUserSortAsc; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
-						   				<input type="radio" name="fLdapUserSort" value="DESC" <?php print $tLdapUserSortDesc; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+							   			<input type="radio" name="fLdapUserSort" value="ASC" <?php print $tLdapUserSortAsc; ?> />&nbsp;&nbsp;<?php print _("ASC"); ?>&nbsp;&nbsp;&nbsp;
+						   				<input type="radio" name="fLdapUserSort" value="DESC" <?php print $tLdapUserSortDesc; ?> />&nbsp;&nbsp;<?php print _("DESC"); ?>
 							   		</td>
 							   		<td>
 							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap><strong><?php print _("LDAP bind with user login data").": "; ?></strong></td>
+							   		<td>
+							   			<input type="radio" name="fLdapBindUseLoginData" value="1" <?php print $tLdapBindUseLoginDataYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
+						   				<input type="radio" name="fLdapBindUseLoginData" value="0" <?php print $tLdapBindUseLoginDataNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+							   		</td>
+							   		<td>
+							   			<?php print _("You should only say yes here if you're connecting against an Active Directory!"); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td><strong><?php print _("LDAP Bind Dn Suffix").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapBindDnSuffix" value="<?php print $tLdapBindDnSuffix; ?>" size="40" />
+							   		</td>
+							   		<td>
+							   			<?php print _("Enter the attribute to be used for sorting users."); ?>
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
