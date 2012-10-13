@@ -4,31 +4,31 @@
 				<p>&nbsp;</p>
 				<table id="userdetails">
 					<tr>
-						<td><strong><?php print _("Username").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Username").": "; ?></strong></td>
 						<td><?php print $tUsername;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td><strong><?php print _("Administrator").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Administrator").": "; ?></strong></td>
 						<td><?php print $tAdministrator;?></td>
 					</tr>
 					<tr>
-						<td><strong><?php print _("Name").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Name").": "; ?></strong></td>
 						<td><?php print $tName;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td><strong><?php print _("Givenname").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Givenname").": "; ?></strong></td>
 						<td><?php print $tGivenname;?></td>
 					</tr>
 					<tr>
-						<td><strong><?php print _("Email address").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Email address").": "; ?></strong></td>
 						<td><?php print $tEmailAddress;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td><strong><?php print _("Locked").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Locked").": "; ?></strong></td>
 						<td><?php print $tLocked;?></td>
 					</tr>
 					<tr>
-						<td><strong><?php print _("Password expires").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Password expires").": "; ?></strong></td>
 						<td><?php print $tPasswordExpires;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td><strong><?php print _("Repository access right").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Repository access right").": "; ?></strong></td>
 						<td><?php print $tAccessRight;?></td>
 					</tr>
 				</table>

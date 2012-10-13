@@ -204,13 +204,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$tGroupId								= isset( $_POST['fGroup'] ) ? db_escape_string( $_POST['fGroup'] ) : "";
 		$_SESSION['svn_sessid']['group']		= $tGroupId;
-		$tGroupData								= getGroupData( $tGroupId, $dbh );
-		$tGroupname								= $tGroupData['groupname'];
-		$tDescription							= $tGroupData['description'];
-		$lang									= check_language();
-		$tUsers									= getUsersForGroup( $tGroupId, $dbh );
-		$tAccessRights							= getAccessRightsForGroup( $tGroupId, $dbh );
-		$tAdmins								= getGroupAdminsForGroup( $tGroupId, $dbh );
+		
+		if( $tGroupId == "default" ) {
+			
+			$tMessage							= _("No group selected!");
+			$lang								= check_language();
+			$tGroups							= getGroups(0, -1, $dbh );
+			$template							= "rep_show_group.tpl";
+   			$header								= "reports";
+   			$subheader							= "reports";
+   			$menu								= "reports";
+   
+   			include ("$installBase/templates/framework.tpl");
+	 
+ 			db_disconnect( $dbh );
+ 			
+ 			exit;
+			
+		} else {
+			
+			$tGroupData							= getGroupData( $tGroupId, $dbh );
+			$tGroupname							= $tGroupData['groupname'];
+			$tDescription						= $tGroupData['description'];
+			$lang								= check_language();
+			$tUsers								= getUsersForGroup( $tGroupId, $dbh );
+			$tAccessRights						= getAccessRightsForGroup( $tGroupId, $dbh );
+			$tAdmins							= getGroupAdminsForGroup( $tGroupId, $dbh );
+			
+		}
 		
 	} else {
 		

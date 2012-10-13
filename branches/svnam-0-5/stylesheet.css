@@ -301,6 +301,10 @@ a:visited, a:active {
 	text-align: left;
 }
 
+.greyCell {
+	background-color: #dddddd;
+}
+
 #login_header {
     /* width: 750px; */
     width: 100%;

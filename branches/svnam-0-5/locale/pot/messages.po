@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-13 00:51+0100\n"
+"PO-Revision-Date: 2012-10-13 09:54+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1873,6 +1873,7 @@ msgstr "Verantwortlichen hinzuf&uuml;gen"
 #: ../..//install/install.php:3439
 #: ../..//install/old/install-alt.php:3089
 #: ../../install/old/install-alt.php:3089
+#: ../../install/install.php:3442
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -2233,6 +2234,8 @@ msgstr "Administrator Kennung"
 #: ../../install/old/install-alt.php:2736
 #: ../../install/old/install-alt.php:3638
 #: ../../install/old/install-alt.php:4347
+#: ../../install/install.php:3063
+#: ../../install/install.php:4238
 #, php-format
 msgid "Administrator email address %s is not a valid email address!"
 msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
@@ -2324,6 +2327,8 @@ msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
 #: ../../install/old/install-alt.php:2731
 #: ../../install/old/install-alt.php:3633
 #: ../../install/old/install-alt.php:4342
+#: ../../install/install.php:3058
+#: ../../install/install.php:4233
 msgid "Administrator email address is missing!"
 msgstr "E-Mailadresse des Administrators fehlt!"
 
@@ -2409,6 +2414,8 @@ msgstr "E-Mailadresse des Administrators fehlt!"
 #: ../../install/old/install-alt.php:2724
 #: ../../install/old/install-alt.php:3626
 #: ../../install/old/install-alt.php:4335
+#: ../../install/install.php:3051
+#: ../../install/install.php:4226
 msgid "Administrator name is missing!"
 msgstr "Nachname des Administrators fehlt!"
 
@@ -2494,6 +2501,8 @@ msgstr "Nachname des Administrators fehlt!"
 #: ../../install/old/install-alt.php:2705
 #: ../../install/old/install-alt.php:3609
 #: ../../install/old/install-alt.php:4318
+#: ../../install/install.php:3032
+#: ../../install/install.php:4209
 msgid "Administrator password is missing!"
 msgstr "Passwort des Administrators fehlt!"
 
@@ -2579,6 +2588,8 @@ msgstr "Passwort des Administrators fehlt!"
 #: ../../install/old/install-alt.php:2717
 #: ../../install/old/install-alt.php:3619
 #: ../../install/old/install-alt.php:4328
+#: ../../install/install.php:3044
+#: ../../install/install.php:4219
 msgid "Administrator password is not strong enough!"
 msgstr "Administrator Passwort ist nicht stark genug!"
 
@@ -2664,6 +2675,8 @@ msgstr "Administrator Passwort ist nicht stark genug!"
 #: ../../install/old/install-alt.php:2712
 #: ../../install/old/install-alt.php:3614
 #: ../../install/old/install-alt.php:4323
+#: ../../install/install.php:3039
+#: ../../install/install.php:4214
 msgid "Administrator passwords do not match!"
 msgstr "Administrator Passworte sind verschieden!"
 
@@ -2749,6 +2762,8 @@ msgstr "Administrator Passworte sind verschieden!"
 #: ../../install/old/install-alt.php:2698
 #: ../../install/old/install-alt.php:3602
 #: ../../install/old/install-alt.php:4311
+#: ../../install/install.php:3025
+#: ../../install/install.php:4202
 msgid "Administrator username is missing!"
 msgstr "Administrator Kennung fehlt!"
 
@@ -2944,6 +2959,7 @@ msgstr "Benutzerauthentifizierungsdatei erfolgreich erstellt aber das Semaphore 
 #: ../..//install/install.php:3076
 #: ../..//install/old/install-alt.php:2752
 #: ../../install/old/install-alt.php:2752
+#: ../../install/install.php:3079
 msgid "Auth user file is missing!"
 msgstr "Benutzer Authentifizierungsdatei fehlt!"
 
@@ -4093,6 +4109,7 @@ msgstr "Zugriffsrecht mit Id %s kann nicht gel&ouml;scht werden"
 #: ../..//install/install.php:2697
 #: ../..//install/old/install-alt.php:2415
 #: ../../install/old/install-alt.php:2415
+#: ../../install/install.php:2700
 #, php-format
 msgid "Can't bind to ldap server: %s"
 msgstr "Verbindung zu LDAP Server nicht m&ouml;glich: %s"
@@ -4112,6 +4129,7 @@ msgstr "Verbindung zu LDAP Server nicht m&ouml;glich: %s"
 #: ../..//install/install.php:2705
 #: ../..//install/old/install-alt.php:2422
 #: ../../install/old/install-alt.php:2422
+#: ../../install/install.php:2708
 msgid "Can't connect to ldap server, hostname/ip and port are ok?"
 msgstr "Verbindung zu LDAP Server nicht m&ouml;glich. Hostname/IP und Port sind korrekt?"
 
@@ -4266,6 +4284,7 @@ msgstr "Passwort kann nicht ge&auml;ndert werden. Bitte versuchen Sie es sp&auml
 #: ../..//install/install.php:3292
 #: ../..//install/old/install-alt.php:2942
 #: ../../install/old/install-alt.php:2942
+#: ../../install/install.php:3295
 msgid "Can't write new config.inc.php file!"
 msgstr "kann config.inc.php nicht schreiben!"
 
@@ -5588,6 +5607,7 @@ msgstr "Kommando zum Laden der Webserver Konfiguration"
 #: ../..//install/install.php:2587
 #: ../../install/install.php:2845
 #: ../..//install/install.php:2845
+#: ../../install/install.php:2848
 #, php-format
 msgid "Config directory %s not writable!"
 msgstr "Konfigurationsverzeichnis %s ist nicht schreibbar!"
@@ -6265,6 +6285,8 @@ msgstr "Datenbank Zeichensatz"
 #: ../../install/old/install-alt.php:2558
 #: ../../install/old/install-alt.php:3447
 #: ../../install/old/install-alt.php:4081
+#: ../../install/install.php:2878
+#: ../../install/install.php:4044
 msgid "Database charset is missing!"
 msgstr "Datenbank Zeichensatz fehlt!"
 
@@ -6358,6 +6380,8 @@ msgstr "Datenbank Sortierung"
 #: ../../install/old/install-alt.php:2565
 #: ../../install/old/install-alt.php:3454
 #: ../../install/old/install-alt.php:4088
+#: ../../install/install.php:2885
+#: ../../install/install.php:4051
 msgid "Database collation is missing!"
 msgstr "Datenbank Sortierfolge fehlt!"
 
@@ -6490,6 +6514,8 @@ msgstr "Datenbank Server"
 #: ../../install/old/install-alt.php:2537
 #: ../../install/old/install-alt.php:3426
 #: ../../install/old/install-alt.php:4060
+#: ../../install/install.php:2857
+#: ../../install/install.php:4023
 msgid "Database host is missing!"
 msgstr "Datenbank Rechner fehlt!"
 
@@ -6598,6 +6624,8 @@ msgstr "Datenbank Name"
 #: ../../install/old/install-alt.php:2551
 #: ../../install/old/install-alt.php:3440
 #: ../../install/old/install-alt.php:4074
+#: ../../install/install.php:2871
+#: ../../install/install.php:4037
 msgid "Database name is missing!"
 msgstr "Datenbankname fehlt!"
 
@@ -6761,6 +6789,8 @@ msgstr "Datenbankeintsllungen - Teil 2"
 #: ../..//install/old/install-alt.php:3075
 #: ../../install/old/install-alt.php:3047
 #: ../../install/old/install-alt.php:3075
+#: ../../install/install.php:3400
+#: ../../install/install.php:3428
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
@@ -6817,6 +6847,7 @@ msgstr "Datenbanktabellen erfolgreich angelegt"
 #: ../..//install/install.php:3367
 #: ../..//install/old/install-alt.php:3017
 #: ../../install/old/install-alt.php:3017
+#: ../../install/install.php:3370
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gel&ouml;scht"
 
@@ -6955,6 +6986,8 @@ msgstr "Datenbank Benutzer"
 #: ../../install/old/install-alt.php:2544
 #: ../../install/old/install-alt.php:3433
 #: ../../install/old/install-alt.php:4067
+#: ../../install/install.php:2864
+#: ../../install/install.php:4030
 msgid "Database user is missing!"
 msgstr "Datenbankbenutzer fehlt!"
 
@@ -8697,6 +8730,7 @@ msgstr "Bitte die Anzahl Tage eingeben, die ein Link f&uuml;r ein vergessenes Pa
 #: ../..//install/install.php:3327
 #: ../..//install/old/install-alt.php:2977
 #: ../../install/old/install-alt.php:2977
+#: ../../install/install.php:3330
 #, php-format
 msgid "Error copying temporary config file %s to %s!"
 msgstr "Fehler beim Kopieren der tempor&auml;ren Konfigurationsdatei von %s nach %s!"
@@ -8803,6 +8837,7 @@ msgstr "Fehler beim Anlegen des Administrator Benutzers: %s"
 #: ../..//install/install.php:3315
 #: ../..//install/old/install-alt.php:2965
 #: ../../install/old/install-alt.php:2965
+#: ../../install/install.php:3318
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim L&ouml;schen der tempor&auml;ren Konfig Datei"
 
@@ -9582,6 +9617,8 @@ msgstr "Gew&auml;hrte Benutzerrechte"
 #: ../../install/old/install-alt.php:2794
 #: ../../install/old/install-alt.php:3854
 #: ../../install/old/install-alt.php:4433
+#: ../../install/install.php:3121
+#: ../../install/install.php:4283
 msgid "Grep command is missinbg!"
 msgstr "Grep Kommando fehlt!"
 
@@ -10648,6 +10685,8 @@ msgstr "Anweisungen"
 #: ../../list_groups.php:273
 #: ../..//list_users.php:227
 #: ../../rep_show_group.php:217
+#: ../../rep_show_group.php:238
+#: ../../rep_show_user.php:252
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -10780,6 +10819,8 @@ msgstr "Ung&uuml;ltige Projekt-Id %s angefordert"
 #: ../../install/old/install-alt.php:2588
 #: ../../install/old/install-alt.php:3270
 #: ../../install/old/install-alt.php:4814
+#: ../../install/install.php:2908
+#: ../../install/install.php:4074
 #, php-format
 msgid "Invalid protocol version %s!"
 msgstr "Ung&uuml;ltige protokollversion: %s"
@@ -11136,6 +11177,7 @@ msgstr "Attribut Sortierung LDAP Benutzer"
 
 #: ../..//install/install.php:4148
 #: ../../install/install.php:4148
+#: ../../install/install.php:4151
 msgid "LDAP attribute for sorting users missing!"
 msgstr "LDAP Attribut zur Sortierung der Benutzer fehlt!"
 
@@ -11178,6 +11220,8 @@ msgstr "LDAP Attribut zur Sortierung der Benutzer fehlt!"
 #: ../../install/install.php:4127
 #: ../../install/old/install-alt.php:2644
 #: ../../install/old/install-alt.php:3477
+#: ../../install/install.php:2964
+#: ../../install/install.php:4130
 msgid "LDAP attribute mapping for given name is missing!"
 msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 
@@ -11220,6 +11264,8 @@ msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 #: ../../install/install.php:4134
 #: ../../install/old/install-alt.php:2651
 #: ../../install/old/install-alt.php:3484
+#: ../../install/install.php:2971
+#: ../../install/install.php:4137
 msgid "LDAP attribute mapping for mail is missing!"
 msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 
@@ -11262,6 +11308,8 @@ msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 #: ../../install/install.php:4120
 #: ../../install/old/install-alt.php:2637
 #: ../../install/old/install-alt.php:3470
+#: ../../install/install.php:2957
+#: ../../install/install.php:4123
 msgid "LDAP attribute mapping for name is missing!"
 msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 
@@ -11304,6 +11352,8 @@ msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 #: ../../install/install.php:4113
 #: ../../install/old/install-alt.php:2630
 #: ../../install/old/install-alt.php:3463
+#: ../../install/install.php:2950
+#: ../../install/install.php:4116
 msgid "LDAP attribute mapping for uid is missing!"
 msgstr "LDAP Attribut das die UID abbildet fehlt!"
 
@@ -11346,6 +11396,8 @@ msgstr "LDAP Attribut das die UID abbildet fehlt!"
 #: ../../install/install.php:4141
 #: ../../install/old/install-alt.php:2658
 #: ../../install/old/install-alt.php:3491
+#: ../../install/install.php:2978
+#: ../../install/install.php:4144
 msgid "LDAP attribute mapping for user password is missing!"
 msgstr "LDAP Attribut das das Passwort abbildet fehlt!"
 
@@ -11413,6 +11465,8 @@ msgstr "LDAP Bind Dn"
 #: ../../install/old/install-alt.php:2595
 #: ../../install/old/install-alt.php:3277
 #: ../../install/old/install-alt.php:4821
+#: ../../install/install.php:2915
+#: ../../install/install.php:4081
 msgid "LDAP bind dn is missing!"
 msgstr "LDAP Bind Dn is missing!"
 
@@ -11480,6 +11534,8 @@ msgstr "LDAP Bind Passwort"
 #: ../../install/old/install-alt.php:2602
 #: ../../install/old/install-alt.php:3284
 #: ../../install/old/install-alt.php:4828
+#: ../../install/install.php:2922
+#: ../../install/install.php:4088
 msgid "LDAP bind password is missing!"
 msgstr "LDAP Bind Passwort fehlt!"
 
@@ -11498,6 +11554,7 @@ msgstr "LDAP Bind Passwort fehlt!"
 #: ../..//install/install.php:2692
 #: ../..//install/old/install-alt.php:2411
 #: ../../install/old/install-alt.php:2411
+#: ../../install/install.php:2695
 msgid "LDAP connection test ok, connection works"
 msgstr "LDAP Verbindungstest ok, die verbindung funktioniert"
 
@@ -11565,6 +11622,8 @@ msgstr "LDAP Server"
 #: ../../install/old/install-alt.php:2574
 #: ../../install/old/install-alt.php:3256
 #: ../../install/old/install-alt.php:4800
+#: ../../install/install.php:2894
+#: ../../install/install.php:4060
 msgid "LDAP host is missing!"
 msgstr "LDAP Server fehlt!"
 
@@ -11641,6 +11700,8 @@ msgstr "LDAP Port"
 #: ../../install/old/install-alt.php:2581
 #: ../../install/old/install-alt.php:3263
 #: ../../install/old/install-alt.php:4807
+#: ../../install/install.php:2901
+#: ../../install/install.php:4067
 msgid "LDAP port is missing!"
 msgstr "LDAP Port fehlt!"
 
@@ -11759,6 +11820,8 @@ msgstr "LDAP Benutzer DN"
 #: ../../install/old/install-alt.php:2609
 #: ../../install/old/install-alt.php:3291
 #: ../../install/old/install-alt.php:4835
+#: ../../install/install.php:2929
+#: ../../install/install.php:4095
 msgid "LDAP user dn is missing!"
 msgstr "LDAP benutzer DN fehlt!"
 
@@ -11826,6 +11889,8 @@ msgstr "LDAP Benutzerfilter Attribut"
 #: ../../install/old/install-alt.php:2616
 #: ../../install/old/install-alt.php:3298
 #: ../../install/old/install-alt.php:4842
+#: ../../install/install.php:2936
+#: ../../install/install.php:4102
 msgid "LDAP user filter attribute is missing!"
 msgstr "LDAP benutzerfilter Attribut fehlt!"
 
@@ -11893,6 +11958,8 @@ msgstr "LDAP benutzer Objektklasse"
 #: ../../install/old/install-alt.php:2623
 #: ../../install/old/install-alt.php:3305
 #: ../../install/old/install-alt.php:4849
+#: ../../install/install.php:2943
+#: ../../install/install.php:4109
 msgid "LDAP user object class is missing!"
 msgstr "LDAP benutzer Objektklasse fehlt!"
 
@@ -11903,6 +11970,7 @@ msgstr "Sortierreihenfolge LDAP Benutzer"
 
 #: ../..//install/install.php:4155
 #: ../../install/install.php:4155
+#: ../../install/install.php:4158
 #, php-format
 msgid "LDAP user sort order is missing or invalid: %s"
 msgstr "Sortierreihenfolge LDAP Benutzer fehlt oder ist ung&uuml;ltig: %s"
@@ -12197,6 +12265,8 @@ msgstr "Vergessenes Passwort"
 #: ../../install/old/install-alt.php:2686
 #: ../../install/old/install-alt.php:3556
 #: ../../install/old/install-alt.php:4264
+#: ../../install/install.php:3013
+#: ../../install/install.php:4190
 msgid "Lost password days link valid missing!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt fehlen!"
 
@@ -12264,6 +12334,8 @@ msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt feh
 #: ../../install/old/install-alt.php:2691
 #: ../../install/old/install-alt.php:3561
 #: ../../install/old/install-alt.php:4269
+#: ../../install/install.php:3018
+#: ../../install/install.php:4195
 msgid "Lost password days link valid must be numeric!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt muss numerisch sein!"
 
@@ -12384,6 +12456,8 @@ msgstr "Absender der Mail"
 #: ../../install/old/install-alt.php:2679
 #: ../../install/old/install-alt.php:3549
 #: ../../install/old/install-alt.php:4257
+#: ../../install/install.php:3006
+#: ../../install/install.php:4183
 #, php-format
 msgid "Lost password mail sender address %s is not a valid email address!"
 msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
@@ -12452,6 +12526,8 @@ msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
 #: ../../install/old/install-alt.php:2674
 #: ../../install/old/install-alt.php:3544
 #: ../../install/old/install-alt.php:4252
+#: ../../install/install.php:3001
+#: ../../install/install.php:4178
 msgid "Lost password mail sender address is missing!"
 msgstr "Absenderadresse fehlt!"
 
@@ -12597,6 +12673,8 @@ msgstr "Hauptmen&uuml;"
 #: ../../install/old/install-alt.php:3985
 #: ../../install/old/install-alt.php:4579
 #: ../../install/old/install-alt.php:4979
+#: ../../install/install.php:3142
+#: ../../install/install.php:4304
 msgid "Minimal administrator password length is not numeric!"
 msgstr "Minimale L&auml;nge von Administrator Passworten ist nicht numerisch!"
 
@@ -12771,6 +12849,8 @@ msgstr "Minimale L&auml;nge von Benutzer Passworten"
 #: ../../install/old/install-alt.php:3992
 #: ../../install/old/install-alt.php:4586
 #: ../../install/old/install-alt.php:4986
+#: ../../install/install.php:3149
+#: ../../install/install.php:4311
 msgid "Minimal user password length is not numeric!"
 msgstr "Minimale L&auml;nge von Benutzer Passworten ist nicht numerisch!"
 
@@ -13819,6 +13899,9 @@ msgstr "N&auml;chste Seite"
 #: ../../templates/old/install_page_1.tpl:92
 #: ../../templates/old/install_page_1.tpl:115
 #: ../../templates/old/install_page_1.tpl:141
+#: ../../rep_show_user.php:237
+#: ../../rep_show_user.php:241
+#: ../../rep_show_user.php:242
 msgid "No"
 msgstr "Nein"
 
@@ -13875,6 +13958,7 @@ msgstr "Nein"
 #: ../..//install/install.php:3454
 #: ../..//install/old/install-alt.php:3104
 #: ../../install/old/install-alt.php:3104
+#: ../../install/install.php:3457
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
@@ -13931,6 +14015,7 @@ msgstr "Keine Datenbanktabellen angelegt"
 #: ../..//install/install.php:3372
 #: ../..//install/old/install-alt.php:3022
 #: ../../install/old/install-alt.php:3022
+#: ../../install/install.php:3375
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gel&ouml;scht"
 
@@ -13939,6 +14024,10 @@ msgstr "Keine Datenbanktabellen gel&ouml;scht"
 #: ../../list_groups.php:239
 msgid "No group found!"
 msgstr "Keine Gruppe gefunden!"
+
+#: ../../rep_show_group.php:210
+msgid "No group selected!"
+msgstr "Keine Gruppe ausgew&auml;hlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/help.php:58
 #: /export/home/kriegeth/workspace/svn_access_manager/help.php:64
@@ -14023,6 +14112,10 @@ msgstr "Kein Benutzer gefunden!"
 #: ../..//setAccessRight.php:463
 msgid "No user or no group selected!"
 msgstr "Kein Benutzer oder keine Gruppe ausgew&auml;hlt!"
+
+#: ../../rep_show_user.php:218
+msgid "No user selected!"
+msgstr "Kein Benutzer ausgew&auml;hlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/lostpassword.php:86
 #: /export/home/kriegeth/workspace/svn_access_manager/lostpassword.php:86
@@ -14420,6 +14513,8 @@ msgstr "Seitengr&ouml;&szlig;e"
 #: ../../install/old/install-alt.php:3971
 #: ../../install/old/install-alt.php:4565
 #: ../../install/old/install-alt.php:4965
+#: ../../install/install.php:3128
+#: ../../install/install.php:4290
 msgid "Page size is missing!"
 msgstr "Seitengr&ouml;&szlig;e fehlt!"
 
@@ -14518,6 +14613,8 @@ msgstr "Seitengr&ouml;&szlig;e fehlt!"
 #: ../../install/old/install-alt.php:3978
 #: ../../install/old/install-alt.php:4572
 #: ../../install/old/install-alt.php:4972
+#: ../../install/install.php:3135
+#: ../../install/install.php:4297
 msgid "Page size is not numeric!"
 msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 
@@ -14710,6 +14807,7 @@ msgstr "Anzahl Tage Passwort Ablauf"
 #: ../../install/install.php:4303
 #: ../..//install/install.php:4329
 #: ../../install/install.php:4329
+#: ../../install/install.php:4332
 msgid "Password expire days must not be smaller or equal than password expire warn days!"
 msgstr "Tage Passwort Ablauf müssen gr&ouml;&szlig;er als Tage Passwort Ablauf Warnung sein!"
 
@@ -14719,6 +14817,7 @@ msgstr "Tage Passwort Ablauf müssen gr&ouml;&szlig;er als Tage Passwort Ablauf 
 #: ../../install/install.php:4289
 #: ../..//install/install.php:4315
 #: ../../install/install.php:4315
+#: ../../install/install.php:4318
 msgid "Password expire days not numeric!"
 msgstr "Tage Passwort Ablauf sind nicht numerisch!"
 
@@ -14728,6 +14827,7 @@ msgstr "Tage Passwort Ablauf sind nicht numerisch!"
 #: ../../install/install.php:4296
 #: ../..//install/install.php:4322
 #: ../../install/install.php:4322
+#: ../../install/install.php:4325
 msgid "Password expire warn days not numeric!"
 msgstr "Tage Passwort Ablauf Warnung sind nicht numersich!"
 
@@ -16721,6 +16821,7 @@ msgstr "SVN Access Datei"
 #: ../..//install/install.php:3069
 #: ../..//install/old/install-alt.php:2745
 #: ../../install/old/install-alt.php:2745
+#: ../../install/install.php:3072
 msgid "SVN Access File is missing!"
 msgstr "SVN Access Datei fehlt!"
 
@@ -16991,6 +17092,7 @@ msgstr "SVN Access Manager URL Webseite"
 #: ../..//install/install.php:2726
 #: ../../install/install.php:2984
 #: ../..//install/install.php:2984
+#: ../../install/install.php:2987
 msgid "SVN Access Manager website url is missing!"
 msgstr "SVN Access Manager Webseiten URL fehlt!"
 
@@ -17007,6 +17109,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../../install/install.php:4135
 #: ../..//install/install.php:4161
 #: ../../install/install.php:4161
+#: ../../install/install.php:4164
 msgid "SVN Access Manger Website URL is missing!"
 msgstr "SVN Access Manager Webseiten URL fehlt!"
 
@@ -17151,6 +17254,8 @@ msgstr "Sortierung SVN Zugriffsdatei"
 #: ../../install/old/install-alt.php:2780
 #: ../../install/old/install-alt.php:3840
 #: ../../install/old/install-alt.php:4419
+#: ../../install/install.php:3107
+#: ../../install/install.php:4269
 msgid "SVN command is missing!"
 msgstr "SVN Kommando fehlt!"
 
@@ -18280,6 +18385,8 @@ msgstr "Subversion Projekt"
 #: ../../install/old/install-alt.php:2787
 #: ../../install/old/install-alt.php:3847
 #: ../../install/old/install-alt.php:4426
+#: ../../install/install.php:3114
+#: ../../install/install.php:4276
 msgid "Svnadmin command missing!"
 msgstr "Svnadmin Kommando fehlt!"
 
@@ -18350,6 +18457,7 @@ msgstr "Datenbankverbindung testen"
 #: ../..//install/old/install-alt.php:4941
 #: ../../install/install.php:4367
 #: ../../install/old/install-alt.php:4941
+#: ../../install/install.php:4370
 msgid "Testing LDAP connection doesn't make sense if you do not use LDAP!"
 msgstr "LDAP Verbindungstest sinnlos, wenn lDAP nicht benutzt wird!"
 
@@ -19522,6 +19630,8 @@ msgstr "ViewVC Konfigurationsverzeichnis"
 #: ../../install/old/install-alt.php:2762
 #: ../../install/old/install-alt.php:3818
 #: ../../install/old/install-alt.php:4397
+#: ../../install/install.php:3089
+#: ../../install/install.php:4247
 msgid "ViewVC configuration directory is missing!"
 msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 
@@ -19635,6 +19745,8 @@ msgstr "ViewVC Realm"
 #: ../../install/old/install-alt.php:2772
 #: ../../install/old/install-alt.php:3832
 #: ../../install/old/install-alt.php:4411
+#: ../../install/install.php:3099
+#: ../../install/install.php:4261
 msgid "ViewVC realm is missing!"
 msgstr "ViewVC realm fehlt!"
 
@@ -19753,6 +19865,8 @@ msgstr "ViewVC Webserver Alias"
 #: ../../install/old/install-alt.php:2767
 #: ../../install/old/install-alt.php:3825
 #: ../../install/old/install-alt.php:4404
+#: ../../install/install.php:3094
+#: ../../install/install.php:4254
 msgid "ViewVC webserver alias is missing!"
 msgstr "ViewVC Webserver Alias fehlt!"
 
@@ -19987,6 +20101,8 @@ msgstr "Website Zeichensatz"
 #: ../../install/old/install-alt.php:2667
 #: ../../install/old/install-alt.php:3537
 #: ../../install/old/install-alt.php:4245
+#: ../../install/install.php:2994
+#: ../../install/install.php:4171
 msgid "Website charset is missing!"
 msgstr "Website Zeichensatz fehlt!"
 
@@ -20417,6 +20533,9 @@ msgstr "Falsche Antwort!"
 #: ../../templates/old/install_page_1.tpl:91
 #: ../../templates/old/install_page_1.tpl:114
 #: ../../templates/old/install_page_1.tpl:140
+#: ../../rep_show_user.php:237
+#: ../../rep_show_user.php:241
+#: ../../rep_show_user.php:242
 msgid "Yes"
 msgstr "Ja"
 
@@ -20552,6 +20671,7 @@ msgstr "aufsteigend"
 #: ../../install/install.php:3041
 #: ../../install/install.php:3299
 #: ../..//install/install.php:3299
+#: ../../install/install.php:3302
 #, php-format
 msgid "can't open %s for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Datei %s kann nicht zum Schreiben ge&ouml;ffnet werden.Bitte stellen Sie sicher, dass das Konfigurationsverzeichnis für den Webserver schreibbar ist!"
@@ -20567,6 +20687,7 @@ msgstr "Datei %s kann nicht zum Schreiben ge&ouml;ffnet werden.Bitte stellen Sie
 #: ../../install/install.php:3021
 #: ../../install/install.php:3279
 #: ../..//install/install.php:3279
+#: ../../install/install.php:3282
 #, php-format
 msgid "can't open config template %s for reading!"
 msgstr "Konfigurationstemplate %s ist nicht lesbar!"
@@ -20720,6 +20841,7 @@ msgstr "Kann config.inc.php nicht zum schreiben &ouml;ffnen. Bitte stellen Sie s
 #: ../..//install/install.php:3320
 #: ../..//install/old/install-alt.php:2970
 #: ../../install/old/install-alt.php:2970
+#: ../../install/install.php:3323
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
@@ -21072,6 +21194,9 @@ msgstr "keine"
 #: ../..//install/install.php:3860
 #: ../../install/install.php:3661
 #: ../../install/install.php:3860
+#: ../../install/install.php:2843
+#: ../../install/install.php:3664
+#: ../../install/install.php:3863
 msgid "not writable"
 msgstr "nicht schreibbar"
 
@@ -21250,6 +21375,9 @@ msgstr "svnadmin Kommando"
 #: ../..//install/install.php:3858
 #: ../../install/install.php:3659
 #: ../../install/install.php:3858
+#: ../../install/install.php:2841
+#: ../../install/install.php:3662
+#: ../../install/install.php:3861
 msgid "writable"
 msgstr "schreibbar"
 

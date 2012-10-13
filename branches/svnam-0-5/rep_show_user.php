@@ -212,20 +212,40 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$tUserId								= isset( $_POST['fUser'] ) ? db_escape_string( $_POST['fUser'] ) : "";
 		$_SESSION['svn_sessid']['user']			= $tUserId;
-		$tUser									= db_getUseridById( $tUserId, $dbh );
-		$tUserData								= getUserData( $tUserId, $dbh );
-		$tUsername								= $tUserData['userid'];
-		$tAdministrator							= $tUserData['admin'] == "y" ? _("Yes") : _("No");
-		$tName									= $tUserData['name'];
-		$tGivenname								= $tUserData['givenname'];
-		$tEmailAddress							= $tUserData['emailaddress'];
-		$tLocked								= $tUserData['locked'] == 0 ? _("No") : _("Yes");
-		$tPasswordExpires						= $tUserData['passwordexpires'] == 1 ? _("Yes") : _("No");
-		$tAccessRight							= $tUserData['user_mode'];
-		$lang									= check_language();
-		$tGroups								= getGroupsForUser( $tUserId, $dbh );
-		$tAccessRights							= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
-		$tProjects								= getProjectResponsibleForUser( $tUserId, $dbh );
+		
+		if( $tUserId == "default" ) {
+			
+			$tMessage							= _("No user selected!");
+			$lang								= check_language();
+			$tUsers								= getUsers(0, -1, $dbh );
+			$template							= "rep_show_user.tpl";
+		   	$header								= "reports";
+		   	$subheader							= "reports";
+		   	$menu								= "reports";
+		   
+		   	include ("$installBase/templates/framework.tpl");
+		 
+		 	db_disconnect( $dbh );
+		 	
+		 	exit;
+			
+		} else {
+			
+			$tUser								= db_getUseridById( $tUserId, $dbh );
+			$tUserData							= getUserData( $tUserId, $dbh );
+			$tUsername							= $tUserData['userid'];
+			$tAdministrator						= $tUserData['admin'] == "y" ? _("Yes") : _("No");
+			$tName								= $tUserData['name'];
+			$tGivenname							= $tUserData['givenname'];
+			$tEmailAddress						= $tUserData['emailaddress'];
+			$tLocked							= $tUserData['locked'] == 0 ? _("No") : _("Yes");
+			$tPasswordExpires					= $tUserData['passwordexpires'] == 1 ? _("Yes") : _("No");
+			$tAccessRight						= $tUserData['user_mode'];
+			$lang								= check_language();
+			$tGroups							= getGroupsForUser( $tUserId, $dbh );
+			$tAccessRights						= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
+			$tProjects							= getProjectResponsibleForUser( $tUserId, $dbh );
+		}
 		
 	} else {
 		
