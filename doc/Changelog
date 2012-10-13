@@ -16,6 +16,9 @@ Release 0.5.5.11
 	  Report "show group"
 	  
 	- Bug Fix in LDAP connect, wrong protocol version was used
+	
+	- Bug Fix in user and group report
+	  output error message if no user or no group are selected
 	  
 	  
 	Thanks to Tobias for sending a lot of patches

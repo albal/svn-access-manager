@@ -4,10 +4,10 @@
 				<p>&nbsp;</p>
 				<table id="groupdetails">
 					<tr>
-						<td><strong><?php print _("Group Name").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Group Name").": "; ?></strong></td>
 						<td><?php print $tGroupname;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td><strong><?php print _("Description").": "; ?></strong></td>
+						<td class="greyCell"><strong><?php print _("Description").": "; ?></strong></td>
 						<td><?php print $tDescription;?></td>
 					</tr>
 				</table>
