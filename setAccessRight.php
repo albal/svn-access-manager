@@ -341,7 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			
    			if( ! check_date( $day, $month, $year ) ) {
    				
-   				error_log( "$day - $month - $year" );
+   				#error_log( "$day - $month - $year" );
    				$tMessage					= sprintf( _("Not a valid date: %s (valid from)"), $tValidFrom );
    				$error						= 1;
    				
@@ -374,7 +374,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			
    			if( ! check_date( $day, $month, $year ) ) {
    				
-   				error_log( "$day - $month - $year - $lang" );
+   				#error_log( "$day - $month - $year - $lang" );
    				$tMessage					= sprintf( _("Not a valid date: %s (valid until)"), $tValidUntil );
    				$error						= 1;
    				
@@ -428,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   	if( $error == 0 ) {
 	   		
 	   		if( $_SESSION['svn_sessid']['task'] == "change" ) {
-	   			error_log( "userid = ".$_SESSION['svn_sessid']['userid']."   groupid = ".$_SESSION['svn_sessid']['groupid']);
+	   			#error_log( "userid = ".$_SESSION['svn_sessid']['userid']."   groupid = ".$_SESSION['svn_sessid']['groupid']);
 	   			
 	   			if( $_SESSION['svn_sessid']['userid'] != 0 ) {
 	   				

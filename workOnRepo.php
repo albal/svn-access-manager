@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    											  	  "  FROM ".$schema."svnrepos " .
    											 	  " WHERE (reponame = '$tReponame') " .
    											  	  "   AND (deleted = '00000000000000')";
-   				error_log( $query );
+   				#error_log( $query );
    				$result							= db_query( $query, $dbh );
    				
    				if( $result['rows'] > 0 ) {
