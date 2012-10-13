@@ -1179,6 +1179,7 @@ function db_escape_string ($string, $link="") {
 function ldap_check_user_exists($userid) {
 	
 	global $CONF;
+	global $LDAP_CONNECT_OPTIONS; 
 	
 	$ret										= 0;
 	
@@ -1188,6 +1189,7 @@ function ldap_check_user_exists($userid) {
 		$protocol								= "2";
 	}
 	
+	error_log( "using ldap protocol version $protocol" );
 	$LDAP_CONNECT_OPTIONS = Array(
          Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
          Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
@@ -1260,6 +1262,7 @@ function ldap_check_user_exists($userid) {
 function get_ldap_users() {
 	
 	global $CONF;
+	global $LDAP_CONNECT_OPTIONS; 
 	
 	$tUsers										= array();
 	
@@ -1390,6 +1393,7 @@ function get_ldap_users() {
 function check_ldap_password( $userid, $password ) {
 	
 	global $CONF;
+	global $LDAP_CONNECT_OPTIONS; 
 	
 	$ret										= 0;
 	
@@ -1410,7 +1414,7 @@ function check_ldap_password( $userid, $password ) {
 	);
 	
 	try {
-		$ldap										= &NewADOConnection( 'ldap' );
+		$ldap										= NewADOConnection( 'ldap' );
 		#error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
 		$ldap->Connect( $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn'] );
 		$ldapOpen									= 1;
