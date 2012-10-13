@@ -414,7 +414,12 @@ a:visited, a:active {
 #userlist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
 #userlist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
 #userlist_table th {white-space:nowrap;}
-#userlist_table td[headers~=ui-table-userlist_table-header-9] {white-space:nowrap;}
+#userlist_table td[headers~=ui-table-userlist_table-header-4] {text-align:center;}
+#userlist_table td[headers~=ui-table-userlist_table-header-5] {text-align:center;}
+#userlist_table td[headers~=ui-table-userlist_table-header-6] {text-align:center;}
+#userlist_table td[headers~=ui-table-userlist_table-header-7] {text-align:center;}
+#userlist_table td[headers~=ui-table-userlist_table-header-8] {text-align:center;}
+#userlist_table td[headers~=ui-table-userlist_table-header-9] {white-space:nowrap;text-align:center}
 
 #userlist_table th { 	
 	border: 1px solid #cccccc; 

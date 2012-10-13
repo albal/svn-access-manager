@@ -2684,8 +2684,11 @@ function doLdapTest() {
 	$tErrors								= array();
 	$error									= 0;
 	$tPage									= 2;
+	$tLdapProtocol							= isset( $_SESSION['svn_inst']['ldapProtocol'] ) ? $_SESSION['svn_inst']['ldapProtocol'] : "3";
 	
 	if( $ldap = @ldap_connect( $_SESSION['svn_inst']['ldapHost'], $_SESSION['svn_inst']['ldapPort'] ) ) {
+		
+		ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, $tLdapProtocol); 
 		
 		if( $rs = @ldap_bind( $ldap, $_SESSION['svn_inst']['ldapBinddn'], $_SESSION['svn_inst']['ldapBindpw']) ) {
 			
@@ -3583,7 +3586,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tLdapAttrGivenname						= "";
 	$tLdapAttrMail							= "";
 	$tLdapAttrPassword						= "";
-	$tLdapAttrUserSort						= "";
+	$tLdapAttrUserSort						= "sn";
 	$tLdapUserSort							= "ASC";
 	$tWebsiteCharset						= "";
 	$tWebsiteUrl							= "";
@@ -3887,7 +3890,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrGivenname					= isset( $_POST['fLdapAttrGivenname'])		? ( $_POST['fLdapAttrGivenname'])		: "";
 	$tLdapAttrMail						= isset( $_POST['fLdapAttrMail'])			? ( $_POST['fLdapAttrMail'])			: "";
 	$tLdapAttrPassword					= isset( $_POST['fLdapAttrPassword'])		? ( $_POST['fLdapAttrPassword'])		: "";
-	$tLdapAttrUserSort					= isset( $_POST['svn_inst']['fLdapAttrUserSort']) ? ( $_POST['fLdapAttrUserSort'] )	: "";
+	$tLdapAttrUserSort					= isset( $_POST['fLdapAttrUserSort']) 		? ( $_POST['fLdapAttrUserSort'] )		: "";
 	$tLdapUserSort						= isset( $_POST['fLdapUserSort'] )			? ( $_POST['fLdapUserSort'] )			: "ASC";
 	$tWebsiteUrl						= isset( $_POST['fWebsiteUrl'])				? ( $_POST['fWebsiteUrl'])				: "";
 	$tWebsiteCharset					= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
@@ -4143,7 +4146,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				
 			}
 			
-			if( $tLdapAttrSortUser == "" ) {
+			if( $tLdapAttrUserSort == "" ) {
 				
 				$tErrors[]				= _("LDAP attribute for sorting users missing!" );
 				$error					= 1;
