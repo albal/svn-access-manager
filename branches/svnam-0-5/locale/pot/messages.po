@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-13 09:54+0100\n"
+"PO-Revision-Date: 2012-10-13 10:21+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1251,6 +1251,10 @@ msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
 #: ../../templates/install-tabs.tpl:705
 msgid "ASC"
 msgstr "aufsteigend"
+
+#: ../../templates/rep_show_user_result.tpl:88
+msgid "Access by"
+msgstr "Zugriff durch"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:324
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:355
@@ -6023,6 +6027,9 @@ msgstr "Zugriffsdateien pro Repository erzeugen"
 #: ../../rep_show_group.php:198
 #: ../../rep_show_group.php:203
 #: ../../templates/rep_show_group.tpl:30
+#: ../../rep_show_user.php:227
+#: ../../rep_show_user.php:229
+#: ../../rep_show_user.php:234
 msgid "Create report"
 msgstr "Bericht erstellen"
 
@@ -10687,6 +10694,7 @@ msgstr "Anweisungen"
 #: ../../rep_show_group.php:217
 #: ../../rep_show_group.php:238
 #: ../../rep_show_user.php:252
+#: ../../rep_show_user.php:275
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -13902,6 +13910,9 @@ msgstr "N&auml;chste Seite"
 #: ../../rep_show_user.php:237
 #: ../../rep_show_user.php:241
 #: ../../rep_show_user.php:242
+#: ../../rep_show_user.php:260
+#: ../../rep_show_user.php:264
+#: ../../rep_show_user.php:265
 msgid "No"
 msgstr "Nein"
 
@@ -14114,6 +14125,7 @@ msgid "No user or no group selected!"
 msgstr "Kein Benutzer oder keine Gruppe ausgew&auml;hlt!"
 
 #: ../../rep_show_user.php:218
+#: ../../rep_show_user.php:241
 msgid "No user selected!"
 msgstr "Kein Benutzer ausgew&auml;hlt!"
 
@@ -14321,6 +14333,9 @@ msgstr "Oracle"
 #: ../../templates/rep_show_group_result.tpl:94
 #: ../../templates/rep_show_group_result.tpl:101
 #: ../../templates/rep_show_group_result.tpl:108
+#: ../../templates/rep_show_user_result.tpl:111
+#: ../../templates/rep_show_user_result.tpl:118
+#: ../../templates/rep_show_user_result.tpl:125
 msgid "Page"
 msgstr "Seite"
 
@@ -17115,6 +17130,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 
 #: ../../templates/rep_show_user_result.tpl:62
 #: ../..//templates/rep_show_user_result.tpl:62
+#: ../../templates/rep_show_user_result.tpl:83
 msgid "SVN Module"
 msgstr "SVN Modul"
 
@@ -20536,6 +20552,9 @@ msgstr "Falsche Antwort!"
 #: ../../rep_show_user.php:237
 #: ../../rep_show_user.php:241
 #: ../../rep_show_user.php:242
+#: ../../rep_show_user.php:260
+#: ../../rep_show_user.php:264
+#: ../../rep_show_user.php:265
 msgid "Yes"
 msgstr "Ja"
 
@@ -20959,6 +20978,10 @@ msgstr "&auml;ndern"
 msgid "grep command"
 msgstr "grep Kommando"
 
+#: ../../rep_show_user.php:145
+msgid "group id"
+msgstr "Gruppe"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:33
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:77
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteUser.tpl:43
@@ -21344,6 +21367,14 @@ msgstr "svn Kommando"
 #: ../../templates/old/install.tpl:462
 msgid "svnadmin command"
 msgstr "svnadmin Kommando"
+
+#: ../../rep_show_user.php:147
+msgid "user id"
+msgstr "Benutzer"
+
+#: ../../rep_show_user.php:143
+msgid "user id + group id"
+msgstr "Benutzer + Gruppe"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/install/install.php:2571
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/install/install.php:3334

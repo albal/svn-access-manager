@@ -80,11 +80,12 @@
 				<table id="showuserright_table">
 					<thead>
 						<tr>
-							<th><?php print _(" SVN Module");?></th>
+							<th><?php print _("SVN Module");?></th>
 							<th><?php print _("Reporitory");?></th>
 							<th><?php print _("Path");?></th>
 							<th><?php print _("Module path");?></th>
 							<th><?php print _("Access right");?></th>
+							<th><?php print _("Access by");?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -96,6 +97,7 @@
 								print "\t\t\t\t<td>".$entry['path']."</td>\n";
 								print "\t\t\t\t<td>".$entry['modulepath']."</td>\n";
 								print "\t\t\t\t<td>".$entry['access_right']."</td>\n";
+								print "\t\t\t\t<td>".$entry['access_by']."</td>\n";
 								print "\t\t\t</tr>\n";
 							}
 						?>

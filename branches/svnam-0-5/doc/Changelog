@@ -20,7 +20,9 @@ Release 0.5.5.11
 	- Bug Fix in user and group report
 	  output error message if no user or no group are selected
 	  
-	  
+	- added access by column to user report
+	
+	
 	Thanks to Tobias for sending a lot of patches
 	
 	  
