@@ -36,7 +36,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -53,8 +53,6 @@ $SESSID_USERNAME 								= check_session ();
 check_password_expired();
 $dbh 											= db_connect ();
 $preferences									= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']						= $preferences['user_sort_fields'];
-$CONF['user_sort_order']						= $preferences['user_sort_order'];
 $CONF['page_size']								= $preferences['page_size'];
 $rightAllowed									= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']			= "workongroupaccessright";
@@ -72,7 +70,8 @@ $schema											= db_determine_schema();
 $tUsers											= array();
 $query											= "SELECT * " .
 												  "  FROM ".$schema."svnusers " .
-												  " WHERE (deleted = '00000000000000')";
+												  " WHERE (deleted = '00000000000000') ".
+												  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
 $result											= db_query( $query, $dbh );
 while( $row = db_assoc( $result['result'] ) ) {
 	
@@ -237,7 +236,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$error							= 1;
    				
    			} else {
-   				
+   			
+   				$tGroupResponsibleId			= -1;	
    				$userid							= db_getIdByUserid( $tUser, $dbh );
    				$groupid						= $_SESSION['svn_sessid']['groupid'];
    				$groupname						= db_getGroupById( $groupid, $dbh );
@@ -264,6 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   					
 	   				} else {
 	   					
+	   					$tGroupResponsibleId	= db_get_last_insert_id( 'svn_groups_responsibles', 'id', $dbh );
 	   					db_ta( 'COMMIT', $dbh );
 	   					
 	   					$tMessage				= _( "Group responsible user successfully inserted" );
@@ -282,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$query									= "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " .
 													   "  FROM ".$schema."svnusers, ".$schema."svn_groups_responsible, ".$schema."svngroups " .
 													   " WHERE (svngroups.id = svn_groups_responsible.group_id) " .
-													   "   AND (svn_groups_responsible.id=".$_SESSION['svn_sessid']['groupid'].") " .
+													   "   AND (svn_groups_responsible.id=".$tGroupResponsibleId.") " .
 													   "   AND (svnusers.id = svn_groups_responsible.user_id) " .
 													   "   AND (svnusers.deleted = '00000000000000') " .
 													   "   AND (svngroups.deleted = '00000000000000') " .

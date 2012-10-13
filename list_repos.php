@@ -27,7 +27,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -92,8 +92,6 @@ check_password_expired();
 $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, 'Repository admin', $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "list_repos";
 
@@ -108,7 +106,7 @@ if( $rightAllowed == "none" ) {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
    	$_SESSION['svn_sessid']['repocounter']	= 0;
-   	$tRepos									= getRepos( 0, $CONF['page_size'], $dbh );
+   	$tRepos									= getRepos( 0, -1, $dbh );
    	$tCountRecords							= getCountRepos( $dbh );
    	$tPrevDisabled							= "disabled";
 	
@@ -133,14 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    
  	if( isset( $_POST['fSubmit'] ) ) {
 		$button									= db_escape_string( $_POST['fSubmit'] );
-	} elseif( isset( $_POST['fSubmit_f_x'] ) ) {
-		$button									= _("<<");
-	} elseif( isset( $_POST['fSubmit_p_x'] ) ) {
-		$button									= _("<");
-	} elseif( isset( $_POST['fSubmit_n_x'] ) ) {
-		$button									= _(">");			
-	} elseif( isset( $_POST['fSubmit_l_x'] ) ) {
-		$button									= _(">>");
 	} elseif( isset( $_POST['fSubmit_new_x'] ) ) {
 		$button									= _("New repository");
 	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
@@ -149,11 +139,68 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("New repository");
 	} elseif( isset( $_POST['fSubmit_back'] ) ) {
 		$button									= _("Back" );
+	} elseif( isset( $_POST['fSearchBtn'] ) ) {
+        $button                                 = _("search");
+    } elseif( isset( $_POST['fSearchBtn_x'] ) ) {
+        $button                                 = _("search");
 	} else {
 		$button									= "undef";
 	}
+	
+	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
  	
- 	if( $button == _("New repository") ) {
+ 	if( ($button == "search") or ($tSearch != "") ) {
+
+    	$tSearch                               	= html_entity_decode($tSearch);
+    	$_SESSION['svn_sessid']['search']       = $tSearch;
+        $_SESSION['svn_sessid']['searchtype']   = "repos";
+        
+    	if( $tSearch == "" ) {
+
+        	$tErrorClass                    	= "error";
+            $tMessage                       	= _("No search string given!");
+            $tRepos								= array();
+
+        } else {
+    	
+    		$tArray								= array();
+    		$query								= "SELECT * ".
+    											  "  FROM ".$schema."svnrepos ".
+    											  " WHERE ((repouser like '%$tSearch%') ".
+    											  "    OR (reponame like '%$tSearch%')) ".
+    											  "   AND (deleted = '00000000000000') ".
+    											  "ORDER BY reponame ASC";
+    		$result								= db_query( $query, $dbh );
+    		while( $row = db_assoc( $result['result'])) {
+    			
+    			$tArray[]						= $row;
+    			
+    		}
+    		
+    		if( count($tArray) == 0 ) {
+    			
+    			$tErrorClass                    = "info";
+                $tMessage                       = _("No user found!");
+    			
+    		} elseif( count($tArray) == 1) {
+    			
+    			$id								= $tArray[0]['id'];
+    			$url							= "workOnRepo.php?id=".urlencode($id)."&task=change";
+    			db_disconnect( $dbh );
+    			header( "location: $url" );
+    			exit;
+    			
+    		} else {
+    			
+    			db_disconnect( $dbh );
+    			$_SESSION['svn_sessid']['searchresult']	= $tArray;
+                header("location: searchresult.php");
+                exit;
+                
+    		}
+    	}
+    	
+ 	} elseif( $button == _("New repository") ) {
  		
  		db_disconnect( $dbh );
  		header( "Location: workOnRepo.php?task=new" );
@@ -165,77 +212,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  		header( "Location: main.php" );
  		exit;
  		
- 	} elseif( $button == _("<<") ) {
-		
-		$_SESSION['svn_sessid']['repocounter']		= 0;
-		$tRepos										= getRepos( 0, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountRepos( $dbh );
-		$tPrevDisabled								= "disabled";
-	
-		if( $tCountRecords <= $CONF['page_size'] ) {
-		
-			$tNextDisabled 							= "disabled";
-		
-		}
-		
-	} elseif( $button == _("<") ) {
-		
-		$_SESSION['svn_sessid']['repocounter']--;
-		if( $_SESSION['svn_sessid']['repocounter'] < 0 ) {
-			
-			$_SESSION['svn_sessid']['repocounter']	= 0;
-			$tPrevDisabled							= "disabled";
-			
-		} elseif( $_SESSION['svn_sessid']['repocounter'] == 0 ) {
-			
-			$tPrevDisabled							= "disabled";
-			
-		}
-		
-		$start										= $_SESSION['svn_sessid']['repocounter'] * $CONF['page_size'];
-		$tRepos										= getRepos( $start, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountRepos( $dbh );
-	
-		if( $tCountRecords <= $CONF['page_size'] ) {
-		
-			$tNextDisabled 							= "disabled";
-		
-		}
-		
-	} elseif( $button == _(">") ) {
-		
-		$_SESSION['svn_sessid']['repocounter']++;
-		$start										= $_SESSION['svn_sessid']['repocounter'] * $CONF['page_size'];
-		$tRepos										= getRepos( $start, $CONF['page_size'], $dbh );
-		$tCountRecords								= getCountRepos( $dbh );
-		$tRemainingRecords							= $tCountRecords - $start - $CONF['page_size'];
-		
-		if( $tRemainingRecords <= 0 ) {
-			
-			$tNextDisabled							= "disabled";
-			
-		}
-		
-	} elseif( $button == _(">>") ) {
-		
-		$count										= getCountRepos( $dbh );
-		$rest   									= $count % $CONF['page_size'];
-		if( $rest != 0 ) {
-			
-			$start									= $count - $rest + 1;
-			$_SESSION['svn_sessid']['repocounter'] 	= floor($count / $CONF['page_size'] );
-			
-		} else {
-			
-			$start									= $count - $CONF['page_size'] - 1;
-			$_SESSION['svn_sessid']['repocounter'] 	= floor($count / $CONF['page_size'] ) - 1;
-			
-		}
-		
-		
-		$tRepos										= getRepos( $start, $CONF['page_size'], $dbh );
-		$tNextDisabled								= "disabled";
-				
 	} else {
 		
 		$tMessage									= sprintf( _( "Invalid button %s, anyone tampered arround with?" ), $button );

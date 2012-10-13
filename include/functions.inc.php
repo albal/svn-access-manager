@@ -28,7 +28,7 @@ ini_set( 'display_startup_errors', 'On' );
 ini_set( 'log_errors', 'On' );
 ini_set( 'html_errors', 'Off' );
  
-if (ereg ("functions.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match("/functions.inc.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;
@@ -89,6 +89,8 @@ function initialize_i18n() {
 //
 function check_session() {
    
+   global $CONF;
+   
    	#error_log( "check session" );
    	$s 						= new Session;
 	session_start ();
@@ -101,6 +103,16 @@ function check_session() {
    	}
    
    	$SESSID_USERNAME 		= $_SESSION['svn_sessid']['username'];
+   	
+   	if(isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1)) {
+   		
+   		if( isset( $CONF['ldap_bind_dn_suffix'] ) ) {
+		
+			$CONF['bind_dn'] 	= $_SESSION['svn_sessid']['username'].$CONF['ldap_bind_dn_suffix'];
+   			$CONF['bind_pw'] 	= $_SESSION['svn_sessid']['password'];	
+   		}
+				
+	}
    
    	return $SESSID_USERNAME;
 }
@@ -116,7 +128,7 @@ function check_session_lpw( $redirect="y" ) {
    
    
    	$s 						= new Session;
-	session_start ();
+	@session_start ();
    
    	if (!session_is_registered ("svn_lpw"))  {
      
@@ -138,6 +150,34 @@ function check_session_lpw( $redirect="y" ) {
    
    	return $SESSID_USERNAME;
 }
+
+
+
+//
+// check_session_status
+// Action: Check if a session already exists, if not redirect to login.php
+// Call: check_session_status ()
+//
+function check_session_status() {
+
+
+        $ret                             = 0;
+        @session_start ();
+
+        if (!session_is_registered ("svn_sessid"))  {
+
+                $ret                        = 0;
+
+        } else {
+
+                $ret                    = 1;
+                $SESSID_USERNAME        = $_SESSION['svn_sessid']['username'];
+
+        }
+
+        return array( $ret, $SESSID_USERNAME );
+}
+
 
 
 
@@ -592,6 +632,91 @@ function generate_password ()
 
 
 
+function make_seed()
+{
+  list($usec, $sec) = explode(' ', microtime());
+  return (float) $sec + ((float) $usec * 100000);
+}
+
+
+
+
+//
+// generatePassword
+// Action: Generates a random password
+// Call: generatePassword ()
+//
+function generatePassword( $admin ) {
+	
+	global $CONF;
+	
+	if( strtolower($admin) == "y" ) {
+		$pwLength		= 14;
+	} else {
+		$pwLength		= 8;
+	}
+	
+	$password			= "";
+
+	while( checkPasswordPolicy( $password, strtolower($admin) ) == 0 ) {
+		
+		$password		= "";
+		
+		for( $i = 1; $i <= $pwLength; $i++ ) {
+			
+			$group			= rand(0, 3);
+			mt_srand(make_seed());
+			
+			switch( $group ) {
+				case 0:
+					$index	= rand(0, 25);
+					$value	= chr( $index + 65 );
+					break;
+					
+				case 1:
+					$index	= rand(0, 25);
+					$value	= chr( $index + 97 );
+					break;
+					
+				case 2:
+					$value	= rand(0, 9);
+					break;
+					
+				case 3:
+					$group	= rand(0, 2);
+					
+					switch( $group ) {
+						case 0:
+							$index	= rand(33,47);
+							break;
+							
+						case 1:
+							$index = 60;
+							while( ($index == 60) or ($index == 62) ) { 
+								$index = rand(58, 64);
+							}
+							break;
+							
+						case 2:
+							$index = rand(91, 96);
+							break;
+							
+					}
+					
+					$value 	= chr( $index );
+					break;
+					
+			}
+			
+			$password		.= $value;
+		}
+	}
+	
+	return( $password );
+}
+
+
+
 //
 // pacrypt
 // Action: Encrypts password based on config settings
@@ -793,6 +918,13 @@ function md5crypt ($pw, $salt="", $magic="") {
    
    return "$magic$salt\$$passwd";
 
+}
+
+function digestcrypt($userid, $realm, $password) {
+	
+	$pw		 						= md5( $userid . ':' . $realm . ':' . $password );
+	
+	return( $pw );
 }
 
 function create_salt () {
@@ -1096,5 +1228,33 @@ function encode_subject($in_str, $charset) {
         $out_str = $start . $out_str . $end; 
     } 
     return $out_str; 
+}
+
+
+
+//
+// sortLdapUsers
+// Action: sort ldap user by a preconfigured field
+// Call: sortLdapUsers( string $a, string $b )
+//
+function sortLdapUsers($a,$b) {
+        global $CONF;
+        $sortOrder = "ASC";
+        $aValue = $a[$CONF['ldap_sort_field']];
+        $bValue = $b[$CONF['ldap_sort_field']];
+
+        $aValue = strtolower($aValue);
+        $bValue = strtolower($bValue);
+
+        if (isset($CONF['ldap_sort_order']) && $CONF['ldap_sort_order'] == "DESC")
+        {
+                // sort desc
+                return $aValue<$bValue;
+        }
+        else
+        {
+                // sort asc
+                return $aValue>$bValue;
+        }
 }
 ?>
