@@ -159,6 +159,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $_SESSION['svn_sessid']['givenname']			= $tGivenname;
       $_SESSION['svn_sessid']['admin']				= $tAdmin;
       $_SESSION['svn_sessid']['password_expired']	= $tPasswordExpired;
+      if(isset($CONF['ldap_bind_use_login_data']) && $CONF['ldap_bind_use_login_data'] == 1) {
+	  		$_SESSION['svn_sessid']['password'] 	= $fPassword;
+	  }
+      
       #error_log( "session data written" );
       db_log( $_SESSION['svn_sessid']['username'], "user $tUsername logged in", $dbh );
 	  #error_log( "log data written" );

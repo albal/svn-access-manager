@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-13 10:21+0100\n"
+"PO-Revision-Date: 2012-10-13 12:35+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +100,7 @@ msgstr "--- Bitte einen Benutzer ausw&auml;hlen ---"
 #: ../../templates/install-tabs.tpl:497
 #: ../..//templates/install-tabs.tpl:518
 #: ../../templates/install-tabs.tpl:518
+#: ../../templates/install-tabs.tpl:539
 msgid "--- Select character set ---"
 msgstr "--- Zeichensatz ausw&auml;hlen ---"
 
@@ -1249,6 +1250,8 @@ msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
 #: ../../templates/install-tabs.tpl:684
 #: ../..//templates/install-tabs.tpl:705
 #: ../../templates/install-tabs.tpl:705
+#: ../../templates/install-tabs.tpl:473
+#: ../../templates/install-tabs.tpl:726
 msgid "ASC"
 msgstr "aufsteigend"
 
@@ -1280,6 +1283,7 @@ msgstr "Zugriff durch"
 #: ../../templates/install-tabs.tpl:660
 #: ../../templates/old/install_page_5.tpl:87
 #: ../../templates/old/install.tpl:358
+#: ../../templates/install-tabs.tpl:681
 msgid "Access control level"
 msgstr "Zugriffsschutz auf Ebene"
 
@@ -1912,6 +1916,7 @@ msgstr "Admin Kennung erfolgreich angelegt"
 #: ../../templates/install-tabs.tpl:619
 #: ../../templates/old/install_page_4.tpl:116
 #: ../../templates/old/install.tpl:313
+#: ../../templates/install-tabs.tpl:640
 msgid "Admin email address"
 msgstr "E-Mailadresse des Administrators"
 
@@ -1946,6 +1951,7 @@ msgstr "E-Mailadresse des Administrators"
 #: ../../templates/install-tabs.tpl:579
 #: ../../templates/old/install_page_4.tpl:76
 #: ../../templates/old/install.tpl:273
+#: ../../templates/install-tabs.tpl:600
 msgid "Admin password"
 msgstr "Passwort des Administrators"
 
@@ -1980,6 +1986,7 @@ msgstr "Passwort des Administrators"
 #: ../../templates/install-tabs.tpl:569
 #: ../../templates/old/install_page_4.tpl:66
 #: ../../templates/old/install.tpl:263
+#: ../../templates/install-tabs.tpl:590
 msgid "Admin username"
 msgstr "Benutzername des Administrators"
 
@@ -2012,6 +2019,7 @@ msgstr "Benutzername des Administrators"
 #: ../../templates/install-tabs.tpl:599
 #: ../../templates/old/install_page_4.tpl:96
 #: ../../templates/old/install.tpl:293
+#: ../../templates/install-tabs.tpl:620
 msgid "Admin's given name"
 msgstr "Vorname des Administrators"
 
@@ -2052,6 +2060,7 @@ msgstr "Vorname des Administrators"
 #: ../../templates/install-tabs.tpl:609
 #: ../../templates/old/install_page_4.tpl:106
 #: ../../templates/old/install.tpl:303
+#: ../../templates/install-tabs.tpl:630
 msgid "Admin's name"
 msgstr "Name des Administrators"
 
@@ -2240,6 +2249,7 @@ msgstr "Administrator Kennung"
 #: ../../install/old/install-alt.php:4347
 #: ../../install/install.php:3063
 #: ../../install/install.php:4238
+#: ../../install/install.php:4261
 #, php-format
 msgid "Administrator email address %s is not a valid email address!"
 msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
@@ -2333,6 +2343,7 @@ msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
 #: ../../install/old/install-alt.php:4342
 #: ../../install/install.php:3058
 #: ../../install/install.php:4233
+#: ../../install/install.php:4256
 msgid "Administrator email address is missing!"
 msgstr "E-Mailadresse des Administrators fehlt!"
 
@@ -2420,6 +2431,7 @@ msgstr "E-Mailadresse des Administrators fehlt!"
 #: ../../install/old/install-alt.php:4335
 #: ../../install/install.php:3051
 #: ../../install/install.php:4226
+#: ../../install/install.php:4249
 msgid "Administrator name is missing!"
 msgstr "Nachname des Administrators fehlt!"
 
@@ -2507,6 +2519,7 @@ msgstr "Nachname des Administrators fehlt!"
 #: ../../install/old/install-alt.php:4318
 #: ../../install/install.php:3032
 #: ../../install/install.php:4209
+#: ../../install/install.php:4232
 msgid "Administrator password is missing!"
 msgstr "Passwort des Administrators fehlt!"
 
@@ -2594,6 +2607,7 @@ msgstr "Passwort des Administrators fehlt!"
 #: ../../install/old/install-alt.php:4328
 #: ../../install/install.php:3044
 #: ../../install/install.php:4219
+#: ../../install/install.php:4242
 msgid "Administrator password is not strong enough!"
 msgstr "Administrator Passwort ist nicht stark genug!"
 
@@ -2681,6 +2695,7 @@ msgstr "Administrator Passwort ist nicht stark genug!"
 #: ../../install/old/install-alt.php:4323
 #: ../../install/install.php:3039
 #: ../../install/install.php:4214
+#: ../../install/install.php:4237
 msgid "Administrator passwords do not match!"
 msgstr "Administrator Passworte sind verschieden!"
 
@@ -2768,6 +2783,7 @@ msgstr "Administrator Passworte sind verschieden!"
 #: ../../install/old/install-alt.php:4311
 #: ../../install/install.php:3025
 #: ../../install/install.php:4202
+#: ../../install/install.php:4225
 msgid "Administrator username is missing!"
 msgstr "Administrator Kennung fehlt!"
 
@@ -2833,6 +2849,7 @@ msgstr "Anonymer Zugriff"
 #: ../../templates/install-tabs.tpl:693
 #: ../..//templates/install-tabs.tpl:714
 #: ../../templates/install-tabs.tpl:714
+#: ../../templates/install-tabs.tpl:735
 msgid "Anonymous read access"
 msgstr "Anonymer Lesezugriff"
 
@@ -2882,6 +2899,7 @@ msgstr "Auth User Datei fehlt, bitte eintragen!"
 #: ../../templates/install-tabs.tpl:682
 #: ../../templates/old/install_page_5.tpl:109
 #: ../../templates/old/install.tpl:380
+#: ../../templates/install-tabs.tpl:703
 msgid "Auth User file"
 msgstr "Benutzer Authentifizierungdatei"
 
@@ -5774,6 +5792,7 @@ msgstr "Zugriffsdateien erstellen"
 #: ../../templates/install-tabs.tpl:725
 #: ../../templates/old/install_page_5.tpl:130
 #: ../../templates/old/install.tpl:401
+#: ../../templates/install-tabs.tpl:746
 msgid "Create ViewVC configuration"
 msgstr "ViewVC Konfiguration erzeugen"
 
@@ -5956,6 +5975,7 @@ msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
 #: ../../templates/install-tabs.tpl:692
 #: ../../templates/old/install_page_5.tpl:119
 #: ../../templates/old/install.tpl:390
+#: ../../templates/install-tabs.tpl:713
 msgid "Create per repository access files"
 msgstr "Zugriffsdateien pro Repository erzeugen"
 
@@ -6089,6 +6109,7 @@ msgstr "Aktuelles Passwort nicht eingegeben!"
 #: ../../templates/install-tabs.tpl:902
 #: ../..//templates/install-tabs.tpl:923
 #: ../../templates/install-tabs.tpl:923
+#: ../../templates/install-tabs.tpl:944
 msgid "Custom field 1"
 msgstr "Benutzerdefiniertes Feld 1"
 
@@ -6101,6 +6122,7 @@ msgstr "Benutzerdefiniertes Feld 1"
 #: ../../templates/install-tabs.tpl:912
 #: ../..//templates/install-tabs.tpl:933
 #: ../../templates/install-tabs.tpl:933
+#: ../../templates/install-tabs.tpl:954
 msgid "Custom field 2"
 msgstr "Benutzerdefiniertes Feld 2"
 
@@ -6113,6 +6135,7 @@ msgstr "Benutzerdefiniertes Feld 2"
 #: ../../templates/install-tabs.tpl:922
 #: ../..//templates/install-tabs.tpl:943
 #: ../../templates/install-tabs.tpl:943
+#: ../../templates/install-tabs.tpl:964
 msgid "Custom field 3"
 msgstr "Benutzerdefiniertes Feld 3"
 
@@ -6154,6 +6177,8 @@ msgstr "absteigend"
 #: ../../templates/install-tabs.tpl:685
 #: ../..//templates/install-tabs.tpl:706
 #: ../../templates/install-tabs.tpl:706
+#: ../../templates/install-tabs.tpl:474
+#: ../../templates/install-tabs.tpl:727
 msgid "DESC"
 msgstr "absteigend"
 
@@ -6294,6 +6319,7 @@ msgstr "Datenbank Zeichensatz"
 #: ../../install/old/install-alt.php:4081
 #: ../../install/install.php:2878
 #: ../../install/install.php:4044
+#: ../../install/install.php:4057
 msgid "Database charset is missing!"
 msgstr "Datenbank Zeichensatz fehlt!"
 
@@ -6389,6 +6415,7 @@ msgstr "Datenbank Sortierung"
 #: ../../install/old/install-alt.php:4088
 #: ../../install/install.php:2885
 #: ../../install/install.php:4051
+#: ../../install/install.php:4064
 msgid "Database collation is missing!"
 msgstr "Datenbank Sortierfolge fehlt!"
 
@@ -6523,6 +6550,7 @@ msgstr "Datenbank Server"
 #: ../../install/old/install-alt.php:4060
 #: ../../install/install.php:2857
 #: ../../install/install.php:4023
+#: ../../install/install.php:4036
 msgid "Database host is missing!"
 msgstr "Datenbank Rechner fehlt!"
 
@@ -6633,6 +6661,7 @@ msgstr "Datenbank Name"
 #: ../../install/old/install-alt.php:4074
 #: ../../install/install.php:2871
 #: ../../install/install.php:4037
+#: ../../install/install.php:4050
 msgid "Database name is missing!"
 msgstr "Datenbankname fehlt!"
 
@@ -6995,6 +7024,7 @@ msgstr "Datenbank Benutzer"
 #: ../../install/old/install-alt.php:4067
 #: ../../install/install.php:2864
 #: ../../install/install.php:4030
+#: ../../install/install.php:4043
 msgid "Database user is missing!"
 msgstr "Datenbankbenutzer fehlt!"
 
@@ -7028,6 +7058,7 @@ msgstr "Datum f&uuml;r Zugriffsrechte Bericht"
 #: ../../templates/install-tabs.tpl:875
 #: ../..//templates/install-tabs.tpl:896
 #: ../../templates/install-tabs.tpl:896
+#: ../../templates/install-tabs.tpl:917
 msgid "Default value for password expiration."
 msgstr "Standardwert f&uuml; Passwortablauf"
 
@@ -7528,6 +7559,7 @@ msgstr "Beschreibung"
 #: ../../templates/install-tabs.tpl:662
 #: ../../templates/old/install_page_5.tpl:89
 #: ../../templates/old/install.tpl:360
+#: ../../templates/install-tabs.tpl:683
 msgid "Directories"
 msgstr "Verzeichnisse"
 
@@ -7688,6 +7720,7 @@ msgstr "E-Mailadresse fehlt, bitte eingeben!"
 #: ../../templates/install-tabs.tpl:771
 #: ../../templates/old/install_page_5.tpl:176
 #: ../../templates/old/install.tpl:447
+#: ../../templates/install-tabs.tpl:792
 msgid "Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."
 msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das Kommando muss f&uuml;r den Webserver Benutzer ausf&uuml;hrbar sein. Sie k&ouml;nnen das mit sudo erreichen."
 
@@ -7715,6 +7748,7 @@ msgstr "Wenn ben&ouml;tigt, zus&auml;tzliche Filter f&uuml;r benutzer eintragen.
 #: ../..//templates/install-tabs.tpl:482
 #: ../..//templates/install-tabs.tpl:503
 #: ../../templates/install-tabs.tpl:503
+#: ../../templates/install-tabs.tpl:524
 msgid "Enter the URL which should be printed into expired password warning mail!"
 msgstr "Bitte die URL eintragen, die in der Email zum abgelaufenen Passwort eingetragen werden soll!"
 
@@ -7751,6 +7785,7 @@ msgstr "Bitte die URL eintragen, die in der Email zum abgelaufenen Passwort eing
 #: ../../templates/install-tabs.tpl:761
 #: ../../templates/old/install_page_5.tpl:166
 #: ../../templates/old/install.tpl:437
+#: ../../templates/install-tabs.tpl:782
 msgid "Enter the alias you used in your webserver:"
 msgstr "Bitte den Alias der im Webserver verwendet wird eingeben:"
 
@@ -7836,6 +7871,7 @@ msgstr "Bitte der Attribut eintragen, dass die User-ID (uid) enth&auml;lt."
 
 #: ../..//templates/install-tabs.tpl:466
 #: ../../templates/install-tabs.tpl:466
+#: ../../templates/install-tabs.tpl:498
 msgid "Enter the attribute to be used for sorting users."
 msgstr "Attribut zur Sortierung der LDAP Benutzer eintragen."
 
@@ -7965,6 +8001,7 @@ msgstr "Bitte geben Sie das Datenbank Schema ein, dass Sie benutzen wollen!"
 #: ../../templates/install-tabs.tpl:854
 #: ../..//templates/install-tabs.tpl:875
 #: ../../templates/install-tabs.tpl:875
+#: ../../templates/install-tabs.tpl:896
 msgid "Enter the days a password is valid before it expires."
 msgstr "Anzahl der Tage eingeben, die ein Passwort g&uuml;ltig ist"
 
@@ -8031,6 +8068,7 @@ msgstr "Bitte den DN eingeben, unter dem die benutzer zu finden sind."
 #: ../../templates/install-tabs.tpl:624
 #: ../../templates/old/install_page_4.tpl:121
 #: ../../templates/old/install.tpl:318
+#: ../../templates/install-tabs.tpl:645
 msgid "Enter the email address of the administrator."
 msgstr "Die E-Mailadresse des Administrators eingeben"
 
@@ -8058,6 +8096,7 @@ msgstr "Die E-Mailadresse des Administrators eingeben"
 #: ../../templates/install-tabs.tpl:544
 #: ../../templates/old/install.tpl:234
 #: ../../templates/old/install_page_3.tpl:81
+#: ../../templates/install-tabs.tpl:565
 msgid "Enter the email address to use as sender address for lost password emails."
 msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessenen Passwort benutzt werden soll!"
 
@@ -8093,6 +8132,7 @@ msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessen
 #: ../../templates/install-tabs.tpl:687
 #: ../../templates/old/install_page_5.tpl:114
 #: ../../templates/old/install.tpl:385
+#: ../../templates/install-tabs.tpl:708
 msgid "Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."
 msgstr "Den vollen Pfad und den Namen der Benutzer Authentifizierungsdatei zur Authentifizierung der Benutzer &uuml;ber den Webserver eingeben. Der Webserver muss die Datei schreiben k&ouml;nnen."
 
@@ -8127,6 +8167,7 @@ msgstr "Den vollen Pfad und den Namen der Benutzer Authentifizierungsdatei zur A
 #: ../../templates/install-tabs.tpl:655
 #: ../../templates/old/install_page_5.tpl:82
 #: ../../templates/old/install.tpl:353
+#: ../../templates/install-tabs.tpl:676
 msgid "Enter the full path and the name of the SVN Access file. The webserver must be able to write the file."
 msgstr "Den vollen Pfad und den Dateinamen des SVN Zugriffsdatei eingeben. Der Webserver muss die Datei schreiben k&ouml;nnen."
 
@@ -8167,6 +8208,7 @@ msgstr "Den vollen Pfad und den Dateinamen des SVN Zugriffsdatei eingeben. Der W
 #: ../../templates/install-tabs.tpl:801
 #: ../../templates/old/install_page_5.tpl:206
 #: ../../templates/old/install.tpl:477
+#: ../../templates/install-tabs.tpl:822
 msgid "Enter the full path and the name of the grep command."
 msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 
@@ -8207,6 +8249,7 @@ msgstr "Den vollen Pfad und den Dateinamen des grep Kommandos eingeben."
 #: ../../templates/install-tabs.tpl:781
 #: ../../templates/old/install_page_5.tpl:186
 #: ../../templates/old/install.tpl:457
+#: ../../templates/install-tabs.tpl:802
 msgid "Enter the full path and the name of the svn command."
 msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 
@@ -8242,6 +8285,7 @@ msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 #: ../../templates/install-tabs.tpl:791
 #: ../../templates/old/install_page_5.tpl:196
 #: ../../templates/old/install.tpl:467
+#: ../../templates/install-tabs.tpl:812
 msgid "Enter the full path and the name of the svnadmin command."
 msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 
@@ -8278,6 +8322,7 @@ msgstr "Pfad und Name des svnadmin Kommandos eingeben"
 #: ../../templates/install-tabs.tpl:741
 #: ../../templates/old/install_page_5.tpl:146
 #: ../../templates/old/install.tpl:417
+#: ../../templates/install-tabs.tpl:762
 msgid "Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."
 msgstr "Geben Sie den gesamten Pfad zu dem Verzeichnis ein, in das die ViewVC configuration gespeichert werden soll. Der Webserver muss in das Verzeichnis schreiben k&ouml;nnen."
 
@@ -8365,6 +8410,7 @@ msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein!"
 #: ../../templates/install-tabs.tpl:855
 #: ../../templates/old/install_page_6.tpl:103
 #: ../../templates/old/install.tpl:533
+#: ../../templates/install-tabs.tpl:876
 msgid "Enter the minimal length for administrator passwords."
 msgstr "Die minimale L&auml;nge von Administrator Passworten eingeben"
 
@@ -8376,6 +8422,7 @@ msgstr "Die minimale L&auml;nge von Administrator Passworten eingeben"
 #: ../../templates/install-tabs.tpl:844
 #: ../..//templates/install-tabs.tpl:865
 #: ../../templates/install-tabs.tpl:865
+#: ../../templates/install-tabs.tpl:886
 msgid "Enter the minimal length for user passwords."
 msgstr "Bitte die minimale L&auml;nge des Passwortes f&uuml; Benutzer eingeben."
 
@@ -8449,6 +8496,7 @@ msgstr "Bitte geben Se den Namen der Datenbank ein!"
 #: ../../templates/install-tabs.tpl:864
 #: ../..//templates/install-tabs.tpl:885
 #: ../../templates/install-tabs.tpl:885
+#: ../../templates/install-tabs.tpl:906
 msgid "Enter the number of days after a user is warned before his password expires."
 msgstr "Anzahl der Tage ab wann ein Benutzer zum Passwortablauf gewarnt wird"
 
@@ -8489,6 +8537,7 @@ msgstr "Anzahl der Tage ab wann ein Benutzer zum Passwortablauf gewarnt wird"
 #: ../../templates/install-tabs.tpl:845
 #: ../../templates/old/install_page_6.tpl:93
 #: ../../templates/old/install.tpl:523
+#: ../../templates/install-tabs.tpl:866
 msgid "Enter the number of records of lists displayed on a page."
 msgstr "Die Anzahl der Datens&auml;tze eingeben, die pro Seite angezeigt werden sollen."
 
@@ -8564,6 +8613,7 @@ msgstr "Das Passwort f&uuml;r den Benutzer der MySQL Datenbank eingeben"
 #: ../../templates/install-tabs.tpl:584
 #: ../../templates/old/install_page_4.tpl:81
 #: ../../templates/old/install.tpl:278
+#: ../../templates/install-tabs.tpl:605
 msgid "Enter the password for the admin user. It must be 14 characters at least and consinst of digits, lower case characters, upper case characters and special characters."
 msgstr "Das Passwort f&uuml;r den Administrator eingeben. Es muss mindestens 14 Stellen lang sein und Ziffern, Klein- und Gro&szlig;buchstaben und Sonderzeichen enthalten."
 
@@ -8660,6 +8710,7 @@ msgstr "Den Benutzernamen f&uuml;r die Administrator Kennung eingeben"
 #: ../../templates/install-tabs.tpl:553
 #: ../..//templates/install-tabs.tpl:574
 #: ../../templates/install-tabs.tpl:574
+#: ../../templates/install-tabs.tpl:595
 msgid "Enter the username for the administrator account. If you use LDAP you must use a admin user which exists in the LDAP!"
 msgstr "Geben Sie den Benutzernamen des Administrator Kontos ein. Wenn Sie LDAP benutzen, m&uuml;ssen Sie ein Konto verwenden, das im LDAP existiert!"
 
@@ -8710,6 +8761,7 @@ msgstr "Bitte geben Sie den Datenbank Benutzer ein!"
 #: ../../templates/install-tabs.tpl:554
 #: ../../templates/old/install.tpl:244
 #: ../../templates/old/install_page_3.tpl:91
+#: ../../templates/install-tabs.tpl:575
 msgid "Enter tne number of days a lost password link will be valid."
 msgstr "Bitte die Anzahl Tage eingeben, die ein Link f&uuml;r ein vergessenes Passwort g&uuml;ltig bleibt!"
 
@@ -9370,6 +9422,7 @@ msgstr "Fehlermeldung"
 #: ../../templates/install-tabs.tpl:663
 #: ../../templates/old/install_page_5.tpl:90
 #: ../../templates/old/install.tpl:361
+#: ../../templates/install-tabs.tpl:684
 msgid "Files"
 msgstr "Dateien"
 
@@ -9626,6 +9679,7 @@ msgstr "Gew&auml;hrte Benutzerrechte"
 #: ../../install/old/install-alt.php:4433
 #: ../../install/install.php:3121
 #: ../../install/install.php:4283
+#: ../../install/install.php:4306
 msgid "Grep command is missinbg!"
 msgstr "Grep Kommando fehlt!"
 
@@ -10190,6 +10244,7 @@ msgstr "Hilfe"
 #: ../../templates/old/install_page_4.tpl:40
 #: ../../templates/old/install_page_3.tpl:40
 #: ../../templates/old/install_page_1.tpl:40
+#: ../../templates/install-tabs.tpl:985
 msgid "Hints and errors"
 msgstr "Hinweise und Fehler"
 
@@ -10269,6 +10324,7 @@ msgstr "Wenn Sie separate Konfigurationsdateien f&uuml;r jedes Repository ben&ou
 #: ../../templates/install-tabs.tpl:907
 #: ../..//templates/install-tabs.tpl:928
 #: ../../templates/install-tabs.tpl:928
+#: ../../templates/install-tabs.tpl:949
 msgid "If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."
 msgstr "Wenn Sie benutzerdefinierte Felder nutzen wollen, geben Sie bitte die Bezeichnung des Feldes ein. Wenn Sie nichts eintragen, wird das Feld nicht benutzt."
 
@@ -10829,6 +10885,7 @@ msgstr "Ung&uuml;ltige Projekt-Id %s angefordert"
 #: ../../install/old/install-alt.php:4814
 #: ../../install/install.php:2908
 #: ../../install/install.php:4074
+#: ../../install/install.php:4087
 #, php-format
 msgid "Invalid protocol version %s!"
 msgstr "Ung&uuml;ltige protokollversion: %s"
@@ -11164,6 +11221,14 @@ msgstr "JavaScript ist ausgeschaltet. Diese Seite ben&ouml;tigt JavaScript um ko
 msgid "LDAP"
 msgstr "LDAP"
 
+#: ../../templates/install-tabs.tpl:493
+msgid "LDAP Bind Dn Suffix"
+msgstr "LDAP Bind Dn Suffix"
+
+#: ../../install/install.php:4181
+msgid "LDAP Bind Dn Suffix is missing!"
+msgstr "LDAP Bind Dn Suffix fehlt!"
+
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/list_users.tpl:41
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/list_users.tpl:38
 #: ../../templates/list_users.tpl:38
@@ -11186,6 +11251,7 @@ msgstr "Attribut Sortierung LDAP Benutzer"
 #: ../..//install/install.php:4148
 #: ../../install/install.php:4148
 #: ../../install/install.php:4151
+#: ../../install/install.php:4164
 msgid "LDAP attribute for sorting users missing!"
 msgstr "LDAP Attribut zur Sortierung der Benutzer fehlt!"
 
@@ -11230,6 +11296,7 @@ msgstr "LDAP Attribut zur Sortierung der Benutzer fehlt!"
 #: ../../install/old/install-alt.php:3477
 #: ../../install/install.php:2964
 #: ../../install/install.php:4130
+#: ../../install/install.php:4143
 msgid "LDAP attribute mapping for given name is missing!"
 msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 
@@ -11274,6 +11341,7 @@ msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 #: ../../install/old/install-alt.php:3484
 #: ../../install/install.php:2971
 #: ../../install/install.php:4137
+#: ../../install/install.php:4150
 msgid "LDAP attribute mapping for mail is missing!"
 msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 
@@ -11318,6 +11386,7 @@ msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 #: ../../install/old/install-alt.php:3470
 #: ../../install/install.php:2957
 #: ../../install/install.php:4123
+#: ../../install/install.php:4136
 msgid "LDAP attribute mapping for name is missing!"
 msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 
@@ -11362,6 +11431,7 @@ msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 #: ../../install/old/install-alt.php:3463
 #: ../../install/install.php:2950
 #: ../../install/install.php:4116
+#: ../../install/install.php:4129
 msgid "LDAP attribute mapping for uid is missing!"
 msgstr "LDAP Attribut das die UID abbildet fehlt!"
 
@@ -11406,6 +11476,7 @@ msgstr "LDAP Attribut das die UID abbildet fehlt!"
 #: ../../install/old/install-alt.php:3491
 #: ../../install/install.php:2978
 #: ../../install/install.php:4144
+#: ../../install/install.php:4157
 msgid "LDAP attribute mapping for user password is missing!"
 msgstr "LDAP Attribut das das Passwort abbildet fehlt!"
 
@@ -11475,6 +11546,7 @@ msgstr "LDAP Bind Dn"
 #: ../../install/old/install-alt.php:4821
 #: ../../install/install.php:2915
 #: ../../install/install.php:4081
+#: ../../install/install.php:4094
 msgid "LDAP bind dn is missing!"
 msgstr "LDAP Bind Dn is missing!"
 
@@ -11544,8 +11616,18 @@ msgstr "LDAP Bind Passwort"
 #: ../../install/old/install-alt.php:4828
 #: ../../install/install.php:2922
 #: ../../install/install.php:4088
+#: ../../install/install.php:4101
 msgid "LDAP bind password is missing!"
 msgstr "LDAP Bind Passwort fehlt!"
+
+#: ../../install/install.php:4176
+#, php-format
+msgid "LDAP bind uses login data is missing or invalid: %s"
+msgstr "LDAP Bind mit Benutzerdaten fehlt oder ist ung&uuml;tig: %s"
+
+#: ../../templates/install-tabs.tpl:482
+msgid "LDAP bind with user login data"
+msgstr "LDAP Bind mit Benutzerdaten"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/install/install.php:2411
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/install/install-tabs.php:2425
@@ -11632,6 +11714,7 @@ msgstr "LDAP Server"
 #: ../../install/old/install-alt.php:4800
 #: ../../install/install.php:2894
 #: ../../install/install.php:4060
+#: ../../install/install.php:4073
 msgid "LDAP host is missing!"
 msgstr "LDAP Server fehlt!"
 
@@ -11710,6 +11793,7 @@ msgstr "LDAP Port"
 #: ../../install/old/install-alt.php:4807
 #: ../../install/install.php:2901
 #: ../../install/install.php:4067
+#: ../../install/install.php:4080
 msgid "LDAP port is missing!"
 msgstr "LDAP Port fehlt!"
 
@@ -11830,6 +11914,7 @@ msgstr "LDAP Benutzer DN"
 #: ../../install/old/install-alt.php:4835
 #: ../../install/install.php:2929
 #: ../../install/install.php:4095
+#: ../../install/install.php:4108
 msgid "LDAP user dn is missing!"
 msgstr "LDAP benutzer DN fehlt!"
 
@@ -11899,6 +11984,7 @@ msgstr "LDAP Benutzerfilter Attribut"
 #: ../../install/old/install-alt.php:4842
 #: ../../install/install.php:2936
 #: ../../install/install.php:4102
+#: ../../install/install.php:4115
 msgid "LDAP user filter attribute is missing!"
 msgstr "LDAP benutzerfilter Attribut fehlt!"
 
@@ -11968,6 +12054,7 @@ msgstr "LDAP benutzer Objektklasse"
 #: ../../install/old/install-alt.php:4849
 #: ../../install/install.php:2943
 #: ../../install/install.php:4109
+#: ../../install/install.php:4122
 msgid "LDAP user object class is missing!"
 msgstr "LDAP benutzer Objektklasse fehlt!"
 
@@ -11979,6 +12066,7 @@ msgstr "Sortierreihenfolge LDAP Benutzer"
 #: ../..//install/install.php:4155
 #: ../../install/install.php:4155
 #: ../../install/install.php:4158
+#: ../../install/install.php:4171
 #, php-format
 msgid "LDAP user sort order is missing or invalid: %s"
 msgstr "Sortierreihenfolge LDAP Benutzer fehlt oder ist ung&uuml;ltig: %s"
@@ -12275,6 +12363,7 @@ msgstr "Vergessenes Passwort"
 #: ../../install/old/install-alt.php:4264
 #: ../../install/install.php:3013
 #: ../../install/install.php:4190
+#: ../../install/install.php:4213
 msgid "Lost password days link valid missing!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt fehlen!"
 
@@ -12344,6 +12433,7 @@ msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt feh
 #: ../../install/old/install-alt.php:4269
 #: ../../install/install.php:3018
 #: ../../install/install.php:4195
+#: ../../install/install.php:4218
 msgid "Lost password days link valid must be numeric!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt muss numerisch sein!"
 
@@ -12371,6 +12461,7 @@ msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt mus
 #: ../../templates/install-tabs.tpl:549
 #: ../../templates/old/install.tpl:239
 #: ../../templates/old/install_page_3.tpl:86
+#: ../../templates/install-tabs.tpl:570
 msgid "Lost password link valid"
 msgstr "G&uuml;ltigkeitsdauer Link"
 
@@ -12398,6 +12489,7 @@ msgstr "G&uuml;ltigkeitsdauer Link"
 #: ../../templates/install-tabs.tpl:539
 #: ../../templates/old/install.tpl:229
 #: ../../templates/old/install_page_3.tpl:76
+#: ../../templates/install-tabs.tpl:560
 msgid "Lost password mail sender"
 msgstr "Absender der Mail"
 
@@ -12466,6 +12558,7 @@ msgstr "Absender der Mail"
 #: ../../install/old/install-alt.php:4257
 #: ../../install/install.php:3006
 #: ../../install/install.php:4183
+#: ../../install/install.php:4206
 #, php-format
 msgid "Lost password mail sender address %s is not a valid email address!"
 msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
@@ -12536,6 +12629,7 @@ msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
 #: ../../install/old/install-alt.php:4252
 #: ../../install/install.php:3001
 #: ../../install/install.php:4178
+#: ../../install/install.php:4201
 msgid "Lost password mail sender address is missing!"
 msgstr "Absenderadresse fehlt!"
 
@@ -12683,6 +12777,7 @@ msgstr "Hauptmen&uuml;"
 #: ../../install/old/install-alt.php:4979
 #: ../../install/install.php:3142
 #: ../../install/install.php:4304
+#: ../../install/install.php:4327
 msgid "Minimal administrator password length is not numeric!"
 msgstr "Minimale L&auml;nge von Administrator Passworten ist nicht numerisch!"
 
@@ -12722,6 +12817,7 @@ msgstr "Minimale L&auml;nge von Administrator Passworten ist nicht numerisch!"
 #: ../../templates/install-tabs.tpl:850
 #: ../../templates/old/install_page_6.tpl:98
 #: ../../templates/old/install.tpl:528
+#: ../../templates/install-tabs.tpl:871
 msgid "Minimal length for admin passwords"
 msgstr "Minimale L&auml;nge von Admin Passworten"
 
@@ -12761,6 +12857,7 @@ msgstr "Minimale L&auml;nge von Admin Passworten"
 #: ../../templates/install-tabs.tpl:860
 #: ../../templates/old/install_page_6.tpl:108
 #: ../../templates/old/install.tpl:538
+#: ../../templates/install-tabs.tpl:881
 msgid "Minimal length for user passwords"
 msgstr "Minimale L&auml;nge von Benutzer Passworten"
 
@@ -12859,6 +12956,7 @@ msgstr "Minimale L&auml;nge von Benutzer Passworten"
 #: ../../install/old/install-alt.php:4986
 #: ../../install/install.php:3149
 #: ../../install/install.php:4311
+#: ../../install/install.php:4334
 msgid "Minimal user password length is not numeric!"
 msgstr "Minimale L&auml;nge von Benutzer Passworten ist nicht numerisch!"
 
@@ -13913,6 +14011,14 @@ msgstr "N&auml;chste Seite"
 #: ../../rep_show_user.php:260
 #: ../../rep_show_user.php:264
 #: ../../rep_show_user.php:265
+#: ../../templates/install-tabs.tpl:485
+#: ../../templates/install-tabs.tpl:663
+#: ../../templates/install-tabs.tpl:716
+#: ../../templates/install-tabs.tpl:738
+#: ../../templates/install-tabs.tpl:749
+#: ../../templates/install-tabs.tpl:852
+#: ../../templates/install-tabs.tpl:914
+#: ../../templates/install-tabs.tpl:925
 msgid "No"
 msgstr "Nein"
 
@@ -14430,6 +14536,7 @@ msgstr "Seite 6/6"
 #: ../../templates/install-tabs.tpl:840
 #: ../../templates/old/install_page_6.tpl:88
 #: ../../templates/old/install.tpl:518
+#: ../../templates/install-tabs.tpl:861
 msgid "Page size"
 msgstr "Seitengr&ouml;&szlig;e"
 
@@ -14530,6 +14637,7 @@ msgstr "Seitengr&ouml;&szlig;e"
 #: ../../install/old/install-alt.php:4965
 #: ../../install/install.php:3128
 #: ../../install/install.php:4290
+#: ../../install/install.php:4313
 msgid "Page size is missing!"
 msgstr "Seitengr&ouml;&szlig;e fehlt!"
 
@@ -14630,6 +14738,7 @@ msgstr "Seitengr&ouml;&szlig;e fehlt!"
 #: ../../install/old/install-alt.php:4972
 #: ../../install/install.php:3135
 #: ../../install/install.php:4297
+#: ../../install/install.php:4320
 msgid "Page size is not numeric!"
 msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 
@@ -14813,6 +14922,7 @@ msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie"
 #: ../../templates/install-tabs.tpl:849
 #: ../..//templates/install-tabs.tpl:870
 #: ../../templates/install-tabs.tpl:870
+#: ../../templates/install-tabs.tpl:891
 msgid "Password expire days"
 msgstr "Anzahl Tage Passwort Ablauf"
 
@@ -14823,6 +14933,7 @@ msgstr "Anzahl Tage Passwort Ablauf"
 #: ../..//install/install.php:4329
 #: ../../install/install.php:4329
 #: ../../install/install.php:4332
+#: ../../install/install.php:4355
 msgid "Password expire days must not be smaller or equal than password expire warn days!"
 msgstr "Tage Passwort Ablauf müssen gr&ouml;&szlig;er als Tage Passwort Ablauf Warnung sein!"
 
@@ -14833,6 +14944,7 @@ msgstr "Tage Passwort Ablauf müssen gr&ouml;&szlig;er als Tage Passwort Ablauf 
 #: ../..//install/install.php:4315
 #: ../../install/install.php:4315
 #: ../../install/install.php:4318
+#: ../../install/install.php:4341
 msgid "Password expire days not numeric!"
 msgstr "Tage Passwort Ablauf sind nicht numerisch!"
 
@@ -14843,6 +14955,7 @@ msgstr "Tage Passwort Ablauf sind nicht numerisch!"
 #: ../..//install/install.php:4322
 #: ../../install/install.php:4322
 #: ../../install/install.php:4325
+#: ../../install/install.php:4348
 msgid "Password expire warn days not numeric!"
 msgstr "Tage Passwort Ablauf Warnung sind nicht numersich!"
 
@@ -15014,6 +15127,7 @@ msgstr "Passw&ouml;rter stimmen nicht &uuml;berein!"
 #: ../../templates/install-tabs.tpl:869
 #: ../..//templates/install-tabs.tpl:890
 #: ../../templates/install-tabs.tpl:890
+#: ../../templates/install-tabs.tpl:911
 msgid "Passwords expire"
 msgstr "Passworte laufen ab"
 
@@ -16646,6 +16760,7 @@ msgstr "Ergebnisse des Installationsprozesses:"
 #: ../../templates/install-tabs.tpl:589
 #: ../../templates/old/install_page_4.tpl:86
 #: ../../templates/old/install.tpl:283
+#: ../../templates/install-tabs.tpl:610
 msgid "Retype admin password"
 msgstr "Admin Passwort wiederholen"
 
@@ -16706,6 +16821,7 @@ msgstr "Passwort wiederholen"
 #: ../../templates/install-tabs.tpl:594
 #: ../../templates/old/install_page_4.tpl:91
 #: ../../templates/old/install.tpl:288
+#: ../../templates/install-tabs.tpl:615
 msgid "Retype the admin's password."
 msgstr "Admin Passwort wiederholen"
 
@@ -16789,6 +16905,7 @@ msgstr "Erlaubte Rechte"
 #: ../../templates/install-tabs.tpl:650
 #: ../../templates/old/install_page_5.tpl:77
 #: ../../templates/old/install.tpl:348
+#: ../../templates/install-tabs.tpl:671
 msgid "SVN Access File"
 msgstr "SVN Access Datei"
 
@@ -17097,6 +17214,7 @@ msgstr "SVN Access Manager Online Hilfe"
 #: ../..//templates/install-tabs.tpl:477
 #: ../..//templates/install-tabs.tpl:498
 #: ../../templates/install-tabs.tpl:498
+#: ../../templates/install-tabs.tpl:519
 msgid "SVN Access Manager Website URL"
 msgstr "SVN Access Manager URL Webseite"
 
@@ -17125,6 +17243,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../..//install/install.php:4161
 #: ../../install/install.php:4161
 #: ../../install/install.php:4164
+#: ../../install/install.php:4187
 msgid "SVN Access Manger Website URL is missing!"
 msgstr "SVN Access Manager Webseiten URL fehlt!"
 
@@ -17184,6 +17303,7 @@ msgstr "SVN Access Datei"
 #: ../../templates/install-tabs.tpl:682
 #: ../..//templates/install-tabs.tpl:703
 #: ../../templates/install-tabs.tpl:703
+#: ../../templates/install-tabs.tpl:724
 msgid "SVN access file sort order"
 msgstr "Sortierung SVN Zugriffsdatei"
 
@@ -17272,6 +17392,7 @@ msgstr "Sortierung SVN Zugriffsdatei"
 #: ../../install/old/install-alt.php:4419
 #: ../../install/install.php:3107
 #: ../../install/install.php:4269
+#: ../../install/install.php:4292
 msgid "SVN command is missing!"
 msgstr "SVN Kommando fehlt!"
 
@@ -17482,6 +17603,7 @@ msgstr "Projektverantwortliche Benutzer ausw&auml;hlen"
 #: ../../templates/install-tabs.tpl:513
 #: ../..//templates/install-tabs.tpl:534
 #: ../../templates/install-tabs.tpl:534
+#: ../../templates/install-tabs.tpl:555
 msgid "Select the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!"
 msgstr "W&auml;hlen Sie den Zeichensatz den Sie f&uuml;r die SVn Access Manager Webseite verwenden wollen. Bitte beachten Sie, dass der Zeichensatz mit dem Datenbank Zeichensatz kompatibel sein muss!"
 
@@ -17639,6 +17761,7 @@ msgstr "Zugriffsrechte setzen"
 #: ../../templates/install-tabs.tpl:897
 #: ../..//templates/install-tabs.tpl:918
 #: ../../templates/install-tabs.tpl:918
+#: ../../templates/install-tabs.tpl:939
 msgid "Set the default user access right for repositories."
 msgstr "Standard Zugriffsrecht f&uuml;r Benutzer auf Repositories festlegen."
 
@@ -17753,6 +17876,7 @@ msgstr "Benutzersortierung"
 #: ../../templates/install-tabs.tpl:995
 #: ../../templates/old/install_page_6.tpl:143
 #: ../../templates/old/install.tpl:570
+#: ../../templates/install-tabs.tpl:1016
 msgid "Start installation"
 msgstr "Installation starten"
 
@@ -18403,6 +18527,7 @@ msgstr "Subversion Projekt"
 #: ../../install/old/install-alt.php:4426
 #: ../../install/install.php:3114
 #: ../../install/install.php:4276
+#: ../../install/install.php:4299
 msgid "Svnadmin command missing!"
 msgstr "Svnadmin Kommando fehlt!"
 
@@ -18430,6 +18555,7 @@ msgstr "Beachten Sie, dass Sie eine g&uuml;ltige E-Mailadresse eingegeben haben.
 #: ../..//templates/old/install_page_1.tpl:251
 #: ../../templates/install-tabs.tpl:487
 #: ../../templates/old/install_page_1.tpl:251
+#: ../../templates/install-tabs.tpl:508
 msgid "Test LDAP connection"
 msgstr "LDAP verbindung testen"
 
@@ -18474,6 +18600,7 @@ msgstr "Datenbankverbindung testen"
 #: ../../install/install.php:4367
 #: ../../install/old/install-alt.php:4941
 #: ../../install/install.php:4370
+#: ../../install/install.php:4393
 msgid "Testing LDAP connection doesn't make sense if you do not use LDAP!"
 msgstr "LDAP Verbindungstest sinnlos, wenn lDAP nicht benutzt wird!"
 
@@ -18603,6 +18730,7 @@ msgstr "Dies funktioniert nur, wenn SVN Access Manager auf demselben Rechner l&a
 #: ../../templates/install-tabs.tpl:699
 #: ../..//templates/install-tabs.tpl:720
 #: ../../templates/install-tabs.tpl:720
+#: ../../templates/install-tabs.tpl:741
 msgid "This option allowes you to create an entry '$anonymous = r' for the top level directory of each repository."
 msgstr "Diese Option erlaubt es Ihnen, einen Eintrag '$anonymous = r' für das oberste Verzeichnis eines jeden Repositories zu erzeugen."
 
@@ -18738,6 +18866,7 @@ msgstr "Benutzen Sie '/' als Pfadtrennzeichen auf Windows Systemen. Ein Reposito
 #: ../../templates/install-tabs.tpl:671
 #: ../../templates/old/install_page_5.tpl:98
 #: ../../templates/old/install.tpl:369
+#: ../../templates/install-tabs.tpl:692
 msgid "Use Auth User File"
 msgstr "Benutzer Authentifikationsdatei"
 
@@ -18778,6 +18907,7 @@ msgstr "Benutzer Authentifikationsdatei"
 #: ../../templates/install-tabs.tpl:828
 #: ../../templates/old/install_page_6.tpl:77
 #: ../../templates/old/install.tpl:507
+#: ../../templates/install-tabs.tpl:849
 msgid "Use JavaScript"
 msgstr "JavaScript benutzen"
 
@@ -18828,6 +18958,7 @@ msgstr "LDAP benutzen"
 #: ../../templates/install-tabs.tpl:639
 #: ../../templates/old/install_page_5.tpl:66
 #: ../../templates/old/install.tpl:337
+#: ../../templates/install-tabs.tpl:660
 msgid "Use SVN Access File"
 msgstr "SVN Rechte Datei benutzen"
 
@@ -18868,6 +18999,7 @@ msgstr "SVN Rechte Datei benutzen"
 #: ../../templates/install-tabs.tpl:816
 #: ../../templates/old/install_page_6.tpl:66
 #: ../../templates/old/install.tpl:496
+#: ../../templates/install-tabs.tpl:837
 msgid "Use logging"
 msgstr "Protokollierung benutzen"
 
@@ -18907,6 +19039,7 @@ msgstr "Protokollierung benutzen"
 #: ../../templates/install-tabs.tpl:901
 #: ../../templates/old/install_page_6.tpl:118
 #: ../../templates/old/install.tpl:548
+#: ../../templates/install-tabs.tpl:922
 msgid "Use md5 encryption"
 msgstr "MD5 Verrschl&uuml;sselung benutzen"
 
@@ -19091,6 +19224,7 @@ msgstr "Benutzer Verwaltung / Benutzer &auml;ndern"
 #: ../../templates/install-tabs.tpl:891
 #: ../..//templates/install-tabs.tpl:912
 #: ../../templates/install-tabs.tpl:912
+#: ../../templates/install-tabs.tpl:933
 msgid "User default access right"
 msgstr "Standard Zugriffsrecht f&uuml;r Benutzer"
 
@@ -19568,6 +19702,7 @@ msgstr "G&uuml;ltig bis"
 #: ../../templates/install-tabs.tpl:736
 #: ../../templates/old/install_page_5.tpl:141
 #: ../../templates/old/install.tpl:412
+#: ../../templates/install-tabs.tpl:757
 msgid "ViewVC configuration directory"
 msgstr "ViewVC Konfigurationsverzeichnis"
 
@@ -19648,6 +19783,7 @@ msgstr "ViewVC Konfigurationsverzeichnis"
 #: ../../install/old/install-alt.php:4397
 #: ../../install/install.php:3089
 #: ../../install/install.php:4247
+#: ../../install/install.php:4270
 msgid "ViewVC configuration directory is missing!"
 msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 
@@ -19684,6 +19820,7 @@ msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 #: ../../templates/install-tabs.tpl:746
 #: ../../templates/old/install_page_5.tpl:151
 #: ../../templates/old/install.tpl:422
+#: ../../templates/install-tabs.tpl:767
 msgid "ViewVC realm"
 msgstr "ViewVC Realm"
 
@@ -19763,6 +19900,7 @@ msgstr "ViewVC Realm"
 #: ../../install/old/install-alt.php:4411
 #: ../../install/install.php:3099
 #: ../../install/install.php:4261
+#: ../../install/install.php:4284
 msgid "ViewVC realm is missing!"
 msgstr "ViewVC realm fehlt!"
 
@@ -19804,6 +19942,7 @@ msgstr "ViewVC webserver Alias fehlt!"
 #: ../../templates/install-tabs.tpl:756
 #: ../../templates/old/install_page_5.tpl:161
 #: ../../templates/old/install.tpl:432
+#: ../../templates/install-tabs.tpl:777
 msgid "ViewVC webserver alias"
 msgstr "ViewVC Webserver Alias"
 
@@ -19883,6 +20022,7 @@ msgstr "ViewVC Webserver Alias"
 #: ../../install/old/install-alt.php:4404
 #: ../../install/install.php:3094
 #: ../../install/install.php:4254
+#: ../../install/install.php:4277
 msgid "ViewVC webserver alias is missing!"
 msgstr "ViewVC Webserver Alias fehlt!"
 
@@ -19924,6 +20064,7 @@ msgstr "ViewVC Webserver Alias fehlt!"
 #: ../../templates/install-tabs.tpl:766
 #: ../../templates/old/install_page_5.tpl:171
 #: ../../templates/old/install.tpl:442
+#: ../../templates/install-tabs.tpl:787
 msgid "ViewVC webserver reload command"
 msgstr "ViewVC Webserver Reload Kommando"
 
@@ -20008,6 +20149,7 @@ msgstr "Viewvc Gruppendatei"
 #: ../../templates/install-tabs.tpl:859
 #: ../..//templates/install-tabs.tpl:880
 #: ../../templates/install-tabs.tpl:880
+#: ../../templates/install-tabs.tpl:901
 msgid "Warn password expires days"
 msgstr "Tage Passwort Ablauf Warnung"
 
@@ -20022,6 +20164,7 @@ msgstr "Webseite"
 #: ../../templates/install-tabs.tpl:487
 #: ../..//templates/install-tabs.tpl:508
 #: ../../templates/install-tabs.tpl:508
+#: ../../templates/install-tabs.tpl:529
 msgid "Website character set"
 msgstr "Zeichensatz f&uuml;r Webseite"
 
@@ -20119,6 +20262,7 @@ msgstr "Website Zeichensatz"
 #: ../../install/old/install-alt.php:4245
 #: ../../install/install.php:2994
 #: ../../install/install.php:4171
+#: ../../install/install.php:4194
 msgid "Website charset is missing!"
 msgstr "Website Zeichensatz fehlt!"
 
@@ -20555,6 +20699,14 @@ msgstr "Falsche Antwort!"
 #: ../../rep_show_user.php:260
 #: ../../rep_show_user.php:264
 #: ../../rep_show_user.php:265
+#: ../../templates/install-tabs.tpl:484
+#: ../../templates/install-tabs.tpl:662
+#: ../../templates/install-tabs.tpl:715
+#: ../../templates/install-tabs.tpl:737
+#: ../../templates/install-tabs.tpl:748
+#: ../../templates/install-tabs.tpl:851
+#: ../../templates/install-tabs.tpl:913
+#: ../../templates/install-tabs.tpl:924
 msgid "Yes"
 msgstr "Ja"
 
@@ -20582,6 +20734,7 @@ msgstr "Ja"
 #: ../../templates/install-tabs.tpl:666
 #: ../../templates/old/install_page_5.tpl:93
 #: ../../templates/old/install.tpl:364
+#: ../../templates/install-tabs.tpl:687
 msgid "You can choose whether access control is possible on directories only or on directories and files."
 msgstr "Sie k&ouml;nnen w&auml;hlen, ob der Zugriffsschutz auf Verzeichnisebene oder auf Verzeichnis- und Dateiebene m&ouml;glich sein soll."
 
@@ -20632,6 +20785,10 @@ msgstr "Sie haben nicht die erforderlichen Rechte. Zugriff verweigert. Der Versu
 #, php-format
 msgid "You received an email to reset your password! Please remember the following token: %s"
 msgstr "Sie haben eine Email erhalten um Ihr Passwort zur&uuml;ckzusetzen! Bitte merken Sie sich das folgende Token: %s"
+
+#: ../../templates/install-tabs.tpl:488
+msgid "You should only say yes here if you're connecting against an Active Directory!"
+msgstr "Sie sollten hi3er nur 'Ja' eintragen, wenn Sie gegen ein Avtive Directory binden!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/resetpassword.php:125
 #: /export/home/kriegeth/workspace/svn_access_manager/resetpassword.php:125
@@ -20975,6 +21132,7 @@ msgstr "&auml;ndern"
 #: ../../templates/install-tabs.tpl:796
 #: ../../templates/old/install_page_5.tpl:201
 #: ../../templates/old/install.tpl:472
+#: ../../templates/install-tabs.tpl:817
 msgid "grep command"
 msgstr "grep Kommando"
 
@@ -21220,6 +21378,8 @@ msgstr "keine"
 #: ../../install/install.php:2843
 #: ../../install/install.php:3664
 #: ../../install/install.php:3863
+#: ../../install/install.php:3666
+#: ../../install/install.php:3872
 msgid "not writable"
 msgstr "nicht schreibbar"
 
@@ -21271,6 +21431,7 @@ msgstr "nicht schreibbar"
 #: ../../templates/install-tabs.tpl:893
 #: ../..//templates/install-tabs.tpl:914
 #: ../../templates/install-tabs.tpl:914
+#: ../../templates/install-tabs.tpl:935
 msgid "read"
 msgstr "lesen"
 
@@ -21330,6 +21491,7 @@ msgstr "suchen"
 #: ../../templates/install-tabs.tpl:776
 #: ../../templates/old/install_page_5.tpl:181
 #: ../../templates/old/install.tpl:452
+#: ../../templates/install-tabs.tpl:797
 msgid "svn command"
 msgstr "svn Kommando"
 
@@ -21365,6 +21527,7 @@ msgstr "svn Kommando"
 #: ../../templates/install-tabs.tpl:786
 #: ../../templates/old/install_page_5.tpl:191
 #: ../../templates/old/install.tpl:462
+#: ../../templates/install-tabs.tpl:807
 msgid "svnadmin command"
 msgstr "svnadmin Kommando"
 
@@ -21409,6 +21572,8 @@ msgstr "Benutzer + Gruppe"
 #: ../../install/install.php:2841
 #: ../../install/install.php:3662
 #: ../../install/install.php:3861
+#: ../../install/install.php:3664
+#: ../../install/install.php:3870
 msgid "writable"
 msgstr "schreibbar"
 
@@ -21441,6 +21606,7 @@ msgstr "schreibbar"
 #: ../../templates/install-tabs.tpl:894
 #: ../..//templates/install-tabs.tpl:915
 #: ../../templates/install-tabs.tpl:915
+#: ../../templates/install-tabs.tpl:936
 msgid "write"
 msgstr "schreiben"
 

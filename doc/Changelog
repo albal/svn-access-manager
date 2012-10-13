@@ -22,6 +22,10 @@ Release 0.5.5.11
 	  
 	- added access by column to user report
 	
+	- Feature request ID: 3576279
+	  Bind to LDAP/AD with given user credentials. This feature
+	  is only needed for Active Directory at the moment.
+	
 	
 	Thanks to Tobias for sending a lot of patches
 	

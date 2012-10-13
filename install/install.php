@@ -3581,13 +3581,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tDatabaseTablespace					= "";
 	$tDatabaseCharset						= "";
 	$tDatabaseCollation						= "";
-	$tLdapAttrUid							= "";
-	$tLdapAttrName							= "";
-	$tLdapAttrGivenname						= "";
-	$tLdapAttrMail							= "";
-	$tLdapAttrPassword						= "";
+	$tLdapAttrUid							= "uid";
+	$tLdapAttrName							= "sn";
+	$tLdapAttrGivenname						= "givenName";
+	$tLdapAttrMail							= "mail";
+	$tLdapAttrPassword						= "userPassword";
 	$tLdapAttrUserSort						= "sn";
 	$tLdapUserSort							= "ASC";
+	$tLdapBindUseLoginData					= 0;
+	$tLdapBindDnSuffix						= "";
 	$tWebsiteCharset						= "";
 	$tWebsiteUrl							= "";
 	$tLpwMailSender							= "";
@@ -3600,7 +3602,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tAdminEmail							= "";
 	$tUseSvnAccessFile						= "";
 	$tSvnAccessFile							= "/etc/svn/svnaccess";
-	$tAccessControlLevel					= "";
+	$tAccessControlLevel					= "dirs";
 	$tUseAuthUserFile						= "";
 	$tAuthUserFile							= "/etc/svn/svnpasswd";
 	$tSvnCommand							= "";
@@ -3750,6 +3752,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tLdapUserSortDesc					= "checked";
 	}
 	
+	if( $tLdapBindUseLoginData == 0 ) {
+		$tLdapBinsUseLoginDataNo			= "checked";
+	} else {
+		$tLdapBindUseLoginDataYes			= "checked";
+		$tLdapBinsUseLoginDataNo			= "";
+	}
+	
 	if( $tAnonAccess == 1 ) {
 		$tAnonAccessYes						= "checked";
 		$tAnonAccessNo						= "";
@@ -3892,6 +3901,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrPassword					= isset( $_POST['fLdapAttrPassword'])		? ( $_POST['fLdapAttrPassword'])		: "";
 	$tLdapAttrUserSort					= isset( $_POST['fLdapAttrUserSort']) 		? ( $_POST['fLdapAttrUserSort'] )		: "";
 	$tLdapUserSort						= isset( $_POST['fLdapUserSort'] )			? ( $_POST['fLdapUserSort'] )			: "ASC";
+	$tLdapBindUseLoginData				= isset( $_POST['fLdapBindUseLoginData'] )	? ( $_POST['fLdapBindUseLoginData'] )	: 0;
+	$tLdapBindDnSuffix					= isset( $_POST['fLdapBindDnSuffix'] )		? ( $_POST['fLdapBindDnSuffix'] )		: "";
 	$tWebsiteUrl						= isset( $_POST['fWebsiteUrl'])				? ( $_POST['fWebsiteUrl'])				: "";
 	$tWebsiteCharset					= isset( $_POST['fWebsiteCharset'] )		? ( $_POST['fWebsiteCharset'] )			: "";
 	$tLpwMailSender						= isset( $_POST['fLpwMailSender'] )			? ( $_POST['fLpwMailSender'] )			: "";
@@ -3962,6 +3973,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['ldapAttrPassword']			= $tLdapAttrPassword;
 	$_SESSION['svn_inst']['ldapAttrUserSort']			= $tLdapAttrUserSort;
 	$_SESSION['svn_inst']['ldapUserSort']				= $tLdapUserSort;	
+	$_SESSION['svn_inst']['ldapBindUseLoginData']		= $tLdapBindUseLoginData;
+	$_SESSION['svn_inst']['ldapBindDnSuffix']			= $tLdapBindDnSuffix;
 	$_SESSION['svn_inst']['websiteUrl']					= $tWebsiteUrl;
 	$_SESSION['svn_inst']['websiteCharset']				= $tWebsiteCharset;
 	$_SESSION['svn_inst']['lpwMailSender']				= $tLpwMailSender;
@@ -4156,6 +4169,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			if( ($tLdapUserSort != "ASC") and ($tLdapUserSort != "DESC") ) {
 				
 				$tErrors[]				= sprintf( _("LDAP user sort order is missing or invalid: %s"), $tLdapUserSort );
+			}
+			
+			if( ($tLdapBindUseLoginData != 0) and ($tLdapBindUseLoginData != 1) ) {
+				
+				$tErrors[]				= sprintf( _("LDAP bind uses login data is missing or invalid: %s"), $tLdapBindUseLoginData );
+			}
+			
+			if( ($tLdapBindUseLoginData == 1) and ($tLdapBindDnSuffix == "") ) {
+				
+				$tErrors[]				= _("LDAP Bind Dn Suffix is missing!");
 			}
 		}
 		
@@ -4388,6 +4411,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tLdapAttrPassword			= isset( $_SESSION['svn_inst']['ldapAttrPassword'] ) 	? $_SESSION['svn_inst']['ldapAttrPassword'] 	: "userPassword";
 	$tLdapAttrUserSort			= isset( $_SESSION['svn_inst']['ldapAttrUserSort'] )	? $_SESSION['svn_inst']['ldapAttrUserSort']		: "sn";
 	$tLdapUserSort				= isset( $_SESSION['svn_inst']['ldapUserSort'] )		? $_SESSION['svn_inst']['ldapUserSort']			: "ASC";
+	$tLdapBindUseLoginData		= isset( $_SESSION['svn_inst']['ldapBindUseLoginData']) ? $_SESSION['svn_inst']['ldapBindUseLoginData']	: 0;
+	$tLdapBindDnSuffix			= isset( $_SESSION['svn_inst']['ldapBindDnSuffix'] )	? $_SESSION['svn_inst']['ldapBindDnSuffix']		: "";
 	$tWebisteUrl				= isset( $_SESSION['svn_inst']['webisteUrl'])			? $_SESSION['svn_inst']['websiteUrl']			: "";
 	$tWebsiteCharset			= isset( $_SESSION['svn_inst']['websiteCharset'] ) 		? $_SESSION['svn_inst']['websiteCharset'] 		: "iso8859-15";
 	$tLpwMailSender				= isset( $_SESSION['svn_inst']['lpwMailSender'] ) 		? $_SESSION['svn_inst']['lpwMailSender'] 		: "";
@@ -4577,11 +4602,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 	
 	if( $tLdapUserSort == "ASC" ) {
-		$tLdapUserSortAsc					= "checked";
-		$tLdapUserSortDesc					= "";
+		$tLdapUserSortAsc			= "checked";
+		$tLdapUserSortDesc			= "";
 	} else {
-		$tLdapUserSortAsc					= "";
-		$tLdapUserSortDesc					= "checked";
+		$tLdapUserSortAsc			= "";
+		$tLdapUserSortDesc			= "checked";
+	}
+	
+	if( $tLdapBindUseLoginData == 0 ) {
+		$tLdapBindUseLoginDataYes	= "";
+		$tLdapBindUseLoginDataNo	= "checked";		
+	} else {
+		$tLdapBindUseLoginDataYes	= "checked";
+		$tLdapBindUseLoginDataNo	= "";
 	}
 	
 	if( $tAnonAccess == 1 ) {

@@ -89,6 +89,8 @@ function initialize_i18n() {
 //
 function check_session() {
    
+   global $CONF;
+   
    	#error_log( "check session" );
    	$s 						= new Session;
 	session_start ();
@@ -101,6 +103,16 @@ function check_session() {
    	}
    
    	$SESSID_USERNAME 		= $_SESSION['svn_sessid']['username'];
+   	
+   	if(isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1)) {
+   		
+   		if( isset( $CONF['ldap_bind_dn_suffix'] ) ) {
+		
+			$CONF['bind_dn'] 	= $_SESSION['svn_sessid']['username'].$CONF['ldap_bind_dn_suffix'];
+   			$CONF['bind_pw'] 	= $_SESSION['svn_sessid']['password'];	
+   		}
+				
+	}
    
    	return $SESSID_USERNAME;
 }
