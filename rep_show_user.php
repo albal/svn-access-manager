@@ -139,6 +139,15 @@ function getAccessRightsForUser( $tUserId, $tGroups, $dbh ) {
 	
 	while( $row = db_assoc( $result['result'] ) ) {
 		
+		if( ($row['user_id'] != 0) and ($row['group_id'] != 0) ) {
+			$row['access_by']	= _("user id + group id");
+		} elseif( $row['group_id'] != 0 ) {
+			$row['access_by']	= _("group id");
+		} elseif( $row['user_id'] != 0 ) {
+			$row['access_by']	= _("user id");
+		} else {
+			$row['access_by']	= " ";
+		}
 		$tAccessRights[]= $row;
 	}
 	
@@ -153,6 +162,20 @@ function getUserData( $tUserId, $dbh ) {
 	$query				= "SELECT * ".
 						  "  FROM ".$schema."svnusers ".
 						  " WHERE (id = $tUserId)";
+	$result				= db_query( $query, $dbh );
+	$row				= db_assoc( $result['result'] );
+	
+	return( $row );
+}
+
+function getGroupData( $tGroupId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$query				= "SELECT * ".
+						  "  FROM ".$schema."svngroups ".
+						  " WHERE (id = $tGroupId)";
 	$result				= db_query( $query, $dbh );
 	$row				= db_assoc( $result['result'] );
 	
