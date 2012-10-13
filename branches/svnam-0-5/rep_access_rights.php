@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	if( $button == _("Create report") ) {
 		
 		$tDate								= isset( $_POST['fDate'] ) ? db_escape_string( $_POST['fDate'] ) : "";
-		error_log( $tDate );
+		#error_log( $tDate );
 		$_SESSION['svn_sessid']['date']		= $tDate;
 		$lang								= check_language();
 			
@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 		}
 		
-		error_log( "day = $day, month = $month, year = $year" );
+		#error_log( "day = $day, month = $month, year = $year" );
 		if( ! check_date( $day, $month, $year ) ) {
 			
 			$tMessage						= sprintf( _("Not a valid date: %s (%s-%s-%s)"), $tDate, $day, $month, $year );
