@@ -38,6 +38,20 @@ if (preg_match("/functions.inc.php/", $_SERVER['PHP_SELF'])) {
 
 
 //
+// getPhpVersion
+// Action: get php version in two dgit format like "53"
+// Call: getPhpVersion
+//
+function getPhpVersion() {
+	
+	$version 					= explode( ".", PHP_VERSION );
+
+	return( $version[0].$version[1] );	
+}
+
+
+
+//
 // initalize_i18n
 // Action: inialize gettext
 // Call: initialize_i18n()
@@ -95,7 +109,8 @@ function check_session() {
    	$s 						= new Session;
 	session_start ();
    
-   	if (!session_is_registered ("svn_sessid"))  {
+   	#if (!session_is_registered ("svn_sessid"))  {
+   	if (! isset($_SESSION['svn_sessid']) )  {
       	
       	header ("Location: login.php");
       	exit;
@@ -130,7 +145,8 @@ function check_session_lpw( $redirect="y" ) {
    	$s 						= new Session;
 	@session_start ();
    
-   	if (!session_is_registered ("svn_lpw"))  {
+   	#if (!session_is_registered ("svn_lpw"))  {
+   	if (! isset($_SESSION['svn_lpw']) )  {
      
      	 $SESSID_USERNAME 	= "";
      	 
@@ -164,7 +180,8 @@ function check_session_status() {
         $ret                             = 0;
         @session_start ();
 
-        if (!session_is_registered ("svn_sessid"))  {
+        #if (!session_is_registered ("svn_sessid"))  {
+        if (! isset($_SESSION['svn_sessid']) )  {
 
                 $ret                        = 0;
 
