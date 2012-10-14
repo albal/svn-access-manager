@@ -84,7 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	  $s 											= new Session;
       session_start();
-      session_register("svn_lpw");
+      #session_register("svn_lpw");
+      if( ! isset( $_SESSION['svn_lpw'] ) ) {
+      		$_SESSION['svn_lpw']					= array();
+      }
       $_SESSION['svn_lpw']['username']				= $tUsername;
       $_SESSION['svn_lpw']['emailaddress']			= $tEmailaddress;
       

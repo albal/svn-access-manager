@@ -3544,7 +3544,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
    	$s 										= new Session;
    	session_start();
-   	session_register("svn_inst");
+   	#session_register("svn_inst");
+   	if( ! isset( $_SESSION['svn_inst'] ) ) {
+   		$_SESSION['svn_inst']				= array();	
+   	}
     $_SESSION['svn_inst']['page']			= "1";
    	   	
    	$CONF									= array();
@@ -3827,8 +3830,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$s 										= new Session;
    	session_start();
-   	if (!session_is_registered ("svn_inst"))  {
-    	session_register("svn_inst");
+   	if (! isset($_SESSION['svn_inst']) )  {
+    	$_SESSION['svn_inst']				= array();
     	$_SESSION['svn_inst']['page']		= "1";
    	}
     
