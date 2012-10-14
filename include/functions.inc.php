@@ -883,7 +883,7 @@ function md5crypt ($pw, $salt="", $magic="") {
 
    $salt 							= substr ($salt, 0, 8);
    $ctx 							= $pw . $magic . $salt;
-   $final 							= hex2bin (md5 ($pw . $salt . $pw));
+   $final 							= myhex2bin (md5 ($pw . $salt . $pw));
 
    for ($i=strlen ($pw); $i>0; $i-=16) {
       if ($i > 16) {
@@ -901,7 +901,7 @@ function md5crypt ($pw, $salt="", $magic="") {
       $i 							= $i >> 1;
    }
    
-   $final 							= hex2bin (md5 ($ctx));
+   $final 							= myhex2bin (md5 ($ctx));
 
    for ($i=0;$i<1000;$i++) {
       
@@ -922,7 +922,7 @@ function md5crypt ($pw, $salt="", $magic="") {
          $ctx1 						.= $pw;
       }
       
-      $final 						= hex2bin (md5 ($ctx1));
+      $final 						= myhex2bin (md5 ($ctx1));
    }
    
    $passwd 							= "";
@@ -952,7 +952,7 @@ function create_salt () {
    return $salt;
 }
 
-function hex2bin ($str) {
+function myhex2bin ($str) {
    
    $len 							= strlen ($str);
    $nstr 							= "";

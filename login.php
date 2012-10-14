@@ -152,7 +152,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	  $s 											= new Session;
       session_start();
-      session_register("svn_sessid");
+      #session_register("svn_sessid");
+      if( ! isset( $_SESSION['svn_sessid'] ) ) {
+      		$_SESSION['svn_sessid']					= array();
+      }
 	  #error_log( "session started" );
       $_SESSION['svn_sessid']['username'] 			= $fUsername;
       $_SESSION['svn_sessid']['name']				= $tName;
