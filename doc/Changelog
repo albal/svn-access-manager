@@ -2,6 +2,17 @@ Change Log
 ==========
 
 
+Release 0.5.5.12
+	- Bug fix in rep_show_group.php
+	
+	- removed old, unneeded files and folders
+	
+	- changed session handling to be compatible with PHP 5.4
+	  
+	- renamed hex2bin function to myhex2bin to avoid conflicts 
+	  with PHP 5.4
+	  
+	  
 Release 0.5.5.11
 	- Feature request ID: 3576275
 	  Encoding LDAP name and givenname to handle German umlauts

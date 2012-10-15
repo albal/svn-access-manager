@@ -70,7 +70,7 @@ function getUsersForGroup( $tGroupId, $dbh ) {
 	$query				= "SELECT * ".
 						  "  FROM ".$schema."svnusers, ".$schema."svn_users_groups ".
 						  " WHERE (svn_users_groups.group_id = '$tGroupId') ".
-						  "   AND (svn_users_groups.group_id = svnusers.id) ".
+						  "   AND (svn_users_groups.user_id = svnusers.id) ".
 						  "   AND (svnusers.deleted = '00000000000000') ".
 						  "   AND (svn_users_groups.deleted = '00000000000000')";
 	$result				= db_query( $query, $dbh );
