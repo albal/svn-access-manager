@@ -1,0 +1,120 @@
+<!DOCTYPE webproject>
+<webproject>
+  <project type="Local" name="SVN Acess Manager" encoding="utf8" >
+    <upload/>
+    <author>Thomas Krieger</author>
+    <email>tom@svn-access-manager.org</email>
+    <defaultDTD>-//W3C//DTD HTML 4.01 Transitional//EN</defaultDTD>
+    <item url="images/" uploadstatus="1" />
+    <item url="images/thumbs/" uploadstatus="1" />
+    <item modified_time="1259495625" url="images/thumbs/access_rights_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495620" url="images/thumbs/add_access_right_part1.png" uploadstatus="1" />
+    <item modified_time="1259495617" url="images/thumbs/add_access_right_part2.png" uploadstatus="1" />
+    <item modified_time="1259495632" url="images/thumbs/add_access_right_part3.png" uploadstatus="1" />
+    <item modified_time="1259495613" url="images/thumbs/add_access_right_part4.png" uploadstatus="1" />
+    <item modified_time="1259495634" url="images/thumbs/add_access_right_part5.png" uploadstatus="1" />
+    <item modified_time="1259495627" url="images/thumbs/add_group_part1.png" uploadstatus="1" />
+    <item modified_time="1259495611" url="images/thumbs/add_group_part2.png" uploadstatus="1" />
+    <item modified_time="1259495622" url="images/thumbs/add_group_part3.png" uploadstatus="1" />
+    <item modified_time="1259495615" url="images/thumbs/add_project_part1.png" uploadstatus="1" />
+    <item modified_time="1259495630" url="images/thumbs/add_project_part2.png" uploadstatus="1" />
+    <item modified_time="1259495614" url="images/thumbs/add_project_part3.png" uploadstatus="1" />
+    <item modified_time="1259495610" url="images/thumbs/add_repository.png" uploadstatus="1" />
+    <item modified_time="1259495623" url="images/thumbs/add_user.png" uploadstatus="1" />
+    <item modified_time="1259495621" url="images/thumbs/group_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495625" url="images/thumbs/group_admins_add_user.png" uploadstatus="1" />
+    <item modified_time="1259495616" url="images/thumbs/group_admins_overview.png" uploadstatus="1" />
+    <item modified_time="1259495612" url="images/thumbs/group_admins_select_group.png" uploadstatus="1" />
+    <item modified_time="1274019725" url="images/thumbs/installer_part1.png" uploadstatus="1" />
+    <item modified_time="1274019726" url="images/thumbs/installer_part2.png" uploadstatus="1" />
+    <item modified_time="1274019727" url="images/thumbs/installer_part3.png" uploadstatus="1" />
+    <item modified_time="1274019728" url="images/thumbs/installer_part4.png" uploadstatus="1" />
+    <item modified_time="1274019728" url="images/thumbs/installer_part5.png" uploadstatus="1" />
+    <item modified_time="1274019729" url="images/thumbs/installer_part6.png" uploadstatus="1" />
+    <item modified_time="1259495629" url="images/thumbs/main.png" uploadstatus="1" />
+    <item modified_time="1259495633" url="images/thumbs/project_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495618" url="images/thumbs/repository_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495628" url="images/thumbs/user_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495694" url="images/access_rights_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495651" url="images/add_access_right_part1.png" uploadstatus="1" />
+    <item modified_time="1259495609" url="images/add_access_right_part2.png" uploadstatus="1" />
+    <item modified_time="1259495748" url="images/add_access_right_part3.png" uploadstatus="1" />
+    <item modified_time="1259495575" url="images/add_access_right_part4.png" uploadstatus="1" />
+    <item modified_time="1259495773" url="images/add_access_right_part5.png" uploadstatus="1" />
+    <item modified_time="1259495704" url="images/add_group_part1.png" uploadstatus="1" />
+    <item modified_time="1259495563" url="images/add_group_part2.png" uploadstatus="1" />
+    <item modified_time="1259495668" url="images/add_group_part3.png" uploadstatus="1" />
+    <item modified_time="1259495595" url="images/add_project_part1.png" uploadstatus="1" />
+    <item modified_time="1259495735" url="images/add_project_part2.png" uploadstatus="1" />
+    <item modified_time="1259495585" url="images/add_project_part3.png" uploadstatus="1" />
+    <item modified_time="1259495554" url="images/add_repository.png" uploadstatus="1" />
+    <item modified_time="1259495685" url="images/add_user.png" uploadstatus="1" />
+    <item modified_time="1259495714" url="images/button_cancel.png" uploadstatus="1" />
+    <item modified_time="1259495736" url="images/delete_all.png" uploadstatus="1" />
+    <item modified_time="1259495749" url="images/edit.png" uploadstatus="1" />
+    <item modified_time="1259495736" url="images/edittrash.png" uploadstatus="1" />
+    <item modified_time="1259495659" url="images/group_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495696" url="images/group_admins_add_user.png" uploadstatus="1" />
+    <item modified_time="1259495597" url="images/group_admins_overview.png" uploadstatus="1" />
+    <item modified_time="1259495565" url="images/group_admins_select_group.png" uploadstatus="1" />
+    <item modified_time="1274019686" url="images/installer_part1.png" uploadstatus="1" />
+    <item modified_time="1274019690" url="images/installer_part2.png" uploadstatus="1" />
+    <item modified_time="1274019694" url="images/installer_part3.png" uploadstatus="1" />
+    <item modified_time="1274019698" url="images/installer_part4.png" uploadstatus="1" />
+    <item modified_time="1274019703" url="images/installer_part5.png" uploadstatus="1" />
+    <item modified_time="1274019707" url="images/installer_part6.png" uploadstatus="1" />
+    <item modified_time="1259495727" url="images/main.png" uploadstatus="1" />
+    <item modified_time="1259495585" url="images/ok.png" uploadstatus="1" />
+    <item modified_time="1259495757" url="images/project_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495643" url="images/repository_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495774" url="images/svn-access-manager_200_60_white.jpg" uploadstatus="1" />
+    <item modified_time="1259495713" url="images/user_admin_overview.png" uploadstatus="1" />
+    <item url="screenshots/" uploadstatus="1" />
+    <item modified_time="1259495834" url="screenshots/access_rights_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495817" url="screenshots/add_access_right_part1.png" uploadstatus="1" />
+    <item modified_time="1259495810" url="screenshots/add_access_right_part2.png" uploadstatus="1" />
+    <item modified_time="1259495867" url="screenshots/add_access_right_part3.png" uploadstatus="1" />
+    <item modified_time="1259495794" url="screenshots/add_access_right_part4.png" uploadstatus="1" />
+    <item modified_time="1259495875" url="screenshots/add_access_right_part5.png" uploadstatus="1" />
+    <item modified_time="1259495818" url="screenshots/add_access_right_part6.png" uploadstatus="1" />
+    <item modified_time="1259495841" url="screenshots/add_group_part1.png" uploadstatus="1" />
+    <item modified_time="1259495787" url="screenshots/add_group_part2.png" uploadstatus="1" />
+    <item modified_time="1259495825" url="screenshots/add_group_part3.png" uploadstatus="1" />
+    <item modified_time="1259495802" url="screenshots/add_project_part1.png" uploadstatus="1" />
+    <item modified_time="1259495863" url="screenshots/add_project_part2.png" uploadstatus="1" />
+    <item modified_time="1259495798" url="screenshots/add_project_part3.png" uploadstatus="1" />
+    <item modified_time="1259495783" url="screenshots/add_repository.png" uploadstatus="1" />
+    <item modified_time="1259495830" url="screenshots/add_user.png" uploadstatus="1" />
+    <item modified_time="1259495822" url="screenshots/group_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495837" url="screenshots/group_admins_add_user.png" uploadstatus="1" />
+    <item modified_time="1259495806" url="screenshots/group_admins_overview.png" uploadstatus="1" />
+    <item modified_time="1259495790" url="screenshots/group_admins_select_group.png" uploadstatus="1" />
+    <item modified_time="1259495859" url="screenshots/main.png" uploadstatus="1" />
+    <item modified_time="1259495871" url="screenshots/project_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495813" url="screenshots/repository_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1259495845" url="screenshots/user_admin_overview.png" uploadstatus="1" />
+    <item modified_time="1211470336" url="googleef8c76550a07e953.html" uploadstatus="1" />
+    <item modified_time="1328302457" url="index.html" uploadstatus="1" />
+    <item modified_time="1211147810" url="_index.php" uploadstatus="1" />
+    <item url="" uploadstatus="1" />
+    <templates>templates/</templates>
+    <toolbars>toolbars/</toolbars>
+    <annotations/>
+    <item modified_time="1328300959" url="images/thumbs/installer_new_part1.png" />
+    <item modified_time="1328300935" url="images/thumbs/installer_new_part2.png" />
+    <item modified_time="1328300908" url="images/thumbs/installer_new_part3.png" />
+    <item modified_time="1328300885" url="images/thumbs/installer_new_part4.png" />
+    <item modified_time="1328300861" url="images/thumbs/installer_new_part5.png" />
+    <item modified_time="1328300831" url="images/thumbs/installer_new_part6.png" />
+    <item modified_time="1328300806" url="images/thumbs/installer_new_part7.png" />
+    <item modified_time="1328300783" url="images/thumbs/installer_new_part8.png" />
+    <item modified_time="1328300409" url="images/installer_new_part1.png" />
+    <item modified_time="1328300323" url="images/installer_new_part2.png" />
+    <item modified_time="1328300363" url="images/installer_new_part3.png" />
+    <item modified_time="1328300679" url="images/installer_new_part4.png" />
+    <item modified_time="1328300572" url="images/installer_new_part5.png" />
+    <item modified_time="1328300520" url="images/installer_new_part6.png" />
+    <item modified_time="1328300473" url="images/installer_new_part7.png" />
+    <item modified_time="1328300254" url="images/installer_new_part8.png" />
+  </project>
+</webproject>

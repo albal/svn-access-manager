@@ -27,7 +27,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -44,8 +44,6 @@ $SESSID_USERNAME 							= check_session ();
 check_password_expired();
 $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
-$CONF['user_sort_fields']					= $preferences['user_sort_fields'];
-$CONF['user_sort_order']					= $preferences['user_sort_order'];
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Access rights admin", $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "setaccessright";
@@ -90,7 +88,8 @@ while( $row = db_assoc( $result['result'] ) ) {
 $tGroups									= array();
 $query										= "SELECT * " .
 											  "  FROM ".$schema."svngroups " .
-											  " WHERE (deleted = '00000000000000')";
+											  " WHERE (deleted = '00000000000000') " .
+											  "ORDER BY svngroups.groupname ASC";
 $result										= db_query( $query, $dbh );
 
 while( $row = db_assoc( $result['result'] ) ){
@@ -135,6 +134,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	#error_log( $tPathSelected );
 	$tNone									= "checked";
 	$tRecursive								= "checked";
+	
+	$lang									= check_language();
+			
+	if( $lang == "de" ) {
+		
+		$tDateFormatText					= "TT.MM.JJJJ";
+		$tDate								= date("d").".".date("m").".".date("Y");
+		$tDateFormat						= "dd-mm-yy";
+		$tLocale							= "de";
+		
+	} else {
+		
+		$tDateFormatText					= "MM/DD/YYYY";
+		$tDate								= date("m")."/".date("d")."/".date("Y");
+		$tDateFormat						= "mm-dd-yy";
+		$tLocale							= "en";
+	}
 	
 	if( isset( $_SESSION['svn_sessid']['validfrom']) ) {
 		
@@ -242,9 +258,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tAccessRight							= isset( $_POST['fAccessRight']) 	? db_escape_string( $_POST['fAccessRight'] ) 	: "";
    	$tRecursive								= isset( $_POST['fRecursive'] ) 	? db_escape_string( $_POST['fRecursive'] )		: "";
    	$tValidFrom								= isset( $_POST['fValidFrom'] )		? db_escape_string( $_POST['fValidFrom'] )		: "";
-   	$tValidUntil							= isset( $_POST['fValidUntil'] )	? db_escape_string( $_POST['fValidUntil'] )	: "";
+   	$tValidUntil							= isset( $_POST['fValidUntil'] )	? db_escape_string( $_POST['fValidUntil'] )		: "";
    	$tUsers									= isset( $_POST['fUsers'] )			? db_escape_string( $_POST['fUsers'] )			: array();
-   	$tGroups								= isset( $_POST['fGroups'] )		? db_escape_string( $_POST['fGroups'] )		: array();
+   	$tGroups								= isset( $_POST['fGroups'] )		? db_escape_string( $_POST['fGroups'] )			: array();
    	
    	if( isset( $_POST['fSubmit'] ) ) {
 		$button								= db_escape_string( $_POST['fSubmit'] );
@@ -258,6 +274,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button								= _("Back" );
 	} else {
 		$button								= "undef";
+	}
+	
+	$lang									= check_language();
+			
+	if( $lang == "de" ) {
+		
+		$tDateFormatText					= "TT.MM.JJJJ";
+		$tDate								= date("d").".".date("m").".".date("Y");
+		$tDateFormat						= "dd-mm-yy";
+		$tLocale							= "de";
+		
+	} else {
+		
+		$tDateFormatText					= "MM/DD/YYYY";
+		$tDate								= date("m")."/".date("d")."/".date("Y");
+		$tDateFormat						= "mm-dd-yy";
+		$tLocale							= "en";
 	}
    	
    	if( $tAccessRight == "none" ) {
@@ -293,7 +326,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   		
    		if( $tValidFrom != "" ) {
    			
-   			if( $lang == "de" ) {
+   			if( ($lang == "de") or (substr($tValidFrom,2,1) == ".") ) {
    				
    				$day						= substr( $tValidFrom, 0, 2 );
    				$month						= substr( $tValidFrom, 3, 2 );
@@ -308,7 +341,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			
    			if( ! check_date( $day, $month, $year ) ) {
    				
-   				$tMessage					= sprintf( _("Not a valid date: %s"), $tValidFrom );
+   				#error_log( "$day - $month - $year" );
+   				$tMessage					= sprintf( _("Not a valid date: %s (valid from)"), $tValidFrom );
    				$error						= 1;
    				
    			} else {
@@ -324,7 +358,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    		
    		if( $tValidUntil != "" ) {
    			
-   			if( $lang == "de" ) {
+   			if( ($lang == "de") or (substr($tValidUntil,2,1) == ".") ) {
    				
    				$day						= substr( $tValidUntil, 0, 2 );
    				$month						= substr( $tValidUntil, 3, 2 );
@@ -340,7 +374,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    			
    			if( ! check_date( $day, $month, $year ) ) {
    				
-   				$tMessage					= sprintf( _("Not a valid date: %s"), $tValidUntil );
+   				#error_log( "$day - $month - $year - $lang" );
+   				$tMessage					= sprintf( _("Not a valid date: %s (valid until)"), $tValidUntil );
    				$error						= 1;
    				
    			} else {
@@ -359,7 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   		$tPathSelected					= "/".$tPathSelected;
 	   		
 	   	}
-	   	
+
 	   	foreach( $tUsers as $userid ) {
 	   	
 	   		if( $error == 0 ) {
@@ -374,10 +409,58 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   		}
 	   			
 	   	}
+
+	   	foreach( $tGroups as $groupid ) {
+
+	   		if( $error == 0 ) {
+	   			
+	   			$mode						= db_getGroupRightByGroupid( $groupid, $dbh );
+	   			if( ($tAccessRight == "write") and ($mode != "write") ) {
+	   				
+	   				$groupName				= db_getGroupById ( $groupid, $dbh );
+	   				$tMessage				= sprintf( _("Group %s contains an user with no global write permission!"), $groupName );
+	   				$error					= 1;
+	   				
+	   			}
+	   		}
+	   	}
 	   	
+	   	if( $error == 0 ) {
+	   		
+	   		if( $_SESSION['svn_sessid']['task'] == "change" ) {
+	   			#error_log( "userid = ".$_SESSION['svn_sessid']['userid']."   groupid = ".$_SESSION['svn_sessid']['groupid']);
+	   			
+	   			if( $_SESSION['svn_sessid']['userid'] != 0 ) {
+	   				
+	   				$mode					= db_getUserRightByUserid( $_SESSION['svn_sessid']['userid'], $dbh );
+	   				if( ($tAccessRight == "write") and ($mode != "write") ) {
+		   			
+		   				$tMessage			= _("User is not allowed to have write access, global right is read only" );
+		   				$error				= 1;
+	   				}
+	   				
+	   			} elseif( $_SESSION['svn_sessid']['groupid'] != 0 ) {
+	   				
+	   				$mode					= db_getGroupRightByGroupid(  $_SESSION['svn_sessid']['groupid'], $dbh );
+	   				if( ($tAccessRight == "write") and ($mode != "write") ) {
+	   					$groupName			= db_getGroupById ( $_SESSION['svn_sessid']['groupid'], $dbh );
+	   					$tMessage			= sprintf( _("Group %s contains an user with no global write permission!"), $groupName );
+	   					$error				= 1;
+	   				}
+	   				
+	   			} else {
+	   				
+	   				$mode					= "undefined";
+	   				
+	   			}
+	   			
+	   		}
+	   	
+	   	}
+	   		   	
 	   	if( ($_SESSION['svn_sessid']['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0) ) {
 	   		
-	   		$tMessage						= _("No user and no group selected!");
+	   		$tMessage						= _("No user or no group selected!");
 	   		$error							= 1; 
 	   		
 	   	}
@@ -599,6 +682,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else {
 		
 		$tGid								= "";
+		
+	}
+	
+	if ( $_SESSION['svn_sessid']['task'] == "change" ) {
+		
+		$tReadonly							= "disabled";
+		
+	} else {
+		
+		$tReadonly							= "";
 		
 	}
    	

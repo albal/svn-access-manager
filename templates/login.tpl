@@ -47,7 +47,7 @@ include( "./include/output.inc.php" );
 			</div>
 		</div>
 		<div id="login">
-			<form name="login" method="post">
+			<form name="login" method="post" autocomplete="off">
 				<table id="login_table" cellspacing="10">
 				   <tr>
 				      <td colspan="2" align="center">
@@ -68,13 +68,20 @@ include( "./include/output.inc.php" );
 				   </tr>
 				   <tr>
 				      <td><?php print _('Password') . ":"; ?></td>
-				      <td><input type="password" name="fPassword" /></td>
+				      <td><input type="password" name="fPassword" autocomplete="off" /></td>
 				   </tr>
 				   <tr>
 				      <td colspan="2">&nbsp;</td>
 				   </tr>
-				   <tr>
-				   	   <td colspan=="2" class="hlp_center"><a href="lostpassword.php" target="_top"><?php print _("Lost password"); ?></a></td>
+				   <?php
+				   		if( ( !isset($CONF['use_ldap']) ) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
+				   			
+				   			print "\t\t\t\t\t\t<tr>\n";
+				   	   		print "\t\t\t\t\t\t\t<td colspan=\"2\" class=\"hlp_center\"><a href=\"lostpassword.php\" target=\"_top\">"._("Lost password")."</a></td>\n";
+				   			print "\t\t\t\t\t\t</tr>\n";
+				   			
+				   		}
+				   ?>
 				   <tr>
 				      <td colspan="2">&nbsp;</td>
 				   </tr>

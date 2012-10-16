@@ -36,7 +36,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -55,7 +55,7 @@ $schema									= db_determine_schema();
  
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
    
-   	if (!ereg ("lostpassword.php", $_SERVER['HTTP_REFERER'])) {
+   	if (!preg_match ("/lostpassword.php/", $_SERVER['HTTP_REFERER'])) {
    	
    		header("Location: lostpassword.php");
    		exit;	

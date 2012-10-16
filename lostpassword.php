@@ -37,7 +37,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -84,7 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	  $s 											= new Session;
       session_start();
-      session_register("svn_lpw");
+      #session_register("svn_lpw");
+      if( ! isset( $_SESSION['svn_lpw'] ) ) {
+      		$_SESSION['svn_lpw']					= array();
+      }
       $_SESSION['svn_lpw']['username']				= $tUsername;
       $_SESSION['svn_lpw']['emailaddress']			= $tEmailaddress;
       

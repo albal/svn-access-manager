@@ -14,6 +14,7 @@
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
+				   	<!--
 				   	<tr>
 				   		<td width="150"><strong><?php print _("Sort user by").": "; ?></strong></td>
 				   		<td>
@@ -30,6 +31,7 @@
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
+				   	-->
 				   	<tr>
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>

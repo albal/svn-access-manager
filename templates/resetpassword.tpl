@@ -46,7 +46,7 @@ include( "./include/output.inc.php" );
 			</div>
 		</div>
 		<div id="login">
-			<form name="lostpassword" method="post">
+			<form name="lostpassword" method="post" autocomplete="off">
 				<table id="login_table">
 					<tr>
 				      <td colspan="3"><h3><?php print _("Reset your password"); ?></h3></td>
