@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-13 12:35+0100\n"
+"PO-Revision-Date: 2012-10-15 19:59+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -7738,7 +7738,7 @@ msgstr "Bitte ein Kommando zum Neustart des Webservers eingeben. Das Kommando mu
 #: ../..//templates/old/install_page_1.tpl:235
 #: ../../templates/old/install_page_1.tpl:235
 msgid "Enter additional filters for users if needed."
-msgstr "Wenn ben&ouml;tigt, zus&auml;tzliche Filter f&uuml;r benutzer eintragen."
+msgstr "Wenn ben&ouml;tigt, zus&auml;tzliche Filter f&uuml;r Benutzer eintragen."
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:405
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:447
@@ -8035,7 +8035,7 @@ msgstr "Bitte den DN zur Verbindung mit dem LDAP Server eingeben."
 #: ../..//templates/old/install_page_1.tpl:205
 #: ../../templates/old/install_page_1.tpl:205
 msgid "Enter the dn where the users are found on the LDAP server."
-msgstr "Bitte den DN eingeben, unter dem die benutzer zu finden sind."
+msgstr "Bitte den DN eingeben, unter dem die Benutzer zu finden sind."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:307
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:196
@@ -8555,7 +8555,7 @@ msgstr "Die Anzahl der Datens&auml;tze eingeben, die pro Seite angezeigt werden 
 #: ../..//templates/old/install_page_1.tpl:225
 #: ../../templates/old/install_page_1.tpl:225
 msgid "Enter the object class which identifies the users."
-msgstr "Bitte das Object angeben, dass die benutzer identifiziert."
+msgstr "Bitte das Objekt angeben, dass die Benutzer identifiziert."
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:195
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:275
@@ -11241,7 +11241,7 @@ msgstr "LDAP Bind Dn Suffix fehlt!"
 #: ../../templates/list_users.tpl:67
 #: ../..//templates/list_users.tpl:67
 msgid "LDAP User"
-msgstr "LDAP benutzer"
+msgstr "LDAP Benutzer"
 
 #: ../..//templates/install-tabs.tpl:461
 #: ../../templates/install-tabs.tpl:461
@@ -11916,7 +11916,7 @@ msgstr "LDAP Benutzer DN"
 #: ../../install/install.php:4095
 #: ../../install/install.php:4108
 msgid "LDAP user dn is missing!"
-msgstr "LDAP benutzer DN fehlt!"
+msgstr "LDAP Benutzer DN fehlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:210
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:290
@@ -11986,7 +11986,7 @@ msgstr "LDAP Benutzerfilter Attribut"
 #: ../../install/install.php:4102
 #: ../../install/install.php:4115
 msgid "LDAP user filter attribute is missing!"
-msgstr "LDAP benutzerfilter Attribut fehlt!"
+msgstr "LDAP Benutzer Filter Attribut fehlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:220
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:300
@@ -12002,7 +12002,7 @@ msgstr "LDAP benutzerfilter Attribut fehlt!"
 #: ../..//templates/old/install_page_1.tpl:220
 #: ../../templates/old/install_page_1.tpl:220
 msgid "LDAP user object class"
-msgstr "LDAP benutzer Objektklasse"
+msgstr "LDAP Benutzer Objektklasse"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/install/install.php:2623
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/install/install.php:3305
@@ -12056,7 +12056,7 @@ msgstr "LDAP benutzer Objektklasse"
 #: ../../install/install.php:4109
 #: ../../install/install.php:4122
 msgid "LDAP user object class is missing!"
-msgstr "LDAP benutzer Objektklasse fehlt!"
+msgstr "LDAP Benutzer Objektklasse fehlt!"
 
 #: ../..//templates/install-tabs.tpl:471
 #: ../../templates/install-tabs.tpl:471
@@ -20788,7 +20788,7 @@ msgstr "Sie haben eine Email erhalten um Ihr Passwort zur&uuml;ckzusetzen! Bitte
 
 #: ../../templates/install-tabs.tpl:488
 msgid "You should only say yes here if you're connecting against an Active Directory!"
-msgstr "Sie sollten hi3er nur 'Ja' eintragen, wenn Sie gegen ein Avtive Directory binden!"
+msgstr "Sie sollten hier nur 'Ja' eintragen, wenn Sie gegen ein Avtive Directory binden!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/resetpassword.php:125
 #: /export/home/kriegeth/workspace/svn_access_manager/resetpassword.php:125
