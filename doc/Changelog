@@ -12,6 +12,10 @@ Release 0.5.5.12
 	- renamed hex2bin function to myhex2bin to avoid conflicts 
 	  with PHP 5.4
 	  
+	- Bug Fix in db-functions-adodb.inc.php
+	
+	- some typos corrected in German language file 
+	  
 	  
 Release 0.5.5.11
 	- Feature request ID: 3576275
