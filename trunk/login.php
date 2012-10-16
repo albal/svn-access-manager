@@ -27,7 +27,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 } elseif( file_exists( "/etc/svn-access-manager/config.inc.php" ) ) {
 	require( "/etc/svn-access-manager/config.inc.php" );
 } else {
-	die( "can't load config.inc.php. Check your installation!\n'" );
+	die( "can't load config.inc.php. Check your installation!\n" );
 }
 
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
@@ -57,45 +57,77 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$fUsername 						= db_escape_string ($_POST['fUsername']);
    	$fPassword 						= db_escape_string ($_POST['fPassword']);
    	$tPasswordExpired				= 0;
+   	#error_log( "user = $fUsername");
    	$result 						= db_query( "SELECT password " .
    												"  FROM ".$schema."svnusers " .
-   												" WHERE userid = '$fUsername'", $dbh );
+   												" WHERE (userid = '$fUsername')" .
+   												"   AND (deleted = '00000000000000')", $dbh );
    
    	if ($result['rows'] == 1) {
 
-      $row 							= db_assoc ($result['result']);
-      $password 					= addslashes( pacrypt ($fPassword, $row['password']) );
-      $result 						= db_query( "SELECT * " .
-      											"  FROM ".$schema."svnusers " .
-      											" WHERE userid = '$fUsername' " .
-      											"   AND password = '$password'", $dbh );
-      
-      if ($result['rows'] != 1) {
+	  if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+	  	  
+	  	  if( check_ldap_password( $fUsername, $fPassword ) == 1 ) {
+		  	  $result 				= db_query( "SELECT * " .
+		      									"  FROM ".$schema."svnusers " .
+		      									" WHERE (userid = '$fUsername') " .
+		      									"   AND (deleted = '00000000000000')", $dbh );
+	  	  } else {
+	  	  	
+	  	  	$error 					= 1;
+         	$tMessage 				= _('Username and/or password wrong');
+         	$tUsername 				= $fUsername;
+         	
+	  	  }
+	  	  
+	  } else {
+	  	  
+	  	  $row 						= db_assoc ($result['result']);
+	      $password 				= addslashes( pacrypt ($fPassword, $row['password']) );
+	      $result 					= db_query( "SELECT * " .
+	      										"  FROM ".$schema."svnusers " .
+	      										" WHERE (userid = '$fUsername') " .
+	      										"   AND (password = '$password')", $dbh );
+	      	  
+	  }
+	  
+      if( ($error == 0) and ($result['rows'] != 1) ) {
          
          $error 					= 1;
          $tMessage 					= _('Username and/or password wrong');
          $tUsername 				= $fUsername;
       
-      } else {
+      }
+      
+      if( $error == 0 ) {
       
       	$row 						= db_assoc ($result['result']);
       	$id							= $row['id'];
       	$tName						= $row['name'];
       	$tGivenname					= $row['givenname'];
       	$tAdmin						= $row['admin'];
-      	$tPwModified				= mkUnixTimestampFromDateTime( $row['password_modified'] );
-      	$today						= time();
-      	$maxDiff					= $CONF['password_expires'] * 86400;
-      	if( ($today - $tPwModified ) > $maxDiff ) {
+      	$tPasswordExpires			= $row['passwordexpires'];
+      	if( ($tPasswordExpires != 0) and (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
+	      	
+	      	$tPwModified			= mkUnixTimestampFromDateTime( $row['password_modified'] );
+	      	$today					= time();
+	      	$maxDiff				= $CONF['password_expires'] * 86400;
+	      	if( ($today - $tPwModified ) > $maxDiff ) {
+	      		
+	      		$tPasswordExpired	= 1;
+	      		
+	       	} else {
+	       		
+	       		$tPasswordExpired	= 0;
+	       		
+	       	}
+       	
+      	} else {
       		
-      		$tPasswordExpired		= 1;
+      		$tPasswordExpired		= 0;
       		
-       	} else {
-       		
-       		$tPasswordExpired		= 0;
-       		
-       	}
-      		
+      	}
+	      
   		$query						= "SELECT * " .
   					      			  "  FROM ".$schema."svn_projects_responsible " .
   					      			  " WHERE (user_id = $id) " .
@@ -120,13 +152,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	  $s 											= new Session;
       session_start();
-      session_register("svn_sessid");
+      #session_register("svn_sessid");
+      if( ! isset( $_SESSION['svn_sessid'] ) ) {
+      		$_SESSION['svn_sessid']					= array();
+      }
 	  #error_log( "session started" );
       $_SESSION['svn_sessid']['username'] 			= $fUsername;
       $_SESSION['svn_sessid']['name']				= $tName;
       $_SESSION['svn_sessid']['givenname']			= $tGivenname;
       $_SESSION['svn_sessid']['admin']				= $tAdmin;
       $_SESSION['svn_sessid']['password_expired']	= $tPasswordExpired;
+      if(isset($CONF['ldap_bind_use_login_data']) && $CONF['ldap_bind_use_login_data'] == 1) {
+	  		$_SESSION['svn_sessid']['password'] 	= $fPassword;
+	  }
+      
       #error_log( "session data written" );
       db_log( $_SESSION['svn_sessid']['username'], "user $tUsername logged in", $dbh );
 	  #error_log( "log data written" );

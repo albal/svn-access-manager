@@ -30,7 +30,7 @@ $Id$
 */
 
 
-if (ereg ("config.inc.php", $_SERVER['PHP_SELF'])) {
+if (preg_match ("/config.inc.php/", $_SERVER['PHP_SELF'])) {
    
    header ("Location: login.php");
    exit;
@@ -60,6 +60,7 @@ $CONF['database_tablespace']	= '###DBTABLESPACE###';
 $CONF['session_in_db']			= '###SESSIONINDB###';
 
 $CONF['website_charset']		= '###WEBSITECHARSET###';
+$CONF['website_url']			= '###WEBSITEURL###';
 
 // Sort order for user
 $CONF['user_sort_fields']		= "name,givenname";
@@ -95,8 +96,13 @@ $CONF['minPasswordlengthUser']	= ###MINPWUSER###;
 // If the values are out of range, for user 3 is assumed and for admins 4 is assumed
 $CONF['minPasswordGroups']		= 4;
 $CONF['minPasswordGroupsUser']	= 3;
-$CONF['password_expires']		= 60;
-$CONF['password_expires_warn']	= 50;
+
+// password expiry stuff
+$CONF['password_expires']		= ###PASSWORDEXPIRES###;
+$CONF['password_expires_warn']	= ###PASSWORDEXPIRESWARN###;
+// define default value for password expire, allowed values 0 and 1
+$CONF['expire_password']		= '###EXPIREPASSWORD###';
+
 # valid values for pwcrypt are md5 or crypt
 $CONF['pwcrypt']				= '###PWCRYPT###';
 
@@ -124,6 +130,19 @@ $CONF['separateFilesPerRepo']	= '###SEPERATEFILESPERREPO###';
 //files listed during access rights management too
 //Valid values are "dirs" or "files"
 $CONF['accessControl']			= '###ACCESSCONTROLLEVEL###';
+// Set users default access right
+// valid values are; read, write
+$CONF['userDefaultAccess'] 		= '###USERDEFAULTACCESS###';
+// annonymous access option, allowed values are 0 or 1
+$CONF['write_anonymous_access_rights']	 = ###WRITEANONACCESS###;
+
+// SVN access file repository path sort order, allowed values are ASC or DESC
+$CONF['repoPathSortOrder']		= '###REPOPATHSORTORDER###'; 
+
+// Custom Fields
+$CONF['column_custom1']			= ###CUSTOM1###;
+$CONF['column_custom2']			= ###CUSTOM2###;
+$CONF['column_custom3']			= ###CUSTOM3###;
 
 $CONF['mail_password_warn']		= <<<EOM
 
@@ -158,6 +177,31 @@ SVN Access Manager
 Administrator
 
 EOM;
+
+//LDAP stuff
+$CONF['use_ldap']                               = '###USELDAP###';
+$CONF['bind_dn']                                = '###BINDDN###';
+$CONF['bind_pw']                                = '###BINDPW###';
+$CONF['user_dn']                                = '###USERDN###';
+$CONF['user_filter_attr']                       = '###USERFILTERATTR###';
+$CONF['user_objectclass']                       = '###USEROBJECTCLASS###';
+$CONF['additional_user_filter']                 = '###USERADDITIONALFILTER###';
+$CONF['ldap_server']                            = '###LDAPHOST###';
+$CONF['ldap_port']                              = '###LDAPPORT###';
+$CONF['ldap_protocol']                          = '###LDAPPROTOCOL###';
+$CONF['attr_mapping']['uid']                    = '###MAPUID###';
+$CONF['attr_mapping']['name']                   = '###MAPNAME###';
+$CONF['attr_mapping']['givenName']              = '###MAPGIVENNAME###';
+$CONF['attr_mapping']['mail']                   = '###MAPMAIL###';
+$CONF['attr_mapping']['userPassword']           = '###MAPPASSWORD###';
+// sort field to sort ldap users
+$CONF['ldap_sort_field']                        = '###LDAPSORTATTR###';
+// sort order for ldap sort, allowed values are ASC and DESC
+$CONF['ldap_sort_order']                        = '###LDAPSORTORDER###';
+// use login data for ldap bind, allowed values are 0 and 1
+$CONF['ldap_bind_use_login_data']				= ###LDAPBINDUSELOGINDATA###;
+// LDAP bind dn suffix
+$CONF['ldap_bind_dn_suffix']					= '###LDAPBINDDNSUFFIX###';
 
 //
 // END OF CONFIG FILE
