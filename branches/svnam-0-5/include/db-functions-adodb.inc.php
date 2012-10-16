@@ -1322,22 +1322,46 @@ function get_ldap_users() {
 				
 				$entry							= array();
 				
-				if( isset($CONF['attr_mapping']['uid']) ) {				
-					$entry['uid']				= $arr[$CONF['attr_mapping']['uid']];	
+				if( isset($CONF['attr_mapping']['uid']) ) {		
+					if(isset($arr[$CONF['attr_mapping']['uid']])) {
+						$entry['uid']			= $arr[$CONF['attr_mapping']['uid']];
+					} else {
+						$entry['uid']			= "";
+					}			
 				} else {
-					$entry['uid']				= $arr['uid'];	
+					if(isset($arr['uid'])) {
+						$entry['uid']			= $arr['uid'];
+					} else {
+						$entry['uid']			= "";
+					}	
 				}
 				
-				if( isset($CONF['attr_mapping']['name']) ) {				
-					$entry['name']				= $arr[$CONF['attr_mapping']['name']];	
+				if( isset($CONF['attr_mapping']['name']) ) {	
+					if(isset($arr[$CONF['attr_mapping']['name']])) {
+						$entry['name']			= $arr[$CONF['attr_mapping']['name']];
+					} else {
+						$entry['name']			= "";
+					}			
 				} else {
-					$entry['name']				= $arr['sn'];	
+					if(isset($arr['sn'])) {
+						$entry['name']			= $arr['sn'];
+					} else {
+						$entry['name']			= "";
+					}	
 				}
 				
-				if( isset($CONF['attr_mapping']['givenName']) ) {				
-					$entry['givenname']			= $arr[$CONF['attr_mapping']['givenName']];	
+				if( isset($CONF['attr_mapping']['givenName']) ) {
+					if(isset($arr[$CONF['attr_mapping']['givenName']])) {			
+						$entry['givenname']		= $arr[$CONF['attr_mapping']['givenName']];	
+					} else {
+						$entry['givenname']		= "";
+					}
 				} else {
-					$entry['givenname']			= $arr['givenName'];	
+					if(isset($arr['givenName'])) {			
+						$entry['givenname']		= $arr['givenName'];	
+					} else {
+						$entry['givenname']		= "";
+					}	
 				}
 				
 				if( isset($CONF['attr_mapping']['mail']) ) {				
