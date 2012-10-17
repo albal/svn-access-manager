@@ -3248,6 +3248,10 @@ function doInstall() {
 			$content					= str_replace( '###LDAPHOST###',			$_SESSION['svn_inst']['ldapHost'], $content );
 			$content					= str_replace( '###LDAPPORT###',			$_SESSION['svn_inst']['ldapPort'], $content );
 			$content					= str_replace( '###LDAPPROTOCOL###',		$_SESSION['svn_inst']['ldapProtocol'], $content );
+			$content					= str_replace( '###LDAPSORTATTR###',		$_SESSION['svn_inst']['ldapAttrUserSort'], $content );
+			$content					= str_replace( '###LDAPSORTORDER###',		$_SESSION['svn_inst']['ldapUserSort'], $content );
+			$content					= str_replace( '###LDAPBINDUSELOGINDATA###',$_SESSION['svn_inst']['ldapBindUseLoginData'], $content );
+			$content					= str_replace( '###LDAPBINDDNSUFFIX###',	$_SESSION['svn_inst']['ldapBindDnSuffix'], $content );
 			$content					= str_replace( '###MAPUID###',				$_SESSION['svn_inst']['ldapAttrUid'], $content );
 			$content					= str_replace( '###MAPNAME###',				$_SESSION['svn_inst']['ldapAttrName'], $content );
 			$content					= str_replace( '###MAPGIVENNAME###',		$_SESSION['svn_inst']['ldapAttrGivenname'], $content );
