@@ -37,14 +37,14 @@
 				   	<tr>
 				   		<td><strong><?php print _("Name").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fName" value="<?php print $tName; ?>" size="40" maxsize="255"  />
+				   			<input type="text" name="fName" value="<?php print $tName; ?>" size="40" maxsize="255"  title='<?php print _("Enter the name of the user.");?>' />
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td><strong><?php print _("Given name").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fGivenname" value="<?php print $tGivenname; ?>" size="40" maxsize="255" />
+				   			<input type="text" name="fGivenname" value="<?php print $tGivenname; ?>" size="40" maxsize="255" title='<?php print _("Enter the given name of the user.");?>' />
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
@@ -53,14 +53,14 @@
 					   		print "\t\t\t\t\t\t<tr>\n";
 						   	print "\t\t\t\t\t\t\t<td><strong>"._("Password").": </strong></td>\n";
 						   	print "\t\t\t\t\t\t\t<td>\n";
-						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword\" value=\"$tPassword\" size=\"40\" maxsize=\"255\" autocomplete=\"off\" />\n";
+						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword\" value=\"$tPassword\" size=\"40\" maxsize=\"255\" autocomplete=\"off\" title=\""._("Enter the password. Keep in mind that the password must be set accordingly to the password policy.")."\"/>\n";
 						   	print "\t\t\t\t\t\t\t</td>\n";
 						   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
 							print "\t\t\t\t\t\t</tr>\n";
 						   	print "\t\t\t\t\t\t<tr>\n";
 						   	print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Retype password").": </strong></td>\n";
 						   	print "\t\t\t\t\t\t\t<td>\n";
-						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword2\" value=\"$tPassword2\" size=\"40\" maxsize=\"255\" />\n";
+						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword2\" value=\"$tPassword2\" size=\"40\" maxsize=\"255\" title=\""._("Retype the password to avoid typos.")."\"/>\n";
 						   	print "\t\t\t\t\t\t\t</td>\n";
 						   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
 						   	print "\t\t\t\t\t\t</tr>\n";
@@ -70,7 +70,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Email address").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fEmail" value="<?php print $tEmail; ?>" size="40" maxsize="255" />
+				   			<input type="text" name="fEmail" value="<?php print $tEmail; ?>" size="40" maxsize="255" title="<?php print _("Enter the email address of the user. Please fill in a valid email address. Otherwise the user will not be able to receive notifications.");?>"/>
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
@@ -107,7 +107,7 @@
 			   				print "\n\t\t\t\t\t\t<tr>\n";
 			   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
-			   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\">\n";
+			   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\" title=\""._("Select if the user password should expire.")."\">\n";
 		   					if( $tPasswordExpires == 0 ) {
 		   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
 		   						print "\t\t\t\t\t\t\t\t<option value='1'>"._("yes")."</option>\n";
@@ -125,7 +125,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Locked").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fLocked">
+				   			<select name="fLocked" title="<?php print _("A locked user can not work any longer with the subversion repositories. If the user password expiered, the user will be locked automatically.");?>">
 				   				<?php
 				   					if( $tLocked == 0 ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
@@ -142,7 +142,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Administrator").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fAdministrator">
+				   			<select name="fAdministrator" title="<?php print _("An administrator has more privileges as a normal user. Administrators have a stronger password policy as normal users.");?>">
 				   				<?php
 				   					if( $tAdministrator == "n" ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='n' selected>"._("no")."</option>\n";
@@ -154,12 +154,12 @@
 				   				?>
 				   			</select>
 				   		</td>
-				   		<td><?php print _("Admins have a stronger password policy than normal users."); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Repository user right").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fUserRight">
+				   			<select name="fUserRight" title="<?php print _("This right overrules the repository access right settings. A user with read permission only can't get write access to any repository!"); ?>">
 				   				<?php
 				   					if( $tUserRight == "read" ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='read' selected>"._("read")."</option>\n";
@@ -171,7 +171,7 @@
 				   				?>
 				   			</select>
 				   		</td>
-				   		<td><?php print _("This right overrules the repository access right settings. A user with read permission only can't get write access to any repository!"); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				      <td colspan="3">&nbsp;</td>
@@ -190,7 +190,7 @@
 			   				print "\t\t\t\t\t\t\t\t".$right['right_name'].": ";
 			   				print "\t\t\t\t\t\t\t</strong></td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
-			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' $tDisabled>\n";
+			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' $tDisabled title=\"".$right['description']."\">\n";
 			   				
 			   				$tNone						= "selected";
 			   				$tRead						= "";
@@ -252,7 +252,7 @@
 			   				print "\t\t\t\t\t\t\t\t</select>\n";
 			   				print "\t\t\t\t\t\t\t</td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
-			   				print "\t\t\t\t\t\t\t\t".$right['description'];
+			   				print "\t\t\t\t\t\t\t\t ";
 			   				print "\t\t\t\t\t\t\t</td>\n";
 			   				print "\t\t\t\t\t\t</tr>\n";
 			   			

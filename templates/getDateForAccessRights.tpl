@@ -10,7 +10,7 @@
 				   	<tr valign="top">
 				   		<td width="150"><strong><?php print _("Date").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fDate" id="date" value="<?php print $tDate; ?>" size="10" maxsize="10" />
+				   			<input type="text" name="fDate" id="date" value="<?php print $tDate; ?>" size="10" maxsize="10" title="<?php print _("Select the date for the report.");?>" />
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>

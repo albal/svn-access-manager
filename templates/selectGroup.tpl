@@ -10,7 +10,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Group").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fGroup">
+				   			<select name="fGroup" title="<?php print _("Select group to work with.");?>">
 				   				<?php
 				   					foreach( $tGroups as $groupId => $groupName ) {
 				   					
