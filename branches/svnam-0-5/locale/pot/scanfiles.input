@@ -196,7 +196,6 @@
 ../..//include/variables.inc.php
 ../..//index.php
 ../..//install/install.php
-../..//install/old/install-alt.php
 ../..//lib/jquery-ui/development-bundle/demos/autocomplete/search.php
 ../..//lib/jquery-ui/development-bundle/demos/tabs/ajax/content3-slow.php
 ../..//lib/jquery-ui/development-bundle/demos/tabs/ajax/content4-broken.php
@@ -218,6 +217,7 @@
 ../..//rep_granted_user_rights.php
 ../..//rep_locked_users.php
 ../..//rep_log.php
+../..//rep_show_group.php
 ../..//rep_show_user.php
 ../..//resetpassword.php
 ../..//scripts/cronjobs/cron_createAccessFiles.php
@@ -260,13 +260,6 @@
 ../..//templates/lostpassword.tpl
 ../..//templates/main.tpl
 ../..//templates/nopermission.tpl
-../..//templates/old/install.tpl
-../..//templates/old/install_page_1.tpl
-../..//templates/old/install_page_2.tpl
-../..//templates/old/install_page_3.tpl
-../..//templates/old/install_page_4.tpl
-../..//templates/old/install_page_5.tpl
-../..//templates/old/install_page_6.tpl
 ../..//templates/password.tpl
 ../..//templates/password_policy.tpl
 ../..//templates/preferences.tpl
@@ -274,6 +267,8 @@
 ../..//templates/rep_granted_user_rights.tpl
 ../..//templates/rep_locked_users.tpl
 ../..//templates/rep_log.tpl
+../..//templates/rep_show_group.tpl
+../..//templates/rep_show_group_result.tpl
 ../..//templates/rep_show_user.tpl
 ../..//templates/rep_show_user_result.tpl
 ../..//templates/resetpassword.tpl
