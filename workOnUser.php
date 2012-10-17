@@ -114,8 +114,6 @@ if( $rightAllowed == "none" ) {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly								= "";
-	$tUseridNonLdap							= "";
-	$tReadonlyNonLdap						= "";
 	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
@@ -144,8 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if( $_SESSION['svn_sessid']['task'] == "new" ) {
    		
    		$tUserid								= "";
-   		$tUseridNonLdap							= "";
-		$tReadonlyNonLdap						= "readonly";
 		$tName									= "";
 		$tGivenname								= "";
 		$tEmail									= "";
@@ -172,7 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
    		$tReadonly								= "readonly";
-   		$tReadonlyNonLdap						= "readonly";
    		$query									= "SELECT * " .
    												  "  FROM ".$schema."svnusers " .
    												  " WHERE id = $tId";
@@ -184,9 +179,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tName								= $row['name'];
 			$tGivenname							= $row['givenname'];
 			$tEmail								= $row['emailaddress'];
-			$tCustom1							= (empty($row['custom1']) ? "''" : $row['custom1']);
-			$tCustom2                          	= (empty($row['custom2']) ? "''" : $row['custom2']);
-			$tCustom3                           = (empty($row['custom3']) ? "''" : $row['custom3']);
+			$tCustom1						= (empty($row['custom1']) ? "''" : $row['custom1']);
+			$tCustom2                                               = (empty($row['custom2']) ? "''" : $row['custom2']);
+			$tCustom3                                               = (empty($row['custom3']) ? "''" : $row['custom3']);
 			$tPasswordExpires					= $row['passwordexpires'];
 			$tLocked							= $row['locked'];
 			$tAdministrator						= $row['admin'];
@@ -221,15 +216,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tUserid								= isset($_POST['fUserid']) 			? db_escape_string( $_POST['fUserid'] )				: "";
    	$tUserid								= explode( ":", $tUserid);
    	$tUserid								= $tUserid[0];
-   	$tUseridNonLdap							= isset($_POST['fUseridNonLdap'])	? db_escape_string( $_POST['fUseridNonLdap'] )		: "";
    	$tName									= isset($_POST['fName']) 			? db_escape_string( $_POST['fName'] )				: "";
    	$tGivenname								= isset($_POST['fGivenname']) 		? db_escape_string( $_POST['fGivenname'] )			: "";
    	$tPassword								= isset($_POST['fPassword']) 		? db_escape_string( $_POST['fPassword'] )			: "";
    	$tPassword2								= isset($_POST['fPassword2']) 		? db_escape_string( $_POST['fPassword2'] )			: "";
    	$tEmail									= isset($_POST['fEmail']) 			? db_escape_string( $_POST['fEmail'] )				: "";
-	$tCustom1								= isset($_POST['fCustom1'])			? db_escape_string( $_POST['fCustom1'] )			: "";
-	$tCustom2       						= isset($_POST['fCustom2'])     	? db_escape_string( $_POST['fCustom2'] )        	: "";
-	$tCustom3       						= isset($_POST['fCustom3'])     	? db_escape_string( $_POST['fCustom3'] )        	: "";
+	$tCustom1	= isset($_POST['fCustom1'])	? db_escape_string( $_POST['fCustom1'] )	: "";
+	$tCustom2       = isset($_POST['fCustom2'])     ? db_escape_string( $_POST['fCustom2'] )        : "";
+	$tCustom3       = isset($_POST['fCustom3'])     ? db_escape_string( $_POST['fCustom3'] )        : "";
    	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: "0";
    	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: "";
    	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: "";
@@ -274,17 +268,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Please select an user!" );
    				$error						= 1;
    				
-   			} elseif( ($tUserid == "nonldapuser") and ($tUseridNonLdap == "") ) {
-      			
-      			$tMessage					= _("Userid for non LDAP user is missing!");
-      			$error						= 1;
-      			
    			} elseif( $tName == "" ) {
    				
    				$tMessage					= _( "Name missing, please fill in!" );
    				$error						= 1;
 
-   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) or ($tUserid == "nonldapuser") ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
    				if( ($tPassword == "") and ($tPassword2 == "") ) {
    				
@@ -292,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$error					= 1;
    				}
 				 
-   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) or (c) ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
 	   			if( ($tPassword != "") or ($tPassword2 != "") ) {
 	   				
@@ -344,15 +333,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   			   			
    			if( $error == 0 ) {
    				
-   				$userid						= ($tUserid == "nonldapuser") ? $tUseridNonLdap : $tUserid;
    				$tPassword					= ($tPassword == "") ? generatePassword("y") : $tPassword;
    				$pwcrypt					= db_escape_string( pacrypt( $tPassword ), $dbh );
    				$dbnow						= db_now();
    				$query 						= "INSERT INTO ".$schema."svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, custom1, custom2, custom3, admin, created, created_user, password_modified, user_mode) " .
-   						                      "     VALUES ('$userid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
+   						                      "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
    				
    				db_ta( 'BEGIN', $dbh );
-   				db_log( $_SESSION['svn_sessid']['username'], "added user $userid, $tName, $tGivenname", $dbh ); 
+   				db_log( $_SESSION['svn_sessid']['username'], "added user $tUserid, $tName, $tGivenname", $dbh ); 
    				
    				$result						= db_query( $query, $dbh );
    				if( $result['rows'] == 1 ) {
@@ -498,9 +486,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    											   "   SET name 			= '$tName', " .
    											   "       givenname 		= '$tGivenname', " .
    											   "       emailaddress 	= '$tEmail', " .
-											   "       custom1          = '$tCustom1', " .
-											   "       custom2          = '$tCustom2', " .
-											   "       custom3          = '$tCustom3', " .
+											   "       custom1         = '$tCustom1', " .
+											   "       custom2         = '$tCustom2', " .
+											   "       custom3         = '$tCustom3', " .
    											   "       passwordexpires 	= '$tPasswordExpires', " .
    											   "       locked 			= '$tLocked', " .
    											   "       admin 			= '$tAdministrator', " .

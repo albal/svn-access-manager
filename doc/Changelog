@@ -12,12 +12,19 @@ Release 0.5.5.12
 	- renamed hex2bin function to myhex2bin to avoid conflicts 
 	  with PHP 5.4
 	  
-	- allow non LDAP users in an LDAP environment
+	- Bug Fix in db-functions-adodb.inc.php
+	
+	- some typos corrected in German language file
+	
+	- added tool tips
+	
+	- Fixed Bug ID: 3577838
+	  installer doesn't set new ldap options
 	  
 	  
 Release 0.5.5.11
 	- Feature request ID: 3576275
-	  Encoding LDAP name and givenname to handle German umlauts
+	  Encoding LDAP name and given name to handle German umlauts
 	  
 	- Feature request ID: 3576273
 	  Sorting LDAP Users

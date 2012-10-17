@@ -10,7 +10,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Project").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fProject">
+				   			<select name="fProject" title="<?php print _("Select project to work with.");?>">
 				   				<?php
 				   					foreach( $tProjects as $projectId => $projectName ) {
 				   					
