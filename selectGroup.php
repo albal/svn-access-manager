@@ -55,7 +55,7 @@ $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
 $uId										= db_getIdByUserid( $SESSID_USERNAME, $dbh );
-$_SESSION['svn_sessid']['helptopic']		= "selectproject";
+$_SESSION['svn_sessid']['helptopic']		= "selectgroup";
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
 
 if( $rightAllowed == "none" ) {

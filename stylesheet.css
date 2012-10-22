@@ -414,6 +414,11 @@ a:visited, a:active {
 	font-size:100%;
 }
 
+.helpDialog {
+	text-align:left;
+	font-size:1.1em;
+}
+
 
 #userlist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
 #userlist_table td {padding-left:1px; padding-right:1px;font-size:1em;}

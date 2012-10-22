@@ -67,11 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	  if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
 	  	  
-	  	  if( check_ldap_password( $fUsername, $fPassword ) == 1 ) {
+	  	  $ldapres					= check_ldap_password( $fUsername, $fPassword );
+	  	  if( $ldapres == 1 ) {
 		  	  $result 				= db_query( "SELECT * " .
 		      									"  FROM ".$schema."svnusers " .
 		      									" WHERE (userid = '$fUsername') " .
 		      									"   AND (deleted = '00000000000000')", $dbh );
+	  	  } elseif( $ldapres == -1 ) {
+	  	  	
+	  	  	$error					= 1;
+	  	  	$tMessage				= _("LDAP server not reachable!");
+	  	  	$tUsername				= $fUsername;
+	  	  	
 	  	  } else {
 	  	  	
 	  	  	$error 					= 1;
