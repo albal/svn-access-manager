@@ -249,12 +249,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    					db_ta( 'COMMIT', $dbh );
    					
    					$tMessage					= _( "Repository successfully inserted" );
+   					$warn						= 0;
    					
    					if( $tCreateRepo == "1" ) {
    						
    						if( ! isset( $CONF['svnadmin_command'] ) or ($CONF['svnadmin_command'] == "") ) {
    							
    							$tMessage		= _("Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!");
+   							$warn			= 1;
    							
    						} else {
 	   						
@@ -304,20 +306,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								if( $returncode != 0 ) {
 									
 									$tMessage		= _("Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!");
+									$warn			= 1;
 						
 								} else {
 									
 									$tMessage		= _("Repository successfully inserted into database and created in filesystem" );
+									$warn			= 1;
 								}
 								
 	   						} else {
 	   						
 	   							$tMessage			= _("Repository sucessfully inserted into database but not created in filesystem because it's not locally hosted!");	
+	   							$warn				= 1;
 	   						}
    						}
    						
    					} 
    				}
+   				
+   				if( $warn == 0 ) {
+   					db_disconnect( $dbh );
+					header( "Location: list_repos.php" );
+					exit;
+   				}
+   				
    			}
    			
    		} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
@@ -399,6 +411,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				if ( $result['rows'] == 1 ) {
    					
    					db_ta( 'COMMIT', $dbh );
+   					db_disconnect( $dbh );
+					header( "Location: list_repos.php" );
+					exit;
    					
    					$tMessage				= _( "Repository successfully modified" );
    					

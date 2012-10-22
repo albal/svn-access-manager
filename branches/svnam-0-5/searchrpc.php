@@ -146,6 +146,38 @@ if( $ret == 0 ) {
 	
 	db_disconnect( $dbh );
 	
+} elseif( strtolower($db) == "groupadmin" ) {
+	
+	$dbh																= db_connect();
+	$schema																= db_determine_schema();
+	$query																= "SELECT svnusers.name, svnusers.givenname, svn_groups_responsible.id ".
+    											  						  "  FROM ".$schema."svn_groups_responsible,".$schema."svnusers, ".$schema."svngroups ".
+    											  						  " WHERE (svn_groups_responsible.user_id = svnusers.id) " .
+    											  						  "   AND (svnusers.deleted = '00000000000000') ".
+    											  						  "   AND (svn_groups_responsible.deleted = '00000000000000') ".
+    											  						  "   AND (svn_groups_responsible.group_id = svngroups.id) ".
+    											  						  "   AND (svngroups.deleted = '00000000000000') ". 
+    											  						  "   AND ((svnusers.name like '%$filter%') ".
+    											  						  "    OR  (svnusers.givenname like '%$filter%') ".
+    											  						  "    OR  (svngroups.groupname like '%$filter%') ".
+    											  						  "    OR  (svngroups.description like '%$filter%')) ".    											  						  
+    											  						  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
+  	$result																= db_query( $query, $dbh );
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		$data															= array();
+		if( $row['givenname'] != "" ) {
+			$data['name']												= $row['givenname']." ".$row['name'];
+		} else {
+			$data['name']												= $row['name'];	
+		}
+		$data['id']														= $row['id'];
+		$tArray[]														= $data;
+		
+	}
+	
+	db_disconnect( $dbh );
+	
 }
 
 $data                                                                   = json_encode($tArray);

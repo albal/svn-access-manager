@@ -40,7 +40,7 @@ function outputHeader($area) {
 	print "<li class='topmenu'><a href='main.php' alt='Home'><img src='./images/gohome.png' border='0' /> "._("Main menu")."</a></li>";
 	print "<li class='topmenu'><a href='logout.php' alt='Logout'><img src='./images/stop.png' border='0' />"._("Logoff")."</a></li>";
 	print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
-	print "<li><a href='help.php' alt='help' target='_blank'><img src='./images/help.png' border='0' />"._("Help")."</a></li>";
+	print "<li><a href='help.php' alt='help' id='help' target='_blank'><img src='./images/help.png' border='0' />"._("Help")."</a></li>";
 	print "</ul>";
 	print "<div align='right'><p>&nbsp;</p>"._("Logged in as").": ".$_SESSION['svn_sessid']['username']."</div>";
 }

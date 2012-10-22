@@ -2,6 +2,21 @@ Change Log
 ==========
 
 
+Release 0.5.5.13
+	- redesigned help system, added help texts
+	
+	- jump back to repository list if repo is created or 
+	  modified successfully
+	
+	- create an error message if ldap is not reachable and 
+	  do not loop in login
+	  
+	- small selinux documentation in the README file
+	
+	- Feature request ID: 3579139
+	  additional search fields
+	
+	
 Release 0.5.5.12
 	- Bug fix in rep_show_group.php
 	
