@@ -95,7 +95,8 @@ New releases are announced on freshmeat.net and sourceforge.net as well.
 Credits
 =======
 
-SVN Access Manager uses JQuery, JQuery UI and Aria Tables. 
+SVN Access Manager uses JQuery, JQuery UI, Chosen, a Select Box Enhancer and 
+Aria Tables. 
 
 Thanx to Maik and Jan for a lot of testing and providing patches
 to fix some bugs.
