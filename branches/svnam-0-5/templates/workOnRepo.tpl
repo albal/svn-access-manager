@@ -20,14 +20,7 @@
 				   			<input type="text" name="fRepopath" value="<?php print no_magic_quotes($tRepopath); ?>" size="40" maxsize="255"  />
 				   		</td>
 				   		<td>
-				   			<?php 
-				   				print _("Path to the repository. If SVN Access Manager runs on the same host as the repository does use file:// for access to te repository. No username and password in required in this case."); 
-				   				$os	= determineOs();
-				   				if($os == "windows") {
-				   					print "<br/>";
-				   					print _("Use '/' as path separator on Windows systems. You must write down a repository path e. g. like this: file:///c:/svn/testrepo");
-				   				}
-				   			?>
+				   			&nbsp;
 				   		</td>
 				   	</tr>
 				   	<tr>
@@ -35,7 +28,7 @@
 				   		<td>
 				   			<input type="text" name="fRepouser" value="<?php print $tRepouser; ?>" size="40" maxsize="255"  />
 				   		</td>
-				   		<td><?php print _("The username and password if necessary for access to the repository"); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td><strong><?php print _("Repository password").": "; ?></strong></td>
@@ -58,7 +51,7 @@
 				   			}
 				   		?>
 				   		<td><input type="checkbox" name="fCreateRepo" value="1" <?php print $checked; ?> /></td>
-				   		<td><?php print _("This only works if SVN Access Manager runs on the same host where the repositories live.");?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<?php
 				   		if( isset( $CONF['separateFilesPerRepo'] ) ) {

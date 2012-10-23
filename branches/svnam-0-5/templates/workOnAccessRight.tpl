@@ -33,7 +33,7 @@
 				   		<td>
 				   			<?php print $tModulePath; ?>
 				   		</td>
-				   		<td><?php print _("This path will be prepended to the directories you select below."); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Selected directory").": "; ?></strong></td>
