@@ -13,14 +13,14 @@
 							   	<tr valign="top">
 							   		<td width="150"><strong><?php print _("Group").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fGroup" value="<?php print $tGroup; ?>" maxsize="255" />
+							   			<input type="text" name="fGroup" value="<?php print $tGroup; ?>" maxsize="255" title="<?php print _("Enter the name of the group. The name must be unique.");?>"/>
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
 							   		<td><strong><?php print _("Description").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fDescription" value="<?php print $tDescription; ?>" maxsize="255"  />
+							   			<input type="text" name="fDescription" value="<?php print $tDescription; ?>" maxsize="255" title="<?php print _("Enter the group description.");?>" />
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -59,7 +59,7 @@
 								<tr valign="top">
 									<td><strong><?php print _("Groupmembers").": "; ?></strong></td>
 									<td>
-										<select name="members[]" multiple="" size="10" style="width: 100%; height=200px;">
+										<select name="members[]" multiple="" size="10" style="width: 100%; height=200px;" title="<?php print sprintf(_("Members of group %s"),$tGroup);?>">
 										<?php
 											foreach($tMembers as $uid => $member) {
 												$label = $member." [".$uid."]";

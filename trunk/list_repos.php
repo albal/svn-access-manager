@@ -93,7 +93,7 @@ $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, 'Repository admin', $dbh );
-$_SESSION['svn_sessid']['helptopic']		= "list_repos";
+$_SESSION['svn_sessid']['helptopic']		= "listrepos";
 
 if( $rightAllowed == "none" ) {
 	
@@ -164,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         } else {
     	
     		$tArray								= array();
+    		$schema								= db_determine_schema();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svnrepos ".
     											  " WHERE ((repouser like '%$tSearch%') ".

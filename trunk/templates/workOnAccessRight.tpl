@@ -33,7 +33,7 @@
 				   		<td>
 				   			<?php print $tModulePath; ?>
 				   		</td>
-				   		<td><?php print _("This path will be prepended to the directories you select below."); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Selected directory").": "; ?></strong></td>
@@ -52,7 +52,7 @@
 				   	<tr valign="top">
 				   		<td nowrap><strong><?php print _("Select directory").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fPath" size="15" style="width: 100%; height=200px;" <?php print $tChangeFunction; ?> >
+				   			<select name="fPath" size="15" style="width: 100%; height=200px;" <?php print $tChangeFunction; ?> title="<?php print _("Select the directory you want to descend into and click 'Change to directory' afterwards if no JavaScript is enabled. '..' ascends one level if possible." ); ?>">
 				   				
 				   				<?php
 				   					if( $_SESSION['svn_sessid']['pathcnt'] > 0 ) {
@@ -89,7 +89,7 @@
 				   				?>
 				   			</select>
 				   		</td>
-				   		<td><?php print _("Select the directory you want to descend into and click 'Change to directory' afterwards if no JavaScript is enabled. '..' ascends one level if possible." ); ?></td>
+				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				      <td colspan="3">&nbsp;</td>

@@ -47,21 +47,21 @@
 				   	<tr>
 				   		<td><strong><?php print _("Valid from").": "; ?></strong></td>
 				   		<td>
-				   			<input id="validFrom" type="text" name="fValidFrom" value="<?php print $tValidFrom; ?>" size="11" maxlength="10" />
+				   			<input id="validFrom" type="text" name="fValidFrom" value="<?php print $tValidFrom; ?>" size="11" maxlength="10" title="<?php print _("Select the date the access right should be valid from.");?>"/>
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr>
 				   		<td><strong><?php print _("Valid until").": "; ?></strong></td>
 				   		<td>
-				   			<input id="validUntil" type="text" name="fValidUntil" value="<?php print $tValidUntil; ?>" size="11" maxlength="10" />
+				   			<input id="validUntil" type="text" name="fValidUntil" value="<?php print $tValidUntil; ?>" size="11" maxlength="10" title="<?php print _("Select the date the access right would be revoked automatically.");?>"/>
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<tr valign="top">
 				   		<td><strong><?php print _("Allowed users").": "; ?></strong></td>
 				   		<td>
-							<select name="fUsers[]" multiple="" size="8" style="width: 100%; height=100px;" <?php print $tReadonly; ?> >
+							<select id="users" name="fUsers[]" multiple="" size="8" style="width: 100%; height=100px;" class="chzn-select" <?php print $tReadonly; ?> title="<?php print _("Select the users allowed to access.");?>" >
 							<?php
 								foreach($tUsers as $uid => $name) {
 									
@@ -80,7 +80,7 @@
 				   	<tr valign="top">
 				   		<td><strong><?php print _("Allowed groups").": "; ?></strong></td>
 				   		<td>
-							<select name="fGroups[]" multiple="" size="8" style="width: 100%; height=100px;" <?php print $tReadonly; ?> >
+							<select id="groups" name="fGroups[]" multiple="" size="8" style="width: 100%; height=100px;" class="chzn-select" <?php print $tReadonly; ?> title="<?php print _("Select the groups allowed to access.");?>" >
 							<?php
 								foreach($tGroups as $gid => $name) {
 									
@@ -126,5 +126,8 @@
 						regional: ['<?php print $tLocale;?>'],
 						altFormat: ['<?php print $tDateFormat;?>'],
 					});
+					
+					$("#users").chosen({no_results_text: "No results matched"});
+					$("#groups").chosen({no_results_text: "No results matched"});
 			</script>
 		</div>

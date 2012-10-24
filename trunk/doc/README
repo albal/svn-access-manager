@@ -60,6 +60,19 @@ To use SVN Access Manager you need
 
 
 
+seLinux
+========
+
+In the doc directory there's a folder selinux. There you find a selinux context
+for the SVN Access Manager. You can use this context. If you want to create
+repositories from within the SVN Access Manager you must add the rules to
+allow the webserver to write to your repository directory.
+
+To add the rules you can do as root:
+> semodule -i svnaccessmanager.pp
+
+
+
 Installation
 ============
 
@@ -82,7 +95,8 @@ New releases are announced on freshmeat.net and sourceforge.net as well.
 Credits
 =======
 
-SVN Access Manager uses JQuery, JQuery UI and Aria Tables. 
+SVN Access Manager uses JQuery, JQuery UI, Chosen, a Select Box Enhancer and 
+Aria Tables. 
 
 Thanx to Maik and Jan for a lot of testing and providing patches
 to fix some bugs.

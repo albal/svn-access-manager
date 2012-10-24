@@ -13,7 +13,7 @@
 					</tr>
 					<tr valign="top">
 						<td>
-							<select name="groupsadd[]" multiple="" size="15" style="width: 100%; height=200px;">
+							<select name="groupsadd[]" multiple="" size="15" style="width: 100%; height=200px;" title="<?php print _("Select the groups to add.");?>">
 							<?php
 								foreach($tGroups as $id => $name) {
 									

@@ -118,7 +118,7 @@ $dbh										= db_connect();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
-$_SESSION['svn_sessid']['helptopic']		= "list_groups";
+$_SESSION['svn_sessid']['helptopic']		= "listgroupadmins";
 
 if( $rightAllowed == "none" ) {
 	
@@ -164,13 +164,114 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("New group");
 	} elseif( isset( $_POST['fSubmit_back'] ) ) {
 		$button									= _("Back" );
+	} elseif( isset( $_POST['fSearchBtn'] ) ) {
+        $button                                 = _("search");
+    } elseif( isset( $_POST['fSearchBtn_x'] ) ) {
+        $button                                 = _("search");
 	} else {
 		$button									= "undef";
 	}
 	
 	$schema										= db_determine_schema();
  	
- 	if( $button == _("New group") ) {
+ 	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+ 	
+ 	if( ($button == "search") or ($tSearch != "") ) {
+
+    	$tSearch                               	= html_entity_decode($tSearch);
+    	$_SESSION['svn_sessid']['search']       = $tSearch;
+        $_SESSION['svn_sessid']['searchtype']   = "groupadmin";
+        
+    	if( $tSearch == "" ) {
+
+        	$tErrorClass                    	= "error";
+            $tMessage                       	= _("No search string given!");
+            $tGroups							= array();
+
+        } else {
+  
+  			$tArray								= array();
+    		$schema								= db_determine_schema();  	
+    		$tParts								= explode( " ", $tSearch );
+  			if( count($tParts) == 1 ) {
+  			
+				$query							= "SELECT * ".
+					  						  	  "  FROM ".$schema."svn_groups_responsible,".$schema."svnusers, ".$schema."svngroups ".
+					  						  	  " WHERE (svn_groups_responsible.user_id = svnusers.id) " .
+				  							  	  "   AND (svnusers.deleted = '00000000000000') ".
+				  							      "   AND (svn_groups_responsible.deleted = '00000000000000') ".
+				  							  	  "   AND (svn_groups_responsible.group_id = svngroups.id) ".
+				  							  	  "   AND (svngroups.deleted = '00000000000000') ". 
+				  							  	  "   AND ((svnusers.name like '%$tSearch%') ".
+				  							  	  "    OR  (svnusers.givenname like '%$tSearch%') ".
+				  						  		  "    OR  (svngroups.groupname like '%$tSearch%') ".
+				  						  	  	  "    OR  (svngroups.description like '%$tSearch%')) ".    											  						  
+				  						  	  	  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
+						  						  
+  			} else {
+  				
+  				$query							= "SELECT * ".
+					  						  	  "  FROM ".$schema."svn_groups_responsible,".$schema."svnusers, ".$schema."svngroups ".
+					  						  	  " WHERE (svn_groups_responsible.user_id = svnusers.id) " .
+				  							  	  "   AND (svnusers.deleted = '00000000000000') ".
+				  							      "   AND (svn_groups_responsible.deleted = '00000000000000') ".
+				  							  	  "   AND (svn_groups_responsible.group_id = svngroups.id) ".
+				  							  	  "   AND (svngroups.deleted = '00000000000000') ". 
+				  							  	  "   AND (";
+				  							  	
+				$i								= 0;  
+  				foreach( $tParts as $entry ) {
+  				
+  					if( $i == 0 ) {
+  						
+  						$query					= $query."       (svnusers.name like '%$entry%') ";
+  						$i++;
+  						
+  					} else {
+  						
+  						$query					= $query ."    OR (svnusers.name like '%$entry%') ";
+  					}
+  					
+					$query						= $query."    OR  (svnusers.givenname like '%$entry%') ";
+					
+  				}
+  				
+  				$query							= $query."       ) ".    											  						  
+				  						  	  	  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
+  			}
+			error_log($query);
+    		$result								= db_query( $query, $dbh );
+    		while( $row = db_assoc( $result['result'])) {
+    			
+    			$tArray[]						= $row;
+    			
+    		}
+    		
+    		if( count($tArray) == 0 ) {
+    			
+    			$tErrorClass                    = "info";
+                $tMessage                       = _("No group administrator found!");
+                $tGroups						= array();
+    			
+    		} elseif( count($tArray) == 1) {
+    			
+    			$id								= $tArray[0]['id'];
+    			$url							= "workOnGroupAccessRight.php?id=".urlencode($id)."&task=change";
+    			db_disconnect( $dbh );
+    			header( "Location: $url" );
+    			exit;
+    			
+    		} else {
+    			
+    			db_disconnect( $dbh );
+    			$_SESSION['svn_sessid']['searchresult']	= $tArray;
+                header("Location: searchresult.php");
+                exit;
+                
+    		}
+    	}
+    	
+ 	} elseif( $button == _("New group") ) {
  		
  		db_disconnect( $dbh );
  		header( "Location: selectGroup.php" );

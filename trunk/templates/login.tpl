@@ -64,7 +64,7 @@ include( "./include/output.inc.php" );
 				   </tr>
 				   <tr>
 				      <td><?php print _('Username') . ":"; ?></td>
-				      <td><input type="text" name="fUsername" value="<?php print $tUsername; ?>" /></td>
+				      <td><input id="username" type="text" name="fUsername" value="<?php print $tUsername; ?>" /></td>
 				   </tr>
 				   <tr>
 				      <td><?php print _('Password') . ":"; ?></td>
@@ -112,5 +112,8 @@ include( "./include/output.inc.php" );
  			</table>
 	</div>
 	-->
+	<script type="text/javascript">
+		document.forms.login.fUsername.focus();
+	</script>
 </body>
 </html>

@@ -1437,20 +1437,24 @@ function check_ldap_password( $userid, $password ) {
          array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
 	);
 	
+	error_log("check_ldap_password");
+	
 	try {
 		$ldap										= NewADOConnection( 'ldap' );
 		#error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
 		$ldap->Connect( $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn'] );
 		$ldapOpen									= 1;
+		#error_log("ldap open");
 		
 	} catch( exception $e ) {
 		
+		#error_log( "exception during connect" );
 		$_SESSION['svn_sessid']['dberror']			= $e->msg;
-      	$_SESSION['svn_sessid']['dbquery']			= sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
-      	$_SESSION['svn_sessid']['dbfunction']		= sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
-      	
-      	$tErrorMessage								= strtolower( $_SESSION['svn_sessid']['dberror'] );
-      	
+	    $_SESSION['svn_sessid']['dbquery']			= sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+	    $_SESSION['svn_sessid']['dbfunction']		= sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+	      	
+	    $tErrorMessage								= strtolower( $_SESSION['svn_sessid']['dberror'] );
+		
       	if( isset($CONF['ldap_bind_use_login_data']) 	and 
       	    ($CONF['ldap_bind_use_login_data'] == 1) 	and 
       	    strpos( $tErrorMessage, "invalid") 			and 
@@ -1458,6 +1462,7 @@ function check_ldap_password( $userid, $password ) {
       	) {
       		$ldapOpen								= 0;
       		$ret									= 0;
+      		#error_log( "check reset" );
       		
       	} else {
          
@@ -1467,15 +1472,16 @@ function check_ldap_password( $userid, $password ) {
 		  	    $location							= "../database_error.php";
 		  	}
 		  	
-		 	header( "location: $location");
-		 	exit;
+		  	$ret										= -1;
+		  	return( $ret );
+		 	
       	}
 	}
 	
 	try {
 		$filter									= "(&(".$CONF['user_filter_attr']."=$userid)(objectclass=".$CONF['user_objectclass']."))";
 		$ldap->SetFetchMode(ADODB_FETCH_ASSOC);
-		#error_log("filter = $filter");
+		error_log("filter = $filter");
 		$rs										= $ldap->Execute( $filter );
 		if( $rs ) {
 			if( $rs->RecordCount() == 1 ) {
@@ -1490,11 +1496,12 @@ function check_ldap_password( $userid, $password ) {
 				
 			} else {
 				$ret							= 0;
-				#error_log( "mehrere treffer" );
+				error_log( "mehrere treffer" );
 			}
 			
 		} else {
 			$ret								= 0;
+			error_log("filter keine treffer");
 		}
 		
 	} catch( exception $e ) {
