@@ -179,9 +179,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tName								= $row['name'];
 			$tGivenname							= $row['givenname'];
 			$tEmail								= $row['emailaddress'];
-			$tCustom1						= (empty($row['custom1']) ? "''" : $row['custom1']);
-			$tCustom2                                               = (empty($row['custom2']) ? "''" : $row['custom2']);
-			$tCustom3                                               = (empty($row['custom3']) ? "''" : $row['custom3']);
+			$tCustom1							= (empty($row['custom1']) ? "''" : $row['custom1']);
+			$tCustom2                           = (empty($row['custom2']) ? "''" : $row['custom2']);
+			$tCustom3                           = (empty($row['custom3']) ? "''" : $row['custom3']);
 			$tPasswordExpires					= $row['passwordexpires'];
 			$tLocked							= $row['locked'];
 			$tAdministrator						= $row['admin'];
@@ -221,9 +221,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tPassword								= isset($_POST['fPassword']) 		? db_escape_string( $_POST['fPassword'] )			: "";
    	$tPassword2								= isset($_POST['fPassword2']) 		? db_escape_string( $_POST['fPassword2'] )			: "";
    	$tEmail									= isset($_POST['fEmail']) 			? db_escape_string( $_POST['fEmail'] )				: "";
-	$tCustom1	= isset($_POST['fCustom1'])	? db_escape_string( $_POST['fCustom1'] )	: "";
-	$tCustom2       = isset($_POST['fCustom2'])     ? db_escape_string( $_POST['fCustom2'] )        : "";
-	$tCustom3       = isset($_POST['fCustom3'])     ? db_escape_string( $_POST['fCustom3'] )        : "";
+	$tCustom1								= isset($_POST['fCustom1'])			? db_escape_string( $_POST['fCustom1'] )			: "";
+	$tCustom2      							= isset($_POST['fCustom2'])     	? db_escape_string( $_POST['fCustom2'] )        	: "";
+	$tCustom3       						= isset($_POST['fCustom3'])     	? db_escape_string( $_POST['fCustom3'] )        	: "";
    	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: "0";
    	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: "";
    	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: "";

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-22 21:26+0100\n"
+"PO-Revision-Date: 2012-10-24 19:24+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1561,6 +1561,7 @@ msgstr "Zugriffsrechte Verwaltung"
 #: ../..//templates/list_users.tpl:72
 #: ../../templates/searchresult_groupadmin.tpl:22
 #: ../../templates/list_group_admins.tpl:33
+#: ../../templates/bulk_add_ldap_users.tpl:8
 msgid "Action"
 msgstr "Aktion"
 
@@ -1853,6 +1854,10 @@ msgstr "Projektverantwortlichen hinzuf&uuml;gen"
 #: ../..//workOnProject.php:305
 msgid "Add responsible"
 msgstr "Verantwortlichen hinzuf&uuml;gen"
+
+#: ../../templates/bulk_add_ldap_users.tpl:79
+msgid "Add user"
+msgstr "Benutzer hinzuf&uuml;gen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:960
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1061
@@ -3004,6 +3009,7 @@ msgstr "Benutzer Authentifizierungdatei"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnRepo.tpl:77
 #: ../../templates/workOnRepo.tpl:77
 #: ../..//templates/workOnRepo.tpl:77
+#: ../../templates/workOnRepo.tpl:70
 msgid "Auth user file"
 msgstr "Auth User Datei"
 
@@ -4180,6 +4186,11 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../list_group_admins.php:280
 #: ../../templates/searchresult_groupadmin.tpl:70
 #: ../../templates/list_group_admins.tpl:81
+#: ../../bulk_add_ldap_users.php:110
+#: ../../bulk_add_ldap_users.php:114
+#: ../../bulk_add_ldap_users.php:119
+#: ../../templates/workOnRepo.tpl:96
+#: ../../templates/bulk_add_ldap_users.tpl:83
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4191,6 +4202,19 @@ msgstr "Zur&uuml;ck"
 #: ../../templates/install-tabs.tpl:157
 msgid "Base directory"
 msgstr "Basisverzeichnis"
+
+#: ../../include/output.inc.php:163
+#: ../../templates/bulk_add_ldap_users.tpl:3
+msgid "Bulk add LDAP users"
+msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
+
+#: ../../templates/bulk_add_ldap_users.tpl:3
+msgid "Bulk add Ldap users"
+msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
+
+#: ../../templates/bulk_add_ldap_users.tpl:3
+msgid "Bulk add ldap users"
+msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:173
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:195
@@ -5925,6 +5949,7 @@ msgstr "ViewVC Konfiguration erzeugen"
 #: ../../include/output.inc.php:194
 #: ../..//include/output.inc.php:194
 #: ../..//templates/main.tpl:129
+#: ../../include/output.inc.php:200
 msgid "Create access files"
 msgstr "Zugriffsdateien erstellen"
 
@@ -6187,6 +6212,7 @@ msgstr "Repository anlegen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnRepo.tpl:48
 #: ../../templates/workOnRepo.tpl:48
 #: ../..//templates/workOnRepo.tpl:48
+#: ../../templates/workOnRepo.tpl:41
 msgid "Create repository in filesystem"
 msgstr "Repository im Dateisystem anlegen"
 
@@ -7831,6 +7857,7 @@ msgstr "Vorhandene Datenbanktabellen l&ouml;schen"
 #: ../../templates/searchresult_users.tpl:18
 #: ../..//templates/list_users.tpl:30
 #: ../..//templates/searchresult_users.tpl:18
+#: ../../templates/bulk_add_ldap_users.tpl:20
 msgid "Email"
 msgstr "E-Mail"
 
@@ -9971,6 +9998,7 @@ msgstr "Allgemeine Funktionen"
 #: ../../templates/searchresult_users.tpl:15
 #: ../..//templates/list_users.tpl:27
 #: ../..//templates/searchresult_users.tpl:15
+#: ../../templates/bulk_add_ldap_users.tpl:17
 msgid "Given name"
 msgstr "Vorname"
 
@@ -10032,6 +10060,7 @@ msgstr "Gew&auml;hrte Rechte"
 #: ../../include/output.inc.php:221
 #: ../..//include/output.inc.php:221
 #: ../..//templates/main.tpl:192
+#: ../../include/output.inc.php:227
 msgid "Granted user rights"
 msgstr "Gew&auml;hrte Benutzerrechte"
 
@@ -10294,6 +10323,7 @@ msgstr "Gruppenverwaltung / Gruppe bearbeiten"
 #: ../..//templates/main.tpl:138
 #: ../../templates/rep_show_group_result.tpl:38
 #: ../..//templates/rep_show_group_result.tpl:38
+#: ../../include/output.inc.php:172
 msgid "Group administrators"
 msgstr "Gruppen Administratoren"
 
@@ -10622,6 +10652,8 @@ msgstr "Gruppenmitglieder"
 #: ../..//include/output.inc.php:165
 #: ../..//include/output.inc.php:170
 #: ../..//templates/main.tpl:75
+#: ../../include/output.inc.php:171
+#: ../../include/output.inc.php:176
 msgid "Groups"
 msgstr "Gruppen"
 
@@ -10769,6 +10801,7 @@ msgstr "Wenn Sie separate Konfigurationsdateien f&uuml;r jedes Repository ben&ou
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnRepo.tpl:74
 #: ../../templates/workOnRepo.tpl:74
 #: ../..//templates/workOnRepo.tpl:74
+#: ../../templates/workOnRepo.tpl:67
 msgid "If you need separate configuration files for each repository specify the locations of the files here. If you do not give a path and filename config parameters will be used and the filename will be replaced accordingly."
 msgstr "Wenn Sie separate Konfigurationsdateien f&uuml;r jedes Repository ben&ouml;tigen, tragen Sie bitte hier die vollst&auml;ndigen Dateinamen ein. Wird kein Dateiname mit Pfad angegeben, werden die Konfigurationsparameter verwendet und der Dateiname wird entsprechend ersetzt."
 
@@ -11229,6 +11262,7 @@ msgstr "Anweisungen"
 #: ../..//rep_show_user.php:275
 #: ../../list_repos.php:218
 #: ../../list_group_admins.php:288
+#: ../../bulk_add_ldap_users.php:148
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -12059,7 +12093,7 @@ msgstr "LDAP Bind Dn"
 #: ../..//install/install.php:4101
 #: ../../install/install.php:4101
 msgid "LDAP bind dn is missing!"
-msgstr "LDAP Bind Dn is missing!"
+msgstr "LDAP Bind Dn fehlt!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:190
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:270
@@ -12167,7 +12201,7 @@ msgstr "LDAP Bind mit Benutzerdaten"
 #: ../../install/install.php:2695
 #: ../..//install/install.php:2695
 msgid "LDAP connection test ok, connection works"
-msgstr "LDAP Verbindungstest ok, die verbindung funktioniert"
+msgstr "LDAP Verbindungstest ok, die Verbindung funktioniert"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:149
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:229
@@ -12344,7 +12378,7 @@ msgstr "LDAP Port fehlt!"
 #: ../..//templates/install-tabs.tpl:365
 #: ../../templates/install-tabs.tpl:365
 msgid "LDAP protocol"
-msgstr "LDAP protokoll"
+msgstr "LDAP Protokoll"
 
 #: ../../login.php:79
 msgid "LDAP server not reachable!"
@@ -12743,6 +12777,7 @@ msgstr "Gesperrt"
 #: ../../include/output.inc.php:220
 #: ../..//include/output.inc.php:220
 #: ../..//templates/main.tpl:187
+#: ../../include/output.inc.php:226
 msgid "Locked users"
 msgstr "Gesperrte Benutzer"
 
@@ -12757,6 +12792,7 @@ msgstr "Gesperrte Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/output.inc.php:219
 #: ../../include/output.inc.php:219
 #: ../..//include/output.inc.php:219
+#: ../../include/output.inc.php:225
 msgid "Log"
 msgstr "Protokoll"
 
@@ -13750,6 +13786,7 @@ msgstr "MySQL Datenbank Benutzer"
 #: ../..//templates/rep_show_group_result.tpl:22
 #: ../..//templates/rep_show_group_result.tpl:45
 #: ../../templates/install-tabs.tpl:446
+#: ../../templates/bulk_add_ldap_users.tpl:14
 msgid "Name"
 msgstr "Name"
 
@@ -16474,6 +16511,7 @@ msgstr "Projekt erfolgreich gel&ouml;scht"
 #: ../..//include/output.inc.php:90
 #: ../..//include/output.inc.php:182
 #: ../..//templates/main.tpl:85
+#: ../../include/output.inc.php:188
 msgid "Projects"
 msgstr "Projekte"
 
@@ -16775,6 +16813,7 @@ msgstr "Repository"
 #: ../..//include/output.inc.php:102
 #: ../..//include/output.inc.php:216
 #: ../..//templates/main.tpl:171
+#: ../../include/output.inc.php:222
 msgid "Reports"
 msgstr "Berichte"
 
@@ -16808,6 +16847,7 @@ msgstr "Berichte"
 #: ../..//include/output.inc.php:94
 #: ../..//include/output.inc.php:176
 #: ../..//templates/main.tpl:95
+#: ../../include/output.inc.php:182
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -16877,6 +16917,8 @@ msgstr "Repository Zugriffsrecht"
 #: ../..//include/output.inc.php:218
 #: ../..//templates/main.tpl:112
 #: ../..//templates/main.tpl:177
+#: ../../include/output.inc.php:194
+#: ../../include/output.inc.php:224
 msgid "Repository access rights"
 msgstr "Repository Zugriffsrechte"
 
@@ -17071,6 +17113,7 @@ msgstr "Repository aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 #: ../../templates/deleteRepo.tpl:32
 #: ../..//templates/deleteRepo.tpl:32
 #: ../..//templates/workOnRepo.tpl:41
+#: ../../templates/workOnRepo.tpl:34
 msgid "Repository password"
 msgstr "Repository Passwort"
 
@@ -17329,8 +17372,13 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateis
 #: ../../templates/deleteRepo.tpl:25
 #: ../..//templates/deleteRepo.tpl:25
 #: ../..//templates/workOnRepo.tpl:34
+#: ../../templates/workOnRepo.tpl:27
 msgid "Repository user"
 msgstr "Repository Benutzer"
+
+#: ../../templates/bulk_add_ldap_users.tpl:23
+msgid "Repository user access"
+msgstr "Benutzerzugriff Repository"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnUser.tpl:104
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnUser.tpl:104
@@ -18022,6 +18070,7 @@ msgstr "SVN Webserver Einstellungen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnRepo.tpl:84
 #: ../../templates/workOnRepo.tpl:84
 #: ../..//templates/workOnRepo.tpl:84
+#: ../../templates/workOnRepo.tpl:77
 msgid "SVN access file"
 msgstr "SVN Access Datei"
 
@@ -18604,6 +18653,7 @@ msgstr "Standard Zugriffsrecht f&uuml;r Benutzer auf Repositories festlegen."
 
 #: ../../include/output.inc.php:223
 #: ../..//include/output.inc.php:223
+#: ../../include/output.inc.php:229
 msgid "Show group"
 msgstr "Gruppe anzeigen"
 
@@ -18621,6 +18671,7 @@ msgstr "Gruppen Zugriffsrechte anzeigen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/output.inc.php:222
 #: ../../include/output.inc.php:222
 #: ../..//include/output.inc.php:222
+#: ../../include/output.inc.php:228
 msgid "Show user"
 msgstr "Benutzer anzeigen"
 
@@ -19120,6 +19171,10 @@ msgstr "Installation starten"
 #: ../..//workOnProject.php:384
 #: ../..//workOnUser.php:240
 #: ../..//workOnUser.php:255
+#: ../../bulk_add_ldap_users.php:108
+#: ../../bulk_add_ldap_users.php:112
+#: ../../bulk_add_ldap_users.php:125
+#: ../../templates/workOnRepo.tpl:95
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -19612,6 +19667,10 @@ msgstr "Dieser Pfad wird den ausgew&auml;hlten Verzeichnissen vorangestellt."
 #: ../../templates/workOnUser.tpl:162
 msgid "This right overrules the repository access right settings. A user with read permission only can't get write access to any repository!"
 msgstr "Dieses Recht &uuml;bersteuert die Repository Zugriffsrechte. Ein Benutzer mit nur Leseberechtigung kann keinen Schreibzugriff zu irgendwelchen Repositories bekommen!"
+
+#: ../../templates/bulk_add_ldap_users.tpl:24
+msgid "This right overrules the repository access right settings. A user with read permission only can't get write access to any repository! All users will be added with the same right!"
+msgstr "Dieses Recht &uuml;berschreibt die Repository Zugriffsrechte. Ein Benutzer mit Lesezugriff kann niemals Schreibzugriff auf ein Repository bekommen! Alle Benutzer werden mit demselben Recht hinzugef&uuml;gt!"
 
 #: ../../templates/install-tabs.tpl:118
 #: ../..//templates/install-tabs.tpl:118
@@ -20224,6 +20283,10 @@ msgstr "Benutzer aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 msgid "User right"
 msgstr "Benutzerrecht"
 
+#: ../../templates/bulk_add_ldap_users.tpl:59
+msgid "User successfully added"
+msgstr "Benutzer erfolgreich hinzugef&uuml;gt"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:137
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:139
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteUser.php:148
@@ -20311,6 +20374,7 @@ msgstr "Anzuzeigender Benutzer"
 #: ../../templates/searchresult_users.tpl:9
 #: ../..//templates/list_users.tpl:21
 #: ../..//templates/searchresult_users.tpl:9
+#: ../../templates/bulk_add_ldap_users.tpl:11
 msgid "UserId"
 msgstr "Benutzerkennung"
 
@@ -22412,6 +22476,8 @@ msgstr "nicht schreibbar"
 #: ../../templates/install-tabs.tpl:935
 #: ../..//templates/install-tabs.tpl:959
 #: ../../templates/install-tabs.tpl:959
+#: ../../templates/bulk_add_ldap_users.tpl:27
+#: ../../templates/bulk_add_ldap_users.tpl:30
 msgid "read"
 msgstr "lesen"
 
@@ -22602,6 +22668,8 @@ msgstr "schreibbar"
 #: ../../templates/install-tabs.tpl:936
 #: ../..//templates/install-tabs.tpl:960
 #: ../../templates/install-tabs.tpl:960
+#: ../../templates/bulk_add_ldap_users.tpl:28
+#: ../../templates/bulk_add_ldap_users.tpl:31
 msgid "write"
 msgstr "schreiben"
 
