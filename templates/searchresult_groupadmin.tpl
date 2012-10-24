@@ -1,19 +1,8 @@
 		<div id="edit_form">
-			<h3><?php print _("Group administrators"); ?></h3>
+			<h3><?php print _("Search group administrators result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="group_admin_list" method="post">
-				<table>
-					<tr>
-						<td><?php print _("Search group");?>: </td>
-						<td>
-							<input id="search" class="large" type="text" name="fSearch" value="" title="<?php print _("Search group administrator by name, description or group name.");?>" />&nbsp;&nbsp;
-                           	<span style="white-space:nowrap;">
-                            	<input class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search group administrator.");?>" />
-                            </span>
-                    	</td>   
-					</tr>
-				</table>                                        
-				<p>&nbsp;</p>
+
 				<table id="groupadminlist_table">
 					<thead>
 						<tr>
@@ -36,7 +25,7 @@
 					</thead>
 					<tbody>
 						<?php
-					   		foreach( $tGroups as $entry ) {
+					   		foreach( $tArray as $entry ) {
 					   		
 					   			if( ($rightAllowed == "edit") or
 					   			    ($rightAllowed == "delete" ) ) {
@@ -88,7 +77,6 @@
 					   	</tr>
 					</tfoot>
 				</table>
-				<input id="id" type="hidden" />
 			</form>
 			<script>
 					$("#groupadminlist_table").ariaSorTable({
@@ -97,44 +85,6 @@
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
-					
-					$("#search").autocomplete({
-                        source: function( request, response ) {
-                                $.ajax({
-                                        url: "searchrpc.php",
-                                        dataType: "jsonp",
-                                        data: {
-                                                maxRows: 10,
-                                                name_startsWith: request.term,
-                                                db: "groupadmin"
-                                        },
-                                        success: function( data ) {
-                                                var retarr =[];
-                                                $.each(data, function(i, val){
-                                                        myName = $("<div/>").html(val.name).text();
-                                                        if(myName == "Session expired!") {
-                                                                window.location.href="login.php";
-                                                        }
-                                                        retarr.push(myName);
-                                                });
-                                                response(retarr);
-                                        }
-                                });
-                        },
-                        minLength: 1,
-                        select: function( event, ui ) {
-                                var name = ui.item.value;
-                                $("#search").val(name);
-                                document.group_admin_list.submit();
-                        },
-                        open: function() {
-                                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-                        },
-                        close: function() {
-                                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                        }
-
-                	});
 					
 					$("#edit_form *").tooltip({
 						showURL: false

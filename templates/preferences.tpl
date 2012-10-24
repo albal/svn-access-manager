@@ -10,7 +10,7 @@
 				   	<tr>
 				   		<td width="150"><strong><?php print _("Records per page").": "; ?></strong></td>
 				   		<td>
-				   			<input type="text" name="fPageSize" value="<?php print $tPageSize; ?>" size="3" maxsize="3" />
+				   			<input type="text" name="fPageSize" value="<?php print $tPageSize; ?>" size="3" maxsize="3" title="<?php print _("Number of lines of a table shown on a page.");?>"/>
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>

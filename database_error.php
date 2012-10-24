@@ -39,8 +39,9 @@ require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
 initialize_i18n();
-
+	
 $SESSID_USERNAME 								= check_session ();
+
 
 if ( file_exists ( realpath ( "./templates/framework.tpl" ) ) ) {
 	$location									= "./templates/framework.tpl";
@@ -51,6 +52,7 @@ if ( file_exists ( realpath ( "./templates/framework.tpl" ) ) ) {
 $tQuery											= $_SESSION['svn_sessid']['dbquery'];
 $tDbError										= $_SESSION['svn_sessid']['dberror'];
 $tDbFunction									= isset( $_SESSION['svn_sessid'] ) ? $_SESSION['svn_sessid'] : "not set";
+
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	  

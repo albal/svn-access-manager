@@ -17,7 +17,7 @@
 				   	<tr valign="top">
 				   		<td nowrap><strong><?php print _("Select user").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fUser" size="1" <?php print $tReadonly;?> style="width: 100%; height=200px;" >
+				   			<select name="fUser" size="1" <?php print $tReadonly;?> style="width: 100%; height=200px;" title="<?php print _("Select the user to grant access to the group.");?>">
 				   				
 				   				<?php  					
 				   					foreach( $tUsers as $id => $user ) {
@@ -36,7 +36,7 @@
 				   	<tr>
 				   		<td><strong><?php print _("Access right").": ";?></strong></td>
 				   		<td>
-				   			<select name="fRight" size="1">
+				   			<select name="fRight" size="1" title="<?php print _("Select the access right to the group.");?>">
 				   				<?php
 				   					$none							= "";
 				   					$read							= "";

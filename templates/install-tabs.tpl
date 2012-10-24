@@ -131,6 +131,10 @@ include( "../include/output.inc.php" );
 							   			print "\t\t\t\t<td colspan='3'>&nbsp;</td>\n";
 							   			print "\t\t\t\t<td>&nbsp;</td>\n";
 							   			print "\t\t\t</tr>\n";
+							   			print "\t\t\t<tr>\n";
+										print "\t\t\t\t<td colspan=\"3\">&nbsp;</td>\n";
+										print "\t\t\t\t<td>&nbsp;</td>\n";
+										print "\t\t\t</tr>\n";
 							   		}
 							   	
 							   		if( ini_get( 'date.timezone' ) == "" ) {
@@ -146,6 +150,7 @@ include( "../include/output.inc.php" );
 							   	?>
 							   	<tr>
 							   		<td colspan="3">&nbsp;</td>
+							   		<td>&nbsp;</td>
 							   	</tr>
 								<tr>
 									<td>
@@ -167,16 +172,33 @@ include( "../include/output.inc.php" );
 										<?php print $tConfigWritable;?>
 									</td>
 									<td>&nbsp;</td>
-								</tr>  
+								</tr> 
+								<tr>
+							   		<td colspan="3">&nbsp;</td>
+							   		<td>&nbsp;</td>
+							   	</tr> 
+								<tr>
+							   		<td colspan="3">
+							   			<?php print _("To get explanations just move the mouse over the input field or the label left of the input field. You will see a tooltip."); ?>
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td colspan="3">&nbsp;</td>
+							   		<td>&nbsp;</td>
+							   	</tr> 
 							</table>
 						</div>
 						<div id="tabs-1" class="buttn">
 							<table>
-								<tr>
+						   		<tr>
+						   			<td colspan="4"><?php print _("To get additional information just move the mouse over the input field or the label.");?></td>
+						   		</tr>
+						   		<tr>
 						      		<td colspan="4">&nbsp;</td>
 						   		</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("Create datbase tables").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Select if the database tables will be created automatically. This requires create and drop privileges.");?>"><strong><?php print _("Create datbase tables").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fCreateDatabaseTables" value="YES" <?php print $tCreateDatabaseTablesYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fCreateDatabaseTables" value="NO" <?php print $tCreateDatabaseTablesNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -187,7 +209,7 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Drop existing datbase tables").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("If you select yes here the database tables are droped without taking a backup.");?>"><strong><?php print _("Drop existing datbase tables").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fDropDatabaseTables" value="YES" <?php print $tDropDatabaseTablesYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fDropDatabaseTables" value="NO" <?php print $tDropDatabaseTablesNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -198,7 +220,7 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Database").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Select the database you want to use.");?>"><strong><?php print _("Database").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fDatabase" value="mysql" <?php print $tDatabaseMySQL; ?> />&nbsp;&nbsp;<?php print _("MySQL"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fDatabase" value="postgres8" <?php print $tDatabasePostgreSQL; ?> />&nbsp;&nbsp;<?php print _("PostgreSQL"); ?>&nbsp;&nbsp;&nbsp;
@@ -210,7 +232,7 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>					   	
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Hold sessions in database").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if you want to keep the PHP sessions in the database or in the file system.");?>"><strong><?php print _("Hold sessions in database").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fSessionInDatabase" value="YES" <?php print $tSessionInDatabaseYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fSessionInDatabase" value="NO" <?php print $tSessionInDatabaseNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -221,72 +243,72 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Database host").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the ip or the hostname of the database host"); ?>"><strong><?php print _("Database host").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fDatabaseHost" value="<?php print $tDatabaseHost; ?>" size="40" />
+							   			<input type="text" name="fDatabaseHost" value="<?php print $tDatabaseHost; ?>" size="40" title="<?php print _("Enter the ip or the hostname of the database host"); ?>"/>
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the ip or the hostname of the database host"); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Database user").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fDatabaseUser" value="<?php print $tDatabaseUser; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the username for the database"); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Database password").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the username for the database"); ?>"><strong><?php print _("Database user").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fDatabasePassword" value="<?php print $tDatabasePassword; ?>" size="40" autocomplete="off" />
+							   			<input type="text" name="fDatabaseUser" value="<?php print $tDatabaseUser; ?>" size="40" title="<?php print _("Enter the username for the database"); ?>"/>
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the password for the database"); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Database name").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fDatabaseName" value="<?php print $tDatabaseName; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the name of the database"); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Database charset").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the password for the database"); ?>"><strong><?php print _("Database password").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fDatabaseCharset" value="<?php print $tDatabaseCharset; ?>" size="40" />
+							   			<input type="text" name="fDatabasePassword" value="<?php print $tDatabasePassword; ?>" size="40" autocomplete="off" title="<?php print _("Enter the password for the database"); ?>"/>
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the character set you want to use" ); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Database collation").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fDatabaseCollation" value="<?php print $tDatabaseCollation; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the collation you want to use" ); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Database schema").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the name of the database"); ?>"><strong><?php print _("Database name").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fDatabaseSchema" value="<?php print $tDatabaseSchema; ?>" size="40" />
+							   			<input type="text" name="fDatabaseName" value="<?php print $tDatabaseName; ?>" size="40" title="<?php print _("Enter the name of the database"); ?>"/>
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the database schema you want to use" ); ?>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the character set you want to use" ); ?>"><strong><?php print _("Database charset").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fDatabaseCharset" value="<?php print $tDatabaseCharset; ?>" size="40" title="<?php print _("Enter the character set you want to use" ); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the collation you want to use" ); ?>"><strong><?php print _("Database collation").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fDatabaseCollation" value="<?php print $tDatabaseCollation; ?>" size="40" title="<?php print _("Enter the collation you want to use" ); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the database schema you want to use" ); ?>"><strong><?php print _("Database schema").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fDatabaseSchema" value="<?php print $tDatabaseSchema; ?>" size="40" title="<?php print _("Enter the database schema you want to use" ); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -295,18 +317,21 @@ include( "../include/output.inc.php" );
 						   		</tr>
 						   		<tr>
 						   			<td colspan="4">
-						   				<input class="sbutton" type="submit" name="fSubmit_testdb" value="<?php print _("Test database connection"); ?>" />
+						   				<input class="sbutton" type="submit" name="fSubmit_testdb" value="<?php print _("Test database connection"); ?>"title="<?php print _("Run a database connection test.");?>" />
 						   			</td>
 						   		</tr>
 							</table>
 						</div>
 						<div id="tabs-2" class="buttn">
 							<table>
-								<tr>
+						   		<tr>
+						   			<td colspan="4"><?php print _("To get additional information just move the mouse over the input field or the label.");?></td>
+						   		</tr>
+						   		<tr>
 						      		<td colspan="4">&nbsp;</td>
 						   		</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("Use LDAP").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if you want to use LDAP. If you decide to use LDAP you must complete the following fields.");?>"><strong><?php print _("Use LDAP").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fUseLdap" value="YES" <?php print $tUseLdapYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fUseLdap" value="NO" <?php print $tUseLdapNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -317,158 +342,158 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("LDAP host").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the ip or the hostname of the LDAP server"); ?>"><strong><?php print _("LDAP host").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapHost" value="<?php print $tLdapHost; ?>" size="40" />
+							   			<input type="text" name="fLdapHost" value="<?php print $tLdapHost; ?>" size="40" title="<?php print _("Enter the ip or the hostname of the LDAP server"); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the ip or the hostname of the LDAP server"); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("LDAP port").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapPort" value="<?php print $tLdapPort; ?>" size="5" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the port to connect to the LDAP server"); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("LDAP protocol").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the port to connect to the LDAP server"); ?>"><strong><?php print _("LDAP port").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapPort" value="<?php print $tLdapPort; ?>" size="5" title="<?php print _("Enter the port to connect to the LDAP server"); ?>"/>
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("Choose the protocol for LDAP server communication."); ?>"><strong><?php print _("LDAP protocol").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fLdapProtocol" value="2" <?php print $tLdap2; ?> />&nbsp;&nbsp;<?php print _("2"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fLdapProtocol" value="3" <?php print $tLdap3; ?> />&nbsp;&nbsp;<?php print _("3"); ?>
 							   		</td>
 							   		<td>
-							   			<?php print _("Choose the protocol for LDAP server communication."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("LDAP bind dn").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the dn to use for connect to the LDAP server."); ?>"><strong><?php print _("LDAP bind dn").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapBinddn" value="<?php print $tLdapBinddn; ?>" size="40" />
+							   			<input type="text" name="fLdapBinddn" value="<?php print $tLdapBinddn; ?>" size="40" title="<?php print _("Enter the dn to use for connect to the LDAP server."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the dn to use for connect to the LDAP server."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("LDAP bind password").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapBindpw" value="<?php print $tLdapBindpw; ?>" size="40" autocomplete="off" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the password for connect to the LDAP server."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("LDAP user dn").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the password for connect to the LDAP server."); ?>"><strong><?php print _("LDAP bind password").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapUserdn" value="<?php print $tLdapUserdn; ?>" size="40" />
+							   			<input type="text" name="fLdapBindpw" value="<?php print $tLdapBindpw; ?>" size="40" autocomplete="off" title="<?php print _("Enter the password for connect to the LDAP server."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the dn where the users are found on the LDAP server."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("LDAP user filter attribute").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapUserFilter" value="<?php print $tLdapUserFilter; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the attribute to search for users."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("LDAP user object class").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the dn where the users are found on the LDAP server."); ?>"><strong><?php print _("LDAP user dn").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapUserObjectclass" value="<?php print $tLdapUserObjectclass; ?>" size="40" />
+							   			<input type="text" name="fLdapUserdn" value="<?php print $tLdapUserdn; ?>" size="40" title="<?php print _("Enter the dn where the users are found on the LDAP server."); ?>"/>
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the object class which identifies the users."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("LDAP user additional filter").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapUserAdditionalFilter" value="<?php print $tLdapUserAdditionalFilter; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter additional filters for users if needed."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Uid").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the attribute to search for users."); ?>"><strong><?php print _("LDAP user filter attribute").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapAttrUid" value="<?php print $tLdapAttrUid; ?>" size="40" />
+							   			<input type="text" name="fLdapUserFilter" value="<?php print $tLdapUserFilter; ?>" size="40" title="<?php print _("Enter the attribute to search for users."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the attribute for the uid."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Name").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapAttrName" value="<?php print $tLdapAttrName; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the attribute for the name."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Givenname").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the object class which identifies the users."); ?>"><strong><?php print _("LDAP user object class").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapAttrGivenname" value="<?php print $tLdapAttrGivenname; ?>" size="40" />
+							   			<input type="text" name="fLdapUserObjectclass" value="<?php print $tLdapUserObjectclass; ?>" size="40" title="<?php print _("Enter the object class which identifies the users."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the attribute for the given name."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Mail").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapAttrMail" value="<?php print $tLdapAttrMail; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the attribute for the email address."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Password").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter additional filters for users if needed."); ?>"><strong><?php print _("LDAP user additional filter").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapAttrPassword" value="<?php print $tLdapAttrPassword; ?>" size="40" />
+							   			<input type="text" name="fLdapUserAdditionalFilter" value="<?php print $tLdapUserAdditionalFilter; ?>" size="40" title="<?php print _("Enter additional filters for users if needed."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the attribute containing the user password."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("LDAP User sort attribute").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fLdapAttrUserSort" value="<?php print $tLdapAttrUserSort; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the attribute to be used for sorting users."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("LDAP user sort order").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the attribute for the uid."); ?>"><strong><?php print _("Uid").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrUid" value="<?php print $tLdapAttrUid; ?>" size="40" title="<?php print _("Enter the attribute for the uid."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the attribute for the name."); ?>"><strong><?php print _("Name").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrName" value="<?php print $tLdapAttrName; ?>" size="40" title="<?php print _("Enter the attribute for the name."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the attribute for the given name."); ?>"><strong><?php print _("Givenname").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrGivenname" value="<?php print $tLdapAttrGivenname; ?>" size="40" title="<?php print _("Enter the attribute for the given name."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the attribute for the email address."); ?>"><strong><?php print _("Mail").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrMail" value="<?php print $tLdapAttrMail; ?>" size="40" title="<?php print _("Enter the attribute for the email address."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the attribute containing the user password."); ?>"><strong><?php print _("Password").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrPassword" value="<?php print $tLdapAttrPassword; ?>" size="40" title="<?php print _("Enter the attribute containing the user password."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Enter the attribute to be used for sorting users."); ?>"><strong><?php print _("LDAP User sort attribute").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fLdapAttrUserSort" value="<?php print $tLdapAttrUserSort; ?>" size="40" title="<?php print _("Enter the attribute to be used for sorting users."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("Select the sort order for LDAP users.");?>"><strong><?php print _("LDAP user sort order").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fLdapUserSort" value="ASC" <?php print $tLdapUserSortAsc; ?> />&nbsp;&nbsp;<?php print _("ASC"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fLdapUserSort" value="DESC" <?php print $tLdapUserSortDesc; ?> />&nbsp;&nbsp;<?php print _("DESC"); ?>
@@ -479,23 +504,23 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("LDAP bind with user login data").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("You should only say yes here if you're connecting against an Active Directory!"); ?>"><strong><?php print _("LDAP bind with user login data").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fLdapBindUseLoginData" value="1" <?php print $tLdapBindUseLoginDataYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fLdapBindUseLoginData" value="0" <?php print $tLdapBindUseLoginDataNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
 							   		</td>
 							   		<td>
-							   			<?php print _("You should only say yes here if you're connecting against an Active Directory!"); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("LDAP Bind Dn Suffix").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the attribute to be used for sorting users."); ?>"><strong><?php print _("LDAP Bind Dn Suffix").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLdapBindDnSuffix" value="<?php print $tLdapBindDnSuffix; ?>" size="40" />
+							   			<input type="text" name="fLdapBindDnSuffix" value="<?php print $tLdapBindDnSuffix; ?>" size="40" title="<?php print _("Enter the attribute to be used for sorting users."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the attribute to be used for sorting users."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -505,30 +530,33 @@ include( "../include/output.inc.php" );
 						   			</td>
 						   		</tr><tr>
 						   			<td colspan="4">
-						   				<input  id="ldapbutton" type="submit" name="fSubmit_testldap" value="<?php print _("Test LDAP connection"); ?>" />
+						   				<input  id="ldapbutton" type="submit" name="fSubmit_testldap" value="<?php print _("Test LDAP connection"); ?>" title="<?php print _("Do a LDAP connection test.");?>" />
 						   			</td>
 						   		</tr>
 							</table>
 						</div>
 						<div id="tabs-3">
 							<table>
-								<tr>
+						   		<tr>
+						   			<td colspan="4"><?php print _("To get additional information just move the mouse over the input field or the label.");?></td>
+						   		</tr>
+						   		<tr>
 						      		<td colspan="4">&nbsp;</td>
 						   		</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("SVN Access Manager Website URL").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the URL which should be printed into expired password warning mail!" ); ?>"><strong><?php print _("SVN Access Manager Website URL").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fWebsiteUrl" value="<?php print $tWebsiteUrl; ?>" size="40" />
+							   			<input type="text" name="fWebsiteUrl" value="<?php print $tWebsiteUrl; ?>" size="40" title="<?php print _("Enter the URL which should be printed into expired password warning mail!" ); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the URL which should be printed into expired password warning mail!" ); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 								<tr>
-							   		<td nowrap><strong><?php print _("Website character set").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Select the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>"><strong><?php print _("Website character set").": "; ?></strong></td>
 							   		<td>
-							   			<select name="fWebsiteCharset">
+							   			<select name="fWebsiteCharset" title="<?php print _("Select the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>">
 							   				<?php
 							   					if( $tWebsiteCharset == "" ) {
 							   						$selected				= "selected=selected";
@@ -552,27 +580,27 @@ include( "../include/output.inc.php" );
 							   			</select>
 							   		</td>
 							   		<td>
-							   			<?php print _("Select the character set you want to use for the SVN Access Manager website. Please keep in mind that the characterset must be compatible to the database character set!" ); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>                                
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Lost password mail sender").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the email address to use as sender address for lost password emails."); ?>"><strong><?php print _("Lost password mail sender").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLpwMailSender" value="<?php print $tLpwMailSender;?>" size="40" />
+							   			<input type="text" name="fLpwMailSender" value="<?php print $tLpwMailSender;?>" size="40" title="<?php print _("Enter the email address to use as sender address for lost password emails."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the email address to use as sender address for lost password emails."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Lost password link valid").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter tne number of days a lost password link will be valid."); ?>"><strong><?php print _("Lost password link valid").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fLpwLinkValid" value="<?php print $tLpwLinkValid;?>" size="40" />
+							   			<input type="text" name="fLpwLinkValid" value="<?php print $tLpwLinkValid;?>" size="40" title="<?php print _("Enter tne number of days a lost password link will be valid."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter tne number of days a lost password link will be valid."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -583,43 +611,16 @@ include( "../include/output.inc.php" );
 						</div>
 						<div id="tabs-4">
 							<table>
-								<tr>
+						   		<tr>
+						   			<td colspan="4"><?php print _("To get additional information just move the mouse over the input field or the label.");?></td>
+						   		</tr>
+						   		<tr>
 						      		<td colspan="4">&nbsp;</td>
 						   		</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Admin username").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the username for the administrator account. If you use LDAP you must use a admin user which exists in the LDAP!"); ?>"><strong><?php print _("Admin username").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fUsername" value="<?php print $tUsername; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the username for the administrator account. If you use LDAP you must use a admin user which exists in the LDAP!"); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Admin password").": "; ?></strong></td>
-							   		<td>
-							   			<input type="password" name="fPassword" value="<?php print $tPassword; ?>" size="40" autocomplete="off" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the password for the admin user. It must be 14 characters at least and consinst of digits, lower case characters, upper case characters and special characters."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td nowrap><strong><?php print _("Retype admin password").": "; ?></strong></td>
-							   		<td>
-							   			<input type="password" name="fPassword2" value="<?php print $tPassword2; ?>" size="40" autocomplete="off" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Retype the admin's password."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td nowrap><strong><?php print _("Admin's given name").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fGivenname" value="<?php print $tGivenname; ?>" size="40" />
+							   			<input type="text" name="fUsername" value="<?php print $tUsername; ?>" size="40" title="<?php print _("Enter the username for the administrator account. If you use LDAP you must use a admin user which exists in the LDAP!"); ?>" />
 							   		</td>
 							   		<td>
 							   			&nbsp;
@@ -627,9 +628,9 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td><strong><?php print _("Admin's name").": "; ?></strong></td>
+							   		<td title="<?php print _("Enter the password for the admin user. It must be 14 characters at least and consinst of digits, lower case characters, upper case characters and special characters."); ?>"><strong><?php print _("Admin password").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fName" value="<?php print $tName; ?>" size="40" />
+							   			<input type="password" name="fPassword" value="<?php print $tPassword; ?>" size="40" autocomplete="off" title="<?php print _("Enter the password for the admin user. It must be 14 characters at least and consinst of digits, lower case characters, upper case characters and special characters."); ?>" />
 							   		</td>
 							   		<td>
 							   			&nbsp;
@@ -637,12 +638,42 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Admin email address").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Retype the admin's password."); ?>"><strong><?php print _("Retype admin password").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fAdminEmail" value="<?php print $tAdminEmail; ?>" size="40" />
+							   			<input type="password" name="fPassword2" value="<?php print $tPassword2; ?>" size="40" autocomplete="off" title="<?php print _("Retype the admin's password."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the email address of the administrator."); ?>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("Administrator's given name");?>"><strong><?php print _("Admin's given name").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fGivenname" value="<?php print $tGivenname; ?>" size="40" title="<?php print _("Administrator's given name");?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td title="<?php print _("Admin's name");?>"><strong><?php print _("Admin's name").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fName" value="<?php print $tName; ?>" size="40" title="<?php print _("Admin's name");?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("Enter the email address of the administrator."); ?>"><strong><?php print _("Admin email address").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fAdminEmail" value="<?php print $tAdminEmail; ?>" size="40" title="<?php print _("Enter the email address of the administrator."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -653,11 +684,14 @@ include( "../include/output.inc.php" );
 						</div>
 						<div id="tabs-5">
 							<table>
-								<tr>
+						   		<tr>
+						   			<td colspan="4"><?php print _("To get additional information just move the mouse over the input field or the label.");?></td>
+						   		</tr>
+						   		<tr>
 						      		<td colspan="4">&nbsp;</td>
 						   		</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("Use SVN Access File").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if a svn access file should be generated.");?>"><strong><?php print _("Use SVN Access File").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fUseSvnAccessFile" value="YES" <?php print $tUseSvnAccessFileYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fUseSvnAccessFile" value="NO" <?php print $tUseSvnAccessFileNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -668,28 +702,28 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("SVN Access File").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the full path and the name of the SVN Access file. The webserver must be able to write the file."); ?>"><strong><?php print _("SVN Access File").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fSvnAccessFile" value="<?php print $tSvnAccessFile; ?>" size="40" />
+							   			<input type="text" name="fSvnAccessFile" value="<?php print $tSvnAccessFile; ?>" size="40" title="<?php print _("Enter the full path and the name of the SVN Access file. The webserver must be able to write the file."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the full path and the name of the SVN Access file. The webserver must be able to write the file."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Access control level").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("You can choose whether access control is possible on directories only or on directories and files."); ?>"><strong><?php print _("Access control level").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fAccessControlLevel" value="dirs" <?php print $tAccessControlLevelDirs; ?> />&nbsp;&nbsp;<?php print _("Directories"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fAccessControlLevel" value="files" <?php print $tAccessControlLevelFiles; ?> />&nbsp;&nbsp;<?php print _("Files"); ?>
 							   		</td>
 							   		<td>
-							   			<?php print _("You can choose whether access control is possible on directories only or on directories and files."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Use Auth User File").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if a auth user file should be generated.");?>"><strong><?php print _("Use Auth User File").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fUseAuthUserFile" value="YES" <?php print $tUseAuthUserFileYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fUseAuthUserFile" value="NO" <?php print $tUseAuthUserFileNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -700,17 +734,17 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Auth User file").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."); ?>"><strong><?php print _("Auth User file").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fAuthUserFile" value="<?php print $tAuthUserFile; ?>" size="40" />
+							   			<input type="text" name="fAuthUserFile" value="<?php print $tAuthUserFile; ?>" size="40" title="<?php print _("Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the full path and the name of the Auth User file for the webserver authentication of users. The webserver must be able to write the file."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Create per repository access files").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if an access file for each repository or one access file for all repositories should be created.");?>"><strong><?php print _("Create per repository access files").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fPerRepoFiles" value="YES" <?php print $tPerRepoFilesYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fPerRepoFiles" value="NO" <?php print $tPerRepoFilesNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -721,7 +755,7 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("SVN access file sort order").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Select the sort order in the access file.");?>"><strong><?php print _("SVN access file sort order").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fPathSortOrder" value="ASC" <?php print $tPathSortOrderAsc; ?> />&nbsp;&nbsp;<?php print _("ASC"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fPathSortOrder" value="DESC" <?php print $tPathSortOrderDesc; ?> />&nbsp;&nbsp;<?php print _("DESC"); ?>
@@ -732,18 +766,18 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Anonymous read access").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("This option allowes you to create an entry '\$anonymous = r' for the top level directory of each repository.");?>"><strong><?php print _("Anonymous read access").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fAnonAccess" value="1" <?php print $tAnonAccessYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fAnonAccess" value="0" <?php print $tAnonAccessNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
 							   		</td>
 							   		<td>
-							   			<?php print _("This option allowes you to create an entry '\$anonymous = r' for the top level directory of each repository.");?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Create ViewVC configuration").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if a ViewVC configuration file should be generated.");?>"><strong><?php print _("Create ViewVC configuration").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fViewvcConfig" value="YES" <?php print $tViewvcConfigYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fViewvcConfig" value="NO" <?php print $tViewvcConfigNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -754,17 +788,17 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("ViewVC configuration directory").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."); ?>"><strong><?php print _("ViewVC configuration directory").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fViewvcConfigDir" value="<?php print $tViewvcConfigDir; ?>" size="40" />
+							   			<input type="text" name="fViewvcConfigDir" value="<?php print $tViewvcConfigDir; ?>" size="40" title="<?php print _("Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the full path to the directory where to save the viewvc configuration files. The webserver must be able to write the file."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("ViewVC realm").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the realm for the webserver authentication.");?>"><strong><?php print _("ViewVC realm").": "; ?></strong></td>
 							   		<td>
 							   			<input type="text" name="fViewvcRealm" value="<?php print $tViewvcRealm; ?>" size="40" />
 							   		</td>
@@ -774,52 +808,52 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("ViewVC webserver alias").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the alias you used in your webserver:"); ?>"><strong><?php print _("ViewVC webserver alias").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fViewvcAlias" value="<?php print $tViewvcAlias; ?>" size="40" />
+							   			<input type="text" name="fViewvcAlias" value="<?php print $tViewvcAlias; ?>" size="40" title="<?php print _("Enter the alias you used in your webserver:"); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the alias you used in your webserver:"); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td nowrap><strong><?php print _("ViewVC webserver reload command").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fViewvcApacheReload" value="<?php print $tViewvcApacheReload; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("svn command").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."); ?>"><strong><?php print _("ViewVC webserver reload command").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fSvnCommand" value="<?php print $tSvnCommand; ?>" size="40" />
+							   			<input type="text" name="fViewvcApacheReload" value="<?php print $tViewvcApacheReload; ?>" size="40" title="<?php print _("Enter a command to restart the Apache webserver. The command must be executable by the webserver user. You can use sudo to achieve this."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the full path and the name of the svn command."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td nowrap><strong><?php print _("svnadmin command").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fSvnadminCommand" value="<?php print $tSvnadminCommand; ?>" size="40" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the full path and the name of the svnadmin command."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("grep command").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the full path and the name of the svn command."); ?>"><strong><?php print _("svn command").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fGrepCommand" value="<?php print $tGrepCommand; ?>" size="40" />
+							   			<input type="text" name="fSvnCommand" value="<?php print $tSvnCommand; ?>" size="40" title="<?php print _("Enter the full path and the name of the svn command."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the full path and the name of the grep command."); ?>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("Enter the full path and the name of the svnadmin command."); ?>"><strong><?php print _("svnadmin command").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fSvnadminCommand" value="<?php print $tSvnadminCommand; ?>" size="40" title="<?php print _("Enter the full path and the name of the svnadmin command."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("Enter the full path and the name of the grep command."); ?>"><strong><?php print _("grep command").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fGrepCommand" value="<?php print $tGrepCommand; ?>" size="40" title="<?php print _("Enter the full path and the name of the grep command."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
@@ -830,11 +864,14 @@ include( "../include/output.inc.php" );
 						</div>
 						<div id="tabs-6">
 							<table>
-								<tr>
+						   		<tr>
+						   			<td colspan="4"><?php print _("To get additional information just move the mouse over the input field or the label.");?></td>
+						   		</tr>
+						   		<tr>
 						      		<td colspan="4">&nbsp;</td>
 						   		</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("Use logging").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if logging should be used.");?>"><strong><?php print _("Use logging").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fLogging" value="YES" <?php print $tLoggingYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fLogging" value="NO" <?php print $tLoggingNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -844,82 +881,69 @@ include( "../include/output.inc.php" );
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
-							   	<!--
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Use JavaScript").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the number of records of lists displayed on a page."); ?>"><strong><?php print _("Page size").": "; ?></strong></td>
 							   		<td>
-							   			<input type="radio" name="fJavaScript" value="YES" <?php print $tJavaScriptYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
-						   				<input type="radio" name="fJavaScript" value="NO" <?php print $tJavaScriptNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+							   			<input type="text" name="fPageSize" value="<?php print $tPageSize; ?>" size="4" maxsize="4" title="<?php print _("Enter the number of records of lists displayed on a page."); ?>" />
 							   		</td>
 							   		<td>
 							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
-							   	-->
-							   	<tr>
-							   		<td nowrap><strong><?php print _("Page size").": "; ?></strong></td>
+						   		<tr>
+							   		<td nowrap title="<?php print _("Enter the minimal length for administrator passwords."); ?>"><strong><?php print _("Minimal length for admin passwords").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fPageSize" value="<?php print $tPageSize; ?>" size="4" maxsize="4" />
+							   			<input type="text" name="fMinAdminPwSize" value="<?php print $tMinAdminPwSize; ?>" size="4" maxsize="4" title="<?php print _("Enter the minimal length for administrator passwords."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the number of records of lists displayed on a page."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("Minimal length for admin passwords").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the minimal length for user passwords."); ?>"><strong><?php print _("Minimal length for user passwords").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fMinAdminPwSize" value="<?php print $tMinAdminPwSize; ?>" size="4" maxsize="4" />
+							   			<input type="text" name="fMinUserPwSize" value="<?php print $tMinUserPwSize; ?>" size="4" maxsize="4" title="<?php print _("Enter the minimal length for user passwords."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the minimal length for administrator passwords."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-						   		<tr>
-							   		<td nowrap><strong><?php print _("Minimal length for user passwords").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fMinUserPwSize" value="<?php print $tMinUserPwSize; ?>" size="4" maxsize="4" />
-							   		</td>
-							   		<td>
-							   			<?php print _("Enter the minimal length for user passwords."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Password expire days").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the days a password is valid before it expires."); ?>"><strong><?php print _("Password expire days").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fPasswordExpire" value="<?php print $tPasswordExpire; ?>" size="4" maxsize="4" />
+							   			<input type="text" name="fPasswordExpire" value="<?php print $tPasswordExpire; ?>" size="4" maxsize="4" title="<?php print _("Enter the days a password is valid before it expires."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the days a password is valid before it expires."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 						   		<tr>
-							   		<td nowrap><strong><?php print _("Warn password expires days").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Enter the number of days after a user is warned before his password expires."); ?>"><strong><?php print _("Warn password expires days").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fPasswordExpireWarn" value="<?php print $tPasswordExpireWarn; ?>" size="4" maxsize="4" />
+							   			<input type="text" name="fPasswordExpireWarn" value="<?php print $tPasswordExpireWarn; ?>" size="4" maxsize="4" title="<?php print _("Enter the number of days after a user is warned before his password expires."); ?>" />
 							   		</td>
 							   		<td>
-							   			<?php print _("Enter the number of days after a user is warned before his password expires."); ?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Passwords expire").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Default value for password expiration.");?>"><strong><?php print _("Passwords expire").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fExpirePassword" value="1" <?php print $tExpirePasswordYes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fExpirePassword" value="0" <?php print $tExpirePasswordNo; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
 							   		</td>
 							   		<td>
-							   			<?php print _("Default value for password expiration.");?>
+							   			&nbsp;
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Use md5 encryption").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Decide if passwords should be md5 encrypted.");?>"><strong><?php print _("Use md5 encryption").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fUseMd5" value="md5" <?php print $tMd5Yes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fUseMd5" value="crypt" <?php print $tMd5No; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
@@ -930,30 +954,10 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("User default access right").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Set the default user access right for repositories."); ?>"><strong><?php print _("User default access right").": "; ?></strong></td>
 							   		<td nowrap>
 							   			<input type="radio" name="fUserDefaultAccess" value="read" <?php print $tUserDefaultAccessRead; ?> />&nbsp;&nbsp;<?php print _("read"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fUserDefaultAccess" value="write" <?php print $tUserDefaultAccessWrite; ?> />&nbsp;&nbsp;<?php print _("write"); ?>
-							   		</td>
-							   		<td>
-							   			<?php print _("Set the default user access right for repositories."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td nowrap><strong><?php print _("Custom field 1").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fCustom1" value="<?php print $tCustom1; ?>" size="40" maxsize="255" />
-							   		</td>
-							   		<td>
-							   			<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td nowrap><strong><?php print _("Custom field 2").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fCustom2" value="<?php print $tCustom2; ?>" size="40" maxsize="255" />
 							   		</td>
 							   		<td>
 							   			&nbsp;
@@ -961,9 +965,29 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap><strong><?php print _("Custom field 3").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>"><strong><?php print _("Custom field 1").": "; ?></strong></td>
 							   		<td>
-							   			<input type="text" name="fCustom3" value="<?php print $tCustom3; ?>" size="40" maxsize="255" />
+							   			<input type="text" name="fCustom1" value="<?php print $tCustom1; ?>" size="40" maxsize="255" title="<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>"><strong><?php print _("Custom field 2").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fCustom2" value="<?php print $tCustom2; ?>" size="40" maxsize="255" title="<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>" />
+							   		</td>
+							   		<td>
+							   			&nbsp;
+							   		</td>
+							   		<td>&nbsp;</td>
+							   	</tr>
+							   	<tr>
+							   		<td nowrap title="<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>"><strong><?php print _("Custom field 3").": "; ?></strong></td>
+							   		<td>
+							   			<input type="text" name="fCustom3" value="<?php print $tCustom3; ?>" size="40" maxsize="255" title="<?php print _("If you want to use custom fields fill in the label the field should have. If you do not fill in anything the custom field will not be used."); ?>> />
 							   		</td>
 							   		<td>
 							   			&nbsp;

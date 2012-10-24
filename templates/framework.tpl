@@ -44,6 +44,7 @@
 	<![endif]-->
 	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
 	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
+	<link rel="stylesheet" type="text/css" href="./style/chosen.css" />
 	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 	
 	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
@@ -53,6 +54,7 @@
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
+	<script language="javaScript" type="text/javascript" src="./lib/jquery/chosen.jquery.min.js"></script>
 	<script language="javascript" type="text/javascript">
 		
 		$(document).ready(function() {
@@ -149,6 +151,74 @@
 				</td>
 			</tr>
 		</table>
-	</dvi>    
+	</div>  
+	<div id="dialog-confirm" class="ui-dialog" style="display: none;">
+			<p>
+				<!--<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;text-align:justified"></span>-->
+				<span class="helpDialog">
+				<?php 
+					$dbh 										= db_connect ();
+					$tText 										= array();
+						
+					if( isset( $_SESSION['svn_sessid']['helptopic'] ) ) {
+							
+						$schema									= db_determine_schema();
+					    
+						$lang									= check_language();
+						$query									= "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
+																  "  FROM ".$schema."help " .
+																  " WHERE topic = '".$_SESSION['svn_sessid']['helptopic']."'";
+						$result									= db_query( $query, $dbh );
+						
+						if( $result['rows'] > 0 ) {
+						
+							$tText								= db_assoc( $result['result'] );
+							
+						} else {
+							
+							$tText['headline']					= _("No help found");
+							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION['svn_sessid']['helptopic'] );
+						}
+						
+					} else {
+						
+						$tText['headline']						= _("No help found");
+						$tText['helptext']						= _("There is no help topic set");
+							
+					}
+					
+					$text_arr			= explode( "\r\n", $tText['helptext'] );
+					print "<p class='helpDialog'>&nbsp;</p>\n";
+					foreach( $text_arr as $text ) {
+					
+						print "<p class='helpDialog'>$text<br/>&nbsp;</p>\n";
+						
+					}
+				?>
+				</span>
+			</p>
+	</div>
+	<script type="text/javascript">
+		var dlg = $("#dialog-confirm").dialog({
+			resizable: true,
+			height: 300,
+			width: 400,				
+			modal: true,
+			title: '<?php print _("Help")."::".$tText['headline'];?>',
+			autoOpen: false,
+		});
+		
+		$("#help").bind("click", function(event){
+			event.preventDefault();
+			
+			if( event.stopPropagation ) {
+				event.stopPropagation();
+			} else {
+				event.cancelBubble = true;
+			}
+			
+			dlg.dialog("open");
+		});
+	</script>  
 </body>
 </html>

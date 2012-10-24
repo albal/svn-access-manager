@@ -1,3 +1,29 @@
+Update to V0.5.5.13
+
+Version 0.5.5.13 is a bug fix and enhancement release. Either compare your 
+installation to the current release or install the release from scratch and 
+copy the changed config file from your previous installation into your new 
+installation. 
+   
+This release contains a lot of new help texts. You can import them into your
+database. The folder install contains the file help_texts.sql. Import this file
+into the help table.    
+ 
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.12
+
+Version 0.5.5.12 is a bug fix and enhancement release. Either compare your 
+installation to the current release or install the release from scratch and 
+copy the changed config file from your previous installation into your new 
+installation.
+ 
+#-------------------------------------------------------------------------------------------#
+
+
+
 Update to V0.5.5.11
 
 These are the steps to update from version 0.5.5.10 to 0.5.5.11
