@@ -158,6 +158,12 @@ function outputMenu($area) {
 		
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_users.php\">"._("Users")."</a></li>\n";
 		
+		if( isset($CONF['use_ldap']) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+			
+			print "\t\t\t\t\t<li class='leftMenu'><a href=\"bulk_add_ldap_users.php\">"._("Bulk add LDAP users")."</a></li>\n";
+			
+		}
+		
 	}
 	
 	if( $rightGroupAdmin != "none" ) {
