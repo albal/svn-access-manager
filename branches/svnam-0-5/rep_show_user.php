@@ -114,6 +114,12 @@ function getAccessRightsForUser( $tUserId, $tGroups, $dbh ) {
 	
 	global $CONF;
 	
+	if( isset( $CONF['repoPathSortOrder']) ) {
+		$pathSort		= $CONF['repoPathSortOrder'];
+  	} else {
+		$pathSort		= "ASC";
+	}
+	
 	$schema				= db_determine_schema();
 	$tAccessRights		= array();
 	$curdate			= strftime( "%Y%m%d" );
@@ -126,14 +132,14 @@ function getAccessRightsForUser( $tUserId, $tGroups, $dbh ) {
 	if( count( $tGroups ) > 0 ) {
 		$query			.="     AND ((svn_access_rights.user_id = $tUserId) ";
 		foreach( $tGroups as $entry ) {
-			$query		.="    OR (svn_access_rights.group_id = ".$entry['id'].") ";
+			$query		.="    OR (svn_access_rights.group_id = ".$entry['group_id'].") ";
 		}
 		$query			.="       ) ";
 	} else {
 		$query			.="     AND (svn_access_rights.user_id = $tUserId) ";
 	}
 	$query				.="     AND (svnprojects.repo_id = svnrepos.id) " .
-						  "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
+						  "ORDER BY svnrepos.reponame ASC, svnprojects.svnmodule ASC, svn_access_rights.path $pathSort";
 
 	$result				= db_query( $query, $dbh );
 	
