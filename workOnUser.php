@@ -114,8 +114,6 @@ if( $rightAllowed == "none" ) {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly								= "";
-	$tUseridNonLdap							= "";
-	$tReadonlyNonLdap						= "";
 	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
@@ -144,8 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if( $_SESSION['svn_sessid']['task'] == "new" ) {
    		
    		$tUserid								= "";
-   		$tUseridNonLdap							= "";
-		$tReadonlyNonLdap						= "readonly";
 		$tName									= "";
 		$tGivenname								= "";
 		$tEmail									= "";
@@ -172,7 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
    		$tReadonly								= "readonly";
-   		$tReadonlyNonLdap						= "readonly";
    		$query									= "SELECT * " .
    												  "  FROM ".$schema."svnusers " .
    												  " WHERE id = $tId";
@@ -221,7 +216,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tUserid								= isset($_POST['fUserid']) 			? db_escape_string( $_POST['fUserid'] )				: "";
    	$tUserid								= explode( ":", $tUserid);
    	$tUserid								= $tUserid[0];
-   	$tUseridNonLdap							= isset($_POST['fUseridNonLdap'])	? db_escape_string( $_POST['fUseridNonLdap'] )		: "";
    	$tName									= isset($_POST['fName']) 			? db_escape_string( $_POST['fName'] )				: "";
    	$tGivenname								= isset($_POST['fGivenname']) 		? db_escape_string( $_POST['fGivenname'] )			: "";
    	$tPassword								= isset($_POST['fPassword']) 		? db_escape_string( $_POST['fPassword'] )			: "";
@@ -274,17 +268,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Please select an user!" );
    				$error						= 1;
    				
-   			} elseif( ($tUserid == "nonldapuser") and ($tUseridNonLdap == "") ) {
-      			
-      			$tMessage					= _("Userid for non LDAP user is missing!");
-      			$error						= 1;
-      			
    			} elseif( $tName == "" ) {
    				
    				$tMessage					= _( "Name missing, please fill in!" );
    				$error						= 1;
 
-   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) or ($tUserid == "nonldapuser") ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
    				if( ($tPassword == "") and ($tPassword2 == "") ) {
    				
@@ -292,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$error					= 1;
    				}
 				 
-   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) or (c) ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
 	   			if( ($tPassword != "") or ($tPassword2 != "") ) {
 	   				
@@ -344,15 +333,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   			   			
    			if( $error == 0 ) {
    				
-   				$userid						= ($tUserid == "nonldapuser") ? $tUseridNonLdap : $tUserid;
    				$tPassword					= ($tPassword == "") ? generatePassword("y") : $tPassword;
    				$pwcrypt					= db_escape_string( pacrypt( $tPassword ), $dbh );
    				$dbnow						= db_now();
    				$query 						= "INSERT INTO ".$schema."svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, custom1, custom2, custom3, admin, created, created_user, password_modified, user_mode) " .
-   						                      "     VALUES ('$userid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
+   						                      "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
    				
    				db_ta( 'BEGIN', $dbh );
-   				db_log( $_SESSION['svn_sessid']['username'], "added user $userid, $tName, $tGivenname", $dbh ); 
+   				db_log( $_SESSION['svn_sessid']['username'], "added user $tUserid, $tName, $tGivenname", $dbh ); 
    				
    				$result						= db_query( $query, $dbh );
    				if( $result['rows'] == 1 ) {

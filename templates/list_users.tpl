@@ -63,7 +63,7 @@
 					   		</th>
 					   		<?php
 					   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
-                                            print "\t\t\t\t\t\t<th class=\"ui-state-default\">\n";
+                                            print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
                                             print "\t\t\t\t\t\t\t"._("LDAP User");
                                             print "\t\t\t\t\t\t</th>\n";
                                     }
