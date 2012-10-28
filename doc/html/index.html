@@ -61,38 +61,40 @@
 	
 	<a href="#getstart">2. Getting started</a>
 		<blockquote>
-		<a href="#inst_getsoftware">2.1 Download the Software</a><br />
+		      <a href="#inst_getsoftware">2.1 Download the Software</a><br />
 		
-		<a href="#inst_proc">2.2 Installation procedure</a>
-			<blockquote>
-			<a href="#inst_download">2.2.1 Install the software</a><br />
+		      <a href="#inst_proc">2.2 Installation procedure</a>
+			 <blockquote>
+			     <a href="#inst_download">2.2.1 Install the software</a><br />
 			
-			<a href="#inst_web server">2.2.2 Setup the Apache web server</a><br />
-				<blockquote>
-				<a href="#inst_web_general">2.2.2.1 General</a><br />
-				<a href="#inst_web_viewvc">2.2.2.2 ViewVC</a><br />
-				</blockquote>
+			     <a href="#inst_web server">2.2.2 Setup the Apache web server</a><br />
+				        <blockquote>
+				            <a href="#inst_web_general">2.2.2.1 General</a><br />
+				            <a href="#inst_web_viewvc">2.2.2.2 ViewVC</a><br />
+				        </blockquote>
 				
-			<a href="#inst_db">2.2.3 Setup a MySQL database and a database user</a><br />
+			     <a href="#inst_db">2.2.3 Setup a MySQL database and a database user</a><br />
 
-            <a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
+                <a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
 			
-			<a href="#inst_installer">2.2.5 Using the installer</a><br />
-				<blockquote>
-				<a href="#inst_instructions">2.2.5.1 Instructions</a><br />
-                		<a href="#inst_dbsettings">2.2.5.2 Database settings</a><br />
-				<a href="#inst_ldap_settings">2.2.5.3 LDAP settings</a><br />
-                		<a href="#inst_website_settings">2.2.5.4 Website settings</a><br />
-				<a href="#inst_adminaccount">2.2.5.5 Administrator account</a><br />
-				<a href="#inst_web server_settings">2.2.5.6 Web server settings</a><br />
-				<a href="#inst_misc_settings">2.2.5.7 Miscellaneous settings</a><br />
-				<a href="#inst_errors">2.2.5.7 Installation errors</a>
-				</blockquote>
-			</blockqoute>
+			    <a href="#inst_installer">2.2.5 Using the installer</a><br />
+				        <blockquote>
+				            <a href="#inst_instructions">2.2.5.1 Instructions</a><br />
+                		    <a href="#inst_dbsettings">2.2.5.2 Database settings</a><br />
+				            <a href="#inst_ldap_settings">2.2.5.3 LDAP settings</a><br />
+                		    <a href="#inst_website_settings">2.2.5.4 Website settings</a><br />
+				            <a href="#inst_adminaccount">2.2.5.5 Administrator account</a><br />
+				            <a href="#inst_web server_settings">2.2.5.6 Web server settings</a><br />
+				            <a href="#inst_misc_settings">2.2.5.7 Miscellaneous settings</a><br />
+				            <a href="#inst_errors">2.2.5.7 Installation errors</a><br />
+				    </blockquote>
+
+                <a href=#selinux>2.2.6 SELinux</a><br />
+			 </blockquote>
 			
-		<a href="#inst_start">2.3 First steps after installation</a>
+            <a href="#inst_start">2.3 First steps after installation</a><br/>
 		</blockquote>
-		
+        
 	<a href="#use">3. Using SVN Access Manager</a>
 		<blockquote>
 		<a href="#use_myaccount">3.1 My account menu</a>
@@ -462,7 +464,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <p>You can setup up to thee custom fields for users e. g. phone number, fax number. These fields will only show up when you set custom field names here.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_errors">2.2.3.8 Installation errors</a></h5>
+<h5><a name="inst_errors">2.2.5.8 Installation errors</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part8.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part8.png" width="150" height="106" /></a></td>
@@ -471,6 +473,10 @@ http(s)://localhost/svnaccessmanager/install/install.php
         </td>
     </tr>
 </table>
+<p><a href="#top">Back to top</a></p>
+
+<h4><a name="selinux">2.2.6 SELinux</a></h4>
+<p>If you have SElinux running you use the SELinux context for SVn Access Manager. You will find the files in the "doc" folder. The contect assumes that you will install the configuration file to /etc/svn-access-manager and the repository access files to /etc/svn. If you want to allow repository creation directly from SVN Access Manager you must extewnd the SElinux context accordingly to allow the webserver user to do so.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_start">2.3 First steps after installation</a></h3>
