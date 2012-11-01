@@ -195,29 +195,40 @@ testproject3
 	<li>a working subversion installation</li>
 	<li>a MySQL Database, version 4 or higher, a PostgreSQL 8 or higher database or an Oracle 10g or higher database</li>
 	<li>an Apache web server, version 2.0 or higher with DAV, mod_authz and SVN support</li>
-	<li>PHP version 4 or higher with working oci8 support if using Oracle database</li>
+	<li>PHP version 5.2 or higher with working oci8 support if using Oracle database</li>
 </ul>
 </p>
 <p>If you need support installing and configuring Oracle oci8 driver for PHP, please refer to the <a href="http://www.php.net/manual/en/oci8.installation.php" target="_blank">PHP documentation</a>.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_getsoftware">2.1 Download the software</a></h3>
-<p>First download the source archive from <a href="http://sourceforge.net/project/showfiles.php?group_id=226213">sourceforge.net</a>. SVN Access Manager is available as bzip2 and gzip compressed archive and as zip archive as well.</p>
+<p>First download the source archive from <a href="http://sourceforge.net/project/showfiles.php?group_id=226213">sourceforge.net</a>. SVN Access Manager is available as bzip2, gzip compressed archive, as zip archive and as RPM packages as well.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_proc">2.2 Installation procedure</a></h3>
 <p>The installation is divided up in several parts. Just follow the instructions below.</p>
-<p>For the installation description it is assumed that SVN Access Manager ist installed to <em>/home/svnacessmanager</em>, the web server is accessed as <em>localhost</em> and the Subversion Repository and the MySQL database are on the same host. The directory containing the repositories is assumed as <em>/svn/repos</em>. The files needed for authentication and authorization are assumed in <em>/etc/svn</em>.</p>
-<p>The configuration file for SVN Access Manager will be placed in <em>/etc/svn-access-manager</em> directory. Please make sure that your webserver has enough rights to wirte the configuration into this directory.</p>
+<p>For the installation description it is assumed that SVN Access Manager ist installed to <em>/usr/share/svn-access-manager</em>, the web server is accessed as <em>localhost</em> and the Subversion Repository and the MySQL database are on the same host. The directory containing the repositories is assumed as <em>/svn/repos</em>. The files needed for authentication and authorization are assumed in <em>/etc/svn</em>. </p>
+<p>The configuration file for SVN Access Manager will be placed in <em>/etc/svn-access-manager</em> directory. Please make sure that your webserver has enough rights to wirte the configuration into this directory. This installation description assumes that the webserver user is the user <em>apache</em> with the group <em>apache</em>.</p>
 <p>Please make sure that in your <em>php.ini</em> file the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!</p>
 <p><a href="#top">Back to top</a></p>
 
 <h4><a name="inst_download">2.2.1 Install the software</a></h4>
 <p>Go to a directory where the software can be accessed by your Apache web server. Unpack the archive. For our example do the following:</p>
 <pre>
-# cd /home/svnaccessmanager
+# mkdir /etc/svn
+# mkdir /etc/svn-access-manager
+# mkdir /usr/share/svn-access-manager
+# chown apache:apache /etc/svn /etc/svn-access-manager
+# cd /usr/share/svn-access-manager
 # tar -xvfz svnaccessmanager-0.5.0.0.tar.gz
 </pre>
+<p>For RPM based systems it is recommended to use the RPM packages for installation.</p>
+<p>If you have SElinux running in enforcing mode you have to use the SELinux context for SVN Access Manager. You will find the files in the "doc" folder. The contect assumes that you will install the configuration file to /etc/svn-access-manager and the repository access files to /etc/svn. If you want to allow repository creation directly from SVN Access Manager you must extend the SElinux context accordingly to allow the webserver user to do so.</p>
+<p>To install the SELinux module just do the following:</p>
+<pre>
+# semodule -i svnaccessmanager.pp
+</pre>
+<p>You must ensure that the software ist installed directly into the directory <em>/usr/share/svn-access-manager</em>. Otherwise you have to create your own SELinux module.</p>
 <p>Proceed with setting up the Apache web server described in the next step.</p>
 <p><a href="#top">Back to top</a></p>
 
@@ -225,7 +236,7 @@ testproject3
 <h5><a name="inst_web_general">2.2.2.1 General web server setup</a></h5>
 <p>Your Apache web server must know about the SVN Access Manager if it is not installed in the DocumentRoot of your web server. In the latter case you can include a line similar to this in your web server configuration:</p>
 <pre>
-Alias /svnaccessmanager /home/svnaccessmanager/svn_access_manager
+Alias /svnaccessmanager /usr/share/svn-access-manager/svn_access_manager
 </pre>
 <p>To get user authentication and authorization work you have to add DAV support to your web server and configure it accordingly. You can use a configuration similar to this:</p>
 <pre>
@@ -473,10 +484,6 @@ http(s)://localhost/svnaccessmanager/install/install.php
         </td>
     </tr>
 </table>
-<p><a href="#top">Back to top</a></p>
-
-<h4><a name="selinux">2.2.6 SELinux</a></h4>
-<p>If you have SElinux running you use the SELinux context for SVn Access Manager. You will find the files in the "doc" folder. The contect assumes that you will install the configuration file to /etc/svn-access-manager and the repository access files to /etc/svn. If you want to allow repository creation directly from SVN Access Manager you must extewnd the SElinux context accordingly to allow the webserver user to do so.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_start">2.3 First steps after installation</a></h3>
