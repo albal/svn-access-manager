@@ -260,7 +260,7 @@ function db_query ($query, $link, $limit=-1, $offset=-1) {
    		
 	} catch( exception $e ) {
 		
-		error_log( "ERROR: ",print_r($e, true));
+		#error_log( "ERROR: ".print_r($e, true));
 		
 		$_SESSION['svn_sessid']['dberror']		= $e->msg;
       	$_SESSION['svn_sessid']['dbquery']		= $query;
