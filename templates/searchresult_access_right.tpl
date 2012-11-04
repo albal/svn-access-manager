@@ -2,19 +2,7 @@
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="list_access_rights" method="post">
-				<p>&nbsp;</p>
-				<table>
-					<tr>
-						<td><?php print _("Search access rights");?>: </td>
-						<td>
-							<input id="search" class="large" type="text" name="fSearch" value="" title="<?php print _("Search access rights by project, repository or path.");?>" />&nbsp;&nbsp;
-                           	<span style="white-space:nowrap;">
-                            	<input class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search access rights by project, repository or path.");?>" />
-                            </span>
-                    	</td>   
-					</tr>
-				</table>                                        
-				<p>&nbsp;</p>
+				
 				<table id="accessrightlist_table">
 				   	<thead>
 				   			<tr>
@@ -52,24 +40,24 @@
 					   		$_SESSION['svn_sessid']['max_mark']		= 0;
 					   		$_SESSUIN['svn_sessid']['mark']			= array();
 					   		
-					   		foreach( $tAccessRights as $entry ) {
+					   		foreach( $tArray as $entry ) {
 					   		
-					   			$id						= $entry['id'];
+					   			$id						= $entry['rid'];
 					   			$validfrom				= splitValidDate( $entry['valid_from'] );
 					   			$validuntil				= splitValiddate( $entry['valid_until'] );
 					   			$field					= "fDelete".$i;
 					   			$action					= "";
 					   			
 					   			if( $rightAllowed == "edit" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
+					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
 					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 					   			} elseif( $rightAllowed == "delete" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
+					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['rid'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 					   			} elseif( $_SESSION['svn_sessid']['admin'] == "p" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
-					   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
+					   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['rid']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['rid'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
 					   			}
 					   			
 					   			print "\t\t\t\t\t<tr valign=\"top\">\n";
@@ -84,7 +72,7 @@
 					   			print "\t\t\t\t\t\t<td nowrap>".$action."</td>\n";
 					   			print "\t\t\t\t\t</tr>\n";
 					   			
-					   			$_SESSION['svn_sessid']['mark'][$i]		= $entry['id'];
+					   			$_SESSION['svn_sessid']['mark'][$i]		= $entry['rid'];
 					   			
 					   			$i++;
 					   		}
@@ -124,45 +112,6 @@
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
-					
-					$("#search").autocomplete({
-                        source: function( request, response ) {
-                                $.ajax({
-                                        url: "searchrpc.php",
-                                        dataType: "jsonp",
-                                        data: {
-                                                maxRows: 20,
-                                                name_startsWith: request.term,
-                                                db: "accessright",
-                                                userid: "<?php print $SESSID_USERNAME;?>"
-                                        },
-                                        success: function( data ) {
-                                                var retarr =[];
-                                                $.each(data, function(i, val){
-                                                        myName = $("<div/>").html(val.name).text();
-                                                        if(myName == "Session expired!") {
-                                                                window.location.href="login.php";
-                                                        }
-                                                        retarr.push(myName);
-                                                });
-                                                response(retarr);
-                                        }
-                                });
-                        },
-                        minLength: 1,
-                        select: function( event, ui ) {
-                                var name = ui.item.value;
-                                $("#search").val(name);
-                                document.list_access_rights.submit();
-                        },
-                        open: function() {
-                                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-                        },
-                        close: function() {
-                                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                        }
-
-                	});
 					
 					$("#edit_form *").tooltip({
 						showURL: false

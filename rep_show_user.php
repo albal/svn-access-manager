@@ -271,6 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tLocked							= $tUserData['locked'] == 0 ? _("No") : _("Yes");
 			$tPasswordExpires					= $tUserData['passwordexpires'] == 1 ? _("Yes") : _("No");
 			$tAccessRight						= $tUserData['user_mode'];
+			$tPasswordModified					= implode( " ", splitDateTime( $tUserData['password_modified'] ) );
 			$lang								= check_language();
 			$tGroups							= getGroupsForUser( $tUserId, $dbh );
 			$tAccessRights						= getAccessRightsForUser( $tUserId, $tGroups, $dbh );

@@ -10,6 +10,8 @@ Release 0.5.5.17
 	  show only groups an user may work with in search results
 	 
 	- write permission violations to log
+	
+	- added search to repository access rights (Repository, path)
 	 
 Release 0.5.5.16
 	- Feature request ID: 3582680
