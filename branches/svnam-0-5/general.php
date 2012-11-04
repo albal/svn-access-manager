@@ -38,6 +38,133 @@ require_once ("$installBase/include/db-functions-adodb.inc.php");
 require_once ("$installBase/include/functions.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
+function getGroupsForUser( $tUserId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$tGroups			= array();
+	$query				= "SELECT * ".
+						  "  FROM ".$schema."svngroups, ".$schema."svn_users_groups ".
+						  " WHERE (svn_users_groups.user_id = '$tUserId') ".
+						  "   AND (svn_users_groups.group_id = svngroups.id) ".
+						  "   AND (svngroups.deleted = '00000000000000') ".
+						  "   AND (svn_users_groups.deleted = '00000000000000')";
+	$result				= db_query( $query, $dbh );
+
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		$tGroups[]		= $row;
+		
+	}
+	
+	return( $tGroups );
+}
+
+function getProjectResponsibleForUser( $tUserId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$tProjects			= array();
+	$query				= "SELECT svnmodule, reponame ".
+						  "  FROM ".$schema."svnprojects, ".$schema."svn_projects_responsible, ".$schema."svnrepos ".
+						  " WHERE (svn_projects_responsible.user_id = '$tUserId') ".
+						  "   AND (svn_projects_responsible.deleted = '00000000000000') ".
+						  "   AND (svn_projects_responsible.project_id = svnprojects.id) ".
+						  "   AND (svnprojects.deleted = '00000000000000') ".
+						  "   AND (svnprojects.repo_id = svnrepos.id) ".
+						  "   AND (svnrepos.deleted = '00000000000000') ".
+						  "ORDER BY svnmodule ASC";
+	$result				= db_query( $query, $dbh );
+	
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		$tProjects[]	= $row;
+		
+	}
+	
+	return( $tProjects );
+}
+
+function getAccessRightsForUser( $tUserId, $tGroups, $dbh ) {
+	
+	global $CONF;
+	
+	if( isset( $CONF['repoPathSortOrder']) ) {
+		$pathSort		= $CONF['repoPathSortOrder'];
+  	} else {
+		$pathSort		= "ASC";
+	}
+	
+	$schema				= db_determine_schema();
+	$tAccessRights		= array();
+	$curdate			= strftime( "%Y%m%d" );
+	$query				= "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " .
+						  "    FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
+						  "   WHERE (svn_access_rights.deleted = '00000000000000') " .
+						  "     AND (svn_access_rights.valid_from <= '$curdate') " .
+						  "     AND (svn_access_rights.valid_until >= '$curdate') " .
+						  "     AND (svn_access_rights.project_id = svnprojects.id) ";
+	if( count( $tGroups ) > 0 ) {
+		$query			.="     AND ((svn_access_rights.user_id = $tUserId) ";
+		foreach( $tGroups as $entry ) {
+			$query		.="    OR (svn_access_rights.group_id = ".$entry['group_id'].") ";
+		}
+		$query			.="       ) ";
+	} else {
+		$query			.="     AND (svn_access_rights.user_id = $tUserId) ";
+	}
+	$query				.="     AND (svnprojects.repo_id = svnrepos.id) " .
+						  "ORDER BY svnrepos.reponame ASC, svnprojects.svnmodule ASC, svn_access_rights.path $pathSort";
+
+	$result				= db_query( $query, $dbh );
+	
+	while( $row = db_assoc( $result['result'] ) ) {
+		
+		if( ($row['user_id'] != 0) and ($row['group_id'] != 0) ) {
+			$row['access_by']	= _("user id + group id");
+		} elseif( $row['group_id'] != 0 ) {
+			$row['access_by']	= _("group id");
+		} elseif( $row['user_id'] != 0 ) {
+			$row['access_by']	= _("user id");
+		} else {
+			$row['access_by']	= " ";
+		}
+		$tAccessRights[]= $row;
+	}
+	
+	return( $tAccessRights );
+} 
+
+function getUserData( $tUserId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$query				= "SELECT * ".
+						  "  FROM ".$schema."svnusers ".
+						  " WHERE (id = $tUserId)";
+	$result				= db_query( $query, $dbh );
+	$row				= db_assoc( $result['result'] );
+	
+	return( $row );
+}
+
+function getGroupData( $tGroupId, $dbh ) {
+	
+	global $CONF;
+	
+	$schema				= db_determine_schema();
+	$query				= "SELECT * ".
+						  "  FROM ".$schema."svngroups ".
+						  " WHERE (id = $tGroupId)";
+	$result				= db_query( $query, $dbh );
+	$row				= db_assoc( $result['result'] );
+	
+	return( $row );
+}
+
 initialize_i18n();
 
 $SESSID_USERNAME 							= check_session ();
@@ -69,6 +196,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tLocked			= $row['locked'] == 0 ? _("no" ) : _( "yes" );
 		$tSecurityQuestion	= $row['securityquestion'];
 		$tAnswer			= $row['securityanswer'];
+		$tPasswordExpires	= $row['passwordexpires'] == 1 ? _("Yes") : _("No");
+		
+		$tUserId							= db_getIdByUserid( $SESSID_USERNAME, $dbh );
+		$tGroups							= getGroupsForUser( $tUserId, $dbh );
+		$tAccessRights						= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
+		$tProjects							= getProjectResponsibleForUser( $tUserId, $dbh );
 		
 		$_SESSION['svn_sessid']['userid']		= $row['id'];
 		
