@@ -101,7 +101,8 @@
                                         data: {
                                                 maxRows: 10,
                                                 name_startsWith: request.term,
-                                                db: "groups"
+                                                db: "groups",
+                                                userid: "<?php print $SESSID_USERNAME;?>"
                                         },
                                         success: function( data ) {
                                                 var retarr =[];

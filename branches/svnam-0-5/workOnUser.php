@@ -113,6 +113,7 @@ if( ($rightAllowed != "delete") ) {
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use workOnUser without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
@@ -135,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( (($rightAllowed == "add") and ($tTask != "new")) ) {
 	
+		db_log( $SESSID_USERNAME, "tried to use workOnUser without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;
@@ -173,7 +175,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tUsers								= get_ldap_users();
 		}
 		
-		$_SESSION['svn_sessid']['rightsgranted']= array();
+		$_SESSION['svn_sessid']['rightsgranted']		= array();
+		$_SESSION['svn_sessid']['passwordexpires']		= "1";
+		$_SESSION['svn_sessid']['locked']				= "0";
+		$_SESSION['svn_sessid']['admin']				= "n";
 			
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
@@ -197,7 +202,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tAdministrator						= $row['admin'];
 			$tUserRight							= $row['user_mode'];
 			$tRightsGranted						= getRightsGranted( $row['id'], $dbh );
-			$_SESSION['svn_sessid']['rightsgranted'] = $tRightsGranted;
+			$_SESSION['svn_sessid']['rightsgranted'] 		= $tRightsGranted;
+			$_SESSION['svn_sessid']['passwordexpires']		= $tPasswordExpires;
+			$_SESSION['svn_sessid']['locked']				= $tLocked;
+			$_SESSION['svn_sessid']['admin']				= $tAdministrator;
 			
 		} else {
 		
@@ -235,9 +243,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tCustom1								= isset($_POST['fCustom1'])			? db_escape_string( $_POST['fCustom1'] )			: "";
 	$tCustom2      							= isset($_POST['fCustom2'])     	? db_escape_string( $_POST['fCustom2'] )        	: "";
 	$tCustom3       						= isset($_POST['fCustom3'])     	? db_escape_string( $_POST['fCustom3'] )        	: "";
-   	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: "0";
-   	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: "";
-   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: "";
+   	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: $_SESSION['svn_sessid']['passwordexpires'];
+   	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: $_SESSION['svn_sessid']['locked'];
+   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: $_SESSION['svn_sessid']['admin'];
    	$tUserRight								= isset($_POST['fUserRight']) 		? db_escape_string( $_POST['fUserRight'] )			: "";
    	$tRightsAvailable						= getRights( $dbh );
    	$tRightsGranted							= array();
@@ -354,8 +362,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$tCurRight				= $tRightsGrantedToCurUser[$right_id];
 					$tRightName				= db_getRightName( $right_id, $dbh );
 					$tRightsGranted[$right_id] = $value;
-					
-					error_log( "id = $right_id - value = $value - curright = $tCurRight - right = ".$tRightName );
 					
 					if( strtolower($value) == "delete" ) {
 			   					
@@ -562,8 +568,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$tCurRight				= $tRightsGrantedToCurUser[$right_id];
 					$tRightName				= db_getRightName( $right_id, $dbh );
 					$tRightsGranted[$right_id] = $value;
-					
-					error_log( "id = $right_id - value = $value - curright = $tCurRight - right = ".$tRightName );
 					
 					if( strtolower($value) == "delete" ) {
 			   					

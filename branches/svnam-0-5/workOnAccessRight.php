@@ -56,6 +56,7 @@ if( $rightAllowed == "none" ) {
 		
 	} else {
 	
+		db_log( $SESSID_USERNAME, "tried to use workOnAccessRight without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;
@@ -138,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( ($rightAllowed == "add") and ($tTask != "new") ) {
 	
+		db_log( $SESSID_USERNAME, "tried to use workOnAccessRight without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

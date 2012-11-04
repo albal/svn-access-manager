@@ -52,6 +52,7 @@ if( $rightAllowed != "delete" ) {
 	
 	$tGroupsAllowed							= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
 	if(count($tGroupsAllowed) == 0 ) {
+		db_log( $SESSID_USERNAME, "tried to use deleteGroup without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;
@@ -75,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$schema									= db_determine_schema();
 	
 	if( ($rightAllowed != "delete") and ($tId != "" ) and (! array_key_exists( $tId, $tGroupsAllowed ) ) ) {
-	
+		
+		db_log( $SESSID_USERNAME, "tried to use deleteGroup without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

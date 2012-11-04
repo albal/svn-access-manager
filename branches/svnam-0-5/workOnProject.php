@@ -51,6 +51,7 @@ $_SESSION['svn_sessid']['helptopic']	= "workonproject";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use workOnProject without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
@@ -91,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( ($rightAllowed == "add") and (($tTask != "new") and ($tTask != "relist")) ) {
 	
+		db_log( $SESSID_USERNAME, "tried to use workOnProject without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

@@ -50,6 +50,7 @@ $_SESSION['svn_sessid']['helptopic']		= "workonrepo";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use workOnRepo without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
@@ -72,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( ($rightAllowed == "add") and ($tTask != "new") ) {
 	
+		db_log( $SESSID_USERNAME, "tried to use workOnRepo without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

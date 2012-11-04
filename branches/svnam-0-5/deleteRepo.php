@@ -49,6 +49,7 @@ $_SESSION['svn_sessid']['helptopic']		= "deleterepo";
 
 if( $rightAllowed != "delete" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use deleteProject without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

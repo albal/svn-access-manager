@@ -145,6 +145,7 @@ $_SESSION['svn_sessid']['helptopic']		= "repgranteduserrights";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use rep_granted_user_rights without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

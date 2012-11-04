@@ -59,6 +59,7 @@ $_SESSION['svn_sessid']['helptopic']		= "deletegroupaccessright";
 
 if( $rightAllowed != "delete" ) {
 		
+	db_log( $SESSID_USERNAME, "tried to use deleteGroupAccessRight without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
