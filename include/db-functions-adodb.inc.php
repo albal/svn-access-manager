@@ -835,9 +835,36 @@ function db_getGroupById ($id, $link) {
 
 
 //
+// db_getRightName
+// Action: get name for a right
+// Call: db_getRightName(string id, resource link)
+//
+function db_getRightName( $id, $link ) {
+
+	global $CONF;
+	
+	$schema						= db_determine_schema();
+	
+	$query						= "SELECT right_name ".
+								  "  FROM rights ".
+								  " WHERE (id = $id) ".
+								  "   AND (deleted = '00000000000000')";
+	$result						= db_query( $query, $link );
+	if( $result['rows'] == 1 ) {
+		$row					= db_assoc( $result['result'] );
+		return( $row['right_name'] );
+	} else {
+		return( "undefined" );
+	}
+	
+}
+
+
+
+//
 // db_getRightData
 // Action: get data for access right
-// Call: db_getRightdata(string is, resource link)
+// Call: db_getRightData(string id, resource link)
 //
 function db_getRightData( $id, $link ) {
 	
@@ -881,6 +908,60 @@ function db_getRightData( $id, $link ) {
 		
 		return false;
 		
+	}
+}
+
+
+
+//
+// db_check_global_admin
+// Action: check if an user is an global admin
+// Call: db_check_global_admin( string username, resource link )
+//
+function db_check_global_admin( $username, $link ) {
+
+	global $CONF;
+	
+	$schema							= db_determine_schema();
+	$ret							= false;
+	$query							= "SELECT superadmin ".
+									  "  FROM ".$schema."svnusers ".
+									  " WHERE (deleted = '00000000000000') ".
+									  "   AND (userid = '$username')";
+	$result							= db_query( $query, $link );
+	if( $result['rows'] > 0 ) {
+		$row    					= db_assoc( $result['result'] );
+		$ret 						= strtolower($row['superadmin']) == 1 ? true : false;
+		return( $ret );
+	} else {
+		return false;
+	}
+}
+
+
+
+//
+// db_check_global_admin_by_id
+// Action: check if an user is an global admin
+// Call: db_check_global_admin_by_id( string id, resource link )
+//
+function db_check_global_admin_by_id( $id, $link ) {
+
+	global $CONF;
+	
+	$schema							= db_determine_schema();
+	$ret							= false;
+	$query							= "SELECT superadmin ".
+									  "  FROM ".$schema."svnusers ".
+									  " WHERE (deleted = '00000000000000') ".
+									  "   AND (id = $id)";
+	$result							= db_query( $query, $link );
+	if( $result['rows'] > 0 ) {
+		$row    					= db_assoc( $result['result'] );
+		$ret						= strtolower($row['superadmin']) == 1 ? true : false;
+		return( $ret );
+	} else {
+		return false;
 	}
 }
 

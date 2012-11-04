@@ -107,7 +107,7 @@
 			   				print "\n\t\t\t\t\t\t<tr>\n";
 			   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
-			   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\" title=\""._("Select if the user password should expire.")."\">\n";
+			   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\" $tDisabledAdmin title=\""._("Select if the user password should expire.")."\">\n";
 		   					if( $tPasswordExpires == 0 ) {
 		   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
 		   						print "\t\t\t\t\t\t\t\t<option value='1'>"._("yes")."</option>\n";
@@ -125,7 +125,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Locked").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fLocked" title="<?php print _("A locked user can not work any longer with the subversion repositories. If the user password expiered, the user will be locked automatically.");?>">
+				   			<select name="fLocked" <?php print $tDisabledAdmin;?> title="<?php print _("A locked user can not work any longer with the subversion repositories. If the user password expiered, the user will be locked automatically.");?>">
 				   				<?php
 				   					if( $tLocked == 0 ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
@@ -142,7 +142,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Administrator").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fAdministrator" title="<?php print _("An administrator has more privileges as a normal user. Administrators have a stronger password policy as normal users.");?>">
+				   			<select name="fAdministrator" <?php print $tDisabledAdmin;?> title="<?php print _("An administrator has more privileges as a normal user. Administrators have a stronger password policy as normal users.");?>">
 				   				<?php
 				   					if( $tAdministrator == "n" ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='n' selected>"._("no")."</option>\n";
@@ -180,7 +180,7 @@
 				   		<td colspan="3"><strong><?php print _("Select global user rights"); ?></strong></td>
 				   	</tr>
 			   		<?php
-			   			
+			   						   			
 			   			foreach( $tRightsAvailable as $right ) {
 			   			
 			   				$id						= $right['id'];
@@ -190,13 +190,13 @@
 			   				print "\t\t\t\t\t\t\t\t".$right['right_name'].": ";
 			   				print "\t\t\t\t\t\t\t</strong></td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
-			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' $tDisabled title=\"".$right['description']."\">\n";
+			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' title=\"".$right['description']."\">\n";
 			   				
 			   				$tNone						= "selected";
 			   				$tRead						= "";
 			   				$tAdd						= "";
 			   				$tEdit						= "";
-			   				$tDelete					= "";   				
+			   				$tDelete					= "";   		
 			   					
 			   				if( isset($tRightsGranted[$id]) ) {
 			   					if(strtolower($tRightsGranted[$id]) == "read") {
@@ -204,7 +204,7 @@
 			   						$tRead				= "selected";
 			   						$tAdd				= "";
 			   						$tEdit				= "";
-			   						$tDelete			= "";
+			   						$tDelete			= "";  
 			   					} elseif(strtolower($tRightsGranted[$id]) == "add" ) {
 			   						$tNone				= "";
 			   						$tRead				= "";
@@ -228,24 +228,28 @@
 			   				
 			   							   				
 			   				print "\t\t\t\t\t\t\t\t\t<option value='none' ".$tNone.">"._("none")."</option>\n";
-			   				if( ($right['allowed_action'] == "read") or 
-			   					($right['allowed_action'] == "add") or
-			   					($right['allowed_action'] == "edit") or 
-			   					($right['allowed_action'] == "delete")) {
+			   				if( (($right['allowed_action'] == "read") 		or 
+			   					 ($right['allowed_action'] == "add") 		or
+			   					 ($right['allowed_action'] == "edit") 		or 
+			   					 ($right['allowed_action'] == "delete"))	
+			   				  ) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='read' ".$tRead.">"._("read")."</option>\n";
 			   				}
-			   				if( ($right['allowed_action'] == "add" ) or
-			   				    ($right['allowed_action'] == "edit") or
-			   					($right['allowed_action'] == "delete") ) {
+			   				if( (($right['allowed_action'] == "add" ) 		or
+			   				     ($right['allowed_action'] == "edit") 		or
+			   					 ($right['allowed_action'] == "delete"))	
+			   				  ) {
 			   					print "\t\t\t\t\t\t\t\t\t<option value='add' ".$tAdd.">"._("add")."</option>\n";
 			   				}
-			   				if( ($right['allowed_action'] == "edit") or
-			   					($right['allowed_action'] == "delete") ) {
+			   				if( (($right['allowed_action'] == "edit") 		or
+			   					 ($right['allowed_action'] == "delete"))	
+			   				   ) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='edit' ".$tEdit.">"._("edit")."</option>\n";
 			   				}
-			   				if( $right['allowed_action'] == "delete" ) {
+			   				if( ($right['allowed_action'] == "delete")		
+			   				  ) {
 			   				
 			   					print "\t\t\t\t\t\t\t\t\t<option value='delete' ".$tDelete.">"._("delete")."</option>\n";
 			   				}
