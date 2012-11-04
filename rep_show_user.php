@@ -201,6 +201,7 @@ $_SESSION['svn_sessid']['helptopic']		= "repshowuser";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use rep_show_user without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

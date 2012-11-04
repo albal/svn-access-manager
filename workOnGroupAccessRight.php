@@ -59,6 +59,7 @@ $_SESSION['svn_sessid']['helptopic']			= "workongroupaccessright";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use workOnGroupAccessRight without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
@@ -107,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( ($rightAllowed == "add") and ($tTask != "new") ) {
 	
+		db_log( $SESSID_USERNAME, "tried to use workOnGroupAccessRight without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

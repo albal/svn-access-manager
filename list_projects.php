@@ -101,6 +101,7 @@ $_SESSION['svn_sessid']['helptopic']		= "listprojects";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use list_projects without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

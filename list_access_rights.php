@@ -239,6 +239,7 @@ if( $rightAllowed == "none" ) {
 		
 	} else {
 		
+		db_log( $SESSID_USERNAME, "tried to use list_access_rights without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

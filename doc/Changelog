@@ -2,8 +2,17 @@ Change Log
 ==========
 
 
+Release 0.5.5.17
+	- feature request ID: 
+	  add userid to groupadmin search
+	  
+	- Feature request ID:
+	  show only groups an user may work with in search results
+	 
+	- write permission violations to log
+	 
 Release 0.5.5.16
-	- Feature request ID: ID: 3582680
+	- Feature request ID: 3582680
 	  allow every user a "show my permissions" report
 	  added a permission overview to the general view
 	  

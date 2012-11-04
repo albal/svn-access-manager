@@ -44,6 +44,7 @@ $callback                                                               = isset(
 $maxRows                                                                = isset( $_GET['maxRows'] )             ? ( $_GET['maxRows'] )              : 10;
 $filter                                                                 = isset( $_GET['name_startsWith'] )     ? ( $_GET['name_startsWith'] )  	: "";
 $db                                                                     = isset( $_GET['db'] )              	? ( $_GET['db'] )                   : "";
+$userid																	= isset( $_GET['userid'] )				? ( $_GET['userid'] )				: "";
 $tArray                                                                 = array();
 
 list($ret, $SESSID_USERNAME)            								= check_session_status();
@@ -84,13 +85,56 @@ if( $ret == 0 ) {
 } elseif( strtolower($db) == "groups" ) {
 	
 	$dbh																= db_connect();
+	$rightAllowed														= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
+	$tGroupsAllowed														= array();
 	$schema																= db_determine_schema();
-	$query																= "SELECT id, groupname " .
+	
+	if( $rightAllowed == "none" ) {
+	
+		$tGroupsAllowed													= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
+		if(count($tGroupsAllowed) == 0 ) {
+			$groupAdmin													= 2;
+		} else {
+			$groupAdmin													= 1;
+		}
+		
+	} else {
+		$groupAdmin														= 2;
+	}
+	
+	if( $groupAdmin == 1 ) {
+		
+		$grouplist														= "";
+		
+		foreach( $tGroupsAllowed as $groupid => $right ) {
+
+			if( $grouplist == "" ) {
+				$grouplist												= "'".$groupid."'";
+			} else {
+				$grouplist 												.= ",'".$groupid."'";
+			}
+		}
+		
+		$grouplist														= "(".$grouplist.")";
+		
+		$query															= "SELECT  * " .
+																		  "  FROM ".$schema."svngroups " .
+																		  " WHERE (deleted = '00000000000000') " .
+																		  "   AND ((groupname like '%$filter%') ".
+																		  "    OR (description like '%$filter%')) ".
+																		  "   AND (id in $grouplist) " .
+																		  "ORDER BY groupname ASC ";
+											
+	} else {
+		
+		$query															= "SELECT id, groupname " .
 																		  "  FROM ".$schema."svngroups " .
 																		  " WHERE ((groupname like '%$filter%') ".
 																		  "    OR (description like '%$filter%')) ".
 																		  "   AND (deleted = '00000000000000') ".
 																		  "ORDER BY groupname ASC";
+	}
+	
 	$result																= db_query( $query, $dbh );
 	while( $row = db_assoc( $result['result'] ) ) {
 		
@@ -150,7 +194,7 @@ if( $ret == 0 ) {
 	
 	$dbh																= db_connect();
 	$schema																= db_determine_schema();
-	$query																= "SELECT svnusers.name, svnusers.givenname, svn_groups_responsible.id ".
+	$query																= "SELECT svnusers.name, svnusers.givenname, svn_groups_responsible.id, svnusers.userid ".
     											  						  "  FROM ".$schema."svn_groups_responsible,".$schema."svnusers, ".$schema."svngroups ".
     											  						  " WHERE (svn_groups_responsible.user_id = svnusers.id) " .
     											  						  "   AND (svnusers.deleted = '00000000000000') ".
@@ -159,6 +203,7 @@ if( $ret == 0 ) {
     											  						  "   AND (svngroups.deleted = '00000000000000') ". 
     											  						  "   AND ((svnusers.name like '%$filter%') ".
     											  						  "    OR  (svnusers.givenname like '%$filter%') ".
+    											  						  "    OR  (svnusers.userid like '%$filter%') ".
     											  						  "    OR  (svngroups.groupname like '%$filter%') ".
     											  						  "    OR  (svngroups.description like '%$filter%')) ".    											  						  
     											  						  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";

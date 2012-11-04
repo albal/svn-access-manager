@@ -54,6 +54,7 @@ if( $rightAllowed != "delete" ) {
 		
 	} else {
 		
+		db_log( $SESSID_USERNAME, "tried to use deleteAccessRight without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

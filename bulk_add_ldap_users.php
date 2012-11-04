@@ -50,7 +50,7 @@ $_SESSION['svn_sessid']['helptopic']		= "bulkaddldapusers";
 $tDisabled									= "";
 
 if( $rightAllowed == "none" ) {
-	
+	db_log( $SESSID_USERNAME, "tried to use bulk_add_ldap_users without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

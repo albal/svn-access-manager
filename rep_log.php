@@ -94,6 +94,7 @@ $_SESSION['svn_sessid']['helptopic']		= "replog";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use rep_log without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

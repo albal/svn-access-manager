@@ -51,6 +51,7 @@ $_SESSION['svn_sessid']['helptopic']		= "createacessfiles";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use createAccessFiles without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
