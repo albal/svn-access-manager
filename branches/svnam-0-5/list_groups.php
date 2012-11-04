@@ -221,6 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         } else {
     	
     		$tArray								= array();
+    		$schema								= db_determine_schema();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svngroups ".
     											  " WHERE ((groupname like '%$tSearch%') ".
