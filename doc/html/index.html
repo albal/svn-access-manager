@@ -61,38 +61,40 @@
 	
 	<a href="#getstart">2. Getting started</a>
 		<blockquote>
-		<a href="#inst_getsoftware">2.1 Download the Software</a><br />
+		      <a href="#inst_getsoftware">2.1 Download the Software</a><br />
 		
-		<a href="#inst_proc">2.2 Installation procedure</a>
-			<blockquote>
-			<a href="#inst_download">2.2.1 Install the software</a><br />
+		      <a href="#inst_proc">2.2 Installation procedure</a>
+			 <blockquote>
+			     <a href="#inst_download">2.2.1 Install the software</a><br />
 			
-			<a href="#inst_web server">2.2.2 Setup the Apache web server</a><br />
-				<blockquote>
-				<a href="#inst_web_general">2.2.2.1 General</a><br />
-				<a href="#inst_web_viewvc">2.2.2.2 ViewVC</a><br />
-				</blockquote>
+			     <a href="#inst_web server">2.2.2 Setup the Apache web server</a><br />
+				        <blockquote>
+				            <a href="#inst_web_general">2.2.2.1 General</a><br />
+				            <a href="#inst_web_viewvc">2.2.2.2 ViewVC</a><br />
+				        </blockquote>
 				
-			<a href="#inst_db">2.2.3 Setup a MySQL database and a database user</a><br />
+			     <a href="#inst_db">2.2.3 Setup a MySQL database and a database user</a><br />
 
-            <a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
+                <a href="#inst_dbother">2.2.4 Setup a PostgreSQL or Oracle database</a><br />
 			
-			<a href="#inst_installer">2.2.5 Using the installer</a><br />
-				<blockquote>
-				<a href="#inst_instructions">2.2.5.1 Instructions</a><br />
-                		<a href="#inst_dbsettings">2.2.5.2 Database settings</a><br />
-				<a href="#inst_ldap_settings">2.2.5.3 LDAP settings</a><br />
-                		<a href="#inst_website_settings">2.2.5.4 Website settings</a><br />
-				<a href="#inst_adminaccount">2.2.5.5 Administrator account</a><br />
-				<a href="#inst_web server_settings">2.2.5.6 Web server settings</a><br />
-				<a href="#inst_misc_settings">2.2.5.7 Miscellaneous settings</a><br />
-				<a href="#inst_errors">2.2.5.7 Installation errors</a>
-				</blockquote>
-			</blockqoute>
+			    <a href="#inst_installer">2.2.5 Using the installer</a><br />
+				        <blockquote>
+				            <a href="#inst_instructions">2.2.5.1 Instructions</a><br />
+                		    <a href="#inst_dbsettings">2.2.5.2 Database settings</a><br />
+				            <a href="#inst_ldap_settings">2.2.5.3 LDAP settings</a><br />
+                		    <a href="#inst_website_settings">2.2.5.4 Website settings</a><br />
+				            <a href="#inst_adminaccount">2.2.5.5 Administrator account</a><br />
+				            <a href="#inst_web server_settings">2.2.5.6 Web server settings</a><br />
+				            <a href="#inst_misc_settings">2.2.5.7 Miscellaneous settings</a><br />
+				            <a href="#inst_errors">2.2.5.7 Installation errors</a><br />
+				    </blockquote>
+
+                <a href=#selinux>2.2.6 SELinux</a><br />
+			 </blockquote>
 			
-		<a href="#inst_start">2.3 First steps after installation</a>
+            <a href="#inst_start">2.3 First steps after installation</a><br/>
 		</blockquote>
-		
+        
 	<a href="#use">3. Using SVN Access Manager</a>
 		<blockquote>
 		<a href="#use_myaccount">3.1 My account menu</a>
@@ -107,11 +109,12 @@
 			<blockquote>
 			<a href="#use_users">3.2.1 Users</a><br />
 			<a href="#use_groups">3.2.2 Groups</a><br />
-			<a href="#use_groups">3.2.3 Repositories</a><br />
-			<a href="#use_groups">3.2.4 Projects</a><br />
-			<a href="#use_groups">3.2.5 Repository access rights</a><br />
-			<a href="#use_groups">3.2.6 Create access files</a><br />
-			<a href="#group_admin">3.2.7 Group administrators</a>
+			<a href="#use_repos">3.2.3 Repositories</a><br />
+			<a href="#use_prjects">3.2.4 Projects</a><br />
+			<a href="#use_repo_access">3.2.5 Repository access rights</a><br />
+			<a href="#use_create_access">3.2.6 Create access files</a><br />
+			<a href="#group_admin">3.2.7 Group administrators</a><br />
+            <a href="#bulk_ldap_add">3.2.8 Bulk add LDAP Users</a>
 			</blockquote>
 			
 		<a href="#use_reports">3.3 Reports menu</a>
@@ -120,8 +123,9 @@
 			<a href="#use_rep_log">3.3.2 Log</a><br />
 			<a href="#use_rep_locked_user">3.3.3 Locked users</a><br />
 			<a href="#use_rep_user_rights">3.3.4 Granted user rights</a><br />
-			<a href="#rep_show_user">3.3.5 Show user report</a>
-			</blockquote>
+			<a href="#rep_show_user">3.3.5 Show user report</a><br />
+            <a href="#rep_show_group">3.3.6 Show group report</a>
+            </blockquote>
 			
 		</blockquote>
 		
@@ -191,29 +195,40 @@ testproject3
 	<li>a working subversion installation</li>
 	<li>a MySQL Database, version 4 or higher, a PostgreSQL 8 or higher database or an Oracle 10g or higher database</li>
 	<li>an Apache web server, version 2.0 or higher with DAV, mod_authz and SVN support</li>
-	<li>PHP version 4 or higher with working oci8 support if using Oracle database</li>
+	<li>PHP version 5.2 or higher with working oci8 support if using Oracle database</li>
 </ul>
 </p>
 <p>If you need support installing and configuring Oracle oci8 driver for PHP, please refer to the <a href="http://www.php.net/manual/en/oci8.installation.php" target="_blank">PHP documentation</a>.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_getsoftware">2.1 Download the software</a></h3>
-<p>First download the source archive from <a href="http://sourceforge.net/project/showfiles.php?group_id=226213">sourceforge.net</a>. SVN Access Manager is available as bzip2 and gzip compressed archive and as zip archive as well.</p>
+<p>First download the source archive from <a href="http://sourceforge.net/project/showfiles.php?group_id=226213">sourceforge.net</a>. SVN Access Manager is available as bzip2, gzip compressed archive, as zip archive and as RPM packages as well.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h3><a name="inst_proc">2.2 Installation procedure</a></h3>
 <p>The installation is divided up in several parts. Just follow the instructions below.</p>
-<p>For the installation description it is assumed that SVN Access Manager ist installed to <em>/home/svnacessmanager</em>, the web server is accessed as <em>localhost</em> and the Subversion Repository and the MySQL database are on the same host. The directory containing the repositories is assumed as <em>/svn/repos</em>. The files needed for authentication and authorization are assumed in <em>/etc/svn</em>.</p>
-<p>The configuration file for SVN Access Manager will be placed in <em>/etc/svn-access-manager</em> directory. Please make sure that your webserver has enough rights to wirte the configuration into this directory.</p>
+<p>For the installation description it is assumed that SVN Access Manager ist installed to <em>/usr/share/svn-access-manager</em>, the web server is accessed as <em>localhost</em> and the Subversion Repository and the MySQL database are on the same host. The directory containing the repositories is assumed as <em>/svn/repos</em>. The files needed for authentication and authorization are assumed in <em>/etc/svn</em>. </p>
+<p>The configuration file for SVN Access Manager will be placed in <em>/etc/svn-access-manager</em> directory. Please make sure that your webserver has enough rights to wirte the configuration into this directory. This installation description assumes that the webserver user is the user <em>apache</em> with the group <em>apache</em>.</p>
 <p>Please make sure that in your <em>php.ini</em> file the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!</p>
 <p><a href="#top">Back to top</a></p>
 
 <h4><a name="inst_download">2.2.1 Install the software</a></h4>
 <p>Go to a directory where the software can be accessed by your Apache web server. Unpack the archive. For our example do the following:</p>
 <pre>
-# cd /home/svnaccessmanager
+# mkdir /etc/svn
+# mkdir /etc/svn-access-manager
+# mkdir /usr/share/svn-access-manager
+# chown apache:apache /etc/svn /etc/svn-access-manager
+# cd /usr/share/svn-access-manager
 # tar -xvfz svnaccessmanager-0.5.0.0.tar.gz
 </pre>
+<p>For RPM based systems it is recommended to use the RPM packages for installation.</p>
+<p>If you have SElinux running in enforcing mode you have to use the SELinux context for SVN Access Manager. You will find the files in the "doc" folder. The contect assumes that you will install the configuration file to /etc/svn-access-manager and the repository access files to /etc/svn. If you want to allow repository creation directly from SVN Access Manager you must extend the SElinux context accordingly to allow the webserver user to do so.</p>
+<p>To install the SELinux module just do the following:</p>
+<pre>
+# semodule -i svnaccessmanager.pp
+</pre>
+<p>You must ensure that the software ist installed directly into the directory <em>/usr/share/svn-access-manager</em>. Otherwise you have to create your own SELinux module.</p>
 <p>Proceed with setting up the Apache web server described in the next step.</p>
 <p><a href="#top">Back to top</a></p>
 
@@ -221,7 +236,7 @@ testproject3
 <h5><a name="inst_web_general">2.2.2.1 General web server setup</a></h5>
 <p>Your Apache web server must know about the SVN Access Manager if it is not installed in the DocumentRoot of your web server. In the latter case you can include a line similar to this in your web server configuration:</p>
 <pre>
-Alias /svnaccessmanager /home/svnaccessmanager/svn_access_manager
+Alias /svnaccessmanager /usr/share/svn-access-manager/svn_access_manager
 </pre>
 <p>To get user authentication and authorization work you have to add DAV support to your web server and configure it accordingly. You can use a configuration similar to this:</p>
 <pre>
@@ -371,7 +386,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_instructions">2.2.5.1 Instructions</a></h5>
 <table width="100%" border="0">
 	<tr valign="top">
-		<td><a href="images/installer_new_part1.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part1.png" width="150" height="106" /></a></td>
+		<td><a href="images/installer_part1.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part1.png" width="150" height="106" /></a></td>
 		<td><p>The installation instructions inform you about the installation process and about of missing settings in the php.ini file.</p></td>
 	</tr>
 </table>
@@ -380,7 +395,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_dbsettings">2.2.5.2 Database settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part2.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part2.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part2.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part2.png" width="150" height="106" /></a></td>
         <td>
             <p>The installer can create the database tables during installation. You can select if you want to drop already existing tables or not. The database user you want to use must have sufficient rights to do this. Please make sure that the user has the rights to create and drop tables and create and drop indices.</p>
         </td>
@@ -392,14 +407,16 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_ldap_settings">2.2.5.3 LDAP settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part3.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part3.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part3.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part3.png" width="150" height="106" /></a></td>
         <td>
             <p>SVN Access Manager can use an external LDAP directory for authentication of users. Please fill in the values to connect to the LDAP server and specify the attribute mapping if necessray.</p>
 	    <p>You have to fill in the values neeeded. Keep in mind that the attribute mappings are not checked during installation. You will get a lot of ugly warnings if the mappings will not match your LDAP.</p>
         </td>
     </tr>
 </table>
-<p>Using LDAP will change the behaviour of SVN Access Manager. You will not be able to add users with your own uswernames. The users will be fetched from the LDAP directory and you can only add the users to SVN Access manager to give the users the chance to work with your subversion repository.</p>
+<p>You can change the sort order of LDAP users by setting the values for <b>LDAP User sort attribute</b> and <b>LDAP user sort order</b>.</p>
+<p>LDAP bind with user login data changes the behaviour for Active Directory users. LDAP bind will be done with the user credentials. If you say 'Yes' here you must fill in the LDAP Bind Dn Suffix too.</p>
+<p>Using LDAP will change the behaviour of SVN Access Manager. You will not be able to add users with your own uswernames. The users will be fetched from the LDAP directory and you can only add the users to SVN Access Manager to give the users the chance to work with your subversion repository.</p>
 <p class="notice"><strong><u>Impoartant notice:</u></strong><br/>The admin user you choose must exist in the LDAP directory you connect to. Otherwise you will not be able to login to SVN Access Manager!</p>
 <p>You will have to setup your Webserver to work with LDAP authorization. After installation on the result page a sample configuration for Apache webserver will be shown depending on your input.</p>
 <p><a href="#top">Back to top</a></p>
@@ -407,7 +424,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_website_settings">2.2.5.4 Website settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part4.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part4.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part4.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part4.png" width="150" height="106" /></a></td>
         <td>
             <p>On this page you can set the website characterset. This characterset must be compatible with the database characterset. You can also enter the sender for lost password notification mails and the duration a link to reset the password is valid.</p>
         </td>
@@ -418,7 +435,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_adminaccount">2.2.3.5 Administrator account</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part5.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part5.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part5.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part5.png" width="150" height="106" /></a></td>
         <td>
             <p>After a successful installation you need a user to administer SVN Access Manager. This user has all rights within SVN Access Manager. So be careful what password you use. By default the password must consist of lower case letters, upper case letters, digits and special characters. It must have 14 characters at least.</p>
         </td>
@@ -429,12 +446,14 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_web server_settings">2.2.5.6 Web server settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part6.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part6.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part6.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part6.png" width="150" height="106" /></a></td>
         <td>
             <p>In the web server section you can decide whether you want to use SVN access control and Apache user authentication. If you want to use the different restrictions you must specify the filenames where to store the generated files. Please keep in mind that the web server user must be able to write the files!</p>
         </td>
     </tr>
 </table>
+<p><b>SVN access file sort order</b> makes it possible to change the sort order of the pathes in the access file.</p>
+<p><b>Anonymous read access</b> creates an entry in the SVN Access File letting anonymous users reay a repository.</p>
 <p>To use the ViewVC restrictions you must select to create the configuration files, specify the directory where to write the configuration files, enter the alias you use for ViewVC in the web server and give a command which enables the web server to restart itself. You can find detailed explanations about the setup of the ViewVC restrictions <a href="#inst_web_viewvc">here</a>. You can find information about ViewVC on the <a href="http://www.viewvc.org/" target="_blank">ViewVC Homepage</a>.</p>
 <p>SVN Access Manager makes use of the <em>svn</em> and the <em>grep</em> commands. Please check the installer's suggestions and correct them if necessary.</p>
 <p><a href="#top">Back to top</a></p>
@@ -442,7 +461,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <h5><a name="inst_misc_settings">2.2.5.7 Miscellaneous settings</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part7.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part7.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part7.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part7.png" width="150" height="106" /></a></td>
         <td>
             <p>In this section you can decide if you want to use JavaScript or not. JavaScript is needed to make the directory selections easier because you can select a directory the one click.</p>
             <p>SVN Access Manager can do logging. Every action will be logged into a database table and a report will be available.</p>
@@ -452,12 +471,14 @@ http(s)://localhost/svnaccessmanager/install/install.php
 <p>The <em>Page size</em> sets the default value of how many records will be displayed on a screen. This value can be overwritten by the preferences each user can set.</p>
 <p>The password length fields set the minimal length for user and administrator passwords. It is strongly recommended to have strong and long enough passwords. Please keep in mind that a repository which has weak user and administrator passwords can easily be accessed by a malicious user.</p>
 <p>You can use crypt or md5 to crypt the passwords. You can switch the configutation at every time by changing the setting in the <em>config.inc.php</em> file. The passwords are stored encrypted in the database. Once an user changes his password it will be encrypted with the new algorithm.</p>
+<p>The user default access right is the default walue which will be shown during creation of an user.</p>
+<p>You can setup up to thee custom fields for users e. g. phone number, fax number. These fields will only show up when you set custom field names here.</p>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_errors">2.2.3.8 Installation errors</a></h5>
+<h5><a name="inst_errors">2.2.5.8 Installation errors</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
-        <td><a href="images/installer_new_part8.png" type="image/png" target="_blank"><img src="images/thumbs/installer_new_part8.png" width="150" height="106" /></a></td>
+        <td><a href="images/installer_part8.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part8.png" width="150" height="106" /></a></td>
         <td>
             <p>This page shows you all errors found during installation.</p>
         </td>
@@ -539,6 +560,8 @@ need the help of an administrator to recover a lost password.</p>
 </table>
 <p>The <em>Repository user right</em> determines if a user has write access to repositories. If you specify read here you can not give the user write access to any repository in the defined projects!</p>
 <p>The global user rights determine what the user is allowed to do. The right can be <em>none</em>, <em>read</em>, <em>edit</em> or <em>delete</em>. Higher rights also include the lower rights. E. g. the delete right includes edit and read.</p>
+<p>If you have been granted subadministration rights you are not allowed to edit all fields of an user. And you are never allowed to grant higher permissions than the pemission your user has. E. g. if your user has the right to add users you will only be allowed to create users with the privilege 'add'.</p>
+<p>With subadministration rights you may be allowed to edit your own user. Be careful in lowering your own rights. You will need an administrator with more rights to give you the rights back!</p>
 <p><a href="#top">Back to top</a></p>
 
 <h4><a name="use_groups">3.2.2 Groups</a></h4>
@@ -564,7 +587,7 @@ need the help of an administrator to recover a lost password.</p>
 <p><a href="#top">Back to top</a></p>
 
 
-<h4><a name="use_groups">3.2.3 Repositories</a></h4>
+<h4><a name="use_repos">3.2.3 Repositories</a></h4>
 <p>Here you define the repositories you want to administer. Please keep in mind that removing a repository removes it only from the database.</p>
 <table width="100%" border="0">
 	<tr valign="top">
@@ -589,7 +612,7 @@ need the help of an administrator to recover a lost password.</p>
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h4><a name="use_groups">3.2.4 Projects</a></h4>
+<h4><a name="use_projects">3.2.4 Projects</a></h4>
 <table width="100%" border="0">
 	<tr valign="top">
 		<td><a href="images/project_admin_overview.png" target="_blank"><img src="images/thumbs/project_admin_overview.png" width="150" height="106" /></a></td>
@@ -613,7 +636,7 @@ need the help of an administrator to recover a lost password.</p>
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h4><a name="use_groups">3.2.5 Repository access rights</a></h4>
+<h4><a name="use_repo_access">3.2.5 Repository access rights</a></h4>
 <p>Subversion grants access rights recursively. That means that creating access rights to repositories is not as complex as it seams.
 
 Let's have a small example.</p>
@@ -680,7 +703,7 @@ B =
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h4><a name="use_groups">3.2.6 Create access files</a></h4>
+<h4><a name="use_create_access">3.2.6 Create access files</a></h4>
 <p>You can create the access files you selected during installation. If you decided not to use any access files this menu item does not show up.</p>
 <p>Before the access files are created you must confirm to do so.</p>
 <p><a href="#top">Back to top</a></p>
@@ -709,6 +732,15 @@ B =
 <p>The global user rights determine what the user is allowed to do. The right can be <em>none</em>, <em>read</em>, <em>edit</em> or <em>delete</em>. Higher rights also include the lower rights. E. g. the delete right includes edit and read.</p>
 <p><a href="#top">Back to top</a></p>
 
+<h4><a name="#bulk_ldap_add">3.2.8 Bulk add LDAP users</a></h4>
+<table width="100%" border="0">
+    <tr valign="top">
+        <td><a href="images/bulk_add_ldap_users.png" target="_blank"><img src="images/thumbs/bulk_add_ldap_users.png" width="150" height="106" /></a></td>
+        <td valign="top"><p>The bulk add LDAP users screen shows you all users from your LDAP which are currently not added to the database of SVN Access Manager. All users are shown selected to add them to the database. All users will get the same repository access right which can be set on top of the table.</p></td>
+	</tr>
+</table>
+<p><a href="#top">Back to top</a></p>
+
 <h3><a name="use_reports">3.3 Reports menu</a></h3>
 <p>Several reports are predefined. The idea behind the reports is to give an auditor access to the given access rights, the users and their rights and the log without having any permissions to administer SVN Access Manager.</p>
 <p><a href="#top">Back to top</a></p>
@@ -733,6 +765,10 @@ B =
 <p>The show user report gives an overview to which groups an user belogs and which access rights the user has. Rights that are gained though group memership are included too.</p>
 <p><a href="#top">Back to top</a></p>
 
+<h4><a name="rep_show_group">3.3.6 Show group report</a></h4>
+<p>The show group report gives an overview which access rights the group has. The members are listet as well as the group administrators.</p>
+<p><a href="#top">Back to top</a></p>
+
 <h2><a name="mailinglists">Mailinglists</a></h2>
 <p>There's a mailinglist called svn-access-manager-announce for announcements of new releases of SVN Access Manager. The list requires a subscription which can be 
    <a href="http://listen.asamnet.de/cgi-bin/mailman/listinfo/svn-access-manager-announce" target="_blank">done</a> here in the Mailman Web Interface.</p>
@@ -740,8 +776,9 @@ B =
 <p><a href="#top">Back to top</a></p>
 
 <h2><a name="credits">Credits</a></h2>
-<p>SVN Access Manager uses JQuery, JQuery UI and the Aria Sort Tables.</p>
+<p>SVN Access Manager uses JQuery, JQuery UI, Chosen, a Select Box Enhancer and the Aria Sort Tables.</p>
 <p>Thanks to everyone for submitting feature requests, sending patches or submitting bugs.</p>
+<p>Special thanks to Maik, Tobias and Jan for a lot of testing and providing patches to fix some bugs.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h2><a name="license">License</a></h2>
