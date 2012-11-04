@@ -337,7 +337,7 @@ ln -s /etc/apache2/sites-available/viewvc viewvc
 <pre>
 ln -s /etc/svn/viewvc-apache.conf viewvc-apache.conf
 </pre>
-<p>For automatic configuration reload of the web server you can define a sudu command like this:</p>
+<p>For automatic configuration reload of the web server you can define a sudo command like this:</p>
 <pre>
 www-data        ALL = NOPASSWD: /etc/init.d/apache2 graceful
 </pre>
@@ -432,7 +432,7 @@ http(s)://localhost/svnaccessmanager/install/install.php
 </table>
 <p><a href="#top">Back to top</a></p>
 
-<h5><a name="inst_adminaccount">2.2.3.5 Administrator account</a></h5>
+<h5><a name="inst_adminaccount">2.2.5.5 Administrator account</a></h5>
 <table width="100%" border="0">
     <tr valign="top">
         <td><a href="images/installer_part5.png" type="image/png" target="_blank"><img src="images/thumbs/installer_part5.png" width="150" height="106" /></a></td>
@@ -525,6 +525,7 @@ need the help of an administrator to recover a lost password.</p>
 
 <h4><a name="use_password">3.1.2 Password</a></h4>
 <p>To change your password type in your current password and the new password. To avoid typos you have to enter the new password twice. Your new password must fit the password policy to be accepted.</p>
+<p>Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords.</p>
 <p><a href="#top">Back to top</a></p>
 
 <h4><a name="use_password_policy">3.1.3 Password policy</a></h4>
