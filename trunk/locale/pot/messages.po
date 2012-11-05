@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-10-24 19:24+0100\n"
+"PO-Revision-Date: 2012-11-04 21:39+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -87,6 +87,11 @@ msgstr "SVN Modul"
 #: ../../workOnUser.php:462
 #: ../..//workOnUser.php:315
 #: ../..//workOnUser.php:462
+#: ../../workOnUser.php:327
+#: ../../workOnUser.php:535
+#: ../../general.php:266
+#: ../../workOnUser.php:335
+#: ../../workOnUser.php:541
 #, php-format
 msgid "%s is not a valid email address!"
 msgstr "%s ist keine g&uuml;ltige E-Mailadresse!"
@@ -1205,6 +1210,7 @@ msgstr "Ein Datenbankfehler ist aufgetreten:"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:290
 #: ../../workOnGroup.php:290
 #: ../..//workOnGroup.php:290
+#: ../../workOnGroup.php:293
 msgid "A group must have one member at least! Otherwise delete the whole group!"
 msgstr "Eine Gruppe braucht mindestens ein Mitglied! Ansonsten die Gruppe l&ouml;schen!"
 
@@ -1235,6 +1241,8 @@ msgstr "Ein gesperrter Benutzer kann nicht mehr mit den Subversion Repositories 
 #: ../..//workOnUser.php:276
 #: ../../workOnUser.php:280
 #: ../..//workOnUser.php:280
+#: ../../workOnUser.php:292
+#: ../../workOnUser.php:300
 msgid "A new user needs a password!"
 msgstr "Ein neuer Benutzer braucht ein Passwort!"
 
@@ -1255,6 +1263,8 @@ msgstr "Ein neuer Benutzer braucht ein Passwort!"
 #: ../..//workOnRepo.php:208
 #: ../..//workOnRepo.php:353
 #: ../../workOnRepo.php:365
+#: ../../workOnRepo.php:210
+#: ../../workOnRepo.php:367
 #, php-format
 msgid "A repository path must start with '/' after file:// like %s"
 msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
@@ -1275,6 +1285,8 @@ msgstr "aufsteigend"
 
 #: ../../templates/rep_show_user_result.tpl:88
 #: ../..//templates/rep_show_user_result.tpl:88
+#: ../../templates/general.tpl:146
+#: ../../templates/rep_show_user_result.tpl:95
 msgid "Access by"
 msgstr "Zugriff durch"
 
@@ -1316,6 +1328,7 @@ msgstr "Zugriffsschutz auf Ebene"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/output.inc.php:78
 #: ../../include/output.inc.php:78
 #: ../..//include/output.inc.php:78
+#: ../../include/output.inc.php:80
 msgid "Access denied"
 msgstr "Zugriff verweigert"
 
@@ -1428,6 +1441,8 @@ msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 #: ../../templates/rep_show_group_result.tpl:72
 #: ../..//templates/rep_show_group_result.tpl:46
 #: ../..//templates/rep_show_group_result.tpl:72
+#: ../../templates/general.tpl:145
+#: ../../templates/rep_show_user_result.tpl:94
 msgid "Access right"
 msgstr "Zugriffsrecht"
 
@@ -1485,6 +1500,9 @@ msgstr "Zugriffsreche verwaltung / Rechte l&ouml;schen"
 #: ../..//templates/rep_show_user_result.tpl:78
 #: ../../templates/rep_show_group_result.tpl:63
 #: ../..//templates/rep_show_group_result.tpl:63
+#: ../../templates/general.tpl:136
+#: ../../include/output.inc.php:100
+#: ../../templates/rep_show_user_result.tpl:85
 msgid "Access rights"
 msgstr "Zugriffsrechte"
 
@@ -1494,6 +1512,7 @@ msgstr "Zugriffsrechte"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/list_access_rights.tpl:2
 #: ../../templates/list_access_rights.tpl:2
 #: ../..//templates/list_access_rights.tpl:2
+#: ../../templates/searchresult_access_right.tpl:2
 msgid "Access rights administration"
 msgstr "Zugriffsrechte Verwaltung"
 
@@ -1562,6 +1581,8 @@ msgstr "Zugriffsrechte Verwaltung"
 #: ../../templates/searchresult_groupadmin.tpl:22
 #: ../../templates/list_group_admins.tpl:33
 #: ../../templates/bulk_add_ldap_users.tpl:8
+#: ../../templates/searchresult_access_right.tpl:34
+#: ../../templates/list_access_rights.tpl:46
 msgid "Action"
 msgstr "Aktion"
 
@@ -1696,6 +1717,12 @@ msgstr "Aktion"
 #: ../..//workOnProject.php:236
 #: ../..//workOnProject.php:250
 #: ../..//workOnProject.php:678
+#: ../../workOnGroup.php:209
+#: ../../workOnGroup.php:211
+#: ../../workOnGroup.php:533
+#: ../../workOnProject.php:238
+#: ../../workOnProject.php:252
+#: ../../workOnProject.php:680
 msgid "Add"
 msgstr "Hinzuf&uuml;gen"
 
@@ -1729,6 +1756,8 @@ msgstr "Hinzuf&uuml;gen"
 #: ../../workOnProject.php:343
 #: ../..//workOnProject.php:222
 #: ../..//workOnProject.php:343
+#: ../../workOnProject.php:224
+#: ../../workOnProject.php:345
 msgid "Add group"
 msgstr "Gruppe hinzuf&uuml;gen"
 
@@ -1788,6 +1817,9 @@ msgstr "Gruppenmitglied hinzuf&uuml;gen"
 #: ../..//workOnGroup.php:192
 #: ../..//workOnGroup.php:194
 #: ../..//workOnGroup.php:238
+#: ../../workOnGroup.php:195
+#: ../../workOnGroup.php:197
+#: ../../workOnGroup.php:241
 msgid "Add member"
 msgstr "Mitglied hinzuf&uuml;gen"
 
@@ -1852,6 +1884,8 @@ msgstr "Projektverantwortlichen hinzuf&uuml;gen"
 #: ../../workOnProject.php:305
 #: ../..//workOnProject.php:214
 #: ../..//workOnProject.php:305
+#: ../../workOnProject.php:216
+#: ../../workOnProject.php:307
 msgid "Add responsible"
 msgstr "Verantwortlichen hinzuf&uuml;gen"
 
@@ -2136,6 +2170,7 @@ msgstr "Name des Administrators"
 #: ../..//include/output.inc.php:152
 #: ../..//securityquestion.php:138
 #: ../..//templates/main.tpl:55
+#: ../../include/output.inc.php:154
 msgid "Administration"
 msgstr "Verwaltung"
 
@@ -2953,6 +2988,7 @@ msgstr "Antwort"
 
 #: ../..//templates/general.tpl:60
 #: ../../templates/general.tpl:60
+#: ../../templates/general.tpl:57
 msgid "Answer to the security question. The answer is case sensitive must be given exactly as written here."
 msgstr "Antwort auf die Sicherheitsabfrage. Bei der Antwort ist Gro&szlig;- und Kleinschreibung zu beachten."
 
@@ -4191,6 +4227,75 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../bulk_add_ldap_users.php:119
 #: ../../templates/workOnRepo.tpl:96
 #: ../../templates/bulk_add_ldap_users.tpl:83
+#: ../../workOnUser.php:250
+#: ../../workOnUser.php:254
+#: ../../workOnUser.php:261
+#: ../../general.php:233
+#: ../../general.php:237
+#: ../../general.php:306
+#: ../../templates/general.tpl:173
+#: ../../templates/workOnUser.tpl:271
+#: ../../list_repos.php:138
+#: ../../list_repos.php:142
+#: ../../list_repos.php:211
+#: ../../workOnUser.php:258
+#: ../../workOnUser.php:262
+#: ../../workOnUser.php:269
+#: ../../list_projects.php:142
+#: ../../list_projects.php:146
+#: ../../list_projects.php:213
+#: ../../list_group_admins.php:163
+#: ../../list_group_admins.php:167
+#: ../../list_group_admins.php:282
+#: ../../deleteAccessRight.php:221
+#: ../../deleteAccessRight.php:225
+#: ../../deleteAccessRight.php:274
+#: ../../workOnGroupAccessRight.php:208
+#: ../../workOnGroupAccessRight.php:217
+#: ../../deleteProject.php:162
+#: ../../deleteProject.php:166
+#: ../../deleteProject.php:235
+#: ../../selectProject.php:144
+#: ../../selectProject.php:148
+#: ../../selectProject.php:153
+#: ../../workOnGroup.php:189
+#: ../../workOnGroup.php:193
+#: ../../workOnGroup.php:527
+#: ../../deleteGroupAccessRight.php:129
+#: ../../deleteGroupAccessRight.php:133
+#: ../../deleteGroupAccessRight.php:170
+#: ../../workOnAccessRight.php:369
+#: ../../workOnAccessRight.php:373
+#: ../../workOnAccessRight.php:382
+#: ../../workOnProject.php:212
+#: ../../workOnProject.php:380
+#: ../../setAccessRight.php:271
+#: ../../setAccessRight.php:275
+#: ../../setAccessRight.php:317
+#: ../../list_users.php:144
+#: ../../list_users.php:148
+#: ../../list_users.php:220
+#: ../../workOnRepo.php:162
+#: ../../workOnRepo.php:166
+#: ../../workOnRepo.php:173
+#: ../../selectGroup.php:102
+#: ../../selectGroup.php:106
+#: ../../selectGroup.php:111
+#: ../../templates/searchresult_access_right.tpl:97
+#: ../../templates/list_access_rights.tpl:109
+#: ../../deleteGroup.php:155
+#: ../../deleteGroup.php:159
+#: ../../deleteGroup.php:257
+#: ../../list_groups.php:194
+#: ../../list_groups.php:198
+#: ../../list_groups.php:267
+#: ../../list_access_rights.php:419
+#: ../../deleteRepo.php:149
+#: ../../deleteRepo.php:153
+#: ../../deleteRepo.php:219
+#: ../../deleteUser.php:122
+#: ../../deleteUser.php:126
+#: ../../deleteUser.php:212
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4205,6 +4310,7 @@ msgstr "Basisverzeichnis"
 
 #: ../../include/output.inc.php:163
 #: ../../templates/bulk_add_ldap_users.tpl:3
+#: ../../include/output.inc.php:165
 msgid "Bulk add LDAP users"
 msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 
@@ -4234,6 +4340,7 @@ msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/list_access_rights.php:346
 #: ../../list_access_rights.php:346
 #: ../..//list_access_rights.php:346
+#: ../../list_access_rights.php:474
 #, php-format
 msgid "Can not delete access right with id %s"
 msgstr "Zugriffsrecht mit Id %s kann nicht gel&ouml;scht werden"
@@ -4591,6 +4698,12 @@ msgstr "Kann AuthUser Datei nicht schreiben"
 #: ../..//workOnProject.php:240
 #: ../..//workOnProject.php:254
 #: ../..//workOnProject.php:725
+#: ../../workOnGroup.php:213
+#: ../../workOnGroup.php:215
+#: ../../workOnGroup.php:578
+#: ../../workOnProject.php:242
+#: ../../workOnProject.php:256
+#: ../../workOnProject.php:727
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -5597,6 +5710,14 @@ msgstr "Kann nicht in %s schreiben"
 #: ../..//templates/list_users.tpl:92
 #: ../../templates/searchresult_groupadmin.tpl:33
 #: ../../templates/list_group_admins.tpl:44
+#: ../../templates/searchresult_access_right.tpl:53
+#: ../../templates/searchresult_access_right.tpl:56
+#: ../../templates/searchresult_access_right.tpl:59
+#: ../../templates/searchresult_access_right.tpl:60
+#: ../../templates/list_access_rights.tpl:65
+#: ../../templates/list_access_rights.tpl:68
+#: ../../templates/list_access_rights.tpl:71
+#: ../../templates/list_access_rights.tpl:72
 msgid "Change"
 msgstr "&Auml;ndern"
 
@@ -5673,6 +5794,9 @@ msgstr "Passwort &auml;ndern"
 #: ../..//workOnAccessRight.php:365
 #: ../..//workOnAccessRight.php:369
 #: ../..//workOnAccessRight.php:386
+#: ../../workOnAccessRight.php:367
+#: ../../workOnAccessRight.php:371
+#: ../../workOnAccessRight.php:388
 msgid "Change to directory"
 msgstr "Verzeichnis wechseln"
 
@@ -5690,6 +5814,7 @@ msgstr "Verzeichnis wechseln"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/general.php:164
 #: ../../general.php:164
 #: ../..//general.php:164
+#: ../../general.php:297
 msgid "Changed data successfully"
 msgstr "Daten erfolgreich ge&auml;ndert"
 
@@ -5950,6 +6075,7 @@ msgstr "ViewVC Konfiguration erzeugen"
 #: ../..//include/output.inc.php:194
 #: ../..//templates/main.tpl:129
 #: ../../include/output.inc.php:200
+#: ../../include/output.inc.php:202
 msgid "Create access files"
 msgstr "Zugriffsdateien erstellen"
 
@@ -6197,6 +6323,17 @@ msgstr "Zugriffsdateien pro Repository erzeugen"
 #: ../..//rep_show_user.php:229
 #: ../..//rep_show_user.php:234
 #: ../..//templates/rep_show_group.tpl:30
+#: ../../rep_show_user.php:233
+#: ../../rep_show_user.php:235
+#: ../../rep_show_user.php:240
+#: ../../rep_show_group.php:197
+#: ../../rep_show_group.php:199
+#: ../../rep_show_group.php:204
+#: ../../rep_show_user.php:236
+#: ../../rep_show_user.php:241
+#: ../../rep_access_rights.php:196
+#: ../../rep_access_rights.php:198
+#: ../../rep_access_rights.php:203
 msgid "Create report"
 msgstr "Bericht erstellen"
 
@@ -6354,6 +6491,7 @@ msgstr "absteigend"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/general.php:169
 #: ../../general.php:169
 #: ../..//general.php:169
+#: ../../general.php:302
 msgid "Data not changed due to database errors"
 msgstr "Daten aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
@@ -6610,6 +6748,7 @@ msgstr "Datenbank Sortierfolge fehlt!"
 #: ../..//include/output.inc.php:82
 #: ../..//templates/database_error.tpl:5
 #: ../..//templates/database_error_install.tpl:43
+#: ../../include/output.inc.php:84
 msgid "Database error"
 msgstr "Datenbank Fehler"
 
@@ -7605,6 +7744,28 @@ msgstr "Standardwert f&uuml; Passwortablauf"
 #: ../..//templates/list_users.tpl:99
 #: ../../templates/searchresult_groupadmin.tpl:41
 #: ../../templates/list_group_admins.tpl:52
+#: ../../deleteAccessRight.php:219
+#: ../../deleteAccessRight.php:223
+#: ../../deleteAccessRight.php:232
+#: ../../deleteProject.php:160
+#: ../../deleteProject.php:164
+#: ../../deleteProject.php:173
+#: ../../deleteGroupAccessRight.php:127
+#: ../../deleteGroupAccessRight.php:131
+#: ../../deleteGroupAccessRight.php:140
+#: ../../templates/searchresult_access_right.tpl:56
+#: ../../templates/searchresult_access_right.tpl:60
+#: ../../templates/list_access_rights.tpl:68
+#: ../../templates/list_access_rights.tpl:72
+#: ../../deleteGroup.php:153
+#: ../../deleteGroup.php:157
+#: ../../deleteGroup.php:166
+#: ../../deleteRepo.php:147
+#: ../../deleteRepo.php:151
+#: ../../deleteRepo.php:160
+#: ../../deleteUser.php:120
+#: ../../deleteUser.php:124
+#: ../../deleteUser.php:131
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -7652,6 +7813,7 @@ msgstr "L&ouml;schen von %s fehlgeschlagen!"
 #: ../../workOnProject.php:588
 #: ../../workOnProject.php:589
 #: ../..//workOnProject.php:589
+#: ../../workOnProject.php:591
 #, php-format
 msgid "Delete of svn_projects_responsible record with id %s failed"
 msgstr "L&ouml;schen des Projektverantwortlichen mit der Id %s fehlgeschlagen!"
@@ -7685,6 +7847,7 @@ msgstr "L&ouml;schen des Datensatzes svn_projects_responsiblep mit id %s fehlges
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:439
 #: ../../workOnGroup.php:439
 #: ../..//workOnGroup.php:439
+#: ../../workOnGroup.php:442
 #, php-format
 msgid "Delete of svn_users_group record with id %s failed"
 msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
@@ -7743,6 +7906,9 @@ msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
 #: ../..//list_access_rights.php:284
 #: ../..//list_access_rights.php:303
 #: ../..//templates/list_access_rights.tpl:95
+#: ../../templates/searchresult_access_right.tpl:96
+#: ../../templates/list_access_rights.tpl:108
+#: ../../list_access_rights.php:431
 msgid "Delete selected"
 msgstr "Ausgew&auml;hlte l&ouml;schen"
 
@@ -7772,6 +7938,8 @@ msgstr "Ausgew&auml;hlte l&ouml;schen"
 #: ../..//templates/rep_show_user_result.tpl:42
 #: ../../templates/rep_show_group_result.tpl:10
 #: ../..//templates/rep_show_group_result.tpl:10
+#: ../../templates/general.tpl:100
+#: ../../templates/rep_show_user_result.tpl:49
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -7809,6 +7977,10 @@ msgstr "Verzeichnisse"
 #: ../../templates/install-tabs.tpl:533
 msgid "Do a LDAP connection test."
 msgstr "LDAP Verbindung testen."
+
+#: ../../include/output.inc.php:45
+msgid "Documentation"
+msgstr "Dokumentation"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:76
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:73
@@ -7858,6 +8030,7 @@ msgstr "Vorhandene Datenbanktabellen l&ouml;schen"
 #: ../..//templates/list_users.tpl:30
 #: ../..//templates/searchresult_users.tpl:18
 #: ../../templates/bulk_add_ldap_users.tpl:20
+#: ../../templates/general.tpl:36
 msgid "Email"
 msgstr "E-Mail"
 
@@ -7902,6 +8075,8 @@ msgstr "E-Mailadresse"
 #: ../..//workOnUser.php:306
 #: ../../workOnUser.php:310
 #: ../..//workOnUser.php:310
+#: ../../workOnUser.php:322
+#: ../../workOnUser.php:330
 msgid "Email address is missing, please fill in!"
 msgstr "E-Mailadresse fehlt, bitte eingeben!"
 
@@ -7933,6 +8108,8 @@ msgstr "E-Mailadresse fehlt, bitte eingeben!"
 #: ../..//workOnUser.php:453
 #: ../../workOnUser.php:457
 #: ../..//workOnUser.php:457
+#: ../../workOnUser.php:530
+#: ../../workOnUser.php:536
 msgid "Emailaddress is missing, please fill in!"
 msgstr "E-Mailadresse fehlt, bitte eingeben!"
 
@@ -8402,6 +8579,7 @@ msgstr "Die E-Mailadresse des Administrators eingeben"
 #: ../..//templates/workOnUser.tpl:73
 #: ../../templates/general.tpl:42
 #: ../../templates/workOnUser.tpl:73
+#: ../../templates/general.tpl:39
 msgid "Enter the email address of the user. Please fill in a valid email address. Otherwise the user will not be able to receive notifications."
 msgstr "Geben Sie die Emailadresse des Benutzers ein. Bitte geben Sie eine g&uuml;ltige Emailadresse ein. Ansonsten wird der Benutzer keine Benachrichtigungen erhalten."
 
@@ -8691,6 +8869,7 @@ msgstr "Geben Sie den gesamten Pfad zu dem Verzeichnis ein, in das die ViewVC co
 #: ../..//templates/workOnUser.tpl:47
 #: ../../templates/general.tpl:24
 #: ../../templates/workOnUser.tpl:47
+#: ../../templates/general.tpl:21
 msgid "Enter the given name of the user."
 msgstr "Vorname des Benutzers eingeben."
 
@@ -8892,6 +9071,7 @@ msgstr "Name der Gruppe eingeben. Der Name Mus eindeutig sein."
 #: ../..//templates/workOnUser.tpl:40
 #: ../../templates/general.tpl:33
 #: ../../templates/workOnUser.tpl:40
+#: ../../templates/general.tpl:30
 msgid "Enter the name of the user."
 msgstr "Nachname des Benutzers eingeben."
 
@@ -9433,6 +9613,10 @@ msgstr "Fehler beim L&ouml;schen der tempor&auml;ren Konfig Datei"
 #: ../..//workOnGroupAccessRight.php:263
 #: ../..//workOnGroupAccessRight.php:343
 #: ../..//workOnProject.php:433
+#: ../../workOnGroupAccessRight.php:265
+#: ../../workOnGroupAccessRight.php:345
+#: ../../workOnProject.php:435
+#: ../../workOnRepo.php:247
 msgid "Error during database insert"
 msgstr "Fehler beim Einf&uuml;gen in die Datenbank"
 
@@ -9457,6 +9641,8 @@ msgstr "Fehler beim Einf&uuml;gen in die Datenbank"
 #: ../..//workOnUser.php:394
 #: ../../workOnUser.php:398
 #: ../..//workOnUser.php:398
+#: ../../workOnUser.php:471
+#: ../../workOnUser.php:477
 msgid "Error during database insert of user data"
 msgstr "Fehler beim Einf&uuml;gen der Benutzerdaten in die Datenbank"
 
@@ -9502,6 +9688,10 @@ msgstr "Fehler beim Einf&uuml;gen der Benutzerdaten in die Datenbank"
 #: ../../workOnUser.php:551
 #: ../..//workOnUser.php:386
 #: ../..//workOnUser.php:551
+#: ../../workOnUser.php:459
+#: ../../workOnUser.php:685
+#: ../../workOnUser.php:465
+#: ../../workOnUser.php:689
 msgid "Error during database write of user rights"
 msgstr "Fehler beim Schreiben der Benutzerdaten in die Datenbank"
 
@@ -9677,6 +9867,7 @@ msgstr "Fehler beim Einf&uuml;gen der Benutzerrechte des Administrators: %s"
 #: ../..//workOnAccessRight.php:219
 #: ../../workOnAccessRight.php:227
 #: ../..//workOnAccessRight.php:227
+#: ../../workOnAccessRight.php:229
 #, php-format
 msgid "Error while accessing svn repository: %s (%s / retcode = %s)"
 msgstr "Fehler beim Zugriff auf das Subversion Repository: %s (%s / retcode = %s)"
@@ -9744,6 +9935,8 @@ msgstr "Fehler beim Zugriff auf das Subversion Repository: %s (%s/%s)"
 #: ../../setAccessRight.php:583
 #: ../..//setAccessRight.php:539
 #: ../..//setAccessRight.php:583
+#: ../../setAccessRight.php:540
+#: ../../setAccessRight.php:584
 msgid "Error while deleting access right"
 msgstr "Fehler beim L&ouml;schen des Zugriffsrechts"
 
@@ -9770,6 +9963,7 @@ msgstr "Fehler beim L&ouml;schen des Zugriffsrechts"
 #: ../../setAccessRight.php:596
 #: ../../setAccessRight.php:597
 #: ../..//setAccessRight.php:597
+#: ../../setAccessRight.php:598
 #, php-format
 msgid "Error while inserting access right for group %s"
 msgstr "Fehler beim Einf&uuml;gen des Zugriffsrechtes f&uuml;r Gruppe %s"
@@ -9797,6 +9991,7 @@ msgstr "Fehler beim Einf&uuml;gen des Zugriffsrechtes f&uuml;r Gruppe %s"
 #: ../../setAccessRight.php:552
 #: ../../setAccessRight.php:553
 #: ../..//setAccessRight.php:553
+#: ../../setAccessRight.php:554
 #, php-format
 msgid "Error while inserting access right for user %s"
 msgstr "Fehler beim Einf&uuml;gen des Zugriffsrechtes f&uuml;r Benutzer %s"
@@ -9821,6 +10016,7 @@ msgstr "Fehler beim Aktualisieren von Recht id %s beim L&ouml;schen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteAccessRight.php:269
 #: ../../deleteAccessRight.php:269
 #: ../..//deleteAccessRight.php:269
+#: ../../deleteAccessRight.php:270
 #, php-format
 msgid "Error while updating right id %s for delete"
 msgstr "Fehler beim Aktualisieren von Recht id %s beim L&ouml;schen"
@@ -9848,6 +10044,7 @@ msgstr "Fehler beim Aktualisieren von Recht id %s beim L&ouml;schen"
 #: ../../setAccessRight.php:504
 #: ../../setAccessRight.php:505
 #: ../..//setAccessRight.php:505
+#: ../../setAccessRight.php:506
 msgid "Error while writing access right modification"
 msgstr "Fehler beim Schreiben der Zugriffrechte Aktualisierung"
 
@@ -9951,6 +10148,8 @@ msgstr "Format DD.MM.YYYY"
 #: ../..//include/output.inc.php:123
 #: ../..//templates/general.tpl:5
 #: ../..//templates/main.tpl:9
+#: ../../include/output.inc.php:76
+#: ../../include/output.inc.php:125
 msgid "General"
 msgstr "Allgemein"
 
@@ -9999,6 +10198,7 @@ msgstr "Allgemeine Funktionen"
 #: ../..//templates/list_users.tpl:27
 #: ../..//templates/searchresult_users.tpl:15
 #: ../../templates/bulk_add_ldap_users.tpl:17
+#: ../../templates/general.tpl:18
 msgid "Given name"
 msgstr "Vorname"
 
@@ -10061,6 +10261,7 @@ msgstr "Gew&auml;hrte Rechte"
 #: ../..//include/output.inc.php:221
 #: ../..//templates/main.tpl:192
 #: ../../include/output.inc.php:227
+#: ../../include/output.inc.php:229
 msgid "Granted user rights"
 msgstr "Gew&auml;hrte Benutzerrechte"
 
@@ -10202,6 +10403,8 @@ msgstr "Grep Kommando fehlt!"
 #: ../..//templates/workOnGroupAccessRight.tpl:11
 #: ../../templates/rep_show_group.tpl:11
 #: ../..//templates/rep_show_group.tpl:11
+#: ../../templates/searchresult_access_right.tpl:22
+#: ../../templates/list_access_rights.tpl:34
 msgid "Group"
 msgstr "Gruppe"
 
@@ -10212,6 +10415,8 @@ msgstr "Gruppe"
 #: ../../setAccessRight.php:447
 #: ../..//setAccessRight.php:421
 #: ../..//setAccessRight.php:447
+#: ../../setAccessRight.php:422
+#: ../../setAccessRight.php:448
 #, php-format
 msgid "Group %s contains an user with no global write permission!"
 msgstr "Gruppe %s enth&auml;lt einen Benutzer ohne globale Schreibberechtigung!"
@@ -10237,6 +10442,7 @@ msgstr "Gruppe %s enth&auml;lt einen Benutzer ohne Schreibberechtigung!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:336
 #: ../../workOnGroup.php:336
 #: ../..//workOnGroup.php:336
+#: ../../workOnGroup.php:339
 #, php-format
 msgid "Group %s not inserted due to database errors"
 msgstr "Gruppe %s aufgrund von Datenbankfehlern nicht gel&ouml;scht"
@@ -10324,6 +10530,7 @@ msgstr "Gruppenverwaltung / Gruppe bearbeiten"
 #: ../../templates/rep_show_group_result.tpl:38
 #: ../..//templates/rep_show_group_result.tpl:38
 #: ../../include/output.inc.php:172
+#: ../../include/output.inc.php:174
 msgid "Group administrators"
 msgstr "Gruppen Administratoren"
 
@@ -10368,6 +10575,7 @@ msgstr "Gruppenbeschreibung"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:285
 #: ../../workOnGroup.php:285
 #: ../..//workOnGroup.php:285
+#: ../../workOnGroup.php:288
 msgid "Group description is missing. Please fill in!"
 msgstr "Gruppenbeschreibung fehlt, bitte eingeben!"
 
@@ -10385,6 +10593,8 @@ msgstr "Gruppenmitglieder"
 #: ../..//templates/rep_show_user_result.tpl:5
 #: ../../templates/rep_show_user_result.tpl:36
 #: ../..//templates/rep_show_user_result.tpl:36
+#: ../../templates/general.tpl:94
+#: ../../templates/rep_show_user_result.tpl:43
 msgid "Group membership"
 msgstr "Mitglied in Gruppen"
 
@@ -10412,6 +10622,8 @@ msgstr "Mitglied in Gruppen"
 #: ../..//templates/searchresult_groups.tpl:9
 #: ../../templates/searchresult_groupadmin.tpl:10
 #: ../../templates/list_group_admins.tpl:21
+#: ../../templates/general.tpl:99
+#: ../../templates/rep_show_user_result.tpl:48
 msgid "Group name"
 msgstr "Gruppenname"
 
@@ -10430,6 +10642,7 @@ msgstr "Gruppenname"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:280
 #: ../../workOnGroup.php:280
 #: ../..//workOnGroup.php:280
+#: ../../workOnGroup.php:283
 msgid "Group name is missing. Please fill in!"
 msgstr "Gruppenname fehlt, bitte eingeben!"
 
@@ -10449,6 +10662,7 @@ msgstr "Gruppenname fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteGroup.php:251
 #: ../../deleteGroup.php:251
 #: ../..//deleteGroup.php:251
+#: ../../deleteGroup.php:253
 msgid "Group not deleted due to database error"
 msgstr "Gruppe aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 
@@ -10468,6 +10682,7 @@ msgstr "Gruppe aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteGroup.php:244
 #: ../../deleteGroup.php:244
 #: ../..//deleteGroup.php:244
+#: ../../deleteGroup.php:246
 msgid "Group not deleted due to errors while deleting users/groups relations"
 msgstr "Gruppe aufgrund eines Fehlers beim L&ouml;schen der Benutzer-Gruppen-Zuordnung"
 
@@ -10484,6 +10699,7 @@ msgstr "Gruppe aufgrund eines Datenbankfehler nicht eingef&uuml;gt"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteGroupAccessRight.php:165
 #: ../../deleteGroupAccessRight.php:165
 #: ../..//deleteGroupAccessRight.php:165
+#: ../../deleteGroupAccessRight.php:166
 msgid "Group responsible not deleted due to database error"
 msgstr "Gruppenverantworlicher wegnen Datenbankfehler nicht gel&ouml;scht"
 
@@ -10500,6 +10716,7 @@ msgstr "Gruppenverantworlicher wegnen Datenbankfehler nicht gel&ouml;scht"
 #: ../../workOnGroupAccessRight.php:354
 #: ../../workOnGroupAccessRight.php:355
 #: ../..//workOnGroupAccessRight.php:355
+#: ../../workOnGroupAccessRight.php:357
 #, php-format
 msgid "Group responsible user for group %s (%s) does not exist!"
 msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s) existiert nicht!"
@@ -10517,6 +10734,7 @@ msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s) existiert nicht!"
 #: ../../workOnGroupAccessRight.php:275
 #: ../../workOnGroupAccessRight.php:276
 #: ../..//workOnGroupAccessRight.php:276
+#: ../../workOnGroupAccessRight.php:278
 #, php-format
 msgid "Group responsible user for group %s (%s/%s) already exists!"
 msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s/%s) existiert bereits!"
@@ -10535,6 +10753,7 @@ msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s/%s) existiert bereits!"
 #: ../../workOnGroupAccessRight.php:348
 #: ../../workOnGroupAccessRight.php:349
 #: ../..//workOnGroupAccessRight.php:349
+#: ../../workOnGroupAccessRight.php:351
 msgid "Group responsible user successfully changed"
 msgstr "Gruppenverantwortlicher erfogreich ge&auml;ndert"
 
@@ -10552,6 +10771,7 @@ msgstr "Gruppenverantwortlicher erfogreich ge&auml;ndert"
 #: ../../workOnGroupAccessRight.php:269
 #: ../../workOnGroupAccessRight.php:270
 #: ../..//workOnGroupAccessRight.php:270
+#: ../../workOnGroupAccessRight.php:272
 msgid "Group responsible user successfully inserted"
 msgstr "Gruppenverantwortlicher erfolgreich eingef&uuml;gt"
 
@@ -10580,6 +10800,8 @@ msgstr "Gruppenverantwortlicher erfolgreich eingef&uuml;gt"
 #: ../../deleteGroup.php:234
 #: ../..//deleteGroup.php:234
 #: ../..//deleteGroupAccessRight.php:155
+#: ../../deleteGroupAccessRight.php:156
+#: ../../deleteGroup.php:236
 msgid "Group successfully deleted"
 msgstr "Gruppe erfolgreich gel&ouml;scht"
 
@@ -10604,6 +10826,7 @@ msgstr "Anzuzeigende Gruppe"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:315
 #: ../../workOnGroup.php:315
 #: ../..//workOnGroup.php:315
+#: ../../workOnGroup.php:318
 #, php-format
 msgid "Group with name %s already exists!"
 msgstr "Gruppe mir dem Namen %s existiert bereits!"
@@ -10654,6 +10877,9 @@ msgstr "Gruppenmitglieder"
 #: ../..//templates/main.tpl:75
 #: ../../include/output.inc.php:171
 #: ../../include/output.inc.php:176
+#: ../../include/output.inc.php:56
+#: ../../include/output.inc.php:173
+#: ../../include/output.inc.php:178
 msgid "Groups"
 msgstr "Gruppen"
 
@@ -10852,6 +11078,7 @@ msgstr "Wenn Sie benutzerdefinierte Felder nutzen wollen, geben Sie bitte die Be
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:365
 #: ../../workOnGroup.php:365
 #: ../..//workOnGroup.php:365
+#: ../../workOnGroup.php:368
 #, php-format
 msgid "Insert of user group relation failed for user_id %s and group_id %s"
 msgstr "Einf&uuml;gen der Benutzer-Gruppen Relation f&uuml;r Benutzer Id %s und Gruppen-Id %s fehlgeschlagen"
@@ -10877,6 +11104,7 @@ msgstr "Einf&uuml;gen der Benutzer-Gruppen Relation f&uuml;r Benutzer Id %s und 
 #: ../../workOnProject.php:460
 #: ../../workOnProject.php:461
 #: ../..//workOnProject.php:461
+#: ../../workOnProject.php:463
 #, php-format
 msgid "Insert of user project relation failed for user_id %s and project_id %s"
 msgstr "Einf&uuml;gen der Projekt-Benutzer Relation f&uuml;r Benutzer-Id %s und Pojekt-Id %s fehlgeschlagen"
@@ -10898,6 +11126,7 @@ msgstr "Einf&uuml;gen der Projekt-Benutzer Relation f&uuml;r Benutzer-Id %s und 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:482
 #: ../../workOnGroup.php:482
 #: ../..//workOnGroup.php:482
+#: ../../workOnGroup.php:485
 #, php-format
 msgid "Insert of user/group relation (%s/%s) failed due to database error"
 msgstr "Einf&uuml;gen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -10924,6 +11153,7 @@ msgstr "Einf&uuml;gen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Daten
 #: ../../workOnProject.php:634
 #: ../../workOnProject.php:635
 #: ../..//workOnProject.php:635
+#: ../../workOnProject.php:637
 #, php-format
 msgid "Insert of user/project relation (%s/%s) failed due to database error"
 msgstr "Einf&uuml;gen der Projekt/Benutzer-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -11263,6 +11493,24 @@ msgstr "Anweisungen"
 #: ../../list_repos.php:218
 #: ../../list_group_admins.php:288
 #: ../../bulk_add_ldap_users.php:148
+#: ../../workOnUser.php:722
+#: ../../rep_show_user.php:281
+#: ../../list_repos.php:219
+#: ../../workOnUser.php:726
+#: ../../list_projects.php:221
+#: ../../list_group_admins.php:290
+#: ../../rep_show_group.php:239
+#: ../../createAccessFiles.php:148
+#: ../../deleteAccessRight.php:282
+#: ../../workOnGroupAccessRight.php:394
+#: ../../workOnGroup.php:589
+#: ../../rep_show_user.php:283
+#: ../../workOnAccessRight.php:490
+#: ../../setAccessRight.php:629
+#: ../../list_users.php:228
+#: ../../list_groups.php:275
+#: ../../list_access_rights.php:500
+#: ../../rep_access_rights.php:270
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -11289,6 +11537,7 @@ msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
 #: ../../workOnProject.php:735
 #: ../../workOnProject.php:736
 #: ../..//workOnProject.php:736
+#: ../../workOnProject.php:738
 #, php-format
 msgid "Invalid button (%s/%s), anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf(%s/%s), hat jemand daran herumgespielt?"
@@ -11343,6 +11592,8 @@ msgstr "Ung&uuml;ltige Daten!"
 #: ../../workOnAccessRight.php:323
 #: ../..//workOnAccessRight.php:239
 #: ../..//workOnAccessRight.php:323
+#: ../../workOnAccessRight.php:241
+#: ../../workOnAccessRight.php:325
 #, php-format
 msgid "Invalid project id %s requested"
 msgstr "Ung&uuml;ltige Projekt-Id %s angefordert"
@@ -11425,6 +11676,7 @@ msgstr "Ung&uuml;ltige protokollversion: %s"
 #: ../..//workOnAccessRight.php:225
 #: ../../workOnAccessRight.php:233
 #: ../..//workOnAccessRight.php:233
+#: ../../workOnAccessRight.php:235
 #, php-format
 msgid "Invalid repository id %s requested!"
 msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
@@ -11677,6 +11929,24 @@ msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
 #: ../..//workOnUser.php:199
 #: ../..//workOnUser.php:581
 #: ../../workOnRepo.php:431
+#: ../../workOnUser.php:210
+#: ../../workOnUser.php:716
+#: ../../workOnUser.php:218
+#: ../../workOnUser.php:720
+#: ../../deleteAccessRight.php:202
+#: ../../workOnGroupAccessRight.php:189
+#: ../../workOnGroupAccessRight.php:389
+#: ../../deleteProject.php:143
+#: ../../workOnGroup.php:167
+#: ../../deleteGroupAccessRight.php:110
+#: ../../workOnAccessRight.php:341
+#: ../../workOnProject.php:185
+#: ../../workOnProject.php:676
+#: ../../workOnRepo.php:126
+#: ../../workOnRepo.php:433
+#: ../../deleteGroup.php:136
+#: ../../deleteRepo.php:130
+#: ../../deleteUser.php:103
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -11713,6 +11983,8 @@ msgstr "Ung&uuml;ltiger Transaktionstyp %s"
 #: ../..//workOnUser.php:189
 #: ../../workOnUser.php:193
 #: ../..//workOnUser.php:193
+#: ../../workOnUser.php:204
+#: ../../workOnUser.php:212
 #, php-format
 msgid "Invalid userid %s requested!"
 msgstr "Ung&uuml;ltige Benutzer-Id %s angefordert"
@@ -12756,6 +13028,7 @@ msgstr "Liste der gesperrten Benutzer"
 #: ../..//templates/workOnUser.tpl:126
 #: ../../templates/list_users.tpl:53
 #: ../..//templates/list_users.tpl:53
+#: ../../templates/general.tpl:81
 msgid "Locked"
 msgstr "Gesperrt"
 
@@ -12778,6 +13051,7 @@ msgstr "Gesperrt"
 #: ../..//include/output.inc.php:220
 #: ../..//templates/main.tpl:187
 #: ../../include/output.inc.php:226
+#: ../../include/output.inc.php:228
 msgid "Locked users"
 msgstr "Gesperrte Benutzer"
 
@@ -12793,6 +13067,7 @@ msgstr "Gesperrte Benutzer"
 #: ../../include/output.inc.php:219
 #: ../..//include/output.inc.php:219
 #: ../../include/output.inc.php:225
+#: ../../include/output.inc.php:227
 msgid "Log"
 msgstr "Protokoll"
 
@@ -12814,6 +13089,7 @@ msgstr "Log Bericht"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/output.inc.php:45
 #: ../../include/output.inc.php:45
 #: ../..//include/output.inc.php:45
+#: ../../include/output.inc.php:47
 msgid "Logged in as"
 msgstr "Angemeldet als"
 
@@ -13263,6 +13539,8 @@ msgstr "Vergessenes Passwort zuruecksetzen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/list_access_rights.tpl:9
 #: ../../templates/list_access_rights.tpl:9
 #: ../..//templates/list_access_rights.tpl:9
+#: ../../templates/searchresult_access_right.tpl:10
+#: ../../templates/list_access_rights.tpl:22
 msgid "M"
 msgstr "M"
 
@@ -13640,6 +13918,8 @@ msgstr "Ge&auml;ndert von Benutzer"
 #: ../..//templates/rep_show_user_result.tpl:86
 #: ../../templates/rep_show_group_result.tpl:71
 #: ../..//templates/rep_show_group_result.tpl:71
+#: ../../templates/general.tpl:144
+#: ../../templates/rep_show_user_result.tpl:93
 msgid "Module path"
 msgstr "Modul Pfad"
 
@@ -13652,6 +13932,7 @@ msgstr "Modul Pfad"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/output.inc.php:121
 #: ../../include/output.inc.php:121
 #: ../..//include/output.inc.php:121
+#: ../../include/output.inc.php:123
 msgid "My account"
 msgstr "Mein Zugang"
 
@@ -13787,6 +14068,7 @@ msgstr "MySQL Datenbank Benutzer"
 #: ../..//templates/rep_show_group_result.tpl:45
 #: ../../templates/install-tabs.tpl:446
 #: ../../templates/bulk_add_ldap_users.tpl:14
+#: ../../templates/general.tpl:27
 msgid "Name"
 msgstr "Name"
 
@@ -13835,6 +14117,10 @@ msgstr "Name"
 #: ../../workOnUser.php:427
 #: ../..//workOnUser.php:273
 #: ../..//workOnUser.php:427
+#: ../../workOnUser.php:285
+#: ../../workOnUser.php:500
+#: ../../workOnUser.php:293
+#: ../../workOnUser.php:506
 msgid "Name missing, please fill in!"
 msgstr "Name fehlt, bitte eingeben!"
 
@@ -13904,6 +14190,9 @@ msgstr "Name, Vorname"
 #: ../..//list_access_rights.php:278
 #: ../..//list_access_rights.php:297
 #: ../..//templates/list_access_rights.tpl:91
+#: ../../templates/searchresult_access_right.tpl:92
+#: ../../templates/list_access_rights.tpl:104
+#: ../../list_access_rights.php:425
 msgid "New access right"
 msgstr "Neues Zugriffsrecht"
 
@@ -13994,6 +14283,12 @@ msgstr "Neues Zugriffsrecht"
 #: ../../list_group_admins.php:274
 #: ../../templates/searchresult_groupadmin.tpl:66
 #: ../../templates/list_group_admins.tpl:77
+#: ../../list_group_admins.php:161
+#: ../../list_group_admins.php:165
+#: ../../list_group_admins.php:276
+#: ../../list_groups.php:192
+#: ../../list_groups.php:196
+#: ../../list_groups.php:261
 msgid "New group"
 msgstr "Neue Gruppe"
 
@@ -14087,6 +14382,9 @@ msgstr "Die neuen Passworte sind nicht identisch!"
 #: ../..//list_projects.php:206
 #: ../..//templates/list_projects.tpl:74
 #: ../..//templates/searchresult_projects.tpl:62
+#: ../../list_projects.php:140
+#: ../../list_projects.php:144
+#: ../../list_projects.php:207
 msgid "New project"
 msgstr "Neues Projekt"
 
@@ -14141,6 +14439,9 @@ msgstr "Neues Projekt"
 #: ../..//templates/searchresult_repos.tpl:64
 #: ../../list_repos.php:203
 #: ../../list_repos.php:204
+#: ../../list_repos.php:136
+#: ../../list_repos.php:140
+#: ../../list_repos.php:205
 msgid "New repository"
 msgstr "Neues Repository"
 
@@ -14202,6 +14503,9 @@ msgstr "Neues Repository"
 #: ../../templates/list_users.tpl:142
 #: ../..//list_users.php:213
 #: ../..//templates/list_users.tpl:142
+#: ../../list_users.php:142
+#: ../../list_users.php:146
+#: ../../list_users.php:214
 msgid "New user"
 msgstr "Neuer Benutzer"
 
@@ -14688,8 +14992,21 @@ msgstr "N&auml;chste Seite"
 #: ../../templates/install-tabs.tpl:877
 #: ../../templates/install-tabs.tpl:938
 #: ../../templates/install-tabs.tpl:949
+#: ../../general.php:199
+#: ../../rep_show_user.php:266
+#: ../../rep_show_user.php:270
+#: ../../rep_show_user.php:271
+#: ../../createAccessFiles.php:88
+#: ../../createAccessFiles.php:92
+#: ../../createAccessFiles.php:140
+#: ../../rep_show_user.php:267
+#: ../../rep_show_user.php:272
 msgid "No"
 msgstr "Nein"
+
+#: ../../list_access_rights.php:399
+msgid "No access rights found!"
+msgstr "Keine Zugriffsrechte gefunden!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:969
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:1070
@@ -14810,17 +15127,20 @@ msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gel&ouml;scht"
 
 #: ../../list_group_admins.php:253
+#: ../../list_group_admins.php:255
 msgid "No group administrator found!"
 msgstr "Keinen Gruppenadministrator gefunden!"
 
 #: ../../list_groups.php:238
 #: ../..//list_groups.php:239
 #: ../../list_groups.php:239
+#: ../../list_groups.php:241
 msgid "No group found!"
 msgstr "Keine Gruppe gefunden!"
 
 #: ../../rep_show_group.php:210
 #: ../..//rep_show_group.php:210
+#: ../../rep_show_group.php:211
 msgid "No group selected!"
 msgstr "Keine Gruppe ausgew&auml;hlt!"
 
@@ -14845,6 +15165,7 @@ msgstr "Keine Hilfe gefunden"
 
 #: ../../list_projects.php:186
 #: ../..//list_projects.php:186
+#: ../../list_projects.php:187
 msgid "No project found!"
 msgstr "Kein Projekt gefunden!"
 
@@ -14866,6 +15187,8 @@ msgstr "Kein Projekt gefunden!"
 #: ../../createAccessFiles.php:131
 #: ../..//createAccessFiles.php:125
 #: ../..//createAccessFiles.php:131
+#: ../../createAccessFiles.php:126
+#: ../../createAccessFiles.php:132
 msgid "No reload sheduled"
 msgstr "Kein Neuladen bauftragt"
 
@@ -14878,6 +15201,12 @@ msgstr "Kein Neuladen bauftragt"
 #: ../..//list_repos.php:161
 #: ../..//list_users.php:167
 #: ../../list_group_admins.php:188
+#: ../../list_repos.php:162
+#: ../../list_projects.php:166
+#: ../../list_group_admins.php:189
+#: ../../list_users.php:168
+#: ../../list_groups.php:218
+#: ../../list_access_rights.php:306
 msgid "No search string given!"
 msgstr "Kein Suchbegriff angegeben!"
 
@@ -14903,18 +15232,23 @@ msgstr "Weder einen Benutzer noch eine Gruppe ausgew&auml;hlt!"
 #: ../../list_users.php:193
 #: ../..//list_users.php:193
 #: ../../list_repos.php:184
+#: ../../list_repos.php:185
+#: ../../list_users.php:194
 msgid "No user found!"
 msgstr "Kein Benutzer gefunden!"
 
 #: ../../setAccessRight.php:462
 #: ../../setAccessRight.php:463
 #: ../..//setAccessRight.php:463
+#: ../../setAccessRight.php:464
 msgid "No user or no group selected!"
 msgstr "Kein Benutzer oder keine Gruppe ausgew&auml;hlt!"
 
 #: ../../rep_show_user.php:218
 #: ../../rep_show_user.php:241
 #: ../..//rep_show_user.php:241
+#: ../../rep_show_user.php:247
+#: ../../rep_show_user.php:248
 msgid "No user selected!"
 msgstr "Kein Benutzer ausgew&auml;hlt!"
 
@@ -14949,6 +15283,7 @@ msgstr "Keine g&uuml;ltigen Daten!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:133
 #: ../../createAccessFiles.php:133
 #: ../..//createAccessFiles.php:133
+#: ../../createAccessFiles.php:134
 msgid "No viewvc configuration to create"
 msgstr "Keine Viewvc Konfigutation zu generieren"
 
@@ -15004,6 +15339,7 @@ msgstr "Ung&uuml;ltigesDatum: %s"
 #: ../../rep_access_rights.php:224
 #: ../../rep_access_rights.php:226
 #: ../..//rep_access_rights.php:226
+#: ../../rep_access_rights.php:227
 #, php-format
 msgid "Not a valid date: %s (%s-%s-%s)"
 msgstr "Kein g&uuml;ltiges Datum: %s (%s-%s-%s)"
@@ -15011,6 +15347,7 @@ msgstr "Kein g&uuml;ltiges Datum: %s (%s-%s-%s)"
 #: ../../setAccessRight.php:344
 #: ../../setAccessRight.php:345
 #: ../..//setAccessRight.php:345
+#: ../../setAccessRight.php:346
 #, php-format
 msgid "Not a valid date: %s (valid from)"
 msgstr "Kein g&uuml;ltiges Datum: %s (g&uuml;ltig von)"
@@ -15018,6 +15355,7 @@ msgstr "Kein g&uuml;ltiges Datum: %s (g&uuml;ltig von)"
 #: ../../setAccessRight.php:377
 #: ../../setAccessRight.php:378
 #: ../..//setAccessRight.php:378
+#: ../../setAccessRight.php:379
 #, php-format
 msgid "Not a valid date: %s (valid until)"
 msgstr "Kein g&uuml;ltiges Datum: %s (g&uuml;ltig bis)"
@@ -15142,6 +15480,12 @@ msgstr "Oracle"
 #: ../..//templates/rep_show_user_result.tpl:125
 #: ../../templates/searchresult_groupadmin.tpl:85
 #: ../../templates/list_group_admins.tpl:97
+#: ../../templates/general.tpl:187
+#: ../../templates/general.tpl:194
+#: ../../templates/general.tpl:201
+#: ../../templates/rep_show_user_result.tpl:132
+#: ../../templates/searchresult_access_right.tpl:112
+#: ../../templates/list_access_rights.tpl:124
 msgid "Page"
 msgstr "Seite"
 
@@ -15514,6 +15858,8 @@ msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 #: ../../templates/old/install_page_2.tpl:187
 #: ../..//templates/install-tabs.tpl:476
 #: ../../templates/install-tabs.tpl:476
+#: ../../include/output.inc.php:68
+#: ../../include/output.inc.php:126
 msgid "Password"
 msgstr "Passwort"
 
@@ -15623,6 +15969,10 @@ msgstr "Passwort erfolgreich ge&auml;ndert"
 #: ../../workOnUser.php:444
 #: ../..//workOnUser.php:298
 #: ../..//workOnUser.php:444
+#: ../../workOnUser.php:310
+#: ../../workOnUser.php:517
+#: ../../workOnUser.php:318
+#: ../../workOnUser.php:523
 msgid "Password does not match the password policy!"
 msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie"
 
@@ -15710,8 +16060,13 @@ msgstr "Tage Passwort Ablauf Warnung sind nicht numersich!"
 #: ../..//templates/workOnUser.tpl:108
 #: ../../templates/list_users.tpl:59
 #: ../..//templates/list_users.tpl:59
+#: ../../templates/general.tpl:72
 msgid "Password expires"
 msgstr "Passwort laeuft ab"
+
+#: ../../templates/rep_show_user_result.tpl:35
+msgid "Password last modified"
+msgstr "Passwort zuletzt ge&auml;ndert"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/general.tpl:48
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/general.tpl:48
@@ -15721,6 +16076,7 @@ msgstr "Passwort laeuft ab"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/general.tpl:66
 #: ../../templates/general.tpl:66
 #: ../..//templates/general.tpl:66
+#: ../../templates/general.tpl:63
 msgid "Password modified"
 msgstr "Passwort ge&auml;ndert"
 
@@ -15768,6 +16124,8 @@ msgstr "Passwort nicht stark genug"
 #: ../..//include/output.inc.php:70
 #: ../..//include/output.inc.php:125
 #: ../..//templates/main.tpl:17
+#: ../../include/output.inc.php:72
+#: ../../include/output.inc.php:127
 msgid "Password policy"
 msgstr "Passwort Richtlinie"
 
@@ -15836,6 +16194,10 @@ msgstr "Passworte sind unterschiedlich!"
 #: ../../workOnUser.php:436
 #: ../..//workOnUser.php:290
 #: ../..//workOnUser.php:436
+#: ../../workOnUser.php:302
+#: ../../workOnUser.php:509
+#: ../../workOnUser.php:310
+#: ../../workOnUser.php:515
 msgid "Passwords do not match!"
 msgstr "Passw&ouml;rter stimmen nicht &uuml;berein!"
 
@@ -15859,6 +16221,8 @@ msgstr "Passworte laufen ab"
 #: ../..//templates/rep_show_user_result.tpl:85
 #: ../../templates/rep_show_group_result.tpl:70
 #: ../..//templates/rep_show_group_result.tpl:70
+#: ../../templates/general.tpl:143
+#: ../../templates/rep_show_user_result.tpl:92
 msgid "Path"
 msgstr "Pfad"
 
@@ -15887,6 +16251,7 @@ msgstr "Pfad zum Repository. Wenn SVN Access Manager auf derselben Maschine wie 
 #: ../../include/output.inc.php:86
 #: ../..//include/output.inc.php:86
 #: ../..//templates/nopermission.tpl:5
+#: ../../include/output.inc.php:88
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
@@ -15955,6 +16320,7 @@ msgstr "Bitte korrigieren Sie die folgenden Fehler:"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/general.php:138
 #: ../../general.php:138
 #: ../..//general.php:138
+#: ../../general.php:271
 msgid "Please fill in a security question too!"
 msgstr "Bitte auch eine Sicherheitsfrage eintragen!"
 
@@ -15966,6 +16332,7 @@ msgstr "Bitte auch eine Sicherheitsfrage eintragen!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/general.php:143
 #: ../../general.php:143
 #: ../..//general.php:143
+#: ../../general.php:276
 msgid "Please fill in an answer for the security question too!"
 msgstr "Bitte auch eine Antwort auf die Sicherheitsfrage eintragen!"
 
@@ -16022,6 +16389,7 @@ msgstr "Bitte f&uuml;llen Sie das Formular unten aus um die Installation von SVN
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/general.php:128
 #: ../../general.php:128
 #: ../..//general.php:128
+#: ../../general.php:261
 msgid "Please fill in your email address!"
 msgstr "Bitte die E-Mailadresse eingeben!"
 
@@ -16039,6 +16407,7 @@ msgstr "Bitte die E-Mailadresse eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/general.php:123
 #: ../../general.php:123
 #: ../..//general.php:123
+#: ../../general.php:256
 msgid "Please fill in your name!"
 msgstr "Bitte den Namen eingeben!"
 
@@ -16088,6 +16457,8 @@ msgstr "Bitte zur Kenntnis nehmen, dass ein Repository nur gel&ouml;scht werden 
 #: ../..//workOnUser.php:264
 #: ../../workOnUser.php:268
 #: ../..//workOnUser.php:268
+#: ../../workOnUser.php:280
+#: ../../workOnUser.php:288
 msgid "Please select an user!"
 msgstr "Bitte einen Benutzer ausw&auml;hlen!"
 
@@ -16115,6 +16486,8 @@ msgstr "Bitte einen Benutzer ausw&auml;hlen!"
 #: ../../workOnGroupAccessRight.php:316
 #: ../..//workOnGroupAccessRight.php:235
 #: ../..//workOnGroupAccessRight.php:316
+#: ../../workOnGroupAccessRight.php:237
+#: ../../workOnGroupAccessRight.php:318
 msgid "Please select right!"
 msgstr "Bitte Recht ausw&auml;hlen!"
 
@@ -16162,6 +16535,8 @@ msgstr "Bitte die Felder f&uuml;r die Benutzersortierung ausw&auml;hlen!"
 #: ../../workOnGroupAccessRight.php:311
 #: ../..//workOnGroupAccessRight.php:230
 #: ../..//workOnGroupAccessRight.php:311
+#: ../../workOnGroupAccessRight.php:232
+#: ../../workOnGroupAccessRight.php:313
 msgid "Please select user!"
 msgstr "Bitte Benutzer ausw&auml;hlen!"
 
@@ -16222,6 +16597,8 @@ msgstr "PostgreSQL"
 #: ../..//include/output.inc.php:126
 #: ../..//templates/main.tpl:21
 #: ../..//templates/preferences.tpl:5
+#: ../../include/output.inc.php:108
+#: ../../include/output.inc.php:128
 msgid "Preferences"
 msgstr "Voreinstellungen"
 
@@ -16342,6 +16719,8 @@ msgstr "Vorherige Seite"
 #: ../..//templates/selectProject.tpl:11
 #: ../..//templates/setAccessRight.tpl:11
 #: ../..//templates/workOnAccessRight.tpl:25
+#: ../../templates/searchresult_access_right.tpl:13
+#: ../../templates/list_access_rights.tpl:25
 msgid "Project"
 msgstr "Projekt"
 
@@ -16384,6 +16763,7 @@ msgstr "Projekt Verwaltung / Projekt l&ouml;schen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteProject.php:230
 #: ../../deleteProject.php:230
 #: ../..//deleteProject.php:230
+#: ../../deleteProject.php:231
 msgid "Project not deleted due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht gel&ouml;scht."
 
@@ -16396,6 +16776,7 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht gel&ouml;scht."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteProject.php:217
 #: ../../deleteProject.php:217
 #: ../..//deleteProject.php:217
+#: ../../deleteProject.php:218
 msgid "Project not deleted due to errors while deleting access right relations"
 msgstr "Projekt aufgrund von Fehlern beim L&ouml;schen der Zugriffsrechte nicht gel&ouml;scht"
 
@@ -16413,6 +16794,7 @@ msgstr "Projekt aufgrund von Fehlern beim L&ouml;schen der Zugriffsrechte nicht 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteProject.php:223
 #: ../../deleteProject.php:223
 #: ../..//deleteProject.php:223
+#: ../../deleteProject.php:224
 msgid "Project not deleted due to errors while deleting users/projects relations"
 msgstr "Projekt aufgrund von Datenbankfehlern beim L&ouml;schen der Benutzer/Projekt-Zuordnung"
 
@@ -16438,11 +16820,14 @@ msgstr "Projekt aufgrund von Datenbankfehlern beim L&ouml;schen der Benutzer/Pro
 #: ../../workOnProject.php:652
 #: ../../workOnProject.php:653
 #: ../..//workOnProject.php:653
+#: ../../workOnProject.php:655
 msgid "Project not modified due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
 #: ../../templates/rep_show_user_result.tpl:57
 #: ../..//templates/rep_show_user_result.tpl:57
+#: ../../templates/general.tpl:115
+#: ../../templates/rep_show_user_result.tpl:64
 msgid "Project responsible"
 msgstr "Verantwortlich f&uuml;r Projekt"
 
@@ -16456,6 +16841,8 @@ msgstr "Verantwortlich f&uuml;r Projekt"
 #: ../../workOnProject.php:507
 #: ../..//workOnProject.php:402
 #: ../..//workOnProject.php:507
+#: ../../workOnProject.php:404
+#: ../../workOnProject.php:509
 msgid "Project responsible user missing, please fill in!"
 msgstr "Verantwortlicher Benutzer f&uuml;r das Projekt feht. Bitte eintragen!"
 
@@ -16478,6 +16865,7 @@ msgstr "Ergebnis Projekt Suche"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteProject.php:207
 #: ../../deleteProject.php:207
 #: ../..//deleteProject.php:207
+#: ../../deleteProject.php:208
 msgid "Project successfully deleted"
 msgstr "Projekt erfolgreich gel&ouml;scht"
 
@@ -16512,6 +16900,8 @@ msgstr "Projekt erfolgreich gel&ouml;scht"
 #: ../..//include/output.inc.php:182
 #: ../..//templates/main.tpl:85
 #: ../../include/output.inc.php:188
+#: ../../include/output.inc.php:92
+#: ../../include/output.inc.php:190
 msgid "Projects"
 msgstr "Projekte"
 
@@ -16532,6 +16922,7 @@ msgstr "Abfrage"
 #: ../..//templates/general.tpl:53
 #: ../..//templates/general.tpl:51
 #: ../../templates/general.tpl:51
+#: ../../templates/general.tpl:48
 msgid "Question to answer before a password reset."
 msgstr "Vor einer Passwortr&uuml;cksetzung zu beantwortende Frage."
 
@@ -16631,6 +17022,7 @@ msgstr "Viele Gr&uuml;&szlig;e"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:120
 #: ../../createAccessFiles.php:120
 #: ../..//createAccessFiles.php:120
+#: ../../createAccessFiles.php:121
 msgid "Reload of webserver configuration successfull"
 msgstr "Neuladen der Webserver Konfiguration erefolgreich"
 
@@ -16643,6 +17035,7 @@ msgstr "Neuladen der Webserver Konfiguration erefolgreich"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/createAccessFiles.php:118
 #: ../../createAccessFiles.php:118
 #: ../..//createAccessFiles.php:118
+#: ../../createAccessFiles.php:119
 msgid "Reloead of webserver configuration failed"
 msgstr "Neuladen der Webserver Konfiguration fehlgeschlagen"
 
@@ -16676,6 +17069,8 @@ msgstr "Neuladen der Webserver Konfiguration fehlgeschlagen"
 #: ../../workOnProject.php:354
 #: ../..//workOnProject.php:226
 #: ../..//workOnProject.php:354
+#: ../../workOnProject.php:228
+#: ../../workOnProject.php:356
 msgid "Remove group"
 msgstr "Gruppe ls&ouml;chen"
 
@@ -16719,6 +17114,9 @@ msgstr "Gruppe ls&ouml;chen"
 #: ../..//workOnGroup.php:196
 #: ../..//workOnGroup.php:198
 #: ../..//workOnGroup.php:248
+#: ../../workOnGroup.php:199
+#: ../../workOnGroup.php:201
+#: ../../workOnGroup.php:251
 msgid "Remove member"
 msgstr "Mitglied l&ouml;schen"
 
@@ -16773,6 +17171,8 @@ msgstr "Mitglied l&ouml;schen"
 #: ../../workOnProject.php:317
 #: ../..//workOnProject.php:218
 #: ../..//workOnProject.php:317
+#: ../../workOnProject.php:220
+#: ../../workOnProject.php:319
 msgid "Remove responsible"
 msgstr "Verantwortlichen l&ouml;schen"
 
@@ -16784,6 +17184,8 @@ msgstr "Verantwortlichen l&ouml;schen"
 #: ../..//templates/rep_show_user_result.tpl:84
 #: ../../templates/rep_show_group_result.tpl:69
 #: ../..//templates/rep_show_group_result.tpl:69
+#: ../../templates/general.tpl:142
+#: ../../templates/rep_show_user_result.tpl:91
 msgid "Reporitory"
 msgstr "Repository"
 
@@ -16814,6 +17216,8 @@ msgstr "Repository"
 #: ../..//include/output.inc.php:216
 #: ../..//templates/main.tpl:171
 #: ../../include/output.inc.php:222
+#: ../../include/output.inc.php:104
+#: ../../include/output.inc.php:224
 msgid "Reports"
 msgstr "Berichte"
 
@@ -16848,6 +17252,8 @@ msgstr "Berichte"
 #: ../..//include/output.inc.php:176
 #: ../..//templates/main.tpl:95
 #: ../../include/output.inc.php:182
+#: ../../include/output.inc.php:96
+#: ../../include/output.inc.php:184
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -16919,6 +17325,8 @@ msgstr "Repository Zugriffsrecht"
 #: ../..//templates/main.tpl:177
 #: ../../include/output.inc.php:194
 #: ../../include/output.inc.php:224
+#: ../../include/output.inc.php:196
+#: ../../include/output.inc.php:226
 msgid "Repository access rights"
 msgstr "Repository Zugriffsrechte"
 
@@ -16960,6 +17368,7 @@ msgstr "Repository Verwaltung / Repository l&ouml;schen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteRepo.php:116
 #: ../../deleteRepo.php:116
 #: ../..//deleteRepo.php:116
+#: ../../deleteRepo.php:117
 #, php-format
 msgid "Repository can not be deleted because it's referenced from other projects (%s)"
 msgstr "Repository kann nicht gel&ouml;scht werden, weil sich die Projekte (%s) darauf beziehen"
@@ -16989,6 +17398,8 @@ msgstr "Repository kann nicht gel&ouml;scht werden, weil sich die Projekte (%s) 
 #: ../..//templates/list_repos.tpl:21
 #: ../..//templates/rep_show_user_result.tpl:63
 #: ../..//templates/searchresult_repos.tpl:9
+#: ../../templates/general.tpl:121
+#: ../../templates/rep_show_user_result.tpl:70
 msgid "Repository name"
 msgstr "Repository Name"
 
@@ -17033,6 +17444,8 @@ msgstr "Repository Name"
 #: ../..//workOnRepo.php:185
 #: ../..//workOnRepo.php:330
 #: ../../workOnRepo.php:342
+#: ../../workOnRepo.php:187
+#: ../../workOnRepo.php:344
 msgid "Repository name is missing, please fill in!"
 msgstr "Repository Name fehlt, bitte eingeben!"
 
@@ -17051,6 +17464,7 @@ msgstr "Repository Name fehlt, bitte eingeben!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteRepo.php:194
 #: ../../deleteRepo.php:194
 #: ../..//deleteRepo.php:194
+#: ../../deleteRepo.php:195
 msgid "Repository not deleted due to database error"
 msgstr "Repository aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 
@@ -17069,6 +17483,7 @@ msgstr "Repository aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteRepo.php:214
 #: ../../deleteRepo.php:214
 #: ../..//deleteRepo.php:214
+#: ../../deleteRepo.php:215
 #, php-format
 msgid "Repository not deleted due to usage in other projects (%s)!"
 msgstr "Repository nicht gel&ouml;scht, da es noch in anderen Projekten (%s) verwendet wird!"
@@ -17096,6 +17511,7 @@ msgstr "Repository nicht gel&ouml;scht, da es noch in anderen Projekten (%s) ver
 #: ../../workOnRepo.php:409
 #: ../..//workOnRepo.php:409
 #: ../../workOnRepo.php:424
+#: ../../workOnRepo.php:426
 msgid "Repository not modified due to database error"
 msgstr "Repository aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
@@ -17184,6 +17600,8 @@ msgstr "Repository Pfad"
 #: ../..//workOnRepo.php:190
 #: ../..//workOnRepo.php:335
 #: ../../workOnRepo.php:347
+#: ../../workOnRepo.php:192
+#: ../../workOnRepo.php:349
 msgid "Repository path missing, please fill in!"
 msgstr "Repository Pfad fehlt, bitte eingeben!"
 
@@ -17209,6 +17627,8 @@ msgstr "Repository Pfad fehlt, bitte eingeben!"
 #: ../..//workOnRepo.php:195
 #: ../..//workOnRepo.php:340
 #: ../../workOnRepo.php:352
+#: ../../workOnRepo.php:197
+#: ../../workOnRepo.php:354
 msgid "Repository path must start with file://, http:// or https://!"
 msgstr "Repository Pfad muss mit file://, http:// oder https:// beginnen!"
 
@@ -17232,6 +17652,7 @@ msgstr "Suchergebnis Repository Suche"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteRepo.php:184
 #: ../../deleteRepo.php:184
 #: ../..//deleteRepo.php:184
+#: ../../deleteRepo.php:185
 msgid "Repository successfully deleted"
 msgstr "Repository erfolgreich gel&ouml;scht"
 
@@ -17256,6 +17677,7 @@ msgstr "Repository erfolgreich gel&ouml;scht"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnRepo.php:251
 #: ../../workOnRepo.php:251
 #: ../..//workOnRepo.php:251
+#: ../../workOnRepo.php:253
 msgid "Repository successfully inserted"
 msgstr "Repository erfolgreich geschrieben"
 
@@ -17272,6 +17694,7 @@ msgstr "Repository erfolgreich geschrieben"
 #: ../../workOnRepo.php:310
 #: ../..//workOnRepo.php:310
 #: ../../workOnRepo.php:313
+#: ../../workOnRepo.php:315
 msgid "Repository successfully inserted into database and created in filesystem"
 msgstr "Repository erfolgreich in die Datenbank geschrieben und im Dateisystem angelegt"
 
@@ -17290,6 +17713,7 @@ msgstr "Repository erfolgreich in die Datenbank geschrieben und im Dateisystem a
 #: ../../workOnRepo.php:306
 #: ../..//workOnRepo.php:306
 #: ../../workOnRepo.php:308
+#: ../../workOnRepo.php:310
 msgid "Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber das Anlegen des repositories im Dateisystem ist fehlgeschlagen. Bitte manuell nachholen!"
 
@@ -17307,6 +17731,7 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber das Anlegen des
 #: ../../workOnRepo.php:257
 #: ../..//workOnRepo.php:257
 #: ../../workOnRepo.php:258
+#: ../../workOnRepo.php:260
 msgid "Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateisystem angelegt, da kein svnadmin Kommando in der config.inc.php angegebene ist!"
 
@@ -17333,6 +17758,7 @@ msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateis
 #: ../../workOnRepo.php:403
 #: ../..//workOnRepo.php:403
 #: ../../workOnRepo.php:418
+#: ../../workOnRepo.php:420
 msgid "Repository successfully modified"
 msgstr "Repository erfolgreich ge&auml;ndert"
 
@@ -17351,6 +17777,7 @@ msgstr "Repository erfolgreich ge&auml;ndert"
 #: ../../workOnRepo.php:315
 #: ../..//workOnRepo.php:315
 #: ../../workOnRepo.php:319
+#: ../../workOnRepo.php:321
 msgid "Repository sucessfully inserted into database but not created in filesystem because it's not locally hosted!"
 msgstr "Repository erfolgreich in die Datenbank eingetragen aber nicht im Dateisystem angelegt, da nicht lokal!"
 
@@ -17406,6 +17833,8 @@ msgstr "Repository Benutzerrecht"
 #: ../../templates/rep_access_rights.tpl:27
 #: ../..//templates/list_access_rights.tpl:30
 #: ../..//templates/rep_access_rights.tpl:27
+#: ../../templates/searchresult_access_right.tpl:31
+#: ../../templates/list_access_rights.tpl:43
 msgid "Repository:Directory"
 msgstr "Repository:Verzeichnis"
 
@@ -17623,6 +18052,8 @@ msgstr "Recht"
 #: ../../templates/rep_access_rights.tpl:12
 #: ../..//templates/list_access_rights.tpl:15
 #: ../..//templates/rep_access_rights.tpl:12
+#: ../../templates/searchresult_access_right.tpl:16
+#: ../../templates/list_access_rights.tpl:28
 msgid "Rights"
 msgstr "Rechte"
 
@@ -18025,6 +18456,10 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../..//templates/rep_show_user_result.tpl:62
 #: ../../templates/rep_show_user_result.tpl:83
 #: ../..//templates/rep_show_user_result.tpl:83
+#: ../../templates/general.tpl:120
+#: ../../templates/general.tpl:141
+#: ../../templates/rep_show_user_result.tpl:69
+#: ../../templates/rep_show_user_result.tpl:90
 msgid "SVN Module"
 msgstr "SVN Modul"
 
@@ -18186,8 +18621,18 @@ msgstr "SVN Kommando fehlt!"
 #: ../..//templates/list_repos.tpl:11
 #: ../..//templates/list_users.tpl:11
 #: ../../templates/list_group_admins.tpl:11
+#: ../../templates/list_access_rights.tpl:12
 msgid "Search"
 msgstr "Suchen"
+
+#: ../../templates/list_access_rights.tpl:8
+msgid "Search access rights"
+msgstr "Zugriffsrechte suchen"
+
+#: ../../templates/list_access_rights.tpl:10
+#: ../../templates/list_access_rights.tpl:12
+msgid "Search access rights by project, repository or path."
+msgstr "Zugriffsrechte nach Projekt, Repository oder Pfad suchen."
 
 #: ../../templates/list_groups.tpl:7
 #: ../..//templates/list_groups.tpl:7
@@ -18274,6 +18719,7 @@ msgstr "Benutzer suchen."
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/general.tpl:48
 #: ../../templates/general.tpl:48
 #: ../..//templates/general.tpl:48
+#: ../../templates/general.tpl:45
 msgid "Security question"
 msgstr "Sicherheitsfrage"
 
@@ -18283,6 +18729,7 @@ msgstr "Sicherheitsfrage"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/general.tpl:57
 #: ../../templates/general.tpl:57
 #: ../..//templates/general.tpl:57
+#: ../../templates/general.tpl:54
 msgid "Security question answer"
 msgstr "Antwort zur Sicherheitsfrage"
 
@@ -18338,6 +18785,9 @@ msgstr "Globale Benutzerrechte ausw&auml;hlen"
 #: ../..//selectGroup.php:99
 #: ../..//selectGroup.php:103
 #: ../..//selectGroup.php:116
+#: ../../selectGroup.php:100
+#: ../../selectGroup.php:104
+#: ../../selectGroup.php:117
 msgid "Select group"
 msgstr "Gruppe ausw&auml;hlen"
 
@@ -18397,6 +18847,9 @@ msgstr "W&auml;heln Sie ob das Benutzer Passwort ablaufen soll."
 #: ../..//selectProject.php:141
 #: ../..//selectProject.php:145
 #: ../..//selectProject.php:158
+#: ../../selectProject.php:142
+#: ../../selectProject.php:146
+#: ../../selectProject.php:159
 msgid "Select project"
 msgstr "Projekt ausw&auml;hlen"
 
@@ -18633,6 +19086,10 @@ msgstr "Sitzung abgelaufen! Bitte erneut anmelden!"
 #: ../..//workOnGroupAccessRight.php:208
 #: ../..//workOnGroupAccessRight.php:210
 #: ../..//workOnGroupAccessRight.php:221
+#: ../../workOnGroupAccessRight.php:212
+#: ../../workOnGroupAccessRight.php:223
+#: ../../workOnAccessRight.php:377
+#: ../../workOnAccessRight.php:464
 msgid "Set access rights"
 msgstr "Zugriffsrechte setzen"
 
@@ -18654,6 +19111,7 @@ msgstr "Standard Zugriffsrecht f&uuml;r Benutzer auf Repositories festlegen."
 #: ../../include/output.inc.php:223
 #: ../..//include/output.inc.php:223
 #: ../../include/output.inc.php:229
+#: ../../include/output.inc.php:231
 msgid "Show group"
 msgstr "Gruppe anzeigen"
 
@@ -18672,6 +19130,7 @@ msgstr "Gruppen Zugriffsrechte anzeigen"
 #: ../../include/output.inc.php:222
 #: ../..//include/output.inc.php:222
 #: ../../include/output.inc.php:228
+#: ../../include/output.inc.php:230
 msgid "Show user"
 msgstr "Benutzer anzeigen"
 
@@ -19175,6 +19634,28 @@ msgstr "Installation starten"
 #: ../../bulk_add_ldap_users.php:112
 #: ../../bulk_add_ldap_users.php:125
 #: ../../templates/workOnRepo.tpl:95
+#: ../../workOnUser.php:248
+#: ../../workOnUser.php:252
+#: ../../workOnUser.php:267
+#: ../../general.php:231
+#: ../../general.php:235
+#: ../../general.php:244
+#: ../../templates/general.tpl:172
+#: ../../templates/workOnUser.tpl:270
+#: ../../workOnUser.php:256
+#: ../../workOnUser.php:260
+#: ../../workOnUser.php:275
+#: ../../workOnGroup.php:187
+#: ../../workOnGroup.php:191
+#: ../../workOnGroup.php:277
+#: ../../workOnProject.php:210
+#: ../../workOnProject.php:386
+#: ../../setAccessRight.php:269
+#: ../../setAccessRight.php:273
+#: ../../setAccessRight.php:323
+#: ../../workOnRepo.php:160
+#: ../../workOnRepo.php:164
+#: ../../workOnRepo.php:179
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -19273,6 +19754,8 @@ msgstr "Subversion Modulpfad"
 #: ../../workOnProject.php:502
 #: ../..//workOnProject.php:397
 #: ../..//workOnProject.php:502
+#: ../../workOnProject.php:399
+#: ../../workOnProject.php:504
 msgid "Subversion module path missing, please fill in!"
 msgstr "Subversion Modulpfad fehlt, bitte eingeben!"
 
@@ -19309,6 +19792,7 @@ msgstr "Subversion Projekt"
 #: ../../workOnProject.php:391
 #: ../../workOnProject.php:392
 #: ../..//workOnProject.php:392
+#: ../../workOnProject.php:394
 msgid "Subversion project is missing, please fill in!"
 msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 
@@ -19333,6 +19817,7 @@ msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 #: ../../workOnProject.php:496
 #: ../../workOnProject.php:497
 #: ../..//workOnProject.php:497
+#: ../../workOnProject.php:499
 msgid "Subversion project name is missing, please fill in!"
 msgstr "Subversion projektname fehlt, bitte eingeben!"
 
@@ -19523,6 +20008,7 @@ msgstr "Der Link glit nur %s Tag(e)!"
 
 #: ../../workOnRepo.php:225
 #: ../..//workOnRepo.php:225
+#: ../../workOnRepo.php:227
 #, php-format
 msgid "The repository with the name %s exists already"
 msgstr "Das Repository mit dem Namen %s existiert bereits!"
@@ -19550,6 +20036,8 @@ msgstr "Das Repository mit dem Namen %s existiert bereits!"
 #: ../..//workOnUser.php:471
 #: ../../workOnUser.php:475
 #: ../..//workOnUser.php:475
+#: ../../workOnUser.php:548
+#: ../../workOnUser.php:554
 #, php-format
 msgid "The user %s does not exist"
 msgstr "Der Benutzer %s existiert nicht"
@@ -19585,6 +20073,8 @@ msgstr "Der Webserver Benutzer muss das Kommando ausf&uuml;hren k&ouml;nnen!"
 #: ../..//workOnUser.php:324
 #: ../../workOnUser.php:328
 #: ../..//workOnUser.php:328
+#: ../../workOnUser.php:340
+#: ../../workOnUser.php:348
 #, php-format
 msgid "The user with the userid %s exists already"
 msgstr "Der Benutzer mit der Benutzer-Id %s existiert bereits"
@@ -19755,6 +20245,7 @@ msgstr "Unbekannter Benutzer. Hat jemand an den Formulardaten gepielt? Entschuld
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnGroup.php:500
 #: ../../workOnGroup.php:500
 #: ../..//workOnGroup.php:500
+#: ../../workOnGroup.php:503
 #, php-format
 msgid "Update of group %s failed due to database errors"
 msgstr "&Auml;nderung der Gruppe %s aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -20018,6 +20509,8 @@ msgstr "MD5 Verrschl&uuml;sselung benutzen"
 #: ../../templates/list_repos.tpl:27
 #: ../..//templates/list_repos.tpl:27
 #: ../..//templates/searchresult_repos.tpl:15
+#: ../../templates/searchresult_access_right.tpl:19
+#: ../../templates/list_access_rights.tpl:31
 msgid "User"
 msgstr "Benutzer"
 
@@ -20050,6 +20543,8 @@ msgstr "Benutzer"
 #: ../../general.php:202
 #: ../..//general.php:78
 #: ../..//general.php:202
+#: ../../general.php:211
+#: ../../general.php:335
 msgid "User "
 msgstr "Benutzer"
 
@@ -20130,6 +20625,10 @@ msgstr "Benutzer"
 #: ../../workOnProject.php:643
 #: ../..//workOnProject.php:468
 #: ../..//workOnProject.php:643
+#: ../../workOnGroup.php:374
+#: ../../workOnGroup.php:495
+#: ../../workOnProject.php:470
+#: ../../workOnProject.php:645
 #, php-format
 msgid "User %s not found!"
 msgstr "Benutzer %s nicht gefunden!"
@@ -20223,6 +20722,8 @@ msgstr "Benutzer existiert nicht!"
 #: ../../setAccessRight.php:438
 #: ../..//setAccessRight.php:405
 #: ../..//setAccessRight.php:438
+#: ../../setAccessRight.php:406
+#: ../../setAccessRight.php:439
 msgid "User is not allowed to have write access, global right is read only"
 msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale Recht ist \"nur lesen\""
 
@@ -20250,6 +20751,7 @@ msgstr "Benutzer gesperrt"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteUser.php:207
 #: ../../deleteUser.php:207
 #: ../..//deleteUser.php:207
+#: ../../deleteUser.php:208
 msgid "User not deleted due to database errors"
 msgstr "Benutzer aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 
@@ -20276,6 +20778,8 @@ msgstr "Benutzer aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 #: ../..//workOnUser.php:558
 #: ../../workOnUser.php:562
 #: ../..//workOnUser.php:562
+#: ../../workOnUser.php:696
+#: ../../workOnUser.php:700
 msgid "User not modified due to database error"
 msgstr "Benutzer aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
@@ -20302,6 +20806,7 @@ msgstr "Benutzer erfolgreich hinzugef&uuml;gt"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/deleteUser.php:197
 #: ../../deleteUser.php:197
 #: ../..//deleteUser.php:197
+#: ../../deleteUser.php:198
 msgid "User successfully deleted"
 msgstr "Benutzer erfolgreich gel&ouml;scht"
 
@@ -20328,6 +20833,8 @@ msgstr "Benutzer erfolgreich gel&ouml;scht"
 #: ../..//workOnUser.php:406
 #: ../../workOnUser.php:410
 #: ../..//workOnUser.php:410
+#: ../../workOnUser.php:483
+#: ../../workOnUser.php:489
 msgid "User successfully inserted"
 msgstr "Benutzer erfolgreich eingef&uuml;gt"
 
@@ -20354,6 +20861,8 @@ msgstr "Benutzer erfolgreich eingef&uuml;gt"
 #: ../..//workOnUser.php:566
 #: ../../workOnUser.php:570
 #: ../..//workOnUser.php:570
+#: ../../workOnUser.php:704
+#: ../../workOnUser.php:708
 msgid "User successfully modified"
 msgstr "Benutzer erfolgreich ge&auml;ndert"
 
@@ -20432,6 +20941,10 @@ msgstr "Benutzer-Id"
 #: ../../workOnUser.php:422
 #: ../..//workOnUser.php:263
 #: ../..//workOnUser.php:422
+#: ../../workOnUser.php:275
+#: ../../workOnUser.php:495
+#: ../../workOnUser.php:283
+#: ../../workOnUser.php:501
 msgid "Userid is missing, please fill in!"
 msgstr "Benutzerkennung fehlt, bitte eingeben!"
 
@@ -20499,6 +21012,7 @@ msgstr "Benutzerkennung fehlt, bitte eingeben!"
 #: ../../templates/rep_show_group_result.tpl:43
 #: ../..//templates/rep_show_group_result.tpl:20
 #: ../..//templates/rep_show_group_result.tpl:43
+#: ../../templates/general.tpl:9
 msgid "Username"
 msgstr "Benutzername"
 
@@ -20571,6 +21085,8 @@ msgstr "Benutzername unbekannt"
 #: ../..//include/output.inc.php:62
 #: ../..//include/output.inc.php:159
 #: ../..//templates/main.tpl:65
+#: ../../include/output.inc.php:64
+#: ../../include/output.inc.php:161
 msgid "Users"
 msgstr "Benutzer"
 
@@ -20605,6 +21121,8 @@ msgstr "Benutzer in der Gruppe"
 #: ../..//templates/list_access_rights.tpl:24
 #: ../..//templates/rep_access_rights.tpl:21
 #: ../..//templates/setAccessRight.tpl:48
+#: ../../templates/searchresult_access_right.tpl:25
+#: ../../templates/list_access_rights.tpl:37
 msgid "Valid from"
 msgstr "G&uuml;ltig von"
 
@@ -20634,6 +21152,8 @@ msgstr "G&uuml;ltig von"
 #: ../..//templates/list_access_rights.tpl:27
 #: ../..//templates/rep_access_rights.tpl:24
 #: ../..//templates/setAccessRight.tpl:55
+#: ../../templates/searchresult_access_right.tpl:28
+#: ../../templates/list_access_rights.tpl:40
 msgid "Valid until"
 msgstr "G&uuml;ltig bis"
 
@@ -21288,6 +21808,7 @@ msgstr "Website Einstellungen / Vergessene Passworte"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/include/output.inc.php:58
 #: ../../include/output.inc.php:58
 #: ../..//include/output.inc.php:58
+#: ../../include/output.inc.php:60
 #, php-format
 msgid "Welcome %s"
 msgstr "Willkommen %s"
@@ -21728,8 +22249,41 @@ msgstr "Falsche Antwort!"
 #: ../../templates/install-tabs.tpl:876
 #: ../../templates/install-tabs.tpl:937
 #: ../../templates/install-tabs.tpl:948
+#: ../../general.php:199
+#: ../../rep_show_user.php:266
+#: ../../rep_show_user.php:270
+#: ../../rep_show_user.php:271
+#: ../../createAccessFiles.php:86
+#: ../../createAccessFiles.php:90
+#: ../../createAccessFiles.php:101
+#: ../../rep_show_user.php:267
+#: ../../rep_show_user.php:272
 msgid "Yes"
 msgstr "Ja"
+
+#: ../../workOnUser.php:364
+#: ../../workOnUser.php:373
+#: ../../workOnUser.php:382
+#: ../../workOnUser.php:391
+#: ../../workOnUser.php:400
+#: ../../workOnUser.php:572
+#: ../../workOnUser.php:581
+#: ../../workOnUser.php:590
+#: ../../workOnUser.php:599
+#: ../../workOnUser.php:608
+#: ../../workOnUser.php:370
+#: ../../workOnUser.php:379
+#: ../../workOnUser.php:388
+#: ../../workOnUser.php:397
+#: ../../workOnUser.php:406
+#: ../../workOnUser.php:576
+#: ../../workOnUser.php:585
+#: ../../workOnUser.php:594
+#: ../../workOnUser.php:603
+#: ../../workOnUser.php:612
+#, php-format
+msgid "You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"
+msgstr "Sie sind nicht berechtigt, das Recht '%s' f&uuml;r '%s' zu vergeben, da Sie nicht &uuml;ber ausreichende Privilegien verf&uuml;gen: '%s'"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:330
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:361
@@ -21855,6 +22409,7 @@ msgstr "Ihr Benutzer wurde zwischenzeitlich gel&ouml;scht!"
 #: ../..//templates/workOnUser.tpl:240
 #: ../../templates/workOnUser.tpl:241
 #: ../..//templates/workOnUser.tpl:241
+#: ../../templates/workOnUser.tpl:243
 msgid "add"
 msgstr "hinzuf&uuml;gen"
 
@@ -22094,6 +22649,7 @@ msgstr "config.inc.php erfolgreich angelegt"
 #: ../..//templates/workOnUser.tpl:250
 #: ../../templates/searchresult_groupadmin.tpl:41
 #: ../../templates/list_group_admins.tpl:52
+#: ../../templates/workOnUser.tpl:254
 msgid "delete"
 msgstr "l&ouml;schen"
 
@@ -22126,6 +22682,7 @@ msgstr "absteigend"
 #: ../..//templates/workOnUser.tpl:245
 #: ../../templates/workOnUser.tpl:246
 #: ../..//templates/workOnUser.tpl:246
+#: ../../templates/workOnUser.tpl:249
 msgid "edit"
 msgstr "&auml;ndern"
 
@@ -22174,6 +22731,8 @@ msgstr "grep Kommando"
 
 #: ../../rep_show_user.php:145
 #: ../..//rep_show_user.php:145
+#: ../../general.php:128
+#: ../../rep_show_user.php:151
 msgid "group id"
 msgstr "Gruppe"
 
@@ -22337,6 +22896,8 @@ msgstr "Gruppe"
 #: ../../templates/list_users.tpl:120
 #: ../..//templates/list_users.tpl:84
 #: ../..//templates/list_users.tpl:120
+#: ../../general.php:196
+#: ../../general.php:328
 msgid "no"
 msgstr "Nein"
 
@@ -22379,6 +22940,8 @@ msgstr "Nein"
 #: ../..//templates/workOnUser.tpl:229
 #: ../../templates/workOnUser.tpl:230
 #: ../..//templates/workOnUser.tpl:230
+#: ../../deleteAccessRight.php:160
+#: ../../deleteAccessRight.php:184
 msgid "none"
 msgstr "keine"
 
@@ -22478,6 +23041,7 @@ msgstr "nicht schreibbar"
 #: ../../templates/install-tabs.tpl:959
 #: ../../templates/bulk_add_ldap_users.tpl:27
 #: ../../templates/bulk_add_ldap_users.tpl:30
+#: ../../templates/workOnUser.tpl:237
 msgid "read"
 msgstr "lesen"
 
@@ -22499,6 +23063,18 @@ msgstr "lesen"
 #: ../..//list_users.php:151
 #: ../../list_group_admins.php:168
 #: ../../list_group_admins.php:170
+#: ../../list_repos.php:144
+#: ../../list_repos.php:146
+#: ../../list_projects.php:148
+#: ../../list_projects.php:150
+#: ../../list_group_admins.php:169
+#: ../../list_group_admins.php:171
+#: ../../list_users.php:150
+#: ../../list_users.php:152
+#: ../../list_groups.php:200
+#: ../../list_groups.php:202
+#: ../../list_access_rights.php:286
+#: ../../list_access_rights.php:288
 msgid "search"
 msgstr "suchen"
 
@@ -22585,11 +23161,15 @@ msgstr "svnadmin Kommando"
 
 #: ../../rep_show_user.php:147
 #: ../..//rep_show_user.php:147
+#: ../../general.php:130
+#: ../../rep_show_user.php:153
 msgid "user id"
 msgstr "Benutzer"
 
 #: ../../rep_show_user.php:143
 #: ../..//rep_show_user.php:143
+#: ../../general.php:126
+#: ../../rep_show_user.php:149
 msgid "user id + group id"
 msgstr "Benutzer + Gruppe"
 
@@ -22833,6 +23413,8 @@ msgstr "schreiben"
 #: ../../templates/list_users.tpl:120
 #: ../..//templates/list_users.tpl:84
 #: ../..//templates/list_users.tpl:120
+#: ../../general.php:196
+#: ../../general.php:328
 msgid "yes"
 msgstr "Ja"
 

@@ -102,6 +102,7 @@ $_SESSION['svn_sessid']['helptopic']		= "replockedusers";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use rep_locked_users without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

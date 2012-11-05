@@ -51,6 +51,7 @@ $schema										= db_determine_schema();
 
 if( $rightAllowed != "delete" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use deleteUser without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

@@ -122,6 +122,7 @@ $_SESSION['svn_sessid']['helptopic']		= "listgroupadmins";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use list_group_admins without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
@@ -204,6 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				  							  	  "   AND (svngroups.deleted = '00000000000000') ". 
 				  							  	  "   AND ((svnusers.name like '%$tSearch%') ".
 				  							  	  "    OR  (svnusers.givenname like '%$tSearch%') ".
+				  							  	  "    OR  (svnusers.userid like '%$tSearch%') ".
 				  						  		  "    OR  (svngroups.groupname like '%$tSearch%') ".
 				  						  	  	  "    OR  (svngroups.description like '%$tSearch%')) ".    											  						  
 				  						  	  	  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";

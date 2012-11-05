@@ -148,6 +148,7 @@ if( $rightAllowed == "none" ) {
 	
 	$tGroupsAllowed							= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
 	if(count($tGroupsAllowed) == 0 ) {
+		db_log( $SESSID_USERNAME, "tried to use list_groups without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;
@@ -220,6 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         } else {
     	
     		$tArray								= array();
+    		$schema								= db_determine_schema();
     		$query								= "SELECT * ".
     											  "  FROM ".$schema."svngroups ".
     											  " WHERE ((groupname like '%$tSearch%') ".

@@ -96,15 +96,24 @@ $dbh 										= db_connect ();
 $preferences								= db_get_preferences($SESSID_USERNAME, $dbh );
 $CONF['page_size']							= $preferences['page_size'];
 $rightAllowed								= db_check_acl( $SESSID_USERNAME, "User admin", $dbh );
+$isGlobalAdmin								= db_check_global_admin( $SESSID_USERNAME, $dbh );
+$SESSID_USERID								= db_getIdByUserid( $SESSID_USERNAME, $dbh );
+$tRightsGrantedToCurUser					= getRightsGranted( $SESSID_USERID, $dbh );
 $_SESSION['svn_sessid']['helptopic']		= "workonuser";
 if( $rightAllowed == "add" ) {
 	$tDisabled								= "disabled";
 } else {
 	$tDisabled								= "";
 }
+if( ($rightAllowed != "delete") ) {
+	$tDisabledAdmin							= "disabled";
+} else {
+	$tDisabledAdmin							= "";
+}
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use workOnUser without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;
@@ -114,8 +123,6 @@ if( $rightAllowed == "none" ) {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	$tReadonly								= "";
-	$tUseridNonLdap							= "";
-	$tReadonlyNonLdap						= "";
 	$tTask									= db_escape_string( $_GET['task'] );
 	if( isset( $_GET['id'] ) ) {
 
@@ -126,14 +133,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tId								= "";
 
 	}
-
-	if( ($rightAllowed == "add") and ($tTask != "new") ) {
 	
+	if( (($rightAllowed == "add") and ($tTask != "new")) ) {
+	
+		db_log( $SESSID_USERNAME, "tried to use workOnUser without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;
 	
-	}		
+	}
 	
 	$_SESSION['svn_sessid']['task']			= strtolower( $tTask );
 	$_SESSION['svn_sessid']['userid']		= $tId;
@@ -144,8 +152,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if( $_SESSION['svn_sessid']['task'] == "new" ) {
    		
    		$tUserid								= "";
-   		$tUseridNonLdap							= "";
-		$tReadonlyNonLdap						= "readonly";
 		$tName									= "";
 		$tGivenname								= "";
 		$tEmail									= "";
@@ -168,11 +174,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
 			$tUsers								= get_ldap_users();
 		}
+		
+		$_SESSION['svn_sessid']['rightsgranted']		= array();
+		$_SESSION['svn_sessid']['passwordexpires']		= "1";
+		$_SESSION['svn_sessid']['locked']				= "0";
+		$_SESSION['svn_sessid']['admin']				= "n";
 			
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
    		$tReadonly								= "readonly";
-   		$tReadonlyNonLdap						= "readonly";
    		$query									= "SELECT * " .
    												  "  FROM ".$schema."svnusers " .
    												  " WHERE id = $tId";
@@ -192,6 +202,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$tAdministrator						= $row['admin'];
 			$tUserRight							= $row['user_mode'];
 			$tRightsGranted						= getRightsGranted( $row['id'], $dbh );
+			$_SESSION['svn_sessid']['rightsgranted'] 		= $tRightsGranted;
+			$_SESSION['svn_sessid']['passwordexpires']		= $tPasswordExpires;
+			$_SESSION['svn_sessid']['locked']				= $tLocked;
+			$_SESSION['svn_sessid']['admin']				= $tAdministrator;
 			
 		} else {
 		
@@ -221,7 +235,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    	$tUserid								= isset($_POST['fUserid']) 			? db_escape_string( $_POST['fUserid'] )				: "";
    	$tUserid								= explode( ":", $tUserid);
    	$tUserid								= $tUserid[0];
-   	$tUseridNonLdap							= isset($_POST['fUseridNonLdap'])	? db_escape_string( $_POST['fUseridNonLdap'] )		: "";
    	$tName									= isset($_POST['fName']) 			? db_escape_string( $_POST['fName'] )				: "";
    	$tGivenname								= isset($_POST['fGivenname']) 		? db_escape_string( $_POST['fGivenname'] )			: "";
    	$tPassword								= isset($_POST['fPassword']) 		? db_escape_string( $_POST['fPassword'] )			: "";
@@ -230,11 +243,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tCustom1								= isset($_POST['fCustom1'])			? db_escape_string( $_POST['fCustom1'] )			: "";
 	$tCustom2      							= isset($_POST['fCustom2'])     	? db_escape_string( $_POST['fCustom2'] )        	: "";
 	$tCustom3       						= isset($_POST['fCustom3'])     	? db_escape_string( $_POST['fCustom3'] )        	: "";
-   	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: "0";
-   	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: "";
-   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: "";
+   	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: $_SESSION['svn_sessid']['passwordexpires'];
+   	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: $_SESSION['svn_sessid']['locked'];
+   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: $_SESSION['svn_sessid']['admin'];
    	$tUserRight								= isset($_POST['fUserRight']) 		? db_escape_string( $_POST['fUserRight'] )			: "";
    	$tRightsAvailable						= getRights( $dbh );
+   	$tRightsGranted							= array();
    	
    	if( isset( $_POST['fSubmit'] ) ) {
 		$button								= db_escape_string( $_POST['fSubmit'] );
@@ -274,17 +288,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    				$tMessage					= _( "Please select an user!" );
    				$error						= 1;
    				
-   			} elseif( ($tUserid == "nonldapuser") and ($tUseridNonLdap == "") ) {
-      			
-      			$tMessage					= _("Userid for non LDAP user is missing!");
-      			$error						= 1;
-      			
    			} elseif( $tName == "" ) {
    				
    				$tMessage					= _( "Name missing, please fill in!" );
    				$error						= 1;
 
-   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) or ($tUserid == "nonldapuser") ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
    				if( ($tPassword == "") and ($tPassword2 == "") ) {
    				
@@ -292,7 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					$error					= 1;
    				}
 				 
-   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) or (c) ) {
+   			} elseif( (!isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
    				
 	   			if( ($tPassword != "") or ($tPassword2 != "") ) {
 	   				
@@ -341,18 +350,76 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    					
    				} 
    			}
+			
+			if( $error == 0 ) {
+				
+				foreach( $tRightsAvailable as $right ) {
+   					
+					$right_id				= $right['id'];
+					$tOldRight				= isset( $_SESSION['svn_sessid']['rightsgranted'][$right_id]) ? $_SESSION['svn_sessid']['rightsgranted'][$right_id] : "";
+					$field					= "fId".$right_id;
+					$value					= isset( $_POST[$field] ) ? db_escape_string( $_POST[$field] ) : $tOldRight;
+					$tCurRight				= $tRightsGrantedToCurUser[$right_id];
+					$tRightName				= db_getRightName( $right_id, $dbh );
+					$tRightsGranted[$right_id] = $value;
+					
+					if( strtolower($value) == "delete" ) {
+			   					
+   						if( $tCurRight != "delete" ) {
+   							
+							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						} 
+   						
+   					} elseif( strtolower($value) == "edit" ) {
+   					
+   						if( ($tCurRight != "delete") and ($tCurRight != "edit") ) {
+   							
+   							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						} 
+   						
+   					} elseif( strtolower($value) == "add" ) {
+   					
+   						if( ($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add") ) {
+   							
+   							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						} 
+   						
+   					} elseif( strtolower($value) == "read" ) {
+   					
+   						if( ($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add") and ($tCurRight != "read") ) {
+   							
+   							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						}
+   						
+					} elseif( strtolower($value) == "none" ) {
+						
+   					} else {
+   					
+   						$tMessage			= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+						$error				= 1;
+   						
+   					}
+				}
+			}
   			   			
    			if( $error == 0 ) {
    				
-   				$userid						= ($tUserid == "nonldapuser") ? $tUseridNonLdap : $tUserid;
    				$tPassword					= ($tPassword == "") ? generatePassword("y") : $tPassword;
    				$pwcrypt					= db_escape_string( pacrypt( $tPassword ), $dbh );
    				$dbnow						= db_now();
    				$query 						= "INSERT INTO ".$schema."svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, custom1, custom2, custom3, admin, created, created_user, password_modified, user_mode) " .
-   						                      "     VALUES ('$userid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
+   						                      "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '".$_SESSION['svn_sessid']['username']."', '20000101000000', '$tUserRight')";
    				
    				db_ta( 'BEGIN', $dbh );
-   				db_log( $_SESSION['svn_sessid']['username'], "added user $userid, $tName, $tGivenname", $dbh ); 
+   				db_log( $_SESSION['svn_sessid']['username'], "added user $tUserid, $tName, $tGivenname", $dbh ); 
    				
    				$result						= db_query( $query, $dbh );
    				if( $result['rows'] == 1 ) {
@@ -489,6 +556,65 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    					
    				}
    			}
+   			
+   			if( $error == 0 ) {
+				
+				foreach( $tRightsAvailable as $right ) {
+   					
+					$right_id				= $right['id'];
+					$tOldRight				= isset( $_SESSION['svn_sessid']['rightsgranted'][$right_id]) ? $_SESSION['svn_sessid']['rightsgranted'][$right_id] : "";
+					$field					= "fId".$right_id;
+					$value					= isset( $_POST[$field] ) ? db_escape_string( $_POST[$field] ) : $tOldRight;
+					$tCurRight				= $tRightsGrantedToCurUser[$right_id];
+					$tRightName				= db_getRightName( $right_id, $dbh );
+					$tRightsGranted[$right_id] = $value;
+					
+					if( strtolower($value) == "delete" ) {
+			   					
+   						if( $tCurRight != "delete" ) {
+   							
+							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						} 
+   						
+   					} elseif( strtolower($value) == "edit" ) {
+   					
+   						if( ($tCurRight != "delete") and ($tCurRight != "edit") ) {
+   							
+   							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						} 
+   						
+   					} elseif( strtolower($value) == "add" ) {
+   					
+   						if( ($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add") ) {
+   							
+   							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						} 
+   						
+   					} elseif( strtolower($value) == "read" ) {
+   					
+   						if( ($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add") and ($tCurRight != "read") ) {
+   							
+   							$tMessage		= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+							$error			= 1;
+							
+   						}
+   						
+					} elseif( strtolower($value) == "none" ) {
+						
+   					} else {
+   					
+   						$tMessage			= sprintf( _("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight );
+						$error				= 1;
+   						
+   					}
+				}
+			}
   			   			
    			if( $error == 0 ) {
    				
@@ -586,7 +712,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    					db_ta( 'ROLLBACK', $dbh );
    					
    				}
-   			}
+   				
+   			} 
    			
    		} else {
    			

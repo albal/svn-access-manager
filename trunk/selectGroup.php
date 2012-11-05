@@ -60,6 +60,7 @@ $rightAllowed								= db_check_acl( $SESSID_USERNAME, "Group admin", $dbh );
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use selectGroup without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

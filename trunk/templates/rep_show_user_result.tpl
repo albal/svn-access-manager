@@ -31,6 +31,13 @@
 						<td class="greyCell"><strong><?php print _("Repository access right").": "; ?></strong></td>
 						<td><?php print $tAccessRight;?></td>
 					</tr>
+					<tr>
+						<td class="greyCell"><strong><?php print _("Password last modified").": "; ?></strong></td>
+						<td><?php print $tPasswordModified;?></td>
+						<td>&nbsp;&nbsp;</td>
+						<td class="greyCell">&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
 				</table>
 				<p>&nbsp;</p>
 				<h3><?php print _("Group membership");?></h3>
