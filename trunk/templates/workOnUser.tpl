@@ -14,8 +14,7 @@
 				   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") and ($_SESSION['svn_sessid']['task'] == "new") ) {
 				   					
 				   					print "\t\t\t\t\t\t\t<select name=\"fUserid\" $tReadonly onchange=\"changeUser();\">\n";
-				   					print "\t\t\t\t\t\t\t\t<option value=\"default::::\">"._("--- Please select user ---")."</option>\n";
-				   					print "\t\t\t\t\t\t\t\t<option id=\"nonldap::::\" value=\"nonldapuser\">"._("--- Add non LDAP user ---")."</option>\n";
+				   					print "\t\t\t\t\t\t\t\t<option value=\"default\">"._("--- Please select user ---")."</option>\n";
 				   					foreach( $tUsers as $entry ) {
 				   						$value	= $entry['uid'].":".$entry['name'].":".$entry['givenname'].":".$entry['emailaddress'].":";
 				   						if( $entry['uid'] == $tUserid ) {
@@ -35,23 +34,6 @@
 				   		</td>
 				   		<td>&nbsp;</td>
 				   	</tr>
-				   	<?php
-				   		
-			   			print "\t\t\t\t\t<tr id='usernonldap' class='hidden'>\n";
-			   			print "\t\t\t\t\t\t<td width='150'>\n";
-			   			print "\t\t\t\t\t\t\t<strong>"._("Non LDAP User").":</strong>\n";
-			   			print "\t\t\t\t\t\t</td>\n";
-			   			
-			   			print "\t\t\t\t\t\t<td>\n";
-			   			print "\t\t\t\t\t\t\t<input type=\"text\" name=\"fUseridNonLdap\" value=\"$tUseridNonLdap\" size=\"8\" maxsize=\"255\" />\n";
-			   			print "\t\t\t\t\t\t</td>\n";
-			   			
-			   			print "\t\t\t\t\t\t<td>\n";
-			   			print "\t\t\t\t\t\t\t&nbsp;\n";
-			   			print "\t\t\t\t\t\t</td>\n";
-			   			print "\t\t\t\t\t</tr>\n";
-			   		
-				   	?>
 				   	<tr>
 				   		<td><strong><?php print _("Name").": "; ?></strong></td>
 				   		<td>
@@ -68,26 +50,21 @@
 				   	</tr>
 				   	<?php
 				   		if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
-				   			$tVisible		= "";
-				   		} else {
-				   			$tVisible		= "hidden";
-				   		}
-				   		print "\t\t\t\t\t\t<tr id='pw1' class='".$tVisible."'>\n";
-					   	print "\t\t\t\t\t\t\t<td width='150' nowrap><strong>"._("Password").": </strong></td>\n";
-					   	print "\t\t\t\t\t\t\t<td>\n";
-					   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword\" value=\"$tPassword\" size=\"40\" maxsize=\"255\" autocomplete=\"off\" />\n";
-					   	print "\t\t\t\t\t\t\t</td>\n";
-					   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
-						print "\t\t\t\t\t\t</tr>\n";
-						
-					   	print "\t\t\t\t\t\t<tr id='pw2' class='".$tVisible."'>\n";
-					   	print "\t\t\t\t\t\t\t<td width='150' nowrap><strong>"._("Retype password").": </strong></td>\n";
-					   	print "\t\t\t\t\t\t\t<td>\n";
-					   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword2\" value=\"$tPassword2\" size=\"40\" maxsize=\"255\" />\n";
-					   	print "\t\t\t\t\t\t\t</td>\n";
-					   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
-					   	print "\t\t\t\t\t\t</tr>\n";
-						
+					   		print "\t\t\t\t\t\t<tr>\n";
+						   	print "\t\t\t\t\t\t\t<td><strong>"._("Password").": </strong></td>\n";
+						   	print "\t\t\t\t\t\t\t<td>\n";
+						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword\" value=\"$tPassword\" size=\"40\" maxsize=\"255\" autocomplete=\"off\" title=\""._("Enter the password. Keep in mind that the password must be set accordingly to the password policy.")."\"/>\n";
+						   	print "\t\t\t\t\t\t\t</td>\n";
+						   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+							print "\t\t\t\t\t\t</tr>\n";
+						   	print "\t\t\t\t\t\t<tr>\n";
+						   	print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Retype password").": </strong></td>\n";
+						   	print "\t\t\t\t\t\t\t<td>\n";
+						   	print "\t\t\t\t\t\t\t\t<input type=\"password\" name=\"fPassword2\" value=\"$tPassword2\" size=\"40\" maxsize=\"255\" title=\""._("Retype the password to avoid typos.")."\"/>\n";
+						   	print "\t\t\t\t\t\t\t</td>\n";
+						   	print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+						   	print "\t\t\t\t\t\t</tr>\n";
+						}
 				   	?>
 					   	
 				   	<tr>
@@ -126,34 +103,29 @@
                             print "\t\t\t\t\t\t</tr>\n";
                         }
                                                 
-			   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
-			   				$tVisible		= "hidden";
-			   			} else {
-			   				$tVisible		= "";
+			   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
+			   				print "\n\t\t\t\t\t\t<tr>\n";
+			   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";
+			   				print "\t\t\t\t\t\t\t<td>\n";
+			   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\" $tDisabledAdmin title=\""._("Select if the user password should expire.")."\">\n";
+		   					if( $tPasswordExpires == 0 ) {
+		   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
+		   						print "\t\t\t\t\t\t\t\t<option value='1'>"._("yes")."</option>\n";
+		   					} else {
+		   						print "\t\t\t\t\t\t\t\t<option value='0'>"._("no")."</option>\n";
+		   						print "\t\t\t\t\t\t\t\t<option value='1' selected>"._("yes")."</option>\n";
+		   					}
+			   				print "\t\t\t\t\t\t\t\t</select>\n";
+			   				print "\t\t\t\t\t\t\t</td>\n";
+			   				print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
+			   				print "\t\t\t\t\t\t</tr>\n";
 			   			}
-			   			
-		   				print "\n\t\t\t\t\t\t<tr id='pwex' class='".$tVisible."'>\n";
-		   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";
-		   				print "\t\t\t\t\t\t\t<td>\n";
-		   				print "\t\t\t\t\t\t\t\t<select name=\"fPasswordExpires\">\n";
-	   					if( $tPasswordExpires == 0 ) {
-	   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
-	   						print "\t\t\t\t\t\t\t\t<option value='1'>"._("yes")."</option>\n";
-	   					} else {
-	   						print "\t\t\t\t\t\t\t\t<option value='0'>"._("no")."</option>\n";
-	   						print "\t\t\t\t\t\t\t\t<option value='1' selected>"._("yes")."</option>\n";
-	   					}
-		   				print "\t\t\t\t\t\t\t\t</select>\n";
-		   				print "\t\t\t\t\t\t\t</td>\n";
-		   				print "\t\t\t\t\t\t\t<td>&nbsp;</td>\n";
-		   				print "\t\t\t\t\t\t</tr>\n";
-			   			
 			   		?>
 				   	
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Locked").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fLocked" title="<?php print _("A locked user can not work any longer with the subversion repositories. If the user password expiered, the user will be locked automatically.");?>">
+				   			<select name="fLocked" <?php print $tDisabledAdmin;?> title="<?php print _("A locked user can not work any longer with the subversion repositories. If the user password expiered, the user will be locked automatically.");?>">
 				   				<?php
 				   					if( $tLocked == 0 ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='0' selected>"._("no")."</option>\n";
@@ -170,7 +142,7 @@
 				   	<tr>
 				   		<td nowrap><strong><?php print _("Administrator").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fAdministrator" title="<?php print _("An administrator has more privileges as a normal user. Administrators have a stronger password policy as normal users.");?>">
+				   			<select name="fAdministrator" <?php print $tDisabledAdmin;?> title="<?php print _("An administrator has more privileges as a normal user. Administrators have a stronger password policy as normal users.");?>">
 				   				<?php
 				   					if( $tAdministrator == "n" ) {
 				   						print "\t\t\t\t\t\t\t\t<option value='n' selected>"._("no")."</option>\n";
@@ -208,7 +180,7 @@
 				   		<td colspan="3"><strong><?php print _("Select global user rights"); ?></strong></td>
 				   	</tr>
 			   		<?php
-			   			
+			   						   			
 			   			foreach( $tRightsAvailable as $right ) {
 			   			
 			   				$id						= $right['id'];
@@ -218,13 +190,13 @@
 			   				print "\t\t\t\t\t\t\t\t".$right['right_name'].": ";
 			   				print "\t\t\t\t\t\t\t</strong></td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
-			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' $tDisabled title=\"".$right['description']."\">\n";
+			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' title=\"".$right['description']."\">\n";
 			   				
 			   				$tNone						= "selected";
 			   				$tRead						= "";
 			   				$tAdd						= "";
 			   				$tEdit						= "";
-			   				$tDelete					= "";   				
+			   				$tDelete					= "";   		
 			   					
 			   				if( isset($tRightsGranted[$id]) ) {
 			   					if(strtolower($tRightsGranted[$id]) == "read") {
@@ -232,7 +204,7 @@
 			   						$tRead				= "selected";
 			   						$tAdd				= "";
 			   						$tEdit				= "";
-			   						$tDelete			= "";
+			   						$tDelete			= "";  
 			   					} elseif(strtolower($tRightsGranted[$id]) == "add" ) {
 			   						$tNone				= "";
 			   						$tRead				= "";
@@ -256,24 +228,28 @@
 			   				
 			   							   				
 			   				print "\t\t\t\t\t\t\t\t\t<option value='none' ".$tNone.">"._("none")."</option>\n";
-			   				if( ($right['allowed_action'] == "read") or 
-			   					($right['allowed_action'] == "add") or
-			   					($right['allowed_action'] == "edit") or 
-			   					($right['allowed_action'] == "delete")) {
+			   				if( (($right['allowed_action'] == "read") 		or 
+			   					 ($right['allowed_action'] == "add") 		or
+			   					 ($right['allowed_action'] == "edit") 		or 
+			   					 ($right['allowed_action'] == "delete"))	
+			   				  ) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='read' ".$tRead.">"._("read")."</option>\n";
 			   				}
-			   				if( ($right['allowed_action'] == "add" ) or
-			   				    ($right['allowed_action'] == "edit") or
-			   					($right['allowed_action'] == "delete") ) {
+			   				if( (($right['allowed_action'] == "add" ) 		or
+			   				     ($right['allowed_action'] == "edit") 		or
+			   					 ($right['allowed_action'] == "delete"))	
+			   				  ) {
 			   					print "\t\t\t\t\t\t\t\t\t<option value='add' ".$tAdd.">"._("add")."</option>\n";
 			   				}
-			   				if( ($right['allowed_action'] == "edit") or
-			   					($right['allowed_action'] == "delete") ) {
+			   				if( (($right['allowed_action'] == "edit") 		or
+			   					 ($right['allowed_action'] == "delete"))	
+			   				   ) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='edit' ".$tEdit.">"._("edit")."</option>\n";
 			   				}
-			   				if( $right['allowed_action'] == "delete" ) {
+			   				if( ($right['allowed_action'] == "delete")		
+			   				  ) {
 			   				
 			   					print "\t\t\t\t\t\t\t\t\t<option value='delete' ".$tDelete.">"._("delete")."</option>\n";
 			   				}
@@ -313,23 +289,9 @@
 				var uid  = document.forms.workOnUser.fUserid.value;
 				var arr  = uid.split(":");
 				
-				if(arr[0] == "nonldapuser") {
-					$('#usernonldap').removeClass('hidden');
-					$('#pw1').removeClass('hidden');
-					$('#pw2').removeClass('hidden');
-					$('#pwex').removeClass('hidden');
-					document.forms.workOnUser.fName.value = '';
-					document.forms.workOnUser.fGivenname.value = '';
-					document.forms.workOnUser.fEmail.value = '';
-				} else {
-					document.forms.workOnUser.fName.value = arr[1];
-					document.forms.workOnUser.fGivenname.value = arr[2];
-					document.forms.workOnUser.fEmail.value = arr[3];
-					document.forms.workOnUser.fUseridNonLdap.value = '';
-					$('#usernonldap').addClass('hidden');
-					$('#pw1').addClass('hidden');
-					$('#pw2').addClass('hidden');
-					$('#pwex').addClass('hidden');
- 				}
+				document.forms.workOnUser.fName.value = arr[1];
+				document.forms.workOnUser.fGivenname.value = arr[2];
+				document.forms.workOnUser.fEmail.value = arr[3];
+ 
 			}
 		</script>
