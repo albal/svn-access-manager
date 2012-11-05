@@ -5,13 +5,6 @@ To Do's
 
 Open:
 
-- add /etc/svn to rpm package and make it default for access and passwd file
-
-- add selinux subpackage
-
-- add online help
-       -> particularly done, more texts to be added.
-
 - make svn protocol useable
 
 - import existing svn access files
@@ -22,6 +15,13 @@ Open:
 
 Done:
 
+- add /etc/svn to rpm package and make it default for access and passwd file
+
+- add selinux subpackage
+
+- add online help
+       -> particularly done, more texts to be added.
+       
 - Custom Fields in User administration
 
 - integrate LDAP for users and groups, Feature Request ID: 1985511
