@@ -53,7 +53,8 @@ if( ($rightAllowed != "edit") and ($rightAllowed != "delete") ) {
 	if( $_SESSION['svn_sessid']['admin'] == "p" ) {
 		
 	} else {
-	
+		
+		db_log( $SESSID_USERNAME, "tried to use setAccessRight without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;

@@ -91,7 +91,6 @@ function getAccessRights( $user_id, $start, $count, $dbh ) {
 											  "   AND (svnprojects.repo_id = svnrepos.id) " .
 											  "   AND (svn_access_rights.deleted = '00000000000000') " .
 											  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-#											  "   LIMIT $start, $count";
 		$result								= db_query( $query, $dbh, $count, $start );
 		
 		while( $row = db_assoc( $result['result'] ) ) {
@@ -239,6 +238,7 @@ if( $rightAllowed == "none" ) {
 		
 	} else {
 		
+		db_log( $SESSID_USERNAME, "tried to use list_access_rights without permission", $dbh );
 		db_disconnect( $dbh );
 		header( "Location: nopermission.php" );
 		exit;
@@ -282,13 +282,141 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("Delete selected");
 	} elseif( isset( $_POST['fSubmit_delete_x'] ) ) {
 		$button									= _("Delete selected");
-	} else {
+	} elseif( isset( $_POST['fSearchBtn'] ) ) {
+        $button                                 = _("search");
+    } elseif( isset( $_POST['fSearchBtn_x'] ) ) {
+        $button                                 = _("search");
+	}  else {
 		$button									= "undef";
 	}
 	
 	$schema										= db_determine_schema();
 	
-	if( $button == _( "Back" ) ) {
+	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+ 	
+ 	if( ($button == "search") or ($tSearch != "") ) {
+
+    	$tSearch                               	= html_entity_decode($tSearch);
+    	$_SESSION['svn_sessid']['search']       = $tSearch;
+        $_SESSION['svn_sessid']['searchtype']   = "access_right";
+        
+    	if( $tSearch == "" ) {
+
+        	$tErrorClass                    	= "error";
+            $tMessage                       	= _("No search string given!");
+            $tAccessRights						= array();
+
+        } else {
+    	
+    		$schema								= db_determine_schema();
+    		$tArray								= array();
+    		list($repopath, $path, $reponame) 	= explode( "|", $tSearch );
+    		$tProjectIds													= "";
+			$query															= "SELECT * " .
+									  					      				  "  FROM ".$schema."svn_projects_responsible " .
+							    							  				  " WHERE (deleted = '00000000000000')";
+		  	$result																= db_query( $query, $dbh );
+		  	while( $row = db_assoc( $result['result'] ) ) {
+		  		
+		  		if( $tProjectIds == "" ) {
+		  			
+		  			$tProjectIds 												= $row['project_id'];
+		  			
+		  		} else {
+		  			
+		  			$tProjectIds												= $tProjectIds.",".$row['project_id'];
+		  			
+		  		}
+		  		
+		  	}
+    		$query								= "SELECT svn_access_rights.id AS rid, svnmodule, modulepath, svnrepos." .
+												  "       reponame, valid_from, valid_until, path, access_right, recursive," .
+												  "       svn_access_rights.user_id, svn_access_rights.group_id, repopath " .
+												  "  FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
+												  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
+												  "   AND (svnprojects.id IN (".$tProjectIds."))" .
+												  "   AND (svnprojects.repo_id = svnrepos.id) " .
+												  "   AND (svn_access_rights.deleted = '00000000000000') " .
+												  "   AND ((svnrepos.repopath like '%$repopath%') ".
+												  "    OR  (svnrepos.reponame like '%$reponame%') ".
+												  "    OR  (path like '%$path%')) ".
+												  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
+			error_log( "search = ".$query );
+    		$result								= db_query( $query, $dbh );
+    		while( $row = db_assoc( $result['result'])) {
+    			
+    			$entry							= $row;
+    			$userid							= $row['user_id'];
+				if( empty( $userid) ) {
+					$userid						= 0;
+				}
+				
+				$groupid						= $row['group_id'];
+				if( empty( $groupid) ) {
+					$groupid					= 0;
+				}
+				
+				$entry['groupname']				= "";
+				$entry['username']				= "";
+				
+				if( $userid != "0" ) {
+				
+					$query						= "SELECT * " .
+												  "  FROM ".$schema."svnusers " .
+												  " WHERE id = $userid";
+					$resultread					= db_query( $query, $dbh );
+					if( $resultread['rows'] == 1 ) {
+						
+						$row					= db_assoc( $resultread['result'] );
+						$entry['username']		= $row['userid'];
+						
+					}
+			
+				}
+				
+				if( $groupid != "0" ) {
+					
+					$query						= "SELECT * " .
+												  "  FROM ".$schema."svngroups " .
+												  " WHERE id = $groupid";
+					$resultread					= db_query( $query, $dbh );
+					if( $resultread['rows'] == 1 ) {
+						
+						$row					= db_assoc( $resultread['result'] );
+						$entry['groupname']		= $row['groupname'];
+						
+					} else {
+						$entry['groupname']		= "unknown";
+					}
+				}
+    			$tArray[]						= $entry;
+    			
+    		}
+    		
+    		if( count($tArray) == 0 ) {
+    			
+    			$tErrorClass                    = "info";
+                $tMessage                       = _("No access rights found!");
+    			
+    		} elseif( count($tArray) == 1) {
+    			
+    			$id								= $tArray[0]['rid'];
+    			$url							= "workOnAccessRight.php?id=".urlencode($id)."&task=change";
+    			db_disconnect( $dbh );
+    			header( "location: $url" );
+    			exit;
+    			
+    		} else {
+    			
+    			db_disconnect( $dbh );
+    			$_SESSION['svn_sessid']['searchresult']	= $tArray;
+                header("location: searchresult.php");
+                exit;
+                
+    		}
+    	}
+    	
+ 	} elseif( $button == _( "Back" ) ) {
 		
 		db_disconnect( $dbh );
 		header( "Location: main.php" );

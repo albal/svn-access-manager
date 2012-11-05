@@ -2,9 +2,6 @@
 			<form name="general" method="post">
 				<table>
 				   	<tr>
-				      <td colspan=""><h3><?php print _("General"); ?></h3></td>
-				   	</tr>
-				   	<tr>
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
@@ -72,12 +69,100 @@
 				   	</tr>
 				   	<tr>
 				   		<td>
+				   			<strong><?php print _("Password expires").": "; ?></strong>
+				   		</td>
+				   		<td>
+				   			<input type="text" name="fPasswordExpires" value="<?php print $tPasswordExpires; ?>" readonly />
+				   		</td>
+				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				   		<td>
 				   			<strong><?php print _("Locked").": "; ?></strong>
 				   		</td>
 				   		<td>
 				   			<input type="text" name="fLocked" value="<?php print $tLocked; ?>" readonly />
 				   		</td>
 				   		<td>&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				      	<td colspan="3">&nbsp;</td>
+				   	</tr>
+				   	<tr>
+				      	<td colspan="3">
+				      	
+				      		<h3><?php print _("Group membership");?></h3>
+							<p>&nbsp;</p>
+							<table id="showusergroup_table">
+								<thead>
+									<tr>
+										<th><?php print _("Group name");?></th>
+										<th><?php print _("Description");?></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										foreach( $tGroups as $entry ) {
+											print "\t\t\t<tr>\n";
+											print "\t\t\t\t<td>".$entry['groupname']."</td>\n";
+											print "\t\t\t\t<td>".$entry['description']."</td>\n";
+											print "\t\t\t</tr>\n";
+										}
+									?>
+								</tbody>
+							</table>
+							<p>&nbsp;</p>
+				      		<h3><?php print _("Project responsible");?></h3>
+							<p>&nbsp;</p>
+							<table id="showuserproject_table">
+								<thead>
+									<tr>
+										<th><?php print _("SVN Module");?></th>
+										<th><?php print _("Repository name");?></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										foreach( $tProjects as $entry ) {
+											print "\t\t\t<tr>\n";
+											print "\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
+											print "\t\t\t\t<td>".$entry['reponame']."</td>\n";
+											print "\t\t\t</tr>\n";
+										}
+									?>
+								</tbody>
+							</table>
+							<p>&nbsp;</p>
+							<h3><?php print _("Access rights");?></h3>
+							<p>&nbsp;</p>
+							<table id="showuserright_table">
+								<thead>
+									<tr>
+										<th><?php print _("SVN Module");?></th>
+										<th><?php print _("Reporitory");?></th>
+										<th><?php print _("Path");?></th>
+										<th><?php print _("Module path");?></th>
+										<th><?php print _("Access right");?></th>
+										<th><?php print _("Access by");?></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										foreach( $tAccessRights as $entry ) {
+											print "\t\t\t<tr>\n";
+											print "\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
+											print "\t\t\t\t<td>".$entry['reponame']."</td>\n";
+											print "\t\t\t\t<td>".$entry['path']."</td>\n";
+											print "\t\t\t\t<td>".$entry['modulepath']."</td>\n";
+											print "\t\t\t\t<td>".$entry['access_right']."</td>\n";
+											print "\t\t\t\t<td>".$entry['access_by']."</td>\n";
+											print "\t\t\t</tr>\n";
+										}
+									?>
+								</tbody>
+							</table>
+				      	
+				      	</td>
 				   	</tr>
 				   	<tr>
 				      	<td colspan="3">&nbsp;</td>
@@ -95,4 +180,30 @@
 				   	</tr>
 				</table>
 			</form>
+			<script type="text/javascript">
+					$("#showusergroup_table").ariaSorTable({
+						rowsToShow: <?php print $CONF['page_size'];?>,
+						pager: true,
+						textPager: '<?php print _("Page").":"; ?>',
+						onInit: function(){	}
+					});
+					
+					$("#showuserproject_table").ariaSorTable({
+						rowsToShow: <?php print $CONF['page_size'];?>,
+						pager: true,
+						textPager: '<?php print _("Page").":"; ?>',
+						onInit: function(){	}
+					});
+					
+					$("#showuserright_table").ariaSorTable({
+						rowsToShow: <?php print $CONF['page_size'];?>,
+						pager: true,
+						textPager: '<?php print _("Page").":"; ?>',
+						onInit: function(){	}
+					});
+					
+					$("#edit_form *").tooltip({
+						showURL: false
+					});
+			</script>
 		</div>

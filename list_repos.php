@@ -97,6 +97,7 @@ $_SESSION['svn_sessid']['helptopic']		= "listrepos";
 
 if( $rightAllowed == "none" ) {
 	
+	db_log( $SESSID_USERNAME, "tried to use list_repos without permission", $dbh );
 	db_disconnect( $dbh );
 	header( "Location: nopermission.php" );
 	exit;

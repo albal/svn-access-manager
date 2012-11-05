@@ -8,6 +8,7 @@
 ../../rep_log.php
 ../../searchrpc.php
 ../../logout.php
+../../bulk_add_ldap_users.php
 ../../checkSession.php
 ../../resetpassword.php
 ../../lib/jquery-ui/development-bundle/demos/tabs/ajax/content4-broken.php
@@ -49,10 +50,10 @@
 ../../selectGroup.php
 ../../index.php
 ../../install/install.php
-../../install/old/install-alt.php
 ../../templates/rep_show_user_result.tpl
 ../../templates/searchresult_groups.tpl
 ../../templates/rep_log.tpl
+../../templates/searchresult_access_right.tpl
 ../../templates/footer.tpl
 ../../templates/list_users.tpl
 ../../templates/createAccessFiles.tpl
@@ -71,6 +72,7 @@
 ../../templates/database_error.tpl
 ../../templates/deleteRepo.tpl
 ../../templates/searchresult_users.tpl
+../../templates/bulk_add_ldap_users.tpl
 ../../templates/securityquestionresult.tpl
 ../../templates/addAccessRight.tpl
 ../../templates/createAccessFilesResult.tpl
@@ -86,6 +88,7 @@
 ../../templates/login.tpl
 ../../templates/securityquestion.tpl
 ../../templates/deleteUser.tpl
+../../templates/searchresult_groupadmin.tpl
 ../../templates/deleteGroup.tpl
 ../../templates/rep_show_group.tpl
 ../../templates/framework.tpl
@@ -97,13 +100,6 @@
 ../../templates/list_groups.tpl
 ../../templates/workOnUser.tpl
 ../../templates/header.tpl
-../../templates/old/install_page_6.tpl
-../../templates/old/install_page_5.tpl
-../../templates/old/install_page_2.tpl
-../../templates/old/install_page_4.tpl
-../../templates/old/install.tpl
-../../templates/old/install_page_3.tpl
-../../templates/old/install_page_1.tpl
 ../../templates/lostpassword.tpl
 ../../templates/workOnGroup.tpl
 ../../templates/list_projects.tpl
