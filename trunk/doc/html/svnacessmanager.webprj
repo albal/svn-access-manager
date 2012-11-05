@@ -57,12 +57,6 @@
     <item modified_time="1259495696" url="images/group_admins_add_user.png" uploadstatus="1" />
     <item modified_time="1259495597" url="images/group_admins_overview.png" uploadstatus="1" />
     <item modified_time="1259495565" url="images/group_admins_select_group.png" uploadstatus="1" />
-    <item modified_time="1274019686" url="images/installer_part1.png" uploadstatus="1" />
-    <item modified_time="1274019690" url="images/installer_part2.png" uploadstatus="1" />
-    <item modified_time="1274019694" url="images/installer_part3.png" uploadstatus="1" />
-    <item modified_time="1274019698" url="images/installer_part4.png" uploadstatus="1" />
-    <item modified_time="1274019703" url="images/installer_part5.png" uploadstatus="1" />
-    <item modified_time="1274019707" url="images/installer_part6.png" uploadstatus="1" />
     <item modified_time="1259495727" url="images/main.png" uploadstatus="1" />
     <item modified_time="1259495585" url="images/ok.png" uploadstatus="1" />
     <item modified_time="1259495757" url="images/project_admin_overview.png" uploadstatus="1" />
@@ -100,21 +94,33 @@
     <templates>templates/</templates>
     <toolbars>toolbars/</toolbars>
     <annotations/>
-    <item modified_time="1328300959" url="images/thumbs/installer_new_part1.png" />
-    <item modified_time="1328300935" url="images/thumbs/installer_new_part2.png" />
-    <item modified_time="1328300908" url="images/thumbs/installer_new_part3.png" />
-    <item modified_time="1328300885" url="images/thumbs/installer_new_part4.png" />
-    <item modified_time="1328300861" url="images/thumbs/installer_new_part5.png" />
-    <item modified_time="1328300831" url="images/thumbs/installer_new_part6.png" />
-    <item modified_time="1328300806" url="images/thumbs/installer_new_part7.png" />
-    <item modified_time="1328300783" url="images/thumbs/installer_new_part8.png" />
-    <item modified_time="1328300409" url="images/installer_new_part1.png" />
-    <item modified_time="1328300323" url="images/installer_new_part2.png" />
-    <item modified_time="1328300363" url="images/installer_new_part3.png" />
-    <item modified_time="1328300679" url="images/installer_new_part4.png" />
-    <item modified_time="1328300572" url="images/installer_new_part5.png" />
-    <item modified_time="1328300520" url="images/installer_new_part6.png" />
-    <item modified_time="1328300473" url="images/installer_new_part7.png" />
-    <item modified_time="1328300254" url="images/installer_new_part8.png" />
+    <item modified_time="1328300959" url="images/thumbs/installer_new_part1.png" uploadstatus="1" />
+    <item modified_time="1328300935" url="images/thumbs/installer_new_part2.png" uploadstatus="1" />
+    <item modified_time="1328300908" url="images/thumbs/installer_new_part3.png" uploadstatus="1" />
+    <item modified_time="1328300885" url="images/thumbs/installer_new_part4.png" uploadstatus="1" />
+    <item modified_time="1328300861" url="images/thumbs/installer_new_part5.png" uploadstatus="1" />
+    <item modified_time="1328300831" url="images/thumbs/installer_new_part6.png" uploadstatus="1" />
+    <item modified_time="1328300806" url="images/thumbs/installer_new_part7.png" uploadstatus="1" />
+    <item modified_time="1328300783" url="images/thumbs/installer_new_part8.png" uploadstatus="1" />
+    <item modified_time="1328300409" url="images/installer_new_part1.png" uploadstatus="1" />
+    <item modified_time="1328300323" url="images/installer_new_part2.png" uploadstatus="1" />
+    <item modified_time="1328300363" url="images/installer_new_part3.png" uploadstatus="1" />
+    <item modified_time="1328300679" url="images/installer_new_part4.png" uploadstatus="1" />
+    <item modified_time="1328300572" url="images/installer_new_part5.png" uploadstatus="1" />
+    <item modified_time="1328300520" url="images/installer_new_part6.png" uploadstatus="1" />
+    <item modified_time="1328300473" url="images/installer_new_part7.png" uploadstatus="1" />
+    <item modified_time="1328300254" url="images/installer_new_part8.png" uploadstatus="1" />
+    <item url="images/thumbs/installer_part7.png" uploadstatus="1" />
+    <item url="images/thumbs/installer_part8.png" uploadstatus="1" />
+    <item url="images/installer_part1.png" uploadstatus="1" />
+    <item url="images/installer_part2.png" uploadstatus="1" />
+    <item url="images/installer_part3.png" uploadstatus="1" />
+    <item url="images/installer_part4.png" uploadstatus="1" />
+    <item url="images/installer_part5.png" uploadstatus="1" />
+    <item url="images/installer_part6.png" uploadstatus="1" />
+    <item url="images/installer_part7.png" uploadstatus="1" />
+    <item url="images/installer_part8.png" uploadstatus="1" />
+    <item url="images/thumbs/bulk_add_ldap_users.png" uploadstatus="1" />
+    <item url="images/bulk_add_ldap_users.png" uploadstatus="1" />
   </project>
 </webproject>
