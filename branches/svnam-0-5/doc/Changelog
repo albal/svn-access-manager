@@ -12,6 +12,12 @@ Release 0.5.5.17
 	- write permission violations to log
 	
 	- added search to repository access rights (Repository, path)
+	
+	- Fixed bug ID: 3584773
+	  missing $t-Variables on general page
+	  
+	- Fixed bug ID: 3581934
+	  Database error when deleting project
 	 
 Release 0.5.5.16
 	- Feature request ID: 3582680

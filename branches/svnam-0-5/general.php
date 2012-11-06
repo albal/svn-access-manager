@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tAnswer			= $row['securityanswer'];
 		$tPasswordExpires	= $row['passwordexpires'] == 1 ? _("Yes") : _("No");
 		
-		$tUserId							= db_getIdByUserid( $SESSID_USERNAME, $dbh );
+		$tUserId							= $row['id'];
 		$tGroups							= getGroupsForUser( $tUserId, $dbh );
 		$tAccessRights						= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
 		$tProjects							= getProjectResponsibleForUser( $tUserId, $dbh );
@@ -296,11 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				db_ta( 'COMMIT', $dbh );
 				$tMessage		= _("Changed data successfully" );
 				
-			} else {
-				
-				db_ta( 'ROLLBACK', $dbh );
-				$tMessage		= _("Data not changed due to database errors");
-			}
+			} 
  		}
  		
  	} elseif( $button == _("Back") ) {
@@ -328,6 +324,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tLocked			= $row['locked'] == 0 ? _("no" ) : _( "yes" );
 		$tSecurityQuestion	= $row['securityquestion'];
 		$tAnswer			= $row['securityanswer'];
+		$tPasswordExpires	= $row['passwordexpires'] == 1 ? _("Yes") : _("No");
+		
+		$tGroups							= getGroupsForUser( $_SESSION['svn_sessid']['userid'], $dbh );
+		$tAccessRights						= getAccessRightsForUser( $_SESSION['svn_sessid']['userid'], $tGroups, $dbh );
+		$tProjects							= getProjectResponsibleForUser( $_SESSION['svn_sessid']['userid'], $dbh );
 		
 	} else {
 		
