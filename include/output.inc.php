@@ -107,6 +107,10 @@ function outputSubHeader($area) {
 	
 		print "<img src='./images/macros.png' border='0' />  "._("Preferences");
 		
+	} elseif(strtolower($area) == "serach" ){
+	
+		print "<img src='./images/searc_large.png' border='0' />  "._("Search"); 
+		
 	} else {
 		
 		print "unknown tag: $area";

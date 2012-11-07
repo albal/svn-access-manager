@@ -17,12 +17,12 @@
 				<table id="grouplist_table">
 				   	<thead>
 				   		<tr>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Group name"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Group description"); ?>
-					   		</th>
+					   		</th class="ui-table-deactivate">
 					   		<th>
 					   			<?php print _("Action"); ?>
 					   		</th>

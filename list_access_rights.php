@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
  	
- 	if( ($button == "search") or ($tSearch != "") ) {
+ 	if( ($button == _("search") ) or ($tSearch != "") ) {
 
     	$tSearch                               	= html_entity_decode($tSearch);
     	$_SESSION['svn_sessid']['search']       = $tSearch;
