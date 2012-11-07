@@ -13,7 +13,7 @@
 					</tr>
 					<tr valign="top">
 						<td>
-							<select name="membersadd[]" multiple="" size="15" style="width: 100%; height=200px;" title="<?php print _("Select the users to add.");?>">
+							<select id="members" name="membersadd[]" multiple="" size="15" style="width: 100%; height=200px;" title="<?php print _("Select the users to add.");?>">
 							<?php
 								foreach($tUsers as $uid => $name) {
 									
@@ -40,4 +40,7 @@
 					</tr>
 				</table>
 			</form>
+			<script>
+				$("#members").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>

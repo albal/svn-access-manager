@@ -1,5 +1,5 @@
 		<div id="edit_form">
-			<h3><?php print _("Access rights administration"); ?></h3>
+			<h3><?php print _("Access rights administration search result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="list_access_rights" method="post">
 				

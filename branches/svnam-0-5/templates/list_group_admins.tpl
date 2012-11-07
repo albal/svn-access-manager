@@ -17,19 +17,19 @@
 				<table id="groupadminlist_table">
 					<thead>
 						<tr>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Group name"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Group description"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Administrator"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Right"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-deactivate">
 					   			<?php print _("Action"); ?>
 					   		</th>
 					   	</tr>

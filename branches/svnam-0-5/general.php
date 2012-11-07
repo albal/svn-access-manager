@@ -197,11 +197,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tSecurityQuestion	= $row['securityquestion'];
 		$tAnswer			= $row['securityanswer'];
 		$tPasswordExpires	= $row['passwordexpires'] == 1 ? _("Yes") : _("No");
+		$tCustom1			= $row['custom1'];
+		$tCustom2			= $row['custom2'];
+		$tCustom3			= $row['custom3'];
 		
-		$tUserId							= $row['id'];
-		$tGroups							= getGroupsForUser( $tUserId, $dbh );
-		$tAccessRights						= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
-		$tProjects							= getProjectResponsibleForUser( $tUserId, $dbh );
+		$tUserId			= $row['id'];
+		$tGroups			= getGroupsForUser( $tUserId, $dbh );
+		$tAccessRights		= getAccessRightsForUser( $tUserId, $tGroups, $dbh );
+		$tProjects			= getProjectResponsibleForUser( $tUserId, $dbh );
 		
 		$_SESSION['svn_sessid']['userid']		= $row['id'];
 		
@@ -248,6 +251,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  		$tEmail					= db_escape_string( $_POST['fEmail'] );
  		$tSecurityQuestion		= db_escape_string( $_POST['fSecurityQuestion'] );
  		$tAnswer				= db_escape_string( $_POST['fAnswer'] );
+ 		$tCustom1				= db_escape_string( $_POST['fCustom1'] );
+ 		$tCustom2				= db_escape_string( $_POST['fCustom2'] );
+ 		$tCustom3				= db_escape_string( $_POST['fCustom3'] );
  		$error					= 0;
  		
  		if( $tName == "" ) {
@@ -288,6 +294,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							  "       emailaddress = '$tEmail', " .
 							  "       securityquestion = '$tSecurityQuestion', " .
 							  "       securityanswer = '$tAnswer' ".
+							  "       custom1 = '$tCustom1', ".
+							  "       custom2 = '$tCustom2', ".
+							  "       custom3 = '$tCustom3', ".
 							  " WHERE (id = ".$_SESSION['svn_sessid']['userid'].")";
 			$result			= db_query( $query, $dbh );
 			
@@ -325,10 +334,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tSecurityQuestion	= $row['securityquestion'];
 		$tAnswer			= $row['securityanswer'];
 		$tPasswordExpires	= $row['passwordexpires'] == 1 ? _("Yes") : _("No");
+		$tCustom1			= $row['custom1'];
+		$tCustom2			= $row['custom2'];
+		$tCustom3			= $row['custom3'];
 		
-		$tGroups							= getGroupsForUser( $_SESSION['svn_sessid']['userid'], $dbh );
-		$tAccessRights						= getAccessRightsForUser( $_SESSION['svn_sessid']['userid'], $tGroups, $dbh );
-		$tProjects							= getProjectResponsibleForUser( $_SESSION['svn_sessid']['userid'], $dbh );
+		$tGroups			= getGroupsForUser( $_SESSION['svn_sessid']['userid'], $dbh );
+		$tAccessRights		= getAccessRightsForUser( $_SESSION['svn_sessid']['userid'], $tGroups, $dbh );
+		$tProjects			= getProjectResponsibleForUser( $_SESSION['svn_sessid']['userid'], $dbh );
 		
 	} else {
 		

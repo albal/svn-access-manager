@@ -1,16 +1,18 @@
 		<div id="edit_form">
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
-			<form name="list_access_rights" method="post">
+			<form id="form_access_list" name="list_access_rights" method="post">
 				<p>&nbsp;</p>
 				<table>
 					<tr>
-						<td><?php print _("Search access rights");?>: </td>
+						<td><?php print _("Filter");?>: </td>
 						<td>
-							<input id="search" class="large" type="text" name="fSearch" value="" title="<?php print _("Search access rights by project, repository or path.");?>" />&nbsp;&nbsp;
+							<input id="filter" class="large" type="text" name="fSearchFilter" value="" title="<?php print _("Search access rights by project, repository or path.");?>" />&nbsp;&nbsp;
+                           	<!--
                            	<span style="white-space:nowrap;">
                             	<input class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search access rights by project, repository or path.");?>" />
                             </span>
+                            -->
                     	</td>   
 					</tr>
 				</table>                                        
@@ -122,47 +124,40 @@
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
-						onInit: function(){	}
+						onInit: function(){	
+							var theTable = $("#accessrightlist_table");
+					
+						  theTable.find("tbody > tr").find("td:eq(1)").mousedown(function(){
+						    $(this).prev().find(":checkbox").click()
+						  });
+						
+						  $("#filter").keyup(function() {
+						    $.uiTableFilter( theTable, this.value );
+						  })
+						
+						  $('#filter').submit(function(){
+						    theTable.find("tbody > tr:visible > td:eq(1)").mousedown();
+						    return false;
+						  }).focus(); //Give focus to input field
+						}
 					});
 					
-					$("#search").autocomplete({
-                        source: function( request, response ) {
-                                $.ajax({
-                                        url: "searchrpc.php",
-                                        dataType: "jsonp",
-                                        data: {
-                                                maxRows: 20,
-                                                name_startsWith: request.term,
-                                                db: "accessright",
-                                                userid: "<?php print $SESSID_USERNAME;?>"
-                                        },
-                                        success: function( data ) {
-                                                var retarr =[];
-                                                $.each(data, function(i, val){
-                                                        myName = $("<div/>").html(val.name).text();
-                                                        if(myName == "Session expired!") {
-                                                                window.location.href="login.php";
-                                                        }
-                                                        retarr.push(myName);
-                                                });
-                                                response(retarr);
-                                        }
-                                });
-                        },
-                        minLength: 1,
-                        select: function( event, ui ) {
-                                var name = ui.item.value;
-                                $("#search").val(name);
-                                document.list_access_rights.submit();
-                        },
-                        open: function() {
-                                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-                        },
-                        close: function() {
-                                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                        }
-
-                	});
+					$(function() { 
+					  var theTable = $("#accessrightlist_table");
+					
+					  theTable.find("tbody > tr").find("td:eq(1)").mousedown(function(){
+					    $(this).prev().find(":checkbox").click()
+					  });
+					
+					  $("#filter").keyup(function() {
+					    $.uiTableFilter( theTable, this.value );
+					  })
+					
+					  $('#filter').submit(function(){
+					    theTable.find("tbody > tr:visible > td:eq(1)").mousedown();
+					    return false;
+					  }).focus(); //Give focus to input field
+					});  
 					
 					$("#edit_form *").tooltip({
 						showURL: false

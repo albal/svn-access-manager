@@ -17,19 +17,19 @@
 				<table id="repolist_table">
 				   	<thead>
 				   		<tr>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Repository name"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Repository path"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("User"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Password"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-deactivate">
 					   			<?php print _("Action"); ?>
 					   		</th>
 					   	</tr>

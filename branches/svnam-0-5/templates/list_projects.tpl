@@ -17,16 +17,16 @@
 				<table id="projectlist_table">
 				   	<thead>
 				   		<tr>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Subversion project"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Subversion module path"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<?php print _("Repository"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-deactivate">
 					   			<?php print _("Action"); ?>
 					   		</th>
 					   	</tr>
