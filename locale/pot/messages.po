@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-11-07 23:00+0100\n"
+"PO-Revision-Date: 2012-11-08 20:15+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -1592,6 +1592,8 @@ msgstr "Zugriffsrechte Administration Suchergebnis"
 #: ../../templates/searchresult_access_right.tpl:34
 #: ../../templates/list_access_rights.tpl:46
 #: ../../templates/list_access_rights.tpl:48
+#: ../../searchrpc.php:354
+#: ../../templates/list_access_rights.tpl:34
 msgid "Action"
 msgstr "Aktion"
 
@@ -4318,6 +4320,10 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../list_access_rights.php:278
 #: ../../list_access_rights.php:282
 #: ../../list_access_rights.php:421
+#: ../../templates/list_access_rights.tpl:127
+#: ../../list_access_rights.php:306
+#: ../../list_access_rights.php:310
+#: ../../list_access_rights.php:330
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4365,6 +4371,7 @@ msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 #: ../..//list_access_rights.php:346
 #: ../../list_access_rights.php:474
 #: ../../list_access_rights.php:477
+#: ../../list_access_rights.php:397
 #, php-format
 msgid "Can not delete access right with id %s"
 msgstr "Zugriffsrecht mit Id %s kann nicht gel&ouml;scht werden"
@@ -5746,6 +5753,14 @@ msgstr "Kann nicht in %s schreiben"
 #: ../../templates/list_access_rights.tpl:70
 #: ../../templates/list_access_rights.tpl:73
 #: ../../templates/list_access_rights.tpl:74
+#: ../../searchrpc.php:429
+#: ../../searchrpc.php:432
+#: ../../searchrpc.php:435
+#: ../../searchrpc.php:436
+#: ../../templates/list_access_rights.tpl:83
+#: ../../templates/list_access_rights.tpl:86
+#: ../../templates/list_access_rights.tpl:89
+#: ../../templates/list_access_rights.tpl:90
 msgid "Change"
 msgstr "&Auml;ndern"
 
@@ -5888,6 +5903,13 @@ msgstr "Bitte das Protokoll f&uuml;r die LDAP Kommunikation ausw&auml;hlen."
 #: ../..//templates/addMemberToProject.tpl:11
 msgid "Choose the responsibles to add"
 msgstr "Verantwortlichen zum Hinzuf&uuml;gen ausw&auml;hlen"
+
+#: ../../searchrpc.php:374
+#: ../../list_access_rights.php:316
+#: ../../list_access_rights.php:318
+#: ../../list_access_rights.php:336
+msgid "Clear filter"
+msgstr "Filter l&ouml;schen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/installresult.tpl:69
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/installresult.tpl:69
@@ -7801,6 +7823,10 @@ msgstr "Standardwert f&uuml; Passwortablauf"
 #: ../../deleteProject.php:171
 #: ../../templates/list_access_rights.tpl:70
 #: ../../templates/list_access_rights.tpl:74
+#: ../../searchrpc.php:432
+#: ../../searchrpc.php:436
+#: ../../templates/list_access_rights.tpl:86
+#: ../../templates/list_access_rights.tpl:90
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -7947,6 +7973,10 @@ msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
 #: ../../templates/list_access_rights.tpl:110
 #: ../../list_access_rights.php:286
 #: ../../list_access_rights.php:433
+#: ../../templates/list_access_rights.tpl:126
+#: ../../list_access_rights.php:312
+#: ../../list_access_rights.php:314
+#: ../../list_access_rights.php:353
 msgid "Delete selected"
 msgstr "Ausgew&auml;hlte l&ouml;schen"
 
@@ -10130,6 +10160,11 @@ msgstr "Dateien"
 msgid "Filter"
 msgstr "Filter"
 
+#: ../../searchrpc.php:359
+#: ../../templates/list_access_rights.tpl:39
+msgid "Filter:"
+msgstr "Filter:"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/user_list.php:69
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:111
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:67
@@ -10451,6 +10486,8 @@ msgstr "Grep Kommando fehlt!"
 #: ../../templates/searchresult_access_right.tpl:22
 #: ../../templates/list_access_rights.tpl:34
 #: ../../templates/list_access_rights.tpl:36
+#: ../../searchrpc.php:342
+#: ../../templates/list_access_rights.tpl:22
 msgid "Group"
 msgstr "Gruppe"
 
@@ -11563,6 +11600,7 @@ msgstr "Anweisungen"
 #: ../../list_access_rights.php:500
 #: ../../rep_access_rights.php:270
 #: ../../list_access_rights.php:503
+#: ../../list_access_rights.php:423
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -13598,6 +13636,8 @@ msgstr "Vergessenes Passwort zuruecksetzen"
 #: ../../templates/searchresult_access_right.tpl:10
 #: ../../templates/list_access_rights.tpl:22
 #: ../../templates/list_access_rights.tpl:24
+#: ../../searchrpc.php:330
+#: ../../templates/list_access_rights.tpl:10
 msgid "M"
 msgstr "M"
 
@@ -14256,6 +14296,10 @@ msgstr "Name, Vorname"
 #: ../../list_access_rights.php:276
 #: ../../list_access_rights.php:280
 #: ../../list_access_rights.php:427
+#: ../../templates/list_access_rights.tpl:122
+#: ../../list_access_rights.php:304
+#: ../../list_access_rights.php:308
+#: ../../list_access_rights.php:347
 msgid "New access right"
 msgstr "Neues Zugriffsrecht"
 
@@ -15556,6 +15600,8 @@ msgstr "Oracle"
 #: ../../templates/general.tpl:210
 #: ../../templates/general.tpl:217
 #: ../../templates/general.tpl:224
+#: ../../templates/list_access_rights.tpl:173
+#: ../../templates/list_access_rights.tpl:211
 msgid "Page"
 msgstr "Seite"
 
@@ -16802,6 +16848,8 @@ msgstr "Vorherige Seite"
 #: ../../templates/searchresult_access_right.tpl:13
 #: ../../templates/list_access_rights.tpl:25
 #: ../../templates/list_access_rights.tpl:27
+#: ../../searchrpc.php:333
+#: ../../templates/list_access_rights.tpl:13
 msgid "Project"
 msgstr "Projekt"
 
@@ -17930,6 +17978,8 @@ msgstr "Repository Benutzerrecht"
 #: ../../templates/searchresult_access_right.tpl:31
 #: ../../templates/list_access_rights.tpl:43
 #: ../../templates/list_access_rights.tpl:45
+#: ../../searchrpc.php:351
+#: ../../templates/list_access_rights.tpl:31
 msgid "Repository:Directory"
 msgstr "Repository:Verzeichnis"
 
@@ -18150,6 +18200,8 @@ msgstr "Recht"
 #: ../../templates/searchresult_access_right.tpl:16
 #: ../../templates/list_access_rights.tpl:28
 #: ../../templates/list_access_rights.tpl:30
+#: ../../searchrpc.php:336
+#: ../../templates/list_access_rights.tpl:16
 msgid "Rights"
 msgstr "Rechte"
 
@@ -18729,11 +18781,26 @@ msgstr "Suchen"
 msgid "Search access rights"
 msgstr "Zugriffsrechte suchen"
 
+#: ../../searchrpc.php:371
+#: ../../templates/list_access_rights.tpl:51
+msgid "Search access rights by group."
+msgstr "Zugriffsrecht &uuml;ber Gruppe suchen."
+
 #: ../../templates/list_access_rights.tpl:10
 #: ../../templates/list_access_rights.tpl:12
 #: ../../templates/list_access_rights.tpl:13
 msgid "Search access rights by project, repository or path."
 msgstr "Zugriffsrechte nach Projekt, Repository oder Pfad suchen."
+
+#: ../../searchrpc.php:362
+#: ../../templates/list_access_rights.tpl:42
+msgid "Search access rights by project."
+msgstr "Zugriffsrecht &uuml;ber Projekt suchen."
+
+#: ../../searchrpc.php:368
+#: ../../templates/list_access_rights.tpl:48
+msgid "Search access rights by user."
+msgstr "Zugriffsrecht &uuml;ber Benutzer suchen."
 
 #: ../../templates/list_groups.tpl:7
 #: ../..//templates/list_groups.tpl:7
@@ -20621,6 +20688,8 @@ msgstr "MD5 Verrschl&uuml;sselung benutzen"
 #: ../../templates/searchresult_access_right.tpl:19
 #: ../../templates/list_access_rights.tpl:31
 #: ../../templates/list_access_rights.tpl:33
+#: ../../searchrpc.php:339
+#: ../../templates/list_access_rights.tpl:19
 msgid "User"
 msgstr "Benutzer"
 
@@ -21237,6 +21306,8 @@ msgstr "Benutzer in der Gruppe"
 #: ../../templates/searchresult_access_right.tpl:25
 #: ../../templates/list_access_rights.tpl:37
 #: ../../templates/list_access_rights.tpl:39
+#: ../../searchrpc.php:345
+#: ../../templates/list_access_rights.tpl:25
 msgid "Valid from"
 msgstr "G&uuml;ltig von"
 
@@ -21269,6 +21340,8 @@ msgstr "G&uuml;ltig von"
 #: ../../templates/searchresult_access_right.tpl:28
 #: ../../templates/list_access_rights.tpl:40
 #: ../../templates/list_access_rights.tpl:42
+#: ../../searchrpc.php:348
+#: ../../templates/list_access_rights.tpl:28
 msgid "Valid until"
 msgstr "G&uuml;ltig bis"
 

@@ -54,7 +54,6 @@
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/chosen.jquery.min.js"></script>
-	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.uitablefilter.js"></script>
 	<script language="javascript" type="text/javascript">
 		
 		$(document).ready(function() {
