@@ -2,53 +2,69 @@
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form id="form_access_list" name="list_access_rights" method="post">
-				<p>&nbsp;</p>
-				<table>
-					<tr>
-						<td><?php print _("Filter");?>: </td>
-						<td>
-							<input id="filter" class="large" type="text" name="fSearchFilter" value="" title="<?php print _("Search access rights by project, repository or path.");?>" />&nbsp;&nbsp;
-                           	<!--
-                           	<span style="white-space:nowrap;">
-                            	<input class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search access rights by project, repository or path.");?>" />
-                            </span>
-                            -->
-                    	</td>   
-					</tr>
-				</table>                                        
-				<p>&nbsp;</p>
+				
 				<table id="accessrightlist_table">
 				   	<thead>
 				   			<tr>
-					   		<th align="center">
+					   		<th align="center" class="ui-table-default">
 					   			<strong><?php print _("M"); ?></strong>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<strong><?php print _("Project"); ?></strong>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<strong><?php print _("Rights"); ?></strong>
 					   		</th>
-					   		<th align="center">
+					   		<th align="center" class="ui-table-default">
 					   			<strong><?php print _("User"); ?></strong>
 					   		</th>
-					   		<th align="center">
+					   		<th align="center" class="ui-table-default">
 					   			<strong><?php print _("Group"); ?></strong>
 					   		</th>
-					   		<th align="center">
+					   		<th align="center" class="ui-table-default">
 					   			<strong><?php print _("Valid from"); ?></strong>
 					   		</th>
-					   		<th align="center">
+					   		<th align="center" class="ui-table-default">
 					   			<strong><?php print _("Valid until"); ?></strong>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-default">
 					   			<strong><?php print _("Repository:Directory"); ?></strong>
 					   		</th>
-					   		<th>
+					   		<th class="ui-table-deactivate">
 					   			<strong><?php print _("Action"); ?></strong>
 					   		</th>
-					   	</tr>				   	</thead>
-				   	<tbody>
+					   	</tr>	
+					   	<tr class="ui-table-deactivate">
+					   		<td class="ui-table-deactivate">
+					   			<strong><?php print _("Filter:"); ?></strong>
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			<input id="filterproject" class="large" type="text" name="fSearchProject" value="<?php print $tSearchProject;?>" title="<?php print _("Search access rights by project.");?>" />
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			&nbsp;
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			<input id="filteruser" class="large" type="text" name="fSearchUser" value="<?php print $tSearchUser;?>" title="<?php print _("Search access rights by user.");?>" />
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			<input id="filtergroup" class="large" type="text" name="fSearchGroup" value="<?php print $tSearchGroup;?>" title="<?php print _("Search access rights by group.");?>" />
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			&nbsp;
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			&nbsp;
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			&nbsp;
+					   		</td>
+					   		<td class="ui-table-deactivate">
+					   			&nbsp;
+					   		</td>
+					   	</tr>	
+				   	</thead>
+				   	<tbody id="tbody">
 				   		<?php
 					   		$i 										= 0;
 					   		$_SESSION['svn_sessid']['max_mark']		= 0;
@@ -75,7 +91,7 @@
 					   			}
 					   			
 					   			print "\t\t\t\t\t<tr valign=\"top\">\n";
-					   			print "\t\t\t\t\t\t<td><input type=\"checkbox\" name=\"".$field."\" /></td>\n";
+					   			print "\t\t\t\t\t\t<td><input type=\"checkbox\" name=\"".$field."\" value=\"".$entry['id']."\"/></td>\n";
 					   			print "\t\t\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
 					   			print "\t\t\t\t\t\t<td align=\"center\">".$entry['access_right']."</td>\n";
 					   			print "\t\t\t\t\t\t<td>".$entry['username']."</td>\n";
@@ -118,47 +134,84 @@
 					   	</tr>
 				   	</tfoot>
 				</table>
+				
 			</form>
 			<script>
 					/*
+					var $user;
+					var $group;
+					var $project;
+					
+					function changeFunc1() {
+						
+						$.ajax({
+							data:	{
+								maxRows: 10,
+	                            name_startsWith: "",
+	                            db: "accessrighttable",
+	                          	userid: "<?php print $tSeeUserid;?>",
+	                          	user: $("#filteruser").val(),
+	                          	group: $("#filtergroup").val(),
+	                          	project: $("#filterproject").val(),
+	                          	allowed: " <?php print $rightAllowed;?>",
+	                          	admin: "<?php print $_SESSION['svn_sessid']['admin'];?>",
+							},
+							dataType: 'html',
+							type: 'GET',
+							url: 'searchrpc.php',
+							success: function(data) {
+								$user = $("#filteruser").val();
+								$group = $("#filtergroup").val();
+								$project = $("#filterproject").val();
+								$("#accessrightlist_table").remove();
+								$(".ui-table-pager").remove();
+								$("#form_access_list").append("<table id='accessrightlist_table'></table>");
+								$("#accessrightlist_table").html(data);
+								$("#accessrightlist_table").ariaSorTable({
+									rowsToShow: <?php print $CONF['page_size'];?>,
+									pager: true,
+									textPager: '<?php print _("Page").":"; ?>',
+									onInit: function(){	
+									},
+								});
+								$("#filteruser").val($user);
+								$("#filtergroup").val($group);
+								$("#filterproject").val($project);
+								
+								$("#filteruser").die();
+								$("#filtergroup").die();
+								$("#filterproject").die();
+								
+								$("#filteruser").change(changeFunc() );
+								$("#filtergroup").change(changeFunc() );
+								$("#filterproject").change(changeFunc() );
+							}
+						});
+					}
+					
+					function changeFunc() {
+						$("#form_access_list").submit();
+					}
+					*/
+					$("#filteruser").change(function(){
+						$("#form_access_list").submit();
+					});
+					
+					$("#filtergroup").change(function(){
+						$("#form_access_list").submit();
+					});
+					
+					$("#filterproject").change(function(){
+						$("#form_access_list").submit();
+					});
+					
 					$("#accessrightlist_table").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	
-							var theTable = $("#accessrightlist_table");
-					
-						  theTable.find("tbody > tr").find("td:eq(1)").mousedown(function(){
-						    $(this).prev().find(":checkbox").click()
-						  });
-						
-						  $("#filter").keyup(function() {
-						    $.uiTableFilter( theTable, this.value );
-						  })
-						
-						  $('#filter').submit(function(){
-						    theTable.find("tbody > tr:visible > td:eq(1)").mousedown();
-						    return false;
-						  }).focus(); //Give focus to input field
-						}
+						},
 					});
-					*/
-					$(function() { 
-					  var theTable = $("#accessrightlist_table");
-					
-					  theTable.find("tbody > tr").find("td:eq(1)").mousedown(function(){
-					    $(this).prev().find(":checkbox").click()
-					  });
-					
-					  $("#filter").keyup(function() {
-					    $.uiTableFilter( theTable, this.value );
-					  })
-					
-					  $('#filter').submit(function(){
-					    theTable.find("tbody > tr:visible > td:eq(1)").mousedown();
-					    return false;
-					  }).focus(); //Give focus to input field
-					});  
 					
 					$("#edit_form *").tooltip({
 						showURL: false
