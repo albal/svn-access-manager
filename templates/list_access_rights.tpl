@@ -120,6 +120,7 @@
 				</table>
 			</form>
 			<script>
+					/*
 					$("#accessrightlist_table").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
@@ -141,7 +142,7 @@
 						  }).focus(); //Give focus to input field
 						}
 					});
-					
+					*/
 					$(function() { 
 					  var theTable = $("#accessrightlist_table");
 					
