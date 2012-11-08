@@ -251,9 +251,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  		$tEmail					= db_escape_string( $_POST['fEmail'] );
  		$tSecurityQuestion		= db_escape_string( $_POST['fSecurityQuestion'] );
  		$tAnswer				= db_escape_string( $_POST['fAnswer'] );
- 		$tCustom1				= db_escape_string( $_POST['fCustom1'] );
- 		$tCustom2				= db_escape_string( $_POST['fCustom2'] );
- 		$tCustom3				= db_escape_string( $_POST['fCustom3'] );
+ 		$tCustom1				= isset( $_POST['fCustom1'] ) ? db_escape_string( $_POST['fCustom1'] ) : "";
+ 		$tCustom2				= isset( $_POST['fCustom2'] ) ? db_escape_string( $_POST['fCustom2'] ) : "";
+ 		$tCustom3				= isset( $_POST['fCustom3'] ) ? db_escape_string( $_POST['fCustom3'] ) : "";
  		$error					= 0;
  		
  		if( $tName == "" ) {
@@ -293,10 +293,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							  "       name = '$tName', " .
 							  "       emailaddress = '$tEmail', " .
 							  "       securityquestion = '$tSecurityQuestion', " .
-							  "       securityanswer = '$tAnswer' ".
+							  "       securityanswer = '$tAnswer', ".
 							  "       custom1 = '$tCustom1', ".
 							  "       custom2 = '$tCustom2', ".
-							  "       custom3 = '$tCustom3', ".
+							  "       custom3 = '$tCustom3' ".
 							  " WHERE (id = ".$_SESSION['svn_sessid']['userid'].")";
 			$result			= db_query( $query, $dbh );
 			
