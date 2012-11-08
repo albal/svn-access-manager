@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         	$tErrorClass                    	= "error";
             $tMessage                       	= _("No search string given!");
-            $tUsers								= array();
+            $tProjects							= array();
 
         } else {
     	

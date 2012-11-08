@@ -113,7 +113,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 			$entry['groupname']					= "";
 			$entry['username']					= "";
 			$add								= false;
-			error_log("user = $userid/$user - group = $groupid/$group");
+
 			if( $userid != "0" ) {
 			
 				$query							= "SELECT * " .
@@ -316,6 +316,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("Clear filter");
 	} elseif( isset( $_POST['fSubmit_clear_x'] ) ) {
 		$button									= _("Clear filter");
+	} elseif( isset( $_POST['fSearchBtn'] ) ) {
+        $button                                 = "getfilter";
+    } elseif( isset( $_POST['fSearchBtn_x'] ) ) {
+        $button                                 = "getfilter";
 	}  else {
 		$button									= "getfilter";
 	}
@@ -326,8 +330,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tSearchProject								= isset( $_POST['fSearchProject'] )	? escape_string( $_POST['fSearchProject'] )	: "";
 	$tSearchUser								= isset( $_POST['fSearchUser'] )	? escape_string( $_POST['fSearchUser'] )	: "";
 	$tSearchGroup								= isset( $_POST['fSearchgroup'] )	? escape_string( $_POST['fSearchGroup'] )	: "";
+	$tCntl										= isset( $_POST['fCntl'] )			? escape_string( $_POST['fCntl'] )			: "";
  	
- 	if( $button == _( "Back" ) ) {
+ 	if( $button == _( "Back" ) and ($tCntl != "filter") ) {
 		
 		db_disconnect( $dbh );
 		header( "Location: main.php" );
@@ -344,13 +349,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
  		
  		$tAccessRights							= getAccessRights( $tSeeUserid, 0, -1, $dbh, $tSearchUser, $tSearchGroup, $tSearchProject );
  		
-	} elseif( $button == _( "New access right" ) ) {
+	} elseif( $button == _( "New access right" ) and ($tCntl != "filter") ) {
 		
 		db_disconnect( $dbh );
 		header( "Location: selectProject.php" );
 		exit;
 		
-	} elseif( $button == _("Delete selected") ) {
+	} elseif( $button == _("Delete selected") and ($tCntl != "filter") ) {
 	
 		$max										= $_SESSION['svn_sessid']['max_mark'];
 		$error										= 0;
