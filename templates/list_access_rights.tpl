@@ -11,6 +11,7 @@
 						<td><strong><?php print _("Group");?></strong></td>
 						<td>&nbsp;</td>
 						<td><strong><?php print _("Project");?></strong></td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
@@ -20,6 +21,11 @@
 						<td><input id="filtergroup" class="large" type="text" name="fSearchGroup" value="<?php print $tSearchGroup;?>" title="<?php print _("Search access rights by group.");?>" /></td>
 						<td>&nbsp;</td>
 						<td><input id="filterproject" class="large" type="text" name="fSearchProject" value="<?php print $tSearchProject;?>" title="<?php print _("Search access rights by project.");?>" /></td>
+						<td>
+							<span style="white-space:nowrap;">
+                            	<input id="searchbutton" class="small imgButton" type="image" name="fSearchBtn" src="./images/search.png" value="<?php print _("Search");?>" title="<?php print _("Search project.");?>" />
+                            </span>
+						</td>
 					</tr>
 				</table>
 				<p>&nbsp;</p>
@@ -55,7 +61,7 @@
 					   		</th>
 					   	</tr>	
 				   	</thead>
-				   	<tbody id="tbody">
+				   	<tbody>
 				   		<?php
 					   		$i 										= 0;
 					   		$_SESSION['svn_sessid']['max_mark']		= 0;
@@ -125,83 +131,40 @@
 					   	</tr>
 				   	</tfoot>
 				</table>
-				
+				<input type="hidden" id="cntl" name="fCntl" />
 			</form>
 			<script>
-					/*
-					var $user;
-					var $group;
-					var $project;
-					
-					function changeFunc1() {
-						
-						$.ajax({
-							data:	{
-								maxRows: 10,
-	                            name_startsWith: "",
-	                            db: "accessrighttable",
-	                          	userid: "<?php print $tSeeUserid;?>",
-	                          	user: $("#filteruser").val(),
-	                          	group: $("#filtergroup").val(),
-	                          	project: $("#filterproject").val(),
-	                          	allowed: " <?php print $rightAllowed;?>",
-	                          	admin: "<?php print $_SESSION['svn_sessid']['admin'];?>",
-							},
-							dataType: 'html',
-							type: 'GET',
-							url: 'searchrpc.php',
-							success: function(data) {
-								$user = $("#filteruser").val();
-								$group = $("#filtergroup").val();
-								$project = $("#filterproject").val();
-								$("#accessrightlist_table").remove();
-								$(".ui-table-pager").remove();
-								$("#form_access_list").append("<table id='accessrightlist_table'></table>");
-								$("#accessrightlist_table").html(data);
-								$("#accessrightlist_table").ariaSorTable({
-									rowsToShow: <?php print $CONF['page_size'];?>,
-									pager: true,
-									textPager: '<?php print _("Page").":"; ?>',
-									onInit: function(){	
-									},
-								});
-								$("#filteruser").val($user);
-								$("#filtergroup").val($group);
-								$("#filterproject").val($project);
-								
-								$("#filteruser").die();
-								$("#filtergroup").die();
-								$("#filterproject").die();
-								
-								$("#filteruser").change(changeFunc() );
-								$("#filtergroup").change(changeFunc() );
-								$("#filterproject").change(changeFunc() );
-							}
-						});
-					}
-					
-					function changeFunc() {
-						$("#form_access_list").submit();
-					}
-					*/
-					$("#filteruser").change(function(){
-						$("#form_access_list").submit();
-					});
-					
-					$("#filtergroup").change(function(){
-						$("#form_access_list").submit();
-					});
-					
-					$("#filterproject").change(function(){
-						$("#form_access_list").submit();
-					});
-					
+					$("#searchbutton").hide();
 					$("#accessrightlist_table").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	
 						},
+					});
+					
+					$("#filteruser").change(function(){
+						$("#cntl").val("filter");
+						$("#form_access_list").submit();
+					});
+					$("#filteruser").submit(function(){
+						return false;
+					});
+					
+					$("#filtergroup").change(function(){
+						$("#cntl").val("filter");
+						$("#form_access_list").submit();
+					});
+					$("#filtergroup").submit(function(){
+						return false;
+					});
+					
+					$("#filterproject").change(function(){
+						$("#cntl").val("filter");
+						$("#form_access_list").submit();
+					});
+					$("#filterproject").submit(function(){
+						return false;
 					});
 					
 					$("#edit_form *").tooltip({
