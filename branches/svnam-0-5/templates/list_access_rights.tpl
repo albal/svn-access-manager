@@ -2,7 +2,27 @@
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form id="form_access_list" name="list_access_rights" method="post">
-				
+				<table>
+					<tr>
+						<td><strong><?php print _("Filter");?>: </strong></td>
+						<td>&nbsp;</td>
+						<td><strong><?php print _("User");?></strong></td>
+						<td>&nbsp;</td>
+						<td><strong><?php print _("Group");?></strong></td>
+						<td>&nbsp;</td>
+						<td><strong><?php print _("Project");?></strong></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td><input id="filteruser" class="large" type="text" name="fSearchUser" value="<?php print $tSearchUser;?>" title="<?php print _("Search access rights by user.");?>" /></td>
+						<td>&nbsp;</td>
+						<td><input id="filtergroup" class="large" type="text" name="fSearchGroup" value="<?php print $tSearchGroup;?>" title="<?php print _("Search access rights by group.");?>" /></td>
+						<td>&nbsp;</td>
+						<td><input id="filterproject" class="large" type="text" name="fSearchProject" value="<?php print $tSearchProject;?>" title="<?php print _("Search access rights by project.");?>" /></td>
+					</tr>
+				</table>
+				<p>&nbsp;</p>
 				<table id="accessrightlist_table">
 				   	<thead>
 				   			<tr>
@@ -33,35 +53,6 @@
 					   		<th class="ui-table-deactivate">
 					   			<strong><?php print _("Action"); ?></strong>
 					   		</th>
-					   	</tr>	
-					   	<tr class="ui-table-deactivate">
-					   		<td class="ui-table-deactivate">
-					   			<strong><?php print _("Filter:"); ?></strong>
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			<input id="filterproject" class="large" type="text" name="fSearchProject" value="<?php print $tSearchProject;?>" title="<?php print _("Search access rights by project.");?>" />
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			&nbsp;
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			<input id="filteruser" class="large" type="text" name="fSearchUser" value="<?php print $tSearchUser;?>" title="<?php print _("Search access rights by user.");?>" />
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			<input id="filtergroup" class="large" type="text" name="fSearchGroup" value="<?php print $tSearchGroup;?>" title="<?php print _("Search access rights by group.");?>" />
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			&nbsp;
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			&nbsp;
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			&nbsp;
-					   		</td>
-					   		<td class="ui-table-deactivate">
-					   			&nbsp;
-					   		</td>
 					   	</tr>	
 				   	</thead>
 				   	<tbody id="tbody">
