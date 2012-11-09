@@ -114,7 +114,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 			$entry['username']					= "";
 			$add								= false;
 
-			if( $userid != "0" ) {
+			if( ( $userid != "0") and ($group == "") ) {
 			
 				$query							= "SELECT * " .
 												  "  FROM ".$schema."svnusers " .
@@ -127,8 +127,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 					if( 
 						(( preg_match( "/$user/", $row['name'] ) ) 		or
 						 ( preg_match( "/$user/", $row['givenname'] ) )	or
-						 ( preg_match( "/$user/", $row['userid'] ) ))   or
-						($user == "")
+						 ( preg_match( "/$user/", $row['userid'] ) ))   
 					) {
 						
 						$entry['username']		= $row['userid'];
@@ -138,7 +137,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 		
 			}
 			
-			if( $groupid != "0" ) {
+			if( ( $groupid != "0" ) and ($user == "") ) {
 				
 				$query							= "SELECT * " .
 												  "  FROM ".$schema."svngroups " .
@@ -150,8 +149,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 					
 					if( 
 						(( preg_match( "/$group/", $row['groupname']) ) 		or
-						 ( preg_match( "/$group/", $row['description']) ) )		or
-						($group = "")
+						 ( preg_match( "/$group/", $row['description']) ) )		
 					) {
 						
 						$entry['groupname']		= $row['groupname'];
@@ -329,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tSearch                                    = isset( $_POST['fSearch'] )    	? escape_string( $_POST['fSearch'] )        : "";
 	$tSearchProject								= isset( $_POST['fSearchProject'] )	? escape_string( $_POST['fSearchProject'] )	: "";
 	$tSearchUser								= isset( $_POST['fSearchUser'] )	? escape_string( $_POST['fSearchUser'] )	: "";
-	$tSearchGroup								= isset( $_POST['fSearchgroup'] )	? escape_string( $_POST['fSearchGroup'] )	: "";
+	$tSearchGroup								= isset( $_POST['fSearchGroup'] )	? escape_string( $_POST['fSearchGroup'] )	: "";
 	$tCntl										= isset( $_POST['fCntl'] )			? escape_string( $_POST['fCntl'] )			: "";
  	
  	if( $button == _( "Back" ) and ($tCntl != "filter") ) {
