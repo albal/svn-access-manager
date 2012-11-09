@@ -2,22 +2,22 @@
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form id="form_access_list" name="list_access_rights" method="post">
-				<table class="testlayout table-autosort:3 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
+				<table class="testlayout table-autosort:1 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
 				   	<thead>
 				   			<tr>
 					   		<th class="table-sortable:default">
 					   			<strong><?php print _("M"); ?></strong>
 					   		</th>
-					   		<th class="table-sortable:default">
+					   		<th class="table-sortable:ignorecase">
 					   			<strong><?php print _("Project"); ?></strong>
 					   		</th>
 					   		<th class="table-sortable:default">
 					   			<strong><?php print _("Rights"); ?></strong>
 					   		</th>
-					   		<th class="table-sortable:default">
+					   		<th class="table-sortable:ignorecase">
 					   			<strong><?php print _("User"); ?></strong>
 					   		</th>
-					   		<th class="table-sortable:default">
+					   		<th class="table-sortable:ignorecase">
 					   			<strong><?php print _("Group"); ?></strong>
 					   		</th>
 					   		<th class="table-sortable:date">
@@ -26,7 +26,7 @@
 					   		<th class="table-sortable:date">
 					   			<strong><?php print _("Valid until"); ?></strong>
 					   		</th>
-					   		<th class="table-sortable:default">
+					   		<th class="table-sortable:ignorecase">
 					   			<strong><?php print _("Repository:Directory"); ?></strong>
 					   		</th>
 					   		<th>
