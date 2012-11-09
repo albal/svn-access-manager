@@ -36,6 +36,12 @@ table.testlayout th {white-space:nowrap;}
 
 table.testlayout th { 	
 	border: 1px solid #cccccc; 
+	padding: 0.5em 2em 0.5em 1.2em;
+	
+	line-height: 1;
+	color: black;
+	
+	position: relative; 
 }
 table.testlayout th a {	
 	padding: 0.5em 2em 0.5em 0.7em; 
@@ -47,6 +53,12 @@ table.testlayout th a {
 }
 table.testlayout th a:hover {
 	text-decoration:none;
+}
+table.testlayout a.pagelink {
+	padding-left:5px;
+	padding-right:5px;
+	border:1px solid #666666;
+	margin:0px 5px 0px 5px;
 }
 /* Striping */
 tr.alternate {
