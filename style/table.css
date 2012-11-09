@@ -80,6 +80,10 @@ select.table-autofilter {
 	font-size:smaller;
 }
 
+table.testlayout tr.alternate {
+	background-color:#e3e3e3;
+}
+
 /* Examples which stray from the default */
 table.altstripe tr.alternate2 {
 	background-color:#ccffff;
