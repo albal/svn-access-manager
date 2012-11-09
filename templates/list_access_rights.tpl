@@ -5,7 +5,7 @@
 				<table class="testlayout table-autosort:1 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
 				   	<thead>
 				   			<tr>
-					   		<th class="table-sortable:default">
+					   		<th class="table-sortable:default" align="center">
 					   			<strong><?php print _("M"); ?></strong>
 					   		</th>
 					   		<th class="table-sortable:ignorecase">
