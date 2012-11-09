@@ -90,7 +90,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 												  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 												  "   AND (svnprojects.repo_id = svnrepos.id) " .
 												  "   AND (svn_access_rights.deleted = '00000000000000') ".											  
-		$query									= "ORDER BY svnmodule ASC ";
+		$query									= "ORDER BY LOWER(svnmodule) ASC ";
 		$result									= db_query( $query, $dbh, $count, $start );
 		
 		while( $row = db_assoc( $result['result'] ) ) {
