@@ -135,6 +135,7 @@
 			</form>
 			<script>
 					$("#searchbutton").hide();
+					
 					$("#accessrightlist_table").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
