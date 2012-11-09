@@ -7,10 +7,10 @@ table.example th, table.example td {
 	padding: 2px 15px 2px 15px;
 }
 table.example thead th {
-	background-color:#ccccff;
+	background-color:#99CCFF;
 }
 table.example tfoot td {
-	background-color:#ffccff;
+	background-color:#ffffff;
 }
 
 table.example tr.tbody_header {
@@ -27,6 +27,26 @@ table.example a.pagelink {
 }
 table.example a.currentpage {
 	background-color:yellow;
+}
+
+
+table.testlayout {table-layout: auto;}
+table.testlayout td {padding-left:20px; padding-right:20px;}
+table.testlayout th {white-space:nowrap;}
+
+table.testlayout th { 	
+	border: 1px solid #cccccc; 
+}
+table.testlayout th a {	
+	padding: 0.5em 2em 0.5em 0.7em; 
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+table.testlayout th a:hover {
+	text-decoration:none;
 }
 /* Striping */
 tr.alternate {

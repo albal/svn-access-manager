@@ -2,7 +2,7 @@
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form id="form_access_list" name="list_access_rights" method="post">
-				<table class="table-autosort:4 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
+				<table class="testlayout table-autosort:3 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
 				   	<thead>
 				   			<tr>
 					   		<th class="table-sortable:default">
