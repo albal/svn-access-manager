@@ -89,12 +89,8 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 												  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
 												  "   AND (svnprojects.id IN (".$tProjectIds."))" .
 												  "   AND (svnprojects.repo_id = svnrepos.id) " .
-												  "   AND (svn_access_rights.deleted = '00000000000000') ";
-		if( $project != "" ) {
-			$query								= $query."   AND ((svnprojects.svnmodule like '%$project%') ".
-													     "    OR  (svnprojects.description like '%$project%')) ";
-		}											  
-		$query									= $query."ORDER BY svnrepos.reponame, svn_access_rights.path ";
+												  "   AND (svn_access_rights.deleted = '00000000000000') ".											  
+		$query									= "ORDER BY svnrepos.reponame, svn_access_rights.path ";
 		$result									= db_query( $query, $dbh, $count, $start );
 		
 		while( $row = db_assoc( $result['result'] ) ) {
@@ -114,7 +110,7 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 			$entry['username']					= "";
 			$add								= false;
 
-			if( ( $userid != "0") and ($group == "") ) {
+			if( ( $userid != "0") ) {
 			
 				$query							= "SELECT * " .
 												  "  FROM ".$schema."svnusers " .
@@ -123,21 +119,13 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 				if( $resultread['rows'] == 1 ) {
 					
 					$row						= db_assoc( $resultread['result'] );
-					
-					if( 
-						(( preg_match( "/$user/", $row['name'] ) ) 		or
-						 ( preg_match( "/$user/", $row['givenname'] ) )	or
-						 ( preg_match( "/$user/", $row['userid'] ) ))   
-					) {
-						
-						$entry['username']		= $row['userid'];
-						$add					= true;
-					}
+					$entry['username']			= $row['userid'];
+	
 				}
 		
 			}
 			
-			if( ( $groupid != "0" ) and ($user == "") ) {
+			if( ( $groupid != "0" ) ) {
 				
 				$query							= "SELECT * " .
 												  "  FROM ".$schema."svngroups " .
@@ -146,26 +134,15 @@ function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $
 				if( $resultread['rows'] == 1 ) {
 					
 					$row						= db_assoc( $resultread['result'] );
-					
-					if( 
-						(( preg_match( "/$group/", $row['groupname']) ) 		or
-						 ( preg_match( "/$group/", $row['description']) ) )		
-					) {
-						
-						$entry['groupname']		= $row['groupname'];
-						$add					= true;
-					}
+					$entry['groupname']			= $row['groupname'];
+					$add						= true;
 					
 				} else {
 					$entry['groupname']			= "unknown";
 				}
 			}
 			
-			if( $add ) {
-				
-				$tAccessRights[]				= $entry;
-				
-			}
+			$tAccessRights[]				= $entry;
 		}
 	
 	}
