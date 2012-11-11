@@ -65,13 +65,11 @@ function getGroups( $start, $count, $groupAdmin, $tGroupsAllowed, $dbh ) {
 							  "   WHERE (deleted = '00000000000000') " .
 							  "     AND (id in $grouplist) " .
 							  "ORDER BY groupname ASC ";
-#							  "   LIMIT $start, $count";
 	} else {
 		$query				= "SELECT  * " .
 							  "   FROM ".$schema."svngroups " .
 							  "   WHERE (deleted = '00000000000000') " .
 							  "ORDER BY groupname ASC ";
-#							  "   LIMIT $start, $count";
 	}
 	
 	$result				= db_query( $query, $dbh, $count, $start );

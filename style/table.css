@@ -33,10 +33,12 @@ table.example a.currentpage {
 table.testlayout {table-layout: auto;}
 table.testlayout td {padding-left:20px; padding-right:20px;}
 table.testlayout th {white-space:nowrap;}
+table.testlayout thead {background-color:#eeeeee;}
+table.testlayout tfoot {background-color:#eeeeee;}
 
 table.testlayout th { 	
 	border: 1px solid #cccccc; 
-	padding: 0.5em 2em 0.5em 1.2em;
+	padding: 0.2em 0.2em 0.2em 1.2em;
 	
 	line-height: 1;
 	color: black;
@@ -51,14 +53,22 @@ table.testlayout th a {
 	border: 0 !important;
 	position: relative;
 }
-table.testlayout th a:hover {
+table.testlayout th:hover {
 	text-decoration:none;
+	background-color:#99CCFF;
+}
+table.testlayout tbody tr:hover {
+	text-decoration:none;
+	background-color:#99CCFF;
 }
 table.testlayout a.pagelink {
 	padding-left:5px;
 	padding-right:5px;
 	border:1px solid #666666;
 	margin:0px 5px 0px 5px;
+}
+table.testlayout td {
+	border: 1px solid #cccccc;
 }
 /* Striping */
 tr.alternate {

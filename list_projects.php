@@ -50,7 +50,6 @@ function getProjects( $start, $count, $dbh ) {
 						  "     AND (svnprojects.deleted = '00000000000000') " .
 						  "     AND (svnprojects.repo_id = svnrepos.id) " .
 						  "ORDER BY svnmodule ASC ";
-#						  "   LIMIT $start, $count";
 	$result				= db_query( $query, $dbh, $count, $start );
 	   	
 	while( $row = db_assoc( $result['result']) ) {
