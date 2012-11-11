@@ -62,6 +62,7 @@
 				</table>
 			</form>
 			<script>
+											
 					function pageexample(page) {
 						var t = document.getElementById('page');
 						var res;
