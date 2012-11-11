@@ -50,7 +50,6 @@ function getUsers( $start, $count, $dbh ) {
 						  "   FROM ".$schema."svnusers " .
 						  "   WHERE (deleted = '00000000000000') " .
 						  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
-#						  "   LIMIT $start, $count";
 	$result				= db_query( $query, $dbh, $count, $start );
 	   	
 	while( $row = db_assoc( $result['result']) ) {

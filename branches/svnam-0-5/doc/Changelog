@@ -14,6 +14,9 @@ Release 0.5.5.18
 	- Feature request ID: 3585100
 	  Ajax based search for list_access_rights.php
 	  
+	- Feature request ID: 3585094
+	  ajax based search in reports
+	  
 Release 0.5.5.17
 	- added userid to groupadmin search
 	  

@@ -48,7 +48,6 @@ function getRepos( $start, $count, $dbh ) {
 						  "    FROM ".$schema."svnrepos " .
 						  "   WHERE (deleted = '00000000000000') " .
 						  "ORDER BY reponame ASC ";
-#						  "   LIMIT $start, $count";
 	$result				= db_query( $query, $dbh, $count, $start );
 	   	
 	while( $row = db_assoc( $result['result']) ) {

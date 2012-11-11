@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-11-08 20:15+0100\n"
+"PO-Revision-Date: 2012-11-11 14:21+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -4324,6 +4324,16 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../list_access_rights.php:306
 #: ../../list_access_rights.php:310
 #: ../../list_access_rights.php:330
+#: ../../templates/list_users.tpl:158
+#: ../../templates/list_access_rights.tpl:120
+#: ../../templates/list_groups.tpl:89
+#: ../../templates/list_projects.tpl:90
+#: ../../templates/list_group_admins.tpl:93
+#: ../../templates/list_repos.tpl:92
+#: ../../list_groups.php:192
+#: ../../list_groups.php:196
+#: ../../list_access_rights.php:281
+#: ../../list_access_rights.php:285
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4372,6 +4382,7 @@ msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 #: ../../list_access_rights.php:474
 #: ../../list_access_rights.php:477
 #: ../../list_access_rights.php:397
+#: ../../list_access_rights.php:377
 #, php-format
 msgid "Can not delete access right with id %s"
 msgstr "Zugriffsrecht mit Id %s kann nicht gel&ouml;scht werden"
@@ -5761,6 +5772,7 @@ msgstr "Kann nicht in %s schreiben"
 #: ../../templates/list_access_rights.tpl:86
 #: ../../templates/list_access_rights.tpl:89
 #: ../../templates/list_access_rights.tpl:90
+#: ../../templates/list_access_rights.tpl:64
 msgid "Change"
 msgstr "&Auml;ndern"
 
@@ -5908,6 +5920,8 @@ msgstr "Verantwortlichen zum Hinzuf&uuml;gen ausw&auml;hlen"
 #: ../../list_access_rights.php:316
 #: ../../list_access_rights.php:318
 #: ../../list_access_rights.php:336
+#: ../../list_access_rights.php:291
+#: ../../list_access_rights.php:293
 msgid "Clear filter"
 msgstr "Filter l&ouml;schen"
 
@@ -7827,6 +7841,8 @@ msgstr "Standardwert f&uuml; Passwortablauf"
 #: ../../searchrpc.php:436
 #: ../../templates/list_access_rights.tpl:86
 #: ../../templates/list_access_rights.tpl:90
+#: ../../templates/list_access_rights.tpl:67
+#: ../../templates/list_access_rights.tpl:71
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -7977,6 +7993,10 @@ msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
 #: ../../list_access_rights.php:312
 #: ../../list_access_rights.php:314
 #: ../../list_access_rights.php:353
+#: ../../templates/list_access_rights.tpl:119
+#: ../../list_access_rights.php:287
+#: ../../list_access_rights.php:289
+#: ../../list_access_rights.php:333
 msgid "Delete selected"
 msgstr "Ausgew&auml;hlte l&ouml;schen"
 
@@ -10989,6 +11009,7 @@ msgstr "Hallo %s %s"
 #: ../../include/output.inc.php:43
 #: ../..//include/output.inc.php:43
 #: ../../templates/framework.tpl:207
+#: ../../templates/framework.tpl:208
 msgid "Help"
 msgstr "Hilfe"
 
@@ -11601,6 +11622,7 @@ msgstr "Anweisungen"
 #: ../../rep_access_rights.php:270
 #: ../../list_access_rights.php:503
 #: ../../list_access_rights.php:423
+#: ../../list_access_rights.php:403
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -12090,6 +12112,7 @@ msgstr "Ung&uuml;ltige Benutzer-Id %s angefordert"
 #: ../../templates/framework.tpl:99
 #: ../..//templates/framework.tpl:99
 #: ../../templates/framework.tpl:101
+#: ../../templates/framework.tpl:102
 msgid "Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"
 msgstr "JavaScript ist ausgeschaltet. Diese Seite ben&ouml;tigt JavaScript um korrekt zu funktionieren. Bitte schalten Sie JavaScript in Ihrem Browser ein!"
 
@@ -14300,6 +14323,10 @@ msgstr "Name, Vorname"
 #: ../../list_access_rights.php:304
 #: ../../list_access_rights.php:308
 #: ../../list_access_rights.php:347
+#: ../../templates/list_access_rights.tpl:115
+#: ../../list_access_rights.php:279
+#: ../../list_access_rights.php:283
+#: ../../list_access_rights.php:327
 msgid "New access right"
 msgstr "Neues Zugriffsrecht"
 
@@ -14396,6 +14423,10 @@ msgstr "Neues Zugriffsrecht"
 #: ../../list_groups.php:192
 #: ../../list_groups.php:196
 #: ../../list_groups.php:261
+#: ../../templates/list_groups.tpl:85
+#: ../../templates/list_group_admins.tpl:89
+#: ../../list_groups.php:190
+#: ../../list_groups.php:194
 msgid "New group"
 msgstr "Neue Gruppe"
 
@@ -14492,6 +14523,7 @@ msgstr "Die neuen Passworte sind nicht identisch!"
 #: ../../list_projects.php:140
 #: ../../list_projects.php:144
 #: ../../list_projects.php:207
+#: ../../templates/list_projects.tpl:86
 msgid "New project"
 msgstr "Neues Projekt"
 
@@ -14549,6 +14581,7 @@ msgstr "Neues Projekt"
 #: ../../list_repos.php:136
 #: ../../list_repos.php:140
 #: ../../list_repos.php:205
+#: ../../templates/list_repos.tpl:88
 msgid "New repository"
 msgstr "Neues Repository"
 
@@ -14613,6 +14646,7 @@ msgstr "Neues Repository"
 #: ../../list_users.php:142
 #: ../../list_users.php:146
 #: ../../list_users.php:214
+#: ../../templates/list_users.tpl:154
 msgid "New user"
 msgstr "Neuer Benutzer"
 
@@ -15269,6 +15303,8 @@ msgstr "Keine Gruppe ausgew&auml;hlt!"
 #: ../..//help.php:78
 #: ../../templates/framework.tpl:179
 #: ../../templates/framework.tpl:185
+#: ../../templates/framework.tpl:180
+#: ../../templates/framework.tpl:186
 msgid "No help found"
 msgstr "Keine Hilfe gefunden"
 
@@ -15317,6 +15353,7 @@ msgstr "Kein Neuladen bauftragt"
 #: ../../list_groups.php:218
 #: ../../list_access_rights.php:306
 #: ../../list_access_rights.php:308
+#: ../../list_groups.php:216
 msgid "No search string given!"
 msgstr "Kein Suchbegriff angegeben!"
 
@@ -18876,6 +18913,10 @@ msgstr "Benutzer suchen"
 msgid "Search user by uid or name."
 msgstr "Benutzer nach Uid oder name suchen."
 
+#: ../../templates/searchresult_users.tpl:3
+msgid "Search user result"
+msgstr "Ergebnis Benutzersuche"
+
 #: ../../templates/list_users.tpl:11
 #: ../..//templates/list_users.tpl:11
 msgid "Search user."
@@ -19162,6 +19203,7 @@ msgstr "Ergebnis der Suche nach Benutzern"
 #: ../../templates/framework.tpl:62
 #: ../..//templates/framework.tpl:62
 #: ../../templates/framework.tpl:64
+#: ../../templates/framework.tpl:65
 msgid "Session expired. Please re-login!"
 msgstr "Sitzung abgelaufen! Bitte erneut anmelden!"
 
@@ -20274,6 +20316,7 @@ msgstr "Der Benutzername und das Passwort zum Repositoryzugriff, wenn ben&ouml;t
 #: ../../help.php:73
 #: ../..//help.php:73
 #: ../../templates/framework.tpl:180
+#: ../../templates/framework.tpl:181
 #, php-format
 msgid "There is no help topic '%s' in the database"
 msgstr "Es gibt keinen Hilfepunkt '%s' in der Datenbank"
@@ -20286,6 +20329,7 @@ msgstr "Es gibt keinen Hilfepunkt '%s' in der Datenbank"
 #: ../../help.php:79
 #: ../..//help.php:79
 #: ../../templates/framework.tpl:186
+#: ../../templates/framework.tpl:187
 msgid "There is no help topic set"
 msgstr "Es ist kein Hilfepunkt gesetzt"
 
@@ -20914,6 +20958,7 @@ msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_granted_user_rights.tpl:28
 #: ../../templates/rep_granted_user_rights.tpl:28
 #: ../..//templates/rep_granted_user_rights.tpl:28
+#: ../../templates/rep_granted_user_rights.tpl:34
 msgid "User locked"
 msgstr "Benutzer gesperrt"
 
@@ -22573,6 +22618,7 @@ msgstr "Ihr neues Passwort wurde erfolgreich eingetragen!"
 #: ../../templates/framework.tpl:74
 #: ../..//templates/framework.tpl:74
 #: ../../templates/framework.tpl:76
+#: ../../templates/framework.tpl:77
 msgid "Your session expired! Please re-login!"
 msgstr "Ihre Sitzung ist abgelaufen! Bitte erneut anmelden!"
 
@@ -23267,6 +23313,7 @@ msgstr "lesen"
 #: ../../list_access_rights.php:288
 #: ../../list_access_rights.php:290
 #: ../../list_access_rights.php:299
+#: ../../list_groups.php:198
 msgid "search"
 msgstr "suchen"
 
