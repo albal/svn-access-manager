@@ -17,6 +17,9 @@ Release 0.5.5.18
 	- Feature request ID: 3585094
 	  ajax based search in reports
 	  
+	- Feature request ID: 3586321
+	  replace show user/group select box
+	  
 Release 0.5.5.17
 	- added userid to groupadmin search
 	  
