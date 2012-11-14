@@ -20,6 +20,12 @@ Release 0.5.5.18
 	- Feature request ID: 3586321
 	  replace show user/group select box
 	  
+	- table filters do not start compare from the beginning 
+	  of the table cell content
+	  
+	- new updated help texts. Thanks to Jan for the new verion
+	  of the help texts.
+	  
 Release 0.5.5.17
 	- added userid to groupadmin search
 	  
