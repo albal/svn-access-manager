@@ -13,7 +13,7 @@
 					</tr>
 					<tr valign="top">
 						<td>
-							<select id="members" name="membersadd[]" multiple="" size="15" style="width: 100%; height=200px;" title="<?php print _("Select the users to add.");?>">
+							<select id="members" name="membersadd[]" multiple="" size="15" style="width: 100%; height=200px;" class="chzn-select" title="<?php print _("Select the users to add.");?>">
 							<?php
 								foreach($tUsers as $uid => $name) {
 									
