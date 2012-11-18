@@ -2,16 +2,44 @@ Change Log
 ==========
 
 
-Release 0.5.5.17
-	- feature request ID: 
-	  add userid to groupadmin search
+Release 0.5.5.18
+	- changed search in access right list to a filter
+	
+	- Fixed bug ID: 3585176
+	  editable custom fields on general page
 	  
-	- Feature request ID:
-	  show only groups an user may work with in search results
+	- Feature request ID: 3584758 	
+	  select group adm & project resp. via AJAX
+	  
+	- Feature request ID: 3585100
+	  Ajax based search for list_access_rights.php
+	  
+	- Feature request ID: 3585094
+	  ajax based search in reports
+	  
+	- Feature request ID: 3586321
+	  replace show user/group select box
+	  
+	- table filters do not start compare from the beginning 
+	  of the table cell content
+	  
+	- new updated help texts. Thanks to Jan for the new verion
+	  of the help texts.
+	  
+Release 0.5.5.17
+	- added userid to groupadmin search
+	  
+	- show only groups an user may work with in search results
 	 
 	- write permission violations to log
 	
 	- added search to repository access rights (Repository, path)
+	
+	- Fixed bug ID: 3584773
+	  missing $t-Variables on general page
+	  
+	- Fixed bug ID: 3581934
+	  Database error when deleting project
 	 
 Release 0.5.5.16
 	- Feature request ID: 3582680

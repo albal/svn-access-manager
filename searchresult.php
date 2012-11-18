@@ -55,9 +55,9 @@ $tType                                      = isset( $_SESSION['svn_sessid']['se
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     $template               	            = "searchresult_$tType.tpl";
-    $header									= "users";
-   	$subheader								= "users";
-   	$menu									= "users";
+    $header									= "search";
+   	$subheader								= "search";
+   	$menu									= "search";
 
     include ("./templates/framework.tpl");
 }
@@ -65,9 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $template                	           	= "searchresult_$tType.tpl";
-    $header									= "users";
-   	$subheader								= "users";
-   	$menu									= "users";
+    $header									= "search";
+   	$subheader								= "search";
+   	$menu									= "search";
 
     include ("./templates/framework.tpl");
 }

@@ -45,6 +45,11 @@ $maxRows                                                                = isset(
 $filter                                                                 = isset( $_GET['name_startsWith'] )     ? ( $_GET['name_startsWith'] )  	: "";
 $db                                                                     = isset( $_GET['db'] )              	? ( $_GET['db'] )                   : "";
 $userid																	= isset( $_GET['userid'] )				? ( $_GET['userid'] )				: "";
+$user																	= isset( $_GET['user'] )				? ( $_GET['user'] )					: "";
+$group																	= isset( $_GET['group'] )				? ( $_GET['group'] )				: "";
+$project																= isset( $_GET['project'] )				? ( $_GET['project'] )				: "";
+$admin																	= isset( $_GET['admin'] )				? ( $_GET['admin'] )				: "";
+$allowed																= isset( $_GET['allowed'] )				? ( $_GET['allowed'] )				: "";
 $tArray                                                                 = array();
 
 list($ret, $SESSID_USERNAME)            								= check_session_status();
@@ -278,9 +283,10 @@ if( $ret == 0 ) {
 	}
 	
 	db_disconnect( $dbh );
-}
+	
+} 
 
 $data                                                                   = json_encode($tArray);
+print $callback."(".$data.");";	
 
-print $callback."(".$data.");"
 ?>

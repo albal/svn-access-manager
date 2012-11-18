@@ -10,7 +10,7 @@
 				   	<tr valign="top">
 				   		<td width="150"><strong><?php print _("Group").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fGroup">
+				   			<select name="fGroup" id="group" class="chzn-select">
 				   				<?php
 				   					print "\t\t\t<option value='default'>"._("--- Select group ---")."</option>\n";
 				   					foreach( $tGroups as $entry ) {
@@ -40,4 +40,7 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				$("#group").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>

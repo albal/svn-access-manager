@@ -1,3 +1,26 @@
+Update to V0.5.5.18
+
+Version 0.5.5.18 contains some bug fixes and some new features. There's a new
+JavaScript library usef for table filtering. Be sure to include the new library.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.17
+
+Version 0.5.5.17 contains some bug fixes and some new features.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
 Update to V0.5.5.16
 
 Version 0.5.5.16 contains an important security fix. Therefore you are strongly recommended

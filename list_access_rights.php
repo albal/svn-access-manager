@@ -41,102 +41,104 @@ include_once ("$installBase/addMemberToGroup.php");
 
 
 
-function getAccessRights( $user_id, $start, $count, $dbh ) {
+function getAccessRights( $user_id, $start, $count, $dbh, $user="", $group="", $project="" ) {
 	
 	global $CONF;
 	
-	$schema									= db_determine_schema();
+	$schema										= db_determine_schema();
     
 	if( $user_id != -1 ) {
-		$id									= db_getIdByUserid( $user_id, $dbh );
-		$tProjectIds						= "";
-		$query								= "SELECT * " .
-	  					      				  "  FROM ".$schema."svn_projects_responsible " .
-	  					      				  " WHERE (user_id = $id) " .
-	  					      				  "   AND (deleted = '00000000000000')";
+		$id										= db_getIdByUserid( $user_id, $dbh );
+		$tProjectIds							= "";
+		$query									= "SELECT * " .
+	  					      				  	  "  FROM ".$schema."svn_projects_responsible " .
+	  					      				  	  " WHERE (user_id = $id) " .
+	  					      				  	  "   AND (deleted = '00000000000000')";
 	} else {
 		
-		$tProjectIds						= "";
-		$query								= "SELECT * " .
-	  					      				  "  FROM ".$schema."svn_projects_responsible " .
-	  					      				  " WHERE (deleted = '00000000000000')";
+		$tProjectIds							= "";
+		$query									= "SELECT * " .
+	  					      				  	  "  FROM ".$schema."svn_projects_responsible " .
+	  					      				  	  " WHERE (deleted = '00000000000000')";
 	  					      				  
 	}
 	
-  	$result									= db_query( $query, $dbh );
+  	$result										= db_query( $query, $dbh );
   	while( $row = db_assoc( $result['result'] ) ) {
   		
   		if( $tProjectIds == "" ) {
   			
-  			$tProjectIds 					= $row['project_id'];
+  			$tProjectIds 						= $row['project_id'];
   			
   		} else {
   			
-  			$tProjectIds					= $tProjectIds.",".$row['project_id'];
+  			$tProjectIds						= $tProjectIds.",".$row['project_id'];
   			
   		}
   		
   	}
   	
-  	$tAccessRights							= array();
+  	$tAccessRights								= array();
 	
 	if( $tProjectIds != "" ) {
 		
-		$query								= "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." .
-											  "       reponame, valid_from, valid_until, path, access_right, recursive," .
-											  "       svn_access_rights.user_id, svn_access_rights.group_id " .
-											  "  FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
-											  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
-											  "   AND (svnprojects.id IN (".$tProjectIds."))" .
-											  "   AND (svnprojects.repo_id = svnrepos.id) " .
-											  "   AND (svn_access_rights.deleted = '00000000000000') " .
-											  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-		$result								= db_query( $query, $dbh, $count, $start );
+		$query									= "SELECT svn_access_rights.id AS id, svnmodule, modulepath, svnrepos." .
+												  "       reponame, valid_from, valid_until, path, access_right, recursive," .
+												  "       svn_access_rights.user_id, svn_access_rights.group_id, repopath " .
+												  "  FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
+												  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
+												  "   AND (svnprojects.id IN (".$tProjectIds."))" .
+												  "   AND (svnprojects.repo_id = svnrepos.id) " .
+												  "   AND (svn_access_rights.deleted = '00000000000000') ".											  
+		$query									= "ORDER BY LOWER(svnmodule) ASC ";
+		$result									= db_query( $query, $dbh, $count, $start );
 		
 		while( $row = db_assoc( $result['result'] ) ) {
 			
-			$entry							= $row;
-			$userid							= $row['user_id'];
+			$entry								= $row;
+			$userid								= $row['user_id'];
 			if( empty( $userid) ) {
-				$userid						= 0;
+				$userid							= 0;
 			}
 			
-			$groupid						= $row['group_id'];
+			$groupid							= $row['group_id'];
 			if( empty( $groupid) ) {
-				$groupid					= 0;
+				$groupid						= 0;
 			}
 			
-			$entry['groupname']				= "";
-			$entry['username']				= "";
+			$entry['groupname']					= "";
+			$entry['username']					= "";
+			$add								= false;
+
+			if( ( $userid != "0") ) {
 			
-			if( $userid != "0" ) {
-			
-				$query						= "SELECT * " .
-											  "  FROM ".$schema."svnusers " .
-											  " WHERE id = $userid";
-				$resultread					= db_query( $query, $dbh );
+				$query							= "SELECT * " .
+												  "  FROM ".$schema."svnusers " .
+												  " WHERE id = $userid";
+				$resultread						= db_query( $query, $dbh );
 				if( $resultread['rows'] == 1 ) {
 					
-					$row					= db_assoc( $resultread['result'] );
-					$entry['username']		= $row['userid'];
-					
+					$row						= db_assoc( $resultread['result'] );
+					$entry['username']			= $row['userid'];
+	
 				}
 		
 			}
 			
-			if( $groupid != "0" ) {
+			if( ( $groupid != "0" ) ) {
 				
-				$query						= "SELECT * " .
-											  "  FROM ".$schema."svngroups " .
-											  " WHERE id = $groupid";
-				$resultread					= db_query( $query, $dbh );
+				$query							= "SELECT * " .
+												  "  FROM ".$schema."svngroups " .
+												  " WHERE id = $groupid";
+				$resultread						= db_query( $query, $dbh );
 				if( $resultread['rows'] == 1 ) {
 					
-					$row					= db_assoc( $resultread['result'] );
-					$entry['groupname']		= $row['groupname'];
+					$row						= db_assoc( $resultread['result'] );
+					$entry['groupname']			= $row['groupname'];
+					$add						= true;
 					
 				} else {
-					$entry['groupname']		= "unknown";
+					$entry['groupname']			= "unknown";
 				}
 			}
 			
@@ -253,7 +255,10 @@ if( $rightAllowed == "none" ) {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
-	$tAccessRights							= getAccessRights( $tSeeUserid, 0, -1, $dbh );
+	$tAccessRights							= getAccessRights( $tSeeUserid, 0, -1, $dbh, "", "", "" );
+	$tSearchUser							= "";
+	$tSearchGroup							= "";
+	$tSearchProject							= "";
 	$_SESSION['svn_sessid']['rightcounter']	= 0;
 	$tCountRecords							= getCountAccessRights( $tSeeUserid, $dbh );
 	$tPrevDisabled							= "disabled";
@@ -282,153 +287,50 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= _("Delete selected");
 	} elseif( isset( $_POST['fSubmit_delete_x'] ) ) {
 		$button									= _("Delete selected");
+	} elseif( isset( $_POST['fSubmit_clear'] ) ) {
+		$button									= _("Clear filter");
+	} elseif( isset( $_POST['fSubmit_clear_x'] ) ) {
+		$button									= _("Clear filter");
 	} elseif( isset( $_POST['fSearchBtn'] ) ) {
-        $button                                 = _("search");
+        $button                                 = "getfilter";
     } elseif( isset( $_POST['fSearchBtn_x'] ) ) {
-        $button                                 = _("search");
+        $button                                 = "getfilter";
 	}  else {
-		$button									= "undef";
+		$button									= "getfilter";
 	}
 	
 	$schema										= db_determine_schema();
 	
-	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+	$tSearch                                    = isset( $_POST['fSearch'] )    	? db_escape_string( $_POST['fSearch'] )        	: "";
+	$tSearchProject								= isset( $_POST['fSearchProject'] )	? db_escape_string( $_POST['fSearchProject'] )	: "";
+	$tSearchUser								= isset( $_POST['fSearchUser'] )	? db_escape_string( $_POST['fSearchUser'] )		: "";
+	$tSearchGroup								= isset( $_POST['fSearchGroup'] )	? db_escape_string( $_POST['fSearchGroup'] )	: "";
+	$tCntl										= isset( $_POST['fCntl'] )			? db_escape_string( $_POST['fCntl'] )			: "";
  	
- 	if( ($button == "search") or ($tSearch != "") ) {
-
-    	$tSearch                               	= html_entity_decode($tSearch);
-    	$_SESSION['svn_sessid']['search']       = $tSearch;
-        $_SESSION['svn_sessid']['searchtype']   = "access_right";
-        
-    	if( $tSearch == "" ) {
-
-        	$tErrorClass                    	= "error";
-            $tMessage                       	= _("No search string given!");
-            $tAccessRights						= array();
-
-        } else {
-    	
-    		$schema								= db_determine_schema();
-    		$tArray								= array();
-    		list($repopath, $path, $reponame) 	= explode( "|", $tSearch );
-    		$tProjectIds													= "";
-			$query															= "SELECT * " .
-									  					      				  "  FROM ".$schema."svn_projects_responsible " .
-							    							  				  " WHERE (deleted = '00000000000000')";
-		  	$result																= db_query( $query, $dbh );
-		  	while( $row = db_assoc( $result['result'] ) ) {
-		  		
-		  		if( $tProjectIds == "" ) {
-		  			
-		  			$tProjectIds 												= $row['project_id'];
-		  			
-		  		} else {
-		  			
-		  			$tProjectIds												= $tProjectIds.",".$row['project_id'];
-		  			
-		  		}
-		  		
-		  	}
-    		$query								= "SELECT svn_access_rights.id AS rid, svnmodule, modulepath, svnrepos." .
-												  "       reponame, valid_from, valid_until, path, access_right, recursive," .
-												  "       svn_access_rights.user_id, svn_access_rights.group_id, repopath " .
-												  "  FROM ".$schema."svn_access_rights, ".$schema."svnprojects, ".$schema."svnrepos " .
-												  " WHERE (svnprojects.id = svn_access_rights.project_id) " .
-												  "   AND (svnprojects.id IN (".$tProjectIds."))" .
-												  "   AND (svnprojects.repo_id = svnrepos.id) " .
-												  "   AND (svn_access_rights.deleted = '00000000000000') " .
-												  "   AND ((svnrepos.repopath like '%$repopath%') ".
-												  "    OR  (svnrepos.reponame like '%$reponame%') ".
-												  "    OR  (path like '%$path%')) ".
-												  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-			error_log( "search = ".$query );
-    		$result								= db_query( $query, $dbh );
-    		while( $row = db_assoc( $result['result'])) {
-    			
-    			$entry							= $row;
-    			$userid							= $row['user_id'];
-				if( empty( $userid) ) {
-					$userid						= 0;
-				}
-				
-				$groupid						= $row['group_id'];
-				if( empty( $groupid) ) {
-					$groupid					= 0;
-				}
-				
-				$entry['groupname']				= "";
-				$entry['username']				= "";
-				
-				if( $userid != "0" ) {
-				
-					$query						= "SELECT * " .
-												  "  FROM ".$schema."svnusers " .
-												  " WHERE id = $userid";
-					$resultread					= db_query( $query, $dbh );
-					if( $resultread['rows'] == 1 ) {
-						
-						$row					= db_assoc( $resultread['result'] );
-						$entry['username']		= $row['userid'];
-						
-					}
-			
-				}
-				
-				if( $groupid != "0" ) {
-					
-					$query						= "SELECT * " .
-												  "  FROM ".$schema."svngroups " .
-												  " WHERE id = $groupid";
-					$resultread					= db_query( $query, $dbh );
-					if( $resultread['rows'] == 1 ) {
-						
-						$row					= db_assoc( $resultread['result'] );
-						$entry['groupname']		= $row['groupname'];
-						
-					} else {
-						$entry['groupname']		= "unknown";
-					}
-				}
-    			$tArray[]						= $entry;
-    			
-    		}
-    		
-    		if( count($tArray) == 0 ) {
-    			
-    			$tErrorClass                    = "info";
-                $tMessage                       = _("No access rights found!");
-    			
-    		} elseif( count($tArray) == 1) {
-    			
-    			$id								= $tArray[0]['rid'];
-    			$url							= "workOnAccessRight.php?id=".urlencode($id)."&task=change";
-    			db_disconnect( $dbh );
-    			header( "location: $url" );
-    			exit;
-    			
-    		} else {
-    			
-    			db_disconnect( $dbh );
-    			$_SESSION['svn_sessid']['searchresult']	= $tArray;
-                header("location: searchresult.php");
-                exit;
-                
-    		}
-    	}
-    	
- 	} elseif( $button == _( "Back" ) ) {
+ 	if( $button == _( "Back" ) and ($tCntl != "filter") ) {
 		
 		db_disconnect( $dbh );
 		header( "Location: main.php" );
 		exit;
 		
-	} elseif( $button == _( "New access right" ) ) {
+ 	} elseif( $button == _("Clear filter") ) {
+ 		
+ 		$tSerarchUser							= "";
+ 		$tSearchjProject						= "";
+ 		$tSearchGroup							= "";
+ 		$tAccessRights							= getAccessRights( $tSeeUserid, 0, -1, $dbh, $tSearchUser, $tSearchGroup, $tSearchProject );
+ 		
+ 	} elseif( $button == "getfilter" ) {
+ 		
+ 		$tAccessRights							= getAccessRights( $tSeeUserid, 0, -1, $dbh, $tSearchUser, $tSearchGroup, $tSearchProject );
+ 		
+	} elseif( $button == _( "New access right" ) and ($tCntl != "filter") ) {
 		
 		db_disconnect( $dbh );
 		header( "Location: selectProject.php" );
 		exit;
 		
-	} elseif( $button == _("Delete selected") ) {
+	} elseif( $button == _("Delete selected") and ($tCntl != "filter") ) {
 	
 		$max										= $_SESSION['svn_sessid']['max_mark'];
 		$error										= 0;
@@ -441,6 +343,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( isset( $_POST[$field] ) ) {
 				
+				print $_POST[$field];exit;
 				$id									= $_SESSION['svn_sessid']['mark'][$i];
 				$right								= db_getRightData( $id, $dbh );
 				$projectname						= db_getProjectById( $right['project_id'], $dbh );
