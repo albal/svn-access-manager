@@ -301,11 +301,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$schema										= db_determine_schema();
 	
-	$tSearch                                    = isset( $_POST['fSearch'] )    	? escape_string( $_POST['fSearch'] )        : "";
-	$tSearchProject								= isset( $_POST['fSearchProject'] )	? escape_string( $_POST['fSearchProject'] )	: "";
-	$tSearchUser								= isset( $_POST['fSearchUser'] )	? escape_string( $_POST['fSearchUser'] )	: "";
-	$tSearchGroup								= isset( $_POST['fSearchGroup'] )	? escape_string( $_POST['fSearchGroup'] )	: "";
-	$tCntl										= isset( $_POST['fCntl'] )			? escape_string( $_POST['fCntl'] )			: "";
+	$tSearch                                    = isset( $_POST['fSearch'] )    	? db_escape_string( $_POST['fSearch'] )        	: "";
+	$tSearchProject								= isset( $_POST['fSearchProject'] )	? db_escape_string( $_POST['fSearchProject'] )	: "";
+	$tSearchUser								= isset( $_POST['fSearchUser'] )	? db_escape_string( $_POST['fSearchUser'] )		: "";
+	$tSearchGroup								= isset( $_POST['fSearchGroup'] )	? db_escape_string( $_POST['fSearchGroup'] )	: "";
+	$tCntl										= isset( $_POST['fCntl'] )			? db_escape_string( $_POST['fCntl'] )			: "";
  	
  	if( $button == _( "Back" ) and ($tCntl != "filter") ) {
 		

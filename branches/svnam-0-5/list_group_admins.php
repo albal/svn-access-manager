@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$schema										= db_determine_schema();
  	
- 	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+ 	$tSearch                                    = isset( $_POST['fSearch'] )    ? db_escape_string( $_POST['fSearch'] )        : "";
  	
  	if( ($button == "search") or ($tSearch != "") ) {
 
