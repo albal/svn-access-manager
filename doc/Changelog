@@ -2,6 +2,13 @@ Change Log
 ==========
 
 
+Release 0.5.5.19
+	- fixed bug ID: 3585176
+	  editable custom fields on general page
+	  
+	- fixed bug ID: 3585176
+	  editable custom fields on general page
+	  
 Release 0.5.5.18
 	- changed search in access right list to a filter
 	
