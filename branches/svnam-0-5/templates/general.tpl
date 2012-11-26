@@ -42,21 +42,21 @@
 				   	</tr>
 				   	<?php
 				   		if (isset($CONF['column_custom1'])) {
-				   			print "\t\t\t\<tr>\n";
+				   			print "\t\t\t<tr>\n";
 				   			print "\t\t\t\t<td><strong>".$CONF['column_custom1'].": </strong>\n";
 				   			print "\t\t\t\t<td><input type='text' name='fCustom1' value='$tCustom1' size='40'/></td>\n";
 				   			print "\t\t\t\t<td> </td>\n";
 				   			print "\t\t\t</tr>\n";
 				   		}
 				   		if (isset($CONF['column_custom2'])) {
-				   			print "\t\t\t\<tr>\n";
+				   			print "\t\t\t<tr>\n";
 				   			print "\t\t\t\t<td><strong>".$CONF['column_custom2'].": </strong>\n";
 				   			print "\t\t\t\t<td><input type='text' name='fCustom2' value='$tCustom2' size='40'/></td>\n";
 				   			print "\t\t\t\t<td> </td>\n";
 				   			print "\t\t\t</tr>\n";
 				   		}
 				   		if (isset($CONF['column_custom3'])) {
-				   			print "\t\t\t\<tr>\n";
+				   			print "\t\t\t<tr>\n";
 				   			print "\t\t\t\t<td><strong>".$CONF['column_custom3'].": </strong>\n";
 				   			print "\t\t\t\t<td><input type='text' name='fCustom3' value='$tCustom3' size='40'/></td>\n";
 				   			print "\t\t\t\t<td> </td>\n";
