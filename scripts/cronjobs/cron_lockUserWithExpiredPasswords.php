@@ -91,7 +91,7 @@ while( $row = db_assoc( $result['result'] ) ) {
 		
 	}
 	
-	error_log( "start working on user $userid( $name)");
+	#error_log( "start working on user $userid( $name)");
 	
 	$curtime						= time();
 	
@@ -113,7 +113,7 @@ while( $row = db_assoc( $result['result'] ) ) {
 			
 			db_ta( 'COMMIT', $dbh );
 			db_log( 'expiredUserCron', "locked user $userid ($name) because password is expired", $dbh );
-			error_log( "locked user $userid ($name) because password is expired" );
+			#error_log( "locked user $userid ($name) because password is expired" );
 			
 			mail( $emailaddress, "SVN Access Manager account locked - password expired", $mailtext, $header );
 		
@@ -132,13 +132,13 @@ while( $row = db_assoc( $result['result'] ) ) {
 								  "Reply-To: ".$CONF['admin_email'];
 		
 		db_log( 'expiredUserCron', "notified user $userid ($name) about account to expire", $dbh );
-		error_log( "notified user $userid ($name) about account to expire" );
+		#error_log( "notified user $userid ($name) about account to expire" );
 		
 		mail( $emailaddress, "SVN Access Manager account about to expire", $mailtext, $header );
 	
 	} else {
 		
-		error_log( "$userid password not expired, nothing to do" );
+		#error_log( "$userid password not expired, nothing to do" );
 		
 	}
 	

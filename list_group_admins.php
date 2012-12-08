@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   				$query							= $query."       ) ".    											  						  
 				  						  	  	  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
   			}
-			error_log($query);
+			#error_log($query);
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {
     			

@@ -6,8 +6,16 @@ Release 0.5.5.19
 	- fixed bug ID: 3585176
 	  editable custom fields on general page
 	  
-	- fixed bug ID: 3585176
-	  editable custom fields on general page
+	- fixed bug ID: 3589118
+	  cron scripts: duplicate require "config.inc.php"
+	  
+	- fixed bug ID: 3593675
+	  Buttons on searchresult page not working
+	  
+	- fixed bug ID: 3593676
+	  wrong date sorting on log page
+	  
+	- removed unnecessary error_log calls
 	  
 Release 0.5.5.18
 	- changed search in access right list to a filter

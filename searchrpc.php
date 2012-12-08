@@ -230,7 +230,7 @@ if( $ret == 0 ) {
 	
 } elseif( strtolower($db) == "accessright" ) {
 	
-	error_log( "accessright: $userid" );
+	#error_log( "accessright: $userid" );
 	$dbh																= db_connect();	
 	$schema																= db_determine_schema();
 	$tProjectIds														= "";
@@ -251,7 +251,7 @@ if( $ret == 0 ) {
   		}
   		
   	}
-	error_log("Project Ids: $tProjectIds");
+	#error_log("Project Ids: $tProjectIds");
 	if( $tProjectIds != "" ) {
 		
 		$query															= "SELECT svn_access_rights.id AS rid, svnmodule, modulepath, svnrepos." .
@@ -268,7 +268,7 @@ if( $ret == 0 ) {
 																		  "    OR  (path like '%$filter%') ".
 																		  "    OR  (svnprojects.description like '%$filter%')) ".
 																		  "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-		error_log( $query );
+		#error_log( $query );
 		$result															= db_query( $query, $dbh );
 		
 		while( $row = db_assoc( $result['result'] ) ) {
