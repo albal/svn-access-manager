@@ -89,6 +89,9 @@ var Sort = (function(){
 	sort.date = function(a,b) {
 		return sort.numeric(sort.date.convert(a),sort.date.convert(b));
 	};
+	sort.datetime = function(a,b) {
+		return sort.numeric(sort.datetime.convert(a),sort.datetime.convert(b));
+	};
 	// Convert 2-digit years to 4
 	sort.date.fixYear=function(yr) {
 		yr = +yr;
@@ -99,8 +102,20 @@ var Sort = (function(){
 	sort.date.formats = [
 		// YY[YY]-MM-DD
 		{ re:/(\d{2,4})-(\d{1,2})-(\d{1,2})/ , f:function(x){ return (new Date(sort.date.fixYear(x[1]),+x[2],+x[3])).getTime(); } }
+		// DD.MM.YYYY
+		,{ re:/(\d{1,2})\.(\d{1,2})\.(\d{2,4})/ , f:function(x){ return (new Date(sort.date.fixYear(x[3]),+x[2],+x[1])).getTime(); } }
 		// MM/DD/YY[YY] or MM-DD-YY[YY]
 		,{ re:/(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})/ , f:function(x){ return (new Date(sort.date.fixYear(x[3]),+x[1],+x[2])).getTime(); } }
+		// Any catch-all format that new Date() can handle. This is not reliable except for long formats, for example: 31 Jan 2000 01:23:45 GMT
+		,{ re:/(.*\d{4}.*\d+:\d+\d+.*)/, f:function(x){ var d=new Date(x[1]); if(d){return d.getTime();} } }
+	];
+	sort.datetime.formats = [
+		// YY[YY]-MM-DD
+		{ re:/(\d{2,4})-(\d{1,2})-(\d{1,2}) (\d{1,2})\:(\d{1,2}\:(\d{1,2}))/ , f:function(x){ return (new Date(sort.date.fixYear(x[1]),+x[2],+x[3],+x[4],+x[5],+x[6])); } }
+		// DD.MM.YYYY
+		,{ re:/(\d{1,2})\.(\d{1,2})\.(\d{2,4}) (\d{1,2})\:(\d{1,2})\:(\d{1,2})/ , f:function(x){ return (new Date(sort.date.fixYear(x[3]),+x[2],+x[1],+x[4],+x[5],+x[6])); } }
+		// MM/DD/YY[YY] or MM-DD-YY[YY]
+		,{ re:/(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4}) (\d{1,2})\:(\d{1,2})\:(\d{1,2})/ , f:function(x){ return (new Date(sort.date.fixYear(x[3]),+x[1],+x[2],+x[4],+x[5],+x[6]));  } }
 		// Any catch-all format that new Date() can handle. This is not reliable except for long formats, for example: 31 Jan 2000 01:23:45 GMT
 		,{ re:/(.*\d{4}.*\d+:\d+\d+.*)/, f:function(x){ var d=new Date(x[1]); if(d){return d.getTime();} } }
 	];
@@ -113,6 +128,18 @@ var Sort = (function(){
 			}
 		}
 		return 9999999999999; // So non-parsed dates will be last, not first
+	};
+	sort.datetime.convert = function(val) {
+		var m,v, f = sort.datetime.formats;
+		for (var i=0,L=f.length; i<L; i++) {
+			if (m=val.match(f[i].re)) {
+				v=f[i].f(m);
+				if (typeof(v)!="undefined") { return v; }
+			}
+		}
+		return 9999999999999; // So non-parsed dates will be last, not first
+		
+				
 	};
 
 	return sort;
