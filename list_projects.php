@@ -50,7 +50,6 @@ function getProjects( $start, $count, $dbh ) {
 						  "     AND (svnprojects.deleted = '00000000000000') " .
 						  "     AND (svnprojects.repo_id = svnrepos.id) " .
 						  "ORDER BY svnmodule ASC ";
-#						  "   LIMIT $start, $count";
 	$result				= db_query( $query, $dbh, $count, $start );
 	   	
 	while( $row = db_assoc( $result['result']) ) {
@@ -152,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
  	
- 	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+ 	$tSearch                                    = isset( $_POST['fSearch'] )    ? db_escape_string( $_POST['fSearch'] )        : "";
  	
  	if( ($button == "search") or ($tSearch != "") ) {
 
@@ -164,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         	$tErrorClass                    	= "error";
             $tMessage                       	= _("No search string given!");
-            $tUsers								= array();
+            $tProjects							= array();
 
         } else {
     	
