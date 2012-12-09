@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		} elseif( $tType == "groups" ) {
 			$location						= "list_groups.php";
 		} elseif( $tType == "projects" ) {
-			$location						= "list_projects.php"
+			$location						= "list_projects.php";
 		} elseif( $tType == "repos" ) {
 			$lovation						= "list_repos.php";
 		} elseif( $tType == "users" ) {
