@@ -151,6 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
  	
+ 	$schema										= db_determine_schema();
  	$tSearch                                    = isset( $_POST['fSearch'] )    ? db_escape_string( $_POST['fSearch'] )        : "";
  	
  	if( ($button == "search") or ($tSearch != "") ) {
@@ -158,21 +159,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     	$tSearch                               	= html_entity_decode($tSearch);
     	$_SESSION['svn_sessid']['search']       = $tSearch;
         $_SESSION['svn_sessid']['searchtype']   = "projects";
+        $tProjects								= array();
         
     	if( $tSearch == "" ) {
 
         	$tErrorClass                    	= "error";
             $tMessage                       	= _("No search string given!");
-            $tProjects							= array();
 
         } else {
     	
     		$tArray								= array();
-    		$query								= "SELECT * ".
-    											  "  FROM ".$schema."svnprojects ".
-    											  " WHERE (svnmodule like '%$tSearch%') ".
-    											  "   AND (deleted = '00000000000000') ".
-    											  "ORDER BY svnmodule ASC";
+    		$query								= "SELECT   svnprojects.id, svnprojects.svnmodule, svnprojects.modulepath, svnrepos.reponame " .
+						  						  "    FROM ".$schema."svnprojects, ".$schema."svnrepos " .
+												  "   WHERE (svnrepos.deleted = '00000000000000') " .
+						  						  "     AND (svnprojects.deleted = '00000000000000') " .
+												  "     AND (svnprojects.repo_id = svnrepos.id) " .
+												  "     AND (svnprojects.svnmodule like '%$tSearch%') ".
+						  						  "ORDER BY svnmodule ASC ";
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {
     			
