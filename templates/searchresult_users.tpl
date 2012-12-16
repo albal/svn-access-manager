@@ -1,6 +1,6 @@
 		<div id="edit_form">
 			<form name="user_list" method="post">
-				<h3><?php print _("Serach user result"); ?></h3>
+				<h3><?php print _("Search user result"); ?></h3>
 				<p>&nbsp;</p>
 				<table id="userlist_table">
 				   	<thead>

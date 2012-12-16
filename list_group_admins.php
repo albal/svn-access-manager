@@ -62,8 +62,8 @@ function getGroups( $start, $count, $dbh ) {
 						  "     AND (svngroups.deleted = '00000000000000') " .
 						  "     AND (svn_groups_responsible.deleted = '00000000000000') " .
 						  "     AND (svnusers.id = svn_groups_responsible.user_id) " .
-						  "     AND (svngroups.id = svn_groups_responsible.group_id) ";
-#						  "   LIMIT $start, $count";
+						  "     AND (svngroups.id = svn_groups_responsible.group_id) ".
+						  "ORDER BY groupname ASC";
 	$result				= db_query( $query, $dbh, $count, $start );
 	   	
 	while( $row = db_assoc( $result['result']) ) {
@@ -175,19 +175,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$schema										= db_determine_schema();
  	
- 	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+ 	$tSearch                                    = isset( $_POST['fSearch'] )    ? db_escape_string( $_POST['fSearch'] )        : "";
  	
  	if( ($button == "search") or ($tSearch != "") ) {
 
     	$tSearch                               	= html_entity_decode($tSearch);
     	$_SESSION['svn_sessid']['search']       = $tSearch;
         $_SESSION['svn_sessid']['searchtype']   = "groupadmin";
+        $tGroups								= array();
         
     	if( $tSearch == "" ) {
 
         	$tErrorClass                    	= "error";
             $tMessage                       	= _("No search string given!");
-            $tGroups							= array();
 
         } else {
   
@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   				$query							= $query."       ) ".    											  						  
 				  						  	  	  "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
   			}
-			error_log($query);
+			#error_log($query);
     		$result								= db_query( $query, $dbh );
     		while( $row = db_assoc( $result['result'])) {
     			
