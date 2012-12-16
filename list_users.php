@@ -160,12 +160,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     	$tSearch                               	= html_entity_decode($tSearch);
     	$_SESSION['svn_sessid']['search']       = $tSearch;
         $_SESSION['svn_sessid']['searchtype']   = "users";
+        $tUsers									= array();
         
     	if( $tSearch == "" ) {
 
         	$tErrorClass                    	= "error";
             $tMessage                       	= _("No search string given!");
-            $tUsers								= array();
 
         } else {
     	

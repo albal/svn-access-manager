@@ -2,6 +2,13 @@ Change Log
 ==========
 
 
+Release 0.5.5.20
+	- fixed bug ID: 3594777
+	  'Undefined variable' if search string wasn't found
+	  
+	- fixed bug ID: 3594781
+	  'Undefined index' on project searchresult page
+	  
 Release 0.5.5.19
 	- fixed bug ID: 3585176
 	  editable custom fields on general page
