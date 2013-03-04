@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Release 0.5.5.22
+	- fixed bug ID: 3602643
+	  'temporarily loss of "edit access rights" permission'
+
+	- changed select box type at user add from ldap
 
 Release 0.5.5.20
 	- fixed bug ID: 3594777
