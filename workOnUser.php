@@ -118,7 +118,7 @@ if( $rightAllowed == "none" ) {
 	header( "Location: nopermission.php" );
 	exit;
 	
-}		  
+}	
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$_SESSION['svn_sessid']['rightsgranted']		= array();
 		$_SESSION['svn_sessid']['passwordexpires']		= "1";
 		$_SESSION['svn_sessid']['locked']				= "0";
-		$_SESSION['svn_sessid']['admin']				= "n";
+		$_SESSION['svn_sessid']['adminster']			= "n";
 			
    	} elseif( $_SESSION['svn_sessid']['task'] == "change" ) {
    			
@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$_SESSION['svn_sessid']['rightsgranted'] 		= $tRightsGranted;
 			$_SESSION['svn_sessid']['passwordexpires']		= $tPasswordExpires;
 			$_SESSION['svn_sessid']['locked']				= $tLocked;
-			$_SESSION['svn_sessid']['admin']				= $tAdministrator;
+			$_SESSION['svn_sessid']['adminster']			= $tAdministrator;
 			
 		} else {
 		
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tCustom3       						= isset($_POST['fCustom3'])     	? db_escape_string( $_POST['fCustom3'] )        	: "";
    	$tPasswordExpires						= isset($_POST['fPasswordExpires']) ? db_escape_string( $_POST['fPasswordExpires'] )	: $_SESSION['svn_sessid']['passwordexpires'];
    	$tLocked								= isset($_POST['fLocked']) 			? db_escape_string( $_POST['fLocked'] )				: $_SESSION['svn_sessid']['locked'];
-   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: $_SESSION['svn_sessid']['admin'];
+   	$tAdministrator							= isset($_POST['fAdministrator']) 	? db_escape_string( $_POST['fAdministrator'] )		: $_SESSION['svn_sessid']['adminster'];
    	$tUserRight								= isset($_POST['fUserRight']) 		? db_escape_string( $_POST['fUserRight'] )			: "";
    	$tRightsAvailable						= getRights( $dbh );
    	$tRightsGranted							= array();

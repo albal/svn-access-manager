@@ -55,19 +55,82 @@ $tType                                      = isset( $_SESSION['svn_sessid']['se
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     $template               	            = "searchresult_$tType.tpl";
-    $header									= "users";
-   	$subheader								= "users";
-   	$menu									= "users";
+    $header									= "search";
+   	$subheader								= "search";
+   	$menu									= "search";
 
     include ("./templates/framework.tpl");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+	if( isset( $_POST['fSubmit'] ) ) {
+		$button								= db_escape_string( $_POST['fSubmit'] );
+	} elseif( isset( $_POST['fSubmit_ok_x'] ) ) {
+		$button								= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back_x'] ) ) {
+		$button								= _("Back" );
+	} elseif( isset( $_POST['fSubmit_ok'] ) ) {
+		$button								= _("Submit");
+	} elseif( isset( $_POST['fSubmit_back'] ) ) {
+		$button								= _("Back" );
+	} elseif( isset( $_POST['fSubmit_new'] ) )  {
+		$button 							= "new";
+	} elseif( isset( $_POST['fSubmit_new_x'] ) )  {
+		$button								= "new";	
+	} else {
+		$button								= "undef";
+	}
+	if( $button == _("Back") ) {
+		
+		$location							= "undef";
+		if($tType == "access_right" ) {
+			$location						= "list_access_rights.php";					
+		} elseif( $tType == "groupadmin" ) {
+			$location						= "list_group_admins.php";
+		} elseif( $tType == "groups" ) {
+			$location						= "list_groups.php";
+		} elseif( $tType == "projects" ) {
+			$location						= "list_projects.php";
+		} elseif( $tType == "repos" ) {
+			$lovation						= "list_repos.php";
+		} elseif( $tType == "users" ) {
+			$location						= "list_users.php";
+		}
+		
+		db_disconnect( $dbh );
+		header( "Location: $location" );
+   		exit;
+		
+	} elseif( $button == "new" ) {
+		
+		$location							= "undef";
+		if($tType == "access_right" ) {
+			$location						= "selectProject.php";
+		} elseif( $tType == "groupadmin" ) {
+			$location						= "selectGroup.php";
+		} elseif( $tType == "groups" ) {
+			$location						= "workOnGroup.php?task=new";
+		} elseif( $tType == "projects" ) {
+			$location						= "workOnProject.php?task=new";
+		} elseif( $tType == "repos" ) {
+			$location						= "workOnRepo.php?task=new";
+		} elseif( $tType == "users" ) {
+			$location						= "workOnUser.php?task=new";
+		}
+		
+		db_disconnect( $dbh );
+ 		header( "Location: $location" );
+ 		exit;
+		
+	} else {
+	
+	}
+	
     $template                	           	= "searchresult_$tType.tpl";
-    $header									= "users";
-   	$subheader								= "users";
-   	$menu									= "users";
+    $header									= "search";
+   	$subheader								= "search";
+   	$menu									= "search";
 
     include ("./templates/framework.tpl");
 }
