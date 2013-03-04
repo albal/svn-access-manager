@@ -443,7 +443,7 @@ function createAccessFile( $dbh ) {
 														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 														  "     AND (svnprojects.repo_id = svnrepos.id) " .
 														  "ORDER BY svnrepos.reponame ASC, svn_access_rights.path ".$pathSort.", access_right DESC";
-						error_log( $query );
+						#error_log( $query );
 						$result							= db_query( $query, $dbh );
 						
 						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
