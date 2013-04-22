@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Release 0.5.5.23
+	- fixed a typo in the installer
+	- non mysql database help texts
+	
 Release 0.5.5.22
 	- fixed bug ID: 3602643
 	  'temporarily loss of "edit access rights" permission'
