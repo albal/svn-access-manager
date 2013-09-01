@@ -943,10 +943,12 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap title="<?php print _("Decide if passwords should be md5 encrypted.");?>"><strong><?php print _("Use md5 encryption").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Choose password encryption.");?>"><strong><?php print _("Password encryption").": "; ?></strong></td>
 							   		<td>
-							   			<input type="radio" name="fUseMd5" value="md5" <?php print $tMd5Yes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
-						   				<input type="radio" name="fUseMd5" value="crypt" <?php print $tMd5No; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+										<input type="radio" name="fPwEnc" value="sha" <?php print $tPwSha; ?> />&nbsp;&nbsp;<?php print _("SHA"); ?>&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="fPwEnc" value="apr-md5" <?php print $tPwApacheMd5; ?> />&nbsp;&nbsp;<?php print _("Apache MD5"); ?>&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="fPwEnc" value="md5" <?php print $tPwMd5; ?> />&nbsp;&nbsp;<?php print _("MD5"); ?>&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="fPwEnc" value="crypt" <?php print $tPwCrypt; ?> />&nbsp;&nbsp;<?php print _("Crypt"); ?>
 							   		</td>
 							   		<td>
 							   			&nbsp;
