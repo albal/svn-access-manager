@@ -3761,9 +3761,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( $tLdapBindUseLoginData == 0 ) {
 		$tLdapBinsUseLoginDataNo			= "checked";
+		$tLdapBindUseLoginDataYes			= "";
 	} else {
 		$tLdapBindUseLoginDataYes			= "checked";
-		$tLdapBinsUseLoginDataNo			= "";
+		$tLdapBindUseLoginDataNo			= "";
 	}
 	
 	if( $tAnonAccess == 1 ) {

@@ -50,7 +50,6 @@ function getUsers( $start, $count, $dbh ) {
 						  "   FROM ".$schema."svnusers " .
 						  "   WHERE (deleted = '00000000000000') " .
 						  "ORDER BY ".$CONF['user_sort_fields']." ".$CONF['user_sort_order'];
-#						  "   LIMIT $start, $count";
 	$result				= db_query( $query, $dbh, $count, $start );
 	   	
 	while( $row = db_assoc( $result['result']) ) {
@@ -154,19 +153,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$button									= "undef";
 	}
 	
-	$tSearch                                    = isset( $_POST['fSearch'] )    ? escape_string( $_POST['fSearch'] )        : "";
+	$tSearch                                    = isset( $_POST['fSearch'] )    ? db_escape_string( $_POST['fSearch'] )        : "";
  	
  	if( ($button == "search") or ($tSearch != "") ) {
 
     	$tSearch                               	= html_entity_decode($tSearch);
     	$_SESSION['svn_sessid']['search']       = $tSearch;
         $_SESSION['svn_sessid']['searchtype']   = "users";
+        $tUsers									= array();
         
     	if( $tSearch == "" ) {
 
         	$tErrorClass                    	= "error";
             $tMessage                       	= _("No search string given!");
-            $tUsers								= array();
 
         } else {
     	
