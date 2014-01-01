@@ -483,11 +483,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    user_sort_fields character varying(255) NOT NULL,
 												    user_sort_order character varying(255) NOT NULL,
 												    created character varying(14) NOT NULL  DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT ''
+												    deleted_user character varying(255) DEFAULT ' '
 												);";
 	$result									= db_query_install( $query, $dbh );												
 	$query									= "ALTER TABLE $schema.preferences OWNER TO $dbuser;";
@@ -520,11 +520,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    description_de character varying(255) NOT NULL,
 												    allowed_action character varying DEFAULT 'none'::character varying NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT rights_allowed_action_check CHECK (((allowed_action)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'edit'::character varying, 'delete'::character varying])::text[])))
 												);";							   
 	$result									= db_query_install( $query, $dbh ); 
@@ -598,11 +598,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    groupname character varying(255) NOT NULL,
 												    description character varying(255) NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT ''
+												    deleted_user character varying(255) DEFAULT ' '
 												);";							   
 	$result									= db_query_install( $query, $dbh );
 	$query									= "ALTER TABLE $schema.svngroups OWNER TO $dbuser;";							   
@@ -633,13 +633,13 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    repo_id integer NOT NULL,
 												    svnmodule character varying(255) NOT NULL,
 												    modulepath character varying(255) NOT NULL,
-												    description character varying(255) DEFAULT '',
+												    description character varying(255) DEFAULT ' ',
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT svnprojects_repo_id_check CHECK ((repo_id >= 0))
 												);";
 	$result									= db_query_install( $query, $dbh );
@@ -680,11 +680,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    admin character varying(1) DEFAULT 'n'::character varying NOT NULL,
 												    user_mode character varying(10) NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    password_modified character varying(14) NOT NULL DEFAULT '00000000000000',
 												    superadmin smallint DEFAULT 0::smallint NOT NULL,
 												    securityquestion character varying(255) DEFAULT ''::character varying,
@@ -735,11 +735,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    access_right character varying DEFAULT 'none'::character varying NOT NULL,
 												    recursive character varying DEFAULT 'yes'::character varying NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT svn_access_rights_access_right_check CHECK (((access_right)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'write'::character varying])::text[]))),
 												    CONSTRAINT svn_access_rights_recursive_check CHECK (((recursive)::text = ANY ((ARRAY['yes'::character varying, 'no'::character varying])::text[])))
 												);";							   
@@ -791,11 +791,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    group_id integer NOT NULL,
 												    allowed character varying DEFAULT 'none'::character varying NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT svn_groups_responsible_allowed_check CHECK (((allowed)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'edit'::character varying, 'delete'::character varying])::text[]))),
 												    CONSTRAINT svn_groups_responsible_group_id_check CHECK ((group_id >= 0)),
 												    CONSTRAINT svn_groups_responsible_user_id_check CHECK ((user_id >= 0))
@@ -829,11 +829,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    project_id integer NOT NULL,
 												    mailinglisten_id integer NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT svn_projects_mailinglists_mailinglisten_id_check CHECK ((mailinglisten_id >= 0)),
 												    CONSTRAINT svn_projects_mailinglists_project_id_check CHECK ((project_id >= 0))
 												);";
@@ -868,11 +868,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    project_id integer NOT NULL,
 												    user_id integer NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT ''
+												    deleted_user character varying(255) DEFAULT ' '
 												);";
 	$result									= db_query_install( $query, $dbh );
 	$query									= "ALTER TABLE $schema.svn_projects_responsible OWNER TO $dbuser;";
@@ -905,11 +905,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    user_id integer NOT NULL,
 												    group_id integer NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT svn_users_groups_group_id_check CHECK ((group_id >= 0)),
 												    CONSTRAINT svn_users_groups_user_id_check CHECK ((user_id >= 0))
 												);";
@@ -947,11 +947,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    emailaddress character varying(255) NOT NULL,
 												    description text NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT ''
+												    deleted_user character varying(255) DEFAULT ' '
 												);";
 	$result									= db_query_install( $query, $dbh );
 	$query									= "ALTER TABLE $schema.svnmailinglists OWNER TO $dbuser;";
@@ -1012,11 +1012,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    auth_user_file character varying(255) NOT NULL,
 												    svn_access_file character varying(255) NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT ''
+												    deleted_user character varying(255) DEFAULT ' '
 												);";
 	$result									= db_query_install( $query, $dbh );
 	$query									= "ALTER TABLE $schema.svnrepos OWNER TO $dbuser;";
@@ -1048,11 +1048,11 @@ function createDatabaseTables( $dbh, $charset, $collation, $dbtype, $schema, $ta
 												    right_id integer NOT NULL,
 												    allowed character varying DEFAULT 'none'::character varying NOT NULL,
 												    created character varying(14) NOT NULL DEFAULT '00000000000000',
-												    created_user character varying(255) DEFAULT '',
+												    created_user character varying(255) DEFAULT ' ',
 												    modified character varying(14) NOT NULL DEFAULT '00000000000000',
-												    modified_user character varying(255) DEFAULT '',
+												    modified_user character varying(255) DEFAULT ' ',
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
-												    deleted_user character varying(255) DEFAULT '',
+												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT users_rights_allowed_check CHECK (((allowed)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'add'::character varying, 'edit'::character varying, 'delete'::character varying])::text[])))
 												);";
 	$result									= db_query_install( $query, $dbh );
@@ -1898,7 +1898,7 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`user_sort_fields` varchar(255) NOT NULL,
   													`user_sort_order` varchar(255) NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
   													`modified_user` varchar(255) NOT NULL,
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
@@ -1919,11 +1919,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`description_de` varchar(255) NOT NULL,
   													`allowed_action` enum('none','read','edit','delete') NOT NULL default 'none',
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of rights to grant to users';";
 		$result								= db_query_install( $query, $dbh );
@@ -1956,11 +1956,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`access_right` enum('none','read','write') NOT NULL default 'none',
   													`recursive` enum('yes','no') NOT NULL default 'yes',
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `idx_projectid` (`project_id`),
   													KEY `idx_userid` (`user_id`),
@@ -1979,11 +1979,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`project_id` int(10) unsigned NOT NULL,
   													`mailinglisten_id` int(10) unsigned NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `moduleid` (`project_id`,`mailinglisten_id`),
   													KEY `mailinglistenid` (`mailinglisten_id`)
@@ -1999,11 +1999,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`project_id` int(10) NOT NULL,
   													`user_id` int(10) NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `idx_projectid` (`project_id`),
   													KEY `idx_deleted` (`deleted`)
@@ -2019,11 +2019,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`user_id` int(10) unsigned NOT NULL,
   													`group_id` int(10) unsigned NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
 													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `idx_groupid` (`group_id`),
   													KEY `idx_userid` (`user_id`),
@@ -2040,11 +2040,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`groupname` varchar(255) NOT NULL,
   													`description` varchar(255) NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `groupname` (`groupname`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn user groups';";
@@ -2060,11 +2060,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`emailaddress` varchar(255) NOT NULL,
   													`description` mediumtext NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of available svn mailing lists';";
 		$result								= db_query_install( $query, $dbh );
@@ -2080,11 +2080,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`modulepath` varchar(255) NOT NULL,
   													`description` varchar(255) NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,	
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',	
   													PRIMARY KEY  (`id`),
   													KEY `idx_repoid` (`repo_id`),
   													KEY `idx_deleted` (`deleted`)
@@ -2105,11 +2105,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`auth_user_file` varchar(255) NOT NULL,
   													`svn_access_file` varchar(255) NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn repositories';";
@@ -2131,11 +2131,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`admin` char(1) NOT NULL default 'n',
   													`user_mode` varchar(10) NOT NULL,
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													`password_modified` varchar(14) NOT NULL DEFAULT '00000000000000',
   													`superadmin` tinyint(1) NOT NULL default '0',
   													`securityquestion` varchar(255) default '',
@@ -2193,11 +2193,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
   													`right_id` int(10) NOT NULL,
   													`allowed` enum('none','read','add','edit','delete') NOT NULL default 'none',
   													`created` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`created_user` varchar(255) NOT NULL,
+  													`created_user` varchar(255) NOT NULL DEFAULT ' ',
   													`modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`modified_user` varchar(255) NOT NULL,
+  													`modified_user` varchar(255) NOT NULL DEFAULT ' ',
   													`deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-  													`deleted_user` varchar(255) NOT NULL,
+  													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`),
   													KEY `idx_user_id` (`user_id`),
   													KEY `idx_right_id` (`right_id`)
@@ -2214,11 +2214,11 @@ function createMySQLDatabaseTables( $dbh, $charset, $collation ) {
 												  `group_id` int(10) unsigned NOT NULL,
 												  `allowed` enum('none','read','edit','delete') NOT NULL DEFAULT 'none',
 												  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
-												  `created_user` varchar(255) NOT NULL,
+												  `created_user` varchar(255) NOT NULL DEFAULT ' ',
 												  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
-												  `modified_user` varchar(255) NOT NULL,
+												  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
 												  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
-												  `deleted_user` varchar(255) NOT NULL,
+												  `deleted_user` varchar(255) NOT NULL DEFAULT ' ',
 												  PRIMARY KEY (`id`),
 												  KEY `idx_projectid_userid_groupid` (`user_id`,`group_id`),
 												  KEY `idx_deleted` (`deleted`)
@@ -2500,13 +2500,13 @@ function createAdmin( $userid, $password, $givenname, $name, $emailaddress, $dat
 	$CONF['database_name'] 					= $_SESSION['svn_inst']['databaseName'];
 	$CONF['database_schema']				= $_SESSION['svn_inst']['databaseSchema'];
 	$CONF['database_tablespace']			= $_SESSION['svn_inst']['databaseTablespace'];
-	$CONF['pwcrypt']						= $_SESSION['svn_inst']['useMd5'];
+	$CONF['pwcrypt']						= $_SESSION['svn_inst']['pwEnc'];
 	
 	#error_log( "crypt algorithm is ".$CONF['pwcrypt'] );
 	
 	$error									= 0;
 	$tMessage								= "";
-	$pwcrypt								= $dbh->qstr( pacrypt_install( $password, "", $CONF['pwcrypt'] ), get_magic_quotes_gpc() );
+	$pwcrypt								= $dbh->qstr( pacrypt( $password), get_magic_quotes_gpc() );
 	$dbnow									= db_now();
 	if( ($databasetype == "oci8") or (substr($databasetype, 0, 8) == "postgres") ) {
 		$query								= "INSERT INTO $schema.svnusers (userid, name, givenname, password, emailaddress, user_mode, admin, created, created_user, password_modified, superadmin) " .
@@ -3220,7 +3220,7 @@ function doInstall() {
 			$content					= str_replace( '###MINPWADMIN###', 			$_SESSION['svn_inst']['minAdminPwSize'], $content );
 			$content					= str_replace( '###MINPWUSER###', 			$_SESSION['svn_inst']['minUserPwSize'], $content );
 			$content					= str_replace( '###SESSIONINDB###', 		$_SESSION['svn_inst']['sessionInDatabase'], $content );
-			$content					= str_replace( '###PWCRYPT###', 			$_SESSION['svn_inst']['useMd5'], $content );
+			$content					= str_replace( '###PWCRYPT###', 			$_SESSION['svn_inst']['pwEnc'], $content );
 			$content					= str_replace( '###CREATEVIEWVCCONF###', 	$_SESSION['svn_inst']['viewvcConfig'], $content );
 			$content					= str_replace( '###VIEWVCCONF###', 			$viewvcconf, $content );
 			$content					= str_replace( '###VIEWVCGROUPS###', 		$viewvcgroups, $content );
@@ -3481,7 +3481,7 @@ function doInstall() {
 		$tMinAdminPwSize				= isset( $_SESSION['svn_inst']['minAdminPwSize'] ) 		? $_SESSION['svn_inst']['minAdminPwSize'] 		: "14";
 		$tMinUserPwSize					= isset( $_SESSION['svn_inst']['minUserPwSize'] ) 		? $_SESSION['svn_inst']['minUserPwSize'] 		: "8"; 
 		$tExpirePassword				= isset( $_SESSION['svn_inst']['expirePassword'] )		? $_SESSION['svn_inst']['expirePassword']		: 1;
-		$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";
+		$tPwEnc						= isset( $_SESSION['svn_inst']['pwEnc'] ) 				? $_SESSION['svn_inst']['pwEnc'] 				: "md5";
 		$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
 		$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
 		$tCustom2						= isset( $_SESSION['svn_inst']['custom2'] )				? $_SESSION['svn_inst']['custom2']				: "";
@@ -3511,13 +3511,29 @@ function doInstall() {
 			$tExpirePasswordNo			= "checked";
 		}
 		
-		if( $tUseMd5 == "md5" ) {
-			$tMd5Yes					= "checked";
-			$tMd5No						= "";
+		if( $tPwEnc == "sha" ) {
+			$tPwSha						= "checked";
+			$tPwApacheMd5				= "";
+			$tPwMd5						= "";
+			$tPwCrypt					= "";
+			$CONF['pwcrypt']			= "sha";
+		} elseif( $tPwEnc == "apr-md5" ) {
+			$tPwSha						= "";
+			$tPwApacheMd5				= "checked";
+			$tPwMd5						= "";
+			$tPwCrypt					= "";
+			$CONF['pwcrypt']			= "apr-md5";
+		} elseif( $tPwEnc == "md5" ) {
+			$tPwSha						= "";
+			$tPwApacheMd5				= "";
+			$tPwMd5						= "checked";
+			$tPwCrypt					= "";
 			$CONF['pwcrypt']			= "md5";
 		} else {
-			$tMd5Yes					= "";
-			$tMd5No						= "checked";
+			$tPwSha						= "";
+			$tPwApacheMd5				= "";
+			$tPwMd5						= "";
+			$tPwCrypt					= "checked";
 			$CONF['pwcrypt']			= "crypt";
 		}
 		
@@ -3632,7 +3648,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	$tExpirePassword						= 1;
 	$tPasswordExpire						= 60;
 	$tPasswordExpireWarn					= 50;
-	$tUseMd5								= "md5";
+	$tPwEnc								= "md5";
 	$tCustom1								= "";
 	$tCustom2								= "";
 	$tCustom3								= "";
@@ -3761,9 +3777,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	if( $tLdapBindUseLoginData == 0 ) {
 		$tLdapBinsUseLoginDataNo			= "checked";
+		$tLdapBindUseLoginDataYes			= "";
 	} else {
 		$tLdapBindUseLoginDataYes			= "checked";
-		$tLdapBinsUseLoginDataNo			= "";
+		$tLdapBindUseLoginDataNo			= "";
 	}
 	
 	if( $tAnonAccess == 1 ) {
@@ -3806,12 +3823,26 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$tExpirePasswordNo					= "checked";
 	}
 	
-	if( $tUseMd5 == "md5" ) {
-		$tMd5Yes							= "checked";
-		$tMd5No								= "";
+	if( $tPwEnc == "sha" ) {
+		$tPwSha								= "checked";
+		$tPwApacheMd5						= "";
+		$tPwMd5								= "";
+		$tPwCrypt							= "";
+	} elseif( $tPwEnc == "apr-md5" ) {
+		$tPwSha								= "";
+		$tPwApacheMd5						= "checked";
+		$tPwMd5								= "";
+		$tPwCrypt							= "";
+	} elseif( $tPwEnc == "md5" ) {
+		$tPwSha								= "";
+		$tPwApacheMd5						= "";
+		$tPwMd5								= "checked";
+		$tPwCrypt							= "";
 	} else {
-		$tMd5Yes							= "";
-		$tMd5No								= "checked";
+		$tPwSha								= "";
+		$tPwApacheMd5						= "";
+		$tPwMd5								= "";
+		$tPwCrypt							= "checked";
 	}
 	
 	if( $tUserDefaultAccess == "write" ) {
@@ -3944,7 +3975,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tPasswordExpire					= isset( $_POST['fPasswordExpire'] )		? ( $_POST['fPasswordExpire'] )			: 60;
 	$tPasswordExpireWarn				= isset( $_POST['fPasswordExpireWarn'] )	? ( $_POST['fPasswordExpireWarn'] )		: 50;
 	$tExpirePassword					= isset( $_POST['fExpirePassword'] )		? ( $_POST['fExpirePassword'] )			: 1;
-	$tUseMd5							= isset( $_POST['fUseMd5'] )				? ( $_POST['fUseMd5'] ) 				: "";
+	$tPwEnc							= isset( $_POST['fPwEnc'] )				? ( $_POST['fPwEnc'] ) 				: "";
 	$tUserDefaultAccess					= isset( $_POST['fUserDefaultAccess'] )		? ( $_POST['fUserDefaultAccess'] )		: "";
 	$tCustom1							= isset( $_POST['fCustom1'] )				? ( $_POST['fCustom1'] )				: "";
 	$tCustom2							= isset( $_POST['fCustom2'] )				? ( $_POST['fCustom2'] )				: "";
@@ -4016,7 +4047,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$_SESSION['svn_inst']['passwordExpire']				= $tPasswordExpire;
 	$_SESSION['svn_inst']['passwordExpireWarn']			= $tPasswordExpireWarn;
 	$_SESSION['svn_inst']['expirePassword']				= $tExpirePassword;
-	$_SESSION['svn_inst']['useMd5']						= $tUseMd5;
+	$_SESSION['svn_inst']['pwEnc']						= $tPwEnc;
 	$_SESSION['svn_inst']['userDefaultAccess']			= $tUserDefaultAccess;
 	$_SESSION['svn_inst']['custom1']					= $tCustom1;
 	$_SESSION['svn_inst']['custom2']					= $tCustom2;
@@ -4493,7 +4524,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tPasswordExpire				= isset( $_SESSION['svn_inst']['passwordExpire'] )		? $_SESSION['svn_inst']['passwordExpire']		: 60;
 	$tPasswordExpireWarn			= isset( $_SESSION['svn_inst']['passwordExpireWarn'] )	? $_SESSION['svn_inst']['passwordExpireWarn']	: 50;
 	$tExpirePassword				= isset( $_SESSION['svn_inst']['expirePassword'] )		? $_SESSION['svn_inst']['expirePassword']		: 1;
-	$tUseMd5						= isset( $_SESSION['svn_inst']['useMd5'] ) 				? $_SESSION['svn_inst']['useMd5'] 				: "md5";	
+	$tPwEnc						= isset( $_SESSION['svn_inst']['pwEnc'] ) 				? $_SESSION['svn_inst']['pwEnc'] 				: "md5";	
 	$tUserDefaultAccess				= isset( $_SESSION['svn_inst']['userDefaultAccess'] )	? $_SESSION['svn_inst']['userDefaultAccess']	: "read";
 	$tCustom1						= isset( $_SESSION['svn_inst']['custom1'] )				? $_SESSION['svn_inst']['custom1']				: "";
 	$tCustom2						= isset( $_SESSION['svn_inst']['custom2'] )				? $_SESSION['svn_inst']['custom2']				: "";
@@ -4663,14 +4694,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$tExpirePasswordYes			= "";
 		$tExpirePasswordNo			= "checked";
 	}
-	
-	if( $tUseMd5 == "md5" ) {
-		$tMd5Yes					= "checked";
-		$tMd5No						= "";
+
+	if( $tPwEnc == "sha" ) {
+		$tPwSha						= "checked";
+		$tPwApacheMd5				= "";
+		$tPwMd5						= "";
+		$tPwCrypt					= "";
+		$CONF['pwcrypt']			= "sha";
+	} elseif( $tPwEnc == "apr-md5" ) {
+		$tPwSha						= "";
+		$tPwApacheMd5				= "checked";
+		$tPwMd5						= "";
+		$tPwCrypt					= "";
+		$CONF['pwcrypt']			= "apr-md5";
+	} elseif( $tPwEnc == "md5" ) {
+		$tPwSha						= "";
+		$tPwApacheMd5				= "";
+		$tPwMd5						= "checked";
+		$tPwCrypt					= "";
 		$CONF['pwcrypt']			= "md5";
 	} else {
-		$tMd5Yes					= "";
-		$tMd5No						= "checked";
+		$tPwSha						= "";
+		$tPwApacheMd5				= "";
+		$tPwMd5						= "";
+		$tPwCrypt					= "checked";
 		$CONF['pwcrypt']			= "crypt";
 	}
 	
