@@ -3,8 +3,11 @@ Change Log
 
 Release 0.5.6.0
 	- fixed a typo in the installer
+	
 	- non mysql database help texts
+	
 	- support for Apache MD5 password hashing
+	  thanks to Bill Meine for the patch
 	
 Release 0.5.5.22
 	- fixed bug ID: 3602643
