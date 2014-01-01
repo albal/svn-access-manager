@@ -107,6 +107,10 @@ function outputSubHeader($area) {
 	
 		print "<img src='./images/macros.png' border='0' />  "._("Preferences");
 		
+	} elseif(strtolower($area) == "search" ){
+	
+		print "<img src='./images/search_large.png' border='0' />  "._("Search"); 
+		
 	} else {
 		
 		print "unknown tag: $area";
@@ -191,7 +195,11 @@ function outputMenu($area) {
 		
 	}
 		
-	if( ($rightAccessRightAdmin != "none") or ($_SESSION['svn_sessid']['admin'] == "p" ) ) {
+	if( 
+		($rightAccessRightAdmin != "none") 			or 
+		($_SESSION['svn_sessid']['admin'] == "p" ) 	or 
+		($_SESSION['svn_sessid']['admin'] == "y" ) 
+	  ) {
 	
 		print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_access_rights.php\">"._("Repository access rights")."</a></li>\n";
 		
