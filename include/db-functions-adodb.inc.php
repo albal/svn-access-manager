@@ -1270,7 +1270,7 @@ function ldap_check_user_exists($userid) {
 		$protocol								= "2";
 	}
 	
-	error_log( "using ldap protocol version $protocol" );
+	#error_log( "using ldap protocol version $protocol" );
 	$LDAP_CONNECT_OPTIONS = Array(
          Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE" => 2),
          Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE" => 1000),
@@ -1518,7 +1518,7 @@ function check_ldap_password( $userid, $password ) {
          array ("OPTION_NAME"=>LDAP_OPT_RESTART,"OPTION_VALUE" => FALSE)
 	);
 	
-	error_log("check_ldap_password");
+	#error_log("check_ldap_password");
 	
 	try {
 		$ldap										= NewADOConnection( 'ldap' );
@@ -1577,12 +1577,12 @@ function check_ldap_password( $userid, $password ) {
 				
 			} else {
 				$ret							= 0;
-				error_log( "mehrere treffer" );
+				#error_log( "mehrere treffer" );
 			}
 			
 		} else {
 			$ret								= 0;
-			error_log("filter keine treffer");
+			#error_log("filter keine treffer");
 		}
 		
 	} catch( exception $e ) {

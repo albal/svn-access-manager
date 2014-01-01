@@ -1,5 +1,5 @@
 		<div id="edit_form">
-			<h3><?php print _("Access rights administration"); ?></h3>
+			<h3><?php print _("Access rights administration search result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="list_access_rights" method="post">
 				
@@ -93,7 +93,6 @@
 					      		}
 					      	?>
 					      	
-					      	<input type="image" name="fSubmit_delete" src="./images/delete_all.png" value="<?php print _("Delete selected"); ?>"  title="<?php print _("Delete selected"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					      </td>
 					   	</tr>

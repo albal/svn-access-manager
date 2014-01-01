@@ -75,7 +75,7 @@
 								</tr>
 								<tr>
 									<td>
-										<select name="members[]" multiple="" size="13" style="width: 100%; height=200px;">
+										<select id="members" name="members[]" multiple="" size="13" style="width: 100%; height=200px;">
 											<?php
 												foreach($tMembers as $uid => $member) {
 													$label = $member." [".$uid."]";
@@ -104,4 +104,7 @@
 					</tr>
 				</table>
 			</form>
+			<script>
+				
+			</script>
 		</div>
