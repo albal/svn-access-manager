@@ -1,4 +1,4 @@
-Update to V0.5.6.0
+Update to V0.5.6.2
 
 Update the database in case of MySQL database
 
@@ -9,7 +9,7 @@ database.
 For PostgreSQL and Oracle change the database update script according to
 your needs.
 
-Version 0.5.6.0 contains some bug fixes. Either compare your installation to the current 
+Version 0.5.6.2 contains some bug fixes. Either compare your installation to the current 
 release or install the release from scratch.
 
 #-------------------------------------------------------------------------------------------#
