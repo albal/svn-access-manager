@@ -34,7 +34,7 @@ function createAuthUserFile( $dbh ) {
 		$retcode 							= 0;
 		$tMessage							= "";
 		$dir								= dirname( $CONF['AuthUserFile'] );
-		$entropy							= create_salt();
+		$entropy							= rand_name();
 		$os									= determineOS();
 		$slash								= ($os == "windows") ? "\\" : "/";
 		$tempfile							= $dir.$slash."authtemp_".$entropy;
@@ -140,7 +140,7 @@ function createAuthUserFilePerRepo( $dbh ) {
 	$retcode 							= 0;
 	$tMessage							= "";
 	$dir								= dirname( $CONF['AuthUserFile'] );
-	$entropy							= create_salt();
+	$entropy							= rand_name();
 	$os									= determineOS();
 	$slash								= ($os == "windows") ? "\\" : "/";
 	$tempfile							= $dir.$slash."authtemp_".$entropy;
@@ -291,7 +291,7 @@ function createAccessFile( $dbh ) {
 			if( db_set_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
 				
 				$dir						= dirname( $CONF['SVNAccessFile'] );
-				$entropy					= create_salt();
+				$entropy					= rand_name();
 				$os							= determineOS();
 				$slash						= ($os == "windows") ? "\\" : "/";
 				$tempfile					= $dir.$slash."accesstemp_".$entropy;
@@ -443,7 +443,7 @@ function createAccessFile( $dbh ) {
 														  "     AND (svn_access_rights.project_id = svnprojects.id) " .
 														  "     AND (svnprojects.repo_id = svnrepos.id) " .
 														  "ORDER BY svnrepos.reponame ASC, svn_access_rights.path ".$pathSort.", access_right DESC";
-						error_log( $query );
+						#error_log( $query );
 						$result							= db_query( $query, $dbh );
 						
 						while( ($row = db_assoc( $result['result'] )) and ($retcode == 0) ) {
@@ -620,7 +620,7 @@ function createAccessFilePerRepo( $dbh ) {
 		if( db_set_semaphore( 'createaccessfile', 'sem', $dbh ) ) {
 			
 			$dir							= dirname( $CONF['SVNAccessFile'] );
-			$entropy						= create_salt();
+			$entropy						= rand_name();
 			$os								= determineOS();
 			$slash							= ($os == "windows") ? "\\" : "/";
 			$tempfile						= $dir.$slash."accesstemp_".$entropy;
@@ -1038,7 +1038,7 @@ function createViewvcConfig( $dbh ) {
 	$oldpath							= "";
 	$oldgroup							= "";
 	$modulepath							= "";
-	$currentgroup						= "g".create_salt();
+	$currentgroup						= "g".rand_name();
 	$groups[$currentgroup]				= "";
 	$repopathes							= array();
 	
@@ -1047,7 +1047,7 @@ function createViewvcConfig( $dbh ) {
 		if( db_set_semaphore( 'createviewvcconf', 'sem', $dbh ) ) {
 			
 			$dir							= dirname( $CONF['ViewvcConf'] );
-			$entropy						= create_salt();
+			$entropy						= rand_name();
 			$os								= determineOS();
 			$slash							= ($os == "windows") ? "\\" : "/";
 			$tempfile						= $dir.$slash."viewvc_conf_temp_".$entropy;
@@ -1055,7 +1055,7 @@ function createViewvcConfig( $dbh ) {
 			if( $fileHandle = @fopen ( $tempfile, 'w' ) ) {
 	
 				$dir						= dirname( $CONF['ViewvcGroups'] );
-				$entropy					= create_salt();
+				$entropy					= rand_name();
 				$os							= determineOS();
 				$slash						= ($os == "windows") ? "\\" : "/";
 				$tempgroups					= $dir.$slash."viewvc_groups_temp_".$entropy;
@@ -1085,9 +1085,9 @@ function createViewvcConfig( $dbh ) {
 						if( $checkpath != $oldpath ) {
 							
 							$oldgroup				= $currentgroup;
-							$currentgroup			= "g".create_salt();
+							$currentgroup			= "g".rand_name();
 							while( array_key_exists( $currentgroup, $groups ) ) {
-								$currentgroup			= "g".create_salt();
+								$currentgroup			= "g".rand_name();
 							}
 							
 							if( ! array_key_exists( $checkpath, $repopathes ) ) {

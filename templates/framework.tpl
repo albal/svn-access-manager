@@ -45,16 +45,17 @@
 	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
 	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
 	<link rel="stylesheet" type="text/css" href="./style/chosen.css" />
+	<link rel="stylesheet" type="text/css" href="./style/table.css" />
 	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 	
 	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
-	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/chosen.jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./lib/jquery/table.js"></script>
 	<script language="javascript" type="text/javascript">
 		
 		$(document).ready(function() {
