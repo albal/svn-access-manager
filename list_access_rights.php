@@ -343,7 +343,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if( isset( $_POST[$field] ) ) {
 				
-				print $_POST[$field];exit;
+				//print $_POST[$field];exit;
 				$id									= $_SESSION['svn_sessid']['mark'][$i];
 				$right								= db_getRightData( $id, $dbh );
 				$projectname						= db_getProjectById( $right['project_id'], $dbh );
