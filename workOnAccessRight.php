@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				
 				$repopath						= preg_replace( '/\\\/', '/', $tRepoPath );
 				$tRepodirs						= array();
-				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath;
+				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' "'.$repopath.'/'.$tModulePath.'"';
 				$errortext						= exec( $cmd, $tRepodirsArr, $retval );
 				
 				if( $retval == 0 ) {
@@ -445,7 +445,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 		$tRepodirs							= array();
 		$repopath							= preg_replace( '/\\\/', '/', $tRepoPath );
-		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath.'/'.$tPathSelected;
+		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' "'.$repopath.'/'.$tModulePath.'/'.$tPathSelected.'"';
 		$errortext							= exec( $cmd, $tRepodirsArr, $retval );
 		
 		if( strtolower($accessControl) != "files" ) {
