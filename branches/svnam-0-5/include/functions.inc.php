@@ -178,6 +178,7 @@ function check_session_status() {
 
 
         $ret                             = 0;
+        $SESSID_USERNAME				 = "";
         @session_start ();
 
         #if (!session_is_registered ("svn_sessid"))  {
