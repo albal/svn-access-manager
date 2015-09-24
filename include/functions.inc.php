@@ -178,6 +178,7 @@ function check_session_status() {
 
 
         $ret                             = 0;
+        $SESSID_USERNAME				 = "";
         @session_start ();
 
         #if (!session_is_registered ("svn_sessid"))  {
@@ -737,151 +738,101 @@ function generatePassword( $admin ) {
 //
 // pacrypt
 // Action: Encrypts password based on config settings
-// Call: pacrypt (string cleartextpassword)
+// Call: pacrypt (string cleartextpassword, optional hashedpassword)
 //
 function pacrypt ($pw, $pw_db="") {
 
-	global $CONF, $MAGIC;
-	
-	if( isset( $CONF['pwcrypt'] ) ) {
+	global $CONF;
+
+	if ($pw_db != "")
+		$crypt = get_passwd_type_salt ($pw_db, $salt);
+	else
+	{
+		$salt = "";
 		
-		$crypt						= $CONF['pwcrypt'];
-		
-	} else {
-		
-		$crypt						= "crypt";
-		
+		if (isset ($CONF['pwcrypt']) && $CONF['pwcrypt'] != "")
+			$crypt = $CONF['pwcrypt'];
+		else
+			$crypt = "crypt";
 	}
+			
+	switch ($crypt) {
+    case "sha": //
+        return '{SHA}'.base64_encode(pack('H*', sha1($pw)));
+        break;
+    case "apr-md5": // The modern Apache version of the MD5 password hash
+        return md5crypt ($pw, $salt, '$apr1$');
+		break;
+    case "md5": // The Unix version of the MD5 password hash
+        return md5crypt ($pw, $salt, '$1$');
+		break;
+	case "crypt":
+		// crypt() can choose surprising behavior if the salt for DES-crypt is not provided
+		if ($salt == "")
+			$salt = create_salt (2);
+		return crypt($pw, $salt);
+		break;
+	default:
+		throw new Exception('Unsupported password hash type: "'.$crypt.'" from hash "'.$pw_db.'"');
+	}
+}
+
+//
+// get_passwd_type_salt
+// Action: Parse hashed password to determine hash type and existing salt
+// Call: get_passwd_type_salt (string hashed_password, string &salt)
+//
+function get_passwd_type_salt ($hpw, &$salt) {
+
+	// Looking first for "$<id>$<salt>$<hash>" pattern
+
+	$split_hash = preg_split ('/\$/', $hpw);
 	
-	$size							= strlen( $MAGIC );
-	if( substr($pw_db, 0, $size) == $MAGIC ) {
-		# md5 crypted password
-		
-		$split_salt 				= preg_split ('/\$/', $pw_db);
-      	if (isset ($split_salt[2])) { 
-      		
-      		$salt					 = $split_salt[2];
-      	}
-      	
-      	$password 					= md5crypt( $pw, $salt );
-      
-	} elseif( $pw_db != "" ) {
-		
-		$salt 						= substr( $pw_db, 0, 2);
-		$password 					= crypt ($pw, $salt);
-		
-	} else {
-		
-		if( $crypt == "md5" ) {
-			
-			$password				= md5crypt( $pw );
-			
-		} else {
-		
-			srand((double)microtime()*1000000);
-		
-			$s1   					= chr( rand( 1, 255 ) );
-			$s2   					= chr( rand( 1, 255 ) );
-			$salt 					= $s1.$s2;	
-			$password 				= crypt ($pw, $salt);		
+	if ($split_hash[0] == "" && $split_hash[1] != "")
+	{
+		switch ($split_hash[1])
+		{
+		case "apr1":
+			$type = "apr-md5";
+			break;
+		case "1":
+			$type = "md5";
+			break;
+		default:
+			throw new Exception('Unsupported password hash type: ' . '"' . $pw_db . '"');
 		}
+		$salt = $split_hash[2];
+	}
+	elseif (substr ($hpw, 0, 5) == "{SHA}")
+	{
+		$type = "sha";
+		$salt = "";
+	}
+	else
+	{
+		$type = "crypt";
+		$salt = substr ($hpw, 0, 2);
 	}
 	
-	return $password;
+	return $type;
 }
 
 
-
 //
-// pacrypt_install
-// Action: Encrypts password based on config settings
-// Call: pacrypt (string cleartextpassword)
+// Legal hashed password character set for base 64 representation
 //
-function pacrypt_install ($pw, $pw_db="", $crypt="") {
-
-	global $CONF, $MAGIC;
-	
-	if( $crypt == "" ) {
-		if( isset( $CONF['pwcrypt'] ) ) {
-			
-			$crypt					= $CONF['pwcrypt'];
-			
-		} else {
-			
-			$crypt					= "crypt";
-			
-		}
-	}
-	
-	$size							= strlen( $MAGIC );
-	if( substr($pw_db, 0, $size) == $MAGIC ) {
-		# md5 crypted password
-		
-		$split_salt 				= preg_split ('/\$/', $pw_db);
-      	if (isset ($split_salt[2])) { 
-      		
-      		$salt					 = $split_salt[2];
-      	}
-      	
-      	$password 					= md5crypt( $pw, $salt );
-      
-	} elseif( $pw_db != "" ) {
-		
-		$salt 						= substr( $pw_db, 0, 2);
-		$password 					= crypt ($pw, $salt);
-		
-	} else {
-		
-		if( $crypt == "md5" ) {
-			
-			$password				= md5crypt( $pw );
-			
-		} else {
-		
-			srand((double)microtime()*1000000);
-		
-			$s1   					= chr( rand( 1, 255 ) );
-			$s2   					= chr( rand( 1, 255 ) );
-			$salt 					= $s1.$s2;	
-			$password 				= crypt ($pw, $salt);		
-		}
-	}
-	
-	return $password;
-}
-
-
-
+$ITOA64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 //
 // md5crypt
 // Action: Creates MD5 encrypted password
-// Call: md5crypt (string cleartextpassword)
+// Call: md5crypt (string cleartextpassword, string existingsalt, string md5typeidentifier)
 //
-if( determineOs() == "windows" ){
-	
-	$MAGIC				= '$apr1$';
-	
-} else {
-	
-	$MAGIC  			= "$1$";
-	
-}
-$ITOA64 				= "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
 function md5crypt ($pw, $salt="", $magic="") {
-   
-   global $MAGIC;
-   
 
-   if ($magic == "") $magic = $MAGIC;
-   if ($salt == "") $salt = create_salt (); 
+   if ($magic == "") $magic = '$1$';
+   if ($salt == "") $salt = create_salt (8); 
    
-   $slist 							= explode ("$", $salt);
-   
-   if ($slist[0] == "1") $salt = $slist[1];
-
-   $salt 							= substr ($salt, 0, 8);
    $ctx 							= $pw . $magic . $salt;
    $final 							= myhex2bin (md5 ($pw . $salt . $pw));
 
@@ -944,12 +895,17 @@ function digestcrypt($userid, $realm, $password) {
 	return( $pw );
 }
 
-function create_salt () {
+function create_salt ($len) {
+
+	global $ITOA64;
+	$maxidx = strlen ($ITOA64) - 1;
 	
-   srand ((double) microtime ()*1000000);
-   $salt 							= substr (md5 (rand (0,9999999)), 0, 8);
-   
-   return $salt;
+	$salt = "";
+	for ($i = 0; $i < $len; $i++) {
+    	$choice = mt_rand (0, $maxidx);
+    	$salt .= substr ($ITOA64, $choice, 1);
+	}
+	return $salt;
 }
 
 function myhex2bin ($str) {
@@ -1273,5 +1229,22 @@ function sortLdapUsers($a,$b) {
                 // sort asc
                 return $aValue>$bValue;
         }
+}
+
+//
+// rand_name
+// Action: Create a safe random name using alphabetic and numeric characters only
+//
+function rand_name ($len=8) {
+
+	$charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	$maxidx = strlen ($charset) - 1;
+	
+	$name = "";
+	for ($i = 0; $i < $len; $i++) {
+    	$choice = mt_rand (0, $maxidx);
+    	$name .= substr ($charset, $choice, 1);
+	}
+	return $name;
 }
 ?>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: SVN Access Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-13 20:04+0100\n"
-"PO-Revision-Date: 2012-11-04 21:39+0100\n"
+"PO-Revision-Date: 2012-11-11 14:21+0100\n"
 "Last-Translator: Thomas Krieger <tom@svn-access-manager.org>\n"
 "Language-Team: Development <tom@svn-access-manager.org>\n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,7 @@ msgstr "SVN Modul"
 #: ../../general.php:266
 #: ../../workOnUser.php:335
 #: ../../workOnUser.php:541
+#: ../../general.php:272
 #, php-format
 msgid "%s is not a valid email address!"
 msgstr "%s ist keine g&uuml;ltige E-Mailadresse!"
@@ -1287,6 +1288,7 @@ msgstr "aufsteigend"
 #: ../..//templates/rep_show_user_result.tpl:88
 #: ../../templates/general.tpl:146
 #: ../../templates/rep_show_user_result.tpl:95
+#: ../../templates/general.tpl:169
 msgid "Access by"
 msgstr "Zugriff durch"
 
@@ -1443,6 +1445,7 @@ msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 #: ../..//templates/rep_show_group_result.tpl:72
 #: ../../templates/general.tpl:145
 #: ../../templates/rep_show_user_result.tpl:94
+#: ../../templates/general.tpl:168
 msgid "Access right"
 msgstr "Zugriffsrecht"
 
@@ -1503,6 +1506,7 @@ msgstr "Zugriffsreche verwaltung / Rechte l&ouml;schen"
 #: ../../templates/general.tpl:136
 #: ../../include/output.inc.php:100
 #: ../../templates/rep_show_user_result.tpl:85
+#: ../../templates/general.tpl:159
 msgid "Access rights"
 msgstr "Zugriffsrechte"
 
@@ -1515,6 +1519,10 @@ msgstr "Zugriffsrechte"
 #: ../../templates/searchresult_access_right.tpl:2
 msgid "Access rights administration"
 msgstr "Zugriffsrechte Verwaltung"
+
+#: ../../templates/searchresult_access_right.tpl:2
+msgid "Access rights administration search result"
+msgstr "Zugriffsrechte Administration Suchergebnis"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:34
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/group_list.tpl:21
@@ -1583,6 +1591,9 @@ msgstr "Zugriffsrechte Verwaltung"
 #: ../../templates/bulk_add_ldap_users.tpl:8
 #: ../../templates/searchresult_access_right.tpl:34
 #: ../../templates/list_access_rights.tpl:46
+#: ../../templates/list_access_rights.tpl:48
+#: ../../searchrpc.php:354
+#: ../../templates/list_access_rights.tpl:34
 msgid "Action"
 msgstr "Aktion"
 
@@ -2171,6 +2182,7 @@ msgstr "Name des Administrators"
 #: ../..//securityquestion.php:138
 #: ../..//templates/main.tpl:55
 #: ../../include/output.inc.php:154
+#: ../../include/output.inc.php:158
 msgid "Administration"
 msgstr "Verwaltung"
 
@@ -2989,6 +3001,7 @@ msgstr "Antwort"
 #: ../..//templates/general.tpl:60
 #: ../../templates/general.tpl:60
 #: ../../templates/general.tpl:57
+#: ../../templates/general.tpl:80
 msgid "Answer to the security question. The answer is case sensitive must be given exactly as written here."
 msgstr "Antwort auf die Sicherheitsabfrage. Bei der Antwort ist Gro&szlig;- und Kleinschreibung zu beachten."
 
@@ -4296,6 +4309,31 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../deleteUser.php:122
 #: ../../deleteUser.php:126
 #: ../../deleteUser.php:212
+#: ../../general.php:236
+#: ../../general.php:240
+#: ../../general.php:311
+#: ../../deleteProject.php:160
+#: ../../deleteProject.php:164
+#: ../../deleteProject.php:233
+#: ../../templates/list_access_rights.tpl:111
+#: ../../templates/general.tpl:196
+#: ../../list_access_rights.php:278
+#: ../../list_access_rights.php:282
+#: ../../list_access_rights.php:421
+#: ../../templates/list_access_rights.tpl:127
+#: ../../list_access_rights.php:306
+#: ../../list_access_rights.php:310
+#: ../../list_access_rights.php:330
+#: ../../templates/list_users.tpl:158
+#: ../../templates/list_access_rights.tpl:120
+#: ../../templates/list_groups.tpl:89
+#: ../../templates/list_projects.tpl:90
+#: ../../templates/list_group_admins.tpl:93
+#: ../../templates/list_repos.tpl:92
+#: ../../list_groups.php:192
+#: ../../list_groups.php:196
+#: ../../list_access_rights.php:281
+#: ../../list_access_rights.php:285
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4311,6 +4349,7 @@ msgstr "Basisverzeichnis"
 #: ../../include/output.inc.php:163
 #: ../../templates/bulk_add_ldap_users.tpl:3
 #: ../../include/output.inc.php:165
+#: ../../include/output.inc.php:169
 msgid "Bulk add LDAP users"
 msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 
@@ -4341,6 +4380,9 @@ msgstr "Hinzuf&uuml;gen gro&szlig;er Mengen LDAP Benutzer"
 #: ../../list_access_rights.php:346
 #: ../..//list_access_rights.php:346
 #: ../../list_access_rights.php:474
+#: ../../list_access_rights.php:477
+#: ../../list_access_rights.php:397
+#: ../../list_access_rights.php:377
 #, php-format
 msgid "Can not delete access right with id %s"
 msgstr "Zugriffsrecht mit Id %s kann nicht gel&ouml;scht werden"
@@ -5718,6 +5760,19 @@ msgstr "Kann nicht in %s schreiben"
 #: ../../templates/list_access_rights.tpl:68
 #: ../../templates/list_access_rights.tpl:71
 #: ../../templates/list_access_rights.tpl:72
+#: ../../templates/list_access_rights.tpl:67
+#: ../../templates/list_access_rights.tpl:70
+#: ../../templates/list_access_rights.tpl:73
+#: ../../templates/list_access_rights.tpl:74
+#: ../../searchrpc.php:429
+#: ../../searchrpc.php:432
+#: ../../searchrpc.php:435
+#: ../../searchrpc.php:436
+#: ../../templates/list_access_rights.tpl:83
+#: ../../templates/list_access_rights.tpl:86
+#: ../../templates/list_access_rights.tpl:89
+#: ../../templates/list_access_rights.tpl:90
+#: ../../templates/list_access_rights.tpl:64
 msgid "Change"
 msgstr "&Auml;ndern"
 
@@ -5815,6 +5870,7 @@ msgstr "Verzeichnis wechseln"
 #: ../../general.php:164
 #: ../..//general.php:164
 #: ../../general.php:297
+#: ../../general.php:306
 msgid "Changed data successfully"
 msgstr "Daten erfolgreich ge&auml;ndert"
 
@@ -5859,6 +5915,15 @@ msgstr "Bitte das Protokoll f&uuml;r die LDAP Kommunikation ausw&auml;hlen."
 #: ../..//templates/addMemberToProject.tpl:11
 msgid "Choose the responsibles to add"
 msgstr "Verantwortlichen zum Hinzuf&uuml;gen ausw&auml;hlen"
+
+#: ../../searchrpc.php:374
+#: ../../list_access_rights.php:316
+#: ../../list_access_rights.php:318
+#: ../../list_access_rights.php:336
+#: ../../list_access_rights.php:291
+#: ../../list_access_rights.php:293
+msgid "Clear filter"
+msgstr "Filter l&ouml;schen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/installresult.tpl:69
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/installresult.tpl:69
@@ -6076,6 +6141,7 @@ msgstr "ViewVC Konfiguration erzeugen"
 #: ../..//templates/main.tpl:129
 #: ../../include/output.inc.php:200
 #: ../../include/output.inc.php:202
+#: ../../include/output.inc.php:206
 msgid "Create access files"
 msgstr "Zugriffsdateien erstellen"
 
@@ -7766,6 +7832,17 @@ msgstr "Standardwert f&uuml; Passwortablauf"
 #: ../../deleteUser.php:120
 #: ../../deleteUser.php:124
 #: ../../deleteUser.php:131
+#: ../../deleteProject.php:158
+#: ../../deleteProject.php:162
+#: ../../deleteProject.php:171
+#: ../../templates/list_access_rights.tpl:70
+#: ../../templates/list_access_rights.tpl:74
+#: ../../searchrpc.php:432
+#: ../../searchrpc.php:436
+#: ../../templates/list_access_rights.tpl:86
+#: ../../templates/list_access_rights.tpl:90
+#: ../../templates/list_access_rights.tpl:67
+#: ../../templates/list_access_rights.tpl:71
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -7909,6 +7986,17 @@ msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
 #: ../../templates/searchresult_access_right.tpl:96
 #: ../../templates/list_access_rights.tpl:108
 #: ../../list_access_rights.php:431
+#: ../../templates/list_access_rights.tpl:110
+#: ../../list_access_rights.php:286
+#: ../../list_access_rights.php:433
+#: ../../templates/list_access_rights.tpl:126
+#: ../../list_access_rights.php:312
+#: ../../list_access_rights.php:314
+#: ../../list_access_rights.php:353
+#: ../../templates/list_access_rights.tpl:119
+#: ../../list_access_rights.php:287
+#: ../../list_access_rights.php:289
+#: ../../list_access_rights.php:333
 msgid "Delete selected"
 msgstr "Ausgew&auml;hlte l&ouml;schen"
 
@@ -7940,6 +8028,7 @@ msgstr "Ausgew&auml;hlte l&ouml;schen"
 #: ../..//templates/rep_show_group_result.tpl:10
 #: ../../templates/general.tpl:100
 #: ../../templates/rep_show_user_result.tpl:49
+#: ../../templates/general.tpl:123
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -10087,6 +10176,15 @@ msgstr "Fehlermeldung"
 msgid "Files"
 msgstr "Dateien"
 
+#: ../../templates/list_access_rights.tpl:8
+msgid "Filter"
+msgstr "Filter"
+
+#: ../../searchrpc.php:359
+#: ../../templates/list_access_rights.tpl:39
+msgid "Filter:"
+msgstr "Filter:"
+
 #: /export/home/kriegeth/workspace/svn_access_manager/user_list.php:69
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:111
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:67
@@ -10150,6 +10248,7 @@ msgstr "Format DD.MM.YYYY"
 #: ../..//templates/main.tpl:9
 #: ../../include/output.inc.php:76
 #: ../../include/output.inc.php:125
+#: ../../include/output.inc.php:129
 msgid "General"
 msgstr "Allgemein"
 
@@ -10262,6 +10361,7 @@ msgstr "Gew&auml;hrte Rechte"
 #: ../..//templates/main.tpl:192
 #: ../../include/output.inc.php:227
 #: ../../include/output.inc.php:229
+#: ../../include/output.inc.php:233
 msgid "Granted user rights"
 msgstr "Gew&auml;hrte Benutzerrechte"
 
@@ -10405,6 +10505,9 @@ msgstr "Grep Kommando fehlt!"
 #: ../..//templates/rep_show_group.tpl:11
 #: ../../templates/searchresult_access_right.tpl:22
 #: ../../templates/list_access_rights.tpl:34
+#: ../../templates/list_access_rights.tpl:36
+#: ../../searchrpc.php:342
+#: ../../templates/list_access_rights.tpl:22
 msgid "Group"
 msgstr "Gruppe"
 
@@ -10531,6 +10634,7 @@ msgstr "Gruppenverwaltung / Gruppe bearbeiten"
 #: ../..//templates/rep_show_group_result.tpl:38
 #: ../../include/output.inc.php:172
 #: ../../include/output.inc.php:174
+#: ../../include/output.inc.php:178
 msgid "Group administrators"
 msgstr "Gruppen Administratoren"
 
@@ -10595,6 +10699,7 @@ msgstr "Gruppenmitglieder"
 #: ../..//templates/rep_show_user_result.tpl:36
 #: ../../templates/general.tpl:94
 #: ../../templates/rep_show_user_result.tpl:43
+#: ../../templates/general.tpl:117
 msgid "Group membership"
 msgstr "Mitglied in Gruppen"
 
@@ -10624,6 +10729,7 @@ msgstr "Mitglied in Gruppen"
 #: ../../templates/list_group_admins.tpl:21
 #: ../../templates/general.tpl:99
 #: ../../templates/rep_show_user_result.tpl:48
+#: ../../templates/general.tpl:122
 msgid "Group name"
 msgstr "Gruppenname"
 
@@ -10880,6 +10986,8 @@ msgstr "Gruppenmitglieder"
 #: ../../include/output.inc.php:56
 #: ../../include/output.inc.php:173
 #: ../../include/output.inc.php:178
+#: ../../include/output.inc.php:177
+#: ../../include/output.inc.php:182
 msgid "Groups"
 msgstr "Gruppen"
 
@@ -10901,6 +11009,7 @@ msgstr "Hallo %s %s"
 #: ../../include/output.inc.php:43
 #: ../..//include/output.inc.php:43
 #: ../../templates/framework.tpl:207
+#: ../../templates/framework.tpl:208
 msgid "Help"
 msgstr "Hilfe"
 
@@ -11511,6 +11620,9 @@ msgstr "Anweisungen"
 #: ../../list_groups.php:275
 #: ../../list_access_rights.php:500
 #: ../../rep_access_rights.php:270
+#: ../../list_access_rights.php:503
+#: ../../list_access_rights.php:423
+#: ../../list_access_rights.php:403
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -11947,6 +12059,7 @@ msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
 #: ../../deleteGroup.php:136
 #: ../../deleteRepo.php:130
 #: ../../deleteUser.php:103
+#: ../../deleteProject.php:141
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -11999,6 +12112,7 @@ msgstr "Ung&uuml;ltige Benutzer-Id %s angefordert"
 #: ../../templates/framework.tpl:99
 #: ../..//templates/framework.tpl:99
 #: ../../templates/framework.tpl:101
+#: ../../templates/framework.tpl:102
 msgid "Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"
 msgstr "JavaScript ist ausgeschaltet. Diese Seite ben&ouml;tigt JavaScript um korrekt zu funktionieren. Bitte schalten Sie JavaScript in Ihrem Browser ein!"
 
@@ -13029,6 +13143,7 @@ msgstr "Liste der gesperrten Benutzer"
 #: ../../templates/list_users.tpl:53
 #: ../..//templates/list_users.tpl:53
 #: ../../templates/general.tpl:81
+#: ../../templates/general.tpl:104
 msgid "Locked"
 msgstr "Gesperrt"
 
@@ -13052,6 +13167,7 @@ msgstr "Gesperrt"
 #: ../..//templates/main.tpl:187
 #: ../../include/output.inc.php:226
 #: ../../include/output.inc.php:228
+#: ../../include/output.inc.php:232
 msgid "Locked users"
 msgstr "Gesperrte Benutzer"
 
@@ -13068,6 +13184,7 @@ msgstr "Gesperrte Benutzer"
 #: ../..//include/output.inc.php:219
 #: ../../include/output.inc.php:225
 #: ../../include/output.inc.php:227
+#: ../../include/output.inc.php:231
 msgid "Log"
 msgstr "Protokoll"
 
@@ -13541,6 +13658,9 @@ msgstr "Vergessenes Passwort zuruecksetzen"
 #: ../..//templates/list_access_rights.tpl:9
 #: ../../templates/searchresult_access_right.tpl:10
 #: ../../templates/list_access_rights.tpl:22
+#: ../../templates/list_access_rights.tpl:24
+#: ../../searchrpc.php:330
+#: ../../templates/list_access_rights.tpl:10
 msgid "M"
 msgstr "M"
 
@@ -13920,6 +14040,7 @@ msgstr "Ge&auml;ndert von Benutzer"
 #: ../..//templates/rep_show_group_result.tpl:71
 #: ../../templates/general.tpl:144
 #: ../../templates/rep_show_user_result.tpl:93
+#: ../../templates/general.tpl:167
 msgid "Module path"
 msgstr "Modul Pfad"
 
@@ -13933,6 +14054,7 @@ msgstr "Modul Pfad"
 #: ../../include/output.inc.php:121
 #: ../..//include/output.inc.php:121
 #: ../../include/output.inc.php:123
+#: ../../include/output.inc.php:127
 msgid "My account"
 msgstr "Mein Zugang"
 
@@ -14193,6 +14315,18 @@ msgstr "Name, Vorname"
 #: ../../templates/searchresult_access_right.tpl:92
 #: ../../templates/list_access_rights.tpl:104
 #: ../../list_access_rights.php:425
+#: ../../templates/list_access_rights.tpl:106
+#: ../../list_access_rights.php:276
+#: ../../list_access_rights.php:280
+#: ../../list_access_rights.php:427
+#: ../../templates/list_access_rights.tpl:122
+#: ../../list_access_rights.php:304
+#: ../../list_access_rights.php:308
+#: ../../list_access_rights.php:347
+#: ../../templates/list_access_rights.tpl:115
+#: ../../list_access_rights.php:279
+#: ../../list_access_rights.php:283
+#: ../../list_access_rights.php:327
 msgid "New access right"
 msgstr "Neues Zugriffsrecht"
 
@@ -14289,6 +14423,10 @@ msgstr "Neues Zugriffsrecht"
 #: ../../list_groups.php:192
 #: ../../list_groups.php:196
 #: ../../list_groups.php:261
+#: ../../templates/list_groups.tpl:85
+#: ../../templates/list_group_admins.tpl:89
+#: ../../list_groups.php:190
+#: ../../list_groups.php:194
 msgid "New group"
 msgstr "Neue Gruppe"
 
@@ -14385,6 +14523,7 @@ msgstr "Die neuen Passworte sind nicht identisch!"
 #: ../../list_projects.php:140
 #: ../../list_projects.php:144
 #: ../../list_projects.php:207
+#: ../../templates/list_projects.tpl:86
 msgid "New project"
 msgstr "Neues Projekt"
 
@@ -14442,6 +14581,7 @@ msgstr "Neues Projekt"
 #: ../../list_repos.php:136
 #: ../../list_repos.php:140
 #: ../../list_repos.php:205
+#: ../../templates/list_repos.tpl:88
 msgid "New repository"
 msgstr "Neues Repository"
 
@@ -14506,6 +14646,7 @@ msgstr "Neues Repository"
 #: ../../list_users.php:142
 #: ../../list_users.php:146
 #: ../../list_users.php:214
+#: ../../templates/list_users.tpl:154
 msgid "New user"
 msgstr "Neuer Benutzer"
 
@@ -15001,10 +15142,12 @@ msgstr "N&auml;chste Seite"
 #: ../../createAccessFiles.php:140
 #: ../../rep_show_user.php:267
 #: ../../rep_show_user.php:272
+#: ../../general.php:336
 msgid "No"
 msgstr "Nein"
 
 #: ../../list_access_rights.php:399
+#: ../../list_access_rights.php:401
 msgid "No access rights found!"
 msgstr "Keine Zugriffsrechte gefunden!"
 
@@ -15160,6 +15303,8 @@ msgstr "Keine Gruppe ausgew&auml;hlt!"
 #: ../..//help.php:78
 #: ../../templates/framework.tpl:179
 #: ../../templates/framework.tpl:185
+#: ../../templates/framework.tpl:180
+#: ../../templates/framework.tpl:186
 msgid "No help found"
 msgstr "Keine Hilfe gefunden"
 
@@ -15207,6 +15352,8 @@ msgstr "Kein Neuladen bauftragt"
 #: ../../list_users.php:168
 #: ../../list_groups.php:218
 #: ../../list_access_rights.php:306
+#: ../../list_access_rights.php:308
+#: ../../list_groups.php:216
 msgid "No search string given!"
 msgstr "Kein Suchbegriff angegeben!"
 
@@ -15486,6 +15633,12 @@ msgstr "Oracle"
 #: ../../templates/rep_show_user_result.tpl:132
 #: ../../templates/searchresult_access_right.tpl:112
 #: ../../templates/list_access_rights.tpl:124
+#: ../../templates/list_access_rights.tpl:126
+#: ../../templates/general.tpl:210
+#: ../../templates/general.tpl:217
+#: ../../templates/general.tpl:224
+#: ../../templates/list_access_rights.tpl:173
+#: ../../templates/list_access_rights.tpl:211
 msgid "Page"
 msgstr "Seite"
 
@@ -15860,6 +16013,7 @@ msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 #: ../../templates/install-tabs.tpl:476
 #: ../../include/output.inc.php:68
 #: ../../include/output.inc.php:126
+#: ../../include/output.inc.php:130
 msgid "Password"
 msgstr "Passwort"
 
@@ -16061,6 +16215,7 @@ msgstr "Tage Passwort Ablauf Warnung sind nicht numersich!"
 #: ../../templates/list_users.tpl:59
 #: ../..//templates/list_users.tpl:59
 #: ../../templates/general.tpl:72
+#: ../../templates/general.tpl:95
 msgid "Password expires"
 msgstr "Passwort laeuft ab"
 
@@ -16077,6 +16232,7 @@ msgstr "Passwort zuletzt ge&auml;ndert"
 #: ../../templates/general.tpl:66
 #: ../..//templates/general.tpl:66
 #: ../../templates/general.tpl:63
+#: ../../templates/general.tpl:86
 msgid "Password modified"
 msgstr "Passwort ge&auml;ndert"
 
@@ -16126,6 +16282,7 @@ msgstr "Passwort nicht stark genug"
 #: ../..//templates/main.tpl:17
 #: ../../include/output.inc.php:72
 #: ../../include/output.inc.php:127
+#: ../../include/output.inc.php:131
 msgid "Password policy"
 msgstr "Passwort Richtlinie"
 
@@ -16223,6 +16380,7 @@ msgstr "Passworte laufen ab"
 #: ../..//templates/rep_show_group_result.tpl:70
 #: ../../templates/general.tpl:143
 #: ../../templates/rep_show_user_result.tpl:92
+#: ../../templates/general.tpl:166
 msgid "Path"
 msgstr "Pfad"
 
@@ -16321,6 +16479,7 @@ msgstr "Bitte korrigieren Sie die folgenden Fehler:"
 #: ../../general.php:138
 #: ../..//general.php:138
 #: ../../general.php:271
+#: ../../general.php:277
 msgid "Please fill in a security question too!"
 msgstr "Bitte auch eine Sicherheitsfrage eintragen!"
 
@@ -16333,6 +16492,7 @@ msgstr "Bitte auch eine Sicherheitsfrage eintragen!"
 #: ../../general.php:143
 #: ../..//general.php:143
 #: ../../general.php:276
+#: ../../general.php:282
 msgid "Please fill in an answer for the security question too!"
 msgstr "Bitte auch eine Antwort auf die Sicherheitsfrage eintragen!"
 
@@ -16390,6 +16550,7 @@ msgstr "Bitte f&uuml;llen Sie das Formular unten aus um die Installation von SVN
 #: ../../general.php:128
 #: ../..//general.php:128
 #: ../../general.php:261
+#: ../../general.php:267
 msgid "Please fill in your email address!"
 msgstr "Bitte die E-Mailadresse eingeben!"
 
@@ -16408,6 +16569,7 @@ msgstr "Bitte die E-Mailadresse eingeben!"
 #: ../../general.php:123
 #: ../..//general.php:123
 #: ../../general.php:256
+#: ../../general.php:262
 msgid "Please fill in your name!"
 msgstr "Bitte den Namen eingeben!"
 
@@ -16599,6 +16761,7 @@ msgstr "PostgreSQL"
 #: ../..//templates/preferences.tpl:5
 #: ../../include/output.inc.php:108
 #: ../../include/output.inc.php:128
+#: ../../include/output.inc.php:132
 msgid "Preferences"
 msgstr "Voreinstellungen"
 
@@ -16721,6 +16884,9 @@ msgstr "Vorherige Seite"
 #: ../..//templates/workOnAccessRight.tpl:25
 #: ../../templates/searchresult_access_right.tpl:13
 #: ../../templates/list_access_rights.tpl:25
+#: ../../templates/list_access_rights.tpl:27
+#: ../../searchrpc.php:333
+#: ../../templates/list_access_rights.tpl:13
 msgid "Project"
 msgstr "Projekt"
 
@@ -16764,6 +16930,7 @@ msgstr "Projekt Verwaltung / Projekt l&ouml;schen"
 #: ../../deleteProject.php:230
 #: ../..//deleteProject.php:230
 #: ../../deleteProject.php:231
+#: ../../deleteProject.php:229
 msgid "Project not deleted due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht gel&ouml;scht."
 
@@ -16777,6 +16944,7 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht gel&ouml;scht."
 #: ../../deleteProject.php:217
 #: ../..//deleteProject.php:217
 #: ../../deleteProject.php:218
+#: ../../deleteProject.php:216
 msgid "Project not deleted due to errors while deleting access right relations"
 msgstr "Projekt aufgrund von Fehlern beim L&ouml;schen der Zugriffsrechte nicht gel&ouml;scht"
 
@@ -16795,6 +16963,7 @@ msgstr "Projekt aufgrund von Fehlern beim L&ouml;schen der Zugriffsrechte nicht 
 #: ../../deleteProject.php:223
 #: ../..//deleteProject.php:223
 #: ../../deleteProject.php:224
+#: ../../deleteProject.php:222
 msgid "Project not deleted due to errors while deleting users/projects relations"
 msgstr "Projekt aufgrund von Datenbankfehlern beim L&ouml;schen der Benutzer/Projekt-Zuordnung"
 
@@ -16828,6 +16997,7 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 #: ../..//templates/rep_show_user_result.tpl:57
 #: ../../templates/general.tpl:115
 #: ../../templates/rep_show_user_result.tpl:64
+#: ../../templates/general.tpl:138
 msgid "Project responsible"
 msgstr "Verantwortlich f&uuml;r Projekt"
 
@@ -16866,6 +17036,7 @@ msgstr "Ergebnis Projekt Suche"
 #: ../../deleteProject.php:207
 #: ../..//deleteProject.php:207
 #: ../../deleteProject.php:208
+#: ../../deleteProject.php:206
 msgid "Project successfully deleted"
 msgstr "Projekt erfolgreich gel&ouml;scht"
 
@@ -16902,6 +17073,7 @@ msgstr "Projekt erfolgreich gel&ouml;scht"
 #: ../../include/output.inc.php:188
 #: ../../include/output.inc.php:92
 #: ../../include/output.inc.php:190
+#: ../../include/output.inc.php:194
 msgid "Projects"
 msgstr "Projekte"
 
@@ -16923,6 +17095,7 @@ msgstr "Abfrage"
 #: ../..//templates/general.tpl:51
 #: ../../templates/general.tpl:51
 #: ../../templates/general.tpl:48
+#: ../../templates/general.tpl:71
 msgid "Question to answer before a password reset."
 msgstr "Vor einer Passwortr&uuml;cksetzung zu beantwortende Frage."
 
@@ -17186,6 +17359,7 @@ msgstr "Verantwortlichen l&ouml;schen"
 #: ../..//templates/rep_show_group_result.tpl:69
 #: ../../templates/general.tpl:142
 #: ../../templates/rep_show_user_result.tpl:91
+#: ../../templates/general.tpl:165
 msgid "Reporitory"
 msgstr "Repository"
 
@@ -17218,6 +17392,7 @@ msgstr "Repository"
 #: ../../include/output.inc.php:222
 #: ../../include/output.inc.php:104
 #: ../../include/output.inc.php:224
+#: ../../include/output.inc.php:228
 msgid "Reports"
 msgstr "Berichte"
 
@@ -17254,6 +17429,7 @@ msgstr "Berichte"
 #: ../../include/output.inc.php:182
 #: ../../include/output.inc.php:96
 #: ../../include/output.inc.php:184
+#: ../../include/output.inc.php:188
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -17327,6 +17503,8 @@ msgstr "Repository Zugriffsrecht"
 #: ../../include/output.inc.php:224
 #: ../../include/output.inc.php:196
 #: ../../include/output.inc.php:226
+#: ../../include/output.inc.php:200
+#: ../../include/output.inc.php:230
 msgid "Repository access rights"
 msgstr "Repository Zugriffsrechte"
 
@@ -17400,6 +17578,7 @@ msgstr "Repository kann nicht gel&ouml;scht werden, weil sich die Projekte (%s) 
 #: ../..//templates/searchresult_repos.tpl:9
 #: ../../templates/general.tpl:121
 #: ../../templates/rep_show_user_result.tpl:70
+#: ../../templates/general.tpl:144
 msgid "Repository name"
 msgstr "Repository Name"
 
@@ -17835,6 +18014,9 @@ msgstr "Repository Benutzerrecht"
 #: ../..//templates/rep_access_rights.tpl:27
 #: ../../templates/searchresult_access_right.tpl:31
 #: ../../templates/list_access_rights.tpl:43
+#: ../../templates/list_access_rights.tpl:45
+#: ../../searchrpc.php:351
+#: ../../templates/list_access_rights.tpl:31
 msgid "Repository:Directory"
 msgstr "Repository:Verzeichnis"
 
@@ -18054,6 +18236,9 @@ msgstr "Recht"
 #: ../..//templates/rep_access_rights.tpl:12
 #: ../../templates/searchresult_access_right.tpl:16
 #: ../../templates/list_access_rights.tpl:28
+#: ../../templates/list_access_rights.tpl:30
+#: ../../searchrpc.php:336
+#: ../../templates/list_access_rights.tpl:16
 msgid "Rights"
 msgstr "Rechte"
 
@@ -18460,6 +18645,8 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../../templates/general.tpl:141
 #: ../../templates/rep_show_user_result.tpl:69
 #: ../../templates/rep_show_user_result.tpl:90
+#: ../../templates/general.tpl:143
+#: ../../templates/general.tpl:164
 msgid "SVN Module"
 msgstr "SVN Modul"
 
@@ -18622,6 +18809,8 @@ msgstr "SVN Kommando fehlt!"
 #: ../..//templates/list_users.tpl:11
 #: ../../templates/list_group_admins.tpl:11
 #: ../../templates/list_access_rights.tpl:12
+#: ../../templates/list_access_rights.tpl:13
+#: ../../include/output.inc.php:112
 msgid "Search"
 msgstr "Suchen"
 
@@ -18629,10 +18818,26 @@ msgstr "Suchen"
 msgid "Search access rights"
 msgstr "Zugriffsrechte suchen"
 
+#: ../../searchrpc.php:371
+#: ../../templates/list_access_rights.tpl:51
+msgid "Search access rights by group."
+msgstr "Zugriffsrecht &uuml;ber Gruppe suchen."
+
 #: ../../templates/list_access_rights.tpl:10
 #: ../../templates/list_access_rights.tpl:12
+#: ../../templates/list_access_rights.tpl:13
 msgid "Search access rights by project, repository or path."
 msgstr "Zugriffsrechte nach Projekt, Repository oder Pfad suchen."
+
+#: ../../searchrpc.php:362
+#: ../../templates/list_access_rights.tpl:42
+msgid "Search access rights by project."
+msgstr "Zugriffsrecht &uuml;ber Projekt suchen."
+
+#: ../../searchrpc.php:368
+#: ../../templates/list_access_rights.tpl:48
+msgid "Search access rights by user."
+msgstr "Zugriffsrecht &uuml;ber Benutzer suchen."
 
 #: ../../templates/list_groups.tpl:7
 #: ../..//templates/list_groups.tpl:7
@@ -18708,6 +18913,10 @@ msgstr "Benutzer suchen"
 msgid "Search user by uid or name."
 msgstr "Benutzer nach Uid oder name suchen."
 
+#: ../../templates/searchresult_users.tpl:3
+msgid "Search user result"
+msgstr "Ergebnis Benutzersuche"
+
 #: ../../templates/list_users.tpl:11
 #: ../..//templates/list_users.tpl:11
 msgid "Search user."
@@ -18720,6 +18929,7 @@ msgstr "Benutzer suchen."
 #: ../../templates/general.tpl:48
 #: ../..//templates/general.tpl:48
 #: ../../templates/general.tpl:45
+#: ../../templates/general.tpl:68
 msgid "Security question"
 msgstr "Sicherheitsfrage"
 
@@ -18730,6 +18940,7 @@ msgstr "Sicherheitsfrage"
 #: ../../templates/general.tpl:57
 #: ../..//templates/general.tpl:57
 #: ../../templates/general.tpl:54
+#: ../../templates/general.tpl:77
 msgid "Security question answer"
 msgstr "Antwort zur Sicherheitsfrage"
 
@@ -18992,6 +19203,7 @@ msgstr "Ergebnis der Suche nach Benutzern"
 #: ../../templates/framework.tpl:62
 #: ../..//templates/framework.tpl:62
 #: ../../templates/framework.tpl:64
+#: ../../templates/framework.tpl:65
 msgid "Session expired. Please re-login!"
 msgstr "Sitzung abgelaufen! Bitte erneut anmelden!"
 
@@ -19112,6 +19324,7 @@ msgstr "Standard Zugriffsrecht f&uuml;r Benutzer auf Repositories festlegen."
 #: ../..//include/output.inc.php:223
 #: ../../include/output.inc.php:229
 #: ../../include/output.inc.php:231
+#: ../../include/output.inc.php:235
 msgid "Show group"
 msgstr "Gruppe anzeigen"
 
@@ -19131,6 +19344,7 @@ msgstr "Gruppen Zugriffsrechte anzeigen"
 #: ../..//include/output.inc.php:222
 #: ../../include/output.inc.php:228
 #: ../../include/output.inc.php:230
+#: ../../include/output.inc.php:234
 msgid "Show user"
 msgstr "Benutzer anzeigen"
 
@@ -19656,6 +19870,10 @@ msgstr "Installation starten"
 #: ../../workOnRepo.php:160
 #: ../../workOnRepo.php:164
 #: ../../workOnRepo.php:179
+#: ../../general.php:234
+#: ../../general.php:238
+#: ../../general.php:247
+#: ../../templates/general.tpl:195
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -20098,6 +20316,7 @@ msgstr "Der Benutzername und das Passwort zum Repositoryzugriff, wenn ben&ouml;t
 #: ../../help.php:73
 #: ../..//help.php:73
 #: ../../templates/framework.tpl:180
+#: ../../templates/framework.tpl:181
 #, php-format
 msgid "There is no help topic '%s' in the database"
 msgstr "Es gibt keinen Hilfepunkt '%s' in der Datenbank"
@@ -20110,6 +20329,7 @@ msgstr "Es gibt keinen Hilfepunkt '%s' in der Datenbank"
 #: ../../help.php:79
 #: ../..//help.php:79
 #: ../../templates/framework.tpl:186
+#: ../../templates/framework.tpl:187
 msgid "There is no help topic set"
 msgstr "Es ist kein Hilfepunkt gesetzt"
 
@@ -20511,6 +20731,9 @@ msgstr "MD5 Verrschl&uuml;sselung benutzen"
 #: ../..//templates/searchresult_repos.tpl:15
 #: ../../templates/searchresult_access_right.tpl:19
 #: ../../templates/list_access_rights.tpl:31
+#: ../../templates/list_access_rights.tpl:33
+#: ../../searchrpc.php:339
+#: ../../templates/list_access_rights.tpl:19
 msgid "User"
 msgstr "Benutzer"
 
@@ -20545,6 +20768,8 @@ msgstr "Benutzer"
 #: ../..//general.php:202
 #: ../../general.php:211
 #: ../../general.php:335
+#: ../../general.php:214
+#: ../../general.php:348
 msgid "User "
 msgstr "Benutzer"
 
@@ -20733,6 +20958,7 @@ msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_granted_user_rights.tpl:28
 #: ../../templates/rep_granted_user_rights.tpl:28
 #: ../..//templates/rep_granted_user_rights.tpl:28
+#: ../../templates/rep_granted_user_rights.tpl:34
 msgid "User locked"
 msgstr "Benutzer gesperrt"
 
@@ -21087,6 +21313,7 @@ msgstr "Benutzername unbekannt"
 #: ../..//templates/main.tpl:65
 #: ../../include/output.inc.php:64
 #: ../../include/output.inc.php:161
+#: ../../include/output.inc.php:165
 msgid "Users"
 msgstr "Benutzer"
 
@@ -21123,6 +21350,9 @@ msgstr "Benutzer in der Gruppe"
 #: ../..//templates/setAccessRight.tpl:48
 #: ../../templates/searchresult_access_right.tpl:25
 #: ../../templates/list_access_rights.tpl:37
+#: ../../templates/list_access_rights.tpl:39
+#: ../../searchrpc.php:345
+#: ../../templates/list_access_rights.tpl:25
 msgid "Valid from"
 msgstr "G&uuml;ltig von"
 
@@ -21154,6 +21384,9 @@ msgstr "G&uuml;ltig von"
 #: ../..//templates/setAccessRight.tpl:55
 #: ../../templates/searchresult_access_right.tpl:28
 #: ../../templates/list_access_rights.tpl:40
+#: ../../templates/list_access_rights.tpl:42
+#: ../../searchrpc.php:348
+#: ../../templates/list_access_rights.tpl:28
 msgid "Valid until"
 msgstr "G&uuml;ltig bis"
 
@@ -22258,6 +22491,7 @@ msgstr "Falsche Antwort!"
 #: ../../createAccessFiles.php:101
 #: ../../rep_show_user.php:267
 #: ../../rep_show_user.php:272
+#: ../../general.php:336
 msgid "Yes"
 msgstr "Ja"
 
@@ -22384,6 +22618,7 @@ msgstr "Ihr neues Passwort wurde erfolgreich eingetragen!"
 #: ../../templates/framework.tpl:74
 #: ../..//templates/framework.tpl:74
 #: ../../templates/framework.tpl:76
+#: ../../templates/framework.tpl:77
 msgid "Your session expired! Please re-login!"
 msgstr "Ihre Sitzung ist abgelaufen! Bitte erneut anmelden!"
 
@@ -22898,6 +23133,7 @@ msgstr "Gruppe"
 #: ../..//templates/list_users.tpl:120
 #: ../../general.php:196
 #: ../../general.php:328
+#: ../../general.php:333
 msgid "no"
 msgstr "Nein"
 
@@ -23075,6 +23311,9 @@ msgstr "lesen"
 #: ../../list_groups.php:202
 #: ../../list_access_rights.php:286
 #: ../../list_access_rights.php:288
+#: ../../list_access_rights.php:290
+#: ../../list_access_rights.php:299
+#: ../../list_groups.php:198
 msgid "search"
 msgstr "suchen"
 
@@ -23415,6 +23654,7 @@ msgstr "schreiben"
 #: ../..//templates/list_users.tpl:120
 #: ../../general.php:196
 #: ../../general.php:328
+#: ../../general.php:333
 msgid "yes"
 msgstr "Ja"
 
