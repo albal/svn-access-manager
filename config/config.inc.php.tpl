@@ -103,7 +103,7 @@ $CONF['password_expires_warn']	= ###PASSWORDEXPIRESWARN###;
 // define default value for password expire, allowed values 0 and 1
 $CONF['expire_password']		= '###EXPIREPASSWORD###';
 
-# valid values for pwcrypt are md5 or crypt
+# valid values for pwcrypt are sha, apr-md5, md5, or crypt
 $CONF['pwcrypt']				= '###PWCRYPT###';
 
 $CONF['copyright']				= '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';

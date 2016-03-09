@@ -298,6 +298,10 @@ a:visited, a:active {
 	padding-left: 15px;
 }
 
+.chzn-select {
+	whipte-space: nowrap;
+}
+
 .error_flag {
 	color: red;
 	font-size: 16pt;

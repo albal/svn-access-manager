@@ -10,7 +10,7 @@
 				   	<tr valign="top">
 				   		<td width="150"><strong><?php print _("User").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fUser">
+				   			<select name="fUser" id="user" class="chzn-select">
 				   				<?php
 				   					print "\t\t\t<option value='default'>"._("--- Select user ---")."</option>\n";
 				   					foreach( $tUsers as $entry ) {
@@ -46,4 +46,7 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				$("#user").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>
