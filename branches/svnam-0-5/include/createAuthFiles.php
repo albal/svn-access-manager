@@ -969,6 +969,8 @@ function getGroupMembers( $groupid, $dbh ) {
 										  "   WHERE (svngroups.id = $groupid) " .
 										  "     AND (svngroups.id = svn_users_groups.group_id) " .
 										  "     AND (svnusers.id = svn_users_groups.user_id) " .
+										  "     AND (svn_users_groups.deleted='00000000000000') ".                                      		
+                                 	      "     AND (svnusers.deleted='00000000000000') ". 
 										  "ORDER BY userid ASC";
 	$result								= db_query( $query, $dbh );
 	while( $row = db_assoc( $result['result'] ) ) {
