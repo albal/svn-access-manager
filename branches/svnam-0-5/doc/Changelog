@@ -1,9 +1,14 @@
 Change Log
 ==========
 
+Release 0.5.6.6
+    - updated selinux policy for CentOS 6 and CentOS 7
+    - fixed a typo in the docs
+    - fixed a typo in the install.php file
+    
 Release 0.5.6.5
 	- fix for issue #54 Creation of group in authz file doesnt check deleted user.
-	  Thanks to Micgael Melin
+	  Thanks to Michael Melin
 	
 Release 0.5.6.4
 	- fix for filenames and pathes with blanks. Thanks to David Helwig for the patch.

@@ -3776,7 +3776,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	}
 	
 	if( $tLdapBindUseLoginData == 0 ) {
-		$tLdapBinsUseLoginDataNo			= "checked";
+		$tLdapBindUseLoginDataNo			= "checked";
 		$tLdapBindUseLoginDataYes			= "";
 	} else {
 		$tLdapBindUseLoginDataYes			= "checked";
