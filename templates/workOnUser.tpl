@@ -13,7 +13,7 @@
 				   			<?php
 				   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") and ($_SESSION['svn_sessid']['task'] == "new") ) {
 				   					
-				   					print "\t\t\t\t\t\t\t<select name=\"fUserid\" $tReadonly onchange=\"changeUser();\">\n";
+				   					print "\t\t\t\t\t\t\t<select id=\"userid\" name=\"fUserid\" class=\"chzn-select\" $tReadonly onchange=\"changeUser();\">\n";
 				   					print "\t\t\t\t\t\t\t\t<option value=\"default\">"._("--- Please select user ---")."</option>\n";
 				   					foreach( $tUsers as $entry ) {
 				   						$value	= $entry['uid'].":".$entry['name'].":".$entry['givenname'].":".$entry['emailaddress'].":";
@@ -294,4 +294,6 @@
 				document.forms.workOnUser.fEmail.value = arr[3];
  
 			}
+			
+			$("#userid").chosen({no_results_text: "No results matched"});
 		</script>

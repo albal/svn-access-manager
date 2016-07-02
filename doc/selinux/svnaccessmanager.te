@@ -2,45 +2,56 @@
 module svnaccessmanager 1.0;
 
 require {
-	type unconfined_t;
-	type httpd_script_exec_t;
-	type httpd_config_t;
-	type pam_var_run_t;
+	type initrc_tmp_t;
+	type kernel_t;
+	type httpd_initrc_exec_t;
+	type mysqld_t;
+	type mysqld_safe_t;
 	type httpd_t;
-	type restorecon_t;
-	type rpm_t;
-	type fs_t;
+	type default_t;
+	type tmpfs_t;
 	type etc_t;
-	class process setrlimit;
-	class filesystem associate;
-	class capability { sys_resource audit_write };
-	class file { rename create write getattr relabelto unlink };
+	class process { sigchld setrlimit };
+	class chr_file { read write getattr open };
+	class capability { sys_resource sys_ptrace audit_write };
+	class file { rename execute setattr read create ioctl execute_no_trans write getattr unlink open };
 	class netlink_audit_socket { write nlmsg_relay create read };
-	class dir { search setattr read create write relabelfrom getattr rmdir relabelto remove_name add_name };
+	class dir { setattr read create write remove_name add_name };
 }
 
 #============= httpd_t ==============
+#!!!! The source type 'httpd_t' can write to a 'dir' of the following types:
+# zarafa_var_lib_t, squirrelmail_spool_t, dirsrvadmin_config_t, httpd_tmp_t, dirsrv_config_t, dirsrvadmin_tmp_t, httpd_squirrelmail_t, httpd_cache_t, httpd_tmpfs_t, dirsrv_var_run_t, httpd_var_lib_t, httpd_var_run_t, dirsrv_var_log_t, passenger_tmp_t, cluster_conf_t, httpd_cvs_rw_content_t, httpd_git_rw_content_t, httpd_sys_rw_content_t, httpd_sys_rw_content_t, httpd_apcupsd_cgi_rw_content_t, httpd_nagios_rw_content_t, httpd_nutups_cgi_rw_content_t, httpd_dspam_rw_content_t, httpd_prewikka_rw_content_t, httpd_mediawiki_rw_content_t, httpd_squid_rw_content_t, passenger_var_run_t, httpd_smokeping_cgi_rw_content_t, httpd_w3c_validator_rw_content_t, httpd_openshift_rw_content_t, httpd_dirsrvadmin_rw_content_t, httpd_collectd_rw_content_t, httpd_user_rw_content_t, httpdcontent, httpd_awstats_rw_content_t, httpd_cobbler_rw_content_t, httpd_munin_rw_content_t, httpd_bugzilla_rw_content_t
+
+allow httpd_t default_t:dir { write setattr read remove_name create add_name };
+#!!!! The source type 'httpd_t' can write to a 'file' of the following types:
+# zarafa_var_lib_t, squirrelmail_spool_t, mirrormanager_var_run_t, dirsrvadmin_config_t, httpd_tmp_t, httpd_lock_t, dirsrv_config_t, dirsrvadmin_tmp_t, httpd_squirrelmail_t, httpd_cache_t, httpd_tmpfs_t, dirsrv_var_run_t, httpd_var_lib_t, httpd_var_run_t, dirsrv_var_log_t, passenger_tmp_t, cluster_conf_t, httpd_cvs_rw_content_t, httpd_git_rw_content_t, httpd_sys_rw_content_t, httpd_sys_rw_content_t, httpd_apcupsd_cgi_rw_content_t, httpd_nagios_rw_content_t, httpd_nutups_cgi_rw_content_t, httpd_dspam_rw_content_t, httpd_prewikka_rw_content_t, httpd_mediawiki_rw_content_t, httpd_squid_rw_content_t, passenger_var_run_t, httpd_smokeping_cgi_rw_content_t, httpd_w3c_validator_rw_content_t, httpd_openshift_rw_content_t, httpd_dirsrvadmin_rw_content_t, httpd_collectd_rw_content_t, httpd_user_rw_content_t, httpdcontent, httpd_awstats_rw_content_t, httpd_cobbler_rw_content_t, httpd_munin_rw_content_t, cluster_var_lib_t, cluster_var_run_t, httpd_bugzilla_rw_content_t, root_t
+
+allow httpd_t default_t:file { rename write getattr setattr read create open };
+#!!!! The source type 'httpd_t' can write to a 'dir' of the following types:
+# zarafa_var_lib_t, squirrelmail_spool_t, mirrormanager_var_run_t, dirsrvadmin_config_t, var_lock_t, tmpfs_t, tmp_t, var_t, httpd_tmp_t, dirsrv_config_t, dirsrvadmin_tmp_t, httpd_squirrelmail_t, httpd_cache_t, httpd_tmpfs_t, var_log_t, var_lib_t, var_run_t, dirsrv_var_run_t, httpd_var_lib_t, httpd_var_run_t, dirsrv_var_log_t, passenger_tmp_t, cluster_conf_t, httpd_cvs_rw_content_t, httpd_git_rw_content_t, httpd_sys_rw_content_t, httpd_sys_rw_content_t, httpd_apcupsd_cgi_rw_content_t, httpd_nagios_rw_content_t, httpd_nutups_cgi_rw_content_t, httpd_sys_content_t, httpd_dspam_rw_content_t, httpd_prewikka_rw_content_t, httpd_mediawiki_rw_content_t, httpd_squid_rw_content_t, passenger_var_run_t, httpd_smokeping_cgi_rw_content_t, httpd_w3c_validator_rw_content_t, httpd_openshift_rw_content_t, httpd_dirsrvadmin_rw_content_t, httpd_collectd_rw_content_t, httpd_user_rw_content_t, httpdcontent, httpd_awstats_rw_content_t, httpd_cobbler_rw_content_t, httpd_munin_rw_content_t, cluster_var_lib_t, cluster_var_run_t, httpd_bugzilla_rw_content_t, root_t
+
 allow httpd_t etc_t:dir { write remove_name add_name };
 allow httpd_t etc_t:file { write rename create unlink };
-allow httpd_t fs_t:filesystem associate;
-allow httpd_t httpd_config_t:dir { write remove_name add_name };
-allow httpd_t httpd_config_t:file { write create unlink };
-allow httpd_t httpd_script_exec_t:file getattr;
-allow httpd_t pam_var_run_t:dir { write search getattr create add_name };
+allow httpd_t httpd_initrc_exec_t:file { execute getattr read open ioctl execute_no_trans };
+allow httpd_t kernel_t:process sigchld;
+allow httpd_t self:capability sys_ptrace;
+
+#!!!! This avc can be allowed using the boolean 'allow_httpd_mod_auth_pam'
 allow httpd_t self:capability { sys_resource audit_write };
-allow httpd_t self:dir { write remove_name add_name };
-allow httpd_t self:file { create unlink };
+
+#!!!! This avc can be allowed using the boolean 'allow_httpd_mod_auth_pam'
 allow httpd_t self:netlink_audit_socket { write nlmsg_relay create read };
+
+#!!!! This avc can be allowed using the boolean 'httpd_setrlimit'
 allow httpd_t self:process setrlimit;
+#!!!! The source type 'httpd_t' can write to a 'chr_file' of the following types:
+# null_device_t, zero_device_t, crypt_device_t, devtty_t, initrc_devpts_t, user_tty_device_t, ptynode, ttynode, tty_device_t, devpts_t, user_devpts_t
 
-#============= restorecon_t ==============
-allow restorecon_t httpd_t:dir { read relabelto relabelfrom };
-allow restorecon_t httpd_t:file relabelto;
+allow httpd_t tmpfs_t:chr_file { read write getattr open };
 
-#============= rpm_t ==============
-allow rpm_t httpd_t:dir { write rmdir setattr remove_name relabelfrom relabelto add_name };
-allow rpm_t httpd_t:file rename;
+#============= mysqld_safe_t ==============
+allow mysqld_safe_t kernel_t:process sigchld;
 
-#============= unconfined_t ==============
-allow unconfined_t httpd_t:dir { write remove_name };
-allow unconfined_t httpd_t:file unlink;
+#============= mysqld_t ==============
+allow mysqld_t initrc_tmp_t:file write;
