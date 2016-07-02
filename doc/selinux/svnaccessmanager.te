@@ -1,5 +1,5 @@
 
-module svnaccessmanager 1.0;
+module svnaccessmanager 1.1;
 
 require {
 	type initrc_tmp_t;
@@ -49,6 +49,9 @@ allow httpd_t self:process setrlimit;
 # null_device_t, zero_device_t, crypt_device_t, devtty_t, initrc_devpts_t, user_tty_device_t, ptynode, ttynode, tty_device_t, devpts_t, user_devpts_t
 
 allow httpd_t tmpfs_t:chr_file { read write getattr open };
+allow httpd_t initrc_tmp_t:file write;
+allow httpd_t etc_t:dir write;
+allow httpd_t initrc_tmp_t:file write;
 
 #============= mysqld_safe_t ==============
 allow mysqld_safe_t kernel_t:process sigchld;
