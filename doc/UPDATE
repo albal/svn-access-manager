@@ -1,3 +1,120 @@
+Update to V0.5.6.6
+
+Version 0.5.6.6 contains a fix for teh selinux policy for CentOS 6 and CentOS 7. If you are 
+using selinux just update the RPM packages. There's also a fix for the installer included.
+If you already installed SVN Access Manager this fix is not needed.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.5
+
+Version 0.5.6.5 contains a fix for pathes and filenames with blanks. Either compare your 
+installation to the current release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.4
+
+Version 0.5.6.4 contains a fix for pathes and filenames with blanks. Either compare your 
+installation to the current release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.3
+
+Version 0.5.6.3 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.20
+
+Version 0.5.5.20 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.2
+
+Update the database in case of MySQL database
+
+To update the database please use the little sql script provided with
+this update. The script update-0.5.5.x-to-0.5.6.0.sql updates the MySQL
+database.
+   
+For PostgreSQL and Oracle change the database update script according to
+your needs.
+
+Version 0.5.6.2 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.22
+
+Version 0.5.5.22 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.20
+
+Version 0.5.5.20 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.19
+
+Version 0.5.5.19 contains some bug fixes and some new features. There are changes regarding 
+the JavaScript libraries. Be sure to include the new library table.js. 
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.18
+
+Version 0.5.5.18 contains some bug fixes and some new features. There's a new
+JavaScript library used for table filtering. Be sure to include the new library.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.17
+
+Version 0.5.5.17 contains some bug fixes and some new features.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
 Update to V0.5.5.16
 
 Version 0.5.5.16 contains an important security fix. Therefore you are strongly recommended
