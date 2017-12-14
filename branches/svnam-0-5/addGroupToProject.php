@@ -28,8 +28,6 @@
  * $Id$
  *
  */
-
-define('INSTALLBASE', 'install_base');
         
 if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
     require ("./config/config.inc.php");
@@ -47,6 +45,7 @@ else {
 $installBase = isset ( $CONF [INSTALLBASE] ) ? $CONF [INSTALLBASE] : "";
 
 require ("$installBase/include/variables.inc.php");
+include_once ("$installBase/include/constants.inc.php");
 require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
