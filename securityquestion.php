@@ -42,7 +42,6 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
 
 require ("$installBase/include/variables.inc.php");
-#require ("./config/config.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
 require ("$installBase/include/functions.inc.php");
 

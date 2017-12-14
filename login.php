@@ -35,7 +35,6 @@ $installBase					= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
 #error_log( "install_base is: $installBase" );
 
 require ("$installBase/include/variables.inc.php");
-#require ("./config/config.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
 require ("$installBase/include/functions.inc.php");
 
