@@ -30,11 +30,14 @@
  */
 if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
     require ("./config/config.inc.php");
-} elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+}
+elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
     require ("../config/config.inc.php");
-} elseif (file_exists ( "/etc/svn-access-manager/config.inc.php" )) {
+}
+elseif (file_exists ( "/etc/svn-access-manager/config.inc.php" )) {
     require ("/etc/svn-access-manager/config.inc.php");
-} else {
+}
+else {
     die ( "can't load config.inc.php. Please check your installation!\n" );
 }
 
@@ -50,6 +53,7 @@ check_password_expired ();
 
 $_SESSION ['svn_sessid'] ['helptopic'] = "addgrouptoproject";
 function addGroupToProject($group, $currentMembers, $dbh) {
+
     global $CONF;
     
     $installBase = isset ( $CONF ['install_base'] ) ? $CONF ['install_base'] : "";
@@ -84,5 +88,6 @@ function addGroupToProject($group, $currentMembers, $dbh) {
     $template = "addGroupToProject.tpl";
     
     include ("$installBase/templates/framework.tpl");
+
 }
 ?>
