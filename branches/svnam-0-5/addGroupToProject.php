@@ -28,6 +28,9 @@
  * $Id$
  *
  */
+
+define('INSTALLBASE', 'install_base');
+        
 if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
     require ("./config/config.inc.php");
 }
@@ -41,7 +44,7 @@ else {
     die ( "can't load config.inc.php. Please check your installation!\n" );
 }
 
-$installBase = isset ( $CONF ['install_base'] ) ? $CONF ['install_base'] : "";
+$installBase = isset ( $CONF [INSTALLBASE] ) ? $CONF [INSTALLBASE] : "";
 
 require ("$installBase/include/variables.inc.php");
 require_once ("$installBase/include/functions.inc.php");
@@ -56,7 +59,7 @@ function addGroupToProject($group, $currentMembers, $dbh) {
 
     global $CONF;
     
-    $installBase = isset ( $CONF ['install_base'] ) ? $CONF ['install_base'] : "";
+    $installBase = isset ( $CONF [INSTALLBASE] ) ? $CONF [INSTALLBASE] : "";
     $schema = db_determine_schema ();
     
     $cs_array = array ();
