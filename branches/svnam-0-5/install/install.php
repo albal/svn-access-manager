@@ -358,7 +358,7 @@ function dropOracleDatabaseTables($dbh, $schema) {
             $query = "begin execute immediate 'drop table $schema.$dbtable cascade constraints'; exception when others then null; end;";
             db_query_install($query, $dbh);
             $seq = $dbtable . "_seq";
-            $query = "begin execute immediate 'drop sequence $schema.$seq'; exception when others then null; end;"; 
+            $query = "begin execute immediate 'drop sequence $schema.$seq'; exception when others then null; end;";
             $result = db_query_install($query, $dbh);
         }
     }
@@ -2546,10 +2546,7 @@ function loadHelpTexts($database, $schema, $dbh) {
             
             db_ta("BEGIN", $dbh);
             
-            if (substr($database, 0, 8) == "postgres") {
-                $schema = ($schema == "") ? "" : $schema . ".";
-            }
-            elseif ($database == "oci8") {
+            if ((substr($database, 0, 8) == "postgres") || ($database == "oci8")) {
                 $schema = ($schema == "") ? "" : $schema . ".";
             }
             else {
