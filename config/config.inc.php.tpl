@@ -38,7 +38,7 @@ if (preg_match ("/config.inc.php/", $_SERVER['PHP_SELF'])) {
 }
 
 
-$CONF[INSTALLBASE]			= '###INSTALLBASE###';
+$CONF['install_base']			= '###INSTALLBASE###';
 
 // Language config
 $CONF['default_language'] 		= 'en';
