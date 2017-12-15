@@ -113,9 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $template = "list_users.tpl";
-    $header = "users";
-    $subheader = "users";
-    $menu = "users";
+    $header = USERS;
+    $subheader = USERS;
+    $menu = USERS;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -127,22 +127,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_new_x'])) {
+    elseif ((isset($_POST['fSubmit_new_x'])) || (isset($_POST['fSubmit_new']))) {
         $button = _("New user");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
-    elseif (isset($_POST['fSubmit_new'])) {
-        $button = _("New user");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSearchBtn'])) {
-        $button = _("search");
-    }
-    elseif (isset($_POST['fSearchBtn_x'])) {
+    elseif ((isset($_POST['fSearchBtn'])) || (isset($_POST['fSearchBtn_x']))) {
         $button = _("search");
     }
     else {
@@ -155,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $tSearch = html_entity_decode($tSearch);
         $_SESSION['svn_sessid']['search'] = $tSearch;
-        $_SESSION['svn_sessid']['searchtype'] = "users";
+        $_SESSION['svn_sessid']['searchtype'] = USERS;
         $tUsers = array();
         
         if ($tSearch == "") {
@@ -214,9 +205,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $template = "list_users.tpl";
-    $header = "users";
-    $subheader = "users";
-    $menu = "users";
+    $header = USERS;
+    $subheader = USERS;
+    $menu = USERS;
     
     include ("$installBase/templates/framework.tpl");
     

@@ -40,5 +40,6 @@ define('REPOS', 'repos');
 define('GENERAL', 'general');
 define('ERROR', 'error');
 define('ERRORMSG', 'errormsg');
+define('PREFERENCES', 'preferences');
 
 ?>
