@@ -177,10 +177,7 @@ function createAuthUserFilePerRepo($dbh) {
                             unlink($authuserfile);
                         }
                         
-                        if (@rename($tempfile, $authuserfile)) {
-                        }
-                        else {
-                            
+                        if (! @rename($tempfile, $authuserfile)) {
                             $retcode = 3;
                             $tMessage = sprintf(_("Copy from %s to %s failed!"), $tempfile, $CONF['AuthUserFile']);
                             db_unset_semaphore('createauthuserfile', 'sem', $dbh);
@@ -388,11 +385,8 @@ function createAccessFile($dbh) {
                         
                         while ( ($row = db_assoc($result['result'])) and ($retcode == 0) ) {
                             
-                            if ($row['access_right'] == "none") {
-                                
-                                $right = "";
-                            }
-                            elseif ($row['access_right'] == "read") {
+                            // Right 'none' handled in else branch
+                            if ($row['access_right'] == "read") {
                                 
                                 $right = "r";
                             }
@@ -688,11 +682,8 @@ function createAccessFilePerRepo($dbh) {
                         
                         while ( ($row = db_assoc($result['result'])) and ($retcode == 0) ) {
                             
-                            if ($row['access_right'] == "none") {
-                                
-                                $right = "";
-                            }
-                            elseif ($row['access_right'] == "read") {
+                            // Right 'none' handled in else branch
+                            if ($row['access_right'] == "read") {
                                 
                                 $right = "r";
                             }
@@ -769,10 +760,7 @@ function createAccessFilePerRepo($dbh) {
                             unlink($svnaccessfile);
                         }
                         
-                        if (@rename($tempfile, $svnaccessfile)) {
-                        }
-                        else {
-                            
+                        if (! @rename($tempfile, $svnaccessfile)) {
                             $retcode = 3;
                             $tMessage = sprintf(_("Copy from %s to %s failed!"), $tempfile, $CONF['SVNAccessFile']);
                             db_unset_semaphore('createaccessfile', 'sem', $dbh);
@@ -1135,8 +1123,6 @@ function createViewvcConfig($dbh) {
                     
                     @fclose($groupHandle);
                 }
-                else {
-                }
                 
                 if (! @fwrite($fileHandle, "<LocationMatch (^" . $CONF['ViewvcLocation'] . "\$|^" . $CONF['ViewvcLocation'] . "/\$)>\n")) {
                     $retcode = 9;
@@ -1175,8 +1161,6 @@ function createViewvcConfig($dbh) {
                 }
                 
                 @fclose($fileHandle);
-            }
-            else {
             }
             
             if ($retcode == 0) {
