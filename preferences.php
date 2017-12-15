@@ -45,7 +45,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $userid = db_getIdByUserid($SESSID_USERNAME, $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "preferences";
+$_SESSION['svn_sessid']['helptopic'] = PREFERENCES;
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -75,11 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
     }
     
-    if ($tSortOrder == "ASC") {
-        $tAsc = "checked";
-        $tDesc = "";
-    }
-    elseif ($tSortOrder == "DESC") {
+    // sort order asc handled in else branch
+    if ($tSortOrder == "DESC") {
         $tDesc = "checked";
         $tAsc = "";
     }
@@ -101,9 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tUserid = "";
     }
     
-    $header = "preferences";
-    $subheader = "preferences";
-    $menu = "preferences";
+    $header = PREFERENCES;
+    $subheader = PREFERENCES;
+    $menu = PREFERENCES;
     $template = "preferences.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -242,9 +239,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tUserid = "";
     }
     
-    $header = "preferences";
-    $subheader = "preferences";
-    $menu = "preferences";
+    $header = PREFERENCES;
+    $subheader = PREFERENCES;
+    $menu = PREFERENCES;
     $template = "preferences.tpl";
     
     include ("$installBase/templates/framework.tpl");
