@@ -233,6 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
+    // fSearchBtn and fSearchBtn_x handled in else branch as button gets the same value
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
@@ -247,9 +248,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ((isset($_POST['fSubmit_clear'])) || (isset($_POST['fSubmit_clear_x']))) {
         $button = _("Clear filter");
-    }
-    elseif ((isset($_POST['fSearchBtn'])) || (isset($_POST['fSearchBtn_x']))) {
-        $button = "getfilter";
     }
     else {
         $button = "getfilter";
