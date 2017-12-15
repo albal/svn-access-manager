@@ -51,9 +51,7 @@ $_SESSION['svn_sessid']['helptopic'] = "deleteaccessright";
 
 if ($rightAllowed != "delete") {
     
-    if ($_SESSION['svn_sessid']['admin'] == "p") {
-    }
-    else {
+    if (! $_SESSION['svn_sessid']['admin'] == "p") {
         
         db_log($SESSID_USERNAME, "tried to use deleteAccessRight without permission", $dbh);
         db_disconnect($dbh);
