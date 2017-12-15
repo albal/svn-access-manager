@@ -51,10 +51,7 @@ $_SESSION['svn_sessid']['helptopic'] = "setaccessright";
 
 if (($rightAllowed != "edit") and ($rightAllowed != "delete")) {
     
-    if ($_SESSION['svn_sessid']['admin'] == "p") {
-    }
-    else {
-        
+    if ( $_SESSION['svn_sessid']['admin'] != "p") {
         db_log($SESSID_USERNAME, "tried to use setAccessRight without permission", $dbh);
         db_disconnect($dbh);
         header("Location: nopermission.php");
@@ -216,9 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tGid = "";
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "setAccessRight.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -247,16 +244,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Submit");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Submit");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
     else {
@@ -630,9 +621,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tReadonly = "";
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "setAccessRight.tpl";
     
     include ("$installBase/templates/framework.tpl");

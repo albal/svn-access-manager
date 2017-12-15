@@ -85,11 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tDesc = "";
     }
     
-    if ($tSortField == "name,givenname") {
-        $tName = "checked";
-        $tUserid = "";
-    }
-    elseif ($tSortField == "userid") {
+    // sort prefende name,givenname is handled in else branch
+    if ($tSortField == "userid") {
         $tUserid = "checked";
         $tName = "";
     }
@@ -123,16 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     elseif (isset($_POST['fSubmit_l_x'])) {
         $button = _(">>");
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Submit");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Submit");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
     else {
@@ -213,11 +204,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    if ($tSortOrder == "ASC") {
-        $tAsc = "checked";
-        $tDesc = "";
-    }
-    elseif ($tSortOrder == "DESC") {
+    // sort orswr ASC is handled in else brnach
+    if ($tSortOrder == "DESC") {
         $tDesc = "checked";
         $tAsc = "";
     }
@@ -226,11 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tDesc = "";
     }
     
-    if ($tSortField == "name,givenname") {
-        $tName = "checked";
-        $tUserid = "";
-    }
-    elseif ($tSortField == "userid") {
+    // sort preference name,givennme is handled in else branch
+    if ($tSortField == "userid") {
         $tUserid = "checked";
         $tName = "";
     }

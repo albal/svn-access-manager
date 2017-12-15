@@ -153,9 +153,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
     }
     
-    $header = "groups";
-    $subheader = "groups";
-    $menu = "groups";
+    $header = GROUPS;
+    $subheader = GROUPS;
+    $menu = GROUPS;
     $template = "workOnGroup.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -169,28 +169,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Submit");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Submit");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_add_x'])) {
+    elseif ((isset($_POST['fSubmit_add_x'])) || (isset($_POST['fSubmit_add']))) {
         $button = _("Add member");
     }
-    elseif (isset($_POST['fSubmit_add'])) {
-        $button = _("Add member");
-    }
-    elseif (isset($_POST['fSubmit_remove_x'])) {
-        $button = _("Remove member");
-    }
-    elseif (isset($_POST['fSubmit_remove'])) {
+    elseif ((isset($_POST['fSubmit_remove_x'])) || (isset($_POST['fSubmit_remove']))) {
         $button = _("Remove member");
     }
     else {
@@ -200,16 +188,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmitAdd'])) {
         $buttonAdd = db_escape_string($_POST['fSubmitAdd']);
     }
-    elseif (isset($_POST['fSubmitAdd_ok_x'])) {
+    elseif ((isset($_POST['fSubmitAdd_ok_x'])) || (isset($_POST['fSubmitAdd_ok']))) {
         $buttonAdd = _("Add");
     }
-    elseif (isset($_POST['fSubmitAdd_ok'])) {
-        $buttonAdd = _("Add");
-    }
-    elseif (isset($_POST['fSubmitAdd_back_x'])) {
-        $buttonAdd = _("Cancel");
-    }
-    elseif (isset($_POST['fSubmitAdd_back'])) {
+    elseif ((isset($_POST['fSubmitAdd_back_x'])) || (isset($_POST['fSubmitAdd_back']))) {
         $buttonAdd = _("Cancel");
     }
     else {
@@ -433,10 +415,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $query = "INSERT INTO " . $schema . "svn_users_groups (user_id, group_id, created, created_user) " . "     VALUES ($id, $groupid, '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
                                 $result = db_query($query, $dbh);
                                 
-                                if ($result['rows'] == 1) {
-                                }
-                                else {
-                                    
+                                if ($result['rows'] != 1) {
                                     $tMessage = sprintf(_("Insert of user/group relation (%s/%s) failed due to database error"), $id, $groupid);
                                     $error = 1;
                                 }
@@ -532,9 +511,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    $header = "groups";
-    $subheader = "groups";
-    $menu = "groups";
+    $header = GROUPS;
+    $subheader = GROUPS;
+    $menu = GROUPS;
     $template = "workOnGroup.tpl";
     
     include ("$installBase/templates/framework.tpl");

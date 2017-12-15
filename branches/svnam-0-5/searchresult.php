@@ -57,9 +57,9 @@ $tType = isset($_SESSION['svn_sessid']['searchtype']) ? $_SESSION['svn_sessid'][
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $template = "searchresult_$tType.tpl";
-    $header = "search";
-    $subheader = "search";
-    $menu = "search";
+    $header = SEARCH;
+    $subheader = SEARCH;
+    $menu = SEARCH;
     
     include ("./templates/framework.tpl");
 }
@@ -69,22 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Submit");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Submit");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_new'])) {
-        $button = "new";
-    }
-    elseif (isset($_POST['fSubmit_new_x'])) {
+    elseif ((isset($_POST['fSubmit_new'])) || (isset($_POST['fSubmit_new_x']))) {
         $button = "new";
     }
     else {
@@ -142,13 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         header("Location: $location");
         exit();
     }
-    else {
-    }
     
     $template = "searchresult_$tType.tpl";
-    $header = "search";
-    $subheader = "search";
-    $menu = "search";
+    $header = SEARCH;
+    $subheader = SEARCH;
+    $menu = SEARCH;
     
     include ("./templates/framework.tpl");
 }

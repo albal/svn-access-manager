@@ -150,9 +150,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tGroups = getGroups(0, - 1, $dbh);
     
     $template = "rep_show_group.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -166,10 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_show_x'])) {
-        $button = _("Create report");
-    }
-    elseif (isset($_POST['fSubmit_show'])) {
+    elseif ((isset($_POST['fSubmit_show_x'])) || (isset($_POST['fSubmit_show']))) {
         $button = _("Create report");
     }
     else {
@@ -187,9 +184,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $lang = check_language();
             $tGroups = getGroups(0, - 1, $dbh);
             $template = "rep_show_group.tpl";
-            $header = "reports";
-            $subheader = "reports";
-            $menu = "reports";
+            $header = REPORTS;
+            $subheader = REPORTS;
+            $menu = REPORTS;
             
             include ("$installBase/templates/framework.tpl");
             
@@ -214,9 +211,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $template = "rep_show_group_result.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     

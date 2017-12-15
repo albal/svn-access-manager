@@ -41,5 +41,7 @@ define('GENERAL', 'general');
 define('ERROR', 'error');
 define('ERRORMSG', 'errormsg');
 define('PREFERENCES', 'preferences');
+define('REPORTS', 'reports');
+define('SEARCH', 'search');
 
 ?>

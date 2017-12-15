@@ -211,9 +211,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
     }
     
-    $header = "users";
-    $subheader = "users";
-    $menu = "users";
+    $header = USERS;
+    $subheader = USERS;
+    $menu = USERS;
     $template = "workOnUser.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -242,16 +242,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Submit");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Submit");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
     else {
@@ -294,10 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $tMessage = _("A new user needs a password!");
                     $error = 1;
                 }
-            }
-            elseif ((! isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES"))) {
-                
-                if (($tPassword != "") or ($tPassword2 != "")) {
+                elseif (($tPassword != "") or ($tPassword2 != "")) {
                     
                     if ($tPassword != $tPassword2) {
                         
@@ -383,6 +374,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                     }
                     elseif (strtolower($value) == "none") {
+                        // nothing to do
                     }
                     else {
                         
@@ -561,6 +553,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                     }
                     elseif (strtolower($value) == "none") {
+                        // nothing to do
                     }
                     else {
                         
@@ -655,9 +648,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tUsers = get_ldap_users();
     }
     
-    $header = "users";
-    $subheader = "users";
-    $menu = "users";
+    $header = USERS;
+    $subheader = USERS;
+    $menu = USERS;
     $template = "workOnUser.tpl";
     
     include ("$installBase/templates/framework.tpl");

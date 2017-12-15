@@ -167,9 +167,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
     }
     
-    $header = "projects";
-    $subheader = "projects";
-    $menu = "projects";
+    $header = PROJECTS;
+    $subheader = PROJECTS;
+    $menu = PROJECTS;
     $template = "workOnProject.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -183,40 +183,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Submit");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Submit");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_add_x'])) {
+    elseif ((isset($_POST['fSubmit_add_x'])) || (isset($_POST['fSubmit_add']))) {
         $button = _("Add responsible");
     }
-    elseif (isset($_POST['fSubmit_add'])) {
-        $button = _("Add responsible");
-    }
-    elseif (isset($_POST['fSubmit_remove_x'])) {
+    elseif ((isset($_POST['fSubmit_remove_x'])) || (isset($_POST['fSubmit_remove']))) {
         $button = _("Remove responsible");
     }
-    elseif (isset($_POST['fSubmit_remove'])) {
-        $button = _("Remove responsible");
-    }
-    elseif (isset($_POST['fSubmit_add_group'])) {
+    elseif ((isset($_POST['fSubmit_add_group'])) || (isset($_POST['fSubmit_add_group_x']))) {
         $button = _("Add group");
     }
-    elseif (isset($_POST['fSubmit_add_group_x'])) {
-        $button = _("Add group");
-    }
-    elseif (isset($_POST['fSubmit_remove_group'])) {
-        $button = _("Remove group");
-    }
-    elseif (isset($_POST['fSubmit_remove_group_x'])) {
+    elseif ((isset($_POST['fSubmit_remove_group'])) || (isset($_POST['fSubmit_remove_group_x']))) {
         $button = _("Remove group");
     }
     else {
@@ -226,16 +208,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmitAdd'])) {
         $buttonadd = db_escape_string($_POST['fSubmitAdd']);
     }
-    elseif (isset($_POST['fSubmitAdd_ok_x'])) {
+    elseif ((isset($_POST['fSubmitAdd_ok_x'])) || (isset($_POST['fSubmitAdd_ok']))) {
         $buttonadd = _("Add");
     }
-    elseif (isset($_POST['fSubmitAdd_ok'])) {
-        $buttonadd = _("Add");
-    }
-    elseif (isset($_POST['fSubmitAdd_back_x'])) {
-        $buttonadd = _("Cancel");
-    }
-    elseif (isset($_POST['fSubmitAdd_back'])) {
+    elseif ((isset($_POST['fSubmitAdd_back_x'])) || (isset($_POST['fSubmitAdd_back']))) {
         $buttonadd = _("Cancel");
     }
     else {
@@ -245,16 +221,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmitAddGroup'])) {
         $buttonaddgroup = db_escape_string($_POST['fSubmitAdd']);
     }
-    elseif (isset($_POST['fSubmitAddGroup_ok_x'])) {
+    elseif ((isset($_POST['fSubmitAddGroup_ok_x'])) || (isset($_POST['fSubmitAddGroup_ok']))) {
         $buttonaddgroup = _("Add");
     }
-    elseif (isset($_POST['fSubmitAddGroup_ok'])) {
-        $buttonaddgroup = _("Add");
-    }
-    elseif (isset($_POST['fSubmitAddGroup_back_x'])) {
-        $buttonaddgroup = _("Cancel");
-    }
-    elseif (isset($_POST['fSubmitAddGroup_back'])) {
+    elseif ((isset($_POST['fSubmitAddGroup_back_x'])) || (isset($_POST['fSubmitAddGroup_back']))) {
         $buttonaddgroup = _("Cancel");
     }
     else {
@@ -586,10 +556,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $query = "INSERT INTO " . $schema . "svn_projects_responsible (user_id, project_id, created, created_user) " . "     VALUES ($id, $projectid, '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
                                 $result = db_query($query, $dbh);
                                 
-                                if ($result['rows'] == 1) {
-                                }
-                                else {
-                                    
+                                if ($result['rows'] != 1) {
                                     $tMessage = sprintf(_("Insert of user/project relation (%s/%s) failed due to database error"), $id, $projectid);
                                     $error = 1;
                                 }
@@ -681,9 +648,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button (%s/%s), anyone tampered arround with?"), $button, $buttonadd);
     }
     
-    $header = "projects";
-    $subheader = "projects";
-    $menu = "projects";
+    $header = PROJECTS;
+    $subheader = PROJECTS;
+    $menu = PROJECTS;
     $template = "workOnProject.tpl";
     
     include ("$installBase/templates/framework.tpl");

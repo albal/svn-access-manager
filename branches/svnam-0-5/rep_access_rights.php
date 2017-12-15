@@ -152,9 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $template = "getDateForAccessRights.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -168,10 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_date_x'])) {
-        $button = _("Create report");
-    }
-    elseif (isset($_POST['fSubmit_date'])) {
+    elseif ((isset($_POST['fSubmit_date_x'])) || (isset($_POST['fSubmit_date']))) {
         $button = _("Create report");
     }
     else {
@@ -216,9 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             
             $template = "getDateForAccessRights.tpl";
-            $header = "reports";
-            $subheader = "reports";
-            $menu = "reports";
+            $header = REPORTS;
+            $subheader = REPORTS;
+            $menu = REPORTS;
             
             include ("$installBase/templates/framework.tpl");
             
@@ -246,9 +243,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $template = "rep_access_rights.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     

@@ -308,9 +308,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "workOnAccessRight.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -328,22 +328,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_chdir_x'])) {
+    elseif ((isset($_POST['fSubmit_chdir_x'])) || (isset($_POST['fSubmit_chdir']))) {
         $button = _("Change to directory");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
-    elseif (isset($_POST['fSubmit_chdir'])) {
-        $button = _("Change to directory");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_set_x'])) {
-        $button = _("Set access rights");
-    }
-    elseif (isset($_POST['fSubmit_set'])) {
+    elseif ((isset($_POST['fSubmit_set_x'])) || (isset($_POST['fSubmit_set']))) {
         $button = _("Set access rights");
     }
     else {
@@ -460,9 +451,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "workOnAccessRight.tpl";
     
     include ("$installBase/templates/framework.tpl");
