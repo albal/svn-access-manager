@@ -34,6 +34,7 @@ else {
 $installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
 
 require ("$installBase/include/variables.inc.php");
+include_once ("$installBase/include/constants.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 require_once ("$installBase/include/functions.inc.php");
 include_once ("$installBase/include/output.inc.php");
