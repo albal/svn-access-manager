@@ -30,6 +30,7 @@
  *
  */
 require ("../include/variables.inc.php");
+require ("../include/constants.inc.php");
 require ("../include/db-functions-adodb.inc.php");
 require ("../include/functions.inc.php");
 
