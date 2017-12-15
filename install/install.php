@@ -327,7 +327,7 @@ function dropMySQLDatabaseTables($dbh) {
         if ($error == 0) {
             
             $query = "DROP TABLE IF EXISTS `" . $dbtable . "`";
-            $result = db_query_install($query, $dbh);
+            db_query_install($query, $dbh);
             if (mysql_errno() != 0) {
                 
                 $error = 1;
@@ -337,8 +337,8 @@ function dropMySQLDatabaseTables($dbh) {
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     return $ret;
 
@@ -356,18 +356,16 @@ function dropOracleDatabaseTables($dbh, $schema) {
         if ($error == 0) {
             
             $query = "begin execute immediate 'drop table $schema.$dbtable cascade constraints'; exception when others then null; end;";
-            // error_log($query);
-            $result = db_query_install($query, $dbh);
+            db_query_install($query, $dbh);
             $seq = $dbtable . "_seq";
-            $query = "begin execute immediate 'drop sequence $schema.$seq'; exception when others then null; end;";
-            // error_log($query);
+            $query = "begin execute immediate 'drop sequence $schema.$seq'; exception when others then null; end;"; 
             $result = db_query_install($query, $dbh);
         }
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     return $ret;
 
@@ -385,16 +383,16 @@ function dropPostgresDatabaseTables($dbh) {
         if ($error == 0) {
             
             $query = "DROP TABLE IF EXISTS $dbtable CASCADE";
-            $result = db_query_install($query, $dbh);
+            db_query_install($query, $dbh);
             $seq = $dbtable . "_id_seq";
             $query = "DROP SEQUENCE IF EXISTS $seq CASCADE";
-            $result = db_query_install($query, $dbh);
+            db_query_install($query, $dbh);
         }
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     return $ret;
 
@@ -1874,8 +1872,8 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
     
     $ret = array();
     
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
@@ -2235,8 +2233,8 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
@@ -2301,8 +2299,8 @@ function loadDbData($dbh, $charset, $collation, $databasetype) {
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
@@ -2375,8 +2373,8 @@ function loadPostgresDbData($dbh, $charset, $collation, $databasetype, $schema) 
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
@@ -2441,8 +2439,8 @@ function loadOracleDbData($dbh, $charset, $collation, $databasetype, $schema) {
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
@@ -2514,8 +2512,8 @@ function createAdmin($userid, $password, $givenname, $name, $emailaddress, $data
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     // error_log( "createAdmin: ".$error." - ". $tMessage );
     
@@ -2582,8 +2580,8 @@ function loadHelpTexts($database, $schema, $dbh) {
     }
     
     $ret = array();
-    $ret['error'] = $error;
-    $ret['errormsg'] = $tMessage;
+    $ret[ERROR] = $error;
+    $ret[ERRORMSG] = $tMessage;
     
     return $ret;
 
@@ -2603,7 +2601,7 @@ function doDbtest() {
     $dbh = db_connect_install($_SESSION['svn_inst']['databaseHost'], $_SESSION['svn_inst']['databaseUser'], $_SESSION['svn_inst']['databasePassword'], $_SESSION['svn_inst']['databaseName'], $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], "yes");
     
     if (is_array($dbh)) {
-        $tErrors[] = $dbh['error'];
+        $tErrors[] = $dbh[ERROR];
         $error = 1;
     }
     else {
@@ -3282,9 +3280,9 @@ function doInstall() {
                     
                     $ret = dropOracleDatabaseTables($dbh, $_SESSION['svn_inst']['databaseSchema']);
                 }
-                if ($ret['error'] != 0) {
+                if ($ret[ERROR] != 0) {
                     
-                    $tErrors[] = $ret['errormsg'];
+                    $tErrors[] = $ret[ERRORMSG];
                     $error = 1;
                 }
                 else {
@@ -3311,9 +3309,9 @@ function doInstall() {
                     
                     $ret = createOracleDatabaseTables($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $_SESSION['svn_inst']['databaseTablespace'], $_SESSION['svn_inst']['databaseUser']);
                 }
-                if ($ret['error'] != 0) {
+                if ($ret[ERROR] != 0) {
                     
-                    $tErrors[] = $ret['errormsg'];
+                    $tErrors[] = $ret[ERRORMSG];
                 }
                 else {
                     
@@ -3336,9 +3334,9 @@ function doInstall() {
                     $ret = loadOracleDbData($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema']);
                 }
                 
-                if ($ret['error'] != 0) {
+                if ($ret[ERROR] != 0) {
                     
-                    $tErrors[] = $ret['errormsg'];
+                    $tErrors[] = $ret[ERRORMSG];
                 }
                 else {
                     
@@ -3349,9 +3347,9 @@ function doInstall() {
             if ($error == 0) {
                 
                 $ret = createAdmin($_SESSION['svn_inst']['username'], $_SESSION['svn_inst']['password'], $_SESSION['svn_inst']['givenname'], $_SESSION['svn_inst']['name'], $_SESSION['svn_inst']['adminEmail'], $_SESSION['svn_inst']['database'], $dbh, $_SESSION['svn_inst']['databaseSchema']);
-                if ($ret['error'] != 0) {
+                if ($ret[ERROR] != 0) {
                     
-                    $tErrors[] = $ret['errormsg'];
+                    $tErrors[] = $ret[ERRORMSG];
                 }
                 else {
                     
