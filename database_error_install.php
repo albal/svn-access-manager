@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tDbError = isset($_GET['dberror']) ? $_GET['dberror'] : "not set";
     $tDbFunction = isset($_GET['dbfunction']) ? $_GET['dbfunction'] : "not set";
     $template = "database_error.tpl";
-    $header = "dberror";
-    $subheader = "dberror";
-    $menu = "dberror";
+    $header = DBERROR;
+    $subheader = DBERROR;
+    $menu = DBERROR;
     
     include ($location);
 }
@@ -66,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $template = "database_error.tpl";
-    $header = "dberror";
-    $subheader = "dberror";
-    $menu = "dberror";
+    $header = DBERROR;
+    $subheader = DBERROR;
+    $menu = DBERROR;
     
     include ($location);
 }

@@ -78,9 +78,9 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
     }
     
     $tMessage = "";
-    $header = "groups";
-    $subheader = "groups";
-    $menu = "groups";
+    $header = GROUPS;
+    $subheader = GROUPS;
+    $menu = GROUPS;
     $template = "addMemberToGroup.tpl";
     
     include ("$installBase/templates/framework.tpl");

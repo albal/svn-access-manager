@@ -89,9 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $_SESSION['svn_sessid']['bulkaddlist'] = $tUsers;
     
     $template = "bulk_add_ldap_users.tpl";
-    $header = "users";
-    $subheader = "users";
-    $menu = "users";
+    $header = USERS;
+    $subheader = USERS;
+    $menu = USERS;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -149,9 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tUsers = $_SESSION['svn_sessid']['bulkaddlist'];
     
     $template = "bulk_add_ldap_users.tpl";
-    $header = "users";
-    $subheader = "users";
-    $menu = "users";
+    $header = USERS;
+    $subheader = USERS;
+    $menu = USERS;
     
     include ("$installBase/templates/framework.tpl");
     

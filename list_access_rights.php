@@ -223,9 +223,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tCountRecords = getCountAccessRights($tSeeUserid, $dbh);
     $tPrevDisabled = "disabled";
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "list_access_rights.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -236,34 +236,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_new_x'])) {
+    elseif ((isset($_POST['fSubmit_new_x'])) || (isset($_POST['fSubmit_new']))) {
         $button = _("New access right");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
-    elseif (isset($_POST['fSubmit_new'])) {
-        $button = _("New access right");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_delete'])) {
+    elseif ((isset($_POST['fSubmit_delete'])) || (isset($_POST['fSubmit_delete_x']))) {
         $button = _("Delete selected");
     }
-    elseif (isset($_POST['fSubmit_delete_x'])) {
-        $button = _("Delete selected");
-    }
-    elseif (isset($_POST['fSubmit_clear'])) {
+    elseif ((isset($_POST['fSubmit_clear'])) || (isset($_POST['fSubmit_clear_x']))) {
         $button = _("Clear filter");
     }
-    elseif (isset($_POST['fSubmit_clear_x'])) {
-        $button = _("Clear filter");
-    }
-    elseif (isset($_POST['fSearchBtn'])) {
-        $button = "getfilter";
-    }
-    elseif (isset($_POST['fSearchBtn_x'])) {
+    elseif ((isset($_POST['fSearchBtn'])) || (isset($_POST['fSearchBtn_x']))) {
         $button = "getfilter";
     }
     else {
@@ -368,9 +353,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "list_access_rights.tpl";
     
     include ("$installBase/templates/framework.tpl");

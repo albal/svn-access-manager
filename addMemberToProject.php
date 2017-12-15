@@ -80,9 +80,9 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
     }
     
     $tMessage = "";
-    $header = "projects";
-    $subheader = "projects";
-    $menu = "projects";
+    $header = PROJECTS;
+    $subheader = PROJECTS;
+    $menu = PROJECTS;
     $template = "addMemberToProject.tpl";
     
     include ("$installBase/templates/framework.tpl");

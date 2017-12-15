@@ -30,5 +30,13 @@ if (preg_match("/constants.inc.php/", $_SERVER['PHP_SELF'])) {
 }
 define('INSTALLBASE', 'install_base');
 define('PROJECTS', 'projects');
+define('GROUPS', 'groups');
+define('USERS', 'users');
+define('ACCESS', 'access');
+define('DBERROR', 'dberror');
+define('BACK', 'back');
+define('DELETE', 'delete');
+define('REPOS', 'repos');
+define('GENERAL', 'general');
 
 ?>

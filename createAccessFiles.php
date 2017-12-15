@@ -71,9 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tReload = "";
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "createAccessFiles.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -84,16 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_y_x'])) {
+    elseif ((isset($_POST['fSubmit_y_x'])) || (isset($_POST['fSubmit_y']))) {
         $button = _("Yes");
     }
-    elseif (isset($_POST['fSubmit_n_x'])) {
-        $button = _("No");
-    }
-    elseif (isset($_POST['fSubmit_y'])) {
-        $button = _("Yes");
-    }
-    elseif (isset($_POST['fSubmit_n'])) {
+    elseif ((isset($_POST['fSubmit_n_x'])) || (isset($_POST['fSubmit_n']))) {
         $button = _("No");
     }
     else {
@@ -155,9 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "createAccessFilesResult.tpl";
     
     include ("$installBase/templates/framework.tpl");
