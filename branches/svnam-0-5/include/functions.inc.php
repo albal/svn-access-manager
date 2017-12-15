@@ -66,11 +66,8 @@ function initialize_i18n() {
     setlocale(LC_ALL, 0);
     setlocale(LC_ALL, $locale);
     
-    if (file_exists(realpath("./locale/de/LC_MESSAGES/messages.mo"))) {
-        
-        $localepath = "./locale";
-    }
-    elseif (file_exists(realpath("../locale/de/LC_MESSAGES/messages.mo"))) {
+    // Path "./locale/de/LC_MESSAGES/messages.mo" handled in else branch
+    if (file_exists(realpath("../locale/de/LC_MESSAGES/messages.mo"))) {
         
         $localepath = "../locale";
     }
@@ -750,7 +747,7 @@ function get_passwd_type_salt($hpw, &$salt) {
                 $type = "md5";
                 break;
             default :
-                throw new Exception('Unsupported password hash type: ' . '"' . $pw_db . '"');
+                throw new Exception('Unsupported password hash type: ' . '"' . $split_hash[1] . '"');
         }
         $salt = $split_hash[2];
     }
