@@ -18,33 +18,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
+if (file_exists(realpath("./config/config.inc.php"))) {
     require ("./config/config.inc.php");
 }
-elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+elseif (file_exists(realpath("../config/config.inc.php"))) {
     require ("../config/config.inc.php");
 }
-elseif (file_exists ( "/etc/svn-access-manager/config.inc.php" )) {
+elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
     require ("/etc/svn-access-manager/config.inc.php");
 }
 else {
-    die ( "can't load config.inc.php. Please check your installation!\n" );
+    die("can't load config.inc.php. Please check your installation!\n");
 }
 
-$installBase = isset ( $CONF ['install_base'] ) ? $CONF ['install_base'] : "";
+$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
 
 require ("$installBase/include/db-functions-adodb.inc.php");
 require ("$installBase/include/functions.inc.php");
 
-initialize_i18n ();
+initialize_i18n();
 
-$SESSID_USERNAME = check_session ();
+$SESSID_USERNAME = check_session();
 
-db_log ( $_SESSION ['svn_sessid'] ['username'], "$SESSID_USERNAME logged out" );
+db_log($_SESSION['svn_sessid']['username'], "$SESSID_USERNAME logged out");
 
-session_unset ();
-session_destroy ();
+session_unset();
+session_destroy();
 
-header ( "Location: login.php" );
-exit ();
+header("Location: login.php");
+exit();
 ?>

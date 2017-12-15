@@ -24,85 +24,87 @@
  * $Id$
  *
  */
-if (preg_match ( "/output.inc.php/", $_SERVER ['PHP_SELF'] )) {
+if (preg_match("/output.inc.php/", $_SERVER['PHP_SELF'])) {
     
-    header ( "Location: login.php" );
-    exit ();
+    header("Location: login.php");
+    exit();
 }
+
 function outputHeader($area) {
 
     print "<ul class='topmenu'>";
-    print "<li class='topmenu'><a href='main.php' alt='Home'><img src='./images/gohome.png' border='0' /> " . _ ( "Main menu" ) . "</a></li>";
-    print "<li class='topmenu'><a href='logout.php' alt='Logout'><img src='./images/stop.png' border='0' />" . _ ( "Logoff" ) . "</a></li>";
+    print "<li class='topmenu'><a href='main.php' alt='Home'><img src='./images/gohome.png' border='0' /> " . _("Main menu") . "</a></li>";
+    print "<li class='topmenu'><a href='logout.php' alt='Logout'><img src='./images/stop.png' border='0' />" . _("Logoff") . "</a></li>";
     print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
-    print "<li><a href='help.php' alt='help' id='help' target='_blank'><img src='./images/help.png' border='0' />" . _ ( "Help" ) . "</a></li>";
+    print "<li><a href='help.php' alt='help' id='help' target='_blank'><img src='./images/help.png' border='0' />" . _("Help") . "</a></li>";
     print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
-    print "<li><a href='doc/html/index.html#use' alt='" . _ ( "Documentation" ) . "' id='doc' target='_blank'><img src='./images/help.png' border='0' />" . _ ( "Documentation" ) . "</a></li>";
+    print "<li><a href='doc/html/index.html#use' alt='" . _("Documentation") . "' id='doc' target='_blank'><img src='./images/help.png' border='0' />" . _("Documentation") . "</a></li>";
     print "</ul>";
-    print "<div align='right'><p>&nbsp;</p>" . _ ( "Logged in as" ) . ": " . $_SESSION ['svn_sessid'] ['username'] . "</div>";
+    print "<div align='right'><p>&nbsp;</p>" . _("Logged in as") . ": " . $_SESSION['svn_sessid']['username'] . "</div>";
 
 }
+
 function outputSubHeader($area) {
 
-    if (strtolower ( $area ) == "groups") {
+    if (strtolower($area) == "groups") {
         
-        print "<img src='./images/group.png' border='0' />  " . _ ( "Groups" );
+        print "<img src='./images/group.png' border='0' />  " . _("Groups");
     }
-    elseif (strtolower ( $area ) == "main") {
+    elseif (strtolower($area) == "main") {
         
-        print "<img src='./images/welcome.png' border='0' /> " . sprintf ( _ ( "Welcome %s" ), $_SESSION ['svn_sessid'] ['givenname'] . " " . $_SESSION ['svn_sessid'] ['name'] );
+        print "<img src='./images/welcome.png' border='0' /> " . sprintf(_("Welcome %s"), $_SESSION['svn_sessid']['givenname'] . " " . $_SESSION['svn_sessid']['name']);
     }
-    elseif (strtolower ( $area ) == "users") {
+    elseif (strtolower($area) == "users") {
         
-        print "<img src='./images/user.png' border='0' />  " . _ ( "Users" );
+        print "<img src='./images/user.png' border='0' />  " . _("Users");
     }
-    elseif (strtolower ( $area ) == "password") {
+    elseif (strtolower($area) == "password") {
         
-        print "<img src='./images/password.png' border='0' />  " . _ ( "Password" );
+        print "<img src='./images/password.png' border='0' />  " . _("Password");
     }
-    elseif (strtolower ( $area ) == "password_policy") {
+    elseif (strtolower($area) == "password_policy") {
         
-        print "<img src='./images/password.png' border='0' />  " . _ ( "Password policy" );
+        print "<img src='./images/password.png' border='0' />  " . _("Password policy");
     }
-    elseif (strtolower ( $area ) == "general") {
+    elseif (strtolower($area) == "general") {
         
-        print "<img src='./images/personal.png' border='0' />  " . _ ( "General" );
+        print "<img src='./images/personal.png' border='0' />  " . _("General");
     }
-    elseif (strtolower ( $area ) == "noadmin") {
+    elseif (strtolower($area) == "noadmin") {
         
-        print "<img src='./images/service.png' border='0' />  " . _ ( "Access denied" );
+        print "<img src='./images/service.png' border='0' />  " . _("Access denied");
     }
-    elseif (strtolower ( $area ) == "dberror") {
+    elseif (strtolower($area) == "dberror") {
         
-        print "<img src='./images/service.png' border='0' />  " . _ ( "Database error" );
+        print "<img src='./images/service.png' border='0' />  " . _("Database error");
     }
-    elseif (strtolower ( $area ) == "nopermission") {
+    elseif (strtolower($area) == "nopermission") {
         
-        print "<img src='./images/password.png' border='0' />  " . _ ( "Permission denied" );
+        print "<img src='./images/password.png' border='0' />  " . _("Permission denied");
     }
-    elseif (strtolower ( $area ) == "projects") {
+    elseif (strtolower($area) == "projects") {
         
-        print "<img src='./images/project.png' border='0' />  " . _ ( "Projects" );
+        print "<img src='./images/project.png' border='0' />  " . _("Projects");
     }
-    elseif (strtolower ( $area ) == "repos") {
+    elseif (strtolower($area) == "repos") {
         
-        print "<img src='./images/service.png' border='0' />  " . _ ( "Repositories" );
+        print "<img src='./images/service.png' border='0' />  " . _("Repositories");
     }
-    elseif (strtolower ( $area ) == "access") {
+    elseif (strtolower($area) == "access") {
         
-        print "<img src='./images/password.png' border='0' />  " . _ ( "Access rights" );
+        print "<img src='./images/password.png' border='0' />  " . _("Access rights");
     }
-    elseif (strtolower ( $area ) == "reports") {
+    elseif (strtolower($area) == "reports") {
         
-        print "<img src='./images/reports.png' border='0' />  " . _ ( "Reports" );
+        print "<img src='./images/reports.png' border='0' />  " . _("Reports");
     }
-    elseif (strtolower ( $area ) == "preferences") {
+    elseif (strtolower($area) == "preferences") {
         
-        print "<img src='./images/macros.png' border='0' />  " . _ ( "Preferences" );
+        print "<img src='./images/macros.png' border='0' />  " . _("Preferences");
     }
-    elseif (strtolower ( $area ) == "search") {
+    elseif (strtolower($area) == "search") {
         
-        print "<img src='./images/search_large.png' border='0' />  " . _ ( "Search" );
+        print "<img src='./images/search_large.png' border='0' />  " . _("Search");
     }
     else {
         
@@ -110,77 +112,78 @@ function outputSubHeader($area) {
     }
 
 }
+
 function outputMenu($area) {
 
     global $CONF;
     
-    print "\t\t\t\t<h3>" . _ ( "My account" ) . "</h3>";
+    print "\t\t\t\t<h3>" . _("My account") . "</h3>";
     print "\t\t\t\t<ul class='leftMenu'>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='general.php'>" . _ ( "General" ) . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='password.php'>" . _ ( "Password" ) . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='password_policy.php'>" . _ ( "Password policy" ) . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='preferences.php'>" . _ ( "Preferences" ) . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='general.php'>" . _("General") . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='password.php'>" . _("Password") . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='password_policy.php'>" . _("Password policy") . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='preferences.php'>" . _("Preferences") . "</a></li>\n";
     print "\t\t\t\t</ul>\n";
     
-    $dbh = db_connect ();
-    $rightUserAdmin = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'User admin', $dbh );
-    $rightGroupAdmin = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'Group admin', $dbh );
-    $rightProjectAdmin = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'Project admin', $dbh );
-    $rightRepositoryAdmin = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'Repository admin', $dbh );
-    $rightAccessRightAdmin = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'Access rights admin', $dbh );
-    $rightCreateFiles = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'Create files', $dbh );
-    $rightReports = db_check_acl ( $_SESSION ['svn_sessid'] ['username'], 'Reports', $dbh );
-    $tGroupsAllowed = db_check_group_acl ( $_SESSION ['svn_sessid'] ['username'], $dbh );
+    $dbh = db_connect();
+    $rightUserAdmin = db_check_acl($_SESSION['svn_sessid']['username'], 'User admin', $dbh);
+    $rightGroupAdmin = db_check_acl($_SESSION['svn_sessid']['username'], 'Group admin', $dbh);
+    $rightProjectAdmin = db_check_acl($_SESSION['svn_sessid']['username'], 'Project admin', $dbh);
+    $rightRepositoryAdmin = db_check_acl($_SESSION['svn_sessid']['username'], 'Repository admin', $dbh);
+    $rightAccessRightAdmin = db_check_acl($_SESSION['svn_sessid']['username'], 'Access rights admin', $dbh);
+    $rightCreateFiles = db_check_acl($_SESSION['svn_sessid']['username'], 'Create files', $dbh);
+    $rightReports = db_check_acl($_SESSION['svn_sessid']['username'], 'Reports', $dbh);
+    $tGroupsAllowed = db_check_group_acl($_SESSION['svn_sessid']['username'], $dbh);
     
-    if (($_SESSION ['svn_sessid'] ['admin'] == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count ( $tGroupsAllowed ) > 0) or ($rightCreateFiles != "none")) {
+    if (($_SESSION['svn_sessid']['admin'] == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
         
         print "\t\t\t\t<p>&nbsp;</p>";
         print "\t\t\t\t<p>&nbsp;</p>";
-        print "\t\t\t\t<h3>" . _ ( "Administration" ) . "</h3>\n";
+        print "\t\t\t\t<h3>" . _("Administration") . "</h3>\n";
         print "\t\t\t\t<ul class='leftMenu'>\n";
     }
     
     if ($rightUserAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_users.php\">" . _ ( "Users" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_users.php\">" . _("Users") . "</a></li>\n";
         
-        if (isset ( $CONF ['use_ldap'] ) and (strtoupper ( $CONF ['use_ldap'] ) == "YES")) {
+        if (isset($CONF['use_ldap']) and (strtoupper($CONF['use_ldap']) == "YES")) {
             
-            print "\t\t\t\t\t<li class='leftMenu'><a href=\"bulk_add_ldap_users.php\">" . _ ( "Bulk add LDAP users" ) . "</a></li>\n";
+            print "\t\t\t\t\t<li class='leftMenu'><a href=\"bulk_add_ldap_users.php\">" . _("Bulk add LDAP users") . "</a></li>\n";
         }
     }
     
     if ($rightGroupAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_groups.php\">" . _ ( "Groups" ) . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_group_admins.php\">" . _ ( "Group administrators" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_groups.php\">" . _("Groups") . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_group_admins.php\">" . _("Group administrators") . "</a></li>\n";
     }
-    elseif (count ( $tGroupsAllowed ) > 0) {
+    elseif (count($tGroupsAllowed) > 0) {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_groups.php\">" . _ ( "Groups" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_groups.php\">" . _("Groups") . "</a></li>\n";
     }
     
     if ($rightRepositoryAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_repos.php\">" . _ ( "Repositories" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_repos.php\">" . _("Repositories") . "</a></li>\n";
     }
     
     if ($rightProjectAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_projects.php\">" . _ ( "Projects" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_projects.php\">" . _("Projects") . "</a></li>\n";
     }
     
-    if (($rightAccessRightAdmin != "none") or ($_SESSION ['svn_sessid'] ['admin'] == "p") or ($_SESSION ['svn_sessid'] ['admin'] == "y")) {
+    if (($rightAccessRightAdmin != "none") or ($_SESSION['svn_sessid']['admin'] == "p") or ($_SESSION['svn_sessid']['admin'] == "y")) {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_access_rights.php\">" . _ ( "Repository access rights" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_access_rights.php\">" . _("Repository access rights") . "</a></li>\n";
     }
     
     if ($rightCreateFiles != "none") {
         
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"createAccessFiles.php\">" . _ ( "Create access files" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"createAccessFiles.php\">" . _("Create access files") . "</a></li>\n";
     }
     
-    if (($_SESSION ['svn_sessid'] ['admin'] == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count ( $tGroupsAllowed ) > 0) or ($rightCreateFiles != "none")) {
+    if (($_SESSION['svn_sessid']['admin'] == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
         
         print "\t\t\t\t</ul>\n";
     }
@@ -189,14 +192,14 @@ function outputMenu($area) {
         
         print "\t\t\t\t<p>&nbsp;</p>";
         print "\t\t\t\t<p>&nbsp;</p>";
-        print "\t\t\t\t<h3>" . _ ( "Reports" ) . "</h3>\n";
+        print "\t\t\t\t<h3>" . _("Reports") . "</h3>\n";
         print "\t\t\t\t<ul class='leftMenu'>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_access_rights.php\">" . _ ( "Repository access rights" ) . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_log.php\">" . _ ( "Log" ) . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_locked_users.php\">" . _ ( "Locked users" ) . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_granted_user_rights.php\">" . _ ( "Granted user rights" ) . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_show_user.php\">" . _ ( "Show user" ) . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_show_group.php\">" . _ ( "Show group" ) . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_access_rights.php\">" . _("Repository access rights") . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_log.php\">" . _("Log") . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_locked_users.php\">" . _("Locked users") . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_granted_user_rights.php\">" . _("Granted user rights") . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_show_user.php\">" . _("Show user") . "</a></li>\n";
+        print "\t\t\t\t\t<li class='leftMenu'><a href=\"rep_show_group.php\">" . _("Show group") . "</a></li>\n";
         print "\t\t\t\t\t<li class='leftMenu'>&nbsp;</li>\n";
         print "\t\t\t\t</ul>\n";
     }
@@ -205,6 +208,7 @@ function outputMenu($area) {
     
     // print "\t</table>\n";
 }
+
 function outputFooter($area) {
 
 
