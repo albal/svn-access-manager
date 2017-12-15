@@ -108,9 +108,9 @@ if ($tProjectIds != "") {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "selectProject.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -121,16 +121,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Select project");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Select project");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
     else {
@@ -153,9 +147,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit();
     }
     
-    $header = "access";
-    $subheader = "access";
-    $menu = "access";
+    $header = ACCESS;
+    $subheader = ACCESS;
+    $menu = ACCESS;
     $template = "selectProject.tpl";
     
     include ("$installBase/templates/framework.tpl");
