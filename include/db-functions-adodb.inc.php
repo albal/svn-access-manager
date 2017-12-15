@@ -24,7 +24,7 @@ if (preg_match("/db-functions-adodb\.inc\.php/", $_SERVER['PHP_SELF'])) {
     exit();
 }
 
-$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
+$installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
 if (file_exists(realpath("./include/adodb5/adodb.inc.php"))) {
     

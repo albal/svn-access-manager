@@ -31,7 +31,7 @@ else {
     die("can't load config.inc.php. Please check your installation!\n");
 }
 
-$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
+$installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
 // error_log( "install_base is: $installBase" );
 

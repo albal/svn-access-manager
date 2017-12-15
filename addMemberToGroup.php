@@ -31,7 +31,7 @@ else {
     die("can't load config.inc.php. Please check your installation!\n");
 }
 
-$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
+$installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
 require ("$installBase/include/variables.inc.php");
 include_once ("$installBase/include/constants.inc.php");
@@ -46,7 +46,7 @@ function addMemberToGroup($group, $currentMembers, $dbh) {
 
     global $CONF;
     
-    $installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
+    $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
     $schema = db_determine_schema();
     
     $cs_array = array();
