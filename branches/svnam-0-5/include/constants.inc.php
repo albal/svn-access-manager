@@ -38,5 +38,7 @@ define('BACK', 'back');
 define('DELETE', 'delete');
 define('REPOS', 'repos');
 define('GENERAL', 'general');
+define('ERROR', 'error');
+define('ERRORMSG', 'errormsg');
 
 ?>
