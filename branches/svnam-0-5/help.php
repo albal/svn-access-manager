@@ -28,65 +28,65 @@
  * $Id$
  *
  */
-if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
+if (file_exists(realpath("./config/config.inc.php"))) {
     require ("./config/config.inc.php");
 }
-elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+elseif (file_exists(realpath("../config/config.inc.php"))) {
     require ("../config/config.inc.php");
 }
-elseif (file_exists ( "/etc/svn-access-manager/config.inc.php" )) {
+elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
     require ("/etc/svn-access-manager/config.inc.php");
 }
 else {
-    die ( "can't load config.inc.php. Please check your installation!\n" );
+    die("can't load config.inc.php. Please check your installation!\n");
 }
 
-$installBase = isset ( $CONF ['install_base'] ) ? $CONF ['install_base'] : "";
+$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
 
 require ("$installBase/include/variables.inc.php");
 require ("$installBase/include/functions.inc.php");
 require ("$installBase/include/output.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
 
-$SESSID_USERNAME = check_session ();
-check_password_expired ();
-$dbh = db_connect ();
-$tText = array ();
+$SESSID_USERNAME = check_session();
+check_password_expired();
+$dbh = db_connect();
+$tText = array();
 
-if (isset ( $_SESSION ['svn_sessid'] ['helptopic'] )) {
+if (isset($_SESSION['svn_sessid']['helptopic'])) {
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $lang = check_language ();
-    $query = "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " . "  FROM " . $schema . "help " . " WHERE topic = '" . $_SESSION ['svn_sessid'] ['helptopic'] . "'";
-    $result = db_query ( $query, $dbh );
+    $lang = check_language();
+    $query = "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " . "  FROM " . $schema . "help " . " WHERE topic = '" . $_SESSION['svn_sessid']['helptopic'] . "'";
+    $result = db_query($query, $dbh);
     
-    if ($result ['rows'] > 0) {
+    if ($result['rows'] > 0) {
         
-        $tText = db_assoc ( $result ['result'] );
+        $tText = db_assoc($result['result']);
     }
     else {
         
-        $tText ['headline'] = _ ( "No help found" );
-        $tText ['helptext'] = sprintf ( _ ( "There is no help topic '%s' in the database" ), $_SESSION ['svn_sessid'] ['helptopic'] );
+        $tText['headline'] = _("No help found");
+        $tText['helptext'] = sprintf(_("There is no help topic '%s' in the database"), $_SESSION['svn_sessid']['helptopic']);
     }
 }
 else {
     
-    $tText ['headline'] = _ ( "No help found" );
-    $tText ['helptext'] = _ ( "There is no help topic set" );
+    $tText['headline'] = _("No help found");
+    $tText['helptext'] = _("There is no help topic set");
 }
 
-if ($_SERVER ['REQUEST_METHOD'] == "GET") {
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     include ("$installBase/templates/help.tpl");
 }
 
-if ($_SERVER ['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     include ("$installBase/templates/help.tpl");
 }
 
-db_disconnect ( $dbh );
+db_disconnect($dbh);
 
 ?>

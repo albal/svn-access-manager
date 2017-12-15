@@ -18,32 +18,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (preg_match ( "/db-functions-adodb\.inc\.php/", $_SERVER ['PHP_SELF'] )) {
+if (preg_match("/db-functions-adodb\.inc\.php/", $_SERVER['PHP_SELF'])) {
     
-    header ( "Location: login.php" );
-    exit ();
+    header("Location: login.php");
+    exit();
 }
 
-$installBase = isset ( $CONF ['install_base'] ) ? $CONF ['install_base'] : "";
+$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
 
-if (file_exists ( realpath ( "./include/adodb5/adodb.inc.php" ) )) {
+if (file_exists(realpath("./include/adodb5/adodb.inc.php"))) {
     
     include_once ("./include/adodb5/adodb-exceptions.inc.php");
     include_once ("./include/adodb5/adodb.inc.php");
 }
-elseif (file_exists ( realpath ( "../include/adodb5/adodb.inc.php" ) )) {
+elseif (file_exists(realpath("../include/adodb5/adodb.inc.php"))) {
     
     include_once ("../include/adodb5/adodb-exceptions.inc.php");
     include_once ("../include/adodb5/adodb.inc.php");
 }
-elseif (file_exists ( "$installBase/include/adodb5/adodb.inc.php" )) {
+elseif (file_exists("$installBase/include/adodb5/adodb.inc.php")) {
     
     include_once ("$installBase/include/adodb5/adodb-exceptions.inc.php");
     include_once ("$installBase/include/adodb5/adodb.inc.php");
 }
 else {
     
-    die ( "can't find adodb.inc.php! Check your installation!\n" );
+    die("can't find adodb.inc.php! Check your installation!\n");
 }
 
 $DEBUG_TEXT = "\n
@@ -63,15 +63,15 @@ function db_connect() {
     
     $link = "";
     
-    if (isset ( $CONF ['database_charset'] )) {
-        $charset = $CONF ['database_charset'];
+    if (isset($CONF['database_charset'])) {
+        $charset = $CONF['database_charset'];
     }
     else {
         $charset = "latin1";
     }
     
-    if (isset ( $CONF ['database_collation'] )) {
-        $collation = $CONF ['database_collation'];
+    if (isset($CONF['database_collation'])) {
+        $collation = $CONF['database_collation'];
     }
     else {
         $collation = "latin1_german1_ci";
@@ -81,30 +81,30 @@ function db_connect() {
     
     try {
         
-        $link = &ADONewConnection ( $CONF ['database_type'] );
-        $link->Pconnect ( $CONF ['database_host'], $CONF ['database_user'], $CONF ['database_password'], $CONF ['database_name'] );
-        $link->SetFetchMode ( ADODB_FETCH_ASSOC );
+        $link = &ADONewConnection($CONF['database_type']);
+        $link->Pconnect($CONF['database_host'], $CONF['database_user'], $CONF['database_password'], $CONF['database_name']);
+        $link->SetFetchMode(ADODB_FETCH_ASSOC);
         
-        if ($CONF ['database_type'] == "mysql") {
-            $link->Execute ( $nameset );
+        if ($CONF['database_type'] == "mysql") {
+            $link->Execute($nameset);
         }
         // $link->debug = true;
     }
     catch ( exception $e ) {
         
-        $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-        $_SESSION ['svn_sessid'] ['dbquery'] = "Database connect";
-        $_SESSION ['svn_sessid'] ['dbfunction'] = "db_connect";
+        $_SESSION['svn_sessid']['dberror'] = $e->msg;
+        $_SESSION['svn_sessid']['dbquery'] = "Database connect";
+        $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
         
-        if (file_exists ( realpath ( "database_error.php" ) )) {
+        if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
         }
         else {
             $location = "../database_error.php";
         }
         
-        header ( "location: $location" );
-        exit ();
+        header("location: $location");
+        exit();
     }
     
     return $link;
@@ -127,17 +127,17 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
     
     try {
         // error_log( "connect to $dbtype" );
-        $link = &ADONewConnection ( $dbtype );
+        $link = &ADONewConnection($dbtype);
         if ($dbtype == "oci8") {
-            $link->Connect ( $dbname, $dbuser, $dbpassword );
+            $link->Connect($dbname, $dbuser, $dbpassword);
         }
         else {
-            $link->Connect ( $dbhost, $dbuser, $dbpassword, $dbname );
+            $link->Connect($dbhost, $dbuser, $dbpassword, $dbname);
         }
-        $link->SetFetchMode ( ADODB_FETCH_ASSOC );
+        $link->SetFetchMode(ADODB_FETCH_ASSOC);
         
         if ($dbtype == "mysql") {
-            $link->Execute ( $nameset );
+            $link->Execute($nameset);
         }
     }
     catch ( exception $e ) {
@@ -147,22 +147,22 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
             $tDbError = $e->msg;
             $tDbQuery = "Connect: Unable to connect to database: Make sure that you have set the correct database type in the config.inc.php file and username and password are corect also!";
             
-            if (file_exists ( realpath ( "database_error_install.php" ) )) {
+            if (file_exists(realpath("database_error_install.php"))) {
                 $location = "database_error_install.php";
             }
             else {
                 $location = "../database_error_install.php";
             }
             
-            header ( "location: $location?dberror=$tDbError&dbquery=$tDbQuery" );
-            exit ();
+            header("location: $location?dberror=$tDbError&dbquery=$tDbQuery");
+            exit();
         }
         else {
             
-            error_log ( "db connect test error: " . $e->msg );
-            return array (
+            error_log("db connect test error: " . $e->msg);
+            return array(
                     'ret' => false,
-                    'error' => $e->msg 
+                    'error' => $e->msg
             );
         }
     }
@@ -183,7 +183,7 @@ function db_disconnect($link) {
     
     try {
         
-        $link->Close ();
+        $link->Close();
     }
     catch ( exception $e ) {
     }
@@ -202,68 +202,68 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
     
     $result = "";
     $number_rows = "";
-    $query = trim ( $query );
+    $query = trim($query);
     $error = 0;
     
     // database prefix workaround
-    if (! empty ( $CONF ['database_prefix'] )) {
+    if (! empty($CONF['database_prefix'])) {
         
-        if (preg_match ( "/^SELECT/i", $query )) {
-            $query = substr ( $query, 0, 14 ) . $CONF ['database_prefix'] . substr ( $query, 14 );
+        if (preg_match("/^SELECT/i", $query)) {
+            $query = substr($query, 0, 14) . $CONF['database_prefix'] . substr($query, 14);
         }
         else {
-            $query = substr ( $query, 0, 6 ) . $CONF ['database_prefix'] . substr ( $query, 7 );
+            $query = substr($query, 0, 6) . $CONF['database_prefix'] . substr($query, 7);
         }
     }
     
     try {
         
-        if ($CONF ['database_type'] != "mysql") {
+        if ($CONF['database_type'] != "mysql") {
             
-            if (preg_match ( "/LIMIT/i", $query )) {
+            if (preg_match("/LIMIT/i", $query)) {
                 
                 $search = "/LIMIT (\w+), (\w+)/";
                 $replace = "LIMIT \$2 OFFSET \$1";
-                $query = preg_replace ( $search, $replace, $query );
+                $query = preg_replace($search, $replace, $query);
             }
         }
         
-        $link->SetFetchMode ( ADODB_FETCH_ASSOC );
+        $link->SetFetchMode(ADODB_FETCH_ASSOC);
         if (($limit != - 1)) {
             if ($offset != - 1) {
-                $result = $link->SelectLimit ( $query, $limit, $offset );
+                $result = $link->SelectLimit($query, $limit, $offset);
             }
             else {
-                $result = $link->SelectLimit ( $query, $limit );
+                $result = $link->SelectLimit($query, $limit);
             }
         }
         else {
-            $result = $link->Execute ( $query );
+            $result = $link->Execute($query);
         }
         
-        if (preg_match ( "/^SELECT/i", $query )) {
-            $number_rows = $result->RecordCount ();
+        if (preg_match("/^SELECT/i", $query)) {
+            $number_rows = $result->RecordCount();
         }
         else {
             
             // error_log( "query: >$query<");
-            $number_rows = $link->Affected_Rows ();
+            $number_rows = $link->Affected_Rows();
         }
     }
     catch ( exception $e ) {
         
         // error_log( "ERROR: ".print_r($e, true));
         
-        $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-        $_SESSION ['svn_sessid'] ['dbquery'] = $query;
-        $_SESSION ['svn_sessid'] ['dbfunction'] = "db_query";
-        db_ta ( "ROLLBACK", $link );
-        db_disconnect ( $link );
+        $_SESSION['svn_sessid']['dberror'] = $e->msg;
+        $_SESSION['svn_sessid']['dbquery'] = $query;
+        $_SESSION['svn_sessid']['dbfunction'] = "db_query";
+        db_ta("ROLLBACK", $link);
+        db_disconnect($link);
         
-        error_log ( "DB-Error: " . $_SESSION ['svn_sessid'] ['dberror'] );
-        error_log ( "DB-Query: " . $_SESSION ['svn_sessid'] ['dbquery'] );
+        error_log("DB-Error: " . $_SESSION['svn_sessid']['dberror']);
+        error_log("DB-Query: " . $_SESSION['svn_sessid']['dbquery']);
         
-        if (file_exists ( realpath ( "database_error.php" ) )) {
+        if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
         }
         else {
@@ -273,13 +273,13 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
         $error = 1;
         
         // error_log( "jumping to $location" );
-        header ( "Location: $location" );
-        exit ();
+        header("Location: $location");
+        exit();
     }
     
-    $return = array (
+    $return = array(
             "result" => $result,
-            "rows" => $number_rows 
+            "rows" => $number_rows
     );
     
     return $return;
@@ -298,71 +298,71 @@ function db_query_install($query, $link, $limit = -1, $offset = -1) {
     
     $result = "";
     $number_rows = "";
-    $query = trim ( $query );
+    $query = trim($query);
     
     // database prefix workaround
-    if (! empty ( $CONF ['database_prefix'] )) {
+    if (! empty($CONF['database_prefix'])) {
         
-        if (preg_match ( "/^SELECT/i", $query )) {
-            $query = substr ( $query, 0, 14 ) . $CONF ['database_prefix'] . substr ( $query, 14 );
+        if (preg_match("/^SELECT/i", $query)) {
+            $query = substr($query, 0, 14) . $CONF['database_prefix'] . substr($query, 14);
         }
         else {
-            $query = substr ( $query, 0, 6 ) . $CONF ['database_prefix'] . substr ( $query, 7 );
+            $query = substr($query, 0, 6) . $CONF['database_prefix'] . substr($query, 7);
         }
     }
     
     try {
         
-        if ($CONF ['database_type'] != "mysql") {
+        if ($CONF['database_type'] != "mysql") {
             
-            if (preg_match ( "/LIMIT/i", $query )) {
+            if (preg_match("/LIMIT/i", $query)) {
                 $search = "/LIMIT (\w+), (\w+)/";
                 $replace = "LIMIT \$2 OFFSET \$1";
-                $query = preg_replace ( $search, $replace, $query );
+                $query = preg_replace($search, $replace, $query);
             }
         }
         
-        $link->SetFetchMode ( ADODB_FETCH_ASSOC );
+        $link->SetFetchMode(ADODB_FETCH_ASSOC);
         if (($limit != - 1)) {
             if ($offset != - 1) {
-                $result = $link->SelectLimit ( $query, $limit, $offset );
+                $result = $link->SelectLimit($query, $limit, $offset);
             }
             else {
-                $result = $link->SelectLimit ( $query, $limit );
+                $result = $link->SelectLimit($query, $limit);
             }
         }
         else {
-            $result = $link->Execute ( $query );
+            $result = $link->Execute($query);
         }
-        if (preg_match ( "/^SELECT/i", $query )) {
-            $number_rows = $result->RecordCount ();
+        if (preg_match("/^SELECT/i", $query)) {
+            $number_rows = $result->RecordCount();
         }
         else {
-            $number_rows = $link->Affected_rows ();
+            $number_rows = $link->Affected_rows();
         }
     }
     catch ( exception $e ) {
         
-        $tDbError = urlencode ( $e->msg );
+        $tDbError = urlencode($e->msg);
         $tDbQuery = $query;
         
-        error_log ( "DB Error: $tDbError" );
-        error_log ( "DB Query: $query" );
+        error_log("DB Error: $tDbError");
+        error_log("DB Query: $query");
         
-        if (file_exists ( realpath ( "database_error.php" ) )) {
+        if (file_exists(realpath("database_error.php"))) {
             $location = "database_error_install.php";
         }
         else {
             $location = "../database_error_install.php";
         }
         
-        header ( "location: " . $location . "?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install" );
-        exit ();
+        header("location: " . $location . "?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install");
+        exit();
     }
     
-    $return = array (
+    $return = array(
             "result" => $result,
-            "rows" => $number_rows 
+            "rows" => $number_rows
     );
     
     return $return;
@@ -378,17 +378,17 @@ function db_assoc($result) {
     global $CONF;
     
     try {
-        $row = $result->FetchRow ();
+        $row = $result->FetchRow();
         if ($row === false) {
             $row = "";
         }
         else {
             
-            $newrow = array ();
+            $newrow = array();
             
-            foreach ( $row as $key => $value ) {
-                $key = strtolower ( $key );
-                $newrow [$key] = $value;
+            foreach( $row as $key => $value) {
+                $key = strtolower($key);
+                $newrow[$key] = $value;
             }
             $row = $newrow;
         }
@@ -410,29 +410,29 @@ function db_log($username, $data, $link = "") {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $REMOTE_ADDR = $_SERVER ['REMOTE_ADDR'];
+    $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
     
     try {
         
         if (! $link) {
-            $link = db_connect ();
+            $link = db_connect();
         }
         
-        $dbnow = db_now ();
+        $dbnow = db_now();
         $query = "INSERT INTO " . $schema . "log (logtimestamp, username, ipaddress, logmessage) " . "VALUES ('$dbnow', '$username', '$REMOTE_ADDR', '$data')";
         // error_log( "logging: $query" );
-        $link->Execute ( $query );
+        $link->Execute($query);
         return true;
     }
     catch ( exception $e ) {
         
         $errormsg = $e->msg;
         
-        error_log ( "Database error during log write process" );
-        error_log ( "DB query: $query" );
-        error_log ( "DB error messge: $errormsg" );
+        error_log("Database error during log write process");
+        error_log("DB query: $query");
+        error_log("DB error messge: $errormsg");
         
         return false;
     }
@@ -449,62 +449,62 @@ function db_ta($action, $link) {
     global $CONF;
     global $DEBUG_TEXT;
     
-    if ($CONF ['database_innodb'] == 'YES') {
+    if ($CONF['database_innodb'] == 'YES') {
         
         try {
             
-            if (strtoupper ( $action ) == "BEGIN") {
+            if (strtoupper($action) == "BEGIN") {
                 
-                $link->StartTrans ();
+                $link->StartTrans();
             }
-            elseif (strtoupper ( $action ) == "COMMIT") {
+            elseif (strtoupper($action) == "COMMIT") {
                 
-                $link->CompleteTrans ();
+                $link->CompleteTrans();
             }
-            elseif (strtoupper ( $action ) == "ROLLBACK") {
+            elseif (strtoupper($action) == "ROLLBACK") {
                 
-                $link->FailTrans ();
+                $link->FailTrans();
             }
             else {
                 
-                $_SESSION ['svn_sessid'] ['dberror'] = sprintf ( _ ( "Invalid transaction type %s" ), $action );
-                $_SESSION ['svn_sessid'] ['dbquery'] = $action;
-                $_SESSION ['svn_sessid'] ['dbfunction'] = "db_ta";
-                db_disconnect ( $link );
+                $_SESSION['svn_sessid']['dberror'] = sprintf(_("Invalid transaction type %s"), $action);
+                $_SESSION['svn_sessid']['dbquery'] = $action;
+                $_SESSION['svn_sessid']['dbfunction'] = "db_ta";
+                db_disconnect($link);
                 
-                error_log ( "DB-Error: " . $_SESSION ['svn_sessid'] ['dberror'] );
-                error_log ( "DB-Query: " . $_SESSION ['svn_sessid'] ['dbquery'] );
+                error_log("DB-Error: " . $_SESSION['svn_sessid']['dberror']);
+                error_log("DB-Query: " . $_SESSION['svn_sessid']['dbquery']);
                 
-                if (file_exists ( realpath ( "database_error.php" ) )) {
+                if (file_exists(realpath("database_error.php"))) {
                     $location = "database_error.php";
                 }
                 else {
                     $location = "../database_error.php";
                 }
                 
-                header ( "location: $location" );
-                exit ();
+                header("location: $location");
+                exit();
             }
         }
         catch ( exception $e ) {
             
-            $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-            $_SESSION ['svn_sessid'] ['dbquery'] = $action;
-            $_SESSION ['svn_sessid'] ['dbfunction'] = "db_ta";
-            db_disconnect ( $link );
+            $_SESSION['svn_sessid']['dberror'] = $e->msg;
+            $_SESSION['svn_sessid']['dbquery'] = $action;
+            $_SESSION['svn_sessid']['dbfunction'] = "db_ta";
+            db_disconnect($link);
             
-            error_log ( "DB-Error: " . $_SESSION ['svn_sessid'] ['dberror'] );
-            error_log ( "DB-Query: " . $_SESSION ['svn_sessid'] ['dbquery'] );
+            error_log("DB-Error: " . $_SESSION['svn_sessid']['dberror']);
+            error_log("DB-Query: " . $_SESSION['svn_sessid']['dbquery']);
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
                 $location = "../database_error.php";
             }
             
-            header ( "location: $location" );
-            exit ();
+            header("location: $location");
+            exit();
         }
     }
     
@@ -521,14 +521,14 @@ function db_getUseridById($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT userid FROM " . $schema . "svnusers WHERE id = $id", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT userid FROM " . $schema . "svnusers WHERE id = $id", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
+        $row = db_assoc($result['result']);
         
-        return $row ['userid'];
+        return $row['userid'];
     }
     else {
         
@@ -546,14 +546,14 @@ function db_getIdByUserid($userid, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT id " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT id " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
+        $row = db_assoc($result['result']);
         
-        return $row ['id'];
+        return $row['id'];
     }
     else {
         
@@ -569,7 +569,7 @@ function db_getIdByUserid($userid, $link) {
 //
 function db_now() {
 
-    $date = date ( 'YmdHis' );
+    $date = date('YmdHis');
     return $date;
 
 }
@@ -584,10 +584,10 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
     global $CONF;
     
     if ($schema == "") {
-        $schema = isset ( $CONF ['database_schema'] ) ? $CONF ['database_schema'] : "";
+        $schema = isset($CONF['database_schema']) ? $CONF['database_schema'] : "";
     }
     
-    if ($id = $link->Insert_Id ()) {
+    if ($id = $link->Insert_Id()) {
     }
     else {
         
@@ -601,9 +601,9 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
             else {
                 $query = "SELECT CURRVAL(pg_get_serial_sequence('$schema.$table','$column')) AS id";
             }
-            $result = db_query ( $query, $link );
-            $row = db_assoc ( $result ['result'] );
-            $id = $row ['id'];
+            $result = db_query($query, $link);
+            $row = db_assoc($result['result']);
+            $id = $row['id'];
         }
         catch ( exception $e ) {
             
@@ -624,13 +624,13 @@ function db_getUserRightByUserid($userid, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
-        $mode = strtolower ( $row ['user_mode'] );
+        $row = db_assoc($result['result']);
+        $mode = strtolower($row['user_mode']);
         
         return $mode;
     }
@@ -651,15 +651,15 @@ function db_getGroupRightByGroupid($groupid, $link) {
     global $CONF;
     
     $mode = "";
-    $schema = db_determine_schema ();
-    $result = db_query ( "SELECT svnusers.user_mode " . "  FROM svnusers, svngroups, svn_users_groups " . " WHERE (svngroups.id = $groupid) " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')", $link );
-    while ( $row = db_assoc ( $result ['result'] ) ) {
+    $schema = db_determine_schema();
+    $result = db_query("SELECT svnusers.user_mode " . "  FROM svnusers, svngroups, svn_users_groups " . " WHERE (svngroups.id = $groupid) " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')", $link);
+    while ( $row = db_assoc($result['result']) ) {
         
-        if ((strtolower ( $row ['user_mode'] ) == "write") and ($mode == "")) {
-            $mode = strtolower ( $row ['user_mode'] );
+        if ((strtolower($row['user_mode']) == "write") and ($mode == "")) {
+            $mode = strtolower($row['user_mode']);
         }
-        elseif (strtolower ( $row ['user_mode'] ) == "read") {
-            $mode = strtolower ( $row ['user_mode'] );
+        elseif (strtolower($row['user_mode']) == "read") {
+            $mode = strtolower($row['user_mode']);
         }
     }
     
@@ -676,13 +676,13 @@ function db_getRepoById($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (id = '$id') ", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (id = '$id') ", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
-        $reponame = $row ['reponame'];
+        $row = db_assoc($result['result']);
+        $reponame = $row['reponame'];
         
         return $reponame;
     }
@@ -702,13 +702,13 @@ function db_getRepoByName($reponame, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$reponame') ", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$reponame') ", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
-        $id = $row ['id'];
+        $row = db_assoc($result['result']);
+        $id = $row['id'];
         
         return $id;
     }
@@ -728,13 +728,13 @@ function db_getProjectById($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (id = '$id') ", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (id = '$id') ", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
-        $projectname = $row ['svnmodule'];
+        $row = db_assoc($result['result']);
+        $projectname = $row['svnmodule'];
         
         return $projectname;
     }
@@ -754,13 +754,13 @@ function db_getGroupById($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $result = db_query ( "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = '$id') ", $link );
-    if ($result ['rows'] == 1) {
+    $result = db_query("SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = '$id') ", $link);
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
-        $groupname = $row ['groupname'];
+        $row = db_assoc($result['result']);
+        $groupname = $row['groupname'];
         
         return $groupname;
     }
@@ -780,13 +780,13 @@ function db_getRightName($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
     $query = "SELECT right_name " . "  FROM rights " . " WHERE (id = $id) " . "   AND (deleted = '00000000000000')";
-    $result = db_query ( $query, $link );
-    if ($result ['rows'] == 1) {
-        $row = db_assoc ( $result ['result'] );
-        return ($row ['right_name']);
+    $result = db_query($query, $link);
+    if ($result['rows'] == 1) {
+        $row = db_assoc($result['result']);
+        return ($row['right_name']);
     }
     else {
         return ("undefined");
@@ -803,27 +803,27 @@ function db_getRightData($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
     $query = "SELECT project_id, group_id, user_id, path, access_right " . "  FROM " . $schema . "svn_access_rights " . " WHERE id = $id";
-    $result = db_query ( $query, $link );
+    $result = db_query($query, $link);
     
-    if ($result ['rows'] == 1) {
+    if ($result['rows'] == 1) {
         
-        $ret = array ();
-        $row = db_assoc ( $result ['result'] );
-        $ret ['project_id'] = $row ['project_id'];
-        $ret ['user_id'] = $row ['user_id'];
-        $ret ['group_id'] = $row ['group_id'];
-        $ret ['path'] = $row ['path'];
-        $ret ['access_right'] = $row ['access_right'];
+        $ret = array();
+        $row = db_assoc($result['result']);
+        $ret['project_id'] = $row['project_id'];
+        $ret['user_id'] = $row['user_id'];
+        $ret['group_id'] = $row['group_id'];
+        $ret['path'] = $row['path'];
+        $ret['access_right'] = $row['access_right'];
         
-        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = " . $row ['project_id'];
-        $result = db_query ( $query, $link );
-        if ($result ['rows'] == 1) {
+        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = " . $row['project_id'];
+        $result = db_query($query, $link);
+        if ($result['rows'] == 1) {
             
-            $row = db_assoc ( $result ['result'] );
-            $ret ['repo_id'] = $row ['repo_id'];
+            $row = db_assoc($result['result']);
+            $ret['repo_id'] = $row['repo_id'];
         }
         else {
             
@@ -848,13 +848,13 @@ function db_check_global_admin($username, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     $ret = false;
     $query = "SELECT superadmin " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "   AND (userid = '$username')";
-    $result = db_query ( $query, $link );
-    if ($result ['rows'] > 0) {
-        $row = db_assoc ( $result ['result'] );
-        $ret = strtolower ( $row ['superadmin'] ) == 1 ? true : false;
+    $result = db_query($query, $link);
+    if ($result['rows'] > 0) {
+        $row = db_assoc($result['result']);
+        $ret = strtolower($row['superadmin']) == 1 ? true : false;
         return ($ret);
     }
     else {
@@ -872,13 +872,13 @@ function db_check_global_admin_by_id($id, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     $ret = false;
     $query = "SELECT superadmin " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "   AND (id = $id)";
-    $result = db_query ( $query, $link );
-    if ($result ['rows'] > 0) {
-        $row = db_assoc ( $result ['result'] );
-        $ret = strtolower ( $row ['superadmin'] ) == 1 ? true : false;
+    $result = db_query($query, $link);
+    if ($result['rows'] > 0) {
+        $row = db_assoc($result['result']);
+        $ret = strtolower($row['superadmin']) == 1 ? true : false;
         return ($ret);
     }
     else {
@@ -896,16 +896,16 @@ function db_check_acl($username, $action, $dbh) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
     $query = "SELECT users_rights.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "rights, " . $schema . "users_rights " . " WHERE (svnusers.id = users_rights.user_id) " . "   AND (rights.id = users_rights.right_id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (users_rights.deleted = '00000000000000') " . "   AND (svnusers.userid = '$username') " . "   AND (rights.right_name = '$action')";
     
-    $result = db_query ( $query, $dbh );
+    $result = db_query($query, $dbh);
     
-    if ($result ['rows'] > 0) {
+    if ($result['rows'] > 0) {
         
-        $row = db_assoc ( $result ['result'] );
-        $right = $row ['allowed'];
+        $row = db_assoc($result['result']);
+        $right = $row['allowed'];
     }
     else {
         
@@ -925,19 +925,19 @@ function db_check_group_acl($username, $dbh) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
     $query = "SELECT svn_groups_responsible.allowed, svn_groups_responsible.group_id " . "  FROM " . $schema . "svn_groups_responsible, " . $schema . "svnusers " . " WHERE (svnusers.id = svn_groups_responsible.user_id) " . "   AND (svnusers.userid = '$username') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svnusers.deleted = '00000000000000')";
-    $result = db_query ( $query, $dbh );
-    $tAllowedGroups = array ();
+    $result = db_query($query, $dbh);
+    $tAllowedGroups = array();
     
-    if ($result ['rows'] > 0) {
+    if ($result['rows'] > 0) {
         
-        while ( $row = db_assoc ( $result ['result'] ) ) {
+        while ( $row = db_assoc($result['result']) ) {
             
-            $groupid = $row ['group_id'];
-            $right = $row ['allowed'];
-            $tAllowedGroups [$groupid] = $right;
+            $groupid = $row['group_id'];
+            $right = $row['allowed'];
+            $tAllowedGroups[$groupid] = $right;
         }
     }
     
@@ -954,26 +954,26 @@ function db_get_preferences($userid, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    $id = db_getIdByUserid ( $userid, $link );
+    $id = db_getIdByUserid($userid, $link);
     $query = "SELECT * " . "  FROM " . $schema . "preferences " . " WHERE user_id = $id";
-    $result = db_query ( $query, $link );
+    $result = db_query($query, $link);
     
-    if ($result ['rows'] == 1) {
+    if ($result['rows'] == 1) {
         
-        $row = db_assoc ( $result ['result'] );
-        $page_size = $row ['page_size'];
-        $preferences = array ();
-        $preferences ['page_size'] = $page_size;
-        $preferences ['user_sort_fields'] = $row ['user_sort_fields'];
-        $preferences ['user_sort_order'] = $row ['user_sort_order'];
+        $row = db_assoc($result['result']);
+        $page_size = $row['page_size'];
+        $preferences = array();
+        $preferences['page_size'] = $page_size;
+        $preferences['user_sort_fields'] = $row['user_sort_fields'];
+        $preferences['user_sort_order'] = $row['user_sort_order'];
     }
     else {
         
-        $preferences ['page_size'] = $CONF ['page_size'];
-        $preferences ['user_sort_fields'] = $CONF ['user_sort_fields'];
-        $preferences ['user_sort_order'] = $CONF ['user_sort_order'];
+        $preferences['page_size'] = $CONF['page_size'];
+        $preferences['user_sort_fields'] = $CONF['user_sort_fields'];
+        $preferences['user_sort_order'] = $CONF['user_sort_order'];
     }
     
     return $preferences;
@@ -990,11 +990,11 @@ function db_get_semaphore($action, $type, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
     $query = "SELECT * " . "  FROM " . $schema . "workinfo " . " WHERE (action = '$action') " . "   AND (type = '$type') " . "   AND (status = 'open')";
-    $result = db_query ( $query, $link );
-    if ($result ['rows'] > 0) {
+    $result = db_query($query, $link);
+    if ($result['rows'] > 0) {
         return true;
     }
     else {
@@ -1013,9 +1013,9 @@ function db_set_semaphore($action, $type, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    if (db_get_semaphore ( $action, $type, $link )) {
+    if (db_get_semaphore($action, $type, $link)) {
         
         return false;
     }
@@ -1023,16 +1023,16 @@ function db_set_semaphore($action, $type, $link) {
         
         $query = "INSERT INTO " . $schema . "workinfo (action, status, type) " . "     VALUES ('$action', 'open', '$type')";
         
-        db_ta ( 'BEGIN', $link );
-        $result = db_query ( $query, $link );
-        if ($result ['rows'] == 0) {
+        db_ta('BEGIN', $link);
+        $result = db_query($query, $link);
+        if ($result['rows'] == 0) {
             
-            db_ta ( 'ROLLBACK', $link );
+            db_ta('ROLLBACK', $link);
             return false;
         }
         else {
             
-            db_ta ( 'COMMIT', $link );
+            db_ta('COMMIT', $link);
             return true;
         }
     }
@@ -1048,22 +1048,22 @@ function db_unset_semaphore($action, $type, $link) {
 
     global $CONF;
     
-    $schema = db_determine_schema ();
+    $schema = db_determine_schema();
     
-    if (db_get_semaphore ( $action, $type, $link )) {
+    if (db_get_semaphore($action, $type, $link)) {
         
         $query = "UPDATE " . $schema . "workinfo " . "   SET status = 'closed' " . " WHERE (action = '$action') " . "   AND (type = '$type')";
         
-        db_ta ( 'BEGIN', $link );
-        $result = db_query ( $query, $link );
-        if ($result ['rows'] > 0) {
+        db_ta('BEGIN', $link);
+        $result = db_query($query, $link);
+        if ($result['rows'] > 0) {
             
-            db_ta ( 'COMMIT', $link );
+            db_ta('COMMIT', $link);
             return true;
         }
         else {
             
-            db_ta ( 'ROLLBACK', $link );
+            db_ta('ROLLBACK', $link);
             return false;
         }
     }
@@ -1083,11 +1083,11 @@ function db_determine_schema() {
 
     global $CONF;
     
-    if (substr ( $CONF ['database_type'], 0, 8 ) == "postgres") {
-        $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+    if (substr($CONF['database_type'], 0, 8) == "postgres") {
+        $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
     }
-    elseif ($CONF ['database_type'] == "oci8") {
-        $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+    elseif ($CONF['database_type'] == "oci8") {
+        $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
     }
     else {
         $schema = "";
@@ -1108,26 +1108,26 @@ function db_escape_string($string, $link = "") {
 
     global $CONF;
     
-    if (is_array ( $string )) {
+    if (is_array($string)) {
         
         return $string;
     }
     else {
         
-        if (empty ( $link )) {
+        if (empty($link)) {
             $newConnection = 1;
-            $link = db_connect ();
+            $link = db_connect();
         }
         else {
             $newConnection = 0;
         }
         
-        $escaped_string = $link->qstr ( $string, get_magic_quotes_gpc () );
-        $escaped_string = preg_replace ( '/^\'/', "", $escaped_string );
-        $escaped_string = preg_replace ( '/\'$/', "", $escaped_string );
+        $escaped_string = $link->qstr($string, get_magic_quotes_gpc());
+        $escaped_string = preg_replace('/^\'/', "", $escaped_string);
+        $escaped_string = preg_replace('/\'$/', "", $escaped_string);
         
         if ($newConnection == 1) {
-            db_disconnect ( $link );
+            db_disconnect($link);
         }
     }
     
@@ -1147,74 +1147,74 @@ function ldap_check_user_exists($userid) {
     
     $ret = 0;
     
-    if (isset ( $CONF ['ldap_protocol'] )) {
-        $protocol = $CONF ['ldap_protocol'];
+    if (isset($CONF['ldap_protocol'])) {
+        $protocol = $CONF['ldap_protocol'];
     }
     else {
         $protocol = "2";
     }
     
     // error_log( "using ldap protocol version $protocol" );
-    $LDAP_CONNECT_OPTIONS = Array (
-            Array (
+    $LDAP_CONNECT_OPTIONS = Array(
+            Array(
                     "OPTION_NAME" => LDAP_OPT_DEREF,
-                    "OPTION_VALUE" => 2 
+                    "OPTION_VALUE" => 2
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_SIZELIMIT,
-                    "OPTION_VALUE" => 1000 
+                    "OPTION_VALUE" => 1000
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_TIMELIMIT,
-                    "OPTION_VALUE" => 30 
+                    "OPTION_VALUE" => 30
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_PROTOCOL_VERSION,
-                    "OPTION_VALUE" => $protocol 
+                    "OPTION_VALUE" => $protocol
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_ERROR_NUMBER,
-                    "OPTION_VALUE" => 13 
+                    "OPTION_VALUE" => 13
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_REFERRALS,
-                    "OPTION_VALUE" => FALSE 
+                    "OPTION_VALUE" => FALSE
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_RESTART,
-                    "OPTION_VALUE" => FALSE 
-            ) 
+                    "OPTION_VALUE" => FALSE
+            )
     );
     
     try {
-        $ldap = &NewADOConnection ( 'ldap' );
+        $ldap = &NewADOConnection('ldap');
         // error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
-        $ldap->Connect ( $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
+        $ldap->Connect($CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         $ldapOpen = 1;
     }
     catch ( exception $e ) {
         
-        $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-        $_SESSION ['svn_sessid'] ['dbquery'] = sprintf ( "Database connect: %s - %s - %s - %s", $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
-        $_SESSION ['svn_sessid'] ['dbfunction'] = sprintf ( "db_connect: %s - %s - %s - %s", $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
+        $_SESSION['svn_sessid']['dberror'] = $e->msg;
+        $_SESSION['svn_sessid']['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION['svn_sessid']['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         
-        if (file_exists ( realpath ( "database_error.php" ) )) {
+        if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
         }
         else {
             $location = "../database_error.php";
         }
         
-        header ( "location: $location" );
-        exit ();
+        header("location: $location");
+        exit();
     }
     
     try {
-        $filter = "(&(" . $CONF ['user_filter_attr'] . "=$userid)(objectclass=" . $CONF ['user_objectclass'] . "))";
-        $ldap->SetFetchMode ( ADODB_FETCH_ASSOC );
-        $rs = $ldap->Execute ( $filter );
+        $filter = "(&(" . $CONF['user_filter_attr'] . "=$userid)(objectclass=" . $CONF['user_objectclass'] . "))";
+        $ldap->SetFetchMode(ADODB_FETCH_ASSOC);
+        $rs = $ldap->Execute($filter);
         if ($rs) {
-            if ($rs->RecordCount () > 0) {
+            if ($rs->RecordCount() > 0) {
                 $ret = 1;
             }
             else {
@@ -1227,12 +1227,12 @@ function ldap_check_user_exists($userid) {
     }
     catch ( exception $e ) {
         
-        error_log ( "Error: " . $e->msg );
+        error_log("Error: " . $e->msg);
         $ret = 0;
     }
     
     if ($ldapOpen == 1) {
-        $ldap->Close ();
+        $ldap->Close();
     }
     
     return ($ret);
@@ -1249,178 +1249,178 @@ function get_ldap_users() {
     global $CONF;
     global $LDAP_CONNECT_OPTIONS;
     
-    $tUsers = array ();
+    $tUsers = array();
     
-    $additionalFilter = isset ( $CONF ['additional_user_filter'] ) ? $CONF ['additional_user_filter'] : "";
+    $additionalFilter = isset($CONF['additional_user_filter']) ? $CONF['additional_user_filter'] : "";
     
-    if (isset ( $CONF ['ldap_protocol'] )) {
-        $protocol = $CONF ['ldap_protocol'];
+    if (isset($CONF['ldap_protocol'])) {
+        $protocol = $CONF['ldap_protocol'];
     }
     else {
         $protocol = "2";
     }
     
-    $LDAP_CONNECT_OPTIONS = Array (
-            Array (
+    $LDAP_CONNECT_OPTIONS = Array(
+            Array(
                     "OPTION_NAME" => LDAP_OPT_DEREF,
-                    "OPTION_VALUE" => 2 
+                    "OPTION_VALUE" => 2
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_SIZELIMIT,
-                    "OPTION_VALUE" => 1000 
+                    "OPTION_VALUE" => 1000
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_TIMELIMIT,
-                    "OPTION_VALUE" => 30 
+                    "OPTION_VALUE" => 30
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_PROTOCOL_VERSION,
-                    "OPTION_VALUE" => $protocol 
+                    "OPTION_VALUE" => $protocol
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_ERROR_NUMBER,
-                    "OPTION_VALUE" => 13 
+                    "OPTION_VALUE" => 13
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_REFERRALS,
-                    "OPTION_VALUE" => FALSE 
+                    "OPTION_VALUE" => FALSE
             ),
-            Array (
+            Array(
                     "OPTION_NAME" => LDAP_OPT_RESTART,
-                    "OPTION_VALUE" => FALSE 
-            ) 
+                    "OPTION_VALUE" => FALSE
+            )
     );
     
     try {
-        $ldap = &NewADOConnection ( 'ldap' );
+        $ldap = &NewADOConnection('ldap');
         // error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
-        $ldap->Connect ( $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
+        $ldap->Connect($CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         $ldapOpen = 1;
     }
     catch ( exception $e ) {
         
-        $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-        $_SESSION ['svn_sessid'] ['dbquery'] = sprintf ( "Database connect: %s - %s - %s - %s", $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
-        $_SESSION ['svn_sessid'] ['dbfunction'] = sprintf ( "db_connect: %s - %s - %s - %s", $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
+        $_SESSION['svn_sessid']['dberror'] = $e->msg;
+        $_SESSION['svn_sessid']['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION['svn_sessid']['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         
-        if (file_exists ( realpath ( "database_error.php" ) )) {
+        if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
         }
         else {
             $location = "../database_error.php";
         }
         
-        header ( "location: $location" );
-        exit ();
+        header("location: $location");
+        exit();
     }
     
     if ($additionalFilter != "") {
-        $filter = "(&(objectclass=" . $CONF ['user_objectclass'] . ")" . $additionalFilter . ")";
+        $filter = "(&(objectclass=" . $CONF['user_objectclass'] . ")" . $additionalFilter . ")";
     }
     else {
-        $filter = "(objectclass=" . $CONF ['user_objectclass'] . ")";
+        $filter = "(objectclass=" . $CONF['user_objectclass'] . ")";
     }
     
     try {
-        $ldap->SetFetchMode ( ADODB_FETCH_ASSOC );
-        $rs = $ldap->Execute ( $filter );
+        $ldap->SetFetchMode(ADODB_FETCH_ASSOC);
+        $rs = $ldap->Execute($filter);
         if ($rs) {
             
-            while ( $arr = $rs->FetchRow () ) {
+            while ( $arr = $rs->FetchRow() ) {
                 
-                $entry = array ();
+                $entry = array();
                 
-                if (isset ( $CONF ['attr_mapping'] ['uid'] )) {
-                    if (isset ( $arr [$CONF ['attr_mapping'] ['uid']] )) {
-                        $entry ['uid'] = $arr [$CONF ['attr_mapping'] ['uid']];
+                if (isset($CONF['attr_mapping']['uid'])) {
+                    if (isset($arr[$CONF['attr_mapping']['uid']])) {
+                        $entry['uid'] = $arr[$CONF['attr_mapping']['uid']];
                     }
                     else {
-                        $entry ['uid'] = "";
+                        $entry['uid'] = "";
                     }
                 }
                 else {
-                    if (isset ( $arr ['uid'] )) {
-                        $entry ['uid'] = $arr ['uid'];
+                    if (isset($arr['uid'])) {
+                        $entry['uid'] = $arr['uid'];
                     }
                     else {
-                        $entry ['uid'] = "";
+                        $entry['uid'] = "";
                     }
                 }
                 
-                if (isset ( $CONF ['attr_mapping'] ['name'] )) {
-                    if (isset ( $arr [$CONF ['attr_mapping'] ['name']] )) {
-                        $entry ['name'] = $arr [$CONF ['attr_mapping'] ['name']];
+                if (isset($CONF['attr_mapping']['name'])) {
+                    if (isset($arr[$CONF['attr_mapping']['name']])) {
+                        $entry['name'] = $arr[$CONF['attr_mapping']['name']];
                     }
                     else {
-                        $entry ['name'] = "";
+                        $entry['name'] = "";
                     }
                 }
                 else {
-                    if (isset ( $arr ['sn'] )) {
-                        $entry ['name'] = $arr ['sn'];
+                    if (isset($arr['sn'])) {
+                        $entry['name'] = $arr['sn'];
                     }
                     else {
-                        $entry ['name'] = "";
+                        $entry['name'] = "";
                     }
                 }
                 
-                if (isset ( $CONF ['attr_mapping'] ['givenName'] )) {
-                    if (isset ( $arr [$CONF ['attr_mapping'] ['givenName']] )) {
-                        $entry ['givenname'] = $arr [$CONF ['attr_mapping'] ['givenName']];
+                if (isset($CONF['attr_mapping']['givenName'])) {
+                    if (isset($arr[$CONF['attr_mapping']['givenName']])) {
+                        $entry['givenname'] = $arr[$CONF['attr_mapping']['givenName']];
                     }
                     else {
-                        $entry ['givenname'] = "";
+                        $entry['givenname'] = "";
                     }
                 }
                 else {
-                    if (isset ( $arr ['givenName'] )) {
-                        $entry ['givenname'] = $arr ['givenName'];
+                    if (isset($arr['givenName'])) {
+                        $entry['givenname'] = $arr['givenName'];
                     }
                     else {
-                        $entry ['givenname'] = "";
+                        $entry['givenname'] = "";
                     }
                 }
                 
-                if (isset ( $CONF ['attr_mapping'] ['mail'] )) {
-                    $attr = $CONF ['attr_mapping'] ['mail'];
+                if (isset($CONF['attr_mapping']['mail'])) {
+                    $attr = $CONF['attr_mapping']['mail'];
                 }
                 else {
                     $attr = 'mail';
                 }
                 
-                $entry ['emailaddress'] = isset ( $arr [$attr] ) ? $arr [$attr] : "";
+                $entry['emailaddress'] = isset($arr[$attr]) ? $arr[$attr] : "";
                 
-                if (isset ( $CONF ['ldap_uservalues_encode'] ) && $CONF ['ldap_uservalues_encode']) {
-                    $entry ['name'] = htmlentities ( $entry ['name'] );
-                    $entry ['givenname'] = htmlentities ( $entry ['givenname'] );
+                if (isset($CONF['ldap_uservalues_encode']) && $CONF['ldap_uservalues_encode']) {
+                    $entry['name'] = htmlentities($entry['name']);
+                    $entry['givenname'] = htmlentities($entry['givenname']);
                 }
                 
-                $tUsers [] = $entry;
+                $tUsers[] = $entry;
             }
         }
     }
     catch ( exception $e ) {
         
-        $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-        $_SESSION ['svn_sessid'] ['dbquery'] = $filter;
-        $_SESSION ['svn_sessid'] ['dbfunction'] = "get_ldap_user";
+        $_SESSION['svn_sessid']['dberror'] = $e->msg;
+        $_SESSION['svn_sessid']['dbquery'] = $filter;
+        $_SESSION['svn_sessid']['dbfunction'] = "get_ldap_user";
         
-        if (file_exists ( realpath ( "database_error.php" ) )) {
+        if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
         }
         else {
             $location = "../database_error.php";
         }
         
-        header ( "location: $location" );
-        exit ();
+        header("location: $location");
+        exit();
     }
     
     if ($ldapOpen == 1) {
-        $ldap->Close ();
+        $ldap->Close();
     }
     
-    usort ( $tUsers, "sortLdapUsers" );
+    usort($tUsers, "sortLdapUsers");
     
     return ($tUsers);
 
@@ -1438,70 +1438,70 @@ function check_ldap_password($userid, $password) {
     
     $ret = 0;
     
-    if (isset ( $CONF ['ldap_protocol'] )) {
-        $protocol = $CONF ['ldap_protocol'];
+    if (isset($CONF['ldap_protocol'])) {
+        $protocol = $CONF['ldap_protocol'];
     }
     else {
         $protocol = "2";
     }
     
-    $LDAP_CONNECT_OPTIONS = array (
-            array (
+    $LDAP_CONNECT_OPTIONS = array(
+            array(
                     "OPTION_NAME" => LDAP_OPT_DEREF,
-                    "OPTION_VALUE" => 2 
+                    "OPTION_VALUE" => 2
             ),
-            array (
+            array(
                     "OPTION_NAME" => LDAP_OPT_SIZELIMIT,
-                    "OPTION_VALUE" => 1000 
+                    "OPTION_VALUE" => 1000
             ),
-            array (
+            array(
                     "OPTION_NAME" => LDAP_OPT_TIMELIMIT,
-                    "OPTION_VALUE" => 30 
+                    "OPTION_VALUE" => 30
             ),
-            array (
+            array(
                     "OPTION_NAME" => LDAP_OPT_PROTOCOL_VERSION,
-                    "OPTION_VALUE" => $protocol 
+                    "OPTION_VALUE" => $protocol
             ),
-            array (
+            array(
                     "OPTION_NAME" => LDAP_OPT_ERROR_NUMBER,
-                    "OPTION_VALUE" => 13 
+                    "OPTION_VALUE" => 13
             ),
-            array (
+            array(
                     "OPTION_NAME" => LDAP_OPT_REFERRALS,
-                    "OPTION_VALUE" => FALSE 
+                    "OPTION_VALUE" => FALSE
             ),
-            array (
+            array(
                     "OPTION_NAME" => LDAP_OPT_RESTART,
-                    "OPTION_VALUE" => FALSE 
-            ) 
+                    "OPTION_VALUE" => FALSE
+            )
     );
     
     // error_log("check_ldap_password");
     
     try {
-        $ldap = NewADOConnection ( 'ldap' );
+        $ldap = NewADOConnection('ldap');
         // error_log( $CONF['ldap_server'].",".$CONF['bind_dn'].",".$CONF['bind_pw'].",".$CONF['user_dn'] );
-        $ldap->Connect ( $CONF ['ldap_server'], $CONF ['bind_dn'], $CONF ['bind_pw'], $CONF ['user_dn'] );
+        $ldap->Connect($CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         $ldapOpen = 1;
         // error_log("ldap open");
     }
     catch ( exception $e ) {
         
         // error_log( "exception during connect" );
-        $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-        $_SESSION ['svn_sessid'] ['dbquery'] = sprintf ( "Database connect: %s - %s - %s - %s", $CONF ['ldap_server'], $CONF ['bind_dn'], 'xxxxxxxx', $CONF ['user_dn'] );
-        $_SESSION ['svn_sessid'] ['dbfunction'] = sprintf ( "db_connect: %s - %s - %s - %s", $CONF ['ldap_server'], $CONF ['bind_dn'], 'xxxxxxxx', $CONF ['user_dn'] );
+        $_SESSION['svn_sessid']['dberror'] = $e->msg;
+        $_SESSION['svn_sessid']['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+        $_SESSION['svn_sessid']['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
         
-        $tErrorMessage = strtolower ( $_SESSION ['svn_sessid'] ['dberror'] );
+        $tErrorMessage = strtolower($_SESSION['svn_sessid']['dberror']);
         
-        if (isset ( $CONF ['ldap_bind_use_login_data'] ) and ($CONF ['ldap_bind_use_login_data'] == 1) and strpos ( $tErrorMessage, "invalid" ) and strpos ( $tErrorMessage, "credentials" )) {
+        if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1) and strpos($tErrorMessage, "invalid") and strpos($tErrorMessage, "credentials")) {
             $ldapOpen = 0;
             $ret = 0;
             // error_log( "check reset" );
         }
         else {
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
@@ -1514,20 +1514,20 @@ function check_ldap_password($userid, $password) {
     }
     
     try {
-        $filter = "(&(" . $CONF ['user_filter_attr'] . "=$userid)(objectclass=" . $CONF ['user_objectclass'] . "))";
-        $ldap->SetFetchMode ( ADODB_FETCH_ASSOC );
-        error_log ( "filter = $filter" );
-        $rs = $ldap->Execute ( $filter );
+        $filter = "(&(" . $CONF['user_filter_attr'] . "=$userid)(objectclass=" . $CONF['user_objectclass'] . "))";
+        $ldap->SetFetchMode(ADODB_FETCH_ASSOC);
+        error_log("filter = $filter");
+        $rs = $ldap->Execute($filter);
         if ($rs) {
-            if ($rs->RecordCount () == 1) {
+            if ($rs->RecordCount() == 1) {
                 
-                $arr = $rs->FetchRow ();
-                $dn = $arr ['dn'];
+                $arr = $rs->FetchRow();
+                $dn = $arr['dn'];
                 // error_log( "dn = $dn" );
-                $ldapUser = &NewADOConnection ( 'ldap' );
-                $ldapUser->Connect ( $CONF ['ldap_server'], $dn, $password, $CONF ['user_dn'] );
+                $ldapUser = &NewADOConnection('ldap');
+                $ldapUser->Connect($CONF['ldap_server'], $dn, $password, $CONF['user_dn']);
                 $ret = 1;
-                $ldapUser->Close ();
+                $ldapUser->Close();
             }
             else {
                 $ret = 0;
@@ -1541,12 +1541,12 @@ function check_ldap_password($userid, $password) {
     }
     catch ( exception $e ) {
         
-        error_log ( "Error: " . $e->msg );
+        error_log("Error: " . $e->msg);
         $ret = 0;
     }
     
     if ($ldapOpen == 1) {
-        $ldap->Close ();
+        $ldap->Close();
     }
     
     return ($ret);
@@ -1559,15 +1559,15 @@ function check_ldap_password($userid, $password) {
 class Session {
     /**
      * a database connection resource
-     * 
+     *
      * @var resource
      */
     private static $_sess_db;
     private static $DEBUG = 0;
-    
+
     /**
      * Open the session
-     * 
+     *
      * @return bool
      */
     public static function open() {
@@ -1575,23 +1575,23 @@ class Session {
         global $CONF;
         
         if (self::$DEBUG != 0) {
-            db_log ( 'gc', 'open executed' );
+            db_log('gc', 'open executed');
         }
         // error_log("session open");
-        $db_user = $CONF ['database_user'];
-        $db_pass = $CONF ['database_password'];
-        $db_host = $CONF ['database_host'];
-        $db_name = $CONF ['database_name'];
+        $db_user = $CONF['database_user'];
+        $db_pass = $CONF['database_password'];
+        $db_host = $CONF['database_host'];
+        $db_name = $CONF['database_name'];
         
-        if (isset ( $CONF ['database_charset'] )) {
-            $charset = $CONF ['database_charset'];
+        if (isset($CONF['database_charset'])) {
+            $charset = $CONF['database_charset'];
         }
         else {
             $charset = "latin1";
         }
         
-        if (isset ( $CONF ['database_collation'] )) {
-            $collation = $CONF ['database_collation'];
+        if (isset($CONF['database_collation'])) {
+            $collation = $CONF['database_collation'];
         }
         else {
             $collation = "latin1_german1_ci";
@@ -1601,12 +1601,12 @@ class Session {
         
         try {
             
-            self::$_sess_db = &ADONewConnection ( $CONF ['database_type'] );
-            self::$_sess_db->Pconnect ( $CONF ['database_host'], $CONF ['database_user'], $CONF ['database_password'], $CONF ['database_name'] );
-            self::$_sess_db->SetFetchMode ( ADODB_FETCH_ASSOC );
+            self::$_sess_db = &ADONewConnection($CONF['database_type']);
+            self::$_sess_db->Pconnect($CONF['database_host'], $CONF['database_user'], $CONF['database_password'], $CONF['database_name']);
+            self::$_sess_db->SetFetchMode(ADODB_FETCH_ASSOC);
             
-            if ($CONF ['database_type'] == "mysql") {
-                self::$_sess_db->Execute ( $nameset );
+            if ($CONF['database_type'] == "mysql") {
+                self::$_sess_db->Execute($nameset);
             }
             
             return true;
@@ -1615,37 +1615,37 @@ class Session {
             
             // var_dump($e);
             
-            $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-            $_SESSION ['svn_sessid'] ['dbquery'] = "Database connect";
-            $_SESSION ['svn_sessid'] ['dbfunction'] = "db_connect";
+            $_SESSION['svn_sessid']['dberror'] = $e->msg;
+            $_SESSION['svn_sessid']['dbquery'] = "Database connect";
+            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
             
-            error_log ( "DB error: " . $e->msg );
-            error_log ( "DB query: Session database connect" );
+            error_log("DB error: " . $e->msg);
+            error_log("DB query: Session database connect");
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
                 $location = "../database_error.php";
             }
             
-            header ( "location: $location" );
-            exit ();
+            header("location: $location");
+            exit();
         }
         
         return false;
     
     }
-    
+
     /**
      * Close the session
-     * 
+     *
      * @return bool
      */
     public static function close() {
 
         if (self::$DEBUG != 0) {
-            db_log ( 'gc', 'close executed' );
+            db_log('gc', 'close executed');
         }
         
         // error_log( "session closed");
@@ -1660,10 +1660,10 @@ class Session {
         return true;
     
     }
-    
+
     /**
      * Read the session
-     * 
+     *
      * @param
      *            int session id
      * @return string string of the sessoin
@@ -1673,29 +1673,29 @@ class Session {
         global $CONF;
         
         if (self::$DEBUG != 0) {
-            db_log ( 'gc', 'read executed' );
+            db_log('gc', 'read executed');
         }
         
-        if ($CONF ['database_type'] == "postgres8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        if ($CONF['database_type'] == "postgres8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
-        elseif ($CONF ['database_type'] == "oci8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        elseif ($CONF['database_type'] == "oci8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
         else {
             $schema = "";
         }
         
-        $id = self::$_sess_db->qstr ( $id, get_magic_quotes_gpc () );
-        $sql = sprintf ( "SELECT session_data FROM " . $schema . "sessions " . "WHERE session_id = %s", $id );
+        $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
+        $sql = sprintf("SELECT session_data FROM " . $schema . "sessions " . "WHERE session_id = %s", $id);
         // error_log( "session read");
         try {
             
-            $result = self::$_sess_db->Execute ( $sql );
-            if ($result->RecordCount () > 0) {
+            $result = self::$_sess_db->Execute($sql);
+            if ($result->RecordCount() > 0) {
                 
-                $record = $result->FetchRow ();
-                return isset ( $record ['session_data'] ) ? $record ['session_data'] : $record ['SESSION_DATA'];
+                $record = $result->FetchRow();
+                return isset($record['session_data']) ? $record['session_data'] : $record['SESSION_DATA'];
             }
             
             return '';
@@ -1704,30 +1704,30 @@ class Session {
             
             // var_dump($e);
             
-            $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-            $_SESSION ['svn_sessid'] ['dbquery'] = $sql;
-            $_SESSION ['svn_sessid'] ['dbfunction'] = "db_connect";
+            $_SESSION['svn_sessid']['dberror'] = $e->msg;
+            $_SESSION['svn_sessid']['dbquery'] = $sql;
+            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
             
-            error_log ( "DB error: " . $e->msg );
-            error_log ( "DB query: $sql" );
-            error_log ( "DB query: Session read" );
+            error_log("DB error: " . $e->msg);
+            error_log("DB query: $sql");
+            error_log("DB query: Session read");
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
                 $location = "../database_error.php";
             }
             
-            header ( "location: $location" );
-            exit ();
+            header("location: $location");
+            exit();
         }
     
     }
-    
+
     /**
      * Write the session
-     * 
+     *
      * @param
      *            int session id
      * @param
@@ -1738,35 +1738,35 @@ class Session {
         global $CONF;
         
         if (self::$DEBUG != 0) {
-            db_log ( 'gc', 'write executed' );
+            db_log('gc', 'write executed');
         }
         
-        if ($CONF ['database_type'] == "postgres8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        if ($CONF['database_type'] == "postgres8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
-        elseif ($CONF ['database_type'] == "oci8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        elseif ($CONF['database_type'] == "oci8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
         else {
             $schema = "";
         }
         
-        $id = self::$_sess_db->qstr ( $id, get_magic_quotes_gpc () );
-        $time = self::$_sess_db->qstr ( time (), get_magic_quotes_gpc () );
-        $data = self::$_sess_db->qstr ( $data, get_magic_quotes_gpc () );
+        $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
+        $time = self::$_sess_db->qstr(time(), get_magic_quotes_gpc());
+        $data = self::$_sess_db->qstr($data, get_magic_quotes_gpc());
         // error_log( "session write" );
         try {
             
-            $sql = sprintf ( "SELECT * FROM " . $schema . "sessions WHERE session_id = %s", $id );
-            $result = self::$_sess_db->Execute ( $sql );
-            if ($result->RecordCount () > 0) {
-                $sql = sprintf ( "UPDATE " . $schema . "sessions SET session_expires = %s, session_data = %s WHERE session_id = %s", $time, $data, $id );
+            $sql = sprintf("SELECT * FROM " . $schema . "sessions WHERE session_id = %s", $id);
+            $result = self::$_sess_db->Execute($sql);
+            if ($result->RecordCount() > 0) {
+                $sql = sprintf("UPDATE " . $schema . "sessions SET session_expires = %s, session_data = %s WHERE session_id = %s", $time, $data, $id);
             }
             else {
-                $sql = sprintf ( "INSERT INTO " . $schema . "sessions (session_id, session_expires, session_data) VALUES(%s, %s, %s)", $id, $time, $data );
+                $sql = sprintf("INSERT INTO " . $schema . "sessions (session_id, session_expires, session_data) VALUES(%s, %s, %s)", $id, $time, $data);
             }
             // error_log( "write query: $sql" );
-            self::$_sess_db->Execute ( $sql );
+            self::$_sess_db->Execute($sql);
             $error = 0;
         }
         catch ( exception $e ) {
@@ -1777,23 +1777,23 @@ class Session {
             // error_log( print_r($e, true) );
             // error_log( "session write exception 2" );
             
-            $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-            $_SESSION ['svn_sessid'] ['dbquery'] = $sql;
-            $_SESSION ['svn_sessid'] ['dbfunction'] = "db_connect";
+            $_SESSION['svn_sessid']['dberror'] = $e->msg;
+            $_SESSION['svn_sessid']['dbquery'] = $sql;
+            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
             
-            error_log ( "DB error: " . $e->msg );
-            error_log ( "DB query: $sql" );
-            error_log ( "DB query: Session write to database" );
+            error_log("DB error: " . $e->msg);
+            error_log("DB query: $sql");
+            error_log("DB query: Session write to database");
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
                 $location = "../database_error.php";
             }
             
-            header ( "location: $location" );
-            exit ();
+            header("location: $location");
+            exit();
             
             return false;
         }
@@ -1807,10 +1807,10 @@ class Session {
         }
     
     }
-    
+
     /**
      * Destoroy the session
-     * 
+     *
      * @param
      *            int session id
      * @return bool
@@ -1820,56 +1820,56 @@ class Session {
         global $CONF;
         
         if (self::$DEBUG != 0) {
-            db_log ( 'gc', 'destroy executed' );
+            db_log('gc', 'destroy executed');
         }
         
-        if ($CONF ['database_type'] == "postgres8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        if ($CONF['database_type'] == "postgres8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
-        elseif ($CONF ['database_type'] == "oci8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        elseif ($CONF['database_type'] == "oci8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
         else {
             $schema = "";
         }
         
         // error_log( "session destroyed" );
-        $id = self::$_sess_db->qstr ( $id, get_magic_quotes_gpc () );
-        $sql = sprintf ( "DELETE FROM " . $schema . "sessions WHERE session_id = %s", $id );
+        $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
+        $sql = sprintf("DELETE FROM " . $schema . "sessions WHERE session_id = %s", $id);
         
         try {
             
-            self::$_sess_db->Execute ( $sql );
+            self::$_sess_db->Execute($sql);
             return true;
         }
         catch ( exception $e ) {
             
-            $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-            $_SESSION ['svn_sessid'] ['dbquery'] = $sql;
-            $_SESSION ['svn_sessid'] ['dbfunction'] = "db_connect";
+            $_SESSION['svn_sessid']['dberror'] = $e->msg;
+            $_SESSION['svn_sessid']['dbquery'] = $sql;
+            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
             
-            error_log ( "DB error: " . $e->msg );
-            error_log ( "DB query: $sql" );
-            error_log ( "DB query: Session destroy" );
+            error_log("DB error: " . $e->msg);
+            error_log("DB query: $sql");
+            error_log("DB query: Session destroy");
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
                 $location = "../database_error.php";
             }
             
-            header ( "location: $location" );
-            exit ();
+            header("location: $location");
+            exit();
             
             return false;
         }
     
     }
-    
+
     /**
      * Garbage Collector
-     * 
+     *
      * @param
      *            int life time (sec.)
      * @return bool
@@ -1884,46 +1884,46 @@ class Session {
         global $CONF;
         
         if (self::$DEBUG != 0) {
-            db_log ( 'gc', 'gc executed (' . $max . ')' );
+            db_log('gc', 'gc executed (' . $max . ')');
         }
         
-        if ($CONF ['database_type'] == "postgres8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        if ($CONF['database_type'] == "postgres8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
-        elseif ($CONF ['database_type'] == "oci8") {
-            $schema = ($CONF ['database_schema'] == "") ? "" : $CONF ['database_schema'] . ".";
+        elseif ($CONF['database_type'] == "oci8") {
+            $schema = ($CONF['database_schema'] == "") ? "" : $CONF['database_schema'] . ".";
         }
         else {
             $schema = "";
         }
         
-        $time = self::$_sess_db->qstr ( time () - $max, get_magic_quotes_gpc () );
-        $sql = sprintf ( "DELETE FROM " . $schema . "sessions WHERE session_expires < %s", $time );
+        $time = self::$_sess_db->qstr(time() - $max, get_magic_quotes_gpc());
+        $sql = sprintf("DELETE FROM " . $schema . "sessions WHERE session_expires < %s", $time);
         try {
             
-            self::$_sess_db->Execute ( $sql );
+            self::$_sess_db->Execute($sql);
             
             return true;
         }
         catch ( exception $e ) {
             
-            $_SESSION ['svn_sessid'] ['dberror'] = $e->msg;
-            $_SESSION ['svn_sessid'] ['dbquery'] = $sql;
-            $_SESSION ['svn_sessid'] ['dbfunction'] = "db_connect";
+            $_SESSION['svn_sessid']['dberror'] = $e->msg;
+            $_SESSION['svn_sessid']['dbquery'] = $sql;
+            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
             
-            error_log ( "DB error: " . $e->msg );
-            error_log ( "DB query: $sql" );
-            error_log ( "DB query: Session gct" );
+            error_log("DB error: " . $e->msg);
+            error_log("DB query: $sql");
+            error_log("DB query: Session gct");
             
-            if (file_exists ( realpath ( "database_error.php" ) )) {
+            if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
             }
             else {
                 $location = "../database_error.php";
             }
             
-            header ( "location: $location" );
-            exit ();
+            header("location: $location");
+            exit();
             
             return false;
         }
@@ -1932,33 +1932,33 @@ class Session {
 
 }
 
-if (isset ( $CONF ) and ($CONF ['session_in_db'] == "YES")) {
+if (isset($CONF) and ($CONF['session_in_db'] == "YES")) {
     
-    ini_set ( 'session.gc_probability', 50 );
-    ini_set ( 'session.gc_divisor', 50 );
-    ini_set ( 'session.save_handler', 'user' );
-    ini_set ( 'session.gc_maxlifetime', '1800' );
+    ini_set('session.gc_probability', 50);
+    ini_set('session.gc_divisor', 50);
+    ini_set('session.save_handler', 'user');
+    ini_set('session.gc_maxlifetime', '1800');
     
-    session_set_save_handler ( array (
+    session_set_save_handler(array(
             'Session',
-            'open' 
-    ), array (
+            'open'
+    ), array(
             'Session',
-            'close' 
-    ), array (
+            'close'
+    ), array(
             'Session',
-            'read' 
-    ), array (
+            'read'
+    ), array(
             'Session',
-            'write' 
-    ), array (
+            'write'
+    ), array(
             'Session',
-            'destroy' 
-    ), array (
+            'destroy'
+    ), array(
             'Session',
-            'gc' 
-    ) );
+            'gc'
+    ));
 }
 
-session_cache_expire ( 30 );
+session_cache_expire(30);
 ?>

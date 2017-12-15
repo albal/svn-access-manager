@@ -33,7 +33,7 @@ require ("../include/variables.inc.php");
 require ("../include/db-functions-adodb.inc.php");
 require ("../include/functions.inc.php");
 
-$WEBCHARSETS = array (
+$WEBCHARSETS = array(
         'ISO_8859-1',
         'ISO_8859-2',
         'ISO_8859-3',
@@ -290,10 +290,10 @@ $WEBCHARSETS = array (
         'windows-1257',
         'windows-1258',
         'Windows-31J',
-        'windows-874' 
+        'windows-874'
 );
 
-$DBTABLES = array (
+$DBTABLES = array(
         'help',
         'log',
         'preferences',
@@ -311,8 +311,9 @@ $DBTABLES = array (
         'svn_projects_mailinglists',
         'svn_projects_responsible',
         'svn_users_groups',
-        'users_rights' 
+        'users_rights'
 );
+
 function dropMySQLDatabaseTables($dbh) {
 
     global $DBTABLES;
@@ -320,27 +321,28 @@ function dropMySQLDatabaseTables($dbh) {
     $error = 0;
     $tMessage = "";
     
-    foreach ( $DBTABLES as $dbtable ) {
+    foreach( $DBTABLES as $dbtable) {
         
         if ($error == 0) {
             
             $query = "DROP TABLE IF EXISTS `" . $dbtable . "`";
-            $result = db_query_install ( $query, $dbh );
-            if (mysql_errno () != 0) {
+            $result = db_query_install($query, $dbh);
+            if (mysql_errno() != 0) {
                 
                 $error = 1;
-                $tMessage = sprintf ( _ ( "Cannot drop table %s" ), "log" );
+                $tMessage = sprintf(_("Cannot drop table %s"), "log");
             }
         }
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     return $ret;
 
 }
+
 function dropOracleDatabaseTables($dbh, $schema) {
 
     global $DBTABLES;
@@ -348,27 +350,28 @@ function dropOracleDatabaseTables($dbh, $schema) {
     $error = 0;
     $tMessage = "";
     
-    foreach ( $DBTABLES as $dbtable ) {
+    foreach( $DBTABLES as $dbtable) {
         
         if ($error == 0) {
             
             $query = "begin execute immediate 'drop table $schema.$dbtable cascade constraints'; exception when others then null; end;";
             // error_log($query);
-            $result = db_query_install ( $query, $dbh );
+            $result = db_query_install($query, $dbh);
             $seq = $dbtable . "_seq";
             $query = "begin execute immediate 'drop sequence $schema.$seq'; exception when others then null; end;";
             // error_log($query);
-            $result = db_query_install ( $query, $dbh );
+            $result = db_query_install($query, $dbh);
         }
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     return $ret;
 
 }
+
 function dropPostgresDatabaseTables($dbh) {
 
     global $DBTABLES;
@@ -376,50 +379,51 @@ function dropPostgresDatabaseTables($dbh) {
     $error = 0;
     $tMessage = "";
     
-    foreach ( $DBTABLES as $dbtable ) {
+    foreach( $DBTABLES as $dbtable) {
         
         if ($error == 0) {
             
             $query = "DROP TABLE IF EXISTS $dbtable CASCADE";
-            $result = db_query_install ( $query, $dbh );
+            $result = db_query_install($query, $dbh);
             $seq = $dbtable . "_id_seq";
             $query = "DROP SEQUENCE IF EXISTS $seq CASCADE";
-            $result = db_query_install ( $query, $dbh );
+            $result = db_query_install($query, $dbh);
         }
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     return $ret;
 
 }
+
 function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tablespace, $dbuser) {
 
     $error = 0;
     $tMessage = "";
     $query = "SET client_encoding = '$charset'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "SET standard_conforming_strings = off";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "SET check_function_bodies = false";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "SET client_min_messages = warning";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "SET escape_string_warning = off";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     if ($schema != "") {
         $query = "SET search_path = '$schema'";
     }
     else {
         $query = "SET search_path = ";
     }
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "SET default_tablespace = '$tablespace'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "SET default_with_oids = false;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table help
     $query = "CREATE TABLE help (id bigint NOT NULL, 
@@ -429,28 +433,28 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    helptext_de text NOT NULL,
 												    helptext_en text NOT NULL
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.help OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE help IS 'Table of help texts';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE help_id_seq
     												START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.help_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE help_id_seq OWNED BY help.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE help ALTER COLUMN id SET DEFAULT nextval('help_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY help ADD CONSTRAINT help_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX help_topic_idx ON help USING btree (topic);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table log
     $query = "CREATE TABLE log (
@@ -460,28 +464,28 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    ipaddress character varying(15) NOT NULL,
 												    logmessage text NOT NULL
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.log OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE log IS 'Table of log messages';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE log_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.log_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE log_id_seq OWNED BY log.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE log ALTER COLUMN id SET DEFAULT nextval('log_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY log ADD CONSTRAINT log_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX log_timestamp_idx ON log USING btree (\"logtimestamp\");";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table preferences
     $query = "CREATE TABLE preferences (
@@ -497,28 +501,28 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
 												    deleted_user character varying(255) DEFAULT ' '
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.preferences OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE preferences IS 'Table of user preferences';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE preferences_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.preferences_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE preferences_id_seq OWNED BY preferences.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE preferences ALTER COLUMN id SET DEFAULT nextval('preferences_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY preferences ADD CONSTRAINT preferences_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX preferences_user_id_idx ON preferences USING btree (user_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table rights
     $query = "CREATE TABLE rights (
@@ -535,26 +539,26 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT rights_allowed_action_check CHECK (((allowed_action)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'edit'::character varying, 'delete'::character varying])::text[])))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.rights OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE rights IS 'Table of rights to grant to users';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE rights_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.rights_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE rights_id_seq OWNED BY rights.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE rights ALTER COLUMN id SET DEFAULT nextval('rights_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY rights ADD CONSTRAINT rights_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table workinfo
     $query = "CREATE TABLE workinfo (
@@ -564,26 +568,26 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    status character varying(255) NOT NULL,
 												    type character varying(255) NOT NULL
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.workinfo OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE workinfo IS 'table of workinfos';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE workinfo_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.workinfo_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE workinfo_id_seq OWNED BY workinfo.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE workinfo ALTER COLUMN id SET DEFAULT nextval('workinfo_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY workinfo ADD CONSTRAINT workinfo_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table sessions
     $query = "CREATE TABLE sessions (
@@ -592,13 +596,13 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    session_data text,
 												    CONSTRAINT sessions_session_expires_check CHECK ((session_expires >= 0))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.sessions OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY sessions ADD CONSTRAINT sessions_pkey PRIMARY KEY (session_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX sessions_session_expires_idx ON sessions USING btree (session_expires);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svngroups
     $query = "CREATE TABLE svngroups (
@@ -612,28 +616,28 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
 												    deleted_user character varying(255) DEFAULT ' '
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svngroups OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svngroups IS 'Table of svn user groups';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svngroups_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svngroups_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svngroups_id_seq OWNED BY svngroups.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svngroups ALTER COLUMN id SET DEFAULT nextval('svngroups_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svngroups ADD CONSTRAINT svngroups_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svngroups_groupname_idx ON svngroups USING btree (groupname);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svnprojects
     $query = "CREATE TABLE svnprojects (
@@ -650,30 +654,30 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT svnprojects_repo_id_check CHECK ((repo_id >= 0))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnprojects OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svnprojects IS 'Table of svn modules';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svnprojects_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnprojects_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svnprojects_id_seq OWNED BY svnprojects.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svnprojects ALTER COLUMN id SET DEFAULT nextval('svnprojects_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svnprojects ADD CONSTRAINT svnprojects_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svnprojects_deleted_idx ON svnprojects USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svnprojects_repo_id_idx ON svnprojects USING btree (repo_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svnusers
     $query = "CREATE TABLE svnusers (
@@ -701,34 +705,34 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    custom2 character varying(255) DEFAULT''::character varying,
 												    custom3 character varying(255) DEFAULT''::character varying
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnusers OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svnusers IS 'Table of all known users';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svnusers_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnusers_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svnusers_id_seq OWNED BY svnusers.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svnusers ALTER COLUMN id SET DEFAULT nextval('svnusers_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svnusers ADD CONSTRAINT svnusers_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svnusers ADD CONSTRAINT svnusers_userid_key UNIQUE (userid, deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svnusers_deleted_idx ON svnusers USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svnusers_locked_idx ON svnusers USING btree (locked);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svnusers_passwordexpires_idx ON svnusers USING btree (passwordexpires);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svn_access_rights
     $query = "CREATE TABLE svn_access_rights (
@@ -750,46 +754,46 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    CONSTRAINT svn_access_rights_access_right_check CHECK (((access_right)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'write'::character varying])::text[]))),
 												    CONSTRAINT svn_access_rights_recursive_check CHECK (((recursive)::text = ANY ((ARRAY['yes'::character varying, 'no'::character varying])::text[])))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_access_rights OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svn_access_rights IS 'Table of user or group access rights';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON COLUMN svn_access_rights.valid_from IS 'JHJJMMTT';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON COLUMN svn_access_rights.valid_until IS 'JHJJMMTT';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svn_access_rights_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_access_rights_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svn_access_rights_id_seq OWNED BY svn_access_rights.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svn_access_rights ALTER COLUMN id SET DEFAULT nextval('svn_access_rights_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_access_rights ADD CONSTRAINT svn_access_rights_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_access_rights_deleted_idx ON svn_access_rights USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_access_rights_group_id_idx ON svn_access_rights USING btree (group_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_access_rights_path_idx ON svn_access_rights USING btree (path);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_access_rights_project_id_idx ON svn_access_rights USING btree (project_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_access_rights_user_id_idx ON svn_access_rights USING btree (user_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_access_rights ADD CONSTRAINT svn_access_rights_group_id_fkey FOREIGN KEY (group_id) REFERENCES svngroups(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_access_rights ADD CONSTRAINT svn_access_rights_project_id_fkey FOREIGN KEY (project_id) REFERENCES svnprojects(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_access_rights ADD CONSTRAINT svn_access_rights_user_id_fkey FOREIGN KEY (user_id) REFERENCES svnusers(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svn_groups_responsible
     $query = "CREATE TABLE svn_groups_responsible (
@@ -807,28 +811,28 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    CONSTRAINT svn_groups_responsible_group_id_check CHECK ((group_id >= 0)),
 												    CONSTRAINT svn_groups_responsible_user_id_check CHECK ((user_id >= 0))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_groups_responsible OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svn_groups_responsible_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_groups_responsible_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svn_groups_responsible_id_seq OWNED BY svn_groups_responsible.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svn_groups_responsible ALTER COLUMN id SET DEFAULT nextval('svn_groups_responsible_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_groups_responsible ADD CONSTRAINT svn_groups_responsible_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_groups_responsible_1_idx ON svn_groups_responsible USING btree (user_id, group_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_groups_responsible_deleted_idx ON svn_groups_responsible USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svn_projects_mailinglists
     $query = "CREATE TABLE svn_projects_mailinglists (
@@ -844,30 +848,30 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    CONSTRAINT svn_projects_mailinglists_mailinglisten_id_check CHECK ((mailinglisten_id >= 0)),
 												    CONSTRAINT svn_projects_mailinglists_project_id_check CHECK ((project_id >= 0))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_projects_mailinglists OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svn_projects_mailinglists IS 'Table of modules and mailinglist relations';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svn_projects_mailinglists_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_projects_mailinglists_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svn_projects_mailinglists_id_seq OWNED BY svn_projects_mailinglists.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svn_projects_mailinglists ALTER COLUMN id SET DEFAULT nextval('svn_projects_mailinglists_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_projects_mailinglists ADD CONSTRAINT svn_projects_mailinglists_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_projects_mailinglists_1_idx ON svn_projects_mailinglists USING btree (project_id, mailinglisten_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_projects_mailinglists_mailinglisten_id_idx ON svn_projects_mailinglists USING btree (mailinglisten_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svn_projects_responsible
     $query = "CREATE TABLE svn_projects_responsible (
@@ -881,30 +885,30 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
 												    deleted_user character varying(255) DEFAULT ' '
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_projects_responsible OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svn_projects_responsible IS 'Table of project responsible users';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svn_projects_responsible_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_projects_responsible_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svn_projects_responsible_id_seq OWNED BY svn_projects_responsible.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svn_projects_responsible ALTER COLUMN id SET DEFAULT nextval('svn_projects_responsible_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_projects_responsible ADD CONSTRAINT svn_projects_responsible_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_projects_responsible_deleted_idx ON svn_projects_responsible USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_projects_responsible_project_id_idx ON svn_projects_responsible USING btree (project_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svn_users_groups
     $query = "CREATE TABLE svn_users_groups (
@@ -920,32 +924,32 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    CONSTRAINT svn_users_groups_group_id_check CHECK ((group_id >= 0)),
 												    CONSTRAINT svn_users_groups_user_id_check CHECK ((user_id >= 0))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_users_groups OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svn_users_groups IS 'Table of user group relations';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svn_users_groups_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svn_users_groups_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svn_users_groups_id_seq OWNED BY svn_users_groups.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svn_users_groups ALTER COLUMN id SET DEFAULT nextval('svn_users_groups_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_users_groups ADD CONSTRAINT svn_users_groups_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_users_groups_deleted_idx ON svn_users_groups USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_users_groups_group_id_idx ON svn_users_groups USING btree (group_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svn_users_groups_user_id_idx ON svn_users_groups USING btree (user_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svnmailinglists
     $query = "CREATE TABLE svnmailinglists (
@@ -960,26 +964,26 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
 												    deleted_user character varying(255) DEFAULT ' '
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnmailinglists OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svnmailinglists IS 'Table of available svn mailing lists';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svnmailinglists_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnmailinglists_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svnmailinglists_id_seq OWNED BY svnmailinglists.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svnmailinglists ALTER COLUMN id SET DEFAULT nextval('svnmailinglists_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svnmailinglists ADD CONSTRAINT svnmailinglists_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svnpasswordreset
     $query = "CREATE TABLE svnpasswordreset (
@@ -989,24 +993,24 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    token character varying(255) NOT NULL,
 												    idstr character varying(255) NOT NULL
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnpasswordreset OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svnpasswordreset_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnpasswordreset_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svnpasswordreset_id_seq OWNED BY svnpasswordreset.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svnpasswordreset ALTER COLUMN id SET DEFAULT nextval('svnpasswordreset_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svnpasswordreset ADD CONSTRAINT svnpasswordreset_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table svnrepos
     $query = "CREATE TABLE svnrepos (
@@ -1025,28 +1029,28 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted character varying(14) NOT NULL DEFAULT '00000000000000',
 												    deleted_user character varying(255) DEFAULT ' '
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnrepos OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE svnrepos IS 'Table of svn repositories';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE svnrepos_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.svnrepos_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE svnrepos_id_seq OWNED BY svnrepos.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE svnrepos ALTER COLUMN id SET DEFAULT nextval('svnrepos_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svnrepos ADD CONSTRAINT svnrepos_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX svnrepos_deleted_idx ON svnrepos USING btree (deleted);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     // Table users_rights
     $query = "CREATE TABLE users_rights (
@@ -1062,91 +1066,92 @@ function createDatabaseTables($dbh, $charset, $collation, $dbtype, $schema, $tab
 												    deleted_user character varying(255) DEFAULT ' ',
 												    CONSTRAINT users_rights_allowed_check CHECK (((allowed)::text = ANY ((ARRAY['none'::character varying, 'read'::character varying, 'add'::character varying, 'edit'::character varying, 'delete'::character varying])::text[])))
 												);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.users_rights OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "COMMENT ON TABLE users_rights IS 'Table of granted user rights';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE SEQUENCE users_rights_id_seq
 												    START WITH 1
 												    INCREMENT BY 1
 												    NO MAXVALUE
 												    NO MINVALUE
 												    CACHE 1;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.users_rights_id_seq OWNER TO $dbuser;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER SEQUENCE users_rights_id_seq OWNED BY users_rights.id;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE users_rights ALTER COLUMN id SET DEFAULT nextval('users_rights_id_seq'::regclass);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY users_rights ADD CONSTRAINT users_rights_pkey PRIMARY KEY (id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX users_rights_right_id_idx ON users_rights USING btree (right_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "CREATE INDEX users_rights_user_id_idx ON users_rights USING btree (user_id);";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY users_rights ADD CONSTRAINT users_rights_right_id_fkey FOREIGN KEY (right_id) REFERENCES rights(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY users_rights ADD CONSTRAINT users_rights_user_id_fkey FOREIGN KEY (user_id) REFERENCES svnusers(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
 
 }
+
 function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation, $tDatabase, $schema, $tDatabaseTablespace, $tDatabaseUser) {
 
     $error = 0;
     $tMessage = "";
     
     $query = "CREATE SEQUENCE $schema.HELP_SEQ MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"LOG_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"PREFERENCES_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"RIGHTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVN_ACCESS_RIGHTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVN_GROUPS_RESPONSIBLE_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVN_PROJECTS_MAILINGLISTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVN_PROJECTS_RESPONSIBLE_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVN_USERS_GROUPS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVNGROUPS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVNMAILINGLISTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVNPASSWORDRESET_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVNPROJECTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVNREPOS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"SVNUSERS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"USERS_RIGHTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE SEQUENCE $schema.\"WORKINFO_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.HELP
 												  (
@@ -1158,26 +1163,26 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"HELPTEXT_EN\" CLOB NOT NULL ENABLE,
 												    CONSTRAINT \"HELP_PK\" PRIMARY KEY (\"ID\") ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.HELP IS 'Table of help texts'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.HELP_TOPIC_IDX ON $schema.HELP
 												    (
 												      \"TOPIC\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.HELP_TRG BEFORE
 												  INSERT ON $schema.HELP FOR EACH ROW BEGIN IF :NEW.ID IS NULL THEN
 												  SELECT HELP_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
 												END IF;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.HELP_TRG ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.LOG
 												  (
@@ -1188,25 +1193,25 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"LOGMESSAGE\" CLOB NOT NULL ENABLE,
 												    CONSTRAINT LOG_PK PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.LOG IS 'Table of log messages'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.LOG_TIMESTAMP_IDX ON $schema.LOG
 												    (
 												      \"LOGTIMESTAMP\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.LOG_TRG BEFORE
 												  INSERT ON $schema.LOG FOR EACH ROW BEGIN
 												  SELECT LOG_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.LOG_TRG ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"PREFERENCES\"
 												  (
@@ -1223,26 +1228,26 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"DELETED_USER\"     VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT \"PREFERENCES_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"PREFERENCES\" IS 'Table of user preferences'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"PREFERENCES_USER_ID_IDX\" ON $schema.\"PREFERENCES\"
 												    (
 												      \"USER_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"PREFERENCES_TRG\" BEFORE
 												  INSERT ON $schema.PREFERENCES FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN
 												  SELECT PREFERENCES_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"PREFERENCES_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"WORKINFO\"
 												  (
@@ -1253,10 +1258,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"TYPE\"   VARCHAR2(255 BYTE) NOT NULL ENABLE,
 												    CONSTRAINT \"WORKINFO_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"WORKINFO\" IS 'Table of workinfos'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"WORKINFO_TRG\" BEFORE
 												  INSERT ON $schema.WORKINFO FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1264,10 +1269,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"WORKINFO_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"RIGHTS\"
 												  (
@@ -1288,10 +1293,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												  OR ALLOWED_ACTION                                                = 'edit'
 												  OR ALLOWED_ACTION                                                = 'delete') ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"RIGHTS\" IS 'Table of rights to grant to users'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"RIGHTS_TRG\" BEFORE
 												  INSERT ON $schema.RIGHTS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1299,10 +1304,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"RIGHTS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SESSIONS\"
 												  (
@@ -1311,16 +1316,16 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"SESSION_DATA\" CLOB,
 												    CONSTRAINT \"SESSIONS_SESSION_EXPIRES_CHECK\" CHECK (SESSION_EXPIRES >= 0) ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SESSIONS\" IS 'Table of session information'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SESSIONS_SESSION_EXPIRES_IDX\" ON $schema.\"SESSIONS\"
 												    (
 												      \"SESSION_EXPIRES\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVNGROUPS\"
 												  (
@@ -1335,16 +1340,16 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"DELETED_USER\"  VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT \"SVNGROUPS_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVNGROUPS\" IS 'Table of svn user groups'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNGROUPS_GROUPNAME_IDX\" ON $schema.\"SVNGROUPS\"
 												    (
 												      \"GROUPNAME\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVNGROUPS_TRG\" BEFORE
 												  INSERT ON $schema.SVNGROUPS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1352,10 +1357,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVNGROUPS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVNMAILINGLISTS\"
 												  (
@@ -1371,10 +1376,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"DELETED_USER\"  VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT \"SVNMAILINGLISTS_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVNMAILINGLISTS\" IS 'Table of available svn mailing lists'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVNMAILINGLISTS_TRG\" BEFORE
 												  INSERT ON $schema.SVNMAILINGLISTS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1382,10 +1387,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVNMAILINGLISTS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVNPASSWORDRESET\"
 												  (
@@ -1396,10 +1401,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"IDSTR\"    VARCHAR2(255 BYTE) NOT NULL ENABLE,
 												    CONSTRAINT \"SVNPASSWORDRESET_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVNPASSWORDRESET\" IS 'Table with password reset information'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVNPASSWORDRESET_TRG\" BEFORE
 												  INSERT ON $schema.SVNPASSWORDRESET FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1407,10 +1412,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVNPASSWORDRESET_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVNREPOS\"
 												  (
@@ -1430,16 +1435,16 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"DELETED_USER\"         VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT \"SVNREPOS_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVNREPOS\" IS 'Table of svn repositories'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNREPOS_DELETED_IDX\" ON $schema.\"SVNREPOS\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVNREPOS_TRG\" BEFORE
 												  INSERT ON $schema.SVNREPOS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1447,10 +1452,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVNREPOS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVNPROJECTS\"
 												  (
@@ -1469,22 +1474,22 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    CONSTRAINT \"SVNPROJECTS_REPO_ID_CHECK\" CHECK (REPO_ID >= 0) ENABLE,
 												    CONSTRAINT \"SVNPROJECTS_REPO_ID_FK\" FOREIGN KEY (\"REPO_ID\") REFERENCES $schema.\"SVNREPOS\" (\"ID\") ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVNPROJECTS\" IS 'Table of svn modules'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNPROJECTS_DELETED_IDX\" ON $schema.\"SVNPROJECTS\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNPROJECTS_REPO_ID_IDX\" ON $schema.\"SVNPROJECTS\"
 												    (
 												      \"REPO_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVNPROJECTS_TRG\" BEFORE
 												  INSERT ON $schema.SVNPROJECTS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1492,10 +1497,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVNPROJECTS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.SVNUSERS
 												  (
@@ -1524,28 +1529,28 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"CUSTOM3\"           VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT SVNUSERS_PK PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.SVNUSERS IS 'Table of all known users'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNUSERS_DELETED_IDX\" ON $schema.\"SVNUSERS\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNUSERS_LOCKED_IDX\" ON $schema.\"SVNUSERS\"
 												    (
 												      \"LOCKED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNUSERS_PASSWORDEXPIRES_IDX\" ON $schema.\"SVNUSERS\"
 												    (
 												      \"PASSWORDEXPIRES\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVNUSERS_TRG\" BEFORE
 												  INSERT ON $schema.SVNUSERS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1553,10 +1558,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVNUSERS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVN_ACCESS_RIGHTS\"
 												  (
@@ -1588,34 +1593,34 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    CONSTRAINT \"SVN_ACCESS_RIGHTS_SVNUSER_FK1\" FOREIGN KEY (\"USER_ID\") REFERENCES $schema.\"SVNUSERS\" (\"ID\") ON
 												  DELETE CASCADE ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVN_ACCESS_RIGHTS\" IS 'Table of user or group access rights'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVNACCESSRIGHTSPROJECTID_IDX\" ON $schema.\"SVN_ACCESS_RIGHTS\"
 												    (
 												      \"PROJECT_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_ACCESS_RIGHTS_DELETED_IDX\" ON $schema.\"SVN_ACCESS_RIGHTS\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_ACCESS_RIGHTS_GROUP_ID_IDX\" ON $schema.\"SVN_ACCESS_RIGHTS\"
 												    (
 												      \"GROUP_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_ACCESS_RIGHTS_USER_ID_IDX\" ON $schema.\"SVN_ACCESS_RIGHTS\"
 												    (
 												      \"USER_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVN_ACCESS_RIGHTS_TRG\" BEFORE
 												  INSERT ON $schema.SVN_ACCESS_RIGHTS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1623,10 +1628,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVN_ACCESS_RIGHTS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVN_GROUPS_RESPONSIBLE\"
 												  (
@@ -1652,23 +1657,23 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    CONSTRAINT \"SVN_GROUPS_RESPONSIBLE_SV_FK2\" FOREIGN KEY (\"GROUP_ID\") REFERENCES $schema.\"SVNGROUPS\" (\"ID\") ON
 												  DELETE CASCADE ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVN_GROUPS_RESPONSIBLE\" IS 'Table of group responsible people'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"DELETED_IDX\" ON $schema.\"SVN_GROUPS_RESPONSIBLE\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_GROUPS_RESPONSIBLE_1_IDX\" ON $schema.\"SVN_GROUPS_RESPONSIBLE\"
 												    (
 												      \"USER_ID\",
 												      \"GROUP_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVN_GROUPS_RESPONSIBLE_TRG\" BEFORE
 												  INSERT ON $schema.SVN_GROUPS_RESPONSIBLE FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1676,10 +1681,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVN_GROUPS_RESPONSIBLE_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVN_PROJECTS_MAILINGLISTS\"
 												  (
@@ -1698,23 +1703,23 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    CONSTRAINT \"SVN_PROJECTS_MAILINGLISTS_FK2\" FOREIGN KEY (\"MAILINGLISTEN_ID\") REFERENCES $schema.\"SVNMAILINGLISTS\" (\"ID\") ON
 												  DELETE CASCADE ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVN_PROJECTS_MAILINGLISTS\" IS 'Table of modules and mailinglist relations'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"MAILINGLISTEN_ID_IDX\" ON $schema.\"SVN_PROJECTS_MAILINGLISTS\"
 												    (
 												      \"MAILINGLISTEN_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"MAILINGLISTS_1_IDX\" ON $schema.\"SVN_PROJECTS_MAILINGLISTS\"
 												    (
 												      \"PROJECT_ID\",
 												      \"MAILINGLISTEN_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVN_PROJECTS_MAILINGLISTS_TRG\" BEFORE
 												  INSERT ON $schema.SVN_PROJECTS_MAILINGLISTS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1722,10 +1727,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVN_PROJECTS_MAILINGLISTS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVN_PROJECTS_RESPONSIBLE\"
 												  (
@@ -1740,22 +1745,22 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"DELETED_USER\"  VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT \"SVN_PROJECTS_RESPONSIBLE_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVN_PROJECTS_RESPONSIBLE\" IS 'Table of project responsible users'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"PRJ_RESP_DELETED_IDX\" ON $schema.\"SVN_PROJECTS_RESPONSIBLE\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"PRJ_RESP_PROJECT_ID_IDX\" ON $schema.\"SVN_PROJECTS_RESPONSIBLE\"
 												    (
 												      \"PROJECT_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVN_PROJECTS_RESPONSIBLE_TRG\" BEFORE
 												  INSERT ON $schema.SVN_PROJECTS_RESPONSIBLE FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1763,10 +1768,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVN_PROJECTS_RESPONSIBLE_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"SVN_USERS_GROUPS\"
 												  (
@@ -1781,28 +1786,28 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    \"DELETED_USER\"  VARCHAR2(255 BYTE) DEFAULT '',
 												    CONSTRAINT \"SVN_USERS_GROUPS_PK\" PRIMARY KEY (\"ID\")  ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"SVN_USERS_GROUPS\" IS 'Table of user group relations'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_USERS_GROUPS_DELETED_IDX\" ON $schema.\"SVN_USERS_GROUPS\"
 												    (
 												      \"DELETED\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_USERS_GROUPS_GROUP_ID_IDX\" ON $schema.\"SVN_USERS_GROUPS\"
 												    (
 												      \"GROUP_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"SVN_USERS_GROUPS_USER_ID_IDX\" ON $schema.\"SVN_USERS_GROUPS\"
 												    (
 												      \"USER_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"SVN_USERS_GROUPS_TRG\" BEFORE
 												  INSERT ON $schema.SVN_USERS_GROUPS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1810,10 +1815,10 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"SVN_USERS_GROUPS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE TABLE $schema.\"USERS_RIGHTS\"
 												  (
@@ -1838,22 +1843,22 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												    CONSTRAINT \"USERS_RIGHTS_USER_ID_FKEY\" FOREIGN KEY (\"USER_ID\") REFERENCES $schema.\"SVNUSERS\" (\"ID\") ON
 												  DELETE CASCADE ENABLE
 												  )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"USERS_RIGHTS\" IS 'Table of granted user rights'";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"USERS_RIGHTS_RIGHT_ID_IDX\" ON $schema.\"USERS_RIGHTS\"
 												    (
 												      \"RIGHT_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE INDEX $schema.\"USERS_RIGHTS_USER_ID_IDX\" ON $schema.\"USERS_RIGHTS\"
 												    (
 												      \"USER_ID\"
 												    )";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "CREATE OR REPLACE TRIGGER $schema.\"USERS_RIGHTS_TRG\" BEFORE
 												  INSERT ON $schema.USERS_RIGHTS FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
@@ -1861,21 +1866,22 @@ function createOracleDatabaseTables($dbh, $tDatabaseCharset, $tDatabaseCollation
 												END IF;
 												END COLUMN_SEQUENCES;
 												END;";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"USERS_RIGHTS_TRG\" ENABLE";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
-    $ret = array ();
+    $ret = array();
     
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
     return $ret;
 
 }
+
 function createMySQLDatabaseTables($dbh, $charset, $collation) {
 
     $error = 0;
@@ -1890,7 +1896,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													PRIMARY KEY  (`id`),
   													KEY `idx_timestamp` (`logtimestamp`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of log messages';";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     if ($error == 0) {
         
@@ -1909,7 +1915,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													PRIMARY KEY  (`id`),
   													KEY `idx_userid` (`user_id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user preferences';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -1928,7 +1934,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of rights to grant to users';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -1940,7 +1946,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													PRIMARY KEY  (`session_id`),
   													KEY `idx_expires` (`session_expires`)
 												) ENGINE=MyISAM DEFAULT CHARSET=$charset COLLATE=$collation;";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -1968,7 +1974,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `idx_path` (`path`(512)),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user or group access rights';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -1987,7 +1993,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `moduleid` (`project_id`,`mailinglisten_id`),
   													KEY `mailinglistenid` (`mailinglisten_id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of modules and mailinglist relations';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2006,7 +2012,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `idx_projectid` (`project_id`),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of project responsible users';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2026,7 +2032,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `idx_userid` (`user_id`),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user group relations';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2044,7 +2050,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													PRIMARY KEY  (`id`),
   													KEY `groupname` (`groupname`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn user groups';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2062,7 +2068,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													`deleted_user` varchar(255) NOT NULL DEFAULT ' ',
   													PRIMARY KEY  (`id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of available svn mailing lists';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2083,7 +2089,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `idx_repoid` (`repo_id`),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn modules';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2106,7 +2112,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													PRIMARY KEY  (`id`),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of svn repositories';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2141,7 +2147,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `idx_passwordexpires` (`passwordexpires`),
   													KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of all known users';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2154,7 +2160,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													`type` varchar(255) NOT NULL,
   													PRIMARY KEY  (`id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='table of workinfo';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2171,7 +2177,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													FULLTEXT KEY `helptext_de` (`helptext_de`),
   													FULLTEXT KEY `helptext_en` (`helptext_en`)
 												) ENGINE=MyISAM  DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of help texts';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2191,7 +2197,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
   													KEY `idx_user_id` (`user_id`),
   													KEY `idx_right_id` (`right_id`)
 												) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of granted user rights';";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2211,7 +2217,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
 												  KEY `idx_projectid_userid_groupid` (`user_id`,`group_id`),
 												  KEY `idx_deleted` (`deleted`)
 												) ENGINE=InnoDB  DEFAULT CHARSET=$charset COLLATE=$collation;";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
@@ -2224,83 +2230,85 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
 												  `idstr` varchar(255) NOT NULL,
 												  PRIMARY KEY (`id`)
 												) ENGINE=InnoDB  DEFAULT CHARSET=$charset;";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
     return $ret;
 
 }
+
 function loadDbData($dbh, $charset, $collation, $databasetype) {
 
-    db_ta ( 'BEGIN', $dbh );
+    db_ta('BEGIN', $dbh);
     
     $error = 0;
     $tMessage = "";
-    $dbnow = db_now ();
+    $dbnow = db_now();
     $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('User admin', 'Administer users', 'Benutzer verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Group admin', 'Administer groups', 'Gruppen verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Repository admin', 'Administer repositories', 'Repositories verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Access rights admin', 'Administer repository access rights', 'Repository Zugriffsrechte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
-        if (mysql_errno () != 0) {
+        $result = db_query_install($query, $dbh);
+        if (mysql_errno() != 0) {
             $error = 1;
-            $tMessage = sprintf ( _ ( "Error inserting data into rights table: %s" ), mysql_error () );
+            $tMessage = sprintf(_("Error inserting data into rights table: %s"), mysql_error());
         }
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Reports', 'Show reports', 'Berichte ansehen', 'read', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
-        db_ta ( 'COMMIT', $dbh );
+        db_ta('COMMIT', $dbh);
     }
     else {
-        db_ta ( 'ROLLBACK', $dbh );
+        db_ta('ROLLBACK', $dbh);
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
     return $ret;
 
 }
+
 function loadPostgresDbData($dbh, $charset, $collation, $databasetype, $schema) {
 
     if ($schema != "") {
@@ -2309,219 +2317,222 @@ function loadPostgresDbData($dbh, $charset, $collation, $databasetype, $schema) 
     else {
         $query = "SET search_path = ";
     }
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
-    db_ta ( 'BEGIN', $dbh );
+    db_ta('BEGIN', $dbh);
     
     $error = 0;
     $tMessage = "";
-    $dbnow = db_now ();
+    $dbnow = db_now();
     $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('User admin', 'Administer users', 'Benutzer verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Group admin', 'Administer groups', 'Gruppen verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Repository admin', 'Administer repositories', 'Repositories verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Access rights admin', 'Administer repository access rights', 'Repository Zugriffsrechte verwalten', 'delete', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
-        if (mysql_errno () != 0) {
+        $result = db_query_install($query, $dbh);
+        if (mysql_errno() != 0) {
             $error = 1;
-            $tMessage = sprintf ( _ ( "Error inserting data into rights table: %s" ), mysql_error () );
+            $tMessage = sprintf(_("Error inserting data into rights table: %s"), mysql_error());
         }
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Reports', 'Show reports', 'Berichte ansehen', 'read', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
-        db_ta ( 'COMMIT', $dbh );
+        db_ta('COMMIT', $dbh);
     }
     else {
-        db_ta ( 'ROLLBACK', $dbh );
+        db_ta('ROLLBACK', $dbh);
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
     return $ret;
 
 }
+
 function loadOracleDbData($dbh, $charset, $collation, $databasetype, $schema) {
 
-    db_ta ( 'BEGIN', $dbh );
+    db_ta('BEGIN', $dbh);
     
     $error = 0;
     $tMessage = "";
-    $dbnow = db_now ();
+    $dbnow = db_now();
     $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('User admin', 'Administer users', 'Benutzer verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     
     if ($error == 0) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Group admin', 'Administer groups', 'Gruppen verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Project admin', 'Administer projects', 'Projekte verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Repository admin', 'Administer repositories', 'Repositories verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Access rights admin', 'Administer repository access rights', 'Repository Zugriffsrechte verwalten', 'delete', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ' )";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     if ($error == 0) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
-        $result = db_query_install ( $query, $dbh );
-        if (mysql_errno () != 0) {
+        $result = db_query_install($query, $dbh);
+        if (mysql_errno() != 0) {
             $error = 1;
-            $tMessage = sprintf ( _ ( "Error inserting data into rights table: %s" ), mysql_error () );
+            $tMessage = sprintf(_("Error inserting data into rights table: %s"), mysql_error());
         }
     }
     
     if ($error == 0) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Reports', 'Show reports', 'Berichte ansehen', 'read', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
-        $result = db_query_install ( $query, $dbh );
+        $result = db_query_install($query, $dbh);
     }
     
     if ($error == 0) {
-        db_ta ( 'COMMIT', $dbh );
+        db_ta('COMMIT', $dbh);
     }
     else {
-        db_ta ( 'ROLLBACK', $dbh );
+        db_ta('ROLLBACK', $dbh);
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     // error_log( $error." - ". $tMessage );
     
     return $ret;
 
 }
+
 function createAdmin($userid, $password, $givenname, $name, $emailaddress, $databasetype, $dbh, $schema) {
 
-    db_ta ( 'BEGIN', $dbh );
+    db_ta('BEGIN', $dbh);
     
-    $CONF = array ();
-    $CONF ['database_host'] = $_SESSION ['svn_inst'] ['databaseHost'];
-    $CONF ['database_user'] = $_SESSION ['svn_inst'] ['databaseUser'];
-    $CONF ['database_password'] = $_SESSION ['svn_inst'] ['databasePassword'];
-    $CONF ['database_name'] = $_SESSION ['svn_inst'] ['databaseName'];
-    $CONF ['database_schema'] = $_SESSION ['svn_inst'] ['databaseSchema'];
-    $CONF ['database_tablespace'] = $_SESSION ['svn_inst'] ['databaseTablespace'];
-    $CONF ['pwcrypt'] = $_SESSION ['svn_inst'] ['pwEnc'];
+    $CONF = array();
+    $CONF['database_host'] = $_SESSION['svn_inst']['databaseHost'];
+    $CONF['database_user'] = $_SESSION['svn_inst']['databaseUser'];
+    $CONF['database_password'] = $_SESSION['svn_inst']['databasePassword'];
+    $CONF['database_name'] = $_SESSION['svn_inst']['databaseName'];
+    $CONF['database_schema'] = $_SESSION['svn_inst']['databaseSchema'];
+    $CONF['database_tablespace'] = $_SESSION['svn_inst']['databaseTablespace'];
+    $CONF['pwcrypt'] = $_SESSION['svn_inst']['pwEnc'];
     
     // error_log( "crypt algorithm is ".$CONF['pwcrypt'] );
     
     $error = 0;
     $tMessage = "";
-    $pwcrypt = $dbh->qstr ( pacrypt ( $password ), get_magic_quotes_gpc () );
-    $dbnow = db_now ();
-    if (($databasetype == "oci8") or (substr ( $databasetype, 0, 8 ) == "postgres")) {
+    $pwcrypt = $dbh->qstr(pacrypt($password), get_magic_quotes_gpc());
+    $dbnow = db_now();
+    if (($databasetype == "oci8") or (substr($databasetype, 0, 8) == "postgres")) {
         $query = "INSERT INTO $schema.svnusers (userid, name, givenname, password, emailaddress, user_mode, admin, created, created_user, password_modified, superadmin) " . "VALUES ('$userid', '$name', '$givenname', $pwcrypt, '$emailaddress', 'write', 'y', '$dbnow', 'install', '$dbnow', 1)";
     }
     else {
         $query = "INSERT INTO svnusers (userid, name, givenname, password, emailaddress, user_mode, admin, created, created_user, password_modified, superadmin) " . "VALUES ('$userid', '$name', '$givenname', $pwcrypt, '$emailaddress', 'write', 'y', '$dbnow', 'install', '$dbnow', 1)";
     }
-    $result = db_query_install ( $query, $dbh );
-    $uid = db_get_last_insert_id ( 'svnusers', 'id', $dbh, $_SESSION ['svn_inst'] ['databaseSchema'] );
-    db_ta ( 'COMMIT', $dbh );
+    $result = db_query_install($query, $dbh);
+    $uid = db_get_last_insert_id('svnusers', 'id', $dbh, $_SESSION['svn_inst']['databaseSchema']);
+    db_ta('COMMIT', $dbh);
     // error_log( "uid read: $uid" );
     
     $query = "SELECT id, allowed_action " . "  FROM rights " . " WHERE deleted = '00000000000000'";
     // error_log( $query );
-    $result = db_query_install ( $query, $dbh );
+    $result = db_query_install($query, $dbh);
     // error_log( "rows = ".$result['rows'] );
     
-    while ( ($error == 0) and ($row = db_assoc ( $result ['result'] )) ) {
+    while ( ($error == 0) and ($row = db_assoc($result['result'])) ) {
         
-        $allowed = $row ['allowed_action'];
-        $id = $row ['id'];
-        $dbnow = db_now ();
-        if (($databasetype == "oci8") or (substr ( $databasetype, 0, 8 ) == "postgres")) {
+        $allowed = $row['allowed_action'];
+        $id = $row['id'];
+        $dbnow = db_now();
+        if (($databasetype == "oci8") or (substr($databasetype, 0, 8) == "postgres")) {
             $query = "INSERT INTO $schema.users_rights (user_id, right_id, allowed, created, created_user) " . "VALUES ($uid, $id, '$allowed', '$dbnow', 'install')";
         }
         else {
             $query = "INSERT INTO users_rights (user_id, right_id, allowed, created, created_user) " . "VALUES ($uid, $id, '$allowed', '$dbnow', 'install')";
         }
         // error_log( $query );
-        $resultinsert = db_query_install ( $query, $dbh );
+        $resultinsert = db_query_install($query, $dbh);
         
-        if (mysql_errno () != 0) {
+        if (mysql_errno() != 0) {
             
             $error = 1;
-            $tMessage = sprintf ( _ ( "Error inserting user access right for admin: %s" ), mysql_error () );
+            $tMessage = sprintf(_("Error inserting user access right for admin: %s"), mysql_error());
         }
     }
     
     if ($error == 0) {
-        db_ta ( 'COMMIT', $dbh );
+        db_ta('COMMIT', $dbh);
     }
     else {
-        db_ta ( 'ROLLBACK', $dbh );
+        db_ta('ROLLBACK', $dbh);
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     // error_log( "createAdmin: ".$error." - ". $tMessage );
     
     return $ret;
 
 }
+
 function loadHelpTexts($database, $schema, $dbh) {
 
     $error = 0;
     $tMessage = "";
     $filename = "help_texts.sql";
     
-    if (file_exists ( realpath ( "./$filename" ) )) {
+    if (file_exists(realpath("./$filename"))) {
         
         $filename = "./$filename";
     }
-    elseif (file_exists ( realpath ( "../$filename" ) )) {
+    elseif (file_exists(realpath("../$filename"))) {
         
         $filename = "../$filename";
     }
@@ -2532,11 +2543,11 @@ function loadHelpTexts($database, $schema, $dbh) {
     
     if ($filename != "") {
         
-        if ($fh_in = @fopen ( $filename, "r" )) {
+        if ($fh_in = @fopen($filename, "r")) {
             
-            db_ta ( "BEGIN", $dbh );
+            db_ta("BEGIN", $dbh);
             
-            if (substr ( $database, 0, 8 ) == "postgres") {
+            if (substr($database, 0, 8) == "postgres") {
                 $schema = ($schema == "") ? "" : $schema . ".";
             }
             elseif ($database == "oci8") {
@@ -2546,66 +2557,67 @@ function loadHelpTexts($database, $schema, $dbh) {
                 $schema = "";
             }
             
-            while ( ! feof ( $fh_in ) ) {
+            while ( ! feof($fh_in) ) {
                 
-                $query = fgets ( $fh_in );
+                $query = fgets($fh_in);
                 if ($query != "") {
                     
-                    $query = str_replace ( " INTO help ", " INTO " . $schema . "help ", $query );
-                    $query = preg_replace ( '/;$/', '', $query );
+                    $query = str_replace(" INTO help ", " INTO " . $schema . "help ", $query);
+                    $query = preg_replace('/;$/', '', $query);
                     // error_log( $query );
-                    $result = db_query_install ( $query, $dbh );
+                    $result = db_query_install($query, $dbh);
                 }
             }
             
-            @fclose ( $fh_in );
+            @fclose($fh_in);
             
             if ($error == 0) {
-                db_ta ( 'COMMIT', $dbh );
+                db_ta('COMMIT', $dbh);
             }
             else {
-                db_ta ( 'ROLLBACK', $dbh );
+                db_ta('ROLLBACK', $dbh);
             }
         }
     }
     
-    $ret = array ();
-    $ret ['error'] = $error;
-    $ret ['errormsg'] = $tMessage;
+    $ret = array();
+    $ret['error'] = $error;
+    $ret['errormsg'] = $tMessage;
     
     return $ret;
 
 }
+
 function doDbtest() {
 
-    $tErrors = array ();
+    $tErrors = array();
     $error = 0;
-    $CONF ['database_host'] = $_SESSION ['svn_inst'] ['databaseHost'];
-    $CONF ['database_user'] = $_SESSION ['svn_inst'] ['databaseUser'];
-    $CONF ['database_password'] = $_SESSION ['svn_inst'] ['databasePassword'];
-    $CONF ['database_name'] = $_SESSION ['svn_inst'] ['databaseName'];
-    $CONF ['database_schema'] = $_SESSION ['svn_inst'] ['databaseSchema'];
-    $CONF ['database_tablespace'] = $_SESSION ['svn_inst'] ['databaseTablespace'];
+    $CONF['database_host'] = $_SESSION['svn_inst']['databaseHost'];
+    $CONF['database_user'] = $_SESSION['svn_inst']['databaseUser'];
+    $CONF['database_password'] = $_SESSION['svn_inst']['databasePassword'];
+    $CONF['database_name'] = $_SESSION['svn_inst']['databaseName'];
+    $CONF['database_schema'] = $_SESSION['svn_inst']['databaseSchema'];
+    $CONF['database_tablespace'] = $_SESSION['svn_inst']['databaseTablespace'];
     
-    $dbh = db_connect_install ( $_SESSION ['svn_inst'] ['databaseHost'], $_SESSION ['svn_inst'] ['databaseUser'], $_SESSION ['svn_inst'] ['databasePassword'], $_SESSION ['svn_inst'] ['databaseName'], $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'], "yes" );
+    $dbh = db_connect_install($_SESSION['svn_inst']['databaseHost'], $_SESSION['svn_inst']['databaseUser'], $_SESSION['svn_inst']['databasePassword'], $_SESSION['svn_inst']['databaseName'], $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], "yes");
     
-    if (is_array ( $dbh )) {
-        $tErrors [] = $dbh ['error'];
+    if (is_array($dbh)) {
+        $tErrors[] = $dbh['error'];
         $error = 1;
     }
     else {
-        $tErrors [] = _ ( "Database test ok, connection works" );
+        $tErrors[] = _("Database test ok, connection works");
         $error = 1;
     }
     
-    $tDatabaseHost = isset ( $_SESSION ['svn_inst'] ['databaseHost'] ) ? $_SESSION ['svn_inst'] ['databaseHost'] : "";
-    $tDatabaseUser = isset ( $_SESSION ['svn_inst'] ['databaseUser'] ) ? $_SESSION ['svn_inst'] ['databaseUser'] : "";
-    $tDatabasePassword = isset ( $_SESSION ['svn_inst'] ['databasePassword'] ) ? $_SESSION ['svn_inst'] ['databasePassword'] : "";
-    $tDatabaseName = isset ( $_SESSION ['svn_inst'] ['databaseName'] ) ? $_SESSION ['svn_inst'] ['databaseName'] : "";
-    $tDatabaseSchema = isset ( $_SESSION ['svn_inst'] ['databaseSchema'] ) ? $_SESSION ['svn_inst'] ['databaseSchema'] : "";
-    $tDatabaseTablespace = isset ( $_SESSION ['svn_inst'] ['databaseTablespace'] ) ? $_SESSION ['svn_inst'] ['databaseTablespace'] : "";
-    $tDatabaseCharset = isset ( $_SESSION ['svn_inst'] ['databaseCharset'] ) ? $_SESSION ['svn_inst'] ['databaseCharset'] : "";
-    $tDatabaseCollation = isset ( $_SESSION ['svn_inst'] ['databaseCollation'] ) ? $_SESSION ['svn_inst'] ['databaseCollation'] : "";
+    $tDatabaseHost = isset($_SESSION['svn_inst']['databaseHost']) ? $_SESSION['svn_inst']['databaseHost'] : "";
+    $tDatabaseUser = isset($_SESSION['svn_inst']['databaseUser']) ? $_SESSION['svn_inst']['databaseUser'] : "";
+    $tDatabasePassword = isset($_SESSION['svn_inst']['databasePassword']) ? $_SESSION['svn_inst']['databasePassword'] : "";
+    $tDatabaseName = isset($_SESSION['svn_inst']['databaseName']) ? $_SESSION['svn_inst']['databaseName'] : "";
+    $tDatabaseSchema = isset($_SESSION['svn_inst']['databaseSchema']) ? $_SESSION['svn_inst']['databaseSchema'] : "";
+    $tDatabaseTablespace = isset($_SESSION['svn_inst']['databaseTablespace']) ? $_SESSION['svn_inst']['databaseTablespace'] : "";
+    $tDatabaseCharset = isset($_SESSION['svn_inst']['databaseCharset']) ? $_SESSION['svn_inst']['databaseCharset'] : "";
+    $tDatabaseCollation = isset($_SESSION['svn_inst']['databaseCollation']) ? $_SESSION['svn_inst']['databaseCollation'] : "";
     
     if ($error == 0) {
         $tPage = 1;
@@ -2614,56 +2626,57 @@ function doDbtest() {
         $tPage = 7;
     }
     
-    $ret = array ();
-    $ret ['page'] = $tPage;
-    $ret ['errors'] = $tErrors;
+    $ret = array();
+    $ret['page'] = $tPage;
+    $ret['errors'] = $tErrors;
     return ($ret);
 
 }
+
 function doLdapTest() {
 
-    $tErrors = array ();
+    $tErrors = array();
     $error = 0;
     $tPage = 2;
-    $tLdapProtocol = isset ( $_SESSION ['svn_inst'] ['ldapProtocol'] ) ? $_SESSION ['svn_inst'] ['ldapProtocol'] : "3";
+    $tLdapProtocol = isset($_SESSION['svn_inst']['ldapProtocol']) ? $_SESSION['svn_inst']['ldapProtocol'] : "3";
     
-    if ($ldap = @ldap_connect ( $_SESSION ['svn_inst'] ['ldapHost'], $_SESSION ['svn_inst'] ['ldapPort'] )) {
+    if ($ldap = @ldap_connect($_SESSION['svn_inst']['ldapHost'], $_SESSION['svn_inst']['ldapPort'])) {
         
-        ldap_set_option ( $ldap, LDAP_OPT_PROTOCOL_VERSION, $tLdapProtocol );
+        ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, $tLdapProtocol);
         
-        if ($rs = @ldap_bind ( $ldap, $_SESSION ['svn_inst'] ['ldapBinddn'], $_SESSION ['svn_inst'] ['ldapBindpw'] )) {
+        if ($rs = @ldap_bind($ldap, $_SESSION['svn_inst']['ldapBinddn'], $_SESSION['svn_inst']['ldapBindpw'])) {
             
-            $tErrors [] = _ ( "LDAP connection test ok, connection works" );
+            $tErrors[] = _("LDAP connection test ok, connection works");
             $error = 1;
         }
         else {
             
-            $tErrors [] = sprintf ( _ ( "Can't bind to ldap server: %s" ), ldap_error ( $ldap ) );
+            $tErrors[] = sprintf(_("Can't bind to ldap server: %s"), ldap_error($ldap));
             $error = 1;
         }
         
-        @ldap_unbind ( $ldap );
+        @ldap_unbind($ldap);
     }
     else {
         
-        $tErrors [] = _ ( "Can't connect to ldap server, hostname/ip and port are ok?" );
+        $tErrors[] = _("Can't connect to ldap server, hostname/ip and port are ok?");
         $error = 1;
     }
     
-    $tCreateDatabaseTables = isset ( $_SESSION ['svn_inst'] ['createDatabaseTables'] ) ? $_SESSION ['svn_inst'] ['createDatabaseTables'] : "";
-    $tDropDatabaseTables = isset ( $_SESSION ['svn_inst'] ['dropDatabaseTables'] ) ? $_SESSION ['svn_inst'] ['dropDatabaseTables'] : "";
-    $tDatabase = isset ( $_SESSION ['svn_inst'] ['database'] ) ? $_SESSION ['svn_inst'] ['database'] : "";
-    $tSessionInDatabase = isset ( $_SESSION ['svn_inst'] ['sessionInDatabase'] ) ? $_SESSION ['svn_inst'] ['sessionInDatabase'] : "";
-    $tUseLdap = isset ( $_SESSION ['svn_inst'] ['useLdap'] ) ? $_SESSION ['svn_inst'] ['useLdap'] : "";
-    $tLdapHost = isset ( $_SESSION ['svn_inst'] ['ldapHost'] ) ? $_SESSION ['svn_inst'] ['ldapHost'] : "";
-    $tLdapPort = isset ( $_SESSION ['svn_inst'] ['ldapPort'] ) ? $_SESSION ['svn_inst'] ['ldapPort'] : "";
-    $tLdapProtocol = isset ( $_SESSION ['svn_inst'] ['ldapProtocol'] ) ? $_SESSION ['svn_inst'] ['ldapProtocol'] : "";
-    $tLdapBinddn = isset ( $_SESSION ['svn_inst'] ['ldapBinddn'] ) ? $_SESSION ['svn_inst'] ['ldapBinddn'] : "";
-    $tLdapBindpw = isset ( $_SESSION ['svn_inst'] ['ldapBindpw'] ) ? $_SESSION ['svn_inst'] ['ldapBindpw'] : "";
-    $tLdapUserdn = isset ( $_SESSION ['svn_inst'] ['ldapUserdn'] ) ? $_SESSION ['svn_inst'] ['ldapUserdn'] : "";
-    $tLdapUserFilter = isset ( $_SESSION ['svn_inst'] ['ldapUserFilter'] ) ? $_SESSION ['svn_inst'] ['ldapUserFilter'] : "";
-    $tLdapUserObjectclass = isset ( $_SESSION ['svn_inst'] ['ldapUserObjectclass'] ) ? $_SESSION ['svn_inst'] ['ldapUserObjectclass'] : "";
-    $tLdapUserAdditionalFilter = isset ( $_SESSION ['svn_inst'] ['ldapUserAdditionalFilter'] ) ? $_SESSION ['svn_inst'] ['ldapUserAdditionalFilter'] : "";
+    $tCreateDatabaseTables = isset($_SESSION['svn_inst']['createDatabaseTables']) ? $_SESSION['svn_inst']['createDatabaseTables'] : "";
+    $tDropDatabaseTables = isset($_SESSION['svn_inst']['dropDatabaseTables']) ? $_SESSION['svn_inst']['dropDatabaseTables'] : "";
+    $tDatabase = isset($_SESSION['svn_inst']['database']) ? $_SESSION['svn_inst']['database'] : "";
+    $tSessionInDatabase = isset($_SESSION['svn_inst']['sessionInDatabase']) ? $_SESSION['svn_inst']['sessionInDatabase'] : "";
+    $tUseLdap = isset($_SESSION['svn_inst']['useLdap']) ? $_SESSION['svn_inst']['useLdap'] : "";
+    $tLdapHost = isset($_SESSION['svn_inst']['ldapHost']) ? $_SESSION['svn_inst']['ldapHost'] : "";
+    $tLdapPort = isset($_SESSION['svn_inst']['ldapPort']) ? $_SESSION['svn_inst']['ldapPort'] : "";
+    $tLdapProtocol = isset($_SESSION['svn_inst']['ldapProtocol']) ? $_SESSION['svn_inst']['ldapProtocol'] : "";
+    $tLdapBinddn = isset($_SESSION['svn_inst']['ldapBinddn']) ? $_SESSION['svn_inst']['ldapBinddn'] : "";
+    $tLdapBindpw = isset($_SESSION['svn_inst']['ldapBindpw']) ? $_SESSION['svn_inst']['ldapBindpw'] : "";
+    $tLdapUserdn = isset($_SESSION['svn_inst']['ldapUserdn']) ? $_SESSION['svn_inst']['ldapUserdn'] : "";
+    $tLdapUserFilter = isset($_SESSION['svn_inst']['ldapUserFilter']) ? $_SESSION['svn_inst']['ldapUserFilter'] : "";
+    $tLdapUserObjectclass = isset($_SESSION['svn_inst']['ldapUserObjectclass']) ? $_SESSION['svn_inst']['ldapUserObjectclass'] : "";
+    $tLdapUserAdditionalFilter = isset($_SESSION['svn_inst']['ldapUserAdditionalFilter']) ? $_SESSION['svn_inst']['ldapUserAdditionalFilter'] : "";
     
     if ($tCreateDatabaseTables == "YES") {
         $tCreateDatabaseTablesYes = "checked";
@@ -2737,35 +2750,36 @@ function doLdapTest() {
         $tPage = 7;
     }
     
-    $ret = array ();
-    $ret ['page'] = $tPage;
-    $ret ['errors'] = $tErrors;
+    $ret = array();
+    $ret['page'] = $tPage;
+    $ret['errors'] = $tErrors;
     return ($ret);
 
 }
+
 function doInstall() {
 
     $tMessage = "";
     $error = 0;
-    $tErrors = array ();
+    $tErrors = array();
     
-    if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
+    if (file_exists(realpath("./config/config.inc.php"))) {
         
-        $configfile = realpath ( "./config/config.inc.php" );
-        $tBaseDir = dirname ( dirname ( $configfile ) );
+        $configfile = realpath("./config/config.inc.php");
+        $tBaseDir = dirname(dirname($configfile));
     }
-    elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+    elseif (file_exists(realpath("../config/config.inc.php"))) {
         
-        $configfile = realpath ( "../config/config.inc.php" );
-        $tBaseDir = dirname ( dirname ( $configfile ) );
+        $configfile = realpath("../config/config.inc.php");
+        $tBaseDir = dirname(dirname($configfile));
     }
     else {
         
-        $configfile = realpath ( "../config/" );
-        $tBaseDir = dirname ( $configfile );
+        $configfile = realpath("../config/");
+        $tBaseDir = dirname($configfile);
     }
     
-    if (determineOs () == "windows") {
+    if (determineOs() == "windows") {
         
         $tConfigDir = $tBaseDir . "\config";
         $configpath = $tBaseDir . "\config";
@@ -2782,308 +2796,308 @@ function doInstall() {
         $configfile = $tConfigDir . "/config.inc.php";
     }
     
-    if (is_writable ( $tConfigDir )) {
-        $tConfigWritable = _ ( "writable" );
+    if (is_writable($tConfigDir)) {
+        $tConfigWritable = _("writable");
     }
     else {
-        $tConfigWritable = _ ( "not writable" );
+        $tConfigWritable = _("not writable");
     }
     
-    if (! is_writable ( dirname ( $configfile ) )) {
+    if (! is_writable(dirname($configfile))) {
         
-        $tErrors [] = sprintf ( _ ( "Config directory %s not writable!" ), dirname ( $configfile ) );
+        $tErrors[] = sprintf(_("Config directory %s not writable!"), dirname($configfile));
         $error = 1;
     }
     
     if ($error == 0) {
         
-        if ($_SESSION ['svn_inst'] ['databaseHost'] == "") {
+        if ($_SESSION['svn_inst']['databaseHost'] == "") {
             
-            $tErrors [] = _ ( "Database host is missing!" );
+            $tErrors[] = _("Database host is missing!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['databaseUser'] == "") {
+        if ($_SESSION['svn_inst']['databaseUser'] == "") {
             
-            $tErrors [] = _ ( "Database user is missing!" );
+            $tErrors[] = _("Database user is missing!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['databaseName'] == "") {
+        if ($_SESSION['svn_inst']['databaseName'] == "") {
             
-            $tErrors [] = _ ( "Database name is missing!" );
+            $tErrors[] = _("Database name is missing!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['databaseCharset'] == "") {
+        if ($_SESSION['svn_inst']['databaseCharset'] == "") {
             
-            $tErrors [] = _ ( "Database charset is missing!" );
+            $tErrors[] = _("Database charset is missing!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['databaseCollation'] == "") {
+        if ($_SESSION['svn_inst']['databaseCollation'] == "") {
             
-            $tErrors [] = _ ( "Database collation is missing!" );
+            $tErrors[] = _("Database collation is missing!");
             $error = 1;
         }
         
-        if (strtoupper ( $_SESSION ['svn_inst'] ['useLdap'] ) == "YES") {
+        if (strtoupper($_SESSION['svn_inst']['useLdap']) == "YES") {
             
-            if ($_SESSION ['svn_inst'] ['ldapHost'] == "") {
+            if ($_SESSION['svn_inst']['ldapHost'] == "") {
                 
-                $tErrors [] = _ ( "LDAP host is missing!" );
+                $tErrors[] = _("LDAP host is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapPort'] == "") {
+            if ($_SESSION['svn_inst']['ldapPort'] == "") {
                 
-                $tErrors [] = _ ( "LDAP port is missing!" );
+                $tErrors[] = _("LDAP port is missing!");
                 $error = 1;
             }
             
-            if (($_SESSION ['svn_inst'] ['ldapProtocol'] != "2") and ($_SESSION ['svn_inst'] ['ldapProtocol'] != "3")) {
+            if (($_SESSION['svn_inst']['ldapProtocol'] != "2") and ($_SESSION['svn_inst']['ldapProtocol'] != "3")) {
                 
-                $tErrors [] = sprintf ( _ ( "Invalid protocol version %s!" ), $_SESSION ['svn_inst'] ['ldapProtocol'] );
+                $tErrors[] = sprintf(_("Invalid protocol version %s!"), $_SESSION['svn_inst']['ldapProtocol']);
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapBinddn'] == "") {
+            if ($_SESSION['svn_inst']['ldapBinddn'] == "") {
                 
-                $tErrors [] = _ ( "LDAP bind dn is missing!" );
+                $tErrors[] = _("LDAP bind dn is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapBindpw'] == "") {
+            if ($_SESSION['svn_inst']['ldapBindpw'] == "") {
                 
-                $tErrors [] = _ ( "LDAP bind password is missing!" );
+                $tErrors[] = _("LDAP bind password is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapUserdn'] == "") {
+            if ($_SESSION['svn_inst']['ldapUserdn'] == "") {
                 
-                $tErrors [] = _ ( "LDAP user dn is missing!" );
+                $tErrors[] = _("LDAP user dn is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapUserFilter'] == "") {
+            if ($_SESSION['svn_inst']['ldapUserFilter'] == "") {
                 
-                $tErrors [] = _ ( "LDAP user filter attribute is missing!" );
+                $tErrors[] = _("LDAP user filter attribute is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapUserObjectclass'] == "") {
+            if ($_SESSION['svn_inst']['ldapUserObjectclass'] == "") {
                 
-                $tErrors [] = _ ( "LDAP user object class is missing!" );
+                $tErrors[] = _("LDAP user object class is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapAttrUid'] == "") {
+            if ($_SESSION['svn_inst']['ldapAttrUid'] == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for uid is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for uid is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapAttrName'] == "") {
+            if ($_SESSION['svn_inst']['ldapAttrName'] == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for name is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for name is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapAttrGivenname'] == "") {
+            if ($_SESSION['svn_inst']['ldapAttrGivenname'] == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for given name is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for given name is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapAttrMail'] == "") {
+            if ($_SESSION['svn_inst']['ldapAttrMail'] == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for mail is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for mail is missing!");
                 $error = 1;
             }
             
-            if ($_SESSION ['svn_inst'] ['ldapAttrPassword'] == "") {
+            if ($_SESSION['svn_inst']['ldapAttrPassword'] == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for user password is missing!" );
-                $error = 1;
-            }
-        }
-        
-        if ($_SESSION ['svn_inst'] ['websiteUrl'] == "") {
-            
-            $tErrors [] = _ ( "SVN Access Manager website url is missing!" );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['websiteCharset'] == "") {
-            
-            $tErrors [] = _ ( "Website charset is missing!" );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['lpwMailSender'] == "") {
-            
-            $tErrors [] = _ ( "Lost password mail sender address is missing!" );
-            $error = 1;
-        }
-        elseif (! check_email ( $_SESSION ['svn_inst'] ['lpwMailSender'] )) {
-            
-            $tErrors [] = sprintf ( _ ( "Lost password mail sender address %s is not a valid email address!" ), $_SESSION ['svn_inst'] ['lpwMailSender'] );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['lpwLinkValid'] == "") {
-            
-            $tErrors [] = _ ( "Lost password days link valid missing!" );
-            $error = 1;
-        }
-        elseif (! is_numeric ( $_SESSION ['svn_inst'] ['lpwLinkValid'] )) {
-            
-            $tErrors [] = _ ( "Lost password days link valid must be numeric!" );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['username'] == "") {
-            
-            $tErrors [] = _ ( "Administrator username is missing!" );
-            $error = 1;
-        }
-        
-        if (($_SESSION ['svn_inst'] ['password'] == "") or ($_SESSION ['svn_inst'] ['password2'] == "")) {
-            
-            $tErrors [] = _ ( "Administrator password is missing!" );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['password'] != $_SESSION ['svn_inst'] ['password2']) {
-            
-            $tErrors [] = _ ( "Administrator passwords do not match!" );
-            $error = 1;
-        }
-        elseif (checkPasswordPolicy ( $_SESSION ['svn_inst'] ['password'], 'y' ) == 0) {
-            
-            $tErrors [] = _ ( "Administrator password is not strong enough!" );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['name'] == "") {
-            
-            $tErrors [] = _ ( "Administrator name is missing!" );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['adminEmail'] == "") {
-            
-            $tErrors [] = _ ( "Administrator email address is missing!" );
-            $error = 1;
-        }
-        elseif (! check_email ( $_SESSION ['svn_inst'] ['adminEmail'] )) {
-            
-            $tErrors [] = sprintf ( _ ( "Administrator email address %s is not a valid email address!" ), $_SESSION ['svn_inst'] ['adminEmail'] );
-            $error = 1;
-        }
-        
-        if ($_SESSION ['svn_inst'] ['useSvnAccessFile'] == "YES") {
-            
-            if ($_SESSION ['svn_inst'] ['svnAccessFile'] == "") {
-                
-                $tErrors [] = _ ( "SVN Access File is missing!" );
-                $error = 1;
-            }
-            
-            if ($_SESSION ['svn_inst'] ['authUserFile'] == "") {
-                
-                $tErrors [] = _ ( "Auth user file is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for user password is missing!");
                 $error = 1;
             }
         }
         
-        if ($_SESSION ['svn_inst'] ['viewvcConfig'] == "YES") {
+        if ($_SESSION['svn_inst']['websiteUrl'] == "") {
             
-            if ($_SESSION ['svn_inst'] ['viewvcConfigDir'] == "") {
+            $tErrors[] = _("SVN Access Manager website url is missing!");
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['websiteCharset'] == "") {
+            
+            $tErrors[] = _("Website charset is missing!");
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['lpwMailSender'] == "") {
+            
+            $tErrors[] = _("Lost password mail sender address is missing!");
+            $error = 1;
+        }
+        elseif (! check_email($_SESSION['svn_inst']['lpwMailSender'])) {
+            
+            $tErrors[] = sprintf(_("Lost password mail sender address %s is not a valid email address!"), $_SESSION['svn_inst']['lpwMailSender']);
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['lpwLinkValid'] == "") {
+            
+            $tErrors[] = _("Lost password days link valid missing!");
+            $error = 1;
+        }
+        elseif (! is_numeric($_SESSION['svn_inst']['lpwLinkValid'])) {
+            
+            $tErrors[] = _("Lost password days link valid must be numeric!");
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['username'] == "") {
+            
+            $tErrors[] = _("Administrator username is missing!");
+            $error = 1;
+        }
+        
+        if (($_SESSION['svn_inst']['password'] == "") or ($_SESSION['svn_inst']['password2'] == "")) {
+            
+            $tErrors[] = _("Administrator password is missing!");
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['password'] != $_SESSION['svn_inst']['password2']) {
+            
+            $tErrors[] = _("Administrator passwords do not match!");
+            $error = 1;
+        }
+        elseif (checkPasswordPolicy($_SESSION['svn_inst']['password'], 'y') == 0) {
+            
+            $tErrors[] = _("Administrator password is not strong enough!");
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['name'] == "") {
+            
+            $tErrors[] = _("Administrator name is missing!");
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['adminEmail'] == "") {
+            
+            $tErrors[] = _("Administrator email address is missing!");
+            $error = 1;
+        }
+        elseif (! check_email($_SESSION['svn_inst']['adminEmail'])) {
+            
+            $tErrors[] = sprintf(_("Administrator email address %s is not a valid email address!"), $_SESSION['svn_inst']['adminEmail']);
+            $error = 1;
+        }
+        
+        if ($_SESSION['svn_inst']['useSvnAccessFile'] == "YES") {
+            
+            if ($_SESSION['svn_inst']['svnAccessFile'] == "") {
                 
-                $tErrors [] = _ ( "ViewVC configuration directory is missing!" );
+                $tErrors[] = _("SVN Access File is missing!");
                 $error = 1;
             }
-            elseif ($_SESSION ['svn_inst'] ['viewvcAlias'] == "") {
+            
+            if ($_SESSION['svn_inst']['authUserFile'] == "") {
                 
-                $tErrors [] = _ ( "ViewVC webserver alias is missing!" );
-                $error = 1;
-            }
-            elseif ($_SESSION ['svn_inst'] ['viewvcRealm'] == "") {
-                
-                $tErrors [] = _ ( "ViewVC realm is missing!" );
+                $tErrors[] = _("Auth user file is missing!");
                 $error = 1;
             }
         }
         
-        if ($_SESSION ['svn_inst'] ['svnCommand'] == "") {
+        if ($_SESSION['svn_inst']['viewvcConfig'] == "YES") {
             
-            $tErrors [] = _ ( "SVN command is missing!" );
+            if ($_SESSION['svn_inst']['viewvcConfigDir'] == "") {
+                
+                $tErrors[] = _("ViewVC configuration directory is missing!");
+                $error = 1;
+            }
+            elseif ($_SESSION['svn_inst']['viewvcAlias'] == "") {
+                
+                $tErrors[] = _("ViewVC webserver alias is missing!");
+                $error = 1;
+            }
+            elseif ($_SESSION['svn_inst']['viewvcRealm'] == "") {
+                
+                $tErrors[] = _("ViewVC realm is missing!");
+                $error = 1;
+            }
+        }
+        
+        if ($_SESSION['svn_inst']['svnCommand'] == "") {
+            
+            $tErrors[] = _("SVN command is missing!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['svnadminCommand'] == "") {
+        if ($_SESSION['svn_inst']['svnadminCommand'] == "") {
             
-            $tErrors [] = _ ( "Svnadmin command missing!" );
+            $tErrors[] = _("Svnadmin command missing!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['grepCommand'] == "") {
+        if ($_SESSION['svn_inst']['grepCommand'] == "") {
             
-            $tErrors [] = _ ( "Grep command is missinbg!" );
+            $tErrors[] = _("Grep command is missinbg!");
             $error = 1;
         }
         
-        if ($_SESSION ['svn_inst'] ['pageSize'] == "") {
+        if ($_SESSION['svn_inst']['pageSize'] == "") {
             
-            $tErrors [] = _ ( "Page size is missing!" );
+            $tErrors[] = _("Page size is missing!");
             $error = 1;
         }
         
-        if (! is_numeric ( $_SESSION ['svn_inst'] ['pageSize'] )) {
+        if (! is_numeric($_SESSION['svn_inst']['pageSize'])) {
             
-            $tErrors [] = _ ( "Page size is not numeric!" );
+            $tErrors[] = _("Page size is not numeric!");
             $error = 1;
         }
         
-        if (! is_numeric ( $_SESSION ['svn_inst'] ['minAdminPwSize'] )) {
+        if (! is_numeric($_SESSION['svn_inst']['minAdminPwSize'])) {
             
-            $tErrors [] = _ ( "Minimal administrator password length is not numeric!" );
+            $tErrors[] = _("Minimal administrator password length is not numeric!");
             $error = 1;
         }
         
-        if (! is_numeric ( $_SESSION ['svn_inst'] ['minUserPwSize'] )) {
+        if (! is_numeric($_SESSION['svn_inst']['minUserPwSize'])) {
             
-            $tErrors [] = _ ( "Minimal user password length is not numeric!" );
+            $tErrors[] = _("Minimal user password length is not numeric!");
             $error = 1;
         }
     }
     
     if ($error == 0) {
         
-        if ($fh_in = @fopen ( $configtmpl, "r" )) {
+        if ($fh_in = @fopen($configtmpl, "r")) {
             
-            $viewvcconf = $_SESSION ['svn_inst'] ['viewvcConfigDir'] . "/viewvc-apache.conf";
-            $viewvcgroups = $_SESSION ['svn_inst'] ['viewvcConfigDir'] . "/viewvc-groups";
-            $content = fread ( $fh_in, filesize ( $configtmpl ) );
-            @fclose ( $fh_in );
+            $viewvcconf = $_SESSION['svn_inst']['viewvcConfigDir'] . "/viewvc-apache.conf";
+            $viewvcgroups = $_SESSION['svn_inst']['viewvcConfigDir'] . "/viewvc-groups";
+            $content = fread($fh_in, filesize($configtmpl));
+            @fclose($fh_in);
             
             $output = "";
             $retcode = 0;
-            $cmd = $_SESSION ['svn_inst'] ['svnadminCommand'] . " help create";
-            exec ( $cmd, $output, $retcode );
+            $cmd = $_SESSION['svn_inst']['svnadminCommand'] . " help create";
+            exec($cmd, $output, $retcode);
             if ($retcode == 0) {
                 
-                $treffer = preg_grep ( '/\-\-pre\-(.*)\-compatible/', $output );
+                $treffer = preg_grep('/\-\-pre\-(.*)\-compatible/', $output);
                 
-                if (count ( $treffer ) > 0) {
+                if (count($treffer) > 0) {
                     
-                    foreach ( $treffer as $entry ) {
+                    foreach( $treffer as $entry) {
                         
-                        $entry = explode ( ":", $entry );
-                        $entry = $entry [0];
-                        $entry = preg_replace ( '/^\s+/', '', $entry );
-                        $entry = preg_replace ( '/\s+$/', '', $entry );
+                        $entry = explode(":", $entry);
+                        $entry = $entry[0];
+                        $entry = preg_replace('/^\s+/', '', $entry);
+                        $entry = preg_replace('/\s+$/', '', $entry);
                     }
                     
                     $preCompatible = $entry;
@@ -3096,290 +3110,290 @@ function doInstall() {
                 $preCompatible = "--pre-1.4-compatible";
             }
             
-            if (isset ( $_SERVER ['SCRIPT_FILENAME'] )) {
-                $installBase = dirname ( dirname ( $_SERVER ['SCRIPT_FILENAME'] ) );
+            if (isset($_SERVER['SCRIPT_FILENAME'])) {
+                $installBase = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
             }
             else {
                 $installBase = '';
             }
             
-            $content = str_replace ( '###DBTYPE###', $_SESSION ['svn_inst'] ['database'], $content );
-            $content = str_replace ( '###DBHOST###', $_SESSION ['svn_inst'] ['databaseHost'], $content );
-            $content = str_replace ( '###DBUSER###', $_SESSION ['svn_inst'] ['databaseUser'], $content );
-            $content = str_replace ( '###DBPASS###', $_SESSION ['svn_inst'] ['databasePassword'], $content );
-            $content = str_replace ( '###DBNAME###', $_SESSION ['svn_inst'] ['databaseName'], $content );
-            $content = str_replace ( '###DBSCHEMA###', $_SESSION ['svn_inst'] ['databaseSchema'], $content );
-            $content = str_replace ( '###DBTABLESPACE###', $_SESSION ['svn_inst'] ['databaseTablespace'], $content );
-            $content = str_replace ( '###DBCHARSET###', $_SESSION ['svn_inst'] ['databaseCharset'], $content );
-            $content = str_replace ( '###DBCOLLATION###', $_SESSION ['svn_inst'] ['databaseCollation'], $content );
-            $content = str_replace ( '###USELOGGING###', $_SESSION ['svn_inst'] ['logging'], $content );
-            $content = str_replace ( '###PAGESIZE###', $_SESSION ['svn_inst'] ['pageSize'], $content );
-            $content = str_replace ( '###SVNCMD###', $_SESSION ['svn_inst'] ['svnCommand'], $content );
-            $content = str_replace ( '###GREPCMD###', $_SESSION ['svn_inst'] ['grepCommand'], $content );
-            $content = str_replace ( '###USEJS###', 'YES', $content );
-            $content = str_replace ( '###SVNACCESSFILE###', $_SESSION ['svn_inst'] ['svnAccessFile'], $content );
-            $content = str_replace ( '###ACCESSCONTROLLEVEL###', $_SESSION ['svn_inst'] ['accessControlLevel'], $content );
-            $content = str_replace ( '###SVNAUTHFILE###', $_SESSION ['svn_inst'] ['authUserFile'], $content );
-            $content = str_replace ( '###CREATEACCESSFILE###', $_SESSION ['svn_inst'] ['useSvnAccessFile'], $content );
-            $content = str_replace ( '###CREATEAUTHFILE###', $_SESSION ['svn_inst'] ['useAuthUserFile'], $content );
-            $content = str_replace ( '###ADMINEMAIL###', $_SESSION ['svn_inst'] ['adminEmail'], $content );
-            $content = str_replace ( '###MINPWADMIN###', $_SESSION ['svn_inst'] ['minAdminPwSize'], $content );
-            $content = str_replace ( '###MINPWUSER###', $_SESSION ['svn_inst'] ['minUserPwSize'], $content );
-            $content = str_replace ( '###SESSIONINDB###', $_SESSION ['svn_inst'] ['sessionInDatabase'], $content );
-            $content = str_replace ( '###PWCRYPT###', $_SESSION ['svn_inst'] ['pwEnc'], $content );
-            $content = str_replace ( '###CREATEVIEWVCCONF###', $_SESSION ['svn_inst'] ['viewvcConfig'], $content );
-            $content = str_replace ( '###VIEWVCCONF###', $viewvcconf, $content );
-            $content = str_replace ( '###VIEWVCGROUPS###', $viewvcgroups, $content );
-            $content = str_replace ( '###VIEWVCLOCATION###', $_SESSION ['svn_inst'] ['viewvcAlias'], $content );
-            $content = str_replace ( '###VIEWVCAPACHERELOAD###', $_SESSION ['svn_inst'] ['viewvcApacheReload'], $content );
-            $content = str_replace ( '###VIEWVCREALM###', $_SESSION ['svn_inst'] ['viewvcRealm'], $content );
-            $content = str_replace ( '###SEPERATEFILESPERREPO###', $_SESSION ['svn_inst'] ['perRepoFiles'], $content );
-            $content = str_replace ( '###REPOPATHSORTORDER###', $_SESSION ['svn_inst'] ['pathSortOrder'], $content );
-            $content = str_replace ( '###WRITEANONACCESS###', $_SESSION ['svn_inst'] ['anonAccess'], $content );
-            $content = str_replace ( '###SVNADMINCMD###', $_SESSION ['svn_inst'] ['svnadminCommand'], $content );
-            $content = str_replace ( '###WEBSITECHARSET###', $_SESSION ['svn_inst'] ['websiteCharset'], $content );
-            $content = str_replace ( '###WEBSITEURL###', $_SESSION ['svn_inst'] ['websiteUrl'], $content );
-            $content = str_replace ( '###LOSTPWSENDER###', $_SESSION ['svn_inst'] ['lpwMailSender'], $content );
-            $content = str_replace ( '###LOSTPWMAXERROR###', 3, $content );
-            $content = str_replace ( '###LOSTPWLINKVALID###', $_SESSION ['svn_inst'] ['lpwLinkValid'], $content );
-            $content = str_replace ( '###PRECOMPATIBLE###', $preCompatible, $content );
-            $content = str_replace ( '###INSTALLBASE###', $installBase, $content );
-            $content = str_replace ( '###USELDAP###', $_SESSION ['svn_inst'] ['useLdap'], $content );
-            $content = str_replace ( '###BINDDN###', $_SESSION ['svn_inst'] ['ldapBinddn'], $content );
-            $content = str_replace ( '###BINDPW###', $_SESSION ['svn_inst'] ['ldapBindpw'], $content );
-            $content = str_replace ( '###USERDN###', $_SESSION ['svn_inst'] ['ldapUserdn'], $content );
-            $content = str_replace ( '###USERFILTERATTR###', $_SESSION ['svn_inst'] ['ldapUserFilter'], $content );
-            $content = str_replace ( '###USEROBJECTCLASS###', $_SESSION ['svn_inst'] ['ldapUserObjectclass'], $content );
-            $content = str_replace ( '###USERADDITIONALFILTER###', $_SESSION ['svn_inst'] ['ldapUserAdditionalFilter'], $content );
-            $content = str_replace ( '###LDAPHOST###', $_SESSION ['svn_inst'] ['ldapHost'], $content );
-            $content = str_replace ( '###LDAPPORT###', $_SESSION ['svn_inst'] ['ldapPort'], $content );
-            $content = str_replace ( '###LDAPPROTOCOL###', $_SESSION ['svn_inst'] ['ldapProtocol'], $content );
-            $content = str_replace ( '###LDAPSORTATTR###', $_SESSION ['svn_inst'] ['ldapAttrUserSort'], $content );
-            $content = str_replace ( '###LDAPSORTORDER###', $_SESSION ['svn_inst'] ['ldapUserSort'], $content );
-            $content = str_replace ( '###LDAPBINDUSELOGINDATA###', $_SESSION ['svn_inst'] ['ldapBindUseLoginData'], $content );
-            $content = str_replace ( '###LDAPBINDDNSUFFIX###', $_SESSION ['svn_inst'] ['ldapBindDnSuffix'], $content );
-            $content = str_replace ( '###MAPUID###', $_SESSION ['svn_inst'] ['ldapAttrUid'], $content );
-            $content = str_replace ( '###MAPNAME###', $_SESSION ['svn_inst'] ['ldapAttrName'], $content );
-            $content = str_replace ( '###MAPGIVENNAME###', $_SESSION ['svn_inst'] ['ldapAttrGivenname'], $content );
-            $content = str_replace ( '###MAPMAIL###', $_SESSION ['svn_inst'] ['ldapAttrMail'], $content );
-            $content = str_replace ( '###MAPPASSWORD###', $_SESSION ['svn_inst'] ['ldapAttrPassword'], $content );
-            $content = str_replace ( '###USERDEFAULTACCESS###', $_SESSION ['svn_inst'] ['userDefaultAccess'], $content );
-            $content = str_replace ( '###PASSWORDEXPIRES###', $_SESSION ['svn_inst'] ['passwordExpire'], $content );
-            $content = str_replace ( '###PASSWORDEXPIRESWARN###', $_SESSION ['svn_inst'] ['passwordExpireWarn'], $content );
-            $content = str_replace ( '###EXPIREPASSWORD###', $_SESSION ['svn_inst'] ['expirePassword'], $content );
-            if ($_SESSION ['svn_inst'] ['custom1'] == "") {
+            $content = str_replace('###DBTYPE###', $_SESSION['svn_inst']['database'], $content);
+            $content = str_replace('###DBHOST###', $_SESSION['svn_inst']['databaseHost'], $content);
+            $content = str_replace('###DBUSER###', $_SESSION['svn_inst']['databaseUser'], $content);
+            $content = str_replace('###DBPASS###', $_SESSION['svn_inst']['databasePassword'], $content);
+            $content = str_replace('###DBNAME###', $_SESSION['svn_inst']['databaseName'], $content);
+            $content = str_replace('###DBSCHEMA###', $_SESSION['svn_inst']['databaseSchema'], $content);
+            $content = str_replace('###DBTABLESPACE###', $_SESSION['svn_inst']['databaseTablespace'], $content);
+            $content = str_replace('###DBCHARSET###', $_SESSION['svn_inst']['databaseCharset'], $content);
+            $content = str_replace('###DBCOLLATION###', $_SESSION['svn_inst']['databaseCollation'], $content);
+            $content = str_replace('###USELOGGING###', $_SESSION['svn_inst']['logging'], $content);
+            $content = str_replace('###PAGESIZE###', $_SESSION['svn_inst']['pageSize'], $content);
+            $content = str_replace('###SVNCMD###', $_SESSION['svn_inst']['svnCommand'], $content);
+            $content = str_replace('###GREPCMD###', $_SESSION['svn_inst']['grepCommand'], $content);
+            $content = str_replace('###USEJS###', 'YES', $content);
+            $content = str_replace('###SVNACCESSFILE###', $_SESSION['svn_inst']['svnAccessFile'], $content);
+            $content = str_replace('###ACCESSCONTROLLEVEL###', $_SESSION['svn_inst']['accessControlLevel'], $content);
+            $content = str_replace('###SVNAUTHFILE###', $_SESSION['svn_inst']['authUserFile'], $content);
+            $content = str_replace('###CREATEACCESSFILE###', $_SESSION['svn_inst']['useSvnAccessFile'], $content);
+            $content = str_replace('###CREATEAUTHFILE###', $_SESSION['svn_inst']['useAuthUserFile'], $content);
+            $content = str_replace('###ADMINEMAIL###', $_SESSION['svn_inst']['adminEmail'], $content);
+            $content = str_replace('###MINPWADMIN###', $_SESSION['svn_inst']['minAdminPwSize'], $content);
+            $content = str_replace('###MINPWUSER###', $_SESSION['svn_inst']['minUserPwSize'], $content);
+            $content = str_replace('###SESSIONINDB###', $_SESSION['svn_inst']['sessionInDatabase'], $content);
+            $content = str_replace('###PWCRYPT###', $_SESSION['svn_inst']['pwEnc'], $content);
+            $content = str_replace('###CREATEVIEWVCCONF###', $_SESSION['svn_inst']['viewvcConfig'], $content);
+            $content = str_replace('###VIEWVCCONF###', $viewvcconf, $content);
+            $content = str_replace('###VIEWVCGROUPS###', $viewvcgroups, $content);
+            $content = str_replace('###VIEWVCLOCATION###', $_SESSION['svn_inst']['viewvcAlias'], $content);
+            $content = str_replace('###VIEWVCAPACHERELOAD###', $_SESSION['svn_inst']['viewvcApacheReload'], $content);
+            $content = str_replace('###VIEWVCREALM###', $_SESSION['svn_inst']['viewvcRealm'], $content);
+            $content = str_replace('###SEPERATEFILESPERREPO###', $_SESSION['svn_inst']['perRepoFiles'], $content);
+            $content = str_replace('###REPOPATHSORTORDER###', $_SESSION['svn_inst']['pathSortOrder'], $content);
+            $content = str_replace('###WRITEANONACCESS###', $_SESSION['svn_inst']['anonAccess'], $content);
+            $content = str_replace('###SVNADMINCMD###', $_SESSION['svn_inst']['svnadminCommand'], $content);
+            $content = str_replace('###WEBSITECHARSET###', $_SESSION['svn_inst']['websiteCharset'], $content);
+            $content = str_replace('###WEBSITEURL###', $_SESSION['svn_inst']['websiteUrl'], $content);
+            $content = str_replace('###LOSTPWSENDER###', $_SESSION['svn_inst']['lpwMailSender'], $content);
+            $content = str_replace('###LOSTPWMAXERROR###', 3, $content);
+            $content = str_replace('###LOSTPWLINKVALID###', $_SESSION['svn_inst']['lpwLinkValid'], $content);
+            $content = str_replace('###PRECOMPATIBLE###', $preCompatible, $content);
+            $content = str_replace('###INSTALLBASE###', $installBase, $content);
+            $content = str_replace('###USELDAP###', $_SESSION['svn_inst']['useLdap'], $content);
+            $content = str_replace('###BINDDN###', $_SESSION['svn_inst']['ldapBinddn'], $content);
+            $content = str_replace('###BINDPW###', $_SESSION['svn_inst']['ldapBindpw'], $content);
+            $content = str_replace('###USERDN###', $_SESSION['svn_inst']['ldapUserdn'], $content);
+            $content = str_replace('###USERFILTERATTR###', $_SESSION['svn_inst']['ldapUserFilter'], $content);
+            $content = str_replace('###USEROBJECTCLASS###', $_SESSION['svn_inst']['ldapUserObjectclass'], $content);
+            $content = str_replace('###USERADDITIONALFILTER###', $_SESSION['svn_inst']['ldapUserAdditionalFilter'], $content);
+            $content = str_replace('###LDAPHOST###', $_SESSION['svn_inst']['ldapHost'], $content);
+            $content = str_replace('###LDAPPORT###', $_SESSION['svn_inst']['ldapPort'], $content);
+            $content = str_replace('###LDAPPROTOCOL###', $_SESSION['svn_inst']['ldapProtocol'], $content);
+            $content = str_replace('###LDAPSORTATTR###', $_SESSION['svn_inst']['ldapAttrUserSort'], $content);
+            $content = str_replace('###LDAPSORTORDER###', $_SESSION['svn_inst']['ldapUserSort'], $content);
+            $content = str_replace('###LDAPBINDUSELOGINDATA###', $_SESSION['svn_inst']['ldapBindUseLoginData'], $content);
+            $content = str_replace('###LDAPBINDDNSUFFIX###', $_SESSION['svn_inst']['ldapBindDnSuffix'], $content);
+            $content = str_replace('###MAPUID###', $_SESSION['svn_inst']['ldapAttrUid'], $content);
+            $content = str_replace('###MAPNAME###', $_SESSION['svn_inst']['ldapAttrName'], $content);
+            $content = str_replace('###MAPGIVENNAME###', $_SESSION['svn_inst']['ldapAttrGivenname'], $content);
+            $content = str_replace('###MAPMAIL###', $_SESSION['svn_inst']['ldapAttrMail'], $content);
+            $content = str_replace('###MAPPASSWORD###', $_SESSION['svn_inst']['ldapAttrPassword'], $content);
+            $content = str_replace('###USERDEFAULTACCESS###', $_SESSION['svn_inst']['userDefaultAccess'], $content);
+            $content = str_replace('###PASSWORDEXPIRES###', $_SESSION['svn_inst']['passwordExpire'], $content);
+            $content = str_replace('###PASSWORDEXPIRESWARN###', $_SESSION['svn_inst']['passwordExpireWarn'], $content);
+            $content = str_replace('###EXPIREPASSWORD###', $_SESSION['svn_inst']['expirePassword'], $content);
+            if ($_SESSION['svn_inst']['custom1'] == "") {
                 $custom1 = "NULL";
             }
             else {
-                $custom1 = "'" . $_SESSION ['svn_inst'] ['custom1'] . "'";
+                $custom1 = "'" . $_SESSION['svn_inst']['custom1'] . "'";
             }
-            if ($_SESSION ['svn_inst'] ['custom2'] == "") {
+            if ($_SESSION['svn_inst']['custom2'] == "") {
                 $custom2 = "NULL";
             }
             else {
-                $custom2 = "'" . $_SESSION ['svn_inst'] ['custom2'] . "'";
+                $custom2 = "'" . $_SESSION['svn_inst']['custom2'] . "'";
             }
-            if ($_SESSION ['svn_inst'] ['custom3'] == "") {
+            if ($_SESSION['svn_inst']['custom3'] == "") {
                 $custom3 = "NULL";
             }
             else {
-                $custom3 = "'" . $_SESSION ['svn_inst'] ['custom3'] . "'";
+                $custom3 = "'" . $_SESSION['svn_inst']['custom3'] . "'";
             }
             
-            $content = str_replace ( '###CUSTOM1###', $custom1, $content );
-            $content = str_replace ( '###CUSTOM2###', $custom2, $content );
-            $content = str_replace ( '###CUSTOM3###', $custom3, $content );
+            $content = str_replace('###CUSTOM1###', $custom1, $content);
+            $content = str_replace('###CUSTOM2###', $custom2, $content);
+            $content = str_replace('###CUSTOM3###', $custom3, $content);
         }
         else {
             
-            $tErrors [] = sprintf ( _ ( "can't open config template %s for reading!" ), $configtmpl );
+            $tErrors[] = sprintf(_("can't open config template %s for reading!"), $configtmpl);
             $error = 1;
         }
     }
     
     if ($error == 0) {
         
-        if ($fh_out = @fopen ( $confignew, "w" )) {
+        if ($fh_out = @fopen($confignew, "w")) {
             
-            if (! @fwrite ( $fh_out, $content )) {
+            if (! @fwrite($fh_out, $content)) {
                 
-                $tErrors [] = _ ( "Can't write new config.inc.php file!" );
+                $tErrors[] = _("Can't write new config.inc.php file!");
                 $error = 1;
             }
         }
         else {
             
-            $tErrors [] = sprintf ( _ ( "can't open %s for writing. Please make sure the config directory is writeable for the webserver user!" ), $confignew );
+            $tErrors[] = sprintf(_("can't open %s for writing. Please make sure the config directory is writeable for the webserver user!"), $confignew);
             $error = 1;
         }
     }
     
     if ($error == 0) {
         
-        if (@copy ( $confignew, $configfile )) {
+        if (@copy($confignew, $configfile)) {
             
-            if (! @unlink ( $confignew )) {
+            if (! @unlink($confignew)) {
                 
-                if (determineOs () == "windows") {
+                if (determineOs() == "windows") {
                     $error = 0;
                 }
                 else {
                     $error = 1;
-                    $tErrors [] = _ ( "Error deleting temporary config file" );
+                    $tErrors[] = _("Error deleting temporary config file");
                 }
             }
             else {
                 
-                $tResult [] = _ ( "config.inc.php successfully created" );
+                $tResult[] = _("config.inc.php successfully created");
             }
         }
         else {
             
             $error = 1;
-            $tErrors [] = sprintf ( _ ( "Error copying temporary config file %s to %s!" ), $confignew, $configfile );
+            $tErrors[] = sprintf(_("Error copying temporary config file %s to %s!"), $confignew, $configfile);
         }
     }
     
     if ($error == 0) {
         
-        $CONF ['database_host'] = $_SESSION ['svn_inst'] ['databaseHost'];
-        $CONF ['database_user'] = $_SESSION ['svn_inst'] ['databaseUser'];
-        $CONF ['database_password'] = $_SESSION ['svn_inst'] ['databasePassword'];
-        $CONF ['database_name'] = $_SESSION ['svn_inst'] ['databaseName'];
-        $CONF ['database_schema'] = $_SESSION ['svn_inst'] ['databaseSchema'];
-        $CONF ['database_tablespace'] = $_SESSION ['svn_inst'] ['databaseTablespace'];
+        $CONF['database_host'] = $_SESSION['svn_inst']['databaseHost'];
+        $CONF['database_user'] = $_SESSION['svn_inst']['databaseUser'];
+        $CONF['database_password'] = $_SESSION['svn_inst']['databasePassword'];
+        $CONF['database_name'] = $_SESSION['svn_inst']['databaseName'];
+        $CONF['database_schema'] = $_SESSION['svn_inst']['databaseSchema'];
+        $CONF['database_tablespace'] = $_SESSION['svn_inst']['databaseTablespace'];
         
-        if ($_SESSION ['svn_inst'] ['createDatabaseTables'] == "YES") {
+        if ($_SESSION['svn_inst']['createDatabaseTables'] == "YES") {
             
-            $dbh = db_connect_install ( $_SESSION ['svn_inst'] ['databaseHost'], $_SESSION ['svn_inst'] ['databaseUser'], $_SESSION ['svn_inst'] ['databasePassword'], $_SESSION ['svn_inst'] ['databaseName'], $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'] );
+            $dbh = db_connect_install($_SESSION['svn_inst']['databaseHost'], $_SESSION['svn_inst']['databaseUser'], $_SESSION['svn_inst']['databasePassword'], $_SESSION['svn_inst']['databaseName'], $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database']);
             
-            if ($_SESSION ['svn_inst'] ['dropDatabaseTables'] == "YES") {
+            if ($_SESSION['svn_inst']['dropDatabaseTables'] == "YES") {
                 
-                if (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "MYSQL") {
+                if (strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") {
                     
-                    $ret = dropMySQLDatabaseTables ( $dbh );
+                    $ret = dropMySQLDatabaseTables($dbh);
                 }
-                elseif (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "POSTGRES8") {
+                elseif (strtoupper($_SESSION['svn_inst']['database']) == "POSTGRES8") {
                     
-                    $ret = dropPostgresDatabaseTables ( $dbh );
+                    $ret = dropPostgresDatabaseTables($dbh);
                 }
-                elseif (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "OCI8") {
+                elseif (strtoupper($_SESSION['svn_inst']['database']) == "OCI8") {
                     
-                    $ret = dropOracleDatabaseTables ( $dbh, $_SESSION ['svn_inst'] ['databaseSchema'] );
+                    $ret = dropOracleDatabaseTables($dbh, $_SESSION['svn_inst']['databaseSchema']);
                 }
-                if ($ret ['error'] != 0) {
+                if ($ret['error'] != 0) {
                     
-                    $tErrors [] = $ret ['errormsg'];
+                    $tErrors[] = $ret['errormsg'];
                     $error = 1;
                 }
                 else {
                     
-                    $tResult [] = _ ( "Database tables successfully dropped" );
+                    $tResult[] = _("Database tables successfully dropped");
                 }
             }
             else {
                 
-                $tResult [] = _ ( "No database tables dropped" );
+                $tResult[] = _("No database tables dropped");
             }
             
             if ($error == 0) {
                 
-                if (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "MYSQL") {
+                if (strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") {
                     
-                    $ret = createMySQLDatabaseTables ( $dbh, $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'] );
+                    $ret = createMySQLDatabaseTables($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation']);
                 }
-                elseif (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "POSTGRES8") {
+                elseif (strtoupper($_SESSION['svn_inst']['database']) == "POSTGRES8") {
                     
-                    $ret = createDatabaseTables ( $dbh, $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'], $_SESSION ['svn_inst'] ['databaseSchema'], $_SESSION ['svn_inst'] ['databaseTablespace'], $_SESSION ['svn_inst'] ['databaseUser'] );
+                    $ret = createDatabaseTables($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $_SESSION['svn_inst']['databaseTablespace'], $_SESSION['svn_inst']['databaseUser']);
                 }
-                elseif (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "OCI8") {
+                elseif (strtoupper($_SESSION['svn_inst']['database']) == "OCI8") {
                     
-                    $ret = createOracleDatabaseTables ( $dbh, $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'], $_SESSION ['svn_inst'] ['databaseSchema'], $_SESSION ['svn_inst'] ['databaseTablespace'], $_SESSION ['svn_inst'] ['databaseUser'] );
+                    $ret = createOracleDatabaseTables($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $_SESSION['svn_inst']['databaseTablespace'], $_SESSION['svn_inst']['databaseUser']);
                 }
-                if ($ret ['error'] != 0) {
+                if ($ret['error'] != 0) {
                     
-                    $tErrors [] = $ret ['errormsg'];
+                    $tErrors[] = $ret['errormsg'];
                 }
                 else {
                     
-                    $tResult [] = _ ( "Database tables successfully created" );
+                    $tResult[] = _("Database tables successfully created");
                 }
             }
             
             if ($error == 0) {
                 
-                if (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "MYSQL") {
+                if (strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") {
                     
-                    $ret = loadDbData ( $dbh, $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'] );
+                    $ret = loadDbData($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database']);
                 }
-                elseif (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "POSTGRES8") {
+                elseif (strtoupper($_SESSION['svn_inst']['database']) == "POSTGRES8") {
                     
-                    $ret = loadPostgresDbData ( $dbh, $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'], $_SESSION ['svn_inst'] ['databaseSchema'] );
+                    $ret = loadPostgresDbData($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema']);
                 }
-                elseif (strtoupper ( $_SESSION ['svn_inst'] ['database'] ) == "OCI8") {
+                elseif (strtoupper($_SESSION['svn_inst']['database']) == "OCI8") {
                     
-                    $ret = loadOracleDbData ( $dbh, $_SESSION ['svn_inst'] ['databaseCharset'], $_SESSION ['svn_inst'] ['databaseCollation'], $_SESSION ['svn_inst'] ['database'], $_SESSION ['svn_inst'] ['databaseSchema'] );
+                    $ret = loadOracleDbData($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema']);
                 }
                 
-                if ($ret ['error'] != 0) {
+                if ($ret['error'] != 0) {
                     
-                    $tErrors [] = $ret ['errormsg'];
+                    $tErrors[] = $ret['errormsg'];
                 }
                 else {
                     
-                    $tResult [] = _ ( "Database tables successfully created" );
+                    $tResult[] = _("Database tables successfully created");
                 }
             }
             
             if ($error == 0) {
                 
-                $ret = createAdmin ( $_SESSION ['svn_inst'] ['username'], $_SESSION ['svn_inst'] ['password'], $_SESSION ['svn_inst'] ['givenname'], $_SESSION ['svn_inst'] ['name'], $_SESSION ['svn_inst'] ['adminEmail'], $_SESSION ['svn_inst'] ['database'], $dbh, $_SESSION ['svn_inst'] ['databaseSchema'] );
-                if ($ret ['error'] != 0) {
+                $ret = createAdmin($_SESSION['svn_inst']['username'], $_SESSION['svn_inst']['password'], $_SESSION['svn_inst']['givenname'], $_SESSION['svn_inst']['name'], $_SESSION['svn_inst']['adminEmail'], $_SESSION['svn_inst']['database'], $dbh, $_SESSION['svn_inst']['databaseSchema']);
+                if ($ret['error'] != 0) {
                     
-                    $tErrors [] = $ret ['errormsg'];
+                    $tErrors[] = $ret['errormsg'];
                 }
                 else {
                     
-                    $tResult [] = _ ( "Admin account successfully created" );
+                    $tResult[] = _("Admin account successfully created");
                 }
             }
             
             if ($error == 0) {
                 
-                $ret = loadHelpTexts ( $_SESSION ['svn_inst'] ['database'], $_SESSION ['svn_inst'] ['databaseSchema'], $dbh );
+                $ret = loadHelpTexts($_SESSION['svn_inst']['database'], $_SESSION['svn_inst']['databaseSchema'], $dbh);
             }
             
-            db_disconnect ( $dbh );
+            db_disconnect($dbh);
         }
         else {
             
-            $tResult [] = _ ( "No database tables created" );
+            $tResult[] = _("No database tables created");
         }
     }
     
     if ($error == 0) {
         
-        $CONF = array ();
-        $CONF ['copyright'] = '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
-        $tAuthUserFile = isset ( $_SESSION ['svn_inst'] ['authUserFile'] ) ? $_SESSION ['svn_inst'] ['authUserFile'] : "";
-        $tSvnAccessFile = isset ( $_SESSION ['svn_inst'] ['svnAccessFile'] ) ? $_SESSION ['svn_inst'] ['svnAccessFile'] : "";
+        $CONF = array();
+        $CONF['copyright'] = '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+        $tAuthUserFile = isset($_SESSION['svn_inst']['authUserFile']) ? $_SESSION['svn_inst']['authUserFile'] : "";
+        $tSvnAccessFile = isset($_SESSION['svn_inst']['svnAccessFile']) ? $_SESSION['svn_inst']['svnAccessFile'] : "";
         
         include ("../templates/installresult.tpl");
-        exit ();
+        exit();
     }
     else {
         
-        $tLogging = isset ( $_SESSION ['svn_inst'] ['logging'] ) ? $_SESSION ['svn_inst'] ['logging'] : "YES";
-        $tJavaScript = isset ( $_SESSION ['svn_inst'] ['javaScript'] ) ? $_SESSION ['svn_inst'] ['javaScript'] : "YES";
-        $tPageSize = isset ( $_SESSION ['svn_inst'] ['pageSize'] ) ? $_SESSION ['svn_inst'] ['pageSize'] : "30";
-        $tMinAdminPwSize = isset ( $_SESSION ['svn_inst'] ['minAdminPwSize'] ) ? $_SESSION ['svn_inst'] ['minAdminPwSize'] : "14";
-        $tMinUserPwSize = isset ( $_SESSION ['svn_inst'] ['minUserPwSize'] ) ? $_SESSION ['svn_inst'] ['minUserPwSize'] : "8";
-        $tExpirePassword = isset ( $_SESSION ['svn_inst'] ['expirePassword'] ) ? $_SESSION ['svn_inst'] ['expirePassword'] : 1;
-        $tPwEnc = isset ( $_SESSION ['svn_inst'] ['pwEnc'] ) ? $_SESSION ['svn_inst'] ['pwEnc'] : "md5";
-        $tUserDefaultAccess = isset ( $_SESSION ['svn_inst'] ['userDefaultAccess'] ) ? $_SESSION ['svn_inst'] ['userDefaultAccess'] : "read";
-        $tCustom1 = isset ( $_SESSION ['svn_inst'] ['custom1'] ) ? $_SESSION ['svn_inst'] ['custom1'] : "";
-        $tCustom2 = isset ( $_SESSION ['svn_inst'] ['custom2'] ) ? $_SESSION ['svn_inst'] ['custom2'] : "";
-        $tCustom3 = isset ( $_SESSION ['svn_inst'] ['custom3'] ) ? $_SESSION ['svn_inst'] ['custom3'] : "";
+        $tLogging = isset($_SESSION['svn_inst']['logging']) ? $_SESSION['svn_inst']['logging'] : "YES";
+        $tJavaScript = isset($_SESSION['svn_inst']['javaScript']) ? $_SESSION['svn_inst']['javaScript'] : "YES";
+        $tPageSize = isset($_SESSION['svn_inst']['pageSize']) ? $_SESSION['svn_inst']['pageSize'] : "30";
+        $tMinAdminPwSize = isset($_SESSION['svn_inst']['minAdminPwSize']) ? $_SESSION['svn_inst']['minAdminPwSize'] : "14";
+        $tMinUserPwSize = isset($_SESSION['svn_inst']['minUserPwSize']) ? $_SESSION['svn_inst']['minUserPwSize'] : "8";
+        $tExpirePassword = isset($_SESSION['svn_inst']['expirePassword']) ? $_SESSION['svn_inst']['expirePassword'] : 1;
+        $tPwEnc = isset($_SESSION['svn_inst']['pwEnc']) ? $_SESSION['svn_inst']['pwEnc'] : "md5";
+        $tUserDefaultAccess = isset($_SESSION['svn_inst']['userDefaultAccess']) ? $_SESSION['svn_inst']['userDefaultAccess'] : "read";
+        $tCustom1 = isset($_SESSION['svn_inst']['custom1']) ? $_SESSION['svn_inst']['custom1'] : "";
+        $tCustom2 = isset($_SESSION['svn_inst']['custom2']) ? $_SESSION['svn_inst']['custom2'] : "";
+        $tCustom3 = isset($_SESSION['svn_inst']['custom3']) ? $_SESSION['svn_inst']['custom3'] : "";
         
         if ($tJavaScript == "YES") {
             $tJavaScriptYes = "checked";
@@ -3413,28 +3427,28 @@ function doInstall() {
             $tPwApacheMd5 = "";
             $tPwMd5 = "";
             $tPwCrypt = "";
-            $CONF ['pwcrypt'] = "sha";
+            $CONF['pwcrypt'] = "sha";
         }
         elseif ($tPwEnc == "apr-md5") {
             $tPwSha = "";
             $tPwApacheMd5 = "checked";
             $tPwMd5 = "";
             $tPwCrypt = "";
-            $CONF ['pwcrypt'] = "apr-md5";
+            $CONF['pwcrypt'] = "apr-md5";
         }
         elseif ($tPwEnc == "md5") {
             $tPwSha = "";
             $tPwApacheMd5 = "";
             $tPwMd5 = "checked";
             $tPwCrypt = "";
-            $CONF ['pwcrypt'] = "md5";
+            $CONF['pwcrypt'] = "md5";
         }
         else {
             $tPwSha = "";
             $tPwApacheMd5 = "";
             $tPwMd5 = "";
             $tPwCrypt = "checked";
-            $CONF ['pwcrypt'] = "crypt";
+            $CONF['pwcrypt'] = "crypt";
         }
         
         if ($tUserDefaultAccess == "read") {
@@ -3447,9 +3461,9 @@ function doInstall() {
         }
     }
     
-    $ret = array ();
-    $ret ['page'] = 7;
-    $ret ['errors'] = $tErrors;
+    $ret = array();
+    $ret['page'] = 7;
+    $ret['errors'] = $tErrors;
     
     return ($ret);
 
@@ -3459,22 +3473,22 @@ function doInstall() {
 // main section
 // ----------------------------------------------------------------------------------------------------------------------#
 
-initialize_i18n ();
+initialize_i18n();
 
-if ($_SERVER ['REQUEST_METHOD'] == "GET") {
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $s = new Session ();
-    session_start ();
+    $s = new Session();
+    session_start();
     // session_register("svn_inst");
-    if (! isset ( $_SESSION ['svn_inst'] )) {
-        $_SESSION ['svn_inst'] = array ();
+    if (! isset($_SESSION['svn_inst'])) {
+        $_SESSION['svn_inst'] = array();
     }
-    $_SESSION ['svn_inst'] ['page'] = "1";
+    $_SESSION['svn_inst']['page'] = "1";
     
-    $CONF = array ();
-    $CONF ['database_type'] = "mysql";
-    $CONF ['database_innodb'] = 'YES';
-    $CONF ['copyright'] = '(C) 2008, 2009, 2010, 2011 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+    $CONF = array();
+    $CONF['database_type'] = "mysql";
+    $CONF['database_innodb'] = 'YES';
+    $CONF['copyright'] = '(C) 2008, 2009, 2010, 2011 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
     
     $tCreateDatabaseTablesYes = "checked";
     $tCreateDatabaseTablesNo = "";
@@ -3556,23 +3570,23 @@ if ($_SERVER ['REQUEST_METHOD'] == "GET") {
     $error = 0;
     $tPage = 0;
     
-    if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
+    if (file_exists(realpath("./config/config.inc.php"))) {
         
-        $configfile = realpath ( "./config/config.inc.php" );
-        $tBaseDir = dirname ( dirname ( $configfile ) );
+        $configfile = realpath("./config/config.inc.php");
+        $tBaseDir = dirname(dirname($configfile));
     }
-    elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+    elseif (file_exists(realpath("../config/config.inc.php"))) {
         
-        $configfile = realpath ( "../config/config.inc.php" );
-        $tBaseDir = dirname ( dirname ( $configfile ) );
+        $configfile = realpath("../config/config.inc.php");
+        $tBaseDir = dirname(dirname($configfile));
     }
     else {
         
-        $configfile = realpath ( "../config/" );
-        $tBaseDir = dirname ( $configfile );
+        $configfile = realpath("../config/");
+        $tBaseDir = dirname($configfile);
     }
     
-    if (determineOs () == "windows") {
+    if (determineOs() == "windows") {
         
         $tConfigDir = $tBaseDir . "\config";
     }
@@ -3581,64 +3595,64 @@ if ($_SERVER ['REQUEST_METHOD'] == "GET") {
         $tConfigDir = "/etc/svn-access-manager";
     }
     
-    clearstatcache ();
-    if (is_writable ( $tConfigDir )) {
-        $tConfigWritable = _ ( "writable" );
+    clearstatcache();
+    if (is_writable($tConfigDir)) {
+        $tConfigWritable = _("writable");
     }
     else {
-        $tConfigWritable = _ ( "not writable" );
+        $tConfigWritable = _("not writable");
     }
     
     // common locations where to find grep and svn under linux/unix
-    $svnpath = array (
+    $svnpath = array(
             '/usr/local/bin/svn',
             '/usr/bin/svn',
-            '/bin/svn' 
+            '/bin/svn'
     );
-    $svnadminpath = array (
+    $svnadminpath = array(
             '/usr/local/bin/svnadmin',
             '/usr/bin/svnadmin',
-            '/bin/svnadmin' 
+            '/bin/svnadmin'
     );
-    $greppath = array (
+    $greppath = array(
             '/usr/local/bin/grep',
             '/usr/bin/grep',
-            '/bin/grep' 
+            '/bin/grep'
     );
-    $apachepath = array (
+    $apachepath = array(
             '/etc/init.d/httpd',
             '/etc/init.d/apache2',
-            '/etc/init.d/apache' 
+            '/etc/init.d/apache'
     );
     
-    for($i = 0; $i < count ( $svnpath ); $i ++) {
-        if (file_exists ( $svnpath [$i] )) {
+    for($i = 0; $i < count($svnpath); $i ++) {
+        if (file_exists($svnpath[$i])) {
             if ($tSvnCommand == "") {
-                $tSvnCommand = $svnpath [$i];
+                $tSvnCommand = $svnpath[$i];
             }
         }
     }
     
-    for($i = 0; $i < count ( $svnadminpath ); $i ++) {
-        if (file_exists ( $svnadminpath [$i] )) {
+    for($i = 0; $i < count($svnadminpath); $i ++) {
+        if (file_exists($svnadminpath[$i])) {
             if ($tSvnadminCommand == "") {
-                $tSvnadminCommand = $svnadminpath [$i];
+                $tSvnadminCommand = $svnadminpath[$i];
             }
         }
     }
     
-    for($i = 0; $i < count ( $greppath ); $i ++) {
-        if (file_exists ( $greppath [$i] )) {
+    for($i = 0; $i < count($greppath); $i ++) {
+        if (file_exists($greppath[$i])) {
             if ($tGrepCommand == "") {
-                $tGrepCommand = $greppath [$i];
+                $tGrepCommand = $greppath[$i];
             }
         }
     }
     
-    for($i = 0; $i < count ( $apachepath ); $i ++) {
-        if (file_exists ( $apachepath [$i] )) {
+    for($i = 0; $i < count($apachepath); $i ++) {
+        if (file_exists($apachepath[$i])) {
             if ($tViewvcApacheReload == "") {
-                $tViewvcApacheReload = "sudo " . $apachepath [$i] . " graceful";
+                $tViewvcApacheReload = "sudo " . $apachepath[$i] . " graceful";
             }
         }
     }
@@ -3785,43 +3799,43 @@ if ($_SERVER ['REQUEST_METHOD'] == "GET") {
         $tUserDefaultAccessRead = "checked";
     }
     
-    $tErrors = array ();
+    $tErrors = array();
     
     include ("../templates/install-tabs.tpl");
 }
 
-if ($_SERVER ['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
-    $s = new Session ();
-    session_start ();
-    if (! isset ( $_SESSION ['svn_inst'] )) {
-        $_SESSION ['svn_inst'] = array ();
-        $_SESSION ['svn_inst'] ['page'] = "1";
+    $s = new Session();
+    session_start();
+    if (! isset($_SESSION['svn_inst'])) {
+        $_SESSION['svn_inst'] = array();
+        $_SESSION['svn_inst']['page'] = "1";
     }
     
-    $tResult = array ();
-    $tErrors = array ();
-    $CONF = array ();
-    $CONF ['database_innodb'] = 'YES';
-    $CONF ['copyright'] = '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+    $tResult = array();
+    $tErrors = array();
+    $CONF = array();
+    $CONF['database_innodb'] = 'YES';
+    $CONF['copyright'] = '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
     
-    if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
+    if (file_exists(realpath("./config/config.inc.php"))) {
         
-        $configfile = realpath ( "./config/config.inc.php" );
-        $tBaseDir = dirname ( dirname ( $configfile ) );
+        $configfile = realpath("./config/config.inc.php");
+        $tBaseDir = dirname(dirname($configfile));
     }
-    elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+    elseif (file_exists(realpath("../config/config.inc.php"))) {
         
-        $configfile = realpath ( "../config/config.inc.php" );
-        $tBaseDir = dirname ( dirname ( $configfile ) );
+        $configfile = realpath("../config/config.inc.php");
+        $tBaseDir = dirname(dirname($configfile));
     }
     else {
         
-        $configfile = realpath ( "../config/" );
-        $tBaseDir = dirname ( $configfile );
+        $configfile = realpath("../config/");
+        $tBaseDir = dirname($configfile);
     }
     
-    if (determineOs () == "windows") {
+    if (determineOs() == "windows") {
         
         $tConfigDir = $tBaseDir . "\config";
     }
@@ -3830,166 +3844,166 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
         $tConfigDir = "/etc/svn-access-manager";
     }
     
-    clearstatcache ();
-    if (is_writable ( $tConfigDir )) {
-        $tConfigWritable = _ ( "writable" );
+    clearstatcache();
+    if (is_writable($tConfigDir)) {
+        $tConfigWritable = _("writable");
     }
     else {
-        $tConfigWritable = _ ( "not writable" );
+        $tConfigWritable = _("not writable");
     }
     
-    $tCreateDatabaseTables = isset ( $_POST ['fCreateDatabaseTables'] ) ? ($_POST ['fCreateDatabaseTables']) : "";
-    $tDropDatabaseTables = isset ( $_POST ['fDropDatabaseTables'] ) ? ($_POST ['fDropDatabaseTables']) : "";
-    $tDatabase = isset ( $_POST ['fDatabase'] ) ? ($_POST ['fDatabase']) : "";
-    $tSessionInDatabase = isset ( $_POST ['fSessionInDatabase'] ) ? ($_POST ['fSessionInDatabase']) : "";
-    $tUseLdap = isset ( $_POST ['fUseLdap'] ) ? ($_POST ['fUseLdap']) : "";
-    $tLdapHost = isset ( $_POST ['fLdapHost'] ) ? ($_POST ['fLdapHost']) : "";
-    $tLdapPort = isset ( $_POST ['fLdapPort'] ) ? ($_POST ['fLdapPort']) : "389";
-    $tLdapProtocol = isset ( $_POST ['fLdapProtocol'] ) ? ($_POST ['fLdapProtocol']) : "3";
-    $tLdapBinddn = isset ( $_POST ['fLdapBinddn'] ) ? ($_POST ['fLdapBinddn']) : "";
-    $tLdapBindpw = isset ( $_POST ['fLdapBindpw'] ) ? ($_POST ['fLdapBindpw']) : "";
-    $tLdapUserdn = isset ( $_POST ['fLdapUserdn'] ) ? ($_POST ['fLdapUserdn']) : "";
-    $tLdapUserFilter = isset ( $_POST ['fLdapUserFilter'] ) ? ($_POST ['fLdapUserFilter']) : "";
-    $tLdapUserObjectclass = isset ( $_POST ['fLdapUserObjectclass'] ) ? ($_POST ['fLdapUserObjectclass']) : "";
-    $tLdapUserAdditionalFilter = isset ( $_POST ['fLdapUserAdditionalFilter'] ) ? ($_POST ['fLdapUserAdditionalFilter']) : "";
-    $tDatabaseHost = isset ( $_POST ['fDatabaseHost'] ) ? ($_POST ['fDatabaseHost']) : "";
-    $tDatabaseUser = isset ( $_POST ['fDatabaseUser'] ) ? ($_POST ['fDatabaseUser']) : "";
-    $tDatabasePassword = isset ( $_POST ['fDatabasePassword'] ) ? ($_POST ['fDatabasePassword']) : "";
-    $tDatabaseName = isset ( $_POST ['fDatabaseName'] ) ? ($_POST ['fDatabaseName']) : "";
-    $tDatabaseSchema = isset ( $_POST ['fDatabaseSchema'] ) ? ($_POST ['fDatabaseSchema']) : "";
-    $tDatabaseTablespace = isset ( $_POST ['fDatabaseTablespace'] ) ? ($_POST ['fDatabaseTablespace']) : "";
-    $tDatabaseCharset = isset ( $_POST ['fDatabaseCharset'] ) ? ($_POST ['fDatabaseCharset']) : "";
-    $tDatabaseCollation = isset ( $_POST ['fDatabaseCollation'] ) ? ($_POST ['fDatabaseCollation']) : "";
-    $tLdapAttrUid = isset ( $_POST ['fLdapAttrUid'] ) ? ($_POST ['fLdapAttrUid']) : "";
-    $tLdapAttrName = isset ( $_POST ['fLdapAttrName'] ) ? ($_POST ['fLdapAttrName']) : "";
-    $tLdapAttrGivenname = isset ( $_POST ['fLdapAttrGivenname'] ) ? ($_POST ['fLdapAttrGivenname']) : "";
-    $tLdapAttrMail = isset ( $_POST ['fLdapAttrMail'] ) ? ($_POST ['fLdapAttrMail']) : "";
-    $tLdapAttrPassword = isset ( $_POST ['fLdapAttrPassword'] ) ? ($_POST ['fLdapAttrPassword']) : "";
-    $tLdapAttrUserSort = isset ( $_POST ['fLdapAttrUserSort'] ) ? ($_POST ['fLdapAttrUserSort']) : "";
-    $tLdapUserSort = isset ( $_POST ['fLdapUserSort'] ) ? ($_POST ['fLdapUserSort']) : "ASC";
-    $tLdapBindUseLoginData = isset ( $_POST ['fLdapBindUseLoginData'] ) ? ($_POST ['fLdapBindUseLoginData']) : 0;
-    $tLdapBindDnSuffix = isset ( $_POST ['fLdapBindDnSuffix'] ) ? ($_POST ['fLdapBindDnSuffix']) : "";
-    $tWebsiteUrl = isset ( $_POST ['fWebsiteUrl'] ) ? ($_POST ['fWebsiteUrl']) : "";
-    $tWebsiteCharset = isset ( $_POST ['fWebsiteCharset'] ) ? ($_POST ['fWebsiteCharset']) : "";
-    $tLpwMailSender = isset ( $_POST ['fLpwMailSender'] ) ? ($_POST ['fLpwMailSender']) : "";
-    $tLpwLinkValid = isset ( $_POST ['fLpwLinkValid'] ) ? ($_POST ['fLpwLinkValid']) : "";
-    $tUsername = isset ( $_POST ['fUsername'] ) ? ($_POST ['fUsername']) : "";
-    $tPassword = isset ( $_POST ['fPassword'] ) ? ($_POST ['fPassword']) : "";
-    $tPassword2 = isset ( $_POST ['fPassword2'] ) ? ($_POST ['fPassword2']) : "";
-    $tGivenname = isset ( $_POST ['fGivenname'] ) ? ($_POST ['fGivenname']) : "";
-    $tName = isset ( $_POST ['fName'] ) ? ($_POST ['fName']) : "";
-    $tAdminEmail = isset ( $_POST ['fAdminEmail'] ) ? ($_POST ['fAdminEmail']) : "";
-    $tUseSvnAccessFile = isset ( $_POST ['fUseSvnAccessFile'] ) ? ($_POST ['fUseSvnAccessFile']) : "";
-    $tSvnAccessFile = isset ( $_POST ['fSvnAccessFile'] ) ? ($_POST ['fSvnAccessFile']) : "";
-    $tAccessControlLevel = isset ( $_POST ['fAccessControlLevel'] ) ? ($_POST ['fAccessControlLevel']) : "";
-    $tUseAuthUserFile = isset ( $_POST ['fUseAuthUserFile'] ) ? ($_POST ['fUseAuthUserFile']) : "";
-    $tAuthUserFile = isset ( $_POST ['fAuthUserFile'] ) ? ($_POST ['fAuthUserFile']) : "";
-    $tSvnCommand = isset ( $_POST ['fSvnCommand'] ) ? ($_POST ['fSvnCommand']) : "";
-    $tSvnadminCommand = isset ( $_POST ['fSvnadminCommand'] ) ? ($_POST ['fSvnadminCommand']) : "";
-    $tGrepCommand = isset ( $_POST ['fGrepCommand'] ) ? ($_POST ['fGrepCommand']) : "";
-    $tViewvcConfig = isset ( $_POST ['fViewvcConfig'] ) ? ($_POST ['fViewvcConfig']) : "";
-    $tViewvcConfigDir = isset ( $_POST ['fViewvcConfigDir'] ) ? ($_POST ['fViewvcConfigDir']) : "";
-    $tViewvcAlias = isset ( $_POST ['fViewvcAlias'] ) ? ($_POST ['fViewvcAlias']) : "";
-    $tViewvcApacheReload = isset ( $_POST ['fViewvcApacheReload'] ) ? ($_POST ['fViewvcApacheReload']) : "";
-    $tViewvcRealm = isset ( $_POST ['fViewvcRealm'] ) ? ($_POST ['fViewvcRealm']) : "";
-    $tPerRepoFiles = isset ( $_POST ['fPerRepoFiles'] ) ? ($_POST ['fPerRepoFiles']) : "";
-    $tPathSortOrder = isset ( $_POST ['fPathSortOrder'] ) ? ($_POST ['fPathSortOrder']) : "ASC";
-    $tAnonAccess = isset ( $_POST ['fAnonAccess'] ) ? ($_POST ['fAnonAccess']) : 0;
-    $tLogging = isset ( $_POST ['fLogging'] ) ? ($_POST ['fLogging']) : "";
-    $tJavaScript = isset ( $_POST ['fJavaScript'] ) ? ($_POST ['fJavaScript']) : "";
-    $tPageSize = isset ( $_POST ['fPageSize'] ) ? ($_POST ['fPageSize']) : 30;
-    $tMinAdminPwSize = isset ( $_POST ['fMinAdminPwSize'] ) ? ($_POST ['fMinAdminPwSize']) : 14;
-    $tMinUserPwSize = isset ( $_POST ['fMinUserPwSize'] ) ? ($_POST ['fMinUserPwSize']) : 8;
-    $tPasswordExpire = isset ( $_POST ['fPasswordExpire'] ) ? ($_POST ['fPasswordExpire']) : 60;
-    $tPasswordExpireWarn = isset ( $_POST ['fPasswordExpireWarn'] ) ? ($_POST ['fPasswordExpireWarn']) : 50;
-    $tExpirePassword = isset ( $_POST ['fExpirePassword'] ) ? ($_POST ['fExpirePassword']) : 1;
-    $tPwEnc = isset ( $_POST ['fPwEnc'] ) ? ($_POST ['fPwEnc']) : "";
-    $tUserDefaultAccess = isset ( $_POST ['fUserDefaultAccess'] ) ? ($_POST ['fUserDefaultAccess']) : "";
-    $tCustom1 = isset ( $_POST ['fCustom1'] ) ? ($_POST ['fCustom1']) : "";
-    $tCustom2 = isset ( $_POST ['fCustom2'] ) ? ($_POST ['fCustom2']) : "";
-    $tCustom3 = isset ( $_POST ['fCustom3'] ) ? ($_POST ['fCustom3']) : "";
+    $tCreateDatabaseTables = isset($_POST['fCreateDatabaseTables']) ? ($_POST['fCreateDatabaseTables']) : "";
+    $tDropDatabaseTables = isset($_POST['fDropDatabaseTables']) ? ($_POST['fDropDatabaseTables']) : "";
+    $tDatabase = isset($_POST['fDatabase']) ? ($_POST['fDatabase']) : "";
+    $tSessionInDatabase = isset($_POST['fSessionInDatabase']) ? ($_POST['fSessionInDatabase']) : "";
+    $tUseLdap = isset($_POST['fUseLdap']) ? ($_POST['fUseLdap']) : "";
+    $tLdapHost = isset($_POST['fLdapHost']) ? ($_POST['fLdapHost']) : "";
+    $tLdapPort = isset($_POST['fLdapPort']) ? ($_POST['fLdapPort']) : "389";
+    $tLdapProtocol = isset($_POST['fLdapProtocol']) ? ($_POST['fLdapProtocol']) : "3";
+    $tLdapBinddn = isset($_POST['fLdapBinddn']) ? ($_POST['fLdapBinddn']) : "";
+    $tLdapBindpw = isset($_POST['fLdapBindpw']) ? ($_POST['fLdapBindpw']) : "";
+    $tLdapUserdn = isset($_POST['fLdapUserdn']) ? ($_POST['fLdapUserdn']) : "";
+    $tLdapUserFilter = isset($_POST['fLdapUserFilter']) ? ($_POST['fLdapUserFilter']) : "";
+    $tLdapUserObjectclass = isset($_POST['fLdapUserObjectclass']) ? ($_POST['fLdapUserObjectclass']) : "";
+    $tLdapUserAdditionalFilter = isset($_POST['fLdapUserAdditionalFilter']) ? ($_POST['fLdapUserAdditionalFilter']) : "";
+    $tDatabaseHost = isset($_POST['fDatabaseHost']) ? ($_POST['fDatabaseHost']) : "";
+    $tDatabaseUser = isset($_POST['fDatabaseUser']) ? ($_POST['fDatabaseUser']) : "";
+    $tDatabasePassword = isset($_POST['fDatabasePassword']) ? ($_POST['fDatabasePassword']) : "";
+    $tDatabaseName = isset($_POST['fDatabaseName']) ? ($_POST['fDatabaseName']) : "";
+    $tDatabaseSchema = isset($_POST['fDatabaseSchema']) ? ($_POST['fDatabaseSchema']) : "";
+    $tDatabaseTablespace = isset($_POST['fDatabaseTablespace']) ? ($_POST['fDatabaseTablespace']) : "";
+    $tDatabaseCharset = isset($_POST['fDatabaseCharset']) ? ($_POST['fDatabaseCharset']) : "";
+    $tDatabaseCollation = isset($_POST['fDatabaseCollation']) ? ($_POST['fDatabaseCollation']) : "";
+    $tLdapAttrUid = isset($_POST['fLdapAttrUid']) ? ($_POST['fLdapAttrUid']) : "";
+    $tLdapAttrName = isset($_POST['fLdapAttrName']) ? ($_POST['fLdapAttrName']) : "";
+    $tLdapAttrGivenname = isset($_POST['fLdapAttrGivenname']) ? ($_POST['fLdapAttrGivenname']) : "";
+    $tLdapAttrMail = isset($_POST['fLdapAttrMail']) ? ($_POST['fLdapAttrMail']) : "";
+    $tLdapAttrPassword = isset($_POST['fLdapAttrPassword']) ? ($_POST['fLdapAttrPassword']) : "";
+    $tLdapAttrUserSort = isset($_POST['fLdapAttrUserSort']) ? ($_POST['fLdapAttrUserSort']) : "";
+    $tLdapUserSort = isset($_POST['fLdapUserSort']) ? ($_POST['fLdapUserSort']) : "ASC";
+    $tLdapBindUseLoginData = isset($_POST['fLdapBindUseLoginData']) ? ($_POST['fLdapBindUseLoginData']) : 0;
+    $tLdapBindDnSuffix = isset($_POST['fLdapBindDnSuffix']) ? ($_POST['fLdapBindDnSuffix']) : "";
+    $tWebsiteUrl = isset($_POST['fWebsiteUrl']) ? ($_POST['fWebsiteUrl']) : "";
+    $tWebsiteCharset = isset($_POST['fWebsiteCharset']) ? ($_POST['fWebsiteCharset']) : "";
+    $tLpwMailSender = isset($_POST['fLpwMailSender']) ? ($_POST['fLpwMailSender']) : "";
+    $tLpwLinkValid = isset($_POST['fLpwLinkValid']) ? ($_POST['fLpwLinkValid']) : "";
+    $tUsername = isset($_POST['fUsername']) ? ($_POST['fUsername']) : "";
+    $tPassword = isset($_POST['fPassword']) ? ($_POST['fPassword']) : "";
+    $tPassword2 = isset($_POST['fPassword2']) ? ($_POST['fPassword2']) : "";
+    $tGivenname = isset($_POST['fGivenname']) ? ($_POST['fGivenname']) : "";
+    $tName = isset($_POST['fName']) ? ($_POST['fName']) : "";
+    $tAdminEmail = isset($_POST['fAdminEmail']) ? ($_POST['fAdminEmail']) : "";
+    $tUseSvnAccessFile = isset($_POST['fUseSvnAccessFile']) ? ($_POST['fUseSvnAccessFile']) : "";
+    $tSvnAccessFile = isset($_POST['fSvnAccessFile']) ? ($_POST['fSvnAccessFile']) : "";
+    $tAccessControlLevel = isset($_POST['fAccessControlLevel']) ? ($_POST['fAccessControlLevel']) : "";
+    $tUseAuthUserFile = isset($_POST['fUseAuthUserFile']) ? ($_POST['fUseAuthUserFile']) : "";
+    $tAuthUserFile = isset($_POST['fAuthUserFile']) ? ($_POST['fAuthUserFile']) : "";
+    $tSvnCommand = isset($_POST['fSvnCommand']) ? ($_POST['fSvnCommand']) : "";
+    $tSvnadminCommand = isset($_POST['fSvnadminCommand']) ? ($_POST['fSvnadminCommand']) : "";
+    $tGrepCommand = isset($_POST['fGrepCommand']) ? ($_POST['fGrepCommand']) : "";
+    $tViewvcConfig = isset($_POST['fViewvcConfig']) ? ($_POST['fViewvcConfig']) : "";
+    $tViewvcConfigDir = isset($_POST['fViewvcConfigDir']) ? ($_POST['fViewvcConfigDir']) : "";
+    $tViewvcAlias = isset($_POST['fViewvcAlias']) ? ($_POST['fViewvcAlias']) : "";
+    $tViewvcApacheReload = isset($_POST['fViewvcApacheReload']) ? ($_POST['fViewvcApacheReload']) : "";
+    $tViewvcRealm = isset($_POST['fViewvcRealm']) ? ($_POST['fViewvcRealm']) : "";
+    $tPerRepoFiles = isset($_POST['fPerRepoFiles']) ? ($_POST['fPerRepoFiles']) : "";
+    $tPathSortOrder = isset($_POST['fPathSortOrder']) ? ($_POST['fPathSortOrder']) : "ASC";
+    $tAnonAccess = isset($_POST['fAnonAccess']) ? ($_POST['fAnonAccess']) : 0;
+    $tLogging = isset($_POST['fLogging']) ? ($_POST['fLogging']) : "";
+    $tJavaScript = isset($_POST['fJavaScript']) ? ($_POST['fJavaScript']) : "";
+    $tPageSize = isset($_POST['fPageSize']) ? ($_POST['fPageSize']) : 30;
+    $tMinAdminPwSize = isset($_POST['fMinAdminPwSize']) ? ($_POST['fMinAdminPwSize']) : 14;
+    $tMinUserPwSize = isset($_POST['fMinUserPwSize']) ? ($_POST['fMinUserPwSize']) : 8;
+    $tPasswordExpire = isset($_POST['fPasswordExpire']) ? ($_POST['fPasswordExpire']) : 60;
+    $tPasswordExpireWarn = isset($_POST['fPasswordExpireWarn']) ? ($_POST['fPasswordExpireWarn']) : 50;
+    $tExpirePassword = isset($_POST['fExpirePassword']) ? ($_POST['fExpirePassword']) : 1;
+    $tPwEnc = isset($_POST['fPwEnc']) ? ($_POST['fPwEnc']) : "";
+    $tUserDefaultAccess = isset($_POST['fUserDefaultAccess']) ? ($_POST['fUserDefaultAccess']) : "";
+    $tCustom1 = isset($_POST['fCustom1']) ? ($_POST['fCustom1']) : "";
+    $tCustom2 = isset($_POST['fCustom2']) ? ($_POST['fCustom2']) : "";
+    $tCustom3 = isset($_POST['fCustom3']) ? ($_POST['fCustom3']) : "";
     $error = 0;
     
-    $_SESSION ['svn_inst'] ['createDatabaseTables'] = $tCreateDatabaseTables;
-    $_SESSION ['svn_inst'] ['dropDatabaseTables'] = $tDropDatabaseTables;
-    $_SESSION ['svn_inst'] ['database'] = $tDatabase;
-    $_SESSION ['svn_inst'] ['sessionInDatabase'] = $tSessionInDatabase;
-    $_SESSION ['svn_inst'] ['useLdap'] = $tUseLdap;
-    $_SESSION ['svn_inst'] ['ldapHost'] = $tLdapHost;
-    $_SESSION ['svn_inst'] ['ldapPort'] = $tLdapPort;
-    $_SESSION ['svn_inst'] ['ldapProtocol'] = $tLdapProtocol;
-    $_SESSION ['svn_inst'] ['ldapBinddn'] = $tLdapBinddn;
-    $_SESSION ['svn_inst'] ['ldapBindpw'] = $tLdapBindpw;
-    $_SESSION ['svn_inst'] ['ldapUserdn'] = $tLdapUserdn;
-    $_SESSION ['svn_inst'] ['ldapUserFilter'] = $tLdapUserFilter;
-    $_SESSION ['svn_inst'] ['ldapUserObjectclass'] = $tLdapUserObjectclass;
-    $_SESSION ['svn_inst'] ['ldapUserAdditionalFilter'] = $tLdapUserAdditionalFilter;
-    $_SESSION ['svn_inst'] ['databaseHost'] = $tDatabaseHost;
-    $_SESSION ['svn_inst'] ['databaseUser'] = $tDatabaseUser;
-    $_SESSION ['svn_inst'] ['databasePassword'] = $tDatabasePassword;
-    $_SESSION ['svn_inst'] ['databaseName'] = $tDatabaseName;
-    $_SESSION ['svn_inst'] ['databaseSchema'] = $tDatabaseSchema;
-    $_SESSION ['svn_inst'] ['databaseTablespace'] = $tDatabaseTablespace;
-    $_SESSION ['svn_inst'] ['databaseCharset'] = $tDatabaseCharset;
-    $_SESSION ['svn_inst'] ['databaseCollation'] = $tDatabaseCollation;
-    $_SESSION ['svn_inst'] ['ldapAttrUid'] = $tLdapAttrUid;
-    $_SESSION ['svn_inst'] ['ldapAttrName'] = $tLdapAttrName;
-    $_SESSION ['svn_inst'] ['ldapAttrGivenname'] = $tLdapAttrGivenname;
-    $_SESSION ['svn_inst'] ['ldapAttrMail'] = $tLdapAttrMail;
-    $_SESSION ['svn_inst'] ['ldapAttrPassword'] = $tLdapAttrPassword;
-    $_SESSION ['svn_inst'] ['ldapAttrUserSort'] = $tLdapAttrUserSort;
-    $_SESSION ['svn_inst'] ['ldapUserSort'] = $tLdapUserSort;
-    $_SESSION ['svn_inst'] ['ldapBindUseLoginData'] = $tLdapBindUseLoginData;
-    $_SESSION ['svn_inst'] ['ldapBindDnSuffix'] = $tLdapBindDnSuffix;
-    $_SESSION ['svn_inst'] ['websiteUrl'] = $tWebsiteUrl;
-    $_SESSION ['svn_inst'] ['websiteCharset'] = $tWebsiteCharset;
-    $_SESSION ['svn_inst'] ['lpwMailSender'] = $tLpwMailSender;
-    $_SESSION ['svn_inst'] ['lpwLinkValid'] = $tLpwLinkValid;
-    $_SESSION ['svn_inst'] ['username'] = $tUsername;
-    $_SESSION ['svn_inst'] ['password'] = $tPassword;
-    $_SESSION ['svn_inst'] ['password2'] = $tPassword2;
-    $_SESSION ['svn_inst'] ['givenname'] = $tGivenname;
-    $_SESSION ['svn_inst'] ['name'] = $tName;
-    $_SESSION ['svn_inst'] ['adminEmail'] = $tAdminEmail;
-    $_SESSION ['svn_inst'] ['useSvnAccessFile'] = $tUseSvnAccessFile;
-    $_SESSION ['svn_inst'] ['svnAccessFile'] = $tSvnAccessFile;
-    $_SESSION ['svn_inst'] ['accessControlLevel'] = $tAccessControlLevel;
-    $_SESSION ['svn_inst'] ['useAuthUserFile'] = $tUseAuthUserFile;
-    $_SESSION ['svn_inst'] ['authUserFile'] = $tAuthUserFile;
-    $_SESSION ['svn_inst'] ['svnCommand'] = $tSvnCommand;
-    $_SESSION ['svn_inst'] ['svnadminCommand'] = $tSvnadminCommand;
-    $_SESSION ['svn_inst'] ['grepCommand'] = $tGrepCommand;
-    $_SESSION ['svn_inst'] ['viewvcConfig'] = $tViewvcConfig;
-    $_SESSION ['svn_inst'] ['viewvcConfigDir'] = $tViewvcConfigDir;
-    $_SESSION ['svn_inst'] ['viewvcAlias'] = $tViewvcAlias;
-    $_SESSION ['svn_inst'] ['viewvcApacheReload'] = $tViewvcApacheReload;
-    $_SESSION ['svn_inst'] ['viewvcRealm'] = $tViewvcRealm;
-    $_SESSION ['svn_inst'] ['perRepoFiles'] = $tPerRepoFiles;
-    $_SESSION ['svn_inst'] ['pathSortOrder'] = $tPathSortOrder;
-    $_SESSION ['svn_inst'] ['anonAccess'] = $tAnonAccess;
-    $_SESSION ['svn_inst'] ['logging'] = $tLogging;
-    $_SESSION ['svn_inst'] ['javaScript'] = $tJavaScript;
-    $_SESSION ['svn_inst'] ['pageSize'] = $tPageSize;
-    $_SESSION ['svn_inst'] ['minAdminPwSize'] = $tMinAdminPwSize;
-    $_SESSION ['svn_inst'] ['minUserPwSize'] = $tMinUserPwSize;
-    $_SESSION ['svn_inst'] ['passwordExpire'] = $tPasswordExpire;
-    $_SESSION ['svn_inst'] ['passwordExpireWarn'] = $tPasswordExpireWarn;
-    $_SESSION ['svn_inst'] ['expirePassword'] = $tExpirePassword;
-    $_SESSION ['svn_inst'] ['pwEnc'] = $tPwEnc;
-    $_SESSION ['svn_inst'] ['userDefaultAccess'] = $tUserDefaultAccess;
-    $_SESSION ['svn_inst'] ['custom1'] = $tCustom1;
-    $_SESSION ['svn_inst'] ['custom2'] = $tCustom2;
-    $_SESSION ['svn_inst'] ['custom3'] = $tCustom3;
+    $_SESSION['svn_inst']['createDatabaseTables'] = $tCreateDatabaseTables;
+    $_SESSION['svn_inst']['dropDatabaseTables'] = $tDropDatabaseTables;
+    $_SESSION['svn_inst']['database'] = $tDatabase;
+    $_SESSION['svn_inst']['sessionInDatabase'] = $tSessionInDatabase;
+    $_SESSION['svn_inst']['useLdap'] = $tUseLdap;
+    $_SESSION['svn_inst']['ldapHost'] = $tLdapHost;
+    $_SESSION['svn_inst']['ldapPort'] = $tLdapPort;
+    $_SESSION['svn_inst']['ldapProtocol'] = $tLdapProtocol;
+    $_SESSION['svn_inst']['ldapBinddn'] = $tLdapBinddn;
+    $_SESSION['svn_inst']['ldapBindpw'] = $tLdapBindpw;
+    $_SESSION['svn_inst']['ldapUserdn'] = $tLdapUserdn;
+    $_SESSION['svn_inst']['ldapUserFilter'] = $tLdapUserFilter;
+    $_SESSION['svn_inst']['ldapUserObjectclass'] = $tLdapUserObjectclass;
+    $_SESSION['svn_inst']['ldapUserAdditionalFilter'] = $tLdapUserAdditionalFilter;
+    $_SESSION['svn_inst']['databaseHost'] = $tDatabaseHost;
+    $_SESSION['svn_inst']['databaseUser'] = $tDatabaseUser;
+    $_SESSION['svn_inst']['databasePassword'] = $tDatabasePassword;
+    $_SESSION['svn_inst']['databaseName'] = $tDatabaseName;
+    $_SESSION['svn_inst']['databaseSchema'] = $tDatabaseSchema;
+    $_SESSION['svn_inst']['databaseTablespace'] = $tDatabaseTablespace;
+    $_SESSION['svn_inst']['databaseCharset'] = $tDatabaseCharset;
+    $_SESSION['svn_inst']['databaseCollation'] = $tDatabaseCollation;
+    $_SESSION['svn_inst']['ldapAttrUid'] = $tLdapAttrUid;
+    $_SESSION['svn_inst']['ldapAttrName'] = $tLdapAttrName;
+    $_SESSION['svn_inst']['ldapAttrGivenname'] = $tLdapAttrGivenname;
+    $_SESSION['svn_inst']['ldapAttrMail'] = $tLdapAttrMail;
+    $_SESSION['svn_inst']['ldapAttrPassword'] = $tLdapAttrPassword;
+    $_SESSION['svn_inst']['ldapAttrUserSort'] = $tLdapAttrUserSort;
+    $_SESSION['svn_inst']['ldapUserSort'] = $tLdapUserSort;
+    $_SESSION['svn_inst']['ldapBindUseLoginData'] = $tLdapBindUseLoginData;
+    $_SESSION['svn_inst']['ldapBindDnSuffix'] = $tLdapBindDnSuffix;
+    $_SESSION['svn_inst']['websiteUrl'] = $tWebsiteUrl;
+    $_SESSION['svn_inst']['websiteCharset'] = $tWebsiteCharset;
+    $_SESSION['svn_inst']['lpwMailSender'] = $tLpwMailSender;
+    $_SESSION['svn_inst']['lpwLinkValid'] = $tLpwLinkValid;
+    $_SESSION['svn_inst']['username'] = $tUsername;
+    $_SESSION['svn_inst']['password'] = $tPassword;
+    $_SESSION['svn_inst']['password2'] = $tPassword2;
+    $_SESSION['svn_inst']['givenname'] = $tGivenname;
+    $_SESSION['svn_inst']['name'] = $tName;
+    $_SESSION['svn_inst']['adminEmail'] = $tAdminEmail;
+    $_SESSION['svn_inst']['useSvnAccessFile'] = $tUseSvnAccessFile;
+    $_SESSION['svn_inst']['svnAccessFile'] = $tSvnAccessFile;
+    $_SESSION['svn_inst']['accessControlLevel'] = $tAccessControlLevel;
+    $_SESSION['svn_inst']['useAuthUserFile'] = $tUseAuthUserFile;
+    $_SESSION['svn_inst']['authUserFile'] = $tAuthUserFile;
+    $_SESSION['svn_inst']['svnCommand'] = $tSvnCommand;
+    $_SESSION['svn_inst']['svnadminCommand'] = $tSvnadminCommand;
+    $_SESSION['svn_inst']['grepCommand'] = $tGrepCommand;
+    $_SESSION['svn_inst']['viewvcConfig'] = $tViewvcConfig;
+    $_SESSION['svn_inst']['viewvcConfigDir'] = $tViewvcConfigDir;
+    $_SESSION['svn_inst']['viewvcAlias'] = $tViewvcAlias;
+    $_SESSION['svn_inst']['viewvcApacheReload'] = $tViewvcApacheReload;
+    $_SESSION['svn_inst']['viewvcRealm'] = $tViewvcRealm;
+    $_SESSION['svn_inst']['perRepoFiles'] = $tPerRepoFiles;
+    $_SESSION['svn_inst']['pathSortOrder'] = $tPathSortOrder;
+    $_SESSION['svn_inst']['anonAccess'] = $tAnonAccess;
+    $_SESSION['svn_inst']['logging'] = $tLogging;
+    $_SESSION['svn_inst']['javaScript'] = $tJavaScript;
+    $_SESSION['svn_inst']['pageSize'] = $tPageSize;
+    $_SESSION['svn_inst']['minAdminPwSize'] = $tMinAdminPwSize;
+    $_SESSION['svn_inst']['minUserPwSize'] = $tMinUserPwSize;
+    $_SESSION['svn_inst']['passwordExpire'] = $tPasswordExpire;
+    $_SESSION['svn_inst']['passwordExpireWarn'] = $tPasswordExpireWarn;
+    $_SESSION['svn_inst']['expirePassword'] = $tExpirePassword;
+    $_SESSION['svn_inst']['pwEnc'] = $tPwEnc;
+    $_SESSION['svn_inst']['userDefaultAccess'] = $tUserDefaultAccess;
+    $_SESSION['svn_inst']['custom1'] = $tCustom1;
+    $_SESSION['svn_inst']['custom2'] = $tCustom2;
+    $_SESSION['svn_inst']['custom3'] = $tCustom3;
     
-    if (isset ( $_POST ['fSubmit_install'] ) or isset ( $_POST ['fSubmit_install_x'] )) {
+    if (isset($_POST['fSubmit_install']) or isset($_POST['fSubmit_install_x'])) {
         
         $error = 0;
-        $CONF ['database_type'] = $_SESSION ['svn_inst'] ['database'];
+        $CONF['database_type'] = $_SESSION['svn_inst']['database'];
         //
         // check fields
         //
         
-        if (strtoupper ( $tDatabase ) == "MYSQL") {
+        if (strtoupper($tDatabase) == "MYSQL") {
             $tDatabaseCharsetDefault = "latin1";
             $tDatabaseCollationDefault = "latin1_german1_ci";
         }
@@ -4000,206 +4014,206 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
         
         if ($tDatabaseHost == "") {
             
-            $tErrors [] = _ ( "Database host is missing!" );
+            $tErrors[] = _("Database host is missing!");
             $error = 1;
         }
         
         if ($tDatabaseUser == "") {
             
-            $tErrors [] = _ ( "Database user is missing!" );
+            $tErrors[] = _("Database user is missing!");
             $error = 1;
         }
         
         if ($tDatabaseName == "") {
             
-            $tErrors [] = _ ( "Database name is missing!" );
+            $tErrors[] = _("Database name is missing!");
             $error = 1;
         }
         
         if ($tDatabaseCharset == "") {
             
-            $tErrors [] = _ ( "Database charset is missing!" );
+            $tErrors[] = _("Database charset is missing!");
             $error = 1;
         }
         
         if ($tDatabaseCollation == "") {
             
-            $tErrors [] = _ ( "Database collation is missing!" );
+            $tErrors[] = _("Database collation is missing!");
             $error = 1;
         }
         
-        if (strtoupper ( $tUseLdap ) == "YES") {
+        if (strtoupper($tUseLdap) == "YES") {
             
             if ($tLdapHost == "") {
                 
-                $tErrors [] = _ ( "LDAP host is missing!" );
+                $tErrors[] = _("LDAP host is missing!");
                 $error = 1;
             }
             
             if ($tLdapPort == "") {
                 
-                $tErrors [] = _ ( "LDAP port is missing!" );
+                $tErrors[] = _("LDAP port is missing!");
                 $error = 1;
             }
             
             if (($tLdapProtocol != "2") and ($tLdapProtocol != "3")) {
                 
-                $tErrors [] = sprintf ( _ ( "Invalid protocol version %s!" ), $tLdapProtocol );
+                $tErrors[] = sprintf(_("Invalid protocol version %s!"), $tLdapProtocol);
                 $error = 1;
             }
             
             if ($tLdapBinddn == "") {
                 
-                $tErrors [] = _ ( "LDAP bind dn is missing!" );
+                $tErrors[] = _("LDAP bind dn is missing!");
                 $error = 1;
             }
             
             if ($tLdapBindpw == "") {
                 
-                $tErrors [] = _ ( "LDAP bind password is missing!" );
+                $tErrors[] = _("LDAP bind password is missing!");
                 $error = 1;
             }
             
             if ($tLdapUserdn == "") {
                 
-                $tErrors [] = _ ( "LDAP user dn is missing!" );
+                $tErrors[] = _("LDAP user dn is missing!");
                 $error = 1;
             }
             
             if ($tLdapUserFilter == "") {
                 
-                $tErrors [] = _ ( "LDAP user filter attribute is missing!" );
+                $tErrors[] = _("LDAP user filter attribute is missing!");
                 $error = 1;
             }
             
             if ($tLdapUserObjectclass == "") {
                 
-                $tErrors [] = _ ( "LDAP user object class is missing!" );
+                $tErrors[] = _("LDAP user object class is missing!");
                 $error = 1;
             }
             
             if ($tLdapAttrUid == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for uid is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for uid is missing!");
                 $error = 1;
             }
             
             if ($tLdapAttrName == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for name is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for name is missing!");
                 $error = 1;
             }
             
             if ($tLdapAttrGivenname == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for given name is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for given name is missing!");
                 $error = 1;
             }
             
             if ($tLdapAttrMail == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for mail is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for mail is missing!");
                 $error = 1;
             }
             
             if ($tLdapAttrPassword == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute mapping for user password is missing!" );
+                $tErrors[] = _("LDAP attribute mapping for user password is missing!");
                 $error = 1;
             }
             
             if ($tLdapAttrUserSort == "") {
                 
-                $tErrors [] = _ ( "LDAP attribute for sorting users missing!" );
+                $tErrors[] = _("LDAP attribute for sorting users missing!");
                 $error = 1;
             }
             
             if (($tLdapUserSort != "ASC") and ($tLdapUserSort != "DESC")) {
                 
-                $tErrors [] = sprintf ( _ ( "LDAP user sort order is missing or invalid: %s" ), $tLdapUserSort );
+                $tErrors[] = sprintf(_("LDAP user sort order is missing or invalid: %s"), $tLdapUserSort);
             }
             
             if (($tLdapBindUseLoginData != 0) and ($tLdapBindUseLoginData != 1)) {
                 
-                $tErrors [] = sprintf ( _ ( "LDAP bind uses login data is missing or invalid: %s" ), $tLdapBindUseLoginData );
+                $tErrors[] = sprintf(_("LDAP bind uses login data is missing or invalid: %s"), $tLdapBindUseLoginData);
             }
             
             if (($tLdapBindUseLoginData == 1) and ($tLdapBindDnSuffix == "")) {
                 
-                $tErrors [] = _ ( "LDAP Bind Dn Suffix is missing!" );
+                $tErrors[] = _("LDAP Bind Dn Suffix is missing!");
             }
         }
         
         if ($tWebsiteUrl == "") {
             
-            $tErrors [] = _ ( "SVN Access Manger Website URL is missing!" );
+            $tErrors[] = _("SVN Access Manger Website URL is missing!");
             $error = 1;
         }
         
         if ($tWebsiteCharset == "") {
             
-            $tErrors [] = _ ( "Website charset is missing!" );
+            $tErrors[] = _("Website charset is missing!");
             $error = 1;
         }
         
         if ($tLpwMailSender == "") {
             
-            $tErrors [] = _ ( "Lost password mail sender address is missing!" );
+            $tErrors[] = _("Lost password mail sender address is missing!");
             $error = 1;
         }
-        elseif (! check_email ( $tLpwMailSender )) {
+        elseif (! check_email($tLpwMailSender)) {
             
-            $tErrors [] = sprintf ( _ ( "Lost password mail sender address %s is not a valid email address!" ), $tLpwMailSender );
+            $tErrors[] = sprintf(_("Lost password mail sender address %s is not a valid email address!"), $tLpwMailSender);
             $error = 1;
         }
         
         if ($tLpwLinkValid == "") {
             
-            $tErrors [] = _ ( "Lost password days link valid missing!" );
+            $tErrors[] = _("Lost password days link valid missing!");
             $error = 1;
         }
-        elseif (! is_numeric ( $tLpwLinkValid )) {
+        elseif (! is_numeric($tLpwLinkValid)) {
             
-            $tErrors [] = _ ( "Lost password days link valid must be numeric!" );
+            $tErrors[] = _("Lost password days link valid must be numeric!");
             $error = 1;
         }
         
         if ($tUsername == "") {
             
-            $tErrors [] = _ ( "Administrator username is missing!" );
+            $tErrors[] = _("Administrator username is missing!");
             $error = 1;
         }
         
         if (($tPassword == "") or ($tPassword2 == "")) {
             
-            $tErrors [] = _ ( "Administrator password is missing!" );
+            $tErrors[] = _("Administrator password is missing!");
             $error = 1;
         }
         elseif ($tPassword != $tPassword2) {
             
-            $tErrors [] = _ ( "Administrator passwords do not match!" );
+            $tErrors[] = _("Administrator passwords do not match!");
             $error = 1;
         }
-        elseif (checkPasswordPolicy ( $tPassword, 'y' ) == 0) {
+        elseif (checkPasswordPolicy($tPassword, 'y') == 0) {
             
-            $tErrors [] = _ ( "Administrator password is not strong enough!" );
+            $tErrors[] = _("Administrator password is not strong enough!");
             $error = 1;
         }
         
         if ($tName == "") {
             
-            $tErrors [] = _ ( "Administrator name is missing!" );
+            $tErrors[] = _("Administrator name is missing!");
             $error = 1;
         }
         
         if ($tAdminEmail == "") {
             
-            $tErrors [] = _ ( "Administrator email address is missing!" );
+            $tErrors[] = _("Administrator email address is missing!");
             $error = 1;
         }
-        elseif (! check_email ( $tAdminEmail )) {
+        elseif (! check_email($tAdminEmail)) {
             
-            $tErrors [] = sprintf ( _ ( "Administrator email address %s is not a valid email address!" ), $tAdminEmail );
+            $tErrors[] = sprintf(_("Administrator email address %s is not a valid email address!"), $tAdminEmail);
             $error = 1;
         }
         
@@ -4207,80 +4221,80 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
             
             if ($tViewvcConfigDir == "") {
                 
-                $tErrors [] = _ ( "ViewVC configuration directory is missing!" );
+                $tErrors[] = _("ViewVC configuration directory is missing!");
                 $error = 1;
             }
             
             if ($tViewvcAlias == "") {
                 
-                $tErrors [] = _ ( "ViewVC webserver alias is missing!" );
+                $tErrors[] = _("ViewVC webserver alias is missing!");
                 $error = 1;
             }
             
             if ($tViewvcRealm == "") {
                 
-                $tErrors [] = _ ( "ViewVC realm is missing!" );
+                $tErrors[] = _("ViewVC realm is missing!");
                 $error = 1;
             }
         }
         
         if ($tSvnCommand == "") {
             
-            $tErrors [] = _ ( "SVN command is missing!" );
+            $tErrors[] = _("SVN command is missing!");
             $error = 1;
         }
         
         if ($tSvnadminCommand == "") {
             
-            $tErrors [] = _ ( "Svnadmin command missing!" );
+            $tErrors[] = _("Svnadmin command missing!");
             $error = 1;
         }
         
         if ($tGrepCommand == "") {
             
-            $tErrors [] = _ ( "Grep command is missinbg!" );
+            $tErrors[] = _("Grep command is missinbg!");
             $error = 1;
         }
         
         if ($tPageSize == "") {
             
-            $tErrors [] = _ ( "Page size is missing!" );
+            $tErrors[] = _("Page size is missing!");
             $error = 1;
         }
         
-        if (! is_numeric ( $tPageSize )) {
+        if (! is_numeric($tPageSize)) {
             
-            $tErrors [] = _ ( "Page size is not numeric!" );
+            $tErrors[] = _("Page size is not numeric!");
             $error = 1;
         }
         
-        if (! is_numeric ( $tMinAdminPwSize )) {
+        if (! is_numeric($tMinAdminPwSize)) {
             
-            $tErrors [] = _ ( "Minimal administrator password length is not numeric!" );
+            $tErrors[] = _("Minimal administrator password length is not numeric!");
             $error = 1;
         }
         
-        if (! is_numeric ( $tMinUserPwSize )) {
+        if (! is_numeric($tMinUserPwSize)) {
             
-            $tErrors [] = _ ( "Minimal user password length is not numeric!" );
+            $tErrors[] = _("Minimal user password length is not numeric!");
             $error = 1;
         }
         
-        if (! is_numeric ( $tPasswordExpire )) {
+        if (! is_numeric($tPasswordExpire)) {
             
-            $tErrors [] = _ ( "Password expire days not numeric!" );
+            $tErrors[] = _("Password expire days not numeric!");
             $error = 1;
         }
         
-        if (! is_numeric ( $tPasswordExpireWarn )) {
+        if (! is_numeric($tPasswordExpireWarn)) {
             
-            $tErrors [] = _ ( "Password expire warn days not numeric!" );
+            $tErrors[] = _("Password expire warn days not numeric!");
             $error = 1;
         }
         
         if ($tPasswordExpireWarn >= $tPasswordExpire) {
             
-            $tErrors [] = _ ( "Password expire days must not be smaller or equal than password expire warn days!" );
+            $tErrors[] = _("Password expire days must not be smaller or equal than password expire warn days!");
             $error = 1;
         }
         
@@ -4289,155 +4303,155 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
         //
         if ($error == 0) {
             
-            $ret = doInstall ();
-            $tPage = $ret ['page'];
-            $tErrors = $ret ['errors'];
+            $ret = doInstall();
+            $tPage = $ret['page'];
+            $tErrors = $ret['errors'];
         }
         else {
             
             $tPage = 7;
         }
     }
-    elseif (isset ( $_POST ['fSubmit_testdb'] ) or isset ( $_POST ['fSubmit_testdb_x'] )) {
+    elseif (isset($_POST['fSubmit_testdb']) or isset($_POST['fSubmit_testdb_x'])) {
         
-        $ret = doDbtest ();
-        $tPage = $ret ['page'];
-        $tErrors = $ret ['errors'];
+        $ret = doDbtest();
+        $tPage = $ret['page'];
+        $tErrors = $ret['errors'];
     }
-    elseif (isset ( $_POST ['fSubmit_testldap'] ) or isset ( $_POST ['fSubmit_testldap_x'] )) {
+    elseif (isset($_POST['fSubmit_testldap']) or isset($_POST['fSubmit_testldap_x'])) {
         
         $error = 0;
         
-        if ($_SESSION ['svn_inst'] ['useLdap'] == "YES") {
+        if ($_SESSION['svn_inst']['useLdap'] == "YES") {
             
-            $ret = doLdapTest ();
-            $tPage = $ret ['page'];
-            $tErrors = $ret ['errors'];
+            $ret = doLdapTest();
+            $tPage = $ret['page'];
+            $tErrors = $ret['errors'];
         }
         else {
             
-            $tErrors [] = _ ( "Testing LDAP connection doesn't make sense if you do not use LDAP!" );
+            $tErrors[] = _("Testing LDAP connection doesn't make sense if you do not use LDAP!");
             $tPage = 7;
         }
     }
     
-    $tDatabaseHost = isset ( $_SESSION ['svn_inst'] ['databaseHost'] ) ? $_SESSION ['svn_inst'] ['databaseHost'] : "";
-    $tDatabaseUser = isset ( $_SESSION ['svn_inst'] ['databaseUser'] ) ? $_SESSION ['svn_inst'] ['databaseUser'] : "";
-    $tDatabasePassword = isset ( $_SESSION ['svn_inst'] ['databasePassword'] ) ? $_SESSION ['svn_inst'] ['databasePassword'] : "";
-    $tDatabaseName = isset ( $_SESSION ['svn_inst'] ['databaseName'] ) ? $_SESSION ['svn_inst'] ['databaseName'] : "";
-    $tDatabaseSchema = isset ( $_SESSION ['svn_inst'] ['databaseSchema'] ) ? $_SESSION ['svn_inst'] ['databaseSchema'] : "";
-    $tDatabaseTablespace = isset ( $_SESSION ['svn_inst'] ['databaseTablespace'] ) ? $_SESSION ['svn_inst'] ['databaseTablespace'] : "";
-    $tDatabaseCharset = isset ( $_SESSION ['svn_inst'] ['databaseCharset'] ) ? $_SESSION ['svn_inst'] ['databaseCharset'] : $tDatabaseCharsetDefault;
-    $tDatabaseCollation = isset ( $_SESSION ['svn_inst'] ['databaseCollation'] ) ? $_SESSION ['svn_inst'] ['databaseCollation'] : $tDatabaseCollationDefault;
-    $tLdapAttrUid = isset ( $_SESSION ['svn_inst'] ['ldapAttrUid'] ) ? $_SESSION ['svn_inst'] ['ldapAttrUid'] : "uid";
-    $tLdapAttrName = isset ( $_SESSION ['svn_inst'] ['ldapAttrName'] ) ? $_SESSION ['svn_inst'] ['ldapAttrName'] : "sn";
-    $tLdapAttrGivenname = isset ( $_SESSION ['svn_inst'] ['ldapAttrGivenname'] ) ? $_SESSION ['svn_inst'] ['ldapAttrGivenname'] : "givenName";
-    $tLdapAttrMail = isset ( $_SESSION ['svn_inst'] ['ldapAttrMail'] ) ? $_SESSION ['svn_inst'] ['ldapAttrMail'] : "mail";
-    $tLdapAttrPassword = isset ( $_SESSION ['svn_inst'] ['ldapAttrPassword'] ) ? $_SESSION ['svn_inst'] ['ldapAttrPassword'] : "userPassword";
-    $tLdapAttrUserSort = isset ( $_SESSION ['svn_inst'] ['ldapAttrUserSort'] ) ? $_SESSION ['svn_inst'] ['ldapAttrUserSort'] : "sn";
-    $tLdapUserSort = isset ( $_SESSION ['svn_inst'] ['ldapUserSort'] ) ? $_SESSION ['svn_inst'] ['ldapUserSort'] : "ASC";
-    $tLdapBindUseLoginData = isset ( $_SESSION ['svn_inst'] ['ldapBindUseLoginData'] ) ? $_SESSION ['svn_inst'] ['ldapBindUseLoginData'] : 0;
-    $tLdapBindDnSuffix = isset ( $_SESSION ['svn_inst'] ['ldapBindDnSuffix'] ) ? $_SESSION ['svn_inst'] ['ldapBindDnSuffix'] : "";
-    $tWebisteUrl = isset ( $_SESSION ['svn_inst'] ['webisteUrl'] ) ? $_SESSION ['svn_inst'] ['websiteUrl'] : "";
-    $tWebsiteCharset = isset ( $_SESSION ['svn_inst'] ['websiteCharset'] ) ? $_SESSION ['svn_inst'] ['websiteCharset'] : "iso8859-15";
-    $tLpwMailSender = isset ( $_SESSION ['svn_inst'] ['lpwMailSender'] ) ? $_SESSION ['svn_inst'] ['lpwMailSender'] : "";
-    $tLpwLinkValid = isset ( $_SESSION ['svn_inst'] ['lpwLinkValid'] ) ? $_SESSION ['svn_inst'] ['lpwLinkValid'] : "";
-    $tUsername = isset ( $_SESSION ['svn_inst'] ['username'] ) ? $_SESSION ['svn_inst'] ['username'] : "";
-    $tPassword = isset ( $_SESSION ['svn_inst'] ['password'] ) ? $_SESSION ['svn_inst'] ['password'] : "";
-    $tPassword2 = isset ( $_SESSION ['svn_inst'] ['password2'] ) ? $_SESSION ['svn_inst'] ['password2'] : "";
-    $tGivenname = isset ( $_SESSION ['svn_inst'] ['givenname'] ) ? $_SESSION ['svn_inst'] ['givenname'] : "";
-    $tName = isset ( $_SESSION ['svn_inst'] ['name'] ) ? $_SESSION ['svn_inst'] ['name'] : "";
-    $tAdminEmail = isset ( $_SESSION ['svn_inst'] ['adminEmail'] ) ? $_SESSION ['svn_inst'] ['adminEmail'] : "";
-    $tUseSvnAccessFile = isset ( $_SESSION ['svn_inst'] ['useSvnAccessFile'] ) ? $_SESSION ['svn_inst'] ['useSvnAccessFile'] : "";
-    $tSvnAccessFile = isset ( $_SESSION ['svn_inst'] ['svnAccessFile'] ) ? $_SESSION ['svn_inst'] ['svnAccessFile'] : "";
-    $tAccessControlLevel = isset ( $_SESSION ['svn_inst'] ['accessControlLevel'] ) ? $_SESSION ['svn_inst'] ['accessControlLevel'] : "dirs";
-    $tUseAuthUserFile = isset ( $_SESSION ['svn_inst'] ['useAuthUserFile'] ) ? $_SESSION ['svn_inst'] ['useAuthUserFile'] : "";
-    $tAuthUserFile = isset ( $_SESSION ['svn_inst'] ['authUserFile'] ) ? $_SESSION ['svn_inst'] ['authUserFile'] : "";
-    $tSvnCommand = isset ( $_SESSION ['svn_inst'] ['svnCommand'] ) ? $_SESSION ['svn_inst'] ['svnCommand'] : "";
-    $tSvnadminCommand = isset ( $_SESSION ['svn_inst'] ['svnadminCommand'] ) ? $_SESSION ['svn_inst'] ['svnadminCommand'] : "";
-    $tGrepCommand = isset ( $_SESSION ['svn_inst'] ['grepCommand'] ) ? $_SESSION ['svn_inst'] ['grepCommand'] : "";
-    $tViewvcConfig = isset ( $_SESSION ['svn_inst'] ['viewvcConfig'] ) ? $_SESSION ['svn_inst'] ['viewvcConfig'] : "";
-    $tViewvcConfigDir = isset ( $_SESSION ['svn_inst'] ['viewvcConfigDir'] ) ? $_SESSION ['svn_inst'] ['viewvcConfigDir'] : "";
-    $tViewvcAlias = isset ( $_SESSION ['svn_inst'] ['viewvcAlias'] ) ? $_SESSION ['svn_inst'] ['viewvcAlias'] : "/viewvc";
-    $tViewvcApacheReload = isset ( $_SESSION ['svn_inst'] ['viewvcApacheReload'] ) ? $_SESSION ['svn_inst'] ['viewvcApacheReload'] : "";
-    $tViewvcRealm = isset ( $_SESSION ['svn_inst'] ['viewvcRealm'] ) ? $_SESSION ['svn_inst'] ['viewvcRealm'] : "ViewVC Access Control";
-    $tPerRepoFiles = isset ( $_SESSION ['svn_inst'] ['perRepoFiles'] ) ? $_SESSION ['svn_inst'] ['perRepoFiles'] : "";
-    $tPathSortOrder = isset ( $_SESSION ['svn_inst'] ['psthSortOrder'] ) ? $_SESSION ['svn_inst'] ['pathSortOrder'] : "ASC";
-    $tAnonAccess = isset ( $_SESSION ['svn_inst'] ['anonAccess'] ) ? $_SESSION ['svn_inst'] ['anonAccess'] : 0;
+    $tDatabaseHost = isset($_SESSION['svn_inst']['databaseHost']) ? $_SESSION['svn_inst']['databaseHost'] : "";
+    $tDatabaseUser = isset($_SESSION['svn_inst']['databaseUser']) ? $_SESSION['svn_inst']['databaseUser'] : "";
+    $tDatabasePassword = isset($_SESSION['svn_inst']['databasePassword']) ? $_SESSION['svn_inst']['databasePassword'] : "";
+    $tDatabaseName = isset($_SESSION['svn_inst']['databaseName']) ? $_SESSION['svn_inst']['databaseName'] : "";
+    $tDatabaseSchema = isset($_SESSION['svn_inst']['databaseSchema']) ? $_SESSION['svn_inst']['databaseSchema'] : "";
+    $tDatabaseTablespace = isset($_SESSION['svn_inst']['databaseTablespace']) ? $_SESSION['svn_inst']['databaseTablespace'] : "";
+    $tDatabaseCharset = isset($_SESSION['svn_inst']['databaseCharset']) ? $_SESSION['svn_inst']['databaseCharset'] : $tDatabaseCharsetDefault;
+    $tDatabaseCollation = isset($_SESSION['svn_inst']['databaseCollation']) ? $_SESSION['svn_inst']['databaseCollation'] : $tDatabaseCollationDefault;
+    $tLdapAttrUid = isset($_SESSION['svn_inst']['ldapAttrUid']) ? $_SESSION['svn_inst']['ldapAttrUid'] : "uid";
+    $tLdapAttrName = isset($_SESSION['svn_inst']['ldapAttrName']) ? $_SESSION['svn_inst']['ldapAttrName'] : "sn";
+    $tLdapAttrGivenname = isset($_SESSION['svn_inst']['ldapAttrGivenname']) ? $_SESSION['svn_inst']['ldapAttrGivenname'] : "givenName";
+    $tLdapAttrMail = isset($_SESSION['svn_inst']['ldapAttrMail']) ? $_SESSION['svn_inst']['ldapAttrMail'] : "mail";
+    $tLdapAttrPassword = isset($_SESSION['svn_inst']['ldapAttrPassword']) ? $_SESSION['svn_inst']['ldapAttrPassword'] : "userPassword";
+    $tLdapAttrUserSort = isset($_SESSION['svn_inst']['ldapAttrUserSort']) ? $_SESSION['svn_inst']['ldapAttrUserSort'] : "sn";
+    $tLdapUserSort = isset($_SESSION['svn_inst']['ldapUserSort']) ? $_SESSION['svn_inst']['ldapUserSort'] : "ASC";
+    $tLdapBindUseLoginData = isset($_SESSION['svn_inst']['ldapBindUseLoginData']) ? $_SESSION['svn_inst']['ldapBindUseLoginData'] : 0;
+    $tLdapBindDnSuffix = isset($_SESSION['svn_inst']['ldapBindDnSuffix']) ? $_SESSION['svn_inst']['ldapBindDnSuffix'] : "";
+    $tWebisteUrl = isset($_SESSION['svn_inst']['webisteUrl']) ? $_SESSION['svn_inst']['websiteUrl'] : "";
+    $tWebsiteCharset = isset($_SESSION['svn_inst']['websiteCharset']) ? $_SESSION['svn_inst']['websiteCharset'] : "iso8859-15";
+    $tLpwMailSender = isset($_SESSION['svn_inst']['lpwMailSender']) ? $_SESSION['svn_inst']['lpwMailSender'] : "";
+    $tLpwLinkValid = isset($_SESSION['svn_inst']['lpwLinkValid']) ? $_SESSION['svn_inst']['lpwLinkValid'] : "";
+    $tUsername = isset($_SESSION['svn_inst']['username']) ? $_SESSION['svn_inst']['username'] : "";
+    $tPassword = isset($_SESSION['svn_inst']['password']) ? $_SESSION['svn_inst']['password'] : "";
+    $tPassword2 = isset($_SESSION['svn_inst']['password2']) ? $_SESSION['svn_inst']['password2'] : "";
+    $tGivenname = isset($_SESSION['svn_inst']['givenname']) ? $_SESSION['svn_inst']['givenname'] : "";
+    $tName = isset($_SESSION['svn_inst']['name']) ? $_SESSION['svn_inst']['name'] : "";
+    $tAdminEmail = isset($_SESSION['svn_inst']['adminEmail']) ? $_SESSION['svn_inst']['adminEmail'] : "";
+    $tUseSvnAccessFile = isset($_SESSION['svn_inst']['useSvnAccessFile']) ? $_SESSION['svn_inst']['useSvnAccessFile'] : "";
+    $tSvnAccessFile = isset($_SESSION['svn_inst']['svnAccessFile']) ? $_SESSION['svn_inst']['svnAccessFile'] : "";
+    $tAccessControlLevel = isset($_SESSION['svn_inst']['accessControlLevel']) ? $_SESSION['svn_inst']['accessControlLevel'] : "dirs";
+    $tUseAuthUserFile = isset($_SESSION['svn_inst']['useAuthUserFile']) ? $_SESSION['svn_inst']['useAuthUserFile'] : "";
+    $tAuthUserFile = isset($_SESSION['svn_inst']['authUserFile']) ? $_SESSION['svn_inst']['authUserFile'] : "";
+    $tSvnCommand = isset($_SESSION['svn_inst']['svnCommand']) ? $_SESSION['svn_inst']['svnCommand'] : "";
+    $tSvnadminCommand = isset($_SESSION['svn_inst']['svnadminCommand']) ? $_SESSION['svn_inst']['svnadminCommand'] : "";
+    $tGrepCommand = isset($_SESSION['svn_inst']['grepCommand']) ? $_SESSION['svn_inst']['grepCommand'] : "";
+    $tViewvcConfig = isset($_SESSION['svn_inst']['viewvcConfig']) ? $_SESSION['svn_inst']['viewvcConfig'] : "";
+    $tViewvcConfigDir = isset($_SESSION['svn_inst']['viewvcConfigDir']) ? $_SESSION['svn_inst']['viewvcConfigDir'] : "";
+    $tViewvcAlias = isset($_SESSION['svn_inst']['viewvcAlias']) ? $_SESSION['svn_inst']['viewvcAlias'] : "/viewvc";
+    $tViewvcApacheReload = isset($_SESSION['svn_inst']['viewvcApacheReload']) ? $_SESSION['svn_inst']['viewvcApacheReload'] : "";
+    $tViewvcRealm = isset($_SESSION['svn_inst']['viewvcRealm']) ? $_SESSION['svn_inst']['viewvcRealm'] : "ViewVC Access Control";
+    $tPerRepoFiles = isset($_SESSION['svn_inst']['perRepoFiles']) ? $_SESSION['svn_inst']['perRepoFiles'] : "";
+    $tPathSortOrder = isset($_SESSION['svn_inst']['psthSortOrder']) ? $_SESSION['svn_inst']['pathSortOrder'] : "ASC";
+    $tAnonAccess = isset($_SESSION['svn_inst']['anonAccess']) ? $_SESSION['svn_inst']['anonAccess'] : 0;
     
     // common locations where to find grep and svn under linux/unix
-    $svnpath = array (
+    $svnpath = array(
             '/usr/local/bin/svn',
             '/usr/bin/svn',
-            '/bin/svn' 
+            '/bin/svn'
     );
-    $svnadminpath = array (
+    $svnadminpath = array(
             '/usr/local/bin/svnadmin',
             '/usr/bin/svnadmin',
-            '/bin/svnadmin' 
+            '/bin/svnadmin'
     );
-    $greppath = array (
+    $greppath = array(
             '/usr/local/bin/grep',
             '/usr/bin/grep',
-            '/bin/grep' 
+            '/bin/grep'
     );
-    $apachepath = array (
+    $apachepath = array(
             '/etc/init.d/httpd',
             '/etc/init.d/apache2',
-            '/etc/init.d/apache' 
+            '/etc/init.d/apache'
     );
     
-    for($i = 0; $i < count ( $svnpath ); $i ++) {
-        if (file_exists ( $svnpath [$i] )) {
+    for($i = 0; $i < count($svnpath); $i ++) {
+        if (file_exists($svnpath[$i])) {
             if ($tSvnCommand == "") {
-                $tSvnCommand = $svnpath [$i];
+                $tSvnCommand = $svnpath[$i];
             }
         }
     }
     
-    for($i = 0; $i < count ( $svnadminpath ); $i ++) {
-        if (file_exists ( $svnadminpath [$i] )) {
+    for($i = 0; $i < count($svnadminpath); $i ++) {
+        if (file_exists($svnadminpath[$i])) {
             if ($tSvnadminCommand == "") {
-                $tSvnadminCommand = $svnadminpath [$i];
+                $tSvnadminCommand = $svnadminpath[$i];
             }
         }
     }
     
-    for($i = 0; $i < count ( $greppath ); $i ++) {
-        if (file_exists ( $greppath [$i] )) {
+    for($i = 0; $i < count($greppath); $i ++) {
+        if (file_exists($greppath[$i])) {
             if ($tGrepCommand == "") {
-                $tGrepCommand = $greppath [$i];
+                $tGrepCommand = $greppath[$i];
             }
         }
     }
     
-    for($i = 0; $i < count ( $apachepath ); $i ++) {
-        if (file_exists ( $apachepath [$i] )) {
+    for($i = 0; $i < count($apachepath); $i ++) {
+        if (file_exists($apachepath[$i])) {
             if ($tViewvcApacheReload == "") {
-                $tViewvcApacheReload = "sudo " . $apachepath [$i] . " graceful";
+                $tViewvcApacheReload = "sudo " . $apachepath[$i] . " graceful";
             }
         }
     }
     
-    $tLogging = isset ( $_SESSION ['svn_inst'] ['logging'] ) ? $_SESSION ['svn_inst'] ['logging'] : "YES";
-    $tJavaScript = isset ( $_SESSION ['svn_inst'] ['javaScript'] ) ? $_SESSION ['svn_inst'] ['javaScript'] : "YES";
-    $tPageSize = isset ( $_SESSION ['svn_inst'] ['pageSize'] ) ? $_SESSION ['svn_inst'] ['pageSize'] : "30";
-    $tMinAdminPwSize = isset ( $_SESSION ['svn_inst'] ['minAdminPwSize'] ) ? $_SESSION ['svn_inst'] ['minAdminPwSize'] : "14";
-    $tMinUserPwSize = isset ( $_SESSION ['svn_inst'] ['minUserPwSize'] ) ? $_SESSION ['svn_inst'] ['minUserPwSize'] : "8";
-    $tPasswordExpire = isset ( $_SESSION ['svn_inst'] ['passwordExpire'] ) ? $_SESSION ['svn_inst'] ['passwordExpire'] : 60;
-    $tPasswordExpireWarn = isset ( $_SESSION ['svn_inst'] ['passwordExpireWarn'] ) ? $_SESSION ['svn_inst'] ['passwordExpireWarn'] : 50;
-    $tExpirePassword = isset ( $_SESSION ['svn_inst'] ['expirePassword'] ) ? $_SESSION ['svn_inst'] ['expirePassword'] : 1;
-    $tPwEnc = isset ( $_SESSION ['svn_inst'] ['pwEnc'] ) ? $_SESSION ['svn_inst'] ['pwEnc'] : "md5";
-    $tUserDefaultAccess = isset ( $_SESSION ['svn_inst'] ['userDefaultAccess'] ) ? $_SESSION ['svn_inst'] ['userDefaultAccess'] : "read";
-    $tCustom1 = isset ( $_SESSION ['svn_inst'] ['custom1'] ) ? $_SESSION ['svn_inst'] ['custom1'] : "";
-    $tCustom2 = isset ( $_SESSION ['svn_inst'] ['custom2'] ) ? $_SESSION ['svn_inst'] ['custom2'] : "";
-    $tCustom3 = isset ( $_SESSION ['svn_inst'] ['custom3'] ) ? $_SESSION ['svn_inst'] ['custom3'] : "";
+    $tLogging = isset($_SESSION['svn_inst']['logging']) ? $_SESSION['svn_inst']['logging'] : "YES";
+    $tJavaScript = isset($_SESSION['svn_inst']['javaScript']) ? $_SESSION['svn_inst']['javaScript'] : "YES";
+    $tPageSize = isset($_SESSION['svn_inst']['pageSize']) ? $_SESSION['svn_inst']['pageSize'] : "30";
+    $tMinAdminPwSize = isset($_SESSION['svn_inst']['minAdminPwSize']) ? $_SESSION['svn_inst']['minAdminPwSize'] : "14";
+    $tMinUserPwSize = isset($_SESSION['svn_inst']['minUserPwSize']) ? $_SESSION['svn_inst']['minUserPwSize'] : "8";
+    $tPasswordExpire = isset($_SESSION['svn_inst']['passwordExpire']) ? $_SESSION['svn_inst']['passwordExpire'] : 60;
+    $tPasswordExpireWarn = isset($_SESSION['svn_inst']['passwordExpireWarn']) ? $_SESSION['svn_inst']['passwordExpireWarn'] : 50;
+    $tExpirePassword = isset($_SESSION['svn_inst']['expirePassword']) ? $_SESSION['svn_inst']['expirePassword'] : 1;
+    $tPwEnc = isset($_SESSION['svn_inst']['pwEnc']) ? $_SESSION['svn_inst']['pwEnc'] : "md5";
+    $tUserDefaultAccess = isset($_SESSION['svn_inst']['userDefaultAccess']) ? $_SESSION['svn_inst']['userDefaultAccess'] : "read";
+    $tCustom1 = isset($_SESSION['svn_inst']['custom1']) ? $_SESSION['svn_inst']['custom1'] : "";
+    $tCustom2 = isset($_SESSION['svn_inst']['custom2']) ? $_SESSION['svn_inst']['custom2'] : "";
+    $tCustom3 = isset($_SESSION['svn_inst']['custom3']) ? $_SESSION['svn_inst']['custom3'] : "";
     
     //
     // inialize fieds
     //
     
-    if (strtoupper ( $tDatabase ) == "MYSQL") {
+    if (strtoupper($tDatabase) == "MYSQL") {
         $tDatabaseCharsetDefault = "latin1";
         $tDatabaseCollationDefault = "latin1_german1_ci";
     }
@@ -4624,28 +4638,28 @@ if ($_SERVER ['REQUEST_METHOD'] == "POST") {
         $tPwApacheMd5 = "";
         $tPwMd5 = "";
         $tPwCrypt = "";
-        $CONF ['pwcrypt'] = "sha";
+        $CONF['pwcrypt'] = "sha";
     }
     elseif ($tPwEnc == "apr-md5") {
         $tPwSha = "";
         $tPwApacheMd5 = "checked";
         $tPwMd5 = "";
         $tPwCrypt = "";
-        $CONF ['pwcrypt'] = "apr-md5";
+        $CONF['pwcrypt'] = "apr-md5";
     }
     elseif ($tPwEnc == "md5") {
         $tPwSha = "";
         $tPwApacheMd5 = "";
         $tPwMd5 = "checked";
         $tPwCrypt = "";
-        $CONF ['pwcrypt'] = "md5";
+        $CONF['pwcrypt'] = "md5";
     }
     else {
         $tPwSha = "";
         $tPwApacheMd5 = "";
         $tPwMd5 = "";
         $tPwCrypt = "checked";
-        $CONF ['pwcrypt'] = "crypt";
+        $CONF['pwcrypt'] = "crypt";
     }
     
     if ($tUserDefaultAccess == "read") {

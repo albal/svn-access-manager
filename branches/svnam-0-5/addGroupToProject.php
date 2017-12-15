@@ -28,21 +28,20 @@
  * $Id$
  *
  */
-        
-if (file_exists ( realpath ( "./config/config.inc.php" ) )) {
+if (file_exists(realpath("./config/config.inc.php"))) {
     require ("./config/config.inc.php");
 }
-elseif (file_exists ( realpath ( "../config/config.inc.php" ) )) {
+elseif (file_exists(realpath("../config/config.inc.php"))) {
     require ("../config/config.inc.php");
 }
-elseif (file_exists ( "/etc/svn-access-manager/config.inc.php" )) {
+elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
     require ("/etc/svn-access-manager/config.inc.php");
 }
 else {
-    die ( "can't load config.inc.php. Please check your installation!\n" );
+    die("can't load config.inc.php. Please check your installation!\n");
 }
 
-$installBase = isset ( $CONF [INSTALLBASE] ) ? $CONF [INSTALLBASE] : "";
+$installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
 require ("$installBase/include/variables.inc.php");
 include_once ("$installBase/include/constants.inc.php");
@@ -50,43 +49,44 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-initialize_i18n ();
-check_password_expired ();
+initialize_i18n();
+check_password_expired();
 
-$_SESSION ['svn_sessid'] ['helptopic'] = "addgrouptoproject";
+$_SESSION['svn_sessid']['helptopic'] = "addgrouptoproject";
+
 function addGroupToProject($group, $currentMembers, $dbh) {
 
     global $CONF;
     
-    $installBase = isset ( $CONF [INSTALLBASE] ) ? $CONF [INSTALLBASE] : "";
-    $schema = db_determine_schema ();
+    $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
+    $schema = db_determine_schema();
     
-    $cs_array = array ();
+    $cs_array = array();
     
-    foreach ( $currentMembers as $groupid => $name ) {
+    foreach( $currentMembers as $groupid => $name) {
         
-        $cs_array [] = $groupid;
+        $cs_array[] = $groupid;
     }
     
-    $tGroups = array ();
+    $tGroups = array();
     $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (deleted = '00000000000000') " . "ORDER BY groupname ASC";
-    $result = db_query ( $query, $dbh );
+    $result = db_query($query, $dbh);
     
-    while ( $row = db_assoc ( $result ['result'] ) ) {
+    while ( $row = db_assoc($result['result']) ) {
         
-        $name = $row ['groupname'];
-        $groupid = $row ['id'];
+        $name = $row['groupname'];
+        $groupid = $row['id'];
         
-        if (! in_array ( $groupid, $cs_array )) {
+        if (! in_array($groupid, $cs_array)) {
             
-            $tGroups [$groupid] = $name;
+            $tGroups[$groupid] = $name;
         }
     }
     
     $tMessage = "";
-    $header = "projects";
-    $subheader = "projects";
-    $menu = "projects";
+    $header = PROJECTS;
+    $subheader = PROJECTS;
+    $menu = PROJECTS;
     $template = "addGroupToProject.tpl";
     
     include ("$installBase/templates/framework.tpl");

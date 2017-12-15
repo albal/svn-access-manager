@@ -20,16 +20,16 @@
  */
 
 // error_reporting (E_ERROR | E_WARNING | E_PARSE);
-error_reporting ( E_NOTICE | E_ERROR | E_WARNING | E_PARSE );
-ini_set ( 'display_errors', 'On' );
-ini_set ( 'display_startup_errors', 'On' );
-ini_set ( 'log_errors', 'On' );
-ini_set ( 'html_errors', 'Off' );
+error_reporting(E_NOTICE | E_ERROR | E_WARNING | E_PARSE);
+ini_set('display_errors', 'On');
+ini_set('display_startup_errors', 'On');
+ini_set('log_errors', 'On');
+ini_set('html_errors', 'Off');
 
-if (preg_match ( "/functions.inc.php/", $_SERVER ['PHP_SELF'] )) {
+if (preg_match("/functions.inc.php/", $_SERVER['PHP_SELF'])) {
     
-    header ( "Location: login.php" );
-    exit ();
+    header("Location: login.php");
+    exit();
 }
 
 //
@@ -39,9 +39,9 @@ if (preg_match ( "/functions.inc.php/", $_SERVER ['PHP_SELF'] )) {
 //
 function getPhpVersion() {
 
-    $version = explode ( ".", PHP_VERSION );
+    $version = explode(".", PHP_VERSION);
     
-    return ($version [0] . $version [1]);
+    return ($version[0] . $version[1]);
 
 }
 
@@ -52,25 +52,25 @@ function getPhpVersion() {
 //
 function initialize_i18n() {
 
-    $locale = get_locale ();
+    $locale = get_locale();
     // error_log( "got locale: $locale" );
     
-    if (! preg_match ( '/_/', $locale )) {
+    if (! preg_match('/_/', $locale)) {
         
-        $locale = $locale . "_" . strtoupper ( $locale );
+        $locale = $locale . "_" . strtoupper($locale);
         // error_log( "set locale to: $locale" );
     }
     
-    putenv ( "LANG=$locale" );
-    putenv ( "LC_ALL=$locale" );
-    setlocale ( LC_ALL, 0 );
-    setlocale ( LC_ALL, $locale );
+    putenv("LANG=$locale");
+    putenv("LC_ALL=$locale");
+    setlocale(LC_ALL, 0);
+    setlocale(LC_ALL, $locale);
     
-    if (file_exists ( realpath ( "./locale/de/LC_MESSAGES/messages.mo" ) )) {
+    if (file_exists(realpath("./locale/de/LC_MESSAGES/messages.mo"))) {
         
         $localepath = "./locale";
     }
-    elseif (file_exists ( realpath ( "../locale/de/LC_MESSAGES/messages.mo" ) )) {
+    elseif (file_exists(realpath("../locale/de/LC_MESSAGES/messages.mo"))) {
         
         $localepath = "../locale";
     }
@@ -79,10 +79,10 @@ function initialize_i18n() {
         $localepath = "./locale";
     }
     
-    $dom = bindtextdomain ( "messages", $localepath );
-    $msgdom = textdomain ( "messages" );
+    $dom = bindtextdomain("messages", $localepath);
+    $msgdom = textdomain("messages");
     
-    bind_textdomain_codeset ( "messages", 'UTF-8' );
+    bind_textdomain_codeset("messages", 'UTF-8');
 
 }
 
@@ -96,24 +96,24 @@ function check_session() {
     global $CONF;
     
     // error_log( "check session" );
-    $s = new Session ();
-    session_start ();
+    $s = new Session();
+    session_start();
     
     // if (!session_is_registered ("svn_sessid")) {
-    if (! isset ( $_SESSION ['svn_sessid'] )) {
+    if (! isset($_SESSION['svn_sessid'])) {
         
-        header ( "Location: login.php" );
-        exit ();
+        header("Location: login.php");
+        exit();
     }
     
-    $SESSID_USERNAME = $_SESSION ['svn_sessid'] ['username'];
+    $SESSID_USERNAME = $_SESSION['svn_sessid']['username'];
     
-    if (isset ( $CONF ['ldap_bind_use_login_data'] ) and ($CONF ['ldap_bind_use_login_data'] == 1)) {
+    if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1)) {
         
-        if (isset ( $CONF ['ldap_bind_dn_suffix'] )) {
+        if (isset($CONF['ldap_bind_dn_suffix'])) {
             
-            $CONF ['bind_dn'] = $_SESSION ['svn_sessid'] ['username'] . $CONF ['ldap_bind_dn_suffix'];
-            $CONF ['bind_pw'] = $_SESSION ['svn_sessid'] ['password'];
+            $CONF['bind_dn'] = $_SESSION['svn_sessid']['username'] . $CONF['ldap_bind_dn_suffix'];
+            $CONF['bind_pw'] = $_SESSION['svn_sessid']['password'];
         }
     }
     
@@ -128,23 +128,23 @@ function check_session() {
 //
 function check_session_lpw($redirect = "y") {
 
-    $s = new Session ();
-    @session_start ();
+    $s = new Session();
+    @session_start();
     
     // if (!session_is_registered ("svn_lpw")) {
-    if (! isset ( $_SESSION ['svn_lpw'] )) {
+    if (! isset($_SESSION['svn_lpw'])) {
         
         $SESSID_USERNAME = "";
         
         if ($redirect == "y") {
-            header ( "Location: lostpassword.php" );
-            exit ();
+            header("Location: lostpassword.php");
+            exit();
         }
     }
     else {
         
-        if (isset ( $_SESSION ['svn_lpw'] ['username'] )) {
-            $SESSID_USERNAME = $_SESSION ['svn_lpw'] ['username'];
+        if (isset($_SESSION['svn_lpw']['username'])) {
+            $SESSID_USERNAME = $_SESSION['svn_lpw']['username'];
         }
         else {
             $SESSID_USERNAME = "";
@@ -164,22 +164,22 @@ function check_session_status() {
 
     $ret = 0;
     $SESSID_USERNAME = "";
-    @session_start ();
+    @session_start();
     
     // if (!session_is_registered ("svn_sessid")) {
-    if (! isset ( $_SESSION ['svn_sessid'] )) {
+    if (! isset($_SESSION['svn_sessid'])) {
         
         $ret = 0;
     }
     else {
         
         $ret = 1;
-        $SESSID_USERNAME = $_SESSION ['svn_sessid'] ['username'];
+        $SESSID_USERNAME = $_SESSION['svn_sessid']['username'];
     }
     
-    return array (
+    return array(
             $ret,
-            $SESSID_USERNAME 
+            $SESSID_USERNAME
     );
 
 }
@@ -194,9 +194,9 @@ function create_verify_string() {
     $validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
     $verifyString = "";
     for($i = 0; $i < 32; $i ++) {
-        $char = chr ( mt_rand ( 0, 255 ) );
-        while ( strpos ( $validchars, $char ) == 0 ) {
-            $char = chr ( mt_rand ( 0, 255 ) );
+        $char = chr(mt_rand(0, 255));
+        while ( strpos($validchars, $char) == 0 ) {
+            $char = chr(mt_rand(0, 255));
         }
         $verifyString .= $char;
     }
@@ -212,12 +212,12 @@ function create_verify_string() {
 //
 function check_password_expired() {
 
-    if (isset ( $_SESSION ['svn_sessid'] ['password_expired'] )) {
+    if (isset($_SESSION['svn_sessid']['password_expired'])) {
         
-        if ($_SESSION ['svn_sessid'] ['password_expired'] == 1) {
+        if ($_SESSION['svn_sessid']['password_expired'] == 1) {
             
-            header ( "Location: password.php" );
-            exit ();
+            header("Location: password.php");
+            exit();
         }
     }
 
@@ -231,29 +231,29 @@ function check_password_expired() {
 function check_language() {
 
     global $CONF;
-    $supported_languages = array (
+    $supported_languages = array(
             'de',
-            'en' 
+            'en'
     );
-    $lang_array = preg_split ( '/(\s*,\s*)/', $_SERVER ['HTTP_ACCEPT_LANGUAGE'] );
+    $lang_array = preg_split('/(\s*,\s*)/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
     
-    if (is_array ( $lang_array )) {
+    if (is_array($lang_array)) {
         
-        $lang_first = strtolower ( (trim ( strval ( $lang_array [0] ) )) );
-        $lang_first = substr ( $lang_first, 0, 2 );
+        $lang_first = strtolower((trim(strval($lang_array[0]))));
+        $lang_first = substr($lang_first, 0, 2);
         
-        if (in_array ( $lang_first, $supported_languages )) {
+        if (in_array($lang_first, $supported_languages)) {
             
             $lang = $lang_first;
         }
         else {
             
-            $lang = $CONF ['default_language'];
+            $lang = $CONF['default_language'];
         }
     }
     else {
         
-        $lang = $CONF ['default_language'];
+        $lang = $CONF['default_language'];
     }
     
     return $lang;
@@ -269,43 +269,43 @@ function get_locale() {
 
     global $CONF;
     
-    if (isset ( $CONF )) {
-        $supported_languages = $CONF ['supported_languages'];
+    if (isset($CONF)) {
+        $supported_languages = $CONF['supported_languages'];
     }
     else {
-        $supported_languages = array (
+        $supported_languages = array(
                 'de',
                 'de_DE',
                 'en',
-                'en_US' 
+                'en_US'
         );
     }
     
-    $lang_array = preg_split ( '/(\s*,\s*)/', $_SERVER ['HTTP_ACCEPT_LANGUAGE'] );
+    $lang_array = preg_split('/(\s*,\s*)/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
     
-    if (is_array ( $lang_array )) {
+    if (is_array($lang_array)) {
         
-        $lang_first = strtolower ( (trim ( strval ( $lang_array [0] ) )) );
-        $lang_parts = explode ( '-', $lang_array [0] );
-        $count = count ( $lang_parts );
+        $lang_first = strtolower((trim(strval($lang_array[0]))));
+        $lang_parts = explode('-', $lang_array[0]);
+        $count = count($lang_parts);
         if ($count == 2) {
             
-            $lang_parts [1] = strtoupper ( $lang_parts [1] );
-            $lang_first = implode ( "_", $lang_parts );
+            $lang_parts[1] = strtoupper($lang_parts[1]);
+            $lang_first = implode("_", $lang_parts);
         }
         
-        if (in_array ( $lang_first, $supported_languages )) {
+        if (in_array($lang_first, $supported_languages)) {
             
             $lang = $lang_first;
         }
         else {
             
-            $lang = $CONF ['default_locale'];
+            $lang = $CONF['default_locale'];
         }
     }
     else {
         
-        $lang = $CONF ['default_locale'];
+        $lang = $CONF['default_locale'];
     }
     
     return $lang;
@@ -319,7 +319,7 @@ function get_locale() {
 //
 function check_string($var) {
 
-    if (preg_match ( '/^([A-Za-z0-9 ]+)+$/', $var )) {
+    if (preg_match('/^([A-Za-z0-9 ]+)+$/', $var)) {
         return true;
     }
     else {
@@ -335,7 +335,7 @@ function check_string($var) {
 //
 function check_email($email) {
 
-    if (preg_match ( '/^[-!#$%&\'*+\\.\/0-9=?A-Z^_{|}~]+' . '@' . '([-0-9A-Z]+\.)+' . '([0-9A-Z]){2,4}$/i', trim ( $email ) )) {
+    if (preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_{|}~]+' . '@' . '([-0-9A-Z]+\.)+' . '([0-9A-Z]){2,4}$/i', trim($email))) {
         
         return true;
     }
@@ -353,10 +353,10 @@ function check_email($email) {
 //
 function getDateJhjjmmtt() {
 
-    $date = getdate ();
-    $year = $date ['year'];
-    $mon = $date ['mon'];
-    $day = $date ['mday'];
+    $date = getdate();
+    $year = $date['year'];
+    $mon = $date['mon'];
+    $day = $date['mday'];
     
     if ($mon < "10")
         $mon = "0" . $mon;
@@ -376,9 +376,9 @@ function getDateJhjjmmtt() {
 //
 function splitdate($date) {
 
-    $year = substr ( $date, 0, 4 );
-    $mon = substr ( $date, 4, 2 );
-    $day = substr ( $date, 6, 2 );
+    $year = substr($date, 0, 4);
+    $mon = substr($date, 4, 2);
+    $day = substr($date, 6, 2);
     $datum = $day . "." . $mon . "." . $year;
     
     return $datum;
@@ -392,13 +392,13 @@ function splitdate($date) {
 //
 function check_date($day, $month, $year) {
 
-    if (preg_match ( '/[0-9]{2}/', $day )) {
+    if (preg_match('/[0-9]{2}/', $day)) {
         
-        if (preg_match ( '/[0-9]{2}/', $month )) {
+        if (preg_match('/[0-9]{2}/', $month)) {
             
-            if (preg_match ( '/[0-9]{4}/', $year )) {
+            if (preg_match('/[0-9]{4}/', $year)) {
                 
-                if (checkdate ( $month, $day, $year )) {
+                if (checkdate($month, $day, $year)) {
                     
                     return true;
                 }
@@ -423,10 +423,11 @@ function check_date($day, $month, $year) {
     }
 
 }
+
 function no_magic_quotes($query) {
 
-    $data = explode ( "\\\\", $query );
-    $cleaned = implode ( "\\", $data );
+    $data = explode("\\\\", $query);
+    $cleaned = implode("\\", $data);
     return $cleaned;
 
 }
@@ -440,22 +441,22 @@ function escape_string($string) {
 
     global $CONF;
     
-    if (get_magic_quotes_gpc () == 0) {
+    if (get_magic_quotes_gpc() == 0) {
         
-        if (is_array ( $string )) {
+        if (is_array($string)) {
             
             return $string;
         }
         else {
             
-            if ($CONF ['database_type'] == "mysql") {
-                $escaped_string = mysql_real_escape_string ( $string );
+            if ($CONF['database_type'] == "mysql") {
+                $escaped_string = mysql_real_escape_string($string);
             }
-            if ($CONF ['database_type'] == "mysqli") {
-                $escaped_string = mysqli_real_escape_string ( $string );
+            if ($CONF['database_type'] == "mysqli") {
+                $escaped_string = mysqli_real_escape_string($string);
             }
-            if ($CONF ['database_type'] == "pgsql") {
-                $escaped_string = pg_escape_string ( $string );
+            if ($CONF['database_type'] == "pgsql") {
+                $escaped_string = pg_escape_string($string);
             }
         }
     }
@@ -475,19 +476,19 @@ function escape_string($string) {
 //
 function encode_header($string, $default_charset) {
 
-    if (strtolower ( $default_charset ) == 'iso-8859-1') {
-        $string = str_replace ( "\240", ' ', $string );
+    if (strtolower($default_charset) == 'iso-8859-1') {
+        $string = str_replace("\240", ' ', $string);
     }
     
-    $j = strlen ( $string );
-    $max_l = 75 - strlen ( $default_charset ) - 7;
-    $aRet = array ();
+    $j = strlen($string);
+    $max_l = 75 - strlen($default_charset) - 7;
+    $aRet = array();
     $ret = '';
     $iEncStart = $enc_init = false;
     $cur_l = $iOffset = 0;
     
     for($i = 0; $i < $j; ++ $i) {
-        switch ($string {$i}) {
+        switch ($string{$i}) {
             case '=' :
             case '<' :
             case '>' :
@@ -499,22 +500,22 @@ function encode_header($string, $default_charset) {
                 }
                 $cur_l += 3;
                 if ($cur_l > ($max_l - 2)) {
-                    $aRet [] = substr ( $string, $iOffset, $iEncStart - $iOffset );
-                    $aRet [] = "=?$default_charset?Q?$ret?=";
+                    $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
                     $iOffset = $i;
                     $cur_l = 0;
                     $ret = '';
                     $iEncStart = false;
                 }
                 else {
-                    $ret .= sprintf ( "=%02X", ord ( $string {$i} ) );
+                    $ret .= sprintf("=%02X", ord($string{$i}));
                 }
                 break;
             case '(' :
             case ')' :
                 if ($iEncStart !== false) {
-                    $aRet [] = substr ( $string, $iOffset, $iEncStart - $iOffset );
-                    $aRet [] = "=?$default_charset?Q?$ret?=";
+                    $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
                     $iOffset = $i;
                     $cur_l = 0;
                     $ret = '';
@@ -525,8 +526,8 @@ function encode_header($string, $default_charset) {
                 if ($iEncStart !== false) {
                     $cur_l ++;
                     if ($cur_l > $max_l) {
-                        $aRet [] = substr ( $string, $iOffset, $iEncStart - $iOffset );
-                        $aRet [] = "=?$default_charset?Q?$ret?=";
+                        $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
+                        $aRet[] = "=?$default_charset?Q?$ret?=";
                         $iOffset = $i;
                         $cur_l = 0;
                         $ret = '';
@@ -538,43 +539,43 @@ function encode_header($string, $default_charset) {
                 }
                 break;
             default :
-                $k = ord ( $string {$i} );
+                $k = ord($string{$i});
                 if ($k > 126) {
                     if ($iEncStart === false) {
                         // do not start encoding in the middle of a string, also take the rest of the word.
-                        $sLeadString = substr ( $string, 0, $i );
-                        $aLeadString = explode ( ' ', $sLeadString );
-                        $sToBeEncoded = array_pop ( $aLeadString );
-                        $iEncStart = $i - strlen ( $sToBeEncoded );
+                        $sLeadString = substr($string, 0, $i);
+                        $aLeadString = explode(' ', $sLeadString);
+                        $sToBeEncoded = array_pop($aLeadString);
+                        $iEncStart = $i - strlen($sToBeEncoded);
                         $ret .= $sToBeEncoded;
-                        $cur_l += strlen ( $sToBeEncoded );
+                        $cur_l += strlen($sToBeEncoded);
                     }
                     $cur_l += 3;
                     // first we add the encoded string that reached it's max size
                     if ($cur_l > ($max_l - 2)) {
-                        $aRet [] = substr ( $string, $iOffset, $iEncStart - $iOffset );
-                        $aRet [] = "=?$default_charset?Q?$ret?= ";
+                        $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
+                        $aRet[] = "=?$default_charset?Q?$ret?= ";
                         $cur_l = 3;
                         $ret = '';
                         $iOffset = $i;
                         $iEncStart = $i;
                     }
                     $enc_init = true;
-                    $ret .= sprintf ( "=%02X", $k );
+                    $ret .= sprintf("=%02X", $k);
                 }
                 else {
                     if ($iEncStart !== false) {
                         $cur_l ++;
                         if ($cur_l > $max_l) {
-                            $aRet [] = substr ( $string, $iOffset, $iEncStart - $iOffset );
-                            $aRet [] = "=?$default_charset?Q?$ret?=";
+                            $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
+                            $aRet[] = "=?$default_charset?Q?$ret?=";
                             $iEncStart = false;
                             $iOffset = $i;
                             $cur_l = 0;
                             $ret = '';
                         }
                         else {
-                            $ret .= $string {$i};
+                            $ret .= $string{$i};
                         }
                     }
                 }
@@ -583,13 +584,13 @@ function encode_header($string, $default_charset) {
     }
     if ($enc_init) {
         if ($iEncStart !== false) {
-            $aRet [] = substr ( $string, $iOffset, $iEncStart - $iOffset );
-            $aRet [] = "=?$default_charset?Q?$ret?=";
+            $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
+            $aRet[] = "=?$default_charset?Q?$ret?=";
         }
         else {
-            $aRet [] = substr ( $string, $iOffset );
+            $aRet[] = substr($string, $iOffset);
         }
-        $string = implode ( '', $aRet );
+        $string = implode('', $aRet);
     }
     return $string;
 
@@ -602,14 +603,15 @@ function encode_header($string, $default_charset) {
 //
 function generate_password() {
 
-    $password = substr ( md5 ( mt_rand () ), 0, 8 );
+    $password = substr(md5(mt_rand()), 0, 8);
     return $password;
 
 }
+
 function make_seed() {
 
-    list ( $usec, $sec ) = explode ( ' ', microtime () );
-    return ( float ) $sec + (( float ) $usec * 100000);
+    list($usec, $sec ) = explode(' ', microtime());
+    return (float) $sec + ((float) $usec * 100000);
 
 }
 
@@ -622,7 +624,7 @@ function generatePassword($admin) {
 
     global $CONF;
     
-    if (strtolower ( $admin ) == "y") {
+    if (strtolower($admin) == "y") {
         $pwLength = 14;
     }
     else {
@@ -631,51 +633,51 @@ function generatePassword($admin) {
     
     $password = "";
     
-    while ( checkPasswordPolicy ( $password, strtolower ( $admin ) ) == 0 ) {
+    while ( checkPasswordPolicy($password, strtolower($admin)) == 0 ) {
         
         $password = "";
         
         for($i = 1; $i <= $pwLength; $i ++) {
             
-            $group = rand ( 0, 3 );
-            mt_srand ( make_seed () );
+            $group = rand(0, 3);
+            mt_srand(make_seed());
             
             switch ($group) {
                 case 0 :
-                    $index = rand ( 0, 25 );
-                    $value = chr ( $index + 65 );
+                    $index = rand(0, 25);
+                    $value = chr($index + 65);
                     break;
                 
                 case 1 :
-                    $index = rand ( 0, 25 );
-                    $value = chr ( $index + 97 );
+                    $index = rand(0, 25);
+                    $value = chr($index + 97);
                     break;
                 
                 case 2 :
-                    $value = rand ( 0, 9 );
+                    $value = rand(0, 9);
                     break;
                 
                 case 3 :
-                    $group = rand ( 0, 2 );
+                    $group = rand(0, 2);
                     
                     switch ($group) {
                         case 0 :
-                            $index = rand ( 33, 47 );
+                            $index = rand(33, 47);
                             break;
                         
                         case 1 :
                             $index = 60;
                             while ( ($index == 60) or ($index == 62) ) {
-                                $index = rand ( 58, 64 );
+                                $index = rand(58, 64);
                             }
                             break;
                         
                         case 2 :
-                            $index = rand ( 91, 96 );
+                            $index = rand(91, 96);
                             break;
                     }
                     
-                    $value = chr ( $index );
+                    $value = chr($index);
                     break;
             }
             
@@ -697,34 +699,34 @@ function pacrypt($pw, $pw_db = "") {
     global $CONF;
     
     if ($pw_db != "")
-        $crypt = get_passwd_type_salt ( $pw_db, $salt );
+        $crypt = get_passwd_type_salt($pw_db, $salt);
     else {
         $salt = "";
         
-        if (isset ( $CONF ['pwcrypt'] ) && $CONF ['pwcrypt'] != "")
-            $crypt = $CONF ['pwcrypt'];
+        if (isset($CONF['pwcrypt']) && $CONF['pwcrypt'] != "")
+            $crypt = $CONF['pwcrypt'];
         else
             $crypt = "crypt";
     }
     
     switch ($crypt) {
         case "sha" : //
-            return '{SHA}' . base64_encode ( pack ( 'H*', sha1 ( $pw ) ) );
+            return '{SHA}' . base64_encode(pack('H*', sha1($pw)));
             break;
         case "apr-md5" : // The modern Apache version of the MD5 password hash
-            return md5crypt ( $pw, $salt, '$apr1$' );
+            return md5crypt($pw, $salt, '$apr1$');
             break;
         case "md5" : // The Unix version of the MD5 password hash
-            return md5crypt ( $pw, $salt, '$1$' );
+            return md5crypt($pw, $salt, '$1$');
             break;
         case "crypt" :
             // crypt() can choose surprising behavior if the salt for DES-crypt is not provided
             if ($salt == "")
-                $salt = create_salt ( 2 );
-            return crypt ( $pw, $salt );
+                $salt = create_salt(2);
+            return crypt($pw, $salt);
             break;
         default :
-            throw new Exception ( 'Unsupported password hash type: "' . $crypt . '" from hash "' . $pw_db . '"' );
+            throw new Exception('Unsupported password hash type: "' . $crypt . '" from hash "' . $pw_db . '"');
     }
 
 }
@@ -737,10 +739,10 @@ function pacrypt($pw, $pw_db = "") {
 function get_passwd_type_salt($hpw, &$salt) {
     
     // Looking first for "$<id>$<salt>$<hash>" pattern
-    $split_hash = preg_split ( '/\$/', $hpw );
+    $split_hash = preg_split('/\$/', $hpw);
     
-    if ($split_hash [0] == "" && $split_hash [1] != "") {
-        switch ($split_hash [1]) {
+    if ($split_hash[0] == "" && $split_hash[1] != "") {
+        switch ($split_hash[1]) {
             case "apr1" :
                 $type = "apr-md5";
                 break;
@@ -748,17 +750,17 @@ function get_passwd_type_salt($hpw, &$salt) {
                 $type = "md5";
                 break;
             default :
-                throw new Exception ( 'Unsupported password hash type: ' . '"' . $pw_db . '"' );
+                throw new Exception('Unsupported password hash type: ' . '"' . $pw_db . '"');
         }
-        $salt = $split_hash [2];
+        $salt = $split_hash[2];
     }
-    elseif (substr ( $hpw, 0, 5 ) == "{SHA}") {
+    elseif (substr($hpw, 0, 5) == "{SHA}") {
         $type = "sha";
         $salt = "";
     }
     else {
         $type = "crypt";
-        $salt = substr ( $hpw, 0, 2 );
+        $salt = substr($hpw, 0, 2);
     }
     
     return $type;
@@ -780,31 +782,31 @@ function md5crypt($pw, $salt = "", $magic = "") {
     if ($magic == "")
         $magic = '$1$';
     if ($salt == "")
-        $salt = create_salt ( 8 );
+        $salt = create_salt(8);
     
     $ctx = $pw . $magic . $salt;
-    $final = myhex2bin ( md5 ( $pw . $salt . $pw ) );
+    $final = myhex2bin(md5($pw . $salt . $pw));
     
-    for($i = strlen ( $pw ); $i > 0; $i -= 16) {
+    for($i = strlen($pw); $i > 0; $i -= 16) {
         if ($i > 16) {
-            $ctx .= substr ( $final, 0, 16 );
+            $ctx .= substr($final, 0, 16);
         }
         else {
-            $ctx .= substr ( $final, 0, $i );
+            $ctx .= substr($final, 0, $i);
         }
     }
-    $i = strlen ( $pw );
+    $i = strlen($pw);
     
     while ( $i > 0 ) {
         
         if ($i & 1)
-            $ctx .= chr ( 0 );
+            $ctx .= chr(0);
         else
-            $ctx .= $pw [0];
+            $ctx .= $pw[0];
         $i = $i >> 1;
     }
     
-    $final = myhex2bin ( md5 ( $ctx ) );
+    $final = myhex2bin(md5($ctx));
     
     for($i = 0; $i < 1000; $i ++) {
         
@@ -815,7 +817,7 @@ function md5crypt($pw, $salt = "", $magic = "") {
         }
         else {
             
-            $ctx1 .= substr ( $final, 0, 16 );
+            $ctx1 .= substr($final, 0, 16);
         }
         
         if ($i % 3)
@@ -823,59 +825,63 @@ function md5crypt($pw, $salt = "", $magic = "") {
         if ($i % 7)
             $ctx1 .= $pw;
         if ($i & 1) {
-            $ctx1 .= substr ( $final, 0, 16 );
+            $ctx1 .= substr($final, 0, 16);
         }
         else {
             $ctx1 .= $pw;
         }
         
-        $final = myhex2bin ( md5 ( $ctx1 ) );
+        $final = myhex2bin(md5($ctx1));
     }
     
     $passwd = "";
-    $passwd .= to64 ( ((ord ( $final [0] ) << 16) | (ord ( $final [6] ) << 8) | (ord ( $final [12] ))), 4 );
-    $passwd .= to64 ( ((ord ( $final [1] ) << 16) | (ord ( $final [7] ) << 8) | (ord ( $final [13] ))), 4 );
-    $passwd .= to64 ( ((ord ( $final [2] ) << 16) | (ord ( $final [8] ) << 8) | (ord ( $final [14] ))), 4 );
-    $passwd .= to64 ( ((ord ( $final [3] ) << 16) | (ord ( $final [9] ) << 8) | (ord ( $final [15] ))), 4 );
-    $passwd .= to64 ( ((ord ( $final [4] ) << 16) | (ord ( $final [10] ) << 8) | (ord ( $final [5] ))), 4 );
-    $passwd .= to64 ( ord ( $final [11] ), 2 );
+    $passwd .= to64(((ord($final[0]) << 16) | (ord($final[6]) << 8) | (ord($final[12]))), 4);
+    $passwd .= to64(((ord($final[1]) << 16) | (ord($final[7]) << 8) | (ord($final[13]))), 4);
+    $passwd .= to64(((ord($final[2]) << 16) | (ord($final[8]) << 8) | (ord($final[14]))), 4);
+    $passwd .= to64(((ord($final[3]) << 16) | (ord($final[9]) << 8) | (ord($final[15]))), 4);
+    $passwd .= to64(((ord($final[4]) << 16) | (ord($final[10]) << 8) | (ord($final[5]))), 4);
+    $passwd .= to64(ord($final[11]), 2);
     
     return "$magic$salt\$$passwd";
 
 }
+
 function digestcrypt($userid, $realm, $password) {
 
-    $pw = md5 ( $userid . ':' . $realm . ':' . $password );
+    $pw = md5($userid . ':' . $realm . ':' . $password);
     
     return ($pw);
 
 }
+
 function create_salt($len) {
 
     global $ITOA64;
-    $maxidx = strlen ( $ITOA64 ) - 1;
+    $maxidx = strlen($ITOA64) - 1;
     
     $salt = "";
     for($i = 0; $i < $len; $i ++) {
-        $choice = mt_rand ( 0, $maxidx );
-        $salt .= substr ( $ITOA64, $choice, 1 );
+        $choice = mt_rand(0, $maxidx);
+        $salt .= substr($ITOA64, $choice, 1);
     }
     return $salt;
 
 }
+
 function myhex2bin($str) {
 
-    $len = strlen ( $str );
+    $len = strlen($str);
     $nstr = "";
     
     for($i = 0; $i < $len; $i += 2) {
-        $num = sscanf ( substr ( $str, $i, 2 ), "%x" );
-        $nstr .= chr ( $num [0] );
+        $num = sscanf(substr($str, $i, 2), "%x");
+        $nstr .= chr($num[0]);
     }
     
     return $nstr;
 
 }
+
 function to64($v, $n) {
 
     global $ITOA64;
@@ -883,7 +889,7 @@ function to64($v, $n) {
     
     while ( ($n - 1) >= 0 ) {
         $n --;
-        $ret .= $ITOA64 [$v & 0x3f];
+        $ret .= $ITOA64[$v & 0x3f];
         $v = $v >> 6;
     }
     
@@ -901,17 +907,17 @@ function checkPasswordPolicy($password, $admin = "y") {
 
     global $CONF;
     
-    $smallLetters = preg_match ( '/[a-z]/', $password );
-    $capitalLetters = preg_match ( '/[A-Z]/', $password );
-    $numbers = preg_match ( '/[0-9]/', $password );
-    if (isset ( $CONF ['passwordSpecialChars'] )) {
-        $pattern = '/' . $CONF ['passwordSpecialChars'] . '/';
+    $smallLetters = preg_match('/[a-z]/', $password);
+    $capitalLetters = preg_match('/[A-Z]/', $password);
+    $numbers = preg_match('/[0-9]/', $password);
+    if (isset($CONF['passwordSpecialChars'])) {
+        $pattern = '/' . $CONF['passwordSpecialChars'] . '/';
     }
     else {
         $pattern = '/' . '[\!\"\§\$\%\/\(\)=\?\*\+\#\-\_\.\:\,\;\<\>\|\@]' . '/';
     }
-    $specialChars = preg_match ( $pattern, $password );
-    $passwordLength = strlen ( $password );
+    $specialChars = preg_match($pattern, $password);
+    $passwordLength = strlen($password);
     $groups = 0;
     
     if ($smallLetters != 0) {
@@ -932,8 +938,8 @@ function checkPasswordPolicy($password, $admin = "y") {
     
     if ($admin == "y") {
         
-        if (isset ( $CONF ['minPasswordlength'] )) {
-            $minPasswordLength = $CONF ['minPasswordlength'];
+        if (isset($CONF['minPasswordlength'])) {
+            $minPasswordLength = $CONF['minPasswordlength'];
         }
         else {
             $minPasswordLength = 14;
@@ -944,13 +950,13 @@ function checkPasswordPolicy($password, $admin = "y") {
         }
         else {
             
-            if (isset ( $CONF ['minPasswordGroups'] )) {
-                $minPasswordGroups = $CONF ['minPasswordGroups'];
+            if (isset($CONF['minPasswordGroups'])) {
+                $minPasswordGroups = $CONF['minPasswordGroups'];
             }
             else {
                 $minPasswordGroups = 4;
             }
-            if (isset ( $minPasswordGroups )) {
+            if (isset($minPasswordGroups)) {
                 
                 if (($minPasswordGroups < 1) or ($minPasswordGroups > 4)) {
                     $minGroups = 4;
@@ -975,25 +981,25 @@ function checkPasswordPolicy($password, $admin = "y") {
     }
     else {
         
-        if (isset ( $CONF ['minPasswordlengthUser'] )) {
-            $minPasswordlengthUser = $CONF ['minPasswordlengthUser'];
+        if (isset($CONF['minPasswordlengthUser'])) {
+            $minPasswordlengthUser = $CONF['minPasswordlengthUser'];
         }
         else {
             $minPasswordLengthUser = 8;
         }
-        if ($passwordLength < $CONF ['minPasswordlengthUser']) {
+        if ($passwordLength < $CONF['minPasswordlengthUser']) {
             
             $retval = 0;
         }
         else {
             
-            if (isset ( $CONF ['minPasswordGroupsUser'] )) {
+            if (isset($CONF['minPasswordGroupsUser'])) {
                 
-                if (($CONF ['minPasswordGroupsUser'] < 1) or ($CONF ['minPasswordGroupsUser'] > 4)) {
+                if (($CONF['minPasswordGroupsUser'] < 1) or ($CONF['minPasswordGroupsUser'] > 4)) {
                     $minGroupsUser = 3;
                 }
                 else {
-                    $minGroupsUser = $CONF ['minPasswordGroupsUser'];
+                    $minGroupsUser = $CONF['minPasswordGroupsUser'];
                 }
             }
             else {
@@ -1022,19 +1028,19 @@ function checkPasswordPolicy($password, $admin = "y") {
 //
 function splitDateTime($datetime) {
 
-    $year = substr ( $datetime, 0, 4 );
-    $month = substr ( $datetime, 4, 2 );
-    $day = substr ( $datetime, 6, 2 );
+    $year = substr($datetime, 0, 4);
+    $month = substr($datetime, 4, 2);
+    $day = substr($datetime, 6, 2);
     $date = $day . "." . $month . "." . $year;
     
-    $hour = substr ( $datetime, 8, 2 );
-    $min = substr ( $datetime, 10, 2 );
-    $sec = substr ( $datetime, 12, 2 );
+    $hour = substr($datetime, 8, 2);
+    $min = substr($datetime, 10, 2);
+    $sec = substr($datetime, 12, 2);
     $time = $hour . ":" . $min . ":" . $sec;
     
-    return array (
+    return array(
             $date,
-            $time 
+            $time
     );
 
 }
@@ -1046,9 +1052,9 @@ function splitDateTime($datetime) {
 //
 function splitValidDate($date) {
 
-    $year = substr ( $date, 0, 4 );
-    $month = substr ( $date, 4, 2 );
-    $day = substr ( $date, 6, 2 );
+    $year = substr($date, 0, 4);
+    $month = substr($date, 4, 2);
+    $day = substr($date, 6, 2);
     
     $datestr = $day . "." . $month . "." . $year;
     
@@ -1063,14 +1069,14 @@ function splitValidDate($date) {
 //
 function mkUnixTimestampFromDateTime($datetime) {
 
-    $year = substr ( $datetime, 0, 4 );
-    $month = substr ( $datetime, 4, 2 );
-    $day = substr ( $datetime, 6, 2 );
-    $hour = substr ( $datetime, 8, 2 );
-    $min = substr ( $datetime, 10, 2 );
-    $sec = substr ( $datetime, 12, 2 );
+    $year = substr($datetime, 0, 4);
+    $month = substr($datetime, 4, 2);
+    $day = substr($datetime, 6, 2);
+    $hour = substr($datetime, 8, 2);
+    $min = substr($datetime, 10, 2);
+    $sec = substr($datetime, 12, 2);
     
-    $timestamp = mktime ( $hour, $min, $sec, $month, $day, $year, - 1 );
+    $timestamp = mktime($hour, $min, $sec, $month, $day, $year, - 1);
     
     return $timestamp;
 
@@ -1085,20 +1091,20 @@ function determineOs() {
 
     $ret = "undef";
     
-    ob_start ();
-    eval ( "phpinfo();" );
-    $info = ob_get_contents ();
-    ob_end_clean ();
+    ob_start();
+    eval("phpinfo();");
+    $info = ob_get_contents();
+    ob_end_clean();
     
-    foreach ( explode ( "\n", $info ) as $line ) {
+    foreach( explode("\n", $info) as $line) {
         
-        if (strpos ( $line, "System" ) !== false) {
+        if (strpos($line, "System") !== false) {
             
-            $show = trim ( str_replace ( "System", "", strip_tags ( $line ) ) );
+            $show = trim(str_replace("System", "", strip_tags($line)));
         }
     }
     
-    if (preg_match ( '/WIN/i', $show )) {
+    if (preg_match('/WIN/i', $show)) {
         
         $ret = "windows";
     }
@@ -1127,7 +1133,7 @@ function encode_subject($in_str, $charset) {
         
         // determine length of encoded text within chunks
         // and ensure length is even
-        $length = 75 - strlen ( $start ) - strlen ( $end );
+        $length = 75 - strlen($start) - strlen($end);
         
         /*
          * [EDIT BY danbrown AT php DOT net: The following
@@ -1144,13 +1150,13 @@ function encode_subject($in_str, $charset) {
         
         // encode the string and split it into chunks
         // with spacers after each chunk
-        $out_str = base64_encode ( $out_str );
-        $out_str = chunk_split ( $out_str, $length, $spacer );
+        $out_str = base64_encode($out_str);
+        $out_str = chunk_split($out_str, $length, $spacer);
         
         // remove trailing spacer and
         // add start and end delimiters
-        $spacer = preg_quote ( $spacer );
-        $out_str = preg_replace ( "/" . $spacer . "$/", "", $out_str );
+        $spacer = preg_quote($spacer);
+        $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
         $out_str = $start . $out_str . $end;
     }
     return $out_str;
@@ -1166,13 +1172,13 @@ function sortLdapUsers($a, $b) {
 
     global $CONF;
     $sortOrder = "ASC";
-    $aValue = $a [$CONF ['ldap_sort_field']];
-    $bValue = $b [$CONF ['ldap_sort_field']];
+    $aValue = $a[$CONF['ldap_sort_field']];
+    $bValue = $b[$CONF['ldap_sort_field']];
     
-    $aValue = strtolower ( $aValue );
-    $bValue = strtolower ( $bValue );
+    $aValue = strtolower($aValue);
+    $bValue = strtolower($bValue);
     
-    if (isset ( $CONF ['ldap_sort_order'] ) && $CONF ['ldap_sort_order'] == "DESC") {
+    if (isset($CONF['ldap_sort_order']) && $CONF['ldap_sort_order'] == "DESC") {
         // sort desc
         return $aValue < $bValue;
     }
@@ -1190,12 +1196,12 @@ function sortLdapUsers($a, $b) {
 function rand_name($len = 8) {
 
     $charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    $maxidx = strlen ( $charset ) - 1;
+    $maxidx = strlen($charset) - 1;
     
     $name = "";
     for($i = 0; $i < $len; $i ++) {
-        $choice = mt_rand ( 0, $maxidx );
-        $name .= substr ( $charset, $choice, 1 );
+        $choice = mt_rand(0, $maxidx);
+        $name .= substr($charset, $choice, 1);
     }
     return $name;
 

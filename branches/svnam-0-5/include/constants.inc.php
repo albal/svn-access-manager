@@ -23,12 +23,12 @@
  * $Id: output.inc.php 370 2017-12-14 15:54:04Z tom_krieger $
  *
  */
-if (preg_match ( "/constants.inc.php/", $_SERVER ['PHP_SELF'] )) {
+if (preg_match("/constants.inc.php/", $_SERVER['PHP_SELF'])) {
     
-    header ( "Location: login.php" );
-    exit ();
+    header("Location: login.php");
+    exit();
 }
-define ( 'INSTALLBASE', 'install_base' );
-define ( 'PROJECTS', 'projects' );
+define('INSTALLBASE', 'install_base');
+define('PROJECTS', 'projects');
 
 ?>
