@@ -48,7 +48,7 @@ if ( file_exists ( realpath ( "./config/config.inc.php" ) ) ) {
 
 #$INCLUDEPATH						= ".";
 #$INCLUDEPATH						= "/home/kriegeth/svn_access_manager";
-$INCLUDEPATH						= isset( $CONF['install_base'] ) ? $CONF['install_base'] : "";
+$INCLUDEPATH						= isset( $CONF[INSTALLBASE] ) ? $CONF[INSTALLBASE] : "";
 
 require ("$INCLUDEPATH/include/variables.inc.php");
 require ("$INCLUDEPATH/include/functions.inc.php");
