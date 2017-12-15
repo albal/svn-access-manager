@@ -121,9 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
     }
     
-    $header = "repos";
-    $subheader = "repos";
-    $menu = "repos";
+    $header = REPOS;
+    $subheader = REPOS;
+    $menu = REPOS;
     $template = "deleteRepo.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -134,16 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif (isset($_POST['fSubmit_ok_x'])) {
+    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Delete");
     }
-    elseif (isset($_POST['fSubmit_back_x'])) {
-        $button = _("Back");
-    }
-    elseif (isset($_POST['fSubmit_ok'])) {
-        $button = _("Delete");
-    }
-    elseif (isset($_POST['fSubmit_back'])) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
     else {
@@ -214,9 +208,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = _("Invalid button $button, anyone tampered arround with?");
     }
     
-    $header = "repos";
-    $subheader = "repos";
-    $menu = "repos";
+    $header = REPOS;
+    $subheader = REPOS;
+    $menu = REPOS;
     $template = "deleteRepo.tpl";
     
     include ("$installBase/templates/framework.tpl");

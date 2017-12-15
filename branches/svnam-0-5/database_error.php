@@ -57,9 +57,9 @@ $tDbFunction = isset($_SESSION['svn_sessid']) ? $_SESSION['svn_sessid'] : "not s
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $template = "database_error.tpl";
-    $header = "dberror";
-    $subheader = "dberror";
-    $menu = "dberror";
+    $header = DBERROR;
+    $subheader = DBERROR;
+    $menu = DBERROR;
     
     include ($location);
 }
@@ -67,9 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $template = "database_error.tpl";
-    $header = "dberror";
-    $subheader = "dberror";
-    $menu = "dberror";
+    $header = DBERROR;
+    $subheader = DBERROR;
+    $menu = DBERROR;
     
     include ($location);
 }
