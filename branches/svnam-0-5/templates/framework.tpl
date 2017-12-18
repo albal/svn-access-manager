@@ -161,14 +161,14 @@
 					$dbh 										= db_connect ();
 					$tText 										= array();
 						
-					if( isset( $_SESSION['svn_sessid']['helptopic'] ) ) {
+					if( isset( $_SESSION[SVNSESSID]['helptopic'] ) ) {
 							
 						$schema									= db_determine_schema();
 					    
 						$lang									= check_language();
 						$query									= "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
 																  "  FROM ".$schema."help " .
-																  " WHERE topic = '".$_SESSION['svn_sessid']['helptopic']."'";
+																  " WHERE topic = '".$_SESSION[SVNSESSID]['helptopic']."'";
 						$result									= db_query( $query, $dbh );
 						
 						if( $result['rows'] > 0 ) {
@@ -178,7 +178,7 @@
 						} else {
 							
 							$tText['headline']					= _("No help found");
-							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION['svn_sessid']['helptopic'] );
+							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID]['helptopic'] );
 						}
 						
 					} else {

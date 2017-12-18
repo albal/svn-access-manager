@@ -45,7 +45,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Repository admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "deleterepo";
+$_SESSION[SVNSESSID]['helptopic'] = "deleterepo";
 
 if ($rightAllowed != "delete") {
     
@@ -67,12 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    $_SESSION['svn_sessid']['task'] = strtolower($tTask);
-    $_SESSION['svn_sessid']['repoid'] = $tId;
+    $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
+    $_SESSION[SVNSESSID]['repoid'] = $tId;
     
     $schema = db_determine_schema();
     
-    if ($_SESSION['svn_sessid']['task'] == "delete") {
+    if ($_SESSION[SVNSESSID]['task'] == "delete") {
         
         $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE id = $tId";
         $result = db_query($query, $dbh);
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tDisabled = "";
             $tClass = "button";
             
-            $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION['svn_sessid']['repoid'] . "')";
+            $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION[SVNSESSID]['repoid'] . "')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] > 0) {
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = REPOS;
@@ -148,18 +148,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION['svn_sessid']['repoid'] . "')";
+        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION[SVNSESSID]['repoid'] . "')";
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 0) {
             
-            $reponame = db_getRepoById($_SESSION['svn_sessid']['repoid'], $dbh);
+            $reponame = db_getRepoById($_SESSION[SVNSESSID]['repoid'], $dbh);
             
             db_ta('BEGIN', $dbh);
-            db_log($_SESSION['svn_sessid']['username'], "deleted repository $reponame", $dbh);
+            db_log($_SESSION[SVNSESSID]['username'], "deleted repository $reponame", $dbh);
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svnrepos " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "'" . " WHERE id = " . $_SESSION['svn_sessid']['repoid'];
+            $query = "UPDATE " . $schema . "svnrepos " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "'" . " WHERE id = " . $_SESSION[SVNSESSID]['repoid'];
             $result = db_query($query, $dbh);
             
             if ($result['rows'] == 1) {

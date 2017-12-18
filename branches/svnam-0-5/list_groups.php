@@ -127,13 +127,13 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "listgroups";
+$_SESSION[SVNSESSID]['helptopic'] = "listgroups";
 $groupAdmin = 0;
 $tGroupsAllowed = array();
 
 if ($rightAllowed == "none") {
     
-    $tGroupsAllowed = db_check_group_acl($_SESSION['svn_sessid']['username'], $dbh);
+    $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID]['username'], $dbh);
     if (count($tGroupsAllowed) == 0) {
         db_log($SESSID_USERNAME, "tried to use list_groups without permission", $dbh);
         db_disconnect($dbh);
@@ -150,7 +150,7 @@ else {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $_SESSION['svn_sessid']['groupcounter'] = 0;
+    $_SESSION[SVNSESSID]['groupcounter'] = 0;
     $tGroups = getGroups(0, - 1, $groupAdmin, $tGroupsAllowed, $dbh);
     $tCountRecords = getCountGroups($groupAdmin, $tGroupsAllowed, $dbh);
     $tPrevDisabled = "disabled";
@@ -193,8 +193,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (($button == "search") or ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
-        $_SESSION['svn_sessid']['search'] = $tSearch;
-        $_SESSION['svn_sessid']['searchtype'] = GROUPS;
+        $_SESSION[SVNSESSID]['search'] = $tSearch;
+        $_SESSION[SVNSESSID]['searchtype'] = GROUPS;
         $tGroups = array();
         
         if ($tSearch == "") {
@@ -229,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             else {
                 
                 db_disconnect($dbh);
-                $_SESSION['svn_sessid']['searchresult'] = $tArray;
+                $_SESSION[SVNSESSID]['searchresult'] = $tArray;
                 header("Location: searchresult.php");
                 exit();
             }

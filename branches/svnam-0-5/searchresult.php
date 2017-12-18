@@ -47,12 +47,12 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'User admin', $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "searchresult";
+$_SESSION[SVNSESSID]['helptopic'] = "searchresult";
 $error = 0;
 $tErrorClass = "";
 $tMessage = "";
-$tArray = isset($_SESSION['svn_sessid']['searchresult']) ? $_SESSION['svn_sessid']['searchresult'] : array();
-$tType = isset($_SESSION['svn_sessid']['searchtype']) ? $_SESSION['svn_sessid']['searchtype'] : "";
+$tArray = isset($_SESSION[SVNSESSID]['searchresult']) ? $_SESSION[SVNSESSID]['searchresult'] : array();
+$tType = isset($_SESSION[SVNSESSID]['searchtype']) ? $_SESSION[SVNSESSID]['searchtype'] : "";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     

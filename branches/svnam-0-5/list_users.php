@@ -90,7 +90,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'User admin', $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "listusers";
+$_SESSION[SVNSESSID]['helptopic'] = "listusers";
 
 if ($rightAllowed == "none") {
     
@@ -102,7 +102,7 @@ if ($rightAllowed == "none") {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $_SESSION['svn_sessid']['usercounter'] = 0;
+    $_SESSION[SVNSESSID]['usercounter'] = 0;
     $tUsers = getUsers(0, - 1, $dbh);
     $tCountRecords = getCountUsers($dbh);
     $tPrevDisabled = "disabled";
@@ -145,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (($button == "search") or ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
-        $_SESSION['svn_sessid']['search'] = $tSearch;
-        $_SESSION['svn_sessid']['searchtype'] = USERS;
+        $_SESSION[SVNSESSID]['search'] = $tSearch;
+        $_SESSION[SVNSESSID]['searchtype'] = USERS;
         $tUsers = array();
         
         if ($tSearch == "") {
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             else {
                 
                 db_disconnect($dbh);
-                $_SESSION['svn_sessid']['searchresult'] = $tArray;
+                $_SESSION[SVNSESSID]['searchresult'] = $tArray;
                 header("location: searchresult.php");
                 exit();
             }

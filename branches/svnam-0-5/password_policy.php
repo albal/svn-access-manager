@@ -43,7 +43,7 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session();
 check_password_expired();
-$_SESSION['svn_sessid']['helptopic'] = "password_policy";
+$_SESSION[SVNSESSID]['helptopic'] = "password_policy";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     

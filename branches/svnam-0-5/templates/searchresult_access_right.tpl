@@ -37,8 +37,8 @@
 				   	<tbody>
 				   		<?php
 					   		$i 										= 0;
-					   		$_SESSION['svn_sessid']['max_mark']		= 0;
-					   		$_SESSUIN['svn_sessid']['mark']			= array();
+					   		$_SESSION[SVNSESSID]['max_mark']		= 0;
+					   		$_SESSUIN[SVNSESSID]['mark']			= array();
 					   		
 					   		foreach( $tArray as $entry ) {
 					   		
@@ -54,7 +54,7 @@
 					   			} elseif( $rightAllowed == "delete" ) {
 					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
 					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['rid'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} elseif( $_SESSION['svn_sessid']['admin'] == "p" ) {
+					   			} elseif( $_SESSION[SVNSESSID]['admin'] == "p" ) {
 					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
 					   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['rid']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['rid'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
@@ -72,12 +72,12 @@
 					   			print "\t\t\t\t\t\t<td nowrap>".$action."</td>\n";
 					   			print "\t\t\t\t\t</tr>\n";
 					   			
-					   			$_SESSION['svn_sessid']['mark'][$i]		= $entry['rid'];
+					   			$_SESSION[SVNSESSID]['mark'][$i]		= $entry['rid'];
 					   			
 					   			$i++;
 					   		}
 					   		
-					   		$_SESSION['svn_sessid']['max_mark'] = $i - 1;
+					   		$_SESSION[SVNSESSID]['max_mark'] = $i - 1;
 					   	?>
 				   	</tbody>
 				   	<tfoot>
@@ -87,7 +87,7 @@
 					      		if( ($rightAllowed == "add") or
 					      		    ($rightAllowed == "edit") or
 					      		    ($rightAllowed == "delete") or 
-					      		    ($_SESSION['svn_sessid']['admin'] == "p") ) {
+					      		    ($_SESSION[SVNSESSID]['admin'] == "p") ) {
 					      		    
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New access right")."\"  title=\""._("New access right")."\" />     ";
 					      		}

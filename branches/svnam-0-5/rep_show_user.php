@@ -177,7 +177,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "repshowuser";
+$_SESSION[SVNSESSID]['helptopic'] = "repshowuser";
 
 if ($rightAllowed == "none") {
     
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($button == _("Create report")) {
         
         $tUserId = isset($_POST['fUser']) ? db_escape_string($_POST['fUser']) : "";
-        $_SESSION['svn_sessid']['user'] = $tUserId;
+        $_SESSION[SVNSESSID]['user'] = $tUserId;
         
         if ($tUserId == "default") {
             

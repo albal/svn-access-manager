@@ -47,7 +47,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'User admin', $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "bulkaddldapusers";
+$_SESSION[SVNSESSID]['helptopic'] = "bulkaddldapusers";
 $tDisabled = "";
 
 if ($rightAllowed == "none") {
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
     }
     
-    $_SESSION['svn_sessid']['bulkaddlist'] = $tUsers;
+    $_SESSION[SVNSESSID]['bulkaddlist'] = $tUsers;
     
     $template = "bulk_add_ldap_users.tpl";
     $header = USERS;
@@ -129,12 +129,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         db_ta("BEGIN", $dbh);
         foreach( $tToAdd as $i => $userid) {
             
-            $entry = $_SESSION['svn_sessid']['bulkaddlist'][$userid];
-            $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, user_mode, created, created_user, password_modified, superadmin) " . "     VALUES ('" . $entry['userid'] . "', '" . $entry['name'] . "', '" . $entry['givenname'] . "', '$tPassword', 1, 0 ,'" . $entry['emailaddress'] . "', 'n', '$tUserRight', now(), '" . $_SESSION['svn_sessid']['username'] . "', '20000101000000', 0)";
+            $entry = $_SESSION[SVNSESSID]['bulkaddlist'][$userid];
+            $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, user_mode, created, created_user, password_modified, superadmin) " . "     VALUES ('" . $entry['userid'] . "', '" . $entry['name'] . "', '" . $entry['givenname'] . "', '$tPassword', 1, 0 ,'" . $entry['emailaddress'] . "', 'n', '$tUserRight', now(), '" . $_SESSION[SVNSESSID]['username'] . "', '20000101000000', 0)";
             $result = db_query($query, $dbh);
-            db_log($_SESSION['svn_sessid']['username'], "added user " . $entry['userid'] . ", " . $entry['name'] . ", " . $entry['givenname'], $dbh);
+            db_log($_SESSION[SVNSESSID]['username'], "added user " . $entry['userid'] . ", " . $entry['name'] . ", " . $entry['givenname'], $dbh);
             
-            $_SESSION['svn_sessid']['bulkaddlist'][$userid]['added'] = 1;
+            $_SESSION[SVNSESSID]['bulkaddlist'][$userid]['added'] = 1;
         }
         
         db_ta("COMMIT", $dbh);
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    $tUsers = $_SESSION['svn_sessid']['bulkaddlist'];
+    $tUsers = $_SESSION[SVNSESSID]['bulkaddlist'];
     
     $template = "bulk_add_ldap_users.tpl";
     $header = USERS;

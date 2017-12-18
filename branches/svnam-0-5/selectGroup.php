@@ -57,7 +57,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $uId = db_getIdByUserid($SESSID_USERNAME, $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "selectgroup";
+$_SESSION[SVNSESSID]['helptopic'] = "selectgroup";
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
 
 if ($rightAllowed == "none") {
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     elseif ($button == _("Select group")) {
         
         $tGroup = db_escape_string($_POST['fGroup']);
-        $_SESSION['svn_sessid']['groupid'] = $tGroup;
+        $_SESSION[SVNSESSID]['groupid'] = $tGroup;
         
         db_disconnect($dbh);
         header("Location: workOnGroupAccessRight.php?task=new");

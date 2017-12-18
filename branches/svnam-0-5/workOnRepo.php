@@ -47,7 +47,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Repository admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "workonrepo";
+$_SESSION[SVNSESSID]['helptopic'] = "workonrepo";
 
 if ($rightAllowed == "none") {
     
@@ -78,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
     }
     
-    $_SESSION['svn_sessid']['task'] = strtolower($tTask);
-    $_SESSION['svn_sessid']['repoid'] = $tId;
+    $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
+    $_SESSION[SVNSESSID]['repoid'] = $tId;
     
     $schema = db_determine_schema();
     
-    if ($_SESSION['svn_sessid']['task'] == "new") {
+    if ($_SESSION[SVNSESSID]['task'] == "new") {
         
         $tReponame = "";
         $tRepopath = "";
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tSvnAccessFile = "";
         $tCreateRepo = "";
     }
-    elseif ($_SESSION['svn_sessid']['task'] == "change") {
+    elseif ($_SESSION[SVNSESSID]['task'] == "change") {
         
         $tReadonly = "readonly";
         $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE id = $tId";
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = REPOS;
@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($button == _("Submit")) {
         
-        if ($_SESSION['svn_sessid']['task'] == "new") {
+        if ($_SESSION[SVNSESSID]['task'] == "new") {
             
             $error = 0;
             
@@ -219,10 +219,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $dbnow = db_now();
-                $query = "INSERT INTO " . $schema . "svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " . "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
+                $query = "INSERT INTO " . $schema . "svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " . "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION['svn_sessid']['username'], "addes repository $tReponame ($tRepopath)", $dbh);
+                db_log($_SESSION[SVNSESSID]['username'], "addes repository $tReponame ($tRepopath)", $dbh);
                 
                 $result = db_query($query, $dbh);
                 if ($result['rows'] != 1) {
@@ -314,7 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
         }
-        elseif ($_SESSION['svn_sessid']['task'] == "change") {
+        elseif ($_SESSION[SVNSESSID]['task'] == "change") {
             
             $error = 0;
             $tReadonly = "readonly";
@@ -353,7 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 if ($error == 0) {
                     
-                    $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$tReponame') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION['svn_sessid']['repoid'] . ")";
+                    $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$tReponame') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID]['repoid'] . ")";
                     $result = db_query($query, $dbh);
                     
                     if ($result['rows'] > 0) {
@@ -366,12 +366,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if ($error == 0) {
                 
-                $reponame = db_getRepoById($_SESSION['svn_sessid']['repoid'], $dbh);
+                $reponame = db_getRepoById($_SESSION[SVNSESSID]['repoid'], $dbh);
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svnrepos " . "   SET reponame = '$tReponame', " . "       repopath = '$tRepopath', " . "       repouser = '$tRepouser', " . "       repopassword = '$tRepopassword', " . "       auth_user_file='$tAuthUserFile', " . "       svn_access_file='$tSvnAccessFile', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (id = " . $_SESSION['svn_sessid']['repoid'] . ")";
+                $query = "UPDATE " . $schema . "svnrepos " . "   SET reponame = '$tReponame', " . "       repopath = '$tRepopath', " . "       repouser = '$tRepouser', " . "       repopassword = '$tRepopassword', " . "       auth_user_file='$tAuthUserFile', " . "       svn_access_file='$tSvnAccessFile', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id = " . $_SESSION[SVNSESSID]['repoid'] . ")";
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION['svn_sessid']['username'], "updated repository $reponame", $dbh);
+                db_log($_SESSION[SVNSESSID]['username'], "updated repository $reponame", $dbh);
                 
                 $result = db_query($query, $dbh);
                 
@@ -394,7 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         else {
             
-            $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+            $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
         }
     }
     else {

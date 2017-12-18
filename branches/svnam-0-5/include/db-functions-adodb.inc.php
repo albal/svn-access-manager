@@ -92,9 +92,9 @@ function db_connect() {
     }
     catch ( exception $e ) {
         
-        $_SESSION['svn_sessid']['dberror'] = $e->msg;
-        $_SESSION['svn_sessid']['dbquery'] = "Database connect";
-        $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
+        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+        $_SESSION[SVNSESSID]['dbquery'] = "Database connect";
+        $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -254,14 +254,14 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
         
         // error_log( "ERROR: ".print_r($e, true));
         
-        $_SESSION['svn_sessid']['dberror'] = $e->msg;
-        $_SESSION['svn_sessid']['dbquery'] = $query;
-        $_SESSION['svn_sessid']['dbfunction'] = "db_query";
+        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+        $_SESSION[SVNSESSID]['dbquery'] = $query;
+        $_SESSION[SVNSESSID]['dbfunction'] = "db_query";
         db_ta("ROLLBACK", $link);
         db_disconnect($link);
         
-        error_log("DB-Error: " . $_SESSION['svn_sessid']['dberror']);
-        error_log("DB-Query: " . $_SESSION['svn_sessid']['dbquery']);
+        error_log("DB-Error: " . $_SESSION[SVNSESSID]['dberror']);
+        error_log("DB-Query: " . $_SESSION[SVNSESSID]['dbquery']);
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -467,13 +467,13 @@ function db_ta($action, $link) {
             }
             else {
                 
-                $_SESSION['svn_sessid']['dberror'] = sprintf(_("Invalid transaction type %s"), $action);
-                $_SESSION['svn_sessid']['dbquery'] = $action;
-                $_SESSION['svn_sessid']['dbfunction'] = "db_ta";
+                $_SESSION[SVNSESSID]['dberror'] = sprintf(_("Invalid transaction type %s"), $action);
+                $_SESSION[SVNSESSID]['dbquery'] = $action;
+                $_SESSION[SVNSESSID]['dbfunction'] = "db_ta";
                 db_disconnect($link);
                 
-                error_log("DB-Error: " . $_SESSION['svn_sessid']['dberror']);
-                error_log("DB-Query: " . $_SESSION['svn_sessid']['dbquery']);
+                error_log("DB-Error: " . $_SESSION[SVNSESSID]['dberror']);
+                error_log("DB-Query: " . $_SESSION[SVNSESSID]['dbquery']);
                 
                 if (file_exists(realpath("database_error.php"))) {
                     $location = "database_error.php";
@@ -488,13 +488,13 @@ function db_ta($action, $link) {
         }
         catch ( exception $e ) {
             
-            $_SESSION['svn_sessid']['dberror'] = $e->msg;
-            $_SESSION['svn_sessid']['dbquery'] = $action;
-            $_SESSION['svn_sessid']['dbfunction'] = "db_ta";
+            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+            $_SESSION[SVNSESSID]['dbquery'] = $action;
+            $_SESSION[SVNSESSID]['dbfunction'] = "db_ta";
             db_disconnect($link);
             
-            error_log("DB-Error: " . $_SESSION['svn_sessid']['dberror']);
-            error_log("DB-Query: " . $_SESSION['svn_sessid']['dbquery']);
+            error_log("DB-Error: " . $_SESSION[SVNSESSID]['dberror']);
+            error_log("DB-Query: " . $_SESSION[SVNSESSID]['dbquery']);
             
             if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
@@ -1194,9 +1194,9 @@ function ldap_check_user_exists($userid) {
     }
     catch ( exception $e ) {
         
-        $_SESSION['svn_sessid']['dberror'] = $e->msg;
-        $_SESSION['svn_sessid']['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
-        $_SESSION['svn_sessid']['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+        $_SESSION[SVNSESSID]['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID]['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -1299,9 +1299,9 @@ function get_ldap_users() {
     }
     catch ( exception $e ) {
         
-        $_SESSION['svn_sessid']['dberror'] = $e->msg;
-        $_SESSION['svn_sessid']['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
-        $_SESSION['svn_sessid']['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+        $_SESSION[SVNSESSID]['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID]['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -1401,9 +1401,9 @@ function get_ldap_users() {
     }
     catch ( exception $e ) {
         
-        $_SESSION['svn_sessid']['dberror'] = $e->msg;
-        $_SESSION['svn_sessid']['dbquery'] = $filter;
-        $_SESSION['svn_sessid']['dbfunction'] = "get_ldap_user";
+        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+        $_SESSION[SVNSESSID]['dbquery'] = $filter;
+        $_SESSION[SVNSESSID]['dbfunction'] = "get_ldap_user";
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -1488,11 +1488,11 @@ function check_ldap_password($userid, $password) {
     catch ( exception $e ) {
         
         // error_log( "exception during connect" );
-        $_SESSION['svn_sessid']['dberror'] = $e->msg;
-        $_SESSION['svn_sessid']['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
-        $_SESSION['svn_sessid']['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+        $_SESSION[SVNSESSID]['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+        $_SESSION[SVNSESSID]['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
         
-        $tErrorMessage = strtolower($_SESSION['svn_sessid']['dberror']);
+        $tErrorMessage = strtolower($_SESSION[SVNSESSID]['dberror']);
         
         if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1) and strpos($tErrorMessage, "invalid") and strpos($tErrorMessage, "credentials")) {
             $ldapOpen = 0;
@@ -1615,9 +1615,9 @@ class Session {
             
             // var_dump($e);
             
-            $_SESSION['svn_sessid']['dberror'] = $e->msg;
-            $_SESSION['svn_sessid']['dbquery'] = "Database connect";
-            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+            $_SESSION[SVNSESSID]['dbquery'] = "Database connect";
+            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: Session database connect");
@@ -1704,9 +1704,9 @@ class Session {
             
             // var_dump($e);
             
-            $_SESSION['svn_sessid']['dberror'] = $e->msg;
-            $_SESSION['svn_sessid']['dbquery'] = $sql;
-            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+            $_SESSION[SVNSESSID]['dbquery'] = $sql;
+            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");
@@ -1777,9 +1777,9 @@ class Session {
             // error_log( print_r($e, true) );
             // error_log( "session write exception 2" );
             
-            $_SESSION['svn_sessid']['dberror'] = $e->msg;
-            $_SESSION['svn_sessid']['dbquery'] = $sql;
-            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+            $_SESSION[SVNSESSID]['dbquery'] = $sql;
+            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");
@@ -1844,9 +1844,9 @@ class Session {
         }
         catch ( exception $e ) {
             
-            $_SESSION['svn_sessid']['dberror'] = $e->msg;
-            $_SESSION['svn_sessid']['dbquery'] = $sql;
-            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+            $_SESSION[SVNSESSID]['dbquery'] = $sql;
+            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");
@@ -1907,9 +1907,9 @@ class Session {
         }
         catch ( exception $e ) {
             
-            $_SESSION['svn_sessid']['dberror'] = $e->msg;
-            $_SESSION['svn_sessid']['dbquery'] = $sql;
-            $_SESSION['svn_sessid']['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
+            $_SESSION[SVNSESSID]['dbquery'] = $sql;
+            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");

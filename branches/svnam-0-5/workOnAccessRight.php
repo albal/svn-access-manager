@@ -47,12 +47,12 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "workonaccessright";
+$_SESSION[SVNSESSID]['helptopic'] = "workonaccessright";
 $accessControl = isset($CONF['accessControl']) ? $CONF['accessControl'] : "dirs";
 
 if ($rightAllowed == "none") {
     
-    if ($_SESSION['svn_sessid']['admin'] == "p") {
+    if ($_SESSION[SVNSESSID]['admin'] == "p") {
         
         $tSeeUserid = $SESSID_USERNAME;
     }
@@ -128,29 +128,29 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
     }
     
-    $_SESSION['svn_sessid']['task'] = strtolower($tTask);
+    $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
     
-    if ($_SESSION['svn_sessid']['task'] == "new") {
+    if ($_SESSION[SVNSESSID]['task'] == "new") {
         
-        unset($_SESSION['svn_sessid']['validfrom']);
-        unset($_SESSION['svn_sessid']['validuntil']);
-        unset($_SESSION['svn_sessid']['accessright']);
-        unset($_SESSION['svn_sessid']['userid']);
-        unset($_SESSION['svn_sessid']['groupid']);
+        unset($_SESSION[SVNSESSID]['validfrom']);
+        unset($_SESSION[SVNSESSID]['validuntil']);
+        unset($_SESSION[SVNSESSID]['accessright']);
+        unset($_SESSION[SVNSESSID]['userid']);
+        unset($_SESSION[SVNSESSID]['groupid']);
         
-        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = " . $_SESSION['svn_sessid']['projectid'];
+        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = " . $_SESSION[SVNSESSID]['projectid'];
         $result = db_query($query, $dbh);
         if ($result['rows'] == 1) {
             
             $row = db_assoc($result['result']);
             $tProject = $row['id'];
             $tProjectName = $row['svnmodule'];
-            $_SESSION['svn_sessid']['svnmodule'] = $tProjectName;
+            $_SESSION[SVNSESSID]['svnmodule'] = $tProjectName;
             $tModulePath = $row['modulepath'];
-            $_SESSION['svn_sessid']['modulepath'] = $tModulePath;
-            $_SESSION['svn_sessid']['path'] = array();
-            $_SESSION['svn_sessid']['path'][0] = "";
-            $_SESSION['svn_sessid']['pathcnt'] = 0;
+            $_SESSION[SVNSESSID]['modulepath'] = $tModulePath;
+            $_SESSION[SVNSESSID]['path'] = array();
+            $_SESSION[SVNSESSID]['path'][0] = "";
+            $_SESSION[SVNSESSID]['pathcnt'] = 0;
             $tRepoId = $row['repo_id'];
             $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE id = $tRepoId";
             $result = db_query($query, $dbh);
@@ -162,10 +162,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 $tRepoUser = $row['repouser'];
                 $tRepoPassword = $row['repopassword'];
                 
-                $_SESSION['svn_sessid']['reponame'] = $tRepoName;
-                $_SESSION['svn_sessid']['repopath'] = $tRepoPath;
-                $_SESSION['svn_sessid']['repouser'] = $tRepoUser;
-                $_SESSION['svn_sessid']['repopassword'] = $tRepoPassword;
+                $_SESSION[SVNSESSID]['reponame'] = $tRepoName;
+                $_SESSION[SVNSESSID]['repopath'] = $tRepoPath;
+                $_SESSION[SVNSESSID]['repouser'] = $tRepoUser;
+                $_SESSION[SVNSESSID]['repopassword'] = $tRepoPassword;
                 $os = determineOs();
                 
                 if ($os == "windows") {
@@ -215,10 +215,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         else {
             
-            $tMessage = sprintf(_("Invalid project id %s requested"), $_SESSION['svn_sessid']['projectid']);
+            $tMessage = sprintf(_("Invalid project id %s requested"), $_SESSION[SVNSESSID]['projectid']);
         }
     }
-    elseif ($_SESSION['svn_sessid']['task'] == "change") {
+    elseif ($_SESSION[SVNSESSID]['task'] == "change") {
         
         $tReadonly = "readonly";
         $query = "SELECT * " . "  FROM " . $schema . "svn_access_rights " . " WHERE id = $tId";
@@ -254,13 +254,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             
             // }
             
-            $_SESSION['svn_sessid']['pathselected'] = $tPathSelected;
-            $_SESSION['svn_sessid']['validfrom'] = $validfrom;
-            $_SESSION['svn_sessid']['validuntil'] = $validuntil;
-            $_SESSION['svn_sessid']['accessright'] = $accessright;
-            $_SESSION['svn_sessid']['userid'] = $userid;
-            $_SESSION['svn_sessid']['groupid'] = $groupid;
-            $_SESSION['svn_sessid']['rightid'] = $tId;
+            $_SESSION[SVNSESSID]['pathselected'] = $tPathSelected;
+            $_SESSION[SVNSESSID]['validfrom'] = $validfrom;
+            $_SESSION[SVNSESSID]['validuntil'] = $validuntil;
+            $_SESSION[SVNSESSID]['accessright'] = $accessright;
+            $_SESSION[SVNSESSID]['userid'] = $userid;
+            $_SESSION[SVNSESSID]['groupid'] = $groupid;
+            $_SESSION[SVNSESSID]['rightid'] = $tId;
             
             $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = '$projectid'";
             $result = db_query($query, $dbh);
@@ -269,9 +269,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 $row = db_assoc($result['result']);
                 $tProject = $row['id'];
                 $tProjectName = $row['svnmodule'];
-                $_SESSION['svn_sessid']['svnmodule'] = $tProjectName;
+                $_SESSION[SVNSESSID]['svnmodule'] = $tProjectName;
                 $tModulePath = $row['modulepath'];
-                $_SESSION['svn_sessid']['modulepath'] = $tModulePath;
+                $_SESSION[SVNSESSID]['modulepath'] = $tModulePath;
                 $tRepoId = $row['repo_id'];
                 $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE id = $tRepoId";
                 $result = db_query($query, $dbh);
@@ -283,10 +283,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     $tRepoUser = $row['repouser'];
                     $tRepoPassword = $row['repopassword'];
                     
-                    $_SESSION['svn_sessid']['reponame'] = $tRepoName;
-                    $_SESSION['svn_sessid']['repopath'] = $tRepoPath;
-                    $_SESSION['svn_sessid']['repouser'] = $tRepoUser;
-                    $_SESSION['svn_sessid']['repopassword'] = $tRepoPassword;
+                    $_SESSION[SVNSESSID]['reponame'] = $tRepoName;
+                    $_SESSION[SVNSESSID]['repopath'] = $tRepoPath;
+                    $_SESSION[SVNSESSID]['repouser'] = $tRepoUser;
+                    $_SESSION[SVNSESSID]['repopassword'] = $tRepoPassword;
                 }
             }
             else {
@@ -305,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = ACCESS;
@@ -318,12 +318,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
-    $tProjectName = $_SESSION['svn_sessid']['svnmodule'];
-    $tRepoName = $_SESSION['svn_sessid']['reponame'];
-    $tRepoPath = $_SESSION['svn_sessid']['repopath'];
-    $tRepoUser = $_SESSION['svn_sessid']['repouser'];
-    $tRepoPassword = $_SESSION['svn_sessid']['repopassword'];
-    $tModulePath = $_SESSION['svn_sessid']['modulepath'];
+    $tProjectName = $_SESSION[SVNSESSID]['svnmodule'];
+    $tRepoName = $_SESSION[SVNSESSID]['reponame'];
+    $tRepoPath = $_SESSION[SVNSESSID]['repopath'];
+    $tRepoUser = $_SESSION[SVNSESSID]['repouser'];
+    $tRepoPassword = $_SESSION[SVNSESSID]['repopassword'];
+    $tModulePath = $_SESSION[SVNSESSID]['modulepath'];
     
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
@@ -362,12 +362,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($tPath == '[back]') {
             
-            $count = count($_SESSION['svn_sessid']['path']) - 1;
+            $count = count($_SESSION[SVNSESSID]['path']) - 1;
             
             if ($count > 0) {
                 
-                array_pop($_SESSION['svn_sessid']['path']);
-                $_SESSION['svn_sessid']['pathcnt'] --;
+                array_pop($_SESSION[SVNSESSID]['path']);
+                $_SESSION[SVNSESSID]['pathcnt'] --;
             }
         }
         elseif ($tPath == "") {
@@ -376,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         else {
             
-            $_SESSION['svn_sessid']['pathcnt'] ++;
+            $_SESSION[SVNSESSID]['pathcnt'] ++;
             if (preg_match('/\/$/', $tPath)) {
                 
                 $tPath = substr($tPath, 0, (strlen($tPath) - 1));
@@ -384,11 +384,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             else {
                 $fileSelect = 1;
             }
-            $_SESSION['svn_sessid']['path'][$_SESSION['svn_sessid']['pathcnt']] = $tPath;
+            $_SESSION[SVNSESSID]['path'][$_SESSION[SVNSESSID]['pathcnt']] = $tPath;
         }
         
         $tRepodirs = array();
-        $tPathSelected = implode("/", $_SESSION['svn_sessid']['path']);
+        $tPathSelected = implode("/", $_SESSION[SVNSESSID]['path']);
         $os = determineOs();
         
         if ($os == "windows") {
@@ -440,10 +440,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $tPath = preg_replace('/\/$/', '', $tPath);
         
-        $_SESSION['svn_sessid']['pathselected'] = $tPath;
+        $_SESSION[SVNSESSID]['pathselected'] = $tPath;
         
         db_disconnect($dbh);
-        header("location: setAccessRight.php?task=" . $_SESSION['svn_sessid']['task']);
+        header("location: setAccessRight.php?task=" . $_SESSION[SVNSESSID]['task']);
         exit();
     }
     else {

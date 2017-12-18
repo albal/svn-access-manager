@@ -43,7 +43,7 @@ require ("$installBase/include/functions.inc.php");
 initialize_i18n();
 
 $dbh = db_connect();
-$_SESSION['svn_sessid']['helptopic'] = "login";
+$_SESSION[SVNSESSID]['helptopic'] = "login";
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -142,25 +142,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $s = new Session();
         session_start();
         // session_register("svn_sessid");
-        if (! isset($_SESSION['svn_sessid'])) {
-            $_SESSION['svn_sessid'] = array();
+        if (! isset($_SESSION[SVNSESSID])) {
+            $_SESSION[SVNSESSID] = array();
         }
         // error_log( "session started" );
-        $_SESSION['svn_sessid']['username'] = $fUsername;
-        $_SESSION['svn_sessid']['name'] = $tName;
-        $_SESSION['svn_sessid']['givenname'] = $tGivenname;
-        $_SESSION['svn_sessid']['admin'] = $tAdmin;
-        $_SESSION['svn_sessid']['password_expired'] = $tPasswordExpired;
+        $_SESSION[SVNSESSID]['username'] = $fUsername;
+        $_SESSION[SVNSESSID]['name'] = $tName;
+        $_SESSION[SVNSESSID]['givenname'] = $tGivenname;
+        $_SESSION[SVNSESSID]['admin'] = $tAdmin;
+        $_SESSION[SVNSESSID]['password_expired'] = $tPasswordExpired;
         if (isset($CONF['ldap_bind_use_login_data']) && $CONF['ldap_bind_use_login_data'] == 1) {
-            $_SESSION['svn_sessid']['password'] = $fPassword;
+            $_SESSION[SVNSESSID]['password'] = $fPassword;
         }
         
         // error_log( "session data written" );
-        db_log($_SESSION['svn_sessid']['username'], "user $tUsername logged in", $dbh);
+        db_log($_SESSION[SVNSESSID]['username'], "user $tUsername logged in", $dbh);
         // error_log( "log data written" );
         if ($tPasswordExpired == 1) {
             
-            db_log($_SESSION['svn_sessid']['username'], "password of user $tUsername expired, force password change", $dbh);
+            db_log($_SESSION[SVNSESSID]['username'], "password of user $tUsername expired, force password change", $dbh);
             db_disconnect($dbh);
             header("Location: password.php");
             exit();

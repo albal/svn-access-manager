@@ -22,17 +22,17 @@
 					</tr>
 					<?php
 						$dbh						= db_connect();
-						$rightUserAdmin				= db_check_acl( $_SESSION['svn_sessid']['username'], 'User admin', $dbh );
-						$rightGroupAdmin			= db_check_acl( $_SESSION['svn_sessid']['username'], 'Group admin', $dbh );
-						$rightProjectAdmin			= db_check_acl( $_SESSION['svn_sessid']['username'], 'Project admin', $dbh );
-						$rightRepositoryAdmin		= db_check_acl( $_SESSION['svn_sessid']['username'], 'Repository admin', $dbh );
-						$rightAccessRightAdmin		= db_check_acl( $_SESSION['svn_sessid']['username'], 'Access rights admin', $dbh );
-						$rightCreateFiles			= db_check_acl( $_SESSION['svn_sessid']['username'], 'Create files', $dbh );
-						$rightReports				= db_check_acl( $_SESSION['svn_sessid']['username'], 'Reports', $dbh );
-						$tGroupsAllowed				= db_check_group_acl( $_SESSION['svn_sessid']['username'], $dbh );
+						$rightUserAdmin				= db_check_acl( $_SESSION[SVNSESSID]['username'], 'User admin', $dbh );
+						$rightGroupAdmin			= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Group admin', $dbh );
+						$rightProjectAdmin			= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Project admin', $dbh );
+						$rightRepositoryAdmin		= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Repository admin', $dbh );
+						$rightAccessRightAdmin		= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Access rights admin', $dbh );
+						$rightCreateFiles			= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Create files', $dbh );
+						$rightReports				= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Reports', $dbh );
+						$tGroupsAllowed				= db_check_group_acl( $_SESSION[SVNSESSID]['username'], $dbh );
 						$count						= 0;
 	
-						if( ($_SESSION['svn_sessid']['admin'] == "p" ) or
+						if( ($_SESSION[SVNSESSID]['admin'] == "p" ) or
 						    ($rightUserAdmin != "none") or
 	    					($rightGroupAdmin != "none") or 
 	    					($rightProjectAdmin != "none") or
@@ -98,7 +98,7 @@
 							
 						}
 						
-						if( ($rightAccessRightAdmin != "none") or ($_SESSION['svn_sessid']['admin'] == "p" ) ) {
+						if( ($rightAccessRightAdmin != "none") or ($_SESSION[SVNSESSID]['admin'] == "p" ) ) {
 							
 							if( $count >= 4 ) {
 								
@@ -142,7 +142,7 @@
 						}
 						
 						
-						if( ($_SESSION['svn_sessid']['admin'] == "p" ) or
+						if( ($_SESSION[SVNSESSID]['admin'] == "p" ) or
 	    					($rightUserAdmin != "none") or
 	    					($rightGroupAdmin != "none") or 
 						    ($rightProjectAdmin != "none") or

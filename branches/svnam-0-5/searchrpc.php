@@ -92,7 +92,7 @@ elseif (strtolower($db) == "groups") {
     
     if ($rightAllowed == "none") {
         
-        $tGroupsAllowed = db_check_group_acl($_SESSION['svn_sessid']['username'], $dbh);
+        $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID]['username'], $dbh);
         if (count($tGroupsAllowed) == 0) {
             $groupAdmin = 2;
         }

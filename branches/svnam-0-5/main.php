@@ -43,7 +43,7 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session();
 check_password_expired();
-$_SESSION['svn_sessid']['helptopic'] = "main";
+$_SESSION[SVNSESSID]['helptopic'] = "main";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     

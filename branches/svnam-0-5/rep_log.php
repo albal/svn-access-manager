@@ -85,7 +85,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "replog";
+$_SESSION[SVNSESSID]['helptopic'] = "replog";
 
 if ($rightAllowed == "none") {
     
@@ -97,7 +97,7 @@ if ($rightAllowed == "none") {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $_SESSION['svn_sessid']['logcounter'] = 0;
+    $_SESSION[SVNSESSID]['logcounter'] = 0;
     $tLogmessages = getLog(0, - 1, $dbh);
     $tCountRecords = getCountLog($dbh);
     $tPrevDisabled = "disabled";

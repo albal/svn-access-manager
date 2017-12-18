@@ -47,12 +47,12 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $uId = db_getIdByUserid($SESSID_USERNAME, $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "selectproject";
+$_SESSION[SVNSESSID]['helptopic'] = "selectproject";
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
 
 if ($rightAllowed == "none") {
     
-    if ($_SESSION['svn_sessid']['admin'] == "p") {
+    if ($_SESSION[SVNSESSID]['admin'] == "p") {
         
         $tSeeUserid = $SESSID_USERNAME;
     }
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     elseif ($button == _("Select project")) {
         
         $tProject = db_escape_string($_POST['fProject']);
-        $_SESSION['svn_sessid']['projectid'] = $tProject;
+        $_SESSION[SVNSESSID]['projectid'] = $tProject;
         
         db_disconnect($dbh);
         header("Location: workOnAccessRight.php?task=new");

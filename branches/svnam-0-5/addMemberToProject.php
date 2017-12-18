@@ -42,7 +42,7 @@ include_once ("$installBase/include/output.inc.php");
 initialize_i18n();
 check_password_expired();
 
-$_SESSION['svn_sessid']['helptopic'] = "addmembertoproject";
+$_SESSION[SVNSESSID]['helptopic'] = "addmembertoproject";
 
 function addMemberToGroup($group, $currentMembers, $dbh) {
 

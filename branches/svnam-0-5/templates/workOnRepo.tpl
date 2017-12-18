@@ -40,7 +40,7 @@
 				   	<tr>
 				   		<td><strong><?php print _("Create repository in filesystem").": "; ?></strong></td>
 				   		<?php
-				   			if( $_SESSION['svn_sessid']['task'] == "change" ) {
+				   			if( $_SESSION[SVNSESSID]['task'] == "change" ) {
 				   				$checked			= "disabled";
 				   			} else {
 					   			if( $tCreateRepo == "1" ) {

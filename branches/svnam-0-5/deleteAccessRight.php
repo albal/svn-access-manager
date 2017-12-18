@@ -47,11 +47,11 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "deleteaccessright";
+$_SESSION[SVNSESSID]['helptopic'] = "deleteaccessright";
 
 if ($rightAllowed != "delete") {
     
-    if (! $_SESSION['svn_sessid']['admin'] == "p") {
+    if (! $_SESSION[SVNSESSID]['admin'] == "p") {
         
         db_log($SESSID_USERNAME, "tried to use deleteAccessRight without permission", $dbh);
         db_disconnect($dbh);
@@ -64,11 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     if (isset($_GET['task'])) {
         
-        $_SESSION['svn_sessid']['task'] = db_escape_string(strtolower($_GET['task']));
+        $_SESSION[SVNSESSID]['task'] = db_escape_string(strtolower($_GET['task']));
     }
     else {
         
-        $_SESSION['svn_sessid']['task'] = "";
+        $_SESSION[SVNSESSID]['task'] = "";
     }
     
     if (isset($_GET['id'])) {
@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
     
-    $_SESSION['svn_sessid']['rightid'] = $tId;
+    $_SESSION[SVNSESSID]['rightid'] = $tId;
     
-    if ($_SESSION['svn_sessid']['task'] == "delete") {
+    if ($_SESSION[SVNSESSID]['task'] == "delete") {
         
         $query = "SELECT * " . "  FROM " . $schema . "svn_access_rights " . " WHERE id = $tId";
         $result = db_query($query, $dbh);
@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = ACCESS;
@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $rightdata = db_getRightdata($_SESSION['svn_sessid']['rightid'], $dbh);
+        $rightdata = db_getRightdata($_SESSION[SVNSESSID]['rightid'], $dbh);
         if ($rightdata['user_id'] != 0) {
             $username = db_getUseridById($rightdata['user_id'], $dbh);
         }
@@ -225,9 +225,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $accessright = $rightdata['access_right'];
         
         db_ta('BEGIN', $dbh);
-        db_log($_SESSION['svn_sessid']['username'], "deleted access right $accessright for repository $reponame, path $path, project $projectname", $dbh);
+        db_log($_SESSION[SVNSESSID]['username'], "deleted access right $accessright for repository $reponame, path $path, project $projectname", $dbh);
         $dbnow = db_now();
-        $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE id = " . $_SESSION['svn_sessid']['rightid'];
+        $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = " . $_SESSION[SVNSESSID]['rightid'];
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 1) {
@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             db_ta('ROLLBACK', $dbh);
             
-            $tMessage = sprintf(_("Error while updating right id %s for delete"), $_SESSION['svn_sessid']['rightid']);
+            $tMessage = sprintf(_("Error while updating right id %s for delete"), $_SESSION[SVNSESSID]['rightid']);
         }
     }
     elseif ($button == _("Back")) {

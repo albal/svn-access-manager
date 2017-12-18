@@ -41,7 +41,7 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session();
 
-db_log($_SESSION['svn_sessid']['username'], "$SESSID_USERNAME logged out");
+db_log($_SESSION[SVNSESSID]['username'], "$SESSID_USERNAME logged out");
 
 session_unset();
 session_destroy();

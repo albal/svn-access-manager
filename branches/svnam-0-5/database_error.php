@@ -50,9 +50,9 @@ else {
     $location = "../templates/framework.tpl";
 }
 
-$tQuery = $_SESSION['svn_sessid']['dbquery'];
-$tDbError = $_SESSION['svn_sessid']['dberror'];
-$tDbFunction = isset($_SESSION['svn_sessid']) ? $_SESSION['svn_sessid'] : "not set";
+$tQuery = $_SESSION[SVNSESSID]['dbquery'];
+$tDbError = $_SESSION[SVNSESSID]['dberror'];
+$tDbFunction = isset($_SESSION[SVNSESSID]) ? $_SESSION[SVNSESSID] : "not set";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     

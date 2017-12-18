@@ -55,7 +55,7 @@
 				   			<select name="fPath" size="15" style="width: 100%; height=200px;" <?php print $tChangeFunction; ?> title="<?php print _("Select the directory you want to descend into and click 'Change to directory' afterwards if no JavaScript is enabled. '..' ascends one level if possible." ); ?>">
 				   				
 				   				<?php
-				   					if( $_SESSION['svn_sessid']['pathcnt'] > 0 ) {
+				   					if( $_SESSION[SVNSESSID]['pathcnt'] > 0 ) {
 				   						print "\t\t\t\t\t\t\t\t<option value=\"[back]\">[..]</option>\n";
 				   					}
 				   					

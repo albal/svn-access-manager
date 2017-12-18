@@ -122,7 +122,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "repgranteduserrights";
+$_SESSION[SVNSESSID]['helptopic'] = "repgranteduserrights";
 
 if ($rightAllowed == "none") {
     
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tGrantedRights = getGrantedRights(0, - 1, $dbh);
     $tCountRecords = getCountGrantedRights($dbh);
     $tPrevDisabled = "disabled";
-    $_SESSION['svn_sessid']['rightcounter'] = 0;
+    $_SESSION[SVNSESSID]['rightcounter'] = 0;
     
     if ($tCountRecords <= $CONF['page_size']) {
         
