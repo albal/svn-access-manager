@@ -122,7 +122,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "repaccessrights";
+$_SESSION[SVNSESSID]['helptopic'] = "repaccessrights";
 
 if ($rightAllowed == "none") {
     
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $tDate = isset($_POST['fDate']) ? db_escape_string($_POST['fDate']) : "";
         // error_log( $tDate );
-        $_SESSION['svn_sessid']['date'] = $tDate;
+        $_SESSION[SVNSESSID]['date'] = $tDate;
         $lang = check_language();
         
         if (($lang == "de") or (substr($tDate, 2, 1) == ".")) {
@@ -225,10 +225,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         else {
             
             $valid = $year . $month . $day;
-            $_SESSION['svn_sessid']['valid'] = $valid;
-            $_SESSION['svn_sessid']['rightcounter'] = 0;
-            $tAccessRights = getAccessRights($_SESSION['svn_sessid']['valid'], 0, - 1, $dbh);
-            $tCountRecords = getCountAccessRights($_SESSION['svn_sessid']['valid'], $dbh);
+            $_SESSION[SVNSESSID]['valid'] = $valid;
+            $_SESSION[SVNSESSID]['rightcounter'] = 0;
+            $tAccessRights = getAccessRights($_SESSION[SVNSESSID]['valid'], 0, - 1, $dbh);
+            $tCountRecords = getCountAccessRights($_SESSION[SVNSESSID]['valid'], $dbh);
             $tPrevDisabled = "disabled";
             
             if ($tCountRecords <= $CONF['page_size']) {

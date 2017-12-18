@@ -1,5 +1,5 @@
 		<div id="edit_form">
-			<h3><?php print sprintf( _("List of access rights for %s"), $_SESSION['svn_sessid']['date'] ); ?></h3>
+			<h3><?php print sprintf( _("List of access rights for %s"), $_SESSION[SVNSESSID]['date'] ); ?></h3>
 			<p>&nbsp;</p>
 			<form action="rep_access_rights.php" name="rep_access_rights" method="post">
 				<table class="testlayout table-autosort:6 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
@@ -40,8 +40,8 @@
 				   	<tbody>
 				   		<?php
 					   		$i 										= 0;
-					   		$_SESSION['svn_sessid']['max_mark']		= 0;
-					   		$_SESSUIN['svn_sessid']['mark']			= array();
+					   		$_SESSION[SVNSESSID]['max_mark']		= 0;
+					   		$_SESSUIN[SVNSESSID]['mark']			= array();
 					   		
 					   		foreach( $tAccessRights as $entry ) {
 					   		
@@ -61,12 +61,12 @@
 					   			print "\t\t\t\t\t\t<td>".$entry['reponame'].":".$entry['path']."</td>\n";
 					   			print "\t\t\t\t\t</tr>\n";
 					   			
-					   			$_SESSION['svn_sessid']['mark'][$i]		= $entry['id'];
+					   			$_SESSION[SVNSESSID]['mark'][$i]		= $entry['id'];
 					   			
 					   			$i++;
 					   		}
 					   		
-					   		$_SESSION['svn_sessid']['max_mark'] = $i - 1;
+					   		$_SESSION[SVNSESSID]['max_mark'] = $i - 1;
 					   	?>
 				   	</tbody>
 				   	<tfoot>

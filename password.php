@@ -43,7 +43,7 @@ initialize_i18n();
 
 $dbh = db_connect();
 $SESSID_USERNAME = check_session();
-$_SESSION['svn_sessid']['helptopic'] = "password";
+$_SESSION[SVNSESSID]['helptopic'] = "password";
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -120,13 +120,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($result['rows'] == 1) {
             
-            db_log($_SESSION['svn_sessid']['username'], "password changed", $dbh);
+            db_log($_SESSION[SVNSESSID]['username'], "password changed", $dbh);
             
             $tMessage = _("Password changed successfully");
             
             db_ta("COMMIT", $dbh);
             
-            $_SESSION['svn_sessid']['password_expired'] = 0;
+            $_SESSION[SVNSESSID]['password_expired'] = 0;
         }
         else {
             

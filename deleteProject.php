@@ -47,7 +47,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Project admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "deleteproject";
+$_SESSION[SVNSESSID]['helptopic'] = "deleteproject";
 
 if ($rightAllowed != "delete") {
     
@@ -69,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    $_SESSION['svn_sessid']['task'] = strtolower($tTask);
-    $_SESSION['svn_sessid']['projectid'] = $tId;
+    $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
+    $_SESSION[SVNSESSID]['projectid'] = $tId;
     
     $schema = db_determine_schema();
     
-    if ($_SESSION['svn_sessid']['task'] == "delete") {
+    if ($_SESSION[SVNSESSID]['task'] == "delete") {
         
         $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = $tId";
         $result = db_query($query, $dbh);
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = PROJECTS;
@@ -154,25 +154,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $projectname = db_getProjectById($_SESSION['svn_sessid']['projectid'], $dbh);
+        $projectname = db_getProjectById($_SESSION[SVNSESSID]['projectid'], $dbh);
         $dbnow = db_now();
-        $query = "  UPDATE " . $schema . "svnprojects " . "    SET deleted = '$dbnow', " . "        deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . "  WHERE id = " . $_SESSION['svn_sessid']['projectid'];
+        $query = "  UPDATE " . $schema . "svnprojects " . "    SET deleted = '$dbnow', " . "        deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . "  WHERE id = " . $_SESSION[SVNSESSID]['projectid'];
         
         db_ta('BEGIN', $dbh);
-        db_log($_SESSION['svn_sessid']['username'], "deleted project $projectname", $dbh);
+        db_log($_SESSION[SVNSESSID]['username'], "deleted project $projectname", $dbh);
         
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 1) {
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svn_projects_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (project_id = '" . $_SESSION['svn_sessid']['projectid'] . "') " . "   AND (deleted = '00000000000000')";
+            $query = "UPDATE " . $schema . "svn_projects_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID]['projectid'] . "') " . "   AND (deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] >= 0) {
                 
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (project_id = '" . $_SESSION['svn_sessid']['projectid'] . "') " . "   AND (deleted = '00000000000000')";
+                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID]['projectid'] . "') " . "   AND (deleted = '00000000000000')";
                 $result = db_query($query, $dbh);
                 if (mysql_errno($dbh) == 0) {
                     db_ta('COMMIT', $dbh);

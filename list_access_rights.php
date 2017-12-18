@@ -192,11 +192,11 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "listaccessrights";
+$_SESSION[SVNSESSID]['helptopic'] = "listaccessrights";
 
 if ($rightAllowed == "none") {
     
-    if ($_SESSION['svn_sessid']['admin'] == "p") {
+    if ($_SESSION[SVNSESSID]['admin'] == "p") {
         
         $tSeeUserid = $SESSID_USERNAME;
     }
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tSearchUser = "";
     $tSearchGroup = "";
     $tSearchProject = "";
-    $_SESSION['svn_sessid']['rightcounter'] = 0;
+    $_SESSION[SVNSESSID]['rightcounter'] = 0;
     $tCountRecords = getCountAccessRights($tSeeUserid, $dbh);
     $tPrevDisabled = "disabled";
     
@@ -286,7 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($button == _("Delete selected") and ($tCntl != "filter")) {
         
-        $max = $_SESSION['svn_sessid']['max_mark'];
+        $max = $_SESSION[SVNSESSID]['max_mark'];
         $error = 0;
         
         db_ta('BEGIN', $dbh);
@@ -298,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (isset($_POST[$field])) {
                 
                 // print $_POST[$field];exit;
-                $id = $_SESSION['svn_sessid']['mark'][$i];
+                $id = $_SESSION[SVNSESSID]['mark'][$i];
                 $right = db_getRightData($id, $dbh);
                 $projectname = db_getProjectById($right['project_id'], $dbh);
                 
@@ -321,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
                 
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (id = $id)";
+                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id = $id)";
                 $result = db_query($query, $dbh);
                 if ($result['rows'] != 1) {
                     
@@ -330,7 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
                 
                 $logentry = sprintf("deleted access right %s in project %s, path %s", $right['access_right'], $projectname, $right['path']);
-                db_log($_SESSION['svn_sessid']['username'], $logentry, $dbh);
+                db_log($_SESSION[SVNSESSID]['username'], $logentry, $dbh);
             }
         }
         

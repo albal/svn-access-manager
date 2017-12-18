@@ -94,7 +94,7 @@ $rightAllowed = db_check_acl($SESSID_USERNAME, "User admin", $dbh);
 $isGlobalAdmin = db_check_global_admin($SESSID_USERNAME, $dbh);
 $SESSID_USERID = db_getIdByUserid($SESSID_USERNAME, $dbh);
 $tRightsGrantedToCurUser = getRightsGranted($SESSID_USERID, $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "workonuser";
+$_SESSION[SVNSESSID]['helptopic'] = "workonuser";
 if ($rightAllowed == "add") {
     $tDisabled = "disabled";
 }
@@ -137,13 +137,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
     }
     
-    $_SESSION['svn_sessid']['task'] = strtolower($tTask);
-    $_SESSION['svn_sessid']['userid'] = $tId;
+    $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
+    $_SESSION[SVNSESSID]['userid'] = $tId;
     $tRightsAvailable = getRights($dbh);
     
     $schema = db_determine_schema();
     
-    if ($_SESSION['svn_sessid']['task'] == "new") {
+    if ($_SESSION[SVNSESSID]['task'] == "new") {
         
         $tUserid = "";
         $tName = "";
@@ -171,12 +171,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tUsers = get_ldap_users();
         }
         
-        $_SESSION['svn_sessid']['rightsgranted'] = array();
-        $_SESSION['svn_sessid']['passwordexpires'] = "1";
-        $_SESSION['svn_sessid']['locked'] = "0";
-        $_SESSION['svn_sessid']['adminster'] = "n";
+        $_SESSION[SVNSESSID]['rightsgranted'] = array();
+        $_SESSION[SVNSESSID]['passwordexpires'] = "1";
+        $_SESSION[SVNSESSID]['locked'] = "0";
+        $_SESSION[SVNSESSID]['adminster'] = "n";
     }
-    elseif ($_SESSION['svn_sessid']['task'] == "change") {
+    elseif ($_SESSION[SVNSESSID]['task'] == "change") {
         
         $tReadonly = "readonly";
         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $tId";
@@ -196,10 +196,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tAdministrator = $row['admin'];
             $tUserRight = $row['user_mode'];
             $tRightsGranted = getRightsGranted($row['id'], $dbh);
-            $_SESSION['svn_sessid']['rightsgranted'] = $tRightsGranted;
-            $_SESSION['svn_sessid']['passwordexpires'] = $tPasswordExpires;
-            $_SESSION['svn_sessid']['locked'] = $tLocked;
-            $_SESSION['svn_sessid']['adminster'] = $tAdministrator;
+            $_SESSION[SVNSESSID]['rightsgranted'] = $tRightsGranted;
+            $_SESSION[SVNSESSID]['passwordexpires'] = $tPasswordExpires;
+            $_SESSION[SVNSESSID]['locked'] = $tLocked;
+            $_SESSION[SVNSESSID]['adminster'] = $tAdministrator;
         }
         else {
             
@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = USERS;
@@ -232,9 +232,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tCustom1 = isset($_POST['fCustom1']) ? db_escape_string($_POST['fCustom1']) : "";
     $tCustom2 = isset($_POST['fCustom2']) ? db_escape_string($_POST['fCustom2']) : "";
     $tCustom3 = isset($_POST['fCustom3']) ? db_escape_string($_POST['fCustom3']) : "";
-    $tPasswordExpires = isset($_POST['fPasswordExpires']) ? db_escape_string($_POST['fPasswordExpires']) : $_SESSION['svn_sessid']['passwordexpires'];
-    $tLocked = isset($_POST['fLocked']) ? db_escape_string($_POST['fLocked']) : $_SESSION['svn_sessid']['locked'];
-    $tAdministrator = isset($_POST['fAdministrator']) ? db_escape_string($_POST['fAdministrator']) : $_SESSION['svn_sessid']['adminster'];
+    $tPasswordExpires = isset($_POST['fPasswordExpires']) ? db_escape_string($_POST['fPasswordExpires']) : $_SESSION[SVNSESSID]['passwordexpires'];
+    $tLocked = isset($_POST['fLocked']) ? db_escape_string($_POST['fLocked']) : $_SESSION[SVNSESSID]['locked'];
+    $tAdministrator = isset($_POST['fAdministrator']) ? db_escape_string($_POST['fAdministrator']) : $_SESSION[SVNSESSID]['adminster'];
     $tUserRight = isset($_POST['fUserRight']) ? db_escape_string($_POST['fUserRight']) : "";
     $tRightsAvailable = getRights($dbh);
     $tRightsGranted = array();
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($button == _("Submit")) {
         
-        if ($_SESSION['svn_sessid']['task'] == "new") {
+        if ($_SESSION[SVNSESSID]['task'] == "new") {
             
             $error = 0;
             
@@ -334,7 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 foreach( $tRightsAvailable as $right) {
                     
                     $right_id = $right['id'];
-                    $tOldRight = isset($_SESSION['svn_sessid']['rightsgranted'][$right_id]) ? $_SESSION['svn_sessid']['rightsgranted'][$right_id] : "";
+                    $tOldRight = isset($_SESSION[SVNSESSID]['rightsgranted'][$right_id]) ? $_SESSION[SVNSESSID]['rightsgranted'][$right_id] : "";
                     $field = "fId" . $right_id;
                     $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : $tOldRight;
                     $tCurRight = $tRightsGrantedToCurUser[$right_id];
@@ -389,10 +389,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tPassword = ($tPassword == "") ? generatePassword("y") : $tPassword;
                 $pwcrypt = db_escape_string(pacrypt($tPassword), $dbh);
                 $dbnow = db_now();
-                $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, custom1, custom2, custom3, admin, created, created_user, password_modified, user_mode) " . "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '" . $_SESSION['svn_sessid']['username'] . "', '20000101000000', '$tUserRight')";
+                $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, custom1, custom2, custom3, admin, created, created_user, password_modified, user_mode) " . "     VALUES ('$tUserid', '$tName', '$tGivenname', '$pwcrypt', '$tPasswordExpires', '$tLocked', '$tEmail', '$tCustom1', '$tCustom2','$tCustom3','$tAdministrator','$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "', '20000101000000', '$tUserRight')";
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION['svn_sessid']['username'], "added user $tUserid, $tName, $tGivenname", $dbh);
+                db_log($_SESSION[SVNSESSID]['username'], "added user $tUserid, $tName, $tGivenname", $dbh);
                 
                 $result = db_query($query, $dbh);
                 if ($result['rows'] == 1) {
@@ -412,12 +412,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result['rows'] > 0) {
                                 
                                 $dbnow = db_now();
-                                $query = "UPDATE " . $schema . "users_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION['svn_sessid']['username'] . "'," . "       allowed = '$value' " . " WHERE (user_id = $lastid) " . "   AND (right_id = $right_id)";
+                                $query = "UPDATE " . $schema . "users_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "'," . "       allowed = '$value' " . " WHERE (user_id = $lastid) " . "   AND (right_id = $right_id)";
                             }
                             else {
                                 
                                 $dbnow = db_now();
-                                $query = "INSERT INTO " . $schema . "users_rights (right_id, user_id, allowed, created, created_user) " . "     VALUES ($right_id, $lastid, '$value', '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
+                                $query = "INSERT INTO " . $schema . "users_rights (right_id, user_id, allowed, created, created_user) " . "     VALUES ($right_id, $lastid, '$value', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                             }
                             
                             $result = db_query($query, $dbh);
@@ -450,7 +450,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
         }
-        elseif ($_SESSION['svn_sessid']['task'] == "change") {
+        elseif ($_SESSION[SVNSESSID]['task'] == "change") {
             
             $error = 0;
             $tReadonly = "readonly";
@@ -513,7 +513,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 foreach( $tRightsAvailable as $right) {
                     
                     $right_id = $right['id'];
-                    $tOldRight = isset($_SESSION['svn_sessid']['rightsgranted'][$right_id]) ? $_SESSION['svn_sessid']['rightsgranted'][$right_id] : "";
+                    $tOldRight = isset($_SESSION[SVNSESSID]['rightsgranted'][$right_id]) ? $_SESSION[SVNSESSID]['rightsgranted'][$right_id] : "";
                     $field = "fId" . $right_id;
                     $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : $tOldRight;
                     $tCurRight = $tRightsGrantedToCurUser[$right_id];
@@ -567,17 +567,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 $pwcrypt = db_escape_string(pacrypt($tPassword), $dbh);
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svnusers " . "   SET name 			= '$tName', " . "       givenname 		= '$tGivenname', " . "       emailaddress 	= '$tEmail', " . "       custom1         = '$tCustom1', " . "       custom2         = '$tCustom2', " . "       custom3         = '$tCustom3', " . "       passwordexpires 	= '$tPasswordExpires', " . "       locked 			= '$tLocked', " . "       admin 			= '$tAdministrator', " . "       user_mode 	    = '$tUserRight', " . "       modified 		= '$dbnow', " . "       modified_user 	= '" . $_SESSION['svn_sessid']['username'] . "'";
+                $query = "UPDATE " . $schema . "svnusers " . "   SET name 			= '$tName', " . "       givenname 		= '$tGivenname', " . "       emailaddress 	= '$tEmail', " . "       custom1         = '$tCustom1', " . "       custom2         = '$tCustom2', " . "       custom3         = '$tCustom3', " . "       passwordexpires 	= '$tPasswordExpires', " . "       locked 			= '$tLocked', " . "       admin 			= '$tAdministrator', " . "       user_mode 	    = '$tUserRight', " . "       modified 		= '$dbnow', " . "       modified_user 	= '" . $_SESSION[SVNSESSID]['username'] . "'";
                 
                 if ($tPassword != "") {
                     
                     $query .= ", password = '$pwcrypt'";
                 }
                 
-                $query .= " WHERE (id = " . $_SESSION['svn_sessid']['userid'] . ")";
+                $query .= " WHERE (id = " . $_SESSION[SVNSESSID]['userid'] . ")";
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION['svn_sessid']['username'], "updated user $tUserid", $dbh);
+                db_log($_SESSION[SVNSESSID]['username'], "updated user $tUserid", $dbh);
                 
                 $result = db_query($query, $dbh);
                 
@@ -590,18 +590,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : "";
                         
                         if ($value != "") {
-                            $query = "SELECT * " . "  FROM " . $schema . "users_rights " . " WHERE (right_id = $right_id) " . "   AND (user_id = " . $_SESSION['svn_sessid']['userid'] . ") " . "   AND (deleted = '00000000000000')";
+                            $query = "SELECT * " . "  FROM " . $schema . "users_rights " . " WHERE (right_id = $right_id) " . "   AND (user_id = " . $_SESSION[SVNSESSID]['userid'] . ") " . "   AND (deleted = '00000000000000')";
                             $result = db_query($query, $dbh);
                             
                             if ($result['rows'] > 0) {
                                 
                                 $dbnow = db_now();
-                                $query = "UPDATE " . $schema . "users_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION['svn_sessid']['username'] . "'," . "       allowed = '$value' " . " WHERE (user_id = " . $_SESSION['svn_sessid']['userid'] . ") " . "   AND (right_id = $right_id)";
+                                $query = "UPDATE " . $schema . "users_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "'," . "       allowed = '$value' " . " WHERE (user_id = " . $_SESSION[SVNSESSID]['userid'] . ") " . "   AND (right_id = $right_id)";
                             }
                             else {
                                 
                                 $dbnow = db_now();
-                                $query = "INSERT INTO " . $schema . "users_rights (right_id, user_id, allowed, created, created_user) " . "     VALUES ($right_id, " . $_SESSION['svn_sessid']['userid'] . ", '$value', '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
+                                $query = "INSERT INTO " . $schema . "users_rights (right_id, user_id, allowed, created, created_user) " . "     VALUES ($right_id, " . $_SESSION[SVNSESSID]['userid'] . ", '$value', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                             }
                             
                             $result = db_query($query, $dbh);
@@ -614,7 +614,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                     }
                     
-                    $tRightsGranted = getRightsGranted($_SESSION['svn_sessid']['userid'], $dbh);
+                    $tRightsGranted = getRightsGranted($_SESSION[SVNSESSID]['userid'], $dbh);
                 }
                 else {
                     
@@ -636,7 +636,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         else {
             
-            $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+            $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
         }
     }
     else {

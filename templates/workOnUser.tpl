@@ -11,7 +11,7 @@
 				   		<td width="150"><strong><?php print _("Username").": "; ?></strong></td>
 				   		<td>
 				   			<?php
-				   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") and ($_SESSION['svn_sessid']['task'] == "new") ) {
+				   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") and ($_SESSION[SVNSESSID]['task'] == "new") ) {
 				   					
 				   					print "\t\t\t\t\t\t\t<select id=\"userid\" name=\"fUserid\" class=\"chzn-select\" $tReadonly onchange=\"changeUser();\">\n";
 				   					print "\t\t\t\t\t\t\t\t<option value=\"default\">"._("--- Please select user ---")."</option>\n";

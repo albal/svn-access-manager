@@ -47,7 +47,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "User admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "deleteuser";
+$_SESSION[SVNSESSID]['helptopic'] = "deleteuser";
 $schema = db_determine_schema();
 
 if ($rightAllowed != "delete") {
@@ -70,10 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    $_SESSION['svn_sessid']['task'] = strtolower($tTask);
-    $_SESSION['svn_sessid']['userid'] = $tId;
+    $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
+    $_SESSION[SVNSESSID]['userid'] = $tId;
     
-    if ($_SESSION['svn_sessid']['task'] == "delete") {
+    if ($_SESSION[SVNSESSID]['task'] == "delete") {
         
         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $tId";
         $result = db_query($query, $dbh);
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION['svn_sessid']['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
     }
     
     $header = USERS;
@@ -124,20 +124,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $userid = db_getUseridById($_SESSION['svn_sessid']['userid'], $dbh);
+        $userid = db_getUseridById($_SESSION[SVNSESSID]['userid'], $dbh);
         $error = 0;
         $dbnow = db_now();
-        $query = "UPDATE " . $schema . "svnusers " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE id = " . $_SESSION['svn_sessid']['userid'] . "   AND (deleted = '00000000000000')";
+        $query = "UPDATE " . $schema . "svnusers " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = " . $_SESSION[SVNSESSID]['userid'] . "   AND (deleted = '00000000000000')";
         
         db_ta('BEGIN', $dbh);
-        db_log($_SESSION['svn_sessid']['username'], "deleted user $userid", $dbh);
+        db_log($_SESSION[SVNSESSID]['username'], "deleted user $userid", $dbh);
         
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 1) {
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (user_id = " . $_SESSION['svn_sessid']['userid'] . ") " . "   AND (deleted = '00000000000000')";
+            $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (user_id = " . $_SESSION[SVNSESSID]['userid'] . ") " . "   AND (deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] < 0) {
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($error == 0) {
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svn_projects_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE user_id = " . $_SESSION['svn_sessid']['userid'] . "   AND (deleted = '00000000000000')";
+            $query = "UPDATE " . $schema . "svn_projects_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE user_id = " . $_SESSION[SVNSESSID]['userid'] . "   AND (deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] < 0) {
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($error == 0) {
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svn_users_groups " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE user_id = " . $_SESSION['svn_sessid']['userid'] . "   AND (deleted = '00000000000000')";
+            $query = "UPDATE " . $schema . "svn_users_groups " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE user_id = " . $_SESSION[SVNSESSID]['userid'] . "   AND (deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] < 0) {

@@ -84,7 +84,7 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'Repository admin', $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "listrepos";
+$_SESSION[SVNSESSID]['helptopic'] = "listrepos";
 
 if ($rightAllowed == "none") {
     
@@ -96,7 +96,7 @@ if ($rightAllowed == "none") {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $_SESSION['svn_sessid']['repocounter'] = 0;
+    $_SESSION[SVNSESSID]['repocounter'] = 0;
     $tRepos = getRepos(0, - 1, $dbh);
     $tCountRecords = getCountRepos($dbh);
     $tPrevDisabled = "disabled";
@@ -139,8 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (($button == "search") or ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
-        $_SESSION['svn_sessid']['search'] = $tSearch;
-        $_SESSION['svn_sessid']['searchtype'] = REPOS;
+        $_SESSION[SVNSESSID]['search'] = $tSearch;
+        $_SESSION[SVNSESSID]['searchtype'] = REPOS;
         $tRepos = array();
         
         if ($tSearch == "") {
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             else {
                 
                 db_disconnect($dbh);
-                $_SESSION['svn_sessid']['searchresult'] = $tArray;
+                $_SESSION[SVNSESSID]['searchresult'] = $tArray;
                 header("location: searchresult.php");
                 exit();
             }

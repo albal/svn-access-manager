@@ -97,20 +97,20 @@ function check_session() {
     session_start();
     
     // if (!session_is_registered ("svn_sessid")) {
-    if (! isset($_SESSION['svn_sessid'])) {
+    if (! isset($_SESSION[SVNSESSID])) {
         
         header("Location: login.php");
         exit();
     }
     
-    $SESSID_USERNAME = $_SESSION['svn_sessid']['username'];
+    $SESSID_USERNAME = $_SESSION[SVNSESSID]['username'];
     
     if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1)) {
         
         if (isset($CONF['ldap_bind_dn_suffix'])) {
             
-            $CONF['bind_dn'] = $_SESSION['svn_sessid']['username'] . $CONF['ldap_bind_dn_suffix'];
-            $CONF['bind_pw'] = $_SESSION['svn_sessid']['password'];
+            $CONF['bind_dn'] = $_SESSION[SVNSESSID]['username'] . $CONF['ldap_bind_dn_suffix'];
+            $CONF['bind_pw'] = $_SESSION[SVNSESSID]['password'];
         }
     }
     
@@ -164,14 +164,14 @@ function check_session_status() {
     @session_start();
     
     // if (!session_is_registered ("svn_sessid")) {
-    if (! isset($_SESSION['svn_sessid'])) {
+    if (! isset($_SESSION[SVNSESSID])) {
         
         $ret = 0;
     }
     else {
         
         $ret = 1;
-        $SESSID_USERNAME = $_SESSION['svn_sessid']['username'];
+        $SESSID_USERNAME = $_SESSION[SVNSESSID]['username'];
     }
     
     return array(
@@ -209,9 +209,9 @@ function create_verify_string() {
 //
 function check_password_expired() {
 
-    if (isset($_SESSION['svn_sessid']['password_expired'])) {
+    if (isset($_SESSION[SVNSESSID]['password_expired'])) {
         
-        if ($_SESSION['svn_sessid']['password_expired'] == 1) {
+        if ($_SESSION[SVNSESSID]['password_expired'] == 1) {
             
             header("Location: password.php");
             exit();

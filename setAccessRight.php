@@ -47,11 +47,11 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
-$_SESSION['svn_sessid']['helptopic'] = "setaccessright";
+$_SESSION[SVNSESSID]['helptopic'] = "setaccessright";
 
 if (($rightAllowed != "edit") and ($rightAllowed != "delete")) {
     
-    if ( $_SESSION['svn_sessid']['admin'] != "p") {
+    if ( $_SESSION[SVNSESSID]['admin'] != "p") {
         db_log($SESSID_USERNAME, "tried to use setAccessRight without permission", $dbh);
         db_disconnect($dbh);
         header("Location: nopermission.php");
@@ -93,14 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     if (isset($_GET['task'])) {
         
-        $_SESSION['svn_sessid']['task'] = db_escape_string(strtolower($_GET['task']));
+        $_SESSION[SVNSESSID]['task'] = db_escape_string(strtolower($_GET['task']));
     }
     else {
         
-        $_SESSION['svn_sessid']['task'] = "";
+        $_SESSION[SVNSESSID]['task'] = "";
     }
     
-    if ($_SESSION['svn_sessid']['task'] == "change") {
+    if ($_SESSION[SVNSESSID]['task'] == "change") {
         
         $tReadonly = "disabled";
     }
@@ -109,13 +109,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tReadonly = "";
     }
     
-    $tProjectName = $_SESSION['svn_sessid']['svnmodule'];
-    $tRepoName = $_SESSION['svn_sessid']['reponame'];
-    $tRepoPath = $_SESSION['svn_sessid']['repopath'];
-    $tRepoUser = $_SESSION['svn_sessid']['repouser'];
-    $tRepoPassword = $_SESSION['svn_sessid']['repopassword'];
-    $tModulePath = $_SESSION['svn_sessid']['modulepath'];
-    $tPathSelected = $tModulePath . $_SESSION['svn_sessid']['pathselected'];
+    $tProjectName = $_SESSION[SVNSESSID]['svnmodule'];
+    $tRepoName = $_SESSION[SVNSESSID]['reponame'];
+    $tRepoPath = $_SESSION[SVNSESSID]['repopath'];
+    $tRepoUser = $_SESSION[SVNSESSID]['repouser'];
+    $tRepoPassword = $_SESSION[SVNSESSID]['repopassword'];
+    $tModulePath = $_SESSION[SVNSESSID]['modulepath'];
+    $tPathSelected = $tModulePath . $_SESSION[SVNSESSID]['pathselected'];
     // error_log( $tPathSelected );
     $tPathSelected = str_replace('//', '/', $tPathSelected);
     // error_log( $tPathSelected );
@@ -139,18 +139,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tLocale = "en";
     }
     
-    if (isset($_SESSION['svn_sessid']['validfrom'])) {
+    if (isset($_SESSION[SVNSESSID]['validfrom'])) {
         
-        $tValidFrom = $_SESSION['svn_sessid']['validfrom'];
+        $tValidFrom = $_SESSION[SVNSESSID]['validfrom'];
     }
     else {
         
         $tValidFrom = "";
     }
     
-    if (isset($_SESSION['svn_sessid']['validuntil'])) {
+    if (isset($_SESSION[SVNSESSID]['validuntil'])) {
         
-        $tValidUntil = $_SESSION['svn_sessid']['validuntil'];
+        $tValidUntil = $_SESSION[SVNSESSID]['validuntil'];
     }
     else {
         
@@ -167,9 +167,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tValidUntil = "";
     }
     
-    if (isset($_SESSION['svn_sessid']['accessright'])) {
+    if (isset($_SESSION[SVNSESSID]['accessright'])) {
         
-        $tAccessRight = $_SESSION['svn_sessid']['accessright'];
+        $tAccessRight = $_SESSION[SVNSESSID]['accessright'];
         
         if ($tAccessRight == "none") {
             
@@ -195,18 +195,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tAccessRight = "";
     }
     
-    if (isset($_SESSION['svn_sessid']['userid'])) {
+    if (isset($_SESSION[SVNSESSID]['userid'])) {
         
-        $tUid = $_SESSION['svn_sessid']['userid'];
+        $tUid = $_SESSION[SVNSESSID]['userid'];
     }
     else {
         
         $tUid = "";
     }
     
-    if (isset($_SESSION['svn_sessid']['groupid'])) {
+    if (isset($_SESSION[SVNSESSID]['groupid'])) {
         
-        $tGid = $_SESSION['svn_sessid']['groupid'];
+        $tGid = $_SESSION[SVNSESSID]['groupid'];
     }
     else {
         
@@ -223,14 +223,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
-    $tProjectName = $_SESSION['svn_sessid']['svnmodule'];
-    $tProjectid = $_SESSION['svn_sessid']['projectid'];
-    $tRepoName = $_SESSION['svn_sessid']['reponame'];
-    $tRepoPath = $_SESSION['svn_sessid']['repopath'];
-    $tRepoUser = $_SESSION['svn_sessid']['repouser'];
-    $tRepoPassword = $_SESSION['svn_sessid']['repopassword'];
-    $tModulePath = $_SESSION['svn_sessid']['modulepath'];
-    $tPathSelected = $tModulePath . $_SESSION['svn_sessid']['pathselected'];
+    $tProjectName = $_SESSION[SVNSESSID]['svnmodule'];
+    $tProjectid = $_SESSION[SVNSESSID]['projectid'];
+    $tRepoName = $_SESSION[SVNSESSID]['reponame'];
+    $tRepoPath = $_SESSION[SVNSESSID]['repopath'];
+    $tRepoUser = $_SESSION[SVNSESSID]['repouser'];
+    $tRepoPassword = $_SESSION[SVNSESSID]['repopassword'];
+    $tModulePath = $_SESSION[SVNSESSID]['modulepath'];
+    $tPathSelected = $tModulePath . $_SESSION[SVNSESSID]['pathselected'];
     // error_log( $tPathSelected );
     $tPathSelected = str_replace('//', '/', $tPathSelected);
     // error_log( $tPathSelected );
@@ -397,23 +397,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($error == 0) {
             
-            if ($_SESSION['svn_sessid']['task'] == "change") {
-                // error_log( "userid = ".$_SESSION['svn_sessid']['userid']." groupid = ".$_SESSION['svn_sessid']['groupid']);
+            if ($_SESSION[SVNSESSID]['task'] == "change") {
+                // error_log( "userid = ".$_SESSION[SVNSESSID]['userid']." groupid = ".$_SESSION[SVNSESSID]['groupid']);
                 
-                if ($_SESSION['svn_sessid']['userid'] != 0) {
+                if ($_SESSION[SVNSESSID]['userid'] != 0) {
                     
-                    $mode = db_getUserRightByUserid($_SESSION['svn_sessid']['userid'], $dbh);
+                    $mode = db_getUserRightByUserid($_SESSION[SVNSESSID]['userid'], $dbh);
                     if (($tAccessRight == "write") and ($mode != "write")) {
                         
                         $tMessage = _("User is not allowed to have write access, global right is read only");
                         $error = 1;
                     }
                 }
-                elseif ($_SESSION['svn_sessid']['groupid'] != 0) {
+                elseif ($_SESSION[SVNSESSID]['groupid'] != 0) {
                     
-                    $mode = db_getGroupRightByGroupid($_SESSION['svn_sessid']['groupid'], $dbh);
+                    $mode = db_getGroupRightByGroupid($_SESSION[SVNSESSID]['groupid'], $dbh);
                     if (($tAccessRight == "write") and ($mode != "write")) {
-                        $groupName = db_getGroupById($_SESSION['svn_sessid']['groupid'], $dbh);
+                        $groupName = db_getGroupById($_SESSION[SVNSESSID]['groupid'], $dbh);
                         $tMessage = sprintf(_("Group %s contains an user with no global write permission!"), $groupName);
                         $error = 1;
                     }
@@ -425,7 +425,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
         
-        if (($_SESSION['svn_sessid']['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0)) {
+        if (($_SESSION[SVNSESSID]['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0)) {
             
             $tMessage = _("No user or no group selected!");
             $error = 1;
@@ -435,14 +435,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($error == 0) {
             
-            if ($_SESSION['svn_sessid']['task'] == "change") {
+            if ($_SESSION[SVNSESSID]['task'] == "change") {
                 
                 db_ta('BEGIN', $dbh);
                 
-                $tId = $_SESSION['svn_sessid']['rightid'];
+                $tId = $_SESSION[SVNSESSID]['rightid'];
                 $olddata = db_getRightData($tId, $dbh);
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION['svn_sessid']['username'] . "', " . "       valid_from = '$validFrom', " . "       valid_until = '$validUntil', " . "       access_right = '$tAccessRight' " . " WHERE (id = $tId)";
+                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "', " . "       valid_from = '$validFrom', " . "       valid_until = '$validUntil', " . "       access_right = '$tAccessRight' " . " WHERE (id = $tId)";
                 $result = db_query($query, $dbh);
                 
                 if ($result['rows'] == 1) {
@@ -452,7 +452,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $path = $olddata['path'];
                     $oldright = $olddata['access_right'];
                     
-                    db_log($_SESSION['svn_sessid']['username'], "updated access right from $oldright to $tAccessRight for $user in $repo for $path", $dbh);
+                    db_log($_SESSION[SVNSESSID]['username'], "updated access right from $oldright to $tAccessRight for $user in $repo for $path", $dbh);
                     db_ta('COMMIT', $dbh);
                     db_disconnect($dbh);
                     
@@ -483,7 +483,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             $rightid = $row['id'];
                             $tPathSelected = $row['path'];
                             $dbnow = db_now();
-                            $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (id = $rightid)";
+                            $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id = $rightid)";
                             $resultupd = db_query($query, $dbh);
                             if ($resultupd['rows'] != 1) {
                                 
@@ -491,11 +491,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $error = 1;
                             }
                             
-                            db_log($_SESSION['svn_sessid']['username'], "deleted access right for $userid for $tPathSelected", $dbh);
+                            db_log($_SESSION[SVNSESSID]['username'], "deleted access right for $userid for $tPathSelected", $dbh);
                         }
                         
                         $dbnow = db_now();
-                        $query = "INSERT INTO " . $schema . "svn_access_rights " . "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " . "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
+                        $query = "INSERT INTO " . $schema . "svn_access_rights " . "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " . "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                         $result = db_query($query, $dbh);
                         if ($result['rows'] != 1) {
                             
@@ -503,7 +503,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             $error = 1;
                         }
                         
-                        db_log($_SESSION['svn_sessid']['username'], "added access right $tAccessRight for " . $userid . " to $tPathSelected", $dbh);
+                        db_log($_SESSION[SVNSESSID]['username'], "added access right $tAccessRight for " . $userid . " to $tPathSelected", $dbh);
                     }
                     
                     if ($error == 0) {
@@ -517,7 +517,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 
                                 $rightid = $row['id'];
                                 $dbnow = db_now();
-                                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION['svn_sessid']['username'] . "' " . " WHERE (id = $rightid)";
+                                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id = $rightid)";
                                 $resultupd = db_query($query, $dbh);
                                 if ($resultupd['rows'] != 1) {
                                     
@@ -525,11 +525,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     $error = 1;
                                 }
                                 
-                                db_log($_SESSION['svn_sessid']['username'], "deleted access right for $userid for $tPathSelected", $dbh);
+                                db_log($_SESSION[SVNSESSID]['username'], "deleted access right for $userid for $tPathSelected", $dbh);
                             }
                             
                             $dbnow = db_now();
-                            $query = "INSERT INTO " . $schema . "svn_access_rights " . "            (project_id, group_id, path, valid_from, valid_until, access_right, created, created_user) " . "     VALUES ('$tProjectid', '$groupid', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION['svn_sessid']['username'] . "')";
+                            $query = "INSERT INTO " . $schema . "svn_access_rights " . "            (project_id, group_id, path, valid_from, valid_until, access_right, created, created_user) " . "     VALUES ('$tProjectid', '$groupid', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                             $result = db_query($query, $dbh);
                             if ($result['rows'] != 1) {
                                 
@@ -537,7 +537,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $error = 1;
                             }
                             
-                            db_log($_SESSION['svn_sessid']['username'], "added access right $tAccessRight for $groupid to $tPathSelected", $dbh);
+                            db_log($_SESSION[SVNSESSID]['username'], "added access right $tAccessRight for $groupid to $tPathSelected", $dbh);
                         }
                     }
                     
@@ -594,25 +594,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tGroups[$id] = $groupname;
     }
     
-    if (isset($_SESSION['svn_sessid']['userid'])) {
+    if (isset($_SESSION[SVNSESSID]['userid'])) {
         
-        $tUid = $_SESSION['svn_sessid']['userid'];
+        $tUid = $_SESSION[SVNSESSID]['userid'];
     }
     else {
         
         $tUid = "";
     }
     
-    if (isset($_SESSION['svn_sessid']['groupid'])) {
+    if (isset($_SESSION[SVNSESSID]['groupid'])) {
         
-        $tGid = $_SESSION['svn_sessid']['groupid'];
+        $tGid = $_SESSION[SVNSESSID]['groupid'];
     }
     else {
         
         $tGid = "";
     }
     
-    if ($_SESSION['svn_sessid']['task'] == "change") {
+    if ($_SESSION[SVNSESSID]['task'] == "change") {
         
         $tReadonly = "disabled";
     }

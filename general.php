@@ -158,7 +158,7 @@ check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
-$_SESSION['svn_sessid']['helptopic'] = GENERAL;
+$_SESSION[SVNSESSID]['helptopic'] = GENERAL;
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tAccessRights = getAccessRightsForUser($tUserId, $tGroups, $dbh);
         $tProjects = getProjectResponsibleForUser($tUserId, $dbh);
         
-        $_SESSION['svn_sessid']['userid'] = $row['id'];
+        $_SESSION[SVNSESSID]['userid'] = $row['id'];
     }
     else {
         
@@ -264,9 +264,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($error == 0) {
             
             db_ta('BEGIN', $dbh);
-            db_log($_SESSION['svn_sessid']['username'], "user changed his data( $tName, $tGivenname, $tEmail)", $dbh);
+            db_log($_SESSION[SVNSESSID]['username'], "user changed his data( $tName, $tGivenname, $tEmail)", $dbh);
             
-            $query = "UPDATE " . $schema . "svnusers " . "   SET givenname = '$tGivenname', " . "       name = '$tName', " . "       emailaddress = '$tEmail', " . "       securityquestion = '$tSecurityQuestion', " . "       securityanswer = '$tAnswer', " . "       custom1 = '$tCustom1', " . "       custom2 = '$tCustom2', " . "       custom3 = '$tCustom3' " . " WHERE (id = " . $_SESSION['svn_sessid']['userid'] . ")";
+            $query = "UPDATE " . $schema . "svnusers " . "   SET givenname = '$tGivenname', " . "       name = '$tName', " . "       emailaddress = '$tEmail', " . "       securityquestion = '$tSecurityQuestion', " . "       securityanswer = '$tAnswer', " . "       custom1 = '$tCustom1', " . "       custom2 = '$tCustom2', " . "       custom3 = '$tCustom3' " . " WHERE (id = " . $_SESSION[SVNSESSID]['userid'] . ")";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] > 0) {
@@ -302,9 +302,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tCustom2 = $row['custom2'];
         $tCustom3 = $row['custom3'];
         
-        $tGroups = getGroupsForUser($_SESSION['svn_sessid']['userid'], $dbh);
-        $tAccessRights = getAccessRightsForUser($_SESSION['svn_sessid']['userid'], $tGroups, $dbh);
-        $tProjects = getProjectResponsibleForUser($_SESSION['svn_sessid']['userid'], $dbh);
+        $tGroups = getGroupsForUser($_SESSION[SVNSESSID]['userid'], $dbh);
+        $tAccessRights = getAccessRightsForUser($_SESSION[SVNSESSID]['userid'], $tGroups, $dbh);
+        $tProjects = getProjectResponsibleForUser($_SESSION[SVNSESSID]['userid'], $dbh);
     }
     else {
         
