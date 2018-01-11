@@ -1,6 +1,6 @@
 <?php
 
-/*
+/* 
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
  *
