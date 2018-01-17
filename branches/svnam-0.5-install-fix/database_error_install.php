@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -52,9 +51,9 @@ else {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $tDbQuery = isset($_GET['dbquery']) ? $_GET['dbquery'] : "not set";
-    $tDbError = isset($_GET['dberror']) ? $_GET['dberror'] : "not set";
-    $tDbFunction = isset($_GET['dbfunction']) ? $_GET['dbfunction'] : "not set";
+    $tDbQuery = isset($_GET['dbquery']) ? $_GET['dbquery'] : NOTSET;
+    $tDbError = isset($_GET['dberror']) ? $_GET['dberror'] : NOTSET;
+    $tDbFunction = isset($_GET['dbfunction']) ? $_GET['dbfunction'] : NOTSET;
     $template = "database_error.tpl";
     $header = DBERROR;
     $subheader = DBERROR;

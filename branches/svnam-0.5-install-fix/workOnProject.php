@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -38,8 +37,6 @@ include_once ("$installBase/include/constants.inc.php");
 require ("$installBase/include/functions.inc.php");
 require ("$installBase/include/output.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
-include_once ("$installBase/addMemberToProject.php");
-include_once ("$installBase/addGroupToProject.php");
 
 initialize_i18n();
 

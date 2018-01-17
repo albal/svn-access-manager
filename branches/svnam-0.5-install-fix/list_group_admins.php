@@ -28,18 +28,7 @@
  * $Id$
  *
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -48,50 +37,6 @@ include_once ("$installBase/include/constants.inc.php");
 require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
-
-function getGroups($start, $count, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    
-    $tGroups = array();
-    $query = "SELECT  svnusers.userid, svnusers.name, svnusers.givenname, svngroups.groupname, svngroups.description, svn_groups_responsible.allowed, svn_groups_responsible.id AS id " . "   FROM " . $schema . "svn_groups_responsible, " . $schema . "svngroups, " . $schema . "svnusers " . "   WHERE (svnusers.deleted = '00000000000000') " . "     AND (svngroups.deleted = '00000000000000') " . "     AND (svn_groups_responsible.deleted = '00000000000000') " . "     AND (svnusers.id = svn_groups_responsible.user_id) " . "     AND (svngroups.id = svn_groups_responsible.group_id) " . "ORDER BY groupname ASC";
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tGroups[] = $row;
-    }
-    
-    return $tGroups;
-
-}
-
-function getCountGroups($dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    
-    $tGroups = array();
-    $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') ";
-    $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svn_groups_responsible, " . $schema . "svngroups, " . $schema . "svnusers " . "   WHERE (svnusers.deleted = '00000000000000') " . "     AND (svngroups.deleted = '00000000000000') " . "     AND (svn_groups_responsible.deleted = '00000000000000') " . "     AND (svnusers.id = svn_groups_responsible.user_id) " . "     AND (svngroups.id = svn_groups_responsible.group_id)";
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
 
 initialize_i18n();
 
@@ -114,8 +59,8 @@ if ($rightAllowed == "none") {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $_SESSION[SVNSESSID]['groupcounter'] = 0;
-    $tGroups = getGroups(0, - 1, $dbh);
-    $tCountRecords = getCountGroups($dbh);
+    $tGroups = db_getGroups(0, - 1, $dbh);
+    $tCountRecords = db_getCountGroups($dbh);
     $tPrevDisabled = "disabled";
     
     if ($tCountRecords <= $CONF['page_size']) {

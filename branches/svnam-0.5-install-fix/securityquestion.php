@@ -28,18 +28,7 @@
  * $Id$
  *
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -124,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 db_ta("COMMIT", $dbh);
                 
-                $$header = "From:$sender\nReply-To:$sender\nX-Mailer: PHP/" . phpversion();
+                $header = "From:$sender\nReply-To:$sender\nX-Mailer: PHP/" . phpversion();
                 $text = sprintf(_("Hello %s %s"), $givenname, $name) . "\n\n";
                 $text .= wordwrap(_("you requested to reset your lost password for your subversion account.")) . "\n\n";
                 $text .= wordwrap(_("Please follow the link below and enter the security token you got after answering the security question.")) . "\n\n";

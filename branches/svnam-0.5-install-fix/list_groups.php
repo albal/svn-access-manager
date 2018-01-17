@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -38,86 +37,6 @@ include_once ("$installBase/include/constants.inc.php");
 require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
-
-function getGroups($start, $count, $groupAdmin, $tGroupsAllowed, $dbh) {
-
-    $schema = db_determine_schema();
-    $tGroups = array();
-    
-    if ($groupAdmin == 1) {
-        
-        $grouplist = "";
-        
-        foreach( $tGroupsAllowed as $groupid => $right) {
-            
-            if ($grouplist == "") {
-                $grouplist = "'" . $groupid . "'";
-            }
-            else {
-                $grouplist .= ",'" . $groupid . "'";
-            }
-        }
-        
-        $grouplist = "(" . $grouplist . ")";
-        
-        $query = "SELECT  * " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "     AND (id in $grouplist) " . "ORDER BY groupname ASC ";
-    }
-    else {
-        $query = "SELECT  * " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "ORDER BY groupname ASC ";
-    }
-    
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tGroups[] = $row;
-    }
-    
-    return $tGroups;
-
-}
-
-function getCountGroups($groupAdmin, $tGroupsAllowed, $dbh) {
-
-    $schema = db_determine_schema();
-    $tGroups = array();
-    
-    if ($groupAdmin == 1) {
-        $grouplist = "";
-        
-        foreach( $tGroupsAllowed as $groupid => $right) {
-            
-            if ($grouplist == "") {
-                $grouplist = "'" . $groupid . "'";
-            }
-            else {
-                $grouplist .= ",'" . $groupid . "'";
-            }
-        }
-        
-        $grouplist = "(" . $grouplist . ")";
-        
-        $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "     AND (id in $grouplist)";
-    }
-    else {
-        $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') ";
-    }
-    
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
 
 initialize_i18n();
 
@@ -151,8 +70,8 @@ else {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $_SESSION[SVNSESSID]['groupcounter'] = 0;
-    $tGroups = getGroups(0, - 1, $groupAdmin, $tGroupsAllowed, $dbh);
-    $tCountRecords = getCountGroups($groupAdmin, $tGroupsAllowed, $dbh);
+    $tGroups = db_getGroupsAllowed(0, - 1, $groupAdmin, $tGroupsAllowed, $dbh);
+    $tCountRecords = db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh);
     $tPrevDisabled = "disabled";
     
     if ($tCountRecords <= $CONF['page_size']) {

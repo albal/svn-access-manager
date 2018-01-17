@@ -1,0 +1,22 @@
+.col1 {
+	    width:100%;
+}
+/*body{ font-size:80%;}*/
+
+#edit_form form {
+	font-size:0.8em;
+}
+
+#leftNav {
+	font-size:0.8em;
+}
+
+#therapygroups_table th a, #therapist_table th a, 
+#childsearch_table th a, #fulldoku_table th a, 
+#childdoku_table th a, #userlist_table th a, #class_table th a {
+	font-size:0.8em;
+}
+
+.small {
+	font-size:0.8em;
+}

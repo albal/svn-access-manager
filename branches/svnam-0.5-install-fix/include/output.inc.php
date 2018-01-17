@@ -21,6 +21,10 @@
 
 /*
  *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
  * $Id$
  *
  */
@@ -32,6 +36,8 @@ if (preg_match("/output.inc.php/", $_SERVER['PHP_SELF'])) {
 
 function outputHeader($area) {
 
+    $tUsername = isset($_SESSION[SVNSESSID]['username']) ? $_SESSION[SVNSESSID]['username'] : "undefined";
+    
     print "<ul class='topmenu'>";
     print "<li class='topmenu'><a href='main.php' alt='Home'><img src='./images/gohome.png' border='0' /> " . _("Main menu") . "</a></li>";
     print "<li class='topmenu'><a href='logout.php' alt='Logout'><img src='./images/stop.png' border='0' />" . _("Logoff") . "</a></li>";
@@ -40,7 +46,7 @@ function outputHeader($area) {
     print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
     print "<li><a href='doc/html/index.html#use' alt='" . _("Documentation") . "' id='doc' target='_blank'><img src='./images/help.png' border='0' />" . _("Documentation") . "</a></li>";
     print "</ul>";
-    print "<div align='right'><p>&nbsp;</p>" . _("Logged in as") . ": " . $_SESSION[SVNSESSID]['username'] . "</div>";
+    print "<div align='right'><p>&nbsp;</p>" . _("Logged in as") . ": " . $tUsername . "</div>";
 
 }
 
@@ -116,6 +122,7 @@ function outputSubHeader($area) {
 function outputMenu($area) {
 
     global $CONF;
+    global $_SESSION;
     
     print "\t\t\t\t<h3>" . _("My account") . "</h3>";
     print "\t\t\t\t<ul class='leftMenu'>\n";
@@ -126,16 +133,20 @@ function outputMenu($area) {
     print "\t\t\t\t</ul>\n";
     
     $dbh = db_connect();
-    $rightUserAdmin = db_check_acl($_SESSION[SVNSESSID]['username'], 'User admin', $dbh);
-    $rightGroupAdmin = db_check_acl($_SESSION[SVNSESSID]['username'], 'Group admin', $dbh);
-    $rightProjectAdmin = db_check_acl($_SESSION[SVNSESSID]['username'], 'Project admin', $dbh);
-    $rightRepositoryAdmin = db_check_acl($_SESSION[SVNSESSID]['username'], 'Repository admin', $dbh);
-    $rightAccessRightAdmin = db_check_acl($_SESSION[SVNSESSID]['username'], 'Access rights admin', $dbh);
-    $rightCreateFiles = db_check_acl($_SESSION[SVNSESSID]['username'], 'Create files', $dbh);
-    $rightReports = db_check_acl($_SESSION[SVNSESSID]['username'], 'Reports', $dbh);
-    $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID]['username'], $dbh);
     
-    if (($_SESSION[SVNSESSID]['admin'] == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
+    $tUsername = isset($_SESSION[SVNSESSID]['username']) ? $_SESSION[SVNSESSID]['username'] : 'undefined';
+    $tAdmin = isset($_SESSION[SVNSESSID]['admin']) ? $_SESSION[SVNSESSID]['admin'] : 'n';
+    
+    $rightUserAdmin = db_check_acl($tUsername, 'User admin', $dbh);
+    $rightGroupAdmin = db_check_acl($tUsername, 'Group admin', $dbh);
+    $rightProjectAdmin = db_check_acl($tUsername, 'Project admin', $dbh);
+    $rightRepositoryAdmin = db_check_acl($tUsername, 'Repository admin', $dbh);
+    $rightAccessRightAdmin = db_check_acl($tUsername, 'Access rights admin', $dbh);
+    $rightCreateFiles = db_check_acl($tUsername, 'Create files', $dbh);
+    $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
+    $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
+    
+    if (($tAdmin == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
         
         print "\t\t\t\t<p>&nbsp;</p>";
         print "\t\t\t\t<p>&nbsp;</p>";
@@ -173,7 +184,7 @@ function outputMenu($area) {
         print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_projects.php\">" . _("Projects") . "</a></li>\n";
     }
     
-    if (($rightAccessRightAdmin != "none") or ($_SESSION[SVNSESSID]['admin'] == "p") or ($_SESSION[SVNSESSID]['admin'] == "y")) {
+    if (($rightAccessRightAdmin != "none") or ($tAdmin == "p") or ($tAdmin == "y")) {
         
         print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_access_rights.php\">" . _("Repository access rights") . "</a></li>\n";
     }
@@ -183,7 +194,7 @@ function outputMenu($area) {
         print "\t\t\t\t\t<li class='leftMenu'><a href=\"createAccessFiles.php\">" . _("Create access files") . "</a></li>\n";
     }
     
-    if (($_SESSION[SVNSESSID]['admin'] == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
+    if (($tAdmin == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
         
         print "\t\t\t\t</ul>\n";
     }

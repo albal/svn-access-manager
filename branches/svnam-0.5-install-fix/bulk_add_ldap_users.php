@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate: 2018-01-17 10:55:50 +0100 (Wed, 17 Jan 2018) $
+ * $LastChangedBy: kriegeth $
+ *
+ * $Id: bulk_add_ldap_users.php 549 2018-01-17 09:55:50Z kriegeth $
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -76,17 +75,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         else {
             
             $entry = array();
-            $entry['userid'] = $user['uid'];
+            $entry[USERID] = $user['uid'];
             $entry['name'] = $user['name'];
-            $entry['givenname'] = $user['givenname'];
-            $entry['emailaddress'] = $user['emailaddress'];
+            $entry[GIVENNAME] = $user[GIVENNAME];
+            $entry[EMAILADDRESS] = $user[EMAILADDRESS];
             $entry['selected'] = 1;
             $entry['added'] = 0;
-            $tUsers[$entry['userid']] = $entry;
+            $tUsers[$entry[USERID]] = $entry;
         }
     }
     
-    $_SESSION[SVNSESSID]['bulkaddlist'] = $tUsers;
+    $_SESSION[SVNSESSID][BULKADDLIST] = $tUsers;
     
     $template = "bulk_add_ldap_users.tpl";
     $header = USERS;
@@ -106,10 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
     }
-    elseif ((isset($_POST['fSubmit_new_x'])) or (isset($_POST['fSubmit_new']))) {
+    elseif ((isset($_POST['fSubmit_new_x'])) || (isset($_POST['fSubmit_new']))) {
         $button = _("Submit");
     }
-    elseif ((isset($_POST['fSubmit_back_x'])) or (isset($_POST['fSubmit_back']))) {
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Back");
     }
     else {
@@ -129,12 +128,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         db_ta("BEGIN", $dbh);
         foreach( $tToAdd as $i => $userid) {
             
-            $entry = $_SESSION[SVNSESSID]['bulkaddlist'][$userid];
-            $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, user_mode, created, created_user, password_modified, superadmin) " . "     VALUES ('" . $entry['userid'] . "', '" . $entry['name'] . "', '" . $entry['givenname'] . "', '$tPassword', 1, 0 ,'" . $entry['emailaddress'] . "', 'n', '$tUserRight', now(), '" . $_SESSION[SVNSESSID]['username'] . "', '20000101000000', 0)";
+            $entry = $_SESSION[SVNSESSID][BULKADDLIST][$userid];
+            $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, user_mode, created, created_user, password_modified, superadmin) " . "     VALUES ('" . $entry[USERID] . "', '" . $entry['name'] . "', '" . $entry[GIVENNAME] . "', '$tPassword', 1, 0 ,'" . $entry[EMAILADDRESS] . "', 'n', '$tUserRight', now(), '" . $_SESSION[SVNSESSID]['username'] . "', '20000101000000', 0)";
             $result = db_query($query, $dbh);
-            db_log($_SESSION[SVNSESSID]['username'], "added user " . $entry['userid'] . ", " . $entry['name'] . ", " . $entry['givenname'], $dbh);
+            db_log($_SESSION[SVNSESSID]['username'], "added user " . $entry[USERID] . ", " . $entry['name'] . ", " . $entry[GIVENNAME], $dbh);
             
-            $_SESSION[SVNSESSID]['bulkaddlist'][$userid]['added'] = 1;
+            $_SESSION[SVNSESSID][BULKADDLIST][$userid]['added'] = 1;
         }
         
         db_ta("COMMIT", $dbh);
@@ -146,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    $tUsers = $_SESSION[SVNSESSID]['bulkaddlist'];
+    $tUsers = $_SESSION[SVNSESSID][BULKADDLIST];
     
     $template = "bulk_add_ldap_users.tpl";
     $header = USERS;

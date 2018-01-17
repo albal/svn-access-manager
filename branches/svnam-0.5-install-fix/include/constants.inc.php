@@ -1,4 +1,5 @@
 <?php
+
 /*
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
@@ -20,29 +21,68 @@
 
 /*
  *
- * $Id: output.inc.php 370 2017-12-14 15:54:04Z tom_krieger $
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
  *
  */
+function define_constant($constant, $value) {
+
+    if (! defined($constant)) {
+        define($constant, $value);
+    }
+
+}
+
 if (preg_match("/constants.inc.php/", $_SERVER['PHP_SELF'])) {
     
     header("Location: login.php");
     exit();
 }
-define('INSTALLBASE', 'install_base');
-define('PROJECTS', 'projects');
-define('GROUPS', 'groups');
-define('USERS', 'users');
-define('ACCESS', 'access');
-define('DBERROR', 'dberror');
-define('BACK', 'back');
-define('DELETE', 'delete');
-define('REPOS', 'repos');
-define('GENERAL', 'general');
-define('ERROR', 'error');
-define('ERRORMSG', 'errormsg');
-define('PREFERENCES', 'preferences');
-define('REPORTS', 'reports');
-define('SEARCH', 'search');
-define('SVNSESSID', SVNSESSID)
+
+define_constant('INSTALLBASE', 'install_base');
+
+define_constant('PROJECTS', 'projects');
+define_constant('GROUPS', 'groups');
+define_constant('USERS', 'users');
+define_constant('ACCESS', 'access');
+
+define_constant('DBERROR', 'dberror');
+define_constant('DBQUERY', 'dbquery');
+define_constant('DBFUNCTION', 'dbfunction');
+define_constant('RESULT', 'result');
+define_constant('NOTSET', 'not set');
+
+define_constant('BACK', 'back');
+define_constant('DELETE', 'delete');
+define_constant('REPOS', 'repos');
+define_constant('GENERAL', 'general');
+define_constant('PREFERENCES', 'preferences');
+define_constant('REPORTS', 'reports');
+define_constant('SEARCH', 'search');
+
+define_constant('ERROR', 'error');
+define_constant('ERRORMSG', 'errormsg');
+
+define_constant('SVNSESSID', 'SVNSESSID');
+define_constant('PROJECTID', 'project_id');
+define_constant('REPOID', 'repo_id');
+define_constant('USER_ID', 'user_id');
+define_constant('GROUPID', 'group_id');
+define_constant('RIGHTID', 'rightid');
+define_constant('PROJECTID', 'project_id');
+define_constant('GROUPNAME', 'groupname');
+
+define_constant('PAGESIZE', 'page_size');
+define_constant('ACCESSBY', 'access_by');
+define_constant('ACCESSRIGHT', 'access_right');
+
+define_constant('USERID', 'userid');
+define_constant('GIVENNAME', 'givenname');
+define_constant('BULKADDLIST', 'bulkaddlist');
+define_constant('EMAILADDRESS', 'emailaddress');
 
 ?>
+

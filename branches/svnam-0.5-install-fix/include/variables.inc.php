@@ -21,7 +21,11 @@
 
 /*
  *
- * File: variables.inc.php
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
  *
  */
 if (preg_match("/variables\.inc\.php/", $_SERVER['PHP_SELF'])) {
