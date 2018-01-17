@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+	<testsuites>
+		<testsuite name="Application Test Suite">
+			<directory>./tests/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../include/adodb5/</directory>
+			<directory>../help/</directory>
+			<directory>../lib/</directory>
+			<directory suffix=".php">../tests/</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="../reports/coverage/coverage.xml" />
+		<log type="junit" target="../reports/coverage/execution.xml"
+			logIncompleteSkipped="false" />
+	</logging>
+	<php>
+		<includePath>./config/:./include/:../config/:../include/</includePath>
+	</php>
+</phpunit>
