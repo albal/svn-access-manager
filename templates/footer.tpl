@@ -1,12 +1,12 @@
 		<div id="footer">
 			<?php 
 				$datetime = strftime("%c");
-				$datetime = str_replace( "ä", "&auml;", $datetime ); 
+				$datetime = str_replace( "ï¿½", "&auml;", $datetime ); 
 			?>
 			<table width="100%" cellspacing="0" border="0" cellpadding="0">
    				<tr>
        				<td nowrap>
-						<?php global $CONF; print $CONF['copyright']; ?>
+						<?php global $CONF; print $CONF['copyright']." - PHP Version: ".PHP_VERSION; ?>
 					</td>
 					<td nowrap align="right">
 						<?php print $datetime; ?>

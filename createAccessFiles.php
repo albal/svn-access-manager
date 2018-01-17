@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -107,33 +106,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tRetViewvc = createViewvcConfig($dbh);
             
-            if (($tRetViewvc['error'] == 0) and ($tReload != "")) {
+            if (($tRetViewvc[ERROR] == 0) and ($tReload != "")) {
                 
                 $output = array();
                 
                 exec(escapeshellcmd($tReload), $output, $returncode);
                 sleep(2);
                 
-                $tRetReload['error'] = $returncode;
+                $tRetReload[ERROR] = $returncode;
                 if ($returncode != 0) {
-                    $tRetReload['errormsg'] = _("Reloead of webserver configuration failed");
+                    $tRetReload[ERRORMSG] = _("Reloead of webserver configuration failed");
                 }
                 else {
-                    $tRetReload['errormsg'] = _("Reload of webserver configuration successfull");
+                    $tRetReload[ERRORMSG] = _("Reload of webserver configuration successfull");
                 }
             }
             else {
                 
-                $tRetReload['error'] = 0;
-                $tRetReload['errormsg'] = _("No reload sheduled");
+                $tRetReload[ERROR] = 0;
+                $tRetReload[ERRORMSG] = _("No reload sheduled");
             }
         }
         else {
             
-            $tRetReload['error'] = 0;
-            $tRetReload['errormsg'] = _("No reload sheduled");
-            $tRetViewvc['error'] = 0;
-            $tRetViewvc['errormsg'] = _("No viewvc configuration to create");
+            $tRetReload[ERROR] = 0;
+            $tRetReload[ERRORMSG] = _("No reload sheduled");
+            $tRetViewvc[ERROR] = 0;
+            $tRetViewvc[ERRORMSG] = _("No viewvc configuration to create");
         }
         
         db_log($SESSID_USERNAME, "created auth files", $dbh);

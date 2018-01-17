@@ -18,6 +18,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
 if (preg_match("/db-functions-adodb\.inc\.php/", $_SERVER['PHP_SELF'])) {
     
     header("Location: login.php");
@@ -81,7 +91,7 @@ function db_connect() {
     
     try {
         
-        $link = &ADONewConnection($CONF['database_type']);
+        $link = ADONewConnection($CONF['database_type']);
         $link->Pconnect($CONF['database_host'], $CONF['database_user'], $CONF['database_password'], $CONF['database_name']);
         $link->SetFetchMode(ADODB_FETCH_ASSOC);
         
@@ -92,9 +102,9 @@ function db_connect() {
     }
     catch ( exception $e ) {
         
-        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-        $_SESSION[SVNSESSID]['dbquery'] = "Database connect";
-        $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
+        $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+        $_SESSION[SVNSESSID][DBQUERY] = "Database connect";
+        $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -127,7 +137,7 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
     
     try {
         // error_log( "connect to $dbtype" );
-        $link = &ADONewConnection($dbtype);
+        $link = ADONewConnection($dbtype);
         if ($dbtype == "oci8") {
             $link->Connect($dbname, $dbuser, $dbpassword);
         }
@@ -165,6 +175,44 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
                     'error' => $e->msg
             );
         }
+    }
+    
+    return $link;
+
+}
+
+//
+// db_connect_test
+// Action: Makes a connection to the database if it doesn't exist
+// Call: db_connect ()
+//
+function db_connect_test($dbtype, $dbhost, $dbuser, $dbpass, $dbname, $charset = 'utf8', $collation = 'utf8_general_ci') {
+
+    global $DEBUG_TEXT;
+    
+    $link = "";
+    
+    $nameset = "SET NAMES '$charset' COLLATE '$collation'";
+    
+    try {
+        
+        $link = ADONewConnection($dbtype);
+        $link->Pconnect($dbhost, $dbuser, $dbpass, $dbname);
+        $link->SetFetchMode(ADODB_FETCH_ASSOC);
+        
+        if (($dbtype == "mysql") || ($dbtype == "mysqli")) {
+            $link->Execute($nameset);
+        }
+    }
+    catch ( exception $e ) {
+        
+        $tDbError = 'DB connect error';
+        $tDbQuery = "Database connect";
+        $tDbFunc = "db_connect";
+        
+        echo "User=" . $dbuser . "\nType=" . $dbtype . "\n" . "dberror=$tDbError dbquery=$tDbQuery dbfunc=$tDbFunc\n";
+        
+        $link = null;
     }
     
     return $link;
@@ -254,14 +302,14 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
         
         // error_log( "ERROR: ".print_r($e, true));
         
-        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-        $_SESSION[SVNSESSID]['dbquery'] = $query;
-        $_SESSION[SVNSESSID]['dbfunction'] = "db_query";
+        $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+        $_SESSION[SVNSESSID][DBQUERY] = $query;
+        $_SESSION[SVNSESSID][DBFUNCTION] = "db_query";
         db_ta("ROLLBACK", $link);
         db_disconnect($link);
         
-        error_log("DB-Error: " . $_SESSION[SVNSESSID]['dberror']);
-        error_log("DB-Query: " . $_SESSION[SVNSESSID]['dbquery']);
+        error_log("DB-Error: " . $_SESSION[SVNSESSID][DBERROR]);
+        error_log("DB-Query: " . $_SESSION[SVNSESSID][DBQUERY]);
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -467,13 +515,13 @@ function db_ta($action, $link) {
             }
             else {
                 
-                $_SESSION[SVNSESSID]['dberror'] = sprintf(_("Invalid transaction type %s"), $action);
-                $_SESSION[SVNSESSID]['dbquery'] = $action;
-                $_SESSION[SVNSESSID]['dbfunction'] = "db_ta";
+                $_SESSION[SVNSESSID][DBERROR] = sprintf(_("Invalid transaction type %s"), $action);
+                $_SESSION[SVNSESSID][DBQUERY] = $action;
+                $_SESSION[SVNSESSID][DBFUNCTION] = "db_ta";
                 db_disconnect($link);
                 
-                error_log("DB-Error: " . $_SESSION[SVNSESSID]['dberror']);
-                error_log("DB-Query: " . $_SESSION[SVNSESSID]['dbquery']);
+                error_log("DB-Error: " . $_SESSION[SVNSESSID][DBERROR]);
+                error_log("DB-Query: " . $_SESSION[SVNSESSID][DBQUERY]);
                 
                 if (file_exists(realpath("database_error.php"))) {
                     $location = "database_error.php";
@@ -488,13 +536,13 @@ function db_ta($action, $link) {
         }
         catch ( exception $e ) {
             
-            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-            $_SESSION[SVNSESSID]['dbquery'] = $action;
-            $_SESSION[SVNSESSID]['dbfunction'] = "db_ta";
+            $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+            $_SESSION[SVNSESSID][DBQUERY] = $action;
+            $_SESSION[SVNSESSID][DBFUNCTION] = "db_ta";
             db_disconnect($link);
             
-            error_log("DB-Error: " . $_SESSION[SVNSESSID]['dberror']);
-            error_log("DB-Query: " . $_SESSION[SVNSESSID]['dbquery']);
+            error_log("DB-Error: " . $_SESSION[SVNSESSID][DBERROR]);
+            error_log("DB-Query: " . $_SESSION[SVNSESSID][DBQUERY]);
             
             if (file_exists(realpath("database_error.php"))) {
                 $location = "database_error.php";
@@ -526,7 +574,7 @@ function db_getUseridById($id, $link) {
     $result = db_query("SELECT userid FROM " . $schema . "svnusers WHERE id = $id", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         
         return $row['userid'];
     }
@@ -551,7 +599,7 @@ function db_getIdByUserid($userid, $link) {
     $result = db_query("SELECT id " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         
         return $row['id'];
     }
@@ -602,7 +650,7 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
                 $query = "SELECT CURRVAL(pg_get_serial_sequence('$schema.$table','$column')) AS id";
             }
             $result = db_query($query, $link);
-            $row = db_assoc($result['result']);
+            $row = db_assoc($result[RESULT]);
             $id = $row['id'];
         }
         catch ( exception $e ) {
@@ -629,7 +677,7 @@ function db_getUserRightByUserid($userid, $link) {
     $result = db_query("SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $mode = strtolower($row['user_mode']);
         
         return $mode;
@@ -653,7 +701,7 @@ function db_getGroupRightByGroupid($groupid, $link) {
     $mode = "";
     $schema = db_determine_schema();
     $result = db_query("SELECT svnusers.user_mode " . "  FROM svnusers, svngroups, svn_users_groups " . " WHERE (svngroups.id = $groupid) " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')", $link);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         if ((strtolower($row['user_mode']) == "write") and ($mode == "")) {
             $mode = strtolower($row['user_mode']);
@@ -681,7 +729,7 @@ function db_getRepoById($id, $link) {
     $result = db_query("SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (id = '$id') ", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $reponame = $row['reponame'];
         
         return $reponame;
@@ -707,7 +755,7 @@ function db_getRepoByName($reponame, $link) {
     $result = db_query("SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$reponame') ", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $id = $row['id'];
         
         return $id;
@@ -733,7 +781,7 @@ function db_getProjectById($id, $link) {
     $result = db_query("SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (id = '$id') ", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $projectname = $row['svnmodule'];
         
         return $projectname;
@@ -759,8 +807,8 @@ function db_getGroupById($id, $link) {
     $result = db_query("SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = '$id') ", $link);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
-        $groupname = $row['groupname'];
+        $row = db_assoc($result[RESULT]);
+        $groupname = $row[GROUPNAME];
         
         return $groupname;
     }
@@ -785,7 +833,7 @@ function db_getRightName($id, $link) {
     $query = "SELECT right_name " . "  FROM rights " . " WHERE (id = $id) " . "   AND (deleted = '00000000000000')";
     $result = db_query($query, $link);
     if ($result['rows'] == 1) {
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         return ($row['right_name']);
     }
     else {
@@ -811,19 +859,19 @@ function db_getRightData($id, $link) {
     if ($result['rows'] == 1) {
         
         $ret = array();
-        $row = db_assoc($result['result']);
-        $ret['project_id'] = $row['project_id'];
-        $ret['user_id'] = $row['user_id'];
-        $ret['group_id'] = $row['group_id'];
+        $row = db_assoc($result[RESULT]);
+        $ret[PROJECTID] = $row[PROJECTID];
+        $ret[USER_ID] = $row[USER_ID];
+        $ret[GROUPID] = $row[GROUPID];
         $ret['path'] = $row['path'];
-        $ret['access_right'] = $row['access_right'];
+        $ret[ACCESSRIGHT] = $row[ACCESSRIGHT];
         
-        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = " . $row['project_id'];
+        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE id = " . $row[PROJECTID];
         $result = db_query($query, $link);
         if ($result['rows'] == 1) {
             
-            $row = db_assoc($result['result']);
-            $ret['repo_id'] = $row['repo_id'];
+            $row = db_assoc($result[RESULT]);
+            $ret[REPOID] = $row[REPOID];
         }
         else {
             
@@ -831,6 +879,456 @@ function db_getRightData($id, $link) {
         }
         
         return $ret;
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getGroupsForUser
+// Action: get all groups for an user
+// Call: db_getGroupsForUser(string $tUserId, resource $dbh)
+//
+function db_getGroupsForUser($tUserId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tGroups = array();
+    $query = "SELECT * " . "  FROM " . $schema . "svngroups, " . $schema . "svn_users_groups " . " WHERE (svn_users_groups.user_id = '$tUserId') " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tGroups[] = $row;
+    }
+    
+    return ($tGroups);
+
+}
+
+//
+// db_getProjectResponsibleForUser
+// Action: get projects an user is responsible for
+// Call: db_getProjectResponsibleForUser(string $tUserId, resource $dbh)
+//
+function db_getProjectResponsibleForUser($tUserId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tProjects = array();
+    $query = "SELECT svnmodule, reponame " . "  FROM " . $schema . "svnprojects, " . $schema . "svn_projects_responsible, " . $schema . "svnrepos " . " WHERE (svn_projects_responsible.user_id = '$tUserId') " . "   AND (svn_projects_responsible.deleted = '00000000000000') " . "   AND (svn_projects_responsible.project_id = svnprojects.id) " . "   AND (svnprojects.deleted = '00000000000000') " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svnrepos.deleted = '00000000000000') " . "ORDER BY svnmodule ASC";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tProjects[] = $row;
+    }
+    
+    return ($tProjects);
+
+}
+
+//
+// db_getAccessRightsForUser
+// Action: get access rights assigned to an user
+// Call: db_getAccessRightsForUser(string $tUserId, array $tGroups, resource $dbh)
+//
+function db_getAccessRightsForUser($tUserId, $tGroups, $dbh) {
+
+    global $CONF;
+    
+    if (isset($CONF['repoPathSortOrder'])) {
+        $pathSort = $CONF['repoPathSortOrder'];
+    }
+    else {
+        $pathSort = "ASC";
+    }
+    
+    $schema = db_determine_schema();
+    $tAccessRights = array();
+    $curdate = strftime("%Y%m%d");
+    $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) ";
+    if (count($tGroups) > 0) {
+        $query .= "     AND ((svn_access_rights.user_id = $tUserId) ";
+        foreach( $tGroups as $entry) {
+            $query .= "    OR (svn_access_rights.group_id = " . $entry[GROUPID] . ") ";
+        }
+        $query .= "       ) ";
+    }
+    else {
+        $query .= "     AND (svn_access_rights.user_id = $tUserId) ";
+    }
+    $query .= "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnrepos.reponame ASC, svnprojects.svnmodule ASC, svn_access_rights.path $pathSort";
+    
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        if (($row[USER_ID] != 0) && ($row[GROUPID] != 0)) {
+            $row[ACCESSBY] = _("user id + group id");
+        }
+        elseif ($row[GROUPID] != 0) {
+            $row[ACCESSBY] = _("group id");
+        }
+        elseif ($row[USER_ID] != 0) {
+            $row[ACCESSBY] = _("user id");
+        }
+        else {
+            $row[ACCESSBY] = " ";
+        }
+        $tAccessRights[] = $row;
+    }
+    
+    return ($tAccessRights);
+
+}
+
+//
+// db_getAccessRights
+// Action: get access rights of an user
+// Call: db_getAccessRights(integer $user_id, integer $start, integer $count, resource $dbh)
+//
+function db_getAccessRights($user_id, $start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    
+    if ($user_id != - 1) {
+        $id = db_getIdByUserid($user_id, $dbh);
+        if ($id == false) {
+            $tProjectIds = "";
+            $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
+        }
+        else {
+            $tProjectIds = "";
+            $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (user_id = $id) " . "   AND (deleted = '00000000000000')";
+        }
+    }
+    else {
+        
+        $tProjectIds = "";
+        $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
+    }
+    
+    $result = db_query($query, $dbh);
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        if ($tProjectIds == "") {
+            
+            $tProjectIds = $row[PROJECTID];
+        }
+        else {
+            
+            $tProjectIds = $tProjectIds . "," . $row[PROJECTID];
+        }
+    }
+    
+    $tAccessRights = array();
+    
+    if ($tProjectIds != "") {
+        
+        $query = "SELECT svn_access_rights.id AS id, svnmodule, modulepath, svnrepos." . "       reponame, valid_from, valid_until, path, access_right, recursive," . "       svn_access_rights.user_id, svn_access_rights.group_id, repopath " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.id IN (" . $tProjectIds . "))" . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "ORDER BY LOWER(svnmodule) ASC ";
+        $result = db_query($query, $dbh, $count, $start);
+        
+        while ( $row = db_assoc($result[RESULT]) ) {
+            
+            $entry = $row;
+            $userid = $row['user_id'];
+            if (empty($userid)) {
+                $userid = 0;
+            }
+            
+            $groupid = $row['group_id'];
+            if (empty($groupid)) {
+                $groupid = 0;
+            }
+            
+            $entry[GROUPNAME] = "";
+            $entry['username'] = "";
+            $add = false;
+            
+            if ($userid != "0") {
+                
+                $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $userid";
+                $resultread = db_query($query, $dbh);
+                if ($resultread['rows'] == 1) {
+                    
+                    $row = db_assoc($resultread[RESULT]);
+                    $entry['username'] = $row['userid'];
+                }
+            }
+            
+            if ($groupid != "0") {
+                
+                $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $groupid";
+                $resultread = db_query($query, $dbh);
+                if ($resultread['rows'] == 1) {
+                    
+                    $row = db_assoc($resultread[RESULT]);
+                    $entry[GROUPNAME] = $row[GROUPNAME];
+                    $add = true;
+                }
+                else {
+                    $entry[GROUPNAME] = "unknown";
+                }
+            }
+            
+            $tAccessRights[] = $entry;
+        }
+    }
+    
+    return $tAccessRights;
+
+}
+
+//
+// db_getCountAccessRights
+// Action: get count of user's access rights
+// Call: db_getCountAccessRights(integer $user_id, resource $dbh)
+//
+function db_getCountAccessRights($user_id, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    
+    if ($user_id != - 1) {
+        $id = db_getIdByUserid($user_id, $dbh);
+        if ($id == false) {
+            $tProjectIds = "";
+            $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
+        }
+        else {
+            $tProjectIds = "";
+            $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (user_id = $id) " . "   AND (deleted = '00000000000000')";
+        }
+    }
+    else {
+        
+        $tProjectIds = "";
+        $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
+    }
+    
+    $result = db_query($query, $dbh);
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        if ($tProjectIds == "") {
+            
+            $tProjectIds = $row[PROJECTID];
+        }
+        else {
+            
+            $tProjectIds = $tProjectIds . "," . $row[PROJECTID];
+        }
+    }
+    
+    if ($tProjectIds != "") {
+        
+        $query = "SELECT COUNT(*) AS anz " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.id IN (" . $tProjectIds . "))" . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') ";
+        
+        $result = db_query($query, $dbh);
+        
+        if ($result['rows'] == 1) {
+            
+            $row = db_assoc($result[RESULT]);
+            
+            return $row['anz'];
+        }
+        else {
+            
+            return false;
+        }
+    }
+    else {
+        
+        return 0;
+    }
+
+}
+
+//
+// db_getGroups
+// Action: get groups
+// Call: db_getGroups(integer $start, integer $count, resource $dbh)
+//
+function db_getGroups($start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    
+    $tGroups = array();
+    $query = "SELECT  svnusers.userid, svnusers.name, svnusers.givenname, svngroups.groupname, svngroups.description, svn_groups_responsible.allowed, svn_groups_responsible.id AS id " . "   FROM " . $schema . "svn_groups_responsible, " . $schema . "svngroups, " . $schema . "svnusers " . "   WHERE (svnusers.deleted = '00000000000000') " . "     AND (svngroups.deleted = '00000000000000') " . "     AND (svn_groups_responsible.deleted = '00000000000000') " . "     AND (svnusers.id = svn_groups_responsible.user_id) " . "     AND (svngroups.id = svn_groups_responsible.group_id) " . "ORDER BY groupname ASC";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tGroups[] = $row;
+    }
+    
+    return $tGroups;
+
+}
+
+//
+// db_getCountGroups
+// Action: get number of groups
+// Call: db_getCountGroups(resource $dbh);
+//
+function db_getCountGroups($dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    
+    $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svn_groups_responsible, " . $schema . "svngroups, " . $schema . "svnusers " . "   WHERE (svnusers.deleted = '00000000000000') " . "     AND (svngroups.deleted = '00000000000000') " . "     AND (svn_groups_responsible.deleted = '00000000000000') " . "     AND (svnusers.id = svn_groups_responsible.user_id) " . "     AND (svngroups.id = svn_groups_responsible.group_id)";
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result[RESULT]);
+        
+        return $row['anz'];
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getGroupsAllowed
+// Action: get allowed groups
+// Call: db_getGroupsAllowed(integer $start, integer $count, integer $groupAdmin, array $tGroupsAllowed, resource $dbh)
+//
+function db_getGroupsAllowed($start, $count, $groupAdmin, $tGroupsAllowed, $dbh) {
+
+    $schema = db_determine_schema();
+    $tGroups = array();
+    
+    if ($groupAdmin == 1) {
+        
+        $grouplist = "";
+        
+        foreach( $tGroupsAllowed as $groupid => $right) {
+            
+            if ($grouplist == "") {
+                $grouplist = "'" . $groupid . "'";
+            }
+            else {
+                $grouplist .= ",'" . $groupid . "'";
+            }
+        }
+        
+        $grouplist = "(" . $grouplist . ")";
+        
+        $query = "SELECT  * " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "     AND (id in $grouplist) " . "ORDER BY groupname ASC ";
+    }
+    else {
+        $query = "SELECT  * " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "ORDER BY groupname ASC ";
+    }
+    
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tGroups[] = $row;
+    }
+    
+    return $tGroups;
+
+}
+
+//
+// db_getCountGroupsAllowed
+// Action: get count of allowed groups
+// Call: db_getCountGroupsAllowed(integer $groupAdmin, array $tGroupsAllowed, resource $dbh)
+//
+function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
+
+    $schema = db_determine_schema();
+    
+    if ($groupAdmin == 1) {
+        $grouplist = "";
+        
+        foreach( $tGroupsAllowed as $groupid => $right) {
+            
+            if ($grouplist == "") {
+                $grouplist = "'" . $groupid . "'";
+            }
+            else {
+                $grouplist .= ",'" . $groupid . "'";
+            }
+        }
+        
+        $grouplist = "(" . $grouplist . ")";
+        
+        $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "     AND (id in $grouplist)";
+    }
+    else {
+        $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') ";
+    }
+    
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result[RESULT]);
+        
+        return $row['anz'];
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getProjects
+// Action: get projects from db
+// Call: db_getProjects(integer $start, integer $count, resource $dbh)
+//
+function db_getProjects($start, $count, $dbh) {
+
+    $schema = db_determine_schema();
+    $tProjects = array();
+    $query = "SELECT   svnprojects.id, svnprojects.svnmodule, svnprojects.modulepath, svnrepos.reponame " . "    FROM " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svnrepos.deleted = '00000000000000') " . "     AND (svnprojects.deleted = '00000000000000') " . "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnmodule ASC ";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tProjects[] = $row;
+    }
+    
+    return $tProjects;
+
+}
+
+//
+// db_getCountProjects
+// Action: get count of projects
+// Call: db_getCountProjects(resource $dbh)
+//
+function db_getCountProjects($dbh) {
+
+    $schema = db_determine_schema();
+    
+    $query = "SELECT   COUNT(*) AS anz " . "    FROM " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svnrepos.deleted = '00000000000000') " . "     AND (svnprojects.deleted = '00000000000000') " . "     AND (svnprojects.repo_id = svnrepos.id) ";
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result[RESULT]);
+        
+        return $row['anz'];
     }
     else {
         
@@ -853,7 +1351,7 @@ function db_check_global_admin($username, $link) {
     $query = "SELECT superadmin " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "   AND (userid = '$username')";
     $result = db_query($query, $link);
     if ($result['rows'] > 0) {
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $ret = strtolower($row['superadmin']) == 1 ? true : false;
         return ($ret);
     }
@@ -877,7 +1375,7 @@ function db_check_global_admin_by_id($id, $link) {
     $query = "SELECT superadmin " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "   AND (id = $id)";
     $result = db_query($query, $link);
     if ($result['rows'] > 0) {
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $ret = strtolower($row['superadmin']) == 1 ? true : false;
         return ($ret);
     }
@@ -904,7 +1402,7 @@ function db_check_acl($username, $action, $dbh) {
     
     if ($result['rows'] > 0) {
         
-        $row = db_assoc($result['result']);
+        $row = db_assoc($result[RESULT]);
         $right = $row['allowed'];
     }
     else {
@@ -933,9 +1431,9 @@ function db_check_group_acl($username, $dbh) {
     
     if ($result['rows'] > 0) {
         
-        while ( $row = db_assoc($result['result']) ) {
+        while ( $row = db_assoc($result[RESULT]) ) {
             
-            $groupid = $row['group_id'];
+            $groupid = $row[GROUPID];
             $right = $row['allowed'];
             $tAllowedGroups[$groupid] = $right;
         }
@@ -954,26 +1452,26 @@ function db_get_preferences($userid, $link) {
 
     global $CONF;
     
+    $preferences['page_size'] = $CONF['page_size'];
+    $preferences['user_sort_fields'] = $CONF['user_sort_fields'];
+    $preferences['user_sort_order'] = $CONF['user_sort_order'];
+    
     $schema = db_determine_schema();
     
     $id = db_getIdByUserid($userid, $link);
-    $query = "SELECT * " . "  FROM " . $schema . "preferences " . " WHERE user_id = $id";
-    $result = db_query($query, $link);
-    
-    if ($result['rows'] == 1) {
+    if ($id != false) {
+        $query = "SELECT * " . "  FROM " . $schema . "preferences " . " WHERE user_id = $id";
+        $result = db_query($query, $link);
         
-        $row = db_assoc($result['result']);
-        $page_size = $row['page_size'];
-        $preferences = array();
-        $preferences['page_size'] = $page_size;
-        $preferences['user_sort_fields'] = $row['user_sort_fields'];
-        $preferences['user_sort_order'] = $row['user_sort_order'];
-    }
-    else {
-        
-        $preferences['page_size'] = $CONF['page_size'];
-        $preferences['user_sort_fields'] = $CONF['user_sort_fields'];
-        $preferences['user_sort_order'] = $CONF['user_sort_order'];
+        if ($result['rows'] == 1) {
+            
+            $row = db_assoc($result[RESULT]);
+            $page_size = $row['page_size'];
+            $preferences = array();
+            $preferences['page_size'] = $page_size;
+            $preferences['user_sort_fields'] = $row['user_sort_fields'];
+            $preferences['user_sort_order'] = $row['user_sort_order'];
+        }
     }
     
     return $preferences;
@@ -1194,9 +1692,9 @@ function ldap_check_user_exists($userid) {
     }
     catch ( exception $e ) {
         
-        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-        $_SESSION[SVNSESSID]['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
-        $_SESSION[SVNSESSID]['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+        $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -1299,9 +1797,9 @@ function get_ldap_users() {
     }
     catch ( exception $e ) {
         
-        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-        $_SESSION[SVNSESSID]['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
-        $_SESSION[SVNSESSID]['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+        $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
+        $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], $CONF['bind_pw'], $CONF['user_dn']);
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -1401,9 +1899,9 @@ function get_ldap_users() {
     }
     catch ( exception $e ) {
         
-        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-        $_SESSION[SVNSESSID]['dbquery'] = $filter;
-        $_SESSION[SVNSESSID]['dbfunction'] = "get_ldap_user";
+        $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+        $_SESSION[SVNSESSID][DBQUERY] = $filter;
+        $_SESSION[SVNSESSID][DBFUNCTION] = "get_ldap_user";
         
         if (file_exists(realpath("database_error.php"))) {
             $location = "database_error.php";
@@ -1488,11 +1986,11 @@ function check_ldap_password($userid, $password) {
     catch ( exception $e ) {
         
         // error_log( "exception during connect" );
-        $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-        $_SESSION[SVNSESSID]['dbquery'] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
-        $_SESSION[SVNSESSID]['dbfunction'] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+        $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+        $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
+        $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF['ldap_server'], $CONF['bind_dn'], 'xxxxxxxx', $CONF['user_dn']);
         
-        $tErrorMessage = strtolower($_SESSION[SVNSESSID]['dberror']);
+        $tErrorMessage = strtolower($_SESSION[SVNSESSID][DBERROR]);
         
         if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1) and strpos($tErrorMessage, "invalid") and strpos($tErrorMessage, "credentials")) {
             $ldapOpen = 0;
@@ -1601,7 +2099,7 @@ class Session {
         
         try {
             
-            self::$_sess_db = &ADONewConnection($CONF['database_type']);
+            self::$_sess_db = ADONewConnection($CONF['database_type']);
             self::$_sess_db->Pconnect($CONF['database_host'], $CONF['database_user'], $CONF['database_password'], $CONF['database_name']);
             self::$_sess_db->SetFetchMode(ADODB_FETCH_ASSOC);
             
@@ -1615,9 +2113,9 @@ class Session {
             
             // var_dump($e);
             
-            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-            $_SESSION[SVNSESSID]['dbquery'] = "Database connect";
-            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+            $_SESSION[SVNSESSID][DBQUERY] = "Database connect";
+            $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: Session database connect");
@@ -1704,9 +2202,9 @@ class Session {
             
             // var_dump($e);
             
-            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-            $_SESSION[SVNSESSID]['dbquery'] = $sql;
-            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+            $_SESSION[SVNSESSID][DBQUERY] = $sql;
+            $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");
@@ -1777,9 +2275,9 @@ class Session {
             // error_log( print_r($e, true) );
             // error_log( "session write exception 2" );
             
-            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-            $_SESSION[SVNSESSID]['dbquery'] = $sql;
-            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+            $_SESSION[SVNSESSID][DBQUERY] = $sql;
+            $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");
@@ -1844,9 +2342,9 @@ class Session {
         }
         catch ( exception $e ) {
             
-            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-            $_SESSION[SVNSESSID]['dbquery'] = $sql;
-            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+            $_SESSION[SVNSESSID][DBQUERY] = $sql;
+            $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");
@@ -1907,9 +2405,9 @@ class Session {
         }
         catch ( exception $e ) {
             
-            $_SESSION[SVNSESSID]['dberror'] = $e->msg;
-            $_SESSION[SVNSESSID]['dbquery'] = $sql;
-            $_SESSION[SVNSESSID]['dbfunction'] = "db_connect";
+            $_SESSION[SVNSESSID][DBERROR] = $e->msg;
+            $_SESSION[SVNSESSID][DBQUERY] = $sql;
+            $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
             
             error_log("DB error: " . $e->msg);
             error_log("DB query: $sql");

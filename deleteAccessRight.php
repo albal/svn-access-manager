@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -82,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
     
-    $_SESSION[SVNSESSID]['rightid'] = $tId;
+    $_SESSION[SVNSESSID][RIGHTID] = $tId;
     
     if ($_SESSION[SVNSESSID]['task'] == "delete") {
         
@@ -91,10 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         
         if ($result['rows'] == 1) {
             
-            $row = db_assoc($result['result']);
+            $row = db_assoc($result[RESULT]);
             $projectid = $row['project_id'];
-            $userid = $row['user_id'];
-            $groupid = $row['group_id'];
+            $userid = $row[USER_ID];
+            $groupid = $row[GROUPID];
             $tPathSelected = $row['path'];
             $validfrom = $row['valid_from'];
             $validuntil = $row['valid_until'];
@@ -116,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $result = db_query($query, $dbh);
             if ($result['rows'] == 1) {
                 
-                $row = db_assoc($result['result']);
+                $row = db_assoc($result[RESULT]);
                 $tProjectName = $row['svnmodule'];
                 $tModulePath = $row['modulepath'];
                 
@@ -127,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     
                     if ($result['rows'] == 1) {
                         
-                        $row = db_assoc($result['result']);
+                        $row = db_assoc($result[RESULT]);
                         $name = $row['name'];
                         $givenname = $row['givenname'];
                         if ($givenname != "") {
@@ -152,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                     
                     if ($result['rows'] == 1) {
                         
-                        $row = db_assoc($result['result']);
+                        $row = db_assoc($result[RESULT]);
                         $tGroups = $row['groupname'];
                     }
                     else {
@@ -207,16 +206,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $rightdata = db_getRightdata($_SESSION[SVNSESSID]['rightid'], $dbh);
-        if ($rightdata['user_id'] != 0) {
-            $username = db_getUseridById($rightdata['user_id'], $dbh);
+        $rightdata = db_getRightdata($_SESSION[SVNSESSID][RIGHTID], $dbh);
+        if ($rightdata[USER_ID] != 0) {
+            $username = db_getUseridById($rightdata[USER_ID], $dbh);
         }
         else {
             $username = "";
         }
         
-        if ($rightdata['group_id'] != 0) {
-            $groupname = db_getGroupById($rightdata['group_id'], $dbh);
+        if ($rightdata[GROUPID] != 0) {
+            $groupname = db_getGroupById($rightdata[GROUPID], $dbh);
         }
         
         $projectname = db_getProjectbyId($rightdata['project_id'], $dbh);
@@ -227,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         db_ta('BEGIN', $dbh);
         db_log($_SESSION[SVNSESSID]['username'], "deleted access right $accessright for repository $reponame, path $path, project $projectname", $dbh);
         $dbnow = db_now();
-        $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = " . $_SESSION[SVNSESSID]['rightid'];
+        $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = " . $_SESSION[SVNSESSID][RIGHTID];
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 1) {
@@ -241,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             db_ta('ROLLBACK', $dbh);
             
-            $tMessage = sprintf(_("Error while updating right id %s for delete"), $_SESSION[SVNSESSID]['rightid']);
+            $tMessage = sprintf(_("Error while updating right id %s for delete"), $_SESSION[SVNSESSID][RIGHTID]);
         }
     }
     elseif ($button == _("Back")) {

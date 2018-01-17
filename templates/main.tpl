@@ -21,18 +21,20 @@
 						<td><a href="preferences.php"><?php print _("Preferences"); ?></a></td>
 					</tr>
 					<?php
-						$dbh						= db_connect();
-						$rightUserAdmin				= db_check_acl( $_SESSION[SVNSESSID]['username'], 'User admin', $dbh );
-						$rightGroupAdmin			= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Group admin', $dbh );
-						$rightProjectAdmin			= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Project admin', $dbh );
-						$rightRepositoryAdmin		= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Repository admin', $dbh );
-						$rightAccessRightAdmin		= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Access rights admin', $dbh );
-						$rightCreateFiles			= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Create files', $dbh );
-						$rightReports				= db_check_acl( $_SESSION[SVNSESSID]['username'], 'Reports', $dbh );
-						$tGroupsAllowed				= db_check_group_acl( $_SESSION[SVNSESSID]['username'], $dbh );
+					    $tUsername                  = isset($_SESSION[SVNSESSID]['username']) ? $_SESSION[SVNSESSID]['username'] : 'undefined';
+					    $tAdmin                     = isset($_SESSION[SVNSESSID]['admin']) ? $_SESSION[SVNSESSID]['admin'] : 'n';
+ 						$dbh						= db_connect();
+						$rightUserAdmin				= db_check_acl( $tUsername, 'User admin', $dbh );
+						$rightGroupAdmin			= db_check_acl( $tUsername, 'Group admin', $dbh );
+						$rightProjectAdmin			= db_check_acl( $tUsername, 'Project admin', $dbh );
+						$rightRepositoryAdmin		= db_check_acl( $tUsername, 'Repository admin', $dbh );
+						$rightAccessRightAdmin		= db_check_acl( $tUsername, 'Access rights admin', $dbh );
+						$rightCreateFiles			= db_check_acl( $tUsername, 'Create files', $dbh );
+						$rightReports				= db_check_acl( $tUsername, 'Reports', $dbh );
+						$tGroupsAllowed				= db_check_group_acl( $tUsername, $dbh );
 						$count						= 0;
 	
-						if( ($_SESSION[SVNSESSID]['admin'] == "p" ) or
+						if( ($tAdmin == "p" ) or
 						    ($rightUserAdmin != "none") or
 	    					($rightGroupAdmin != "none") or 
 	    					($rightProjectAdmin != "none") or
@@ -98,7 +100,7 @@
 							
 						}
 						
-						if( ($rightAccessRightAdmin != "none") or ($_SESSION[SVNSESSID]['admin'] == "p" ) ) {
+						if( ($rightAccessRightAdmin != "none") or ($tAdmin == "p" ) ) {
 							
 							if( $count >= 4 ) {
 								
@@ -142,7 +144,7 @@
 						}
 						
 						
-						if( ($_SESSION[SVNSESSID]['admin'] == "p" ) or
+						if( ($tAdmin == "p" ) or
 	    					($rightUserAdmin != "none") or
 	    					($rightGroupAdmin != "none") or 
 						    ($rightProjectAdmin != "none") or

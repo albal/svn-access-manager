@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true">
+<phpunit colors="true" bootstrap="tests/bootstrap/bootstrap.php" backupGlobals="false">
 	<testsuites>
 		<testsuite name="Application Test Suite">
 			<directory>./tests/</directory>
@@ -20,5 +20,20 @@
 	</logging>
 	<php>
 		<includePath>./config/:./include/:../config/:../include/</includePath>
+
+		<var name="DB_DSN" value="mysql:dbname=svnamtest;host=localhost" />
+		<var name="DB_USER" value="svnamtest" />
+		<var name="DB_PASSWD" value="svnamtestpass" />
+		<var name="DB_DBNAME" value="svnamtest" />
+		<var name="DB_HOST" value="localhost" />
+		<var name="DB_TYPE" value="mysqli" />
+		<var name="DB_TEST_DATE" value="20180102" />
+
+		<server name="HTTP_HOST" value="localhost" />
+		<server name="PHP_SELF" value="meandyou.php" />
+		<server name="HTTP_ACCEPT_LANGUAGE" value="de_DE" />
+		<server name="REMOTE_ADDR" value="127.0.0.1" />
+		
+		<const name="SVNSESSID" value="SVNSESSID" />
 	</php>
 </phpunit>

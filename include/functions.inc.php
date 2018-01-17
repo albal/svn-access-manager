@@ -19,6 +19,16 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+
 // error_reporting (E_ERROR | E_WARNING | E_PARSE);
 error_reporting(E_NOTICE | E_ERROR | E_WARNING | E_PARSE);
 ini_set('display_errors', 'On');
@@ -232,7 +242,8 @@ function check_language() {
             'de',
             'en'
     );
-    $lang_array = preg_split('/(\s*,\s*)/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    $accept_languages = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+    $lang_array = preg_split('/(\s*,\s*)/', $accept_languages);
     
     if (is_array($lang_array)) {
         
@@ -355,10 +366,12 @@ function getDateJhjjmmtt() {
     $mon = $date['mon'];
     $day = $date['mday'];
     
-    if ($mon < "10")
+    if ($mon < "10") {
         $mon = "0" . $mon;
-    if ($day < "10")
+    }
+    if ($day < "10") {
         $day = "0" . $day;
+    }
     
     $moddate = $year . $mon . $day;
     
@@ -445,6 +458,7 @@ function escape_string($string) {
             return $string;
         }
         else {
+            $escaped_string = $string;
             
             if ($CONF['database_type'] == "mysql") {
                 $escaped_string = mysql_real_escape_string($string);
@@ -979,12 +993,12 @@ function checkPasswordPolicy($password, $admin = "y") {
     else {
         
         if (isset($CONF['minPasswordlengthUser'])) {
-            $minPasswordlengthUser = $CONF['minPasswordlengthUser'];
+            $minPasswordLengthUser = $CONF['minPasswordlengthUser'];
         }
         else {
             $minPasswordLengthUser = 8;
         }
-        if ($passwordLength < $CONF['minPasswordlengthUser']) {
+        if ($passwordLength < $minPasswordLengthUser) {
             
             $retval = 0;
         }

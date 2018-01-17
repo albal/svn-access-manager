@@ -18,18 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-if (file_exists(realpath("./config/config.inc.php"))) {
-    require ("./config/config.inc.php");
-}
-elseif (file_exists(realpath("../config/config.inc.php"))) {
-    require ("../config/config.inc.php");
-}
-elseif (file_exists("/etc/svn-access-manager/config.inc.php")) {
-    require ("/etc/svn-access-manager/config.inc.php");
-}
-else {
-    die("can't load config.inc.php. Please check your installation!\n");
-}
+
+/*
+ *
+ * File: workOnGroupAccessRight.php
+ * $LastChangedDate: 2018-01-17 10:55:50 +0100 (Wed, 17 Jan 2018) $
+ * $LastChangedBy: kriegeth $
+ *
+ * $Id: rep_show_user.php 549 2018-01-17 09:55:50Z kriegeth $
+ *
+ */
+include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
@@ -54,92 +53,6 @@ function getUsers($start, $count, $dbh) {
     }
     
     return $tUsers;
-
-}
-
-function getGroupsForUser($tUserId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tGroups = array();
-    $query = "SELECT * " . "  FROM " . $schema . "svngroups, " . $schema . "svn_users_groups " . " WHERE (svn_users_groups.user_id = '$tUserId') " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')";
-    $result = db_query($query, $dbh);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tGroups[] = $row;
-    }
-    
-    return ($tGroups);
-
-}
-
-function getProjectResponsibleForUser($tUserId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tProjects = array();
-    $query = "SELECT svnmodule, reponame " . "  FROM " . $schema . "svnprojects, " . $schema . "svn_projects_responsible, " . $schema . "svnrepos " . " WHERE (svn_projects_responsible.user_id = '$tUserId') " . "   AND (svn_projects_responsible.deleted = '00000000000000') " . "   AND (svn_projects_responsible.project_id = svnprojects.id) " . "   AND (svnprojects.deleted = '00000000000000') " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svnrepos.deleted = '00000000000000') " . "ORDER BY svnmodule ASC";
-    $result = db_query($query, $dbh);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tProjects[] = $row;
-    }
-    
-    return ($tProjects);
-
-}
-
-function getAccessRightsForUser($tUserId, $tGroups, $dbh) {
-
-    global $CONF;
-    
-    if (isset($CONF['repoPathSortOrder'])) {
-        $pathSort = $CONF['repoPathSortOrder'];
-    }
-    else {
-        $pathSort = "ASC";
-    }
-    
-    $schema = db_determine_schema();
-    $tAccessRights = array();
-    $curdate = strftime("%Y%m%d");
-    $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) ";
-    if (count($tGroups) > 0) {
-        $query .= "     AND ((svn_access_rights.user_id = $tUserId) ";
-        foreach( $tGroups as $entry) {
-            $query .= "    OR (svn_access_rights.group_id = " . $entry['group_id'] . ") ";
-        }
-        $query .= "       ) ";
-    }
-    else {
-        $query .= "     AND (svn_access_rights.user_id = $tUserId) ";
-    }
-    $query .= "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnrepos.reponame ASC, svnprojects.svnmodule ASC, svn_access_rights.path $pathSort";
-    
-    $result = db_query($query, $dbh);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        if (($row['user_id'] != 0) and ($row['group_id'] != 0)) {
-            $row['access_by'] = _("user id + group id");
-        }
-        elseif ($row['group_id'] != 0) {
-            $row['access_by'] = _("group id");
-        }
-        elseif ($row['user_id'] != 0) {
-            $row['access_by'] = _("user id");
-        }
-        else {
-            $row['access_by'] = " ";
-        }
-        $tAccessRights[] = $row;
-    }
-    
-    return ($tAccessRights);
 
 }
 
@@ -251,9 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tAccessRight = $tUserData['user_mode'];
             $tPasswordModified = implode(" ", splitDateTime($tUserData['password_modified']));
             $lang = check_language();
-            $tGroups = getGroupsForUser($tUserId, $dbh);
-            $tAccessRights = getAccessRightsForUser($tUserId, $tGroups, $dbh);
-            $tProjects = getProjectResponsibleForUser($tUserId, $dbh);
+            $tGroups = db_getGroupsForUser($tUserId, $dbh);
+            $tAccessRights = db_getAccessRightsForUser($tUserId, $tGroups, $dbh);
+            $tProjects = db_getProjectResponsibleForUser($tUserId, $dbh);
         }
     }
     else {

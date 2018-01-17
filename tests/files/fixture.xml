@@ -1,0 +1,1308 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="svnam">
+	<table_data name="help">
+	<row>
+		<field name="id">1</field>
+		<field name="topic">login</field>
+		<field name="headline_en">Login</field>
+		<field name="headline_de">Login</field>
+		<field name="helptext_de">Geben Sie Ihren Benutzernamen und Ihr Passwort ein. Sollte Ihr Passwort abgelaufen sein, m&amp;uuml;ssen Sie es nach dem Login &amp;auml;ndern.
+Vergessene Passw&amp;ouml;rter k&amp;ouml;nnen Sie selbst unter &quot;Vergessenes Passwort&quot; zur&amp;uuml;cksetzen, wenn Sie eine Sicherheitsabfrage und eine g&amp;uuml;ltige Emailadresse bei Ihren Zugangsdaten hinterlegt haben.</field>
+		<field name="helptext_en">Insert your username and your password. If your password has expired, you have to change it after login.
+Lost passwords can be recovered with &quot;Lost password&quot;, if you provided a &quot;Security question&quot; and a valid email address in your account settings.</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="topic">general</field>
+		<field name="headline_en">General</field>
+		<field name="headline_de">Allgemein</field>
+		<field name="helptext_de">Hier k&amp;ouml;nnen Sie Ihren Vornamen, Ihren Nachnamen, die Emailadresse und eventuell den Inhalt optionaler Felder &amp;auml;ndern.
+Bitte hinterlegen Sie eine g&amp;uuml;ltige Emailadresse, damit Sie benachrichtigt werden und reagieren k&amp;ouml;nnen, wenn zum Beispiel Ihr Passwort abl&amp;auml;uft, um eine Sperrung Ihrer Benutzerkennung zu vermeiden.
+Wenn Sie eine Sicherheitsfrage und eine dazugeh&amp;ouml;rige Antwort hinterlegen, k&amp;ouml;nnen Sie vergessene Passw&amp;ouml;rter auf der Login-Seite selbst zur&amp;uuml;cksetzen. Bei Eingabe der Antwort m&amp;uuml;ssen Gro&amp;szlig;- und Kleinschreibung beachtet werden.
+Weiter unten auf der Seite finden Sie eine &amp;Uuml;bersicht ihrer Gruppenmitgliedschaften, der Projekte. f&amp;uuml;r die Sie verantwortlich sind und ihre aktuellen SVN-Zugriffsrechte.</field>
+		<field name="helptext_en">You can change your given name, your name, email address and the content of optional fields, if available.
+Please provide a valid email address to be able to receive and act on information concerning your account, for example notification about an expiring password, which can lead to a lock of your account if not taken care of.
+If you provide a security question and answer, you can recover lost passwords by yourself at the login page. The security answer is case sensitive.
+ At the bottom of this page, you find an overview of your group memberships, projects you are responsible for and your current svn-access-rights.</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="topic">password</field>
+		<field name="headline_en">Password</field>
+		<field name="headline_de">Passwort</field>
+		<field name="helptext_de">Geben Sie Ihr altes Passwort und dann zweimal das neue Passwort ein. Das neue Passwort muss der Passwort Richtlinie entsprechen.
+Beachten Sie, dass Ihr Passwort f&amp;uuml;r das SVN Access Manager Webinterface sofort g&amp;uuml;ltig ist, es aber einige Zeit dauern kann, bis das Passwort f&amp;uuml;r den Zugriff auf die Repositories g&amp;uuml;ltig wird. Das h&amp;auml;ngt davon ab, ob ihr Administrator ein Update Intervall f&amp;uuml;r die Aktualisierung der Passworte gesetzt hat und wie gro&amp;szlig; dieses Intervall ist.</field>
+		<field name="helptext_en">Fill in your old password and the new password two times. The new password must fit the password policy.
+Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but it may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords.</field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="topic">password_policy</field>
+		<field name="headline_en">Password policy</field>
+		<field name="headline_de">Passwort Richtlinien</field>
+		<field name="helptext_de">Diese Seite zeigt die Passwort Richtlinie, die bei Passwort&amp;auml;nderungen beachtet werden muss.</field>
+		<field name="helptext_en">This page shows the password policy which needs to be respected when changing your password.</field>
+	</row>
+	<row>
+		<field name="id">5</field>
+		<field name="topic">preferences</field>
+		<field name="headline_en">Preferences</field>
+		<field name="headline_de">Einstellungen</field>
+		<field name="helptext_de">Hinterlegen Sie ihre bevorzugten Einstellungen.</field>
+		<field name="helptext_en">Set your personal preferences.</field>
+	</row>
+	<row>
+		<field name="id">6</field>
+		<field name="topic">main</field>
+		<field name="headline_en">Main menu</field>
+		<field name="headline_de">Hauptmen&amp;uuml;</field>
+		<field name="helptext_de">Das Hauptmen&amp;uuml;. Hier sehen Sie alle Ihnen zur Verf&amp;uuml;gung stehenden Funktionen, die aus bis zu drei Bereichen stammen.
+Unter &quot;Allgemeine Funktionen&quot; finden Sie Einstellungen, die Ihren eigenen Account betreffen und f&amp;uuml;r jeden Benutzer verf&amp;uuml;gbar sind.
+Funktionen aus den Bereichen &quot;Verwaltung&quot; und &quot;Berichte&quot; sind f&amp;uuml;r Sie nur sichtbar, wenn Ihr Zugang mit erweiterten Rechten zur Verwaltung von Benutzern, Gruppen, Projekten, Repositories oder Zugriffsrechten ausgestattet wurde. Im letztgenannten Fall, sollten Sie sich genauer mit den Funktionen von SVN Access Manager vertraut machen. Folgen Sie dazu dem Link zur &quot;Dokumentation&quot;, oben auf der Seite und nutzen Sie die &quot;Hilfe&quot; auf den jeweiligen Unterseiten.</field>
+		<field name="helptext_en">The main menu. Here you can see all functions that are usable for you, grouped in up to three sections.
+The &quot;General functions&quot; section lists settings concerning your own account. These are available for every user.
+Functions from the &quot;Administration&quot; and &quot;Reports&quot; sections are only visible for you, if your account has been setup with enhanced permissions to manage users, groups, projects, repositories or access rights. If the latter is the case, you should make yourself familiar with the functions of SVN Access Manager by reading the &quot;documentation&quot; available through the link on top of the page and by using &quot;Help&quot; on the respective subpages.</field>
+	</row>
+	<row>
+		<field name="id">7</field>
+		<field name="topic">listaccessrights</field>
+		<field name="headline_en">Overview of access rights</field>
+		<field name="headline_de">&amp;Uuml;bersicht der Zugriffsrechte</field>
+		<field name="helptext_de">Die Liste zeigt alle vergebenen Zugriffsrechte auf die verschiedenen Subversion Repositories, die Sie auch administrieren d&amp;uuml;rfen.
+Einzelne Rechte bearbeiten und l&amp;ouml;schen Sie mit Hilfe der Kn&amp;ouml;pfe in der &quot;Aktion&quot; Spalte. Sie k&amp;ouml;nnen mehrere Rechte l&amp;ouml;schen, indem Sie diese in der linken Spalte markieren und dann ganz unten auf den Knopf &quot;Ausgew&amp;auml;hlte l&amp;ouml;schen&quot; klicken. Mit dem Knopf &quot;Neues Zugriffsrecht&quot; unter der Tabelle, k&amp;ouml;nnen Sie neue Eintr&amp;auml;ge anlegen. F&amp;uuml;r alle Aktionen gilt jeweils, dass Sie die dazu n&amp;ouml;tigen Administrationsrechte besitzen m&amp;uuml;ssen.
+Vergessen Sie nicht, dass &amp;Auml;nderungen erst g&amp;uumltig werden, wenn die SVN Zugriffsdateien neu erstellt worden sind.
+Durch Anklicken der Spalten&amp;uuml;berschriften k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe der Suchfelder &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie bei langen Listen die Auswahl eingrenzen.</field>
+		<field name="helptext_en">This list shows all available access rights to the different subversion repositories you are permitted to administer by yourself.
+Edit and delete single entries through the buttons listed in the &quot;Action&quot; column. You can delete a couple of rights by marking them in the left column and clicking the &quot;delete selected&quot; button at the bottom of the table. The button &quot;New access right&quot; is for creating new entries. The described actions are only available, if your account has sufficient administration permissions.
+Keep in mind that changes are only going to become active, after the access files have been recreated.
+You can click the column headers to sort by a specific columns content. Use the search fields on top of the table to limit the view on large sets of access rights.</field>
+	</row>
+	<row>
+		<field name="id">8</field>
+		<field name="topic">listusers</field>
+		<field name="headline_en">Users</field>
+		<field name="headline_de">Benutzer</field>
+		<field name="helptext_de">Aus der Liste der Benutzer kann ein Eintrag &amp;uuml;ber die Symbole rechts unter &quot;Aktion&quot; zum Bearbeiten ausgew&amp;auml;hlt oder gel&amp;ouml;scht werden. Bearbeitet werden k&amp;ouml;nnen an dieser Stelle grundlegende Eigenschaften eines Benutzerzugangs und die Berechtigungen innerhalb von SVN Access Manager. Die Zugriffsrechte auf die Repositories werden hingegen im Bereich &quot;Repository Zugriffsrechte&quot; vergeben.
+Neue Benutzer werden &amp;uuml;ber das Plus-Symbol am unteren Ende der Liste eingerichtet.
+F&amp;uuml;r alle Aktionen gilt jeweils, dass Sie die dazu n&amp;ouml;tigen Administrationsrechte besitzen m&amp;uuml;ssen.
+Durch Anklicken der Spalten&amp;uuml;berschriften k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe des Suchfelds &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Benutzerzug&amp;auml;nge schnell finden.</field>
+		<field name="helptext_en">A user can be selected for editing or deletion by clicking on the symbols in the &quot;Action&quot; column. Editable in this place are basic properties of user accounts and management permissions for SVN Access Manager itself. Repository access rights are managed in a different place, surprisingly called &quot;Repository access rights&quot;.
+New users can be added by clicking on the button with the plus sign at the bottom of the list.
+The described actions are only available, if your account has sufficient administration permissions.
+You can click the column headers to sort by a specific columns content. Use the search field on top of the table to find specific user accounts in large sets of accounts quickly.</field>
+	</row>
+	<row>
+		<field name="id">9</field>
+		<field name="topic">workonuser</field>
+		<field name="headline_en">User Administration / edit user</field>
+		<field name="headline_de">Benutzer Administration / Benutzer &amp;auml;ndern</field>
+		<field name="helptext_de">Ein Benutzer muss eine eindeutige Benutzerkennung haben, die nur bei der Neuanlage vergeben und dann nicht mehr ge&amp;auml;ndert werden kann.
+Bei der Neuanlage muss dem Benutzer ein Passwort zugewiesen werden, das der Passwort Richtlinie gen&amp;uuml;gt.
+Die Angabe einer g&amp;uuml;ltigen Emailadresse ist zwingend erforderlich, da Benachrichtigungen zu abgelaufenen Passw&amp;ouml;rtern an diese Adresse geschickt werden. Das Ablaufen kann automatisch zur Sperrung eines Accounts f&amp;uuml;hren, wenn der Systemadministrator entsprechende Vorkehrungen getroffen hat. Gesperrte Benutzer k&amp;ouml;nnen nicht mehr auf Repositories zugreifen.
+Das Kennzeichnen eines Benutzers als &quot;Administrator&quot; hat zur Folge, dass eine strengere Passwortpolicy angewendet wird. Dadurch werden aber noch keine besonderen Rechte vergeben. Dies erfolgt weiter unten, im Bereich &quot;Globale Benutzerrechte&quot;.
+Das globale Repository Benutzerrecht kann 'lesen' oder 'schreiben' sein. Die globale Beschr&amp;auml;nkung der Repository Zugriffsrechte eines Benutzer kann nicht durch das Setzen spezieller Repository Zugriffsrechte &amp;uuml;berschrieben werden. Ein auf global auf 'lesen' limitierter Benutzer kann also niemals Schreibzugriff auf irgendein durch SVN Access Manager verwaltetes Repository erhalten.
+Im Bereich &quot;Globale Benutzerrechte&quot; k&amp;ouml;nnen globale Rechte f&amp;uuml;r administrative Aufgaben innerhalb von SVN Access Manager vergeben werden. Benutzer, die die Subversion Repositories nur verwenden, brauchen in der Regel keine globalen Benutzerrechte. Auch f&amp;uuml;r administrative Aufgaben, kann es sinnvoll sein, statt globaler Rechte, Gruppenadministrationsrechte und Projektverantwortlichkeiten f&amp;uuml;r betroffene Gruppen und Projekte zu vergeben und so das Verwalten von Benutzern und Zugriffsrechten nur f&amp;uuml;r ausgew&amp;auml;hlte Projekte an daf&amp;uuml;r verantwortliche Benutzer zu delegieren. Schauen Sie bei Bedarf f&amp;uuml;r ein tieferes Verst&amp;auml;ndnis der verschiedenen globalen Benutzerrrechte in die Dokumentation, die &amp;uuml;ber den Link oben auf der Seite erreichbar ist.
+Das Recht &quot;L&amp;ouml;schen&quot; schlie&amp;szlig;t stets das Recht &quot;&amp;Auml;ndern&quot;, dieses das Recht &quot;Hinzuf&amp;uuml;gen&quot; und letzteres wiederum das Recht &quot;Lesen&quot; mit ein. Sie k&amp;ouml;nnen keine h&amp;ouml;herwertigen globalen Benutzerrechte vergeben, als sie selbst besitzen.</field>
+		<field name="helptext_en">A user must have an unique username which can only be set during initial generation and cannot be changed afterwards.
+At generation of the user account, a password respecting the password policy has to be assigned.
+A valid email address must always be set, which is important as this address is used to send notifications regarding expired passwords. Password expiration can lead to automatic locks of the concerned user accounts, if password expiration has been setup by the system administrator. Locked users can't access any repository any longer.
+Labeling a user as &quot;Administrator&quot; leads to a stronger password policy for that user. It doesn't setup any special permissions, which can be done in the &quot;Select global user rights&quot; section below.
+The global &quot;Repository user right&quot; can be 'read' or 'write'. A global restriction to 'read' cannot be overwritten by dedicated repository access rights. As a consequence, a globally restricted user can never gain write access to any repository managed by SVN Access Manager.
+In the section &quot;Global user rights&quot; global rights for administrative tasks in SVN Access Manager can be assigned to a user. Users working with Subversion repositories only don't need any global user rights in most settings. Even for administrative tasks it can often be better, to assign group administrators and Project responsibilities for concerned groups and projects to allow responsible users to manage groups and repository access rights for their projects only. Have a look at the documentation available through the link on top of the page for better understanding of different global user rights.
+'delete' permissions include 'edit' permissions, these include 'add' permissions and the latter include 'read' permissions. You cannot assign higher privileges than the privileges owned by yourself.</field>
+	</row>
+	<row>
+		<field name="id">10</field>
+		<field name="topic">listgroups</field>
+		<field name="headline_en">Group administration</field>
+		<field name="headline_de">Gruppen Administration</field>
+		<field name="helptext_de">Gruppen werden verwendet, um vielen Benutzern die selben Zugriffsrechte auf Dateien oder Verzeichnisse zuzuweisen. Au&amp;szlig;erdem k&amp;oumlnnen Sie in SVN Access Manager im Bereich &quot;Gruppen Administratoren&quot; die Administration von Gruppen an einen oder mehrere Benutzer &amp;uuml;bertragen, die dann diese Gruppen selbst verwalten k&amp;ouml;nnen.
+Aus der Liste der Gruppen kann eine Gruppe &amp;uuml;ber die Symbole rechts unter &quot;Aktion&quot; zum Bearbeiten ausgew&amp;auml;hlt oder gel&amp;ouml;scht werden. Die Liste zeigt nur Gruppen, die Sie auch administrieren d&amp;uuml;rfen.
+Sie k&amp;ouml;nnen Name, und Beschreibung der Gruppe &amp;auml;ndern und Benutzer hinzuf&amp;uuml;gen oder entfernen. Die Zugriffsrechte von Gruppen auf die Repositories werden hingegen im Bereich &quot;Repository Zugriffsrechte&quot; vergeben.
+Neue Gruppen werden &amp;uuml;ber das Plus-Symbol am unteren Ende der Liste eingerichtet.
+Durch Anklicken der Spalten&amp;uuml;berschriften k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe des Suchfelds &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Gruppen schnell finden.</field>
+		<field name="helptext_en">Groups are used, to set up multiple users with the same access rights to files and directories. Additionally it's possible, to allow one or several users to manage specific groups by themselves in SVN Access Managers &quot;Group administrators&quot; section.
+A group can be selected for editing or deletion by clicking on the symbols in the &quot;Action&quot; column. Only groups you are permitted to administer by yourself are shown.
+You can change name and description of a group and also add and remove group members. Repository access rights for groups are managed in a different place, called &quot;Repository access rights&quot;.
+New groups can be added by clicking on the button with the plus sign at the bottom of the list.
+You can click the column headers to sort by a specific columns content. Use the search field on top of the table to find specific groups in large sets of groups quickly.</field>
+	</row>
+	<row>
+		<field name="id">11</field>
+		<field name="topic">addgrouptoproject</field>
+		<field name="headline_en">Add group to project</field>
+		<field name="headline_de">Gruppe zu Projekt hinzuf&amp;uuml;gen</field>
+		<field name="helptext_de"></field>
+		<field name="helptext_en"></field>
+	</row>
+	<row>
+		<field name="id">12</field>
+		<field name="topic">addmembertoproject</field>
+		<field name="headline_en">Add member to project</field>
+		<field name="headline_de">Benutzer zu Projekt hinzuf&amp;uuml;gen</field>
+		<field name="helptext_de"></field>
+		<field name="helptext_en"></field>
+	</row>
+	<row>
+		<field name="id">13</field>
+		<field name="topic">createacessfiles</field>
+		<field name="headline_en">Create access files</field>
+		<field name="headline_de">Zugriffsdateien erzeugen</field>
+		<field name="helptext_de">Die Zugriffsdateien f&amp;uuml;r die Repositories werden erstellt. M&amp;ouml;glicherweise wird das bei Ihrer Installation regelm&amp;auml;&amp;szlig;ig automatisch erledigt, damit  ge&amp;auml;nderte Passw&amp;ouml;rter zeitnah f&amp;uuml;r den SVN-Zugriff g&amp;uuml;ltig werden. Fragen Sie Ihren Systemadministrator. Falls Sie selbst der Systemadministrator sind, schauen Sie sich im Dateisystem das mitgelieferte Verzeichnis &quot;scripts&quot; und die Dokumentation von SVN Access Manager an.
+Die Viewvc Konfiguration wird nur f&amp;uuml;r Apache Webserver erzeugt! W&amp;auml;hlen Sie hier nur 'Ja', wenn Sie einen Apache Webserver einsetzen.
+Das Kommando zum Laden der Webserver Konfiguration sollte kein Neustart des Webservers sein. Das Kommando muss so geschrieben sein, dass der Benutzer unter dem der Webserver l&amp;auml;uft, es auch ausf&amp;uuml;hren darf. Ggf. muss dazu eine sudo Regel unter Unix definiert werden.
+</field>
+		<field name="helptext_en">Access files for the repositories will be created. It's possible, that this is done automatically in your system on a regular basis, to make sure changed passwords become valid for SVN access quickly. If in doubt, ask your system administrator. If you are the system administrator, check the &quot;scripts&quot; folder delivered with SVN Access Manager and the documentation.
+The Viewvc configuration will only be created for an Apache Webserver! Select 'Yes' only in case SVN Access Manager is running on an Apache Webserver.
+The command to reload the webserver configuration should not restart the webserver. The command must be written in a way that allows the webserver user to execute the command. Depending on your environment you will need a sudo rule on Unix systems.</field>
+	</row>
+	<row>
+		<field name="id">14</field>
+		<field name="topic">deleteaccessright</field>
+		<field name="headline_en">Delete access right</field>
+		<field name="headline_de">Zugriffsrecht l&amp;ouml;schen</field>
+		<field name="helptext_de">Best&amp;auml;tigen Sie das L&amp;ouml;schen dieses Eintrags, oder brechen Sie den Vorgang ab.</field>
+		<field name="helptext_en">Confirm the deletion of the selected entry, or cancel the operation.</field>
+	</row>
+	<row>
+		<field name="id">15</field>
+		<field name="topic">deletegroup</field>
+		<field name="headline_en">Delete group</field>
+		<field name="headline_de">Gruppe l&amp;ouml;schen</field>
+		<field name="helptext_de">Best&amp;auml;tigen Sie das L&amp;ouml;schen dieses Eintrags, oder brechen Sie den Vorgang ab.</field>
+		<field name="helptext_en">Confirm the deletion of the selected entry, or cancel the operation.</field>
+	</row>
+	<row>
+		<field name="id">16</field>
+		<field name="topic">deletegroupaccessright</field>
+		<field name="headline_en">Delete group administrator</field>
+		<field name="headline_de">Gruppenadministrator l&amp;ouml;schen</field>
+		<field name="helptext_de">Best&amp;auml;tigen Sie das L&amp;ouml;schen dieses Eintrags, oder brechen Sie den Vorgang ab.</field>
+		<field name="helptext_en">Confirm the deletion of the selected entry, or cancel the operation.</field>
+	</row>
+	<row>
+		<field name="id">17</field>
+		<field name="topic">deleteproject</field>
+		<field name="headline_en">Delete project</field>
+		<field name="headline_de">Projekt l&amp;ouml;schen</field>
+		<field name="helptext_de">Best&amp;auml;tigen Sie das L&amp;ouml;schen dieses Eintrags, oder brechen Sie den Vorgang ab.</field>
+		<field name="helptext_en">Confirm the deletion of the selected entry, or cancel the operation.</field>
+	</row>
+	<row>
+		<field name="id">18</field>
+		<field name="topic">deleterepo</field>
+		<field name="headline_en">Delete repository</field>
+		<field name="headline_de">Repository l&amp;ouml;schen</field>
+		<field name="helptext_de">Sie k&amp;ouml;nnen nur Repositories l&amp;ouml;schen, f&amp;uuml;r die in SVN Access Manager keine Projekte mehr eingerichtet sind. SVN Access Manager wird bei Bedarf in einer Warnmeldung auf betroffene Projekte hinweisen. Sollte es keine Warnmeldung geben, best&amp;auml;tigen Sie das L&amp;ouml;schen dieses Eintrags, oder brechen Sie den Vorgang ab.
+Bedenken Sie, dass das Repository nur aus der SVN Access Manager Datenbank gel&amp;ouml;scht wird, die Repositorydaten selbst werden nicht gel&amp;ouml;scht. L&amp;ouml;schen Sie das Repository separat, wenn das Ihre Absicht ist.</field>
+		<field name="helptext_en">You can only delete repositories which aren't referenced to by projects configured in SVN Access Manager. SVN Access Manager will show a warning a print affected projects. If no warning is shown, confirm the deletion of the selected entry, or cancel the operation.
+ Keep in mind, the repository is deleted from the SVN Access Manager database, but repository data itself will stay untouched. You need to delete the repository manually if that's your purpose.</field>
+	</row>
+	<row>
+		<field name="id">19</field>
+		<field name="topic">deleteuser</field>
+		<field name="headline_en">Delete user</field>
+		<field name="headline_de">Benutzer l&amp;ouml;schen</field>
+		<field name="helptext_de">Best&amp;auml;tigen Sie das L&amp;ouml;schen dieses Eintrags, oder brechen Sie den Vorgang ab.</field>
+		<field name="helptext_en">Confirm the deletion of the selected entry, or cancel the operation.</field>
+	</row>
+	<row>
+		<field name="id">22</field>
+		<field name="topic">listgroupadmins</field>
+		<field name="headline_en">List group admins</field>
+		<field name="headline_de">Liste der Gruppen Administratoren</field>
+		<field name="helptext_de">Gruppenadministratoren k&amp;ouml;nnen in SVN Access Manager dazu verwendet werden, einzelnen Benutzern das Management bestimmter Gruppen zu &amp;uumlbertragen. Je nach vergebener Berechtigung kann ein Gruppenadministrator dann Mitglieder auflisten, verwalten (also hinzuf&amp;uuml;gen und entfernen) oder sogar die Gruppe l&amp;ouml;schen.
+Ein Gruppenadministrator kann &amp;uuml;ber die Symbole in der Spalte &quot;Aktion&quot; zum Bearbeiten ausgew&amp;auml;hlt oder gel&amp;ouml;scht werden.
+Ein neuer Gruppenadministrator kann durch Klicken auf den Kopf mit dem Plus Zeichen angelegt werden.
+F&amp;uuml;r alle Aktionen gilt jeweils, dass Sie die dazu n&amp;ouml;tigen Administrationsrechte besitzen m&amp;uuml;ssen.
+Durch Anklicken der Spalten&amp;uuml;berschriften k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe des Suchfelds &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Gruppenadministratoren schnell finden.</field>
+		<field name="helptext_en">Group administrators in SVN Access Manager can be used to turn users into managers of specific groups. Depending on the granted permissions, these group administrators can list and manage (add and remove) group members or even delete the group.
+A group administrator can be selected for editing or deletion by clicking on the symbols in the &quot;Action&quot; column.
+New group administrators can be added by clicking on the button with the plus sign at the bottom of the list.
+The described actions are only available, if your account has sufficient administration permissions.
+You can click the column headers to sort by a specific columns content. Use the search field on top of the table to find specific group administrators in large sets of groups quickly.</field>
+	</row>
+	<row>
+		<field name="id">23</field>
+		<field name="topic">listprojects</field>
+		<field name="headline_en">Project administration</field>
+		<field name="headline_de">Projekte administrieren</field>
+		<field name="helptext_de">Als &quot;Projekt&quot; wird in SVN Access Manager ein Unterverzeichnis oder &quot;Modul&quot; eines Repositories betrachtet. So k&amp;ouml;nnen in einem Repository mehrere Projekte unabh&amp;auml;ngig voneinander verwaltet werden. Wenn ein  Projekt auf das Wurzelverzeichnis des Repositories verweist, wird das gesamte Repository dem Projekt zugeordnet.
+Jedem Projekt k&amp;ouml;nnen ein oder mehrere verantwortliche Benutzer zugewiesen werden, die dadurch anderen Benutzern und Gruppen Zugriffsrechte auf dieses Projekt und seine Unterverzeichnisse gew&amp;auml;hren d&amp;uuml;rfen.
+Ein Projekt kann durch Klicken auf die Symbole in der Spalte &quot;Aktion&quot; zum Bearbeiten ausgew&amp;auml;hlt oder gel&amp;ouml;scht werden.
+Neue Projekte k&amp;ouml;nnen durch Klicken auf das Symbol mit dem Pluszeichen am Ende der Liste angelegt werden.
+F&amp;uuml;r alle Aktionen gilt jeweils, dass Sie die dazu n&amp;ouml;tigen Administrationsrechte besitzen m&amp;uuml;ssen.
+Durch Anklicken der Spalten&amp;uuml;berschriften k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe des Suchfelds &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Projekte schnell finden.</field>
+		<field name="helptext_en">A project in SVN Access Manager is a subfolder or &quot;module&quot; of an SVN repository. Hence, multiple projects can be managed within only one repository. If a project is linked to the root directory of a repository, the whole repository is assigned to this one project.
+One or even multiple users can be declared responsible for a project and as a consequence get the permission to grant other groups or users access rights to the project or some of its subfolders.
+A project can be selected for editing or deleted by clicking on the symbols in the &quot;Action&quot; column.
+New projects can be added by clicking on the button with the plus sign at the bottom of the list.
+The described actions are only available, if your account has sufficient administration permissions.
+You can click the column headers to sort by a specific columns content. Use the search field on top of the table to find specific projects in large sets quickly.</field>
+	</row>
+	<row>
+		<field name="id">24</field>
+		<field name="topic">listrepos</field>
+		<field name="headline_en">Repository list</field>
+		<field name="headline_de">Repository Liste</field>
+		<field name="helptext_de">Das Verwalten von Zugriffsrechten f&amp;uuml;r Subversion Repositories ist die Kernfunktion von SVN Access Manager. An dieser Stelle sind alle Repositories zu sehen, die derzeit in ihrer SVN Access Manager Installation bekannt sind.
+Ein Repository kann durch Klicken auf die Symbole in der Spalte &quot;Aktion&quot; zum Bearbeiten ausgew&amp;auml;hlt oder gel&amp;ouml;scht werden.
+Ein neues Repository kann durch Klicken auf den Knopf mit dem Plus Zeichen am Ende der Liste erstellt werden.
+F&amp;uuml;r alle Aktionen gilt jeweils, dass Sie die dazu n&amp;ouml;tigen Administrationsrechte besitzen m&amp;uuml;ssen.
+Durch Anklicken der Spalten&amp;uuml;berschriften k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe des Suchfelds &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Projekte schnell finden.</field>
+		<field name="helptext_en">Management of access rights for Subversion repositories is the core function of SVN Access Manager. Here you see all repositories which are currently known in your SVN Access Manager installation.
+A repository can be selected for editing or deleted by clicking on the symbols in the &quot;Action&quot; column.
+New repositories can be added by clicking on the button with the plus sign at the bottom of the list.
+The described actions are only available, if your account has sufficient administration permissions.
+You can click the column headers to sort by a specific columns content. Use the search field on top of the table to find specific projects in large sets quickly.</field>
+	</row>
+	<row>
+		<field name="id">26</field>
+		<field name="topic">nopermission</field>
+		<field name="headline_en">nopermission</field>
+		<field name="headline_de">nopermission</field>
+		<field name="helptext_de"></field>
+		<field name="helptext_en"></field>
+	</row>
+	<row>
+		<field name="id">27</field>
+		<field name="topic">repaccessrights</field>
+		<field name="headline_en">Report: Access rights</field>
+		<field name="headline_de">Bericht: Zugriffsrechte</field>
+		<field name="helptext_de">Der Bericht stellt die Repository Zugriffsrechte zu einem vorher ausgew&amp;auml;hlten Datum dar, filtert also Zugriffsrechte aus, die am gew&amp;auml;hlten Datum nicht mehr oder noch nicht aktiv sind. Um ein Datum auszuw&amp;auml;hlen bitte einfach in das Datumsfeld klicken.
+Durch Anklicken der Spalten&amp;uuml;berschriften in der Ergebnisliste k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe der Suchfelder &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Zugriffsrechte schnell finden.</field>
+		<field name="helptext_en">This report shows repository access rights valid at a selected date. Access rights which are not yet or not any longer valid for the selected date, are not shown. To select a date, simply click into the date field.
+You can click the column headers of the result list to sort by a specific columns content. Use the search fields on top of the table to find specific access rights in large data sets quickly.</field>
+	</row>
+	<row>
+		<field name="id">28</field>
+		<field name="topic">repgranteduserrights</field>
+		<field name="headline_en">Report: Granted user rights</field>
+		<field name="headline_de">Bericht: Gew&amp;auml;hrte Benutzerrechte</field>
+		<field name="helptext_de">Der Bericht listet alle Benutzer und die ihnen gew&amp;auml;hrten Rechte zum Wahrnehmen administrativer Aufgaben innerhalb von SVN Access Manager auf.
+Durch Anklicken der Spalten&amp;uuml;berschriften in der Ergebnisliste k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe der Suchfelder &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Benutzer schnell finden.</field>
+		<field name="helptext_en">This report shows all users and their granted rights to perform administrative tasks inside SVN Access Manager.
+You can click the column headers of the result list to sort by a specific columns content. Use the search fields on top of the table to find specific users in large data sets quickly.</field>
+	</row>
+	<row>
+		<field name="id">29</field>
+		<field name="topic">replockedusers</field>
+		<field name="headline_en">Report: Locked users</field>
+		<field name="headline_de">Bericht: gesperrte Benutzer</field>
+		<field name="helptext_de">Dieser Bericht listet alle gesperrten Benutzer auf. Benutzer k&amp;ouml;nnen gesperrt sein, weil ihr Passwort abgelaufen ist, oder weil ihr Zugang manuell gesperrt wurde.
+Bei Bedarf k&amp;ouml;nnen gesperrte Zug&amp;auml;nge von einem SVN Access Manager Administrator mit dem Recht zur Bearbeitung von Benutzern wieder freigeschaltet werden.
+Durch Anklicken der Spalten&amp;uuml;berschriften in der Ergebnisliste k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe der Suchfelder &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Benutzer schnell finden.</field>
+		<field name="helptext_en">This report shows all locked users. Users can become locked, because their password has expired or their account has been locked manually.
+Locked users can be unlocked by an SVN Access Manager administrator with permission to edit user accounts.
+You can click the column headers of the result list to sort by a specific columns content. Use the search fields on top of the table to find specific users in large data sets quickly.</field>
+	</row>
+	<row>
+		<field name="id">30</field>
+		<field name="topic">replog</field>
+		<field name="headline_en">Report: SVN Access Manager changelog</field>
+		<field name="headline_de">Bericht: SVN Access Manager &amp;Auml;nderungsprotokoll</field>
+		<field name="helptext_de">Der Bericht listet Logeintr&amp;auml;ge auf, die &amp;Auml;nderungen innerhalb von SVN Access Manager betreffen, z.B. das Hinzuf&amp;uuml;gen von Projekten oder das L&amp;ouml;schen von Benutzern.
+Durch Anklicken der Spalten&amp;uuml;berschriften in der Ergebnisliste k&amp;ouml;nnen Sie nach dem Inhalt einer Spalte sortieren. Mit Hilfe der Suchfelder &amp;uuml;ber der Tabelle k&amp;ouml;nnen Sie in langen Listen die gesuchten Ereignisse schnell finden.</field>
+		<field name="helptext_en">This report shows log entries, concerning actions inside SVN Access Manager, like the addition of new projects or the deletion of user accounts.
+You can click the column headers of the result list to sort by a specific columns content. Use the search fields on top of the table to find specific events in large data sets quickly.</field>
+	</row>
+	<row>
+		<field name="id">31</field>
+		<field name="topic">repshowgroup</field>
+		<field name="headline_en">Report: Group</field>
+		<field name="headline_de">Bericht: Gruppe</field>
+		<field name="helptext_de">Der Bericht zeigt alle Details zu einer ausgew&amp;auml;hlten Gruppe an. Es werden alle Mitglieder der Gruppe, alle Gruppenadministratoren und alle mit der Gruppe verbundenen Repository Zugriffsrechte angezeigt.</field>
+		<field name="helptext_en">This report shows all details about a chosen group. All members of the group, all group administrators and all access rights granted to the group will be listed.</field>
+	</row>
+	<row>
+		<field name="id">32</field>
+		<field name="topic">repshowuser</field>
+		<field name="headline_en">Report: User</field>
+		<field name="headline_de">Bericht: Benutzer</field>
+		<field name="helptext_de">Der Bericht zeigt alle Details zu einem ausgew&amp;auml;hlten Benutzer an. Es werden alle Gruppenmitgliedschaften, alle Projekte f&amp;uuml;r die der Benutzer verantwortlich ist und alle Repository Zugriffsrechte angezeigt.</field>
+		<field name="helptext_en">This report shows all details about a chosen user. All group memberships, all projects the user is responsible for and all repository access rights are shown.</field>
+	</row>
+	<row>
+		<field name="id">33</field>
+		<field name="topic">searchresult</field>
+		<field name="headline_en">searchresult</field>
+		<field name="headline_de">searchresult</field>
+		<field name="helptext_de"></field>
+		<field name="helptext_en"></field>
+	</row>
+	<row>
+		<field name="id">34</field>
+		<field name="topic">selectproject</field>
+		<field name="headline_en">Select project</field>
+		<field name="headline_de">Projekt ausw&amp;auml;hlen</field>
+		<field name="helptext_de">W&amp;auml;hlen Sie das Projekt aus, f&amp;uuml;r das Sie Zugriffsrechte vergeben wollen und gehen sie weiter zum n&amp;auml;chsten Schritt.</field>
+		<field name="helptext_en">Select the project you want to set access rights for and continue to the next step after that.</field>
+	</row>
+	<row>
+		<field name="id">35</field>
+		<field name="topic">selectgroup</field>
+		<field name="headline_en">Select group</field>
+		<field name="headline_de">Gruppe ausw&amp;auml;hlen</field>
+		<field name="helptext_de">W&amp;auml;hlen Sie die Gruppe aus, die Sie bearbeiten wollen und gehen sie weiter zum n&amp;auml;chsten Schritt.</field>
+		<field name="helptext_en">Select the group you want to work with and continue to the next step after that.</field>
+	</row>
+	<row>
+		<field name="id">36</field>
+		<field name="topic">setaccessright</field>
+		<field name="headline_en">Set access rights</field>
+		<field name="headline_de">Zugriffsrechte vergeben</field>
+		<field name="helptext_de">Als Zugriffsrechte stehen &quot;None&quot;, &quot;Read&quot; und &quot;Write&quot; zur Verf&amp;uuml;gung. &quot;None&quot; bedeutet, dass dem Benutzer oder der Gruppe der Zugriff auf die Datei oder das Verzeichnis und alle darunter liegenden Verzeichnisse verboten wird. Das Verbot kann in einer gesonderten Zugriffsrichtlinie f&amp;uuml;r ein untergeordnetes Verzeichnis durch Erteilen der Rechte &quot;Read&quot; oder &quot;Write&quot; auf dieses untergeordnete Verzeichnis wieder aufgehoben werden. &quot;Write&quot; enth&amp;auml;lt automatisch das Recht &quot;Read&quot;.
+&amp;Uuml;ber die optionalen Datumsfelder &quot;g&amp;uuml;ltig von&quot; und &quot;g&amp;uuml;ltig bis&quot; kann bei Bedarf zus&amp;auml;tzlich festgelegt werden, ab wann das Recht gilt und wann es automatisch wieder entzogen wird.
+Die erlaubten Benutzer und die erlaubten Gruppen geben an, wem das Recht erteilt wird.</field>
+		<field name="helptext_en">Available access rights are &quot;None&quot;, &quot;Read&quot; and &quot;Write&quot;. &quot;None&quot; means a user or group may not access the file or the directory with all its subdirectories. This proscription can be removed from specific subdirectories by granting the &quot;Read&quot; or &quot;Write&quot; permission on that subdirectories in a different access right rule. The right &quot;Write&quot; includes the right &quot;Read&quot; automatically.
+The optional date fields &quot;valid from&quot; and &quot;valid until&quot; can be used to specify from when on the permission is valid and from when on the permission should be revoked automatically.
+The users and groups allowed tell you, whom the right is granted to.</field>
+	</row>
+	<row>
+		<field name="id">37</field>
+		<field name="topic">workonaccessright</field>
+		<field name="headline_en">Directory for access right</field>
+		<field name="headline_de">Verzeichnis f&amp;uuml;r Zugriffsrecht</field>
+		<field name="helptext_de">Der Subversion Modulpfad wird dem ausgew&amp;auml;hlten Verzeichnis vorangestellt. Sie k&amp;ouml;nnen das Verzeichnis aus der Verzeichnisliste ausw&amp;auml;hlen und dort auch tiefer in den Verzeichnisbaum einsteigen. Wenn sie den Pfad ausgew&amp;auml;hlt haben, klicken sie auf den Pfeil, um zum n&amp;auml;chsten Schritt zu gelangen.</field>
+		<field name="helptext_en">The Subversion module path will prepend the chosen directory. You can browse the directory list and select a directory and move deeper into the subdirectories. After you have chosen a path, click the arrow symbol to continue to the next step.</field>
+	</row>
+	<row>
+		<field name="id">38</field>
+		<field name="topic">workongroup</field>
+		<field name="headline_en">Add or edit group</field>
+		<field name="headline_de">Gruppe hinzuf&amp;uuml;gen oder &amp;auml;ndern</field>
+		<field name="helptext_de">Eine Gruppe muss einen eindeutigen Namen, eine Beschreibung und mindestens ein Mitglied haben. Wenn die Gruppe keine Mitglieder mehr hat, muss sie gel&amp;ouml;scht werden.
+Aktive Mitglieder einer Gruppe erhalten automatisch die SVN Zugriffsrechte, die der Gruppe zugewiesen werden.</field>
+		<field name="helptext_en">A group must have an unique name, a description and at least one member. If the group has no members anymore, it has to be deleted.
+Active members of a group gain the groups svn access rights automatically.</field>
+	</row>
+	<row>
+		<field name="id">39</field>
+		<field name="topic">workongroupaccessright</field>
+		<field name="headline_en">Choose group administrator</field>
+		<field name="headline_de">Guppenadministrator ausw&amp;auml;hlen</field>
+		<field name="helptext_de">W&amp;auml;hlen Sie den Benutzer aus, der zum Gruppenadministrator der vorher ausgew&amp;auml;hten Gruppe werden soll, und bestimmen Sie, wie weit die Gruppenadministrationsrechte gefasst sein sollen.
+Das Leserecht erlaubt dem Benutzer nur, die Gruppe anzusehen.
+Das Recht zum &amp;Auml;ndern erlaubt das Lesen und dar&amp;uuml;ber hinaus das &amp;Auml;ndern von Gruppenname und Gruppenbeschreibung sowie das Hinzuf&amp;uuml;gen und Entfernen von Gruppenmitgliedern.
+Das Recht zum L&amp;ouml;schen schlie&amp;szlig;t die Rechte zum Lesen und &amp;Auml;ndern ein und erlaubt zus&amp;auml;tzlich das L&amp;ouml;schen der gesamten Gruppe.</field>
+		<field name="helptext_en">Select the user that should become group administrator of the group chosen in the last step and decide, which group administration rights you wish to grant.
+Read permissions only allow the user to watch the group.
+Edit permissions include the possibility to watch the group but also to change its name and description and add or remove group members.
+Delete permissions include edit and read permissions and additionally allows complete deletion of the whole group.</field>
+	</row>
+	<row>
+		<field name="id">40</field>
+		<field name="topic">workonproject</field>
+		<field name="headline_en">Project administration</field>
+		<field name="headline_de">Projekte administrieren</field>
+		<field name="helptext_de">Ein Subversion Projekt braucht einen eindeutigen Namen.
+Zus&amp;auml;tzlich muss das Repository ausgew&amp;auml;hlt und der Modulpfad innerhalb des Repositories angegeben werden. W&amp;auml;hlt man &quot;/&quot; als Modulpfad, umfasst das Projekt das gesamte Repository.
+Jedes Projekt muss mindestens einen verantwortlichen Benutzer haben, der dann berechtigt ist, Zugriffsrechte auf das Projekt zu verwalten.</field>
+		<field name="helptext_en">A subversion project needs a unique name.
+A repository has to be selected, and the path within the subversion repository needs to be set, too. If the chosen module path is &quot;/&quot;, the project will contain the whole repository.
+Each project must have at least on responsible user, who is than able to manage access rights of that project.</field>
+	</row>
+	<row>
+		<field name="id">41</field>
+		<field name="topic">workonrepo</field>
+		<field name="headline_en">Add or edit repository</field>
+		<field name="headline_de">Repository hinzuf&amp;uuml;gen oder &amp;auml;ndern</field>
+		<field name="helptext_de">Repositories repr&amp;auml;sentiert in SVN Access Manager tats&amp;auml;lich existierende Subversion Repositories im lokalen Dateisystem oder auf einem entfernten Server. Ein Repository ben&amp;ouml;tigt einen eindeutigen Namen und einen Pfad. Der Pfad kann mit file:// beginnen, wenn der SVN Access Manager auf derselben Maschine l&amp;auml;uft auf der auch die Repositories liegen. In dem Fall werden weder Benutzername noch Passwort f&amp;uuml;r den Repository Zugriff ben&amp;ouml;tigt.
+Ein Repository kann direkt aus dem SVN Access Manager angelegt werden. Das funktioniert nur, wenn die Repositories auf demselben Server liegen auf dem auch der SVN Access Manager l&amp;auml;uft. Wenn selinux verwendet wird, m&amp;uuml;ssen es die selinux Regeln dem Webserver gestatten, Repositories anzulegen.
+Benutzen Sie '/' als Pfad Trennzeichen auf Windows Systemen. Sie m&amp;uuml;ssen einen Repository Pfad z. B. wie folgt schreiben: file:///c:/svn/testrepo</field>
+		<field name="helptext_en">Repositories in SVN Access Manager represent real Subversion repositories located in the local file system or on a remote server. A repository needs a unique name and a path. The path can start with file:// if SVN Access Manager is running on the same host the repositories are located on. In this case, no username and password are needed for repository access. Otherwise you will need credentials to access the repository.
+A repository can be created directly from SVN Access Manager. This only works, if SVN Access Manager is running on the same host as the repositories are located on and in case of selinux usage the selinux rules permit the webserver to create the repository.
+Use '/' as path separator on Windows systems. You must write down a repository path e. g. like this: file:///c:/svn/testrepo</field>
+	</row>
+	<row>
+		<field name="id">42</field>
+		<field name="topic">bulkaddldapusers</field>
+		<field name="headline_en">Bulk add LDAP users</field>
+		<field name="headline_de">Hinzuf&amp;uuml;gen vieler LDAP Benutzer</field>
+		<field name="helptext_de">Alle ausgew&amp;auml;hlten LDAP Benutzer werden in die Benutzertabelle der SVN Access Manager Datenbank eingetragen. Name, Vorname, Emailadresse, und Benutzerkennung werden aus dem LDAP &amp;uuml;bernommen. Das globale Repository Zugriffsrecht wird gem&amp;auml;&amp;szlig; der Auswahl gesetzt. Alle Benutzer erhalten dasselbe Recht!</field>
+		<field name="helptext_en">All selected LDAP users will be added to the users table of the SVN Access Manager database. Name, givenname, email address and userid are taken from LDAP. The global repository access right is set accordingly to your selection. All users will get the same right! </field>
+	</row>
+	</table_data>
+	<table_data name="log">
+	<row>
+		<field name="id">1</field>
+		<field name="logtimestamp">20171212125601</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="logtimestamp">20171212125726</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="logtimestamp">20171213145106</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="logtimestamp">20171213145155</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">addes repository Test1 (file:///svn/repos/test1)</field>
+	</row>
+	<row>
+		<field name="id">5</field>
+		<field name="logtimestamp">20171213145419</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">addes repository Test2 (file:///svn/repos/test2)</field>
+	</row>
+	<row>
+		<field name="id">6</field>
+		<field name="logtimestamp">20171213145513</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added user test1, Tester1, Tester1</field>
+	</row>
+	<row>
+		<field name="id">7</field>
+		<field name="logtimestamp">20171213145525</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added user test2, Tester2, Tester2</field>
+	</row>
+	<row>
+		<field name="id">8</field>
+		<field name="logtimestamp">20171213145552</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">insert of group Tester (Group for testers)</field>
+	</row>
+	<row>
+		<field name="id">9</field>
+		<field name="logtimestamp">20171213145552</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added test1 to group  Tester</field>
+	</row>
+	<row>
+		<field name="id">10</field>
+		<field name="logtimestamp">20171213145552</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added test2 to group  Tester</field>
+	</row>
+	<row>
+		<field name="id">11</field>
+		<field name="logtimestamp">20171213145619</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">project Test1 (/) added</field>
+	</row>
+	<row>
+		<field name="id">12</field>
+		<field name="logtimestamp">20171213145619</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added project responsible test1</field>
+	</row>
+	<row>
+		<field name="id">13</field>
+		<field name="logtimestamp">20171213145637</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">project Test2 (/) added</field>
+	</row>
+	<row>
+		<field name="id">14</field>
+		<field name="logtimestamp">20171213145637</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added project responsible test2</field>
+	</row>
+	<row>
+		<field name="id">15</field>
+		<field name="logtimestamp">20171213145702</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added access right write for 1 to /</field>
+	</row>
+	<row>
+		<field name="id">16</field>
+		<field name="logtimestamp">20171213145718</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added access right write for 1 to /</field>
+	</row>
+	<row>
+		<field name="id">17</field>
+		<field name="logtimestamp">20171213145731</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">created auth files</field>
+	</row>
+	<row>
+		<field name="id">18</field>
+		<field name="logtimestamp">20171213145819</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">19</field>
+		<field name="logtimestamp">20171213145843</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">20</field>
+		<field name="logtimestamp">20171213145947</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">password changed</field>
+	</row>
+	<row>
+		<field name="id">21</field>
+		<field name="logtimestamp">20171213145950</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">22</field>
+		<field name="logtimestamp">20171213145959</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">23</field>
+		<field name="logtimestamp">20171213150003</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">24</field>
+		<field name="logtimestamp">20171213151944</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">25</field>
+		<field name="logtimestamp">20171213152010</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">26</field>
+		<field name="logtimestamp">20171213170558</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">27</field>
+		<field name="logtimestamp">20171213171112</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">28</field>
+		<field name="logtimestamp">20171213171139</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">29</field>
+		<field name="logtimestamp">20171213171148</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">admin logged out</field>
+	</row>
+	<row>
+		<field name="id">30</field>
+		<field name="logtimestamp">20171213171157</field>
+		<field name="username">test1</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">31</field>
+		<field name="logtimestamp">20171213171229</field>
+		<field name="username">test1</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">test1 logged out</field>
+	</row>
+	<row>
+		<field name="id">32</field>
+		<field name="logtimestamp">20180112133941</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">user  logged in</field>
+	</row>
+	<row>
+		<field name="id">33</field>
+		<field name="logtimestamp">20180112135329</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">added access right read for admin to /</field>
+	</row>
+	<row>
+		<field name="id">34</field>
+		<field name="logtimestamp">20180112135353</field>
+		<field name="username">admin</field>
+		<field name="ipaddress">10.0.8.6</field>
+		<field name="logmessage">updated access right from read to read for admin in Test1 for /</field>
+	</row>
+	</table_data>
+	<table_data name="preferences">
+	</table_data>
+	<table_data name="rights">
+	<row>
+		<field name="id">1</field>
+		<field name="right_name">User admin</field>
+		<field name="description_en">Administer users</field>
+		<field name="description_de">Benutzer verwalten</field>
+		<field name="allowed_action">delete</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="right_name">Group admin</field>
+		<field name="description_en">Administer groups</field>
+		<field name="description_de">Gruppen verwalten</field>
+		<field name="allowed_action">delete</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="right_name">Project admin</field>
+		<field name="description_en">Administer projects</field>
+		<field name="description_de">Projekte verwalten</field>
+		<field name="allowed_action">delete</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="right_name">Repository admin</field>
+		<field name="description_en">Administer repositories</field>
+		<field name="description_de">Repositories verwalten</field>
+		<field name="allowed_action">delete</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	<row>
+		<field name="id">5</field>
+		<field name="right_name">Access rights admin</field>
+		<field name="description_en">Administer repository access rights</field>
+		<field name="description_de">Repository Zugriffsrechte verwalten</field>
+		<field name="allowed_action">delete</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	<row>
+		<field name="id">6</field>
+		<field name="right_name">Create files</field>
+		<field name="description_en">Create access files</field>
+		<field name="description_de">Zugriffs-Kontroll-Dateien generieren</field>
+		<field name="allowed_action">edit</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	<row>
+		<field name="id">7</field>
+		<field name="right_name">Reports</field>
+		<field name="description_en">Show reports</field>
+		<field name="description_de">Berichte ansehen</field>
+		<field name="allowed_action">read</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"></field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"></field>
+	</row>
+	</table_data>
+	<table_data name="sessions">
+	<row>
+		<field name="session_id">qj0e2kd7j14ahqmajguehhq6p6</field>
+		<field name="session_expires">1515764186</field>
+		<field name="session_data">SVNSESSID|a:32:{s:8:&quot;username&quot;;s:5:&quot;admin&quot;;s:4:&quot;name&quot;;s:7:&quot;Krieger&quot;;s:9:&quot;givenname&quot;;s:6:&quot;Thomas&quot;;s:5:&quot;admin&quot;;s:1:&quot;y&quot;;s:16:&quot;password_expired&quot;;i:0;s:9:&quot;helptopic&quot;;s:16:&quot;createacessfiles&quot;;s:11:&quot;usercounter&quot;;i:0;s:11:&quot;repocounter&quot;;i:0;s:14:&quot;projectcounter&quot;;i:0;s:12:&quot;rightcounter&quot;;i:0;s:8:&quot;max_mark&quot;;i:2;s:4:&quot;mark&quot;;a:3:{i:0;s:1:&quot;1&quot;;i:1;s:1:&quot;3&quot;;i:2;s:1:&quot;2&quot;;}s:12:&quot;groupcounter&quot;;i:0;s:10:&quot;logcounter&quot;;i:0;s:5:&quot;group&quot;;s:1:&quot;1&quot;;s:9:&quot;projectid&quot;;s:1:&quot;1&quot;;s:4:&quot;task&quot;;s:6:&quot;change&quot;;s:9:&quot;svnmodule&quot;;s:5:&quot;Test1&quot;;s:10:&quot;modulepath&quot;;s:1:&quot;/&quot;;s:4:&quot;path&quot;;a:1:{i:0;s:0:&quot;&quot;;}s:7:&quot;pathcnt&quot;;i:0;s:8:&quot;reponame&quot;;s:5:&quot;Test1&quot;;s:8:&quot;repopath&quot;;s:23:&quot;file:///svn/repos/test1&quot;;s:8:&quot;repouser&quot;;s:0:&quot;&quot;;s:12:&quot;repopassword&quot;;s:0:&quot;&quot;;s:12:&quot;pathselected&quot;;s:1:&quot;/&quot;;s:9:&quot;validfrom&quot;;s:10:&quot;00.00.0000&quot;;s:10:&quot;validuntil&quot;;s:10:&quot;99.99.9999&quot;;s:11:&quot;accessright&quot;;s:4:&quot;read&quot;;s:6:&quot;userid&quot;;s:1:&quot;1&quot;;s:7:&quot;groupid&quot;;s:1:&quot;0&quot;;s:7:&quot;rightid&quot;;s:1:&quot;3&quot;;}</field>
+	</row>
+	</table_data>
+	<table_data name="svn_access_rights">
+	<row>
+		<field name="id">1</field>
+		<field name="project_id">1</field>
+		<field name="user_id">0</field>
+		<field name="group_id">1</field>
+		<field name="path">/</field>
+		<field name="valid_from">00000000</field>
+		<field name="valid_until">99999999</field>
+		<field name="access_right">write</field>
+		<field name="recursive">yes</field>
+		<field name="created">20171213145702</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="project_id">2</field>
+		<field name="user_id">0</field>
+		<field name="group_id">1</field>
+		<field name="path">/</field>
+		<field name="valid_from">00000000</field>
+		<field name="valid_until">99999999</field>
+		<field name="access_right">write</field>
+		<field name="recursive">yes</field>
+		<field name="created">20171213145718</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="project_id">1</field>
+		<field name="user_id">1</field>
+		<field name="group_id">0</field>
+		<field name="path">/</field>
+		<field name="valid_from">20180101</field>
+		<field name="valid_until">20180430</field>
+		<field name="access_right">read</field>
+		<field name="recursive">yes</field>
+		<field name="created">20180112135329</field>
+		<field name="created_user">admin</field>
+		<field name="modified">20180112135353</field>
+		<field name="modified_user">admin</field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="svn_groups_responsible">
+	</table_data>
+	<table_data name="svn_projects_mailinglists">
+	</table_data>
+	<table_data name="svn_projects_responsible">
+	<row>
+		<field name="id">1</field>
+		<field name="project_id">1</field>
+		<field name="user_id">2</field>
+		<field name="created">20171213145619</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="project_id">2</field>
+		<field name="user_id">3</field>
+		<field name="created">20171213145637</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="svn_users_groups">
+	<row>
+		<field name="id">1</field>
+		<field name="user_id">2</field>
+		<field name="group_id">1</field>
+		<field name="created">20171213145552</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="user_id">3</field>
+		<field name="group_id">1</field>
+		<field name="created">20171213145552</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="svngroups">
+	<row>
+		<field name="id">1</field>
+		<field name="groupname">Tester</field>
+		<field name="description">Group for testers</field>
+		<field name="created">20171213145552</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="svnmailinglists">
+	</table_data>
+	<table_data name="svnpasswordreset">
+	</table_data>
+	<table_data name="svnprojects">
+	<row>
+		<field name="id">1</field>
+		<field name="repo_id">1</field>
+		<field name="svnmodule">Test1</field>
+		<field name="modulepath">/</field>
+		<field name="description"></field>
+		<field name="created">20171213145619</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="repo_id">2</field>
+		<field name="svnmodule">Test2</field>
+		<field name="modulepath">/</field>
+		<field name="description"></field>
+		<field name="created">20171213145637</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="svnrepos">
+	<row>
+		<field name="id">1</field>
+		<field name="reponame">Test1</field>
+		<field name="repopath">file:///svn/repos/test1</field>
+		<field name="repouser"></field>
+		<field name="repopassword"></field>
+		<field name="different_auth_files">0</field>
+		<field name="auth_user_file"></field>
+		<field name="svn_access_file"></field>
+		<field name="created">20171213145155</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="reponame">Test2</field>
+		<field name="repopath">file:///svn/repos/test2</field>
+		<field name="repouser"></field>
+		<field name="repopassword"></field>
+		<field name="different_auth_files">0</field>
+		<field name="auth_user_file"></field>
+		<field name="svn_access_file"></field>
+		<field name="created">20171213145419</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="svnusers">
+	<row>
+		<field name="id">1</field>
+		<field name="userid">admin</field>
+		<field name="name">Krieger</field>
+		<field name="givenname">Thomas</field>
+		<field name="password">$1$NLvGX4d3$SdtwVFvV8As0z8I0xtE8L.</field>
+		<field name="passwordexpires">1</field>
+		<field name="locked">0</field>
+		<field name="emailaddress">tom@tom-krieger.de</field>
+		<field name="admin">y</field>
+		<field name="user_mode">write</field>
+		<field name="created">20171212125535</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+		<field name="password_modified">20171213145947</field>
+		<field name="superadmin">1</field>
+		<field name="securityquestion"></field>
+		<field name="securityanswer"></field>
+		<field name="custom1"></field>
+		<field name="custom2"></field>
+		<field name="custom3"></field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="userid">test1</field>
+		<field name="name">Tester1</field>
+		<field name="givenname">Tester1</field>
+		<field name="password">$1$VrhSdvqG$my0HkGdemPLiI2Na.pYGl1</field>
+		<field name="passwordexpires">0</field>
+		<field name="locked">0</field>
+		<field name="emailaddress">tester@example.org</field>
+		<field name="admin">n</field>
+		<field name="user_mode">write</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+		<field name="password_modified">20000101000000</field>
+		<field name="superadmin">0</field>
+		<field name="securityquestion"></field>
+		<field name="securityanswer"></field>
+		<field name="custom1"></field>
+		<field name="custom2"></field>
+		<field name="custom3"></field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="userid">test2</field>
+		<field name="name">Tester2</field>
+		<field name="givenname">Tester2</field>
+		<field name="password">$1$3beUV90q$O/fyoucrD.nsB3SfgqokA.</field>
+		<field name="passwordexpires">0</field>
+		<field name="locked">0</field>
+		<field name="emailaddress">tester2@example.org</field>
+		<field name="admin">n</field>
+		<field name="user_mode">write</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+		<field name="password_modified">20000101000000</field>
+		<field name="superadmin">0</field>
+		<field name="securityquestion"></field>
+		<field name="securityanswer"></field>
+		<field name="custom1"></field>
+		<field name="custom2"></field>
+		<field name="custom3"></field>
+	</row>
+	</table_data>
+	<table_data name="users_rights">
+	<row>
+		<field name="id">1</field>
+		<field name="user_id">1</field>
+		<field name="right_id">1</field>
+		<field name="allowed">delete</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="user_id">1</field>
+		<field name="right_id">2</field>
+		<field name="allowed">delete</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="user_id">1</field>
+		<field name="right_id">3</field>
+		<field name="allowed">delete</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="user_id">1</field>
+		<field name="right_id">4</field>
+		<field name="allowed">delete</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">5</field>
+		<field name="user_id">1</field>
+		<field name="right_id">5</field>
+		<field name="allowed">delete</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">6</field>
+		<field name="user_id">1</field>
+		<field name="right_id">6</field>
+		<field name="allowed">edit</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">7</field>
+		<field name="user_id">1</field>
+		<field name="right_id">7</field>
+		<field name="allowed">read</field>
+		<field name="created">20171212125536</field>
+		<field name="created_user">install</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">8</field>
+		<field name="user_id">2</field>
+		<field name="right_id">1</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">9</field>
+		<field name="user_id">2</field>
+		<field name="right_id">2</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">10</field>
+		<field name="user_id">2</field>
+		<field name="right_id">3</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">11</field>
+		<field name="user_id">2</field>
+		<field name="right_id">4</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">12</field>
+		<field name="user_id">2</field>
+		<field name="right_id">5</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">13</field>
+		<field name="user_id">2</field>
+		<field name="right_id">6</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">14</field>
+		<field name="user_id">2</field>
+		<field name="right_id">7</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145513</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">15</field>
+		<field name="user_id">3</field>
+		<field name="right_id">1</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">16</field>
+		<field name="user_id">3</field>
+		<field name="right_id">2</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">17</field>
+		<field name="user_id">3</field>
+		<field name="right_id">3</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">18</field>
+		<field name="user_id">3</field>
+		<field name="right_id">4</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">19</field>
+		<field name="user_id">3</field>
+		<field name="right_id">5</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">20</field>
+		<field name="user_id">3</field>
+		<field name="right_id">6</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	<row>
+		<field name="id">21</field>
+		<field name="user_id">3</field>
+		<field name="right_id">7</field>
+		<field name="allowed">none</field>
+		<field name="created">20171213145525</field>
+		<field name="created_user">admin</field>
+		<field name="modified">00000000000000</field>
+		<field name="modified_user"> </field>
+		<field name="deleted">00000000000000</field>
+		<field name="deleted_user"> </field>
+	</row>
+	</table_data>
+	<table_data name="workinfo">
+	<row>
+		<field name="id">1</field>
+		<field name="usertimestamp">2017-12-13 13:57:29</field>
+		<field name="action">createauthuserfile</field>
+		<field name="status">closed</field>
+		<field name="type">sem</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="usertimestamp">2017-12-13 13:57:29</field>
+		<field name="action">createaccessfile</field>
+		<field name="status">closed</field>
+		<field name="type">sem</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="usertimestamp">2017-12-13 13:57:29</field>
+		<field name="action">createviewvcconf</field>
+		<field name="status">closed</field>
+		<field name="type">sem</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>
