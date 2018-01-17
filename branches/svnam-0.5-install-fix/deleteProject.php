@@ -174,20 +174,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $dbnow = db_now();
                 $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID]['projectid'] . "') " . "   AND (deleted = '00000000000000')";
                 $result = db_query($query, $dbh);
-                if (mysql_errno($dbh) == 0) {
-                    db_ta('COMMIT', $dbh);
-                    $tMessage = _("Project successfully deleted");
-                    
-                    db_disconnect($dbh);
-                    
-                    header("Location: list_projects.php");
-                    exit();
-                }
-                else {
-                    
-                    db_ta('ROLLBACK', $dbh);
-                    $tMessage = _("Project not deleted due to errors while deleting access right relations");
-                }
+                
+                db_ta('COMMIT', $dbh);
+                $tMessage = _("Project successfully deleted");
+                
+                db_disconnect($dbh);
+                
+                header("Location: list_projects.php");
+                exit();
             }
             else {
                 

@@ -223,6 +223,7 @@ include( "../include/output.inc.php" );
 							   		<td nowrap title="<?php print _("Select the database you want to use.");?>"><strong><?php print _("Database").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fDatabase" value="mysql" <?php print $tDatabaseMySQL; ?> />&nbsp;&nbsp;<?php print _("MySQL"); ?>&nbsp;&nbsp;&nbsp;
+							   			<input type="radio" name="fDatabase" value="mysqli" <?php print $tDatabaseMySQL; ?> />&nbsp;&nbsp;<?php print _("MySQLI"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fDatabase" value="postgres8" <?php print $tDatabasePostgreSQL; ?> />&nbsp;&nbsp;<?php print _("PostgreSQL"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fDatabase" value="oci8" <?php print $tDatabaseOracle; ?> />&nbsp;&nbsp;<?php print _("Oracle"); ?>
 							   		</td>

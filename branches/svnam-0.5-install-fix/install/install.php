@@ -328,11 +328,7 @@ function dropMySQLDatabaseTables($dbh) {
             
             $query = "DROP TABLE IF EXISTS `" . $dbtable . "`";
             db_query_install($query, $dbh);
-            if (mysql_errno() != 0) {
-                
-                $error = 1;
-                $tMessage = sprintf(_("Cannot drop table %s"), "log");
-            }
+            
         }
     }
     
@@ -2279,10 +2275,7 @@ function loadDbData($dbh, $charset, $collation, $databasetype) {
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
         $result = db_query_install($query, $dbh);
-        if (mysql_errno() != 0) {
-            $error = 1;
-            $tMessage = sprintf(_("Error inserting data into rights table: %s"), mysql_error());
-        }
+        
     }
     
     if ($error == 0) {
@@ -2353,10 +2346,7 @@ function loadPostgresDbData($dbh, $charset, $collation, $databasetype, $schema) 
         
         $query = "INSERT INTO rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', '$dbnow', 'install', '00000000000000', '', '00000000000000', '')";
         $result = db_query_install($query, $dbh);
-        if (mysql_errno() != 0) {
-            $error = 1;
-            $tMessage = sprintf(_("Error inserting data into rights table: %s"), mysql_error());
-        }
+        
     }
     
     if ($error == 0) {
@@ -2419,10 +2409,7 @@ function loadOracleDbData($dbh, $charset, $collation, $databasetype, $schema) {
         
         $query = "INSERT INTO $schema.rights (right_name, description_en, description_de, allowed_action, created, created_user, modified, modified_user, deleted, deleted_user) " . "VALUES ('Create files', 'Create access files', 'Zugriffs-Kontroll-Dateien generieren', 'edit', '$dbnow', 'install', '00000000000000', ' ', '00000000000000', ' ')";
         $result = db_query_install($query, $dbh);
-        if (mysql_errno() != 0) {
-            $error = 1;
-            $tMessage = sprintf(_("Error inserting data into rights table: %s"), mysql_error());
-        }
+        
     }
     
     if ($error == 0) {
@@ -2496,12 +2483,6 @@ function createAdmin($userid, $password, $givenname, $name, $emailaddress, $data
         }
         // error_log( $query );
         $resultinsert = db_query_install($query, $dbh);
-        
-        if (mysql_errno() != 0) {
-            
-            $error = 1;
-            $tMessage = sprintf(_("Error inserting user access right for admin: %s"), mysql_error());
-        }
     }
     
     if ($error == 0) {
@@ -2694,21 +2675,31 @@ function doLdapTest() {
     
     if ($tDatabase == "mysql") {
         $tDatabaseMySQL = "checked";
+        $tDatabaseMySQLi = "";
+        $tDatabasePostgreSQL = "";
+        $tDatabaseOracle = "";
+    }
+    if ($tDatabase == "mysqli") {
+        $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "checked";
         $tDatabasePostgreSQL = "";
         $tDatabaseOracle = "";
     }
     elseif ($tDatabase == "postgres8") {
         $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "";
         $tDatabasePostgreSQL = "checked";
         $tDatabaseOracle = "";
     }
     elseif ($tDatabase == "oci8") {
         $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "";
         $tDatabasePostgreSQL = "";
         $tDatabaseOracle = "checked";
     }
     else {
         $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "";
         $tDatabasePostgreSQL = "";
     }
     
@@ -3265,7 +3256,7 @@ function doInstall() {
             
             if ($_SESSION['svn_inst']['dropDatabaseTables'] == "YES") {
                 
-                if (strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") {
+                if ((strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") || (strtoupper($_SESSION['svn_inst']['database']) == "MYSQLI")) {
                     
                     $ret = dropMySQLDatabaseTables($dbh);
                 }
@@ -3294,7 +3285,7 @@ function doInstall() {
             
             if ($error == 0) {
                 
-                if (strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") {
+                if ((strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") || (strtoupper($_SESSION['svn_inst']['database']) == "MYSQLI")) {
                     
                     $ret = createMySQLDatabaseTables($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation']);
                 }
@@ -3318,7 +3309,7 @@ function doInstall() {
             
             if ($error == 0) {
                 
-                if (strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") {
+                if ((strtoupper($_SESSION['svn_inst']['database']) == "MYSQL") | (strtoupper($_SESSION['svn_inst']['database']) == "MYSQLI")) {
                     
                     $ret = loadDbData($dbh, $_SESSION['svn_inst']['databaseCharset'], $_SESSION['svn_inst']['databaseCollation'], $_SESSION['svn_inst']['database']);
                 }
@@ -3491,6 +3482,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tDropDatabaseTablesYes = "checked";
     $tDropDatabaseTablesNo = "";
     $tDatabaseMySQL = "checked";
+    $tDatabaseMySQLi = "";
     $tDatabasePostgreSQL = "";
     $tDatabaseOracle = "";
     $tSessionInDatabaseYes = "checked";
@@ -3999,7 +3991,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // check fields
         //
         
-        if (strtoupper($tDatabase) == "MYSQL") {
+        if ((strtoupper($tDatabase) == "MYSQL") || (strtoupper($tDatabase) == "MYSQLI")) {
             $tDatabaseCharsetDefault = "latin1";
             $tDatabaseCollationDefault = "latin1_german1_ci";
         }
@@ -4447,7 +4439,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // inialize fieds
     //
     
-    if (strtoupper($tDatabase) == "MYSQL") {
+    if ((strtoupper($tDatabase) == "MYSQL") || (strtoupper($tDatabase) == "MYSQLI")) {
         $tDatabaseCharsetDefault = "latin1";
         $tDatabaseCollationDefault = "latin1_german1_ci";
     }
@@ -4476,21 +4468,31 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($tDatabase == "mysql") {
         $tDatabaseMySQL = "checked";
+        $tDatabaseMySQLi = "";
+        $tDatabasePostgreSQL = "";
+        $tDatabaseOracle = "";
+    }
+    if ($tDatabase == "mysqli") {
+        $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "checked";
         $tDatabasePostgreSQL = "";
         $tDatabaseOracle = "";
     }
     elseif ($tDatabase == "postgres8") {
         $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "";
         $tDatabasePostgreSQL = "checked";
         $tDatabaseOracle = "";
     }
     elseif ($tDatabase == "oci8") {
         $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "";
         $tDatabasePostgreSQL = "";
         $tDatabaseOracle = "checked";
     }
     else {
         $tDatabaseMySQL = "";
+        $tDatabaseMySQLi = "";
         $tDatabasePostgreSQL = "";
     }
     
