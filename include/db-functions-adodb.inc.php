@@ -85,7 +85,7 @@ function db_connect() {
         $link->Pconnect($CONF['database_host'], $CONF['database_user'], $CONF['database_password'], $CONF['database_name']);
         $link->SetFetchMode(ADODB_FETCH_ASSOC);
         
-        if ($CONF['database_type'] == "mysql") {
+        if (($CONF['database_type'] == "mysql") || ($CONF['database_type'] == "mysqli")) {
             $link->Execute($nameset);
         }
         // $link->debug = true;
@@ -136,7 +136,7 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
         }
         $link->SetFetchMode(ADODB_FETCH_ASSOC);
         
-        if ($dbtype == "mysql") {
+        if (($dbtype == "mysql") || ($dbtype == "mysqli")) {
             $link->Execute($nameset);
         }
     }
@@ -218,7 +218,7 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
     
     try {
         
-        if ($CONF['database_type'] != "mysql") {
+        if (($CONF['database_type'] != "mysql") && ($CONF['database_type'] != "mysqli")) {
             
             if (preg_match("/LIMIT/i", $query)) {
                 
@@ -313,7 +313,7 @@ function db_query_install($query, $link, $limit = -1, $offset = -1) {
     
     try {
         
-        if ($CONF['database_type'] != "mysql") {
+        if (($CONF['database_type'] != "mysql") && ($CONF['database_type'] != "mysqli")) {
             
             if (preg_match("/LIMIT/i", $query)) {
                 $search = "/LIMIT (\w+), (\w+)/";
@@ -1605,7 +1605,7 @@ class Session {
             self::$_sess_db->Pconnect($CONF['database_host'], $CONF['database_user'], $CONF['database_password'], $CONF['database_name']);
             self::$_sess_db->SetFetchMode(ADODB_FETCH_ASSOC);
             
-            if ($CONF['database_type'] == "mysql") {
+            if (($CONF['database_type'] == "mysql") || ($CONF['database_type'] == "mysqli")) {
                 self::$_sess_db->Execute($nameset);
             }
             
