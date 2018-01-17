@@ -1,6 +1,25 @@
+Update to V0.5.7.0
+
+Version 0.5.7.0 was cleaned up. Unused files have been deleted. If you do not use the RPM
+installer please take care about the deleted files yourself.
+
+Constants are used instead of literals where suitable.
+
+This version has includes PHP Unit tests.
+
+Basic tests have been done with PHP 7. So if you want to give it a try please use 
+SVN Access Manager together with PHP 7 and keep me updated.
+ 
+There's also a fix for the installer included. MySQLi is now available as database type.
+If you already installed SVN Access Manager this fix is not needed.
+
+
+
+#-------------------------------------------------------------------------------------------#
+
 Update to V0.5.6.6
 
-Version 0.5.6.6 contains a fix for teh selinux policy for CentOS 6 and CentOS 7. If you are 
+Version 0.5.6.6 contains a fix for the selinux policy for CentOS 6 and CentOS 7. If you are 
 using selinux just update the RPM packages. There's also a fix for the installer included.
 If you already installed SVN Access Manager this fix is not needed.
 
