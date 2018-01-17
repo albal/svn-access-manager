@@ -14,19 +14,19 @@
 					</tr>
 				</table>                                        
 				<p>&nbsp;</p>
-				<table id="groupadminlist_table">
+				<table class="testlayout table-autosort:0 table-stripeclass:alternate table-autopage:<?php print $CONF['page_size'];?>" id="page">
 					<thead>
 						<tr>
-					   		<th>
+					   		<th class="table-sortable:default">
 					   			<?php print _("Group name"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="table-sortable:default">
 					   			<?php print _("Group description"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="table-sortable:default">
 					   			<?php print _("Administrator"); ?>
 					   		</th>
-					   		<th>
+					   		<th class="table-sortable:default">
 					   			<?php print _("Right"); ?>
 					   		</th>
 					   		<th>
@@ -68,7 +68,19 @@
 					</tbody>
 					<tfoot>
 						<tr>
-					      <td colspan="3" class="hlp_center">
+				   			<td colspan="5">
+								<a href="#" onclick="pageexample('previous'); return false;">&lt;&lt;&nbsp;Previous</a>
+								<a href="#" id="page1" class="pagelink" onclick="pageexample(0); return false;">1</a>
+								<a href="#" id="page2" class="pagelink" onclick="pageexample(1); return false;">2</a>
+								<a href="#" id="page3" class="pagelink" onclick="pageexample(2); return false;">3</a>
+								<a href="#" id="page4" class="pagelink" onclick="pageexample(3); return false;">4</a>
+								<a href="#" id="page5" class="pagelink" onclick="pageexample(4); return false;">5</a>
+								<a href="#" id="page6" class="pagelink" onclick="pageexample(5); return false;">6</a>
+								<a href="#" onclick="pageexample('next'); return false;">Next&nbsp;&gt;&gt;</a>
+							</td>
+				   		</tr>
+						<tr>
+					      <td colspan="5" class="hlp_center">
 					        <?php
 					      		if( ($rightAllowed == "add") or
 					      		    ($rightAllowed == "edit") or
@@ -91,12 +103,22 @@
 				<input id="id" type="hidden" />
 			</form>
 			<script>
-					$("#groupadminlist_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
-						pager: true,
-						textPager: '<?php print _("Page").":"; ?>',
-						onInit: function(){	}
-					});
+					function pageexample(page) {
+						var t = document.getElementById('page');
+						var res;
+						if (page=="previous") {
+							res=Table.pagePrevious(t);
+						}
+						else if (page=="next") {
+							res=Table.pageNext(t);
+						}
+						else {
+							res=Table.page(t,page);
+						}
+						var currentPage = res.page+1;
+						$('.pagelink').removeClass('currentpage');
+						$('#page'+currentPage).addClass('currentpage');
+					}
 					
 					$("#search").autocomplete({
                         source: function( request, response ) {

@@ -17,7 +17,7 @@
 				   	<tr valign="top">
 				   		<td nowrap><strong><?php print _("Select user").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fUser" size="1" <?php print $tReadonly;?> style="width: 100%; height=200px;" title="<?php print _("Select the user to grant access to the group.");?>">
+				   			<select id="user" name="fUser" size="1" <?php print $tReadonly;?> style="width: 100%; height=200px;" title="<?php print _("Select the user to grant access to the group.");?>">
 				   				
 				   				<?php  					
 				   					foreach( $tUsers as $id => $user ) {
@@ -84,4 +84,7 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				$("#user").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>

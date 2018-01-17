@@ -45,16 +45,17 @@
 	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
 	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
 	<link rel="stylesheet" type="text/css" href="./style/chosen.css" />
+	<link rel="stylesheet" type="text/css" href="./style/table.css" />
 	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 	
 	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
-	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/chosen.jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./lib/jquery/table.js"></script>
 	<script language="javascript" type="text/javascript">
 		
 		$(document).ready(function() {
@@ -160,14 +161,14 @@
 					$dbh 										= db_connect ();
 					$tText 										= array();
 						
-					if( isset( $_SESSION['svn_sessid']['helptopic'] ) ) {
+					if( isset( $_SESSION[SVNSESSID]['helptopic'] ) ) {
 							
 						$schema									= db_determine_schema();
 					    
 						$lang									= check_language();
 						$query									= "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
 																  "  FROM ".$schema."help " .
-																  " WHERE topic = '".$_SESSION['svn_sessid']['helptopic']."'";
+																  " WHERE topic = '".$_SESSION[SVNSESSID]['helptopic']."'";
 						$result									= db_query( $query, $dbh );
 						
 						if( $result['rows'] > 0 ) {
@@ -177,7 +178,7 @@
 						} else {
 							
 							$tText['headline']					= _("No help found");
-							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION['svn_sessid']['helptopic'] );
+							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID]['helptopic'] );
 						}
 						
 					} else {
