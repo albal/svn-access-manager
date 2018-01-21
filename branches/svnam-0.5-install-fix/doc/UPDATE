@@ -7,11 +7,13 @@ Constants are used instead of literals where suitable.
 
 This version has includes PHP Unit tests.
 
-Basic tests have been done with PHP 7. So if you want to give it a try please use 
+Basic tests have been done with PHP 7. So if you want to give it a try with PHP 7 please use 
 SVN Access Manager together with PHP 7 and keep me updated.
  
 There's also a fix for the installer included. MySQLi is now available as database type.
-If you already installed SVN Access Manager this fix is not needed.
+If you already installed SVN Access Manager this fix is not needed. If you want to use
+the mysqlu driver instead of the mysql driver please update your config.inc.php file
+accordimgsly and use 'mysqli' for database_type.
 
 
 

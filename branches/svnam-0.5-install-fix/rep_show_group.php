@@ -38,93 +38,6 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getGroups($start, $count, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tGroups = array();
-    $query = " SELECT * " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "ORDER BY groupname ASC";
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tGroups[] = $row;
-    }
-    
-    return $tGroups;
-
-}
-
-function getUsersForGroup($tGroupId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tUsers = array();
-    $query = "SELECT * " . "  FROM " . $schema . "svnusers, " . $schema . "svn_users_groups " . " WHERE (svn_users_groups.group_id = '$tGroupId') " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')";
-    $result = db_query($query, $dbh);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tUsers[] = $row;
-    }
-    
-    return ($tUsers);
-
-}
-
-function getGroupAdminsForGroup($tGroupId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tAdmins = array();
-    $query = "SELECT svnusers.userid, svnusers.name, svnusers.givenname, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.group_id = '$tGroupId') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svngroups.deleted = '00000000000000') " . "ORDER BY userid ASC";
-    $result = db_query($query, $dbh);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tAdmins[] = $row;
-    }
-    
-    return ($tAdmins);
-
-}
-
-function getAccessRightsForGroup($tGroupId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tAccessRights = array();
-    $curdate = strftime("%Y%m%d");
-    $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) " . "     AND (svn_access_rights.group_id = $tGroupId) " . "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
-    
-    $result = db_query($query, $dbh);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tAccessRights[] = $row;
-    }
-    
-    return ($tAccessRights);
-
-}
-
-function getGroupData($tGroupId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = $tGroupId)";
-    $result = db_query($query, $dbh);
-    $row = db_assoc($result['result']);
-    
-    return ($row);
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
@@ -146,7 +59,7 @@ if ($rightAllowed == "none") {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $lang = check_language();
-    $tGroups = getGroups(0, - 1, $dbh);
+    $tGroups = db_getGroupList(0, - 1, $dbh);
     
     $template = "rep_show_group.tpl";
     $header = REPORTS;
@@ -181,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tMessage = _("No group selected!");
             $lang = check_language();
-            $tGroups = getGroups(0, - 1, $dbh);
+            $tGroups = db_getGroupList(0, - 1, $dbh);
             $template = "rep_show_group.tpl";
             $header = REPORTS;
             $subheader = REPORTS;
@@ -195,13 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         else {
             
-            $tGroupData = getGroupData($tGroupId, $dbh);
+            $tGroupData = db_getGroupData($tGroupId, $dbh);
             $tGroupname = $tGroupData['groupname'];
             $tDescription = $tGroupData['description'];
             $lang = check_language();
-            $tUsers = getUsersForGroup($tGroupId, $dbh);
-            $tAccessRights = getAccessRightsForGroup($tGroupId, $dbh);
-            $tAdmins = getGroupAdminsForGroup($tGroupId, $dbh);
+            $tUsers = db_getUsersForGroup($tGroupId, $dbh);
+            $tAccessRights = db_getAccessRightsForGroup($tGroupId, $dbh);
+            $tAdmins = db_getGroupAdminsForGroup($tGroupId, $dbh);
         }
     }
     else {

@@ -38,50 +38,6 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getUsers($start, $count, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tUsers = array();
-    $query = " SELECT * " . "   FROM " . $schema . "svnusers " . "   WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tUsers[] = $row;
-    }
-    
-    return $tUsers;
-
-}
-
-function getUserData($tUserId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (id = $tUserId)";
-    $result = db_query($query, $dbh);
-    $row = db_assoc($result['result']);
-    
-    return ($row);
-
-}
-
-function getGroupData($tGroupId, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = $tGroupId)";
-    $result = db_query($query, $dbh);
-    $row = db_assoc($result['result']);
-    
-    return ($row);
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
@@ -103,7 +59,7 @@ if ($rightAllowed == "none") {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $lang = check_language();
-    $tUsers = getUsers(0, - 1, $dbh);
+    $tUsers = db_getUsers(0, - 1, $dbh);
     
     $template = "rep_show_user.tpl";
     $header = REPORTS;
@@ -138,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tMessage = _("No user selected!");
             $lang = check_language();
-            $tUsers = getUsers(0, - 1, $dbh);
+            $tUsers = db_getUsers(0, - 1, $dbh);
             $template = "rep_show_user.tpl";
             $header = REPORTS;
             $subheader = REPORTS;
@@ -153,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         else {
             
             $tUser = db_getUseridById($tUserId, $dbh);
-            $tUserData = getUserData($tUserId, $dbh);
+            $tUserData = db_getUserData($tUserId, $dbh);
             $tUsername = $tUserData['userid'];
             $tAdministrator = $tUserData['admin'] == "y" ? _("Yes") : _("No");
             $tName = $tUserData['name'];

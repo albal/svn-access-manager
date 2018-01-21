@@ -38,81 +38,6 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getGrantedRights($start, $count, $dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tGrantedRights = array();
-    $query = "  SELECT * " . "    FROM " . $schema . "svnusers " . "   WHERE deleted = '00000000000000' " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
-    // " LIMIT $start, $count";
-    $result = db_query($query, $dbh, $count, $start);
-    $olduserid = "";
-    $rights = "";
-    $entry = array();
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        if ($row['givenname'] != "") {
-            
-            $entry['name'] = $row['givenname'] . " " . $row['name'];
-        }
-        else {
-            
-            $entry['name'] = $row['name'];
-        }
-        
-        $entry['userid'] = $row['userid'];
-        $entry['locked'] = $row['locked'];
-        $id = $row['id'];
-        
-        $query = "SELECT rights.right_name, users_rights.allowed " . "  FROM " . $schema . "rights, " . $schema . "users_rights " . " WHERE (rights.id = users_rights.right_id) " . "   AND (users_rights.user_id = $id ) " . "   AND (users_rights.deleted = '00000000000000') " . "   AND (rights.deleted = '00000000000000') " . "ORDER BY user_id, right_id";
-        $resultrights = db_query($query, $dbh);
-        
-        while ( $rowrights = db_assoc($resultrights['result']) ) {
-            
-            if ($rights == "") {
-                
-                $rights = $rowrights['right_name'] . " (" . $rowrights['allowed'] . ")";
-            }
-            else {
-                
-                $rights = $rights . ", " . $rowrights['right_name'] . " (" . $rowrights['allowed'] . ")";
-            }
-        }
-        
-        $entry['rights'] = $rights;
-        $rights = "";
-        $tGrantedRights[] = $entry;
-        $entry = array();
-    }
-    
-    return $tGrantedRights;
-
-}
-
-function getCountGrantedRights($dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
@@ -135,8 +60,8 @@ if ($rightAllowed == "none") {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $tGrantedRights = getGrantedRights(0, - 1, $dbh);
-    $tCountRecords = getCountGrantedRights($dbh);
+    $tGrantedRights = db_getGrantedRights(0, - 1, $dbh);
+    $tCountRecords = db_getCountGrantedRights($dbh);
     $tPrevDisabled = "disabled";
     $_SESSION[SVNSESSID]['rightcounter'] = 0;
     

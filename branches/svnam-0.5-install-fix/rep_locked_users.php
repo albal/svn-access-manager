@@ -38,46 +38,6 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getLockedUsers($start, $count, $dbh) {
-
-    $schema = db_determine_schema();
-    $tLockedUsers = array();
-    $query = " SELECT * " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "    AND (locked != 0) " . "ORDER BY userid ASC ";
-    // " LIMIT $start, $count";
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tLockedUsers[] = $row;
-    }
-    
-    return $tLockedUsers;
-
-}
-
-function getCountLockedUsers($dbh) {
-
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    $tUsers = array();
-    $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "    AND (locked != 0) " . "GROUP BY userid " . "ORDER BY userid";
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
@@ -99,8 +59,8 @@ if ($rightAllowed == "none") {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $_SESSION[SVNSESSID]['logcounter'] = 0;
-    $tLockedUsers = getLockedUsers(0, - 1, $dbh);
-    $tCountRecords = getCountLockedUsers($dbh);
+    $tLockedUsers = db_getLockedUsers(0, - 1, $dbh);
+    $tCountRecords = db_getCountLockedUsers($dbh);
     $tPrevDisabled = "disabled";
     
     if ($tCountRecords <= $CONF['page_size']) {
