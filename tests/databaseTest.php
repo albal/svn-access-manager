@@ -70,18 +70,6 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
     
     }
 
-    public function test_wrong_db_login() {
-
-        require_once ('constants.inc.php');
-        require_once ('db-functions-adodb.inc.php');
-        require_once ('functions.inc.php');
-        
-        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], '4711', $GLOBALS['DB_DBNAME']);
-        
-        $this->assertNull($dbh);
-    
-    }
-
     public function testDatabaseFunctions() {
 
         require_once ('constants.inc.php');
@@ -91,55 +79,118 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $date = $GLOBALS['DB_TEST_DATE'];
         $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
         
-        db_log('test', 'test entry', $dbh);
+        $this->assertTrue(db_check_global_admin('admin', $dbh));
+        $this->assertFalse(db_check_global_admin('test1', $dbh));
+        $this->assertFalse(db_check_global_admin('test9', $dbh));
+        
+        $this->assertTrue(db_check_global_admin_by_id(1, $dbh));
+        $this->assertFalse(db_check_global_admin_by_id(2, $dbh));
+        $this->assertFalse(db_check_global_admin_by_id(9, $dbh));
+        
+        $this->assertEquals('delete', db_check_acl('admin', 'User admin', $dbh));
+        $this->assertEquals('delete', db_check_acl('admin', 'Group admin', $dbh));
+        $this->assertEquals('none', db_check_acl('test1', 'Group admin', $dbh));
+        
+        $tDataArray = db_check_group_acl('test1', $dbh);
+        $this->assertEquals(0, count($tDataArray));
+        
+        $tDataArray = db_check_group_acl('test2', $dbh);
+        $this->assertEquals(0, count($tDataArray));
+        
+        $tDataArray = db_check_group_acl('admin', $dbh);
+        $this->assertEquals(0, count($tDataArray));
+        
+        $CONF['page_size'] = 30;
+        $CONF['user_sort_fields'] = 'name';
+        $CONF['user_sort_order'] = 'ASC';
+        
+        $tData = db_get_preferences('admin', $dbh);
+        $this->assertEquals(50, $tData['page_size']);
+        $this->assertEquals('name,givenname', $tData['user_sort_fields']);
+        $this->assertEquals('ASC', $tData['user_sort_order']);
+        
+        $this->assertEquals('SELECT * FROM test;', db_escape_string("SELECT * FROM test;", $dbh));
+        
+        $this->assertEquals('', db_determine_schema());
+        
+        $this->assertTrue(db_set_semaphore('test', 'test', $dbh));
+        $this->assertFalse(db_get_semaphore('test1', 'test', $dbh));
+        $this->assertTrue(db_get_semaphore('test', 'test', $dbh));
+        $this->assertFalse(db_unset_semaphore('test1', 'test', $dbh));
+        $this->assertTrue(db_unset_semaphore('test', 'test', $dbh));
+        
+        db_disconnect($dbh);
+    
+    }
+
+    public function testDatabaseUserFunctions() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
         
         $this->assertEquals('admin', db_getUseridById(1, $dbh));
         $this->assertEquals(1, db_getIdByUserid('admin', $dbh));
         $this->assertEquals('write', db_getUserRightByUserid('admin', $dbh));
         
-        $this->assertEquals('write', db_getGroupRightByGroupid(1, $dbh));
+        $tDataArray = db_getUsers(0, 5, $dbh);
+        $cnt = count($tDataArray);
+        $userEntry = db_getUserData(1, $dbh);
+        $this->assertEquals('admin', $userEntry['userid']);
+        $this->assertEquals('Krieger', $userEntry['name']);
+        $this->assertEquals('Thomas', $userEntry['givenname']);
         
-        $this->assertEquals('Test1', db_getRepoById(1, $dbh));
-        $this->assertFalse(db_getRepoById(10, $dbh));
-        $this->assertEquals(1, db_getRepoByName('Test1', $dbh));
-        $this->assertFalse(db_getRepoByName('Test3', $dbh));
+        $tDataArray = db_getLockedUsers(0, 10, $dbh);
+        $cntArray = count($tDataArray);
+        $cnt = db_getCountLockedUsers($dbh);
+        $this->assertEquals(0, $cnt);
+        $this->assertEquals($cnt, $cntArray);
         
-        $this->assertEquals('Test1', db_getProjectById(1, $dbh));
-        $this->assertFalse(db_getProjectById(10, $dbh));
+        db_disconnect($dbh);
+    
+    }
+
+    public function testDatabaseGroupFunctions() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
         
-        $this->assertEquals('Tester', db_getGroupById(1, $dbh));
-        $this->assertFalse(db_getGroupById(10, $dbh));
-        
-        $this->assertEquals('User admin', db_getRightName(1, $dbh));
-        $this->assertEquals('undefined', db_getRightName(100, $dbh));
-        
-        $this->assertFalse(db_getRightData(100, $dbh));
-        $tData = db_getRightData(1, $dbh);
-        $this->assertArrayHasKey('project_id', $tData);
-        $this->assertArrayHasKey('group_id', $tData);
-        $this->assertArrayHasKey('user_id', $tData);
-        $this->assertArrayHasKey('repo_id', $tData);
-        $this->assertArrayHasKey('access_right', $tData);
-        $this->assertEquals(1, $tData['project_id']);
-        $this->assertEquals(1, $tData['group_id']);
-        $this->assertEquals(0, $tData['user_id']);
-        $this->assertEquals(1, $tData['repo_id']);
-        $this->assertEquals('write', $tData['access_right']);
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
         
         $tDataArray = db_getGroupsForUser(2, $dbh);
-        $tData = $tDataArray[0];       
+        $tData = $tDataArray[0];
         $this->assertArrayHasKey('description', $tData);
         $this->assertArrayHasKey('groupname', $tData);
         $this->assertEquals('Tester', $tData['groupname']);
         $this->assertEquals('Group for testers', $tData['description']);
         
-        $tDataArray = db_getProjectResponsibleForUser(2, $dbh);
+        $this->assertEquals('write', db_getGroupRightByGroupid(1, $dbh));
+        
+        $this->assertEquals('Tester', db_getGroupById(1, $dbh));
+        $this->assertFalse(db_getGroupById(10, $dbh));
+        
+        $tDataArray = db_getGroupList(0, 10, $dbh);
+        $cnt = count($tDataArray);
         $tData = $tDataArray[0];
-        $this->assertEquals(1, count($tDataArray));
-        $this->assertArrayHasKey('svnmodule', $tData);
-        $this->assertArrayHasKey('reponame', $tData);
-        $this->assertEquals('Test1', $tData['svnmodule']);
-        $this->assertEquals('Test1', $tData['reponame']);
+        $this->assertEquals('Tester', $tData['groupname']);
+        $this->assertEquals('Group for testers', $tData['description']);
+        $this->assertEquals(1, $cnt);
+        
+        $tDataArray = db_getGroups(0, 5, $dbh);
+        $this->assertEquals(0, count($tDataArray));
+        
+        $this->assertEquals(0, db_getCountGroups($dbh));
+        
+        $tGroupsAllowed = array();
+        $tDataArray = db_getGroupsAllowed(0, 5, 0, $tGroupsAllowed, $dbh);
+        $tData = $tDataArray[0];
+        $this->assertEquals('1', $tData['id']);
+        $this->assertEquals('Tester', $tData['groupname']);
+        $this->assertEquals('Group for testers', $tData['description']);
+        $this->assertEquals(1, db_getCountGroupsAllowed(0, $tGroupsAllowed, $dbh));
         
         $tGroups = db_getGroupsForUser(2, $dbh);
         $tDataArray = db_getAccessRightsForUser(2, $tGroups, $dbh);
@@ -178,6 +229,109 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('write', $tData['access_right']);
         $this->assertEquals('2', $tData['repo_id']);
         $this->assertEquals('group id', $tData['access_by']);
+        
+        $groupEntry = db_getGroupData(1, $dbh);
+        $this->assertEquals('Tester', $groupEntry['groupname']);
+        $this->assertEquals('Group for testers', $groupEntry['description']);
+        
+        $tDataArray = db_getUsersForGroup(1, $dbh);
+        $this->assertEquals(2, count($tDataArray));
+        
+        $tData = $tDataArray[0];
+        $this->assertEquals('test1', $tData['userid']);
+        $this->assertEquals('Tester1', $tData['name']);
+        $this->assertEquals('Tester1', $tData['givenname']);
+        
+        $tDataArray = db_getGroupAdminsForGroup(1, $dbh);
+        $this->assertEquals(0, count($tDataArray));
+        
+        db_disconnect($dbh);
+    
+    }
+
+    public function testDatabaseProjectFunctions() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        
+        $this->assertEquals('Test1', db_getProjectById(1, $dbh));
+        $this->assertFalse(db_getProjectById(10, $dbh));
+        
+        $tDataArray = db_getProjects(0, 5, $dbh);
+        $tData = $tDataArray[0];
+        $this->assertEquals('1', $tData['id']);
+        $this->assertEquals('Test1', $tData['svnmodule']);
+        $this->assertEquals('/', $tData['modulepath']);
+        $this->assertEquals('Test1', $tData['reponame']);
+        
+        $this->assertEquals(2, db_getCountProjects($dbh));
+        
+        $tDataArray = db_getProjectResponsibleForUser(2, $dbh);
+        $tData = $tDataArray[0];
+        $this->assertEquals(1, count($tDataArray));
+        $this->assertArrayHasKey('svnmodule', $tData);
+        $this->assertArrayHasKey('reponame', $tData);
+        $this->assertEquals('Test1', $tData['svnmodule']);
+        $this->assertEquals('Test1', $tData['reponame']);
+        
+        db_disconnect($dbh);
+    
+    }
+
+    public function testDatabaseRepoFunctions() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        
+        $this->assertEquals('Test1', db_getRepoById(1, $dbh));
+        $this->assertFalse(db_getRepoById(10, $dbh));
+        $this->assertEquals(1, db_getRepoByName('Test1', $dbh));
+        $this->assertFalse(db_getRepoByName('Test3', $dbh));
+        
+        db_disconnect($dbh);
+    
+    }
+
+    public function testDatabaseLogFunctions() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        
+        db_log('test', 'test entry', $dbh);
+        
+        $tDataArray = db_getLog(0, 5, $dbh);
+        $tData = $tDataArray[0];
+        $cntArray = count($tDataArray);
+        $cnt = db_getCountLog($dbh);
+        $this->assertEquals(35, $cnt);
+        $this->assertEquals(5, $cntArray);
+        $this->assertEquals('test', $tData['username']);
+        $this->assertEquals('127.0.0.1', $tData['ipaddress']);
+        $this->assertEquals('test entry', $tData['logmessage']);
+        
+        db_disconnect($dbh);
+    
+    }
+
+    public function testDatabaseAccessRightsFunctions() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        
+        $this->assertEquals('User admin', db_getRightName(1, $dbh));
+        $this->assertEquals('undefined', db_getRightName(100, $dbh));
         
         $tDataArray = db_getAccessRights('Tester1', 0, 5, $dbh);
         $tData = $tDataArray[0];
@@ -222,69 +376,49 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(3, db_getCountAccessRights('Tester1', $dbh));
         $this->assertEquals(2, db_getCountAccessRights('test1', $dbh));
         
-        $tDataArray = db_getGroups(0, 5, $dbh);
-        $this->assertEquals(0, count($tDataArray));
+        $this->assertFalse(db_getRightData(100, $dbh));
+        $tData = db_getRightData(1, $dbh);
+        $this->assertArrayHasKey('project_id', $tData);
+        $this->assertArrayHasKey('group_id', $tData);
+        $this->assertArrayHasKey('user_id', $tData);
+        $this->assertArrayHasKey('repo_id', $tData);
+        $this->assertArrayHasKey('access_right', $tData);
+        $this->assertEquals(1, $tData['project_id']);
+        $this->assertEquals(1, $tData['group_id']);
+        $this->assertEquals(0, $tData['user_id']);
+        $this->assertEquals(1, $tData['repo_id']);
+        $this->assertEquals('write', $tData['access_right']);
         
-        $this->assertEquals(0, db_getCountGroups($dbh));
+        $tDataArray = db_getAccessRightsForGroup(1, $dbh);
+        $this->assertEquals(2, count($tDataArray));
         
-        $tGroupsAllowed = array();
-        $tDataArray = db_getGroupsAllowed(0, 5, 0, $tGroupsAllowed, $dbh);
+        $tDataArray = db_getGrantedRights(0, 5, $dbh);
+        $cnt = db_getCountGrantedRights($dbh);
+        $this->assertEquals(3, $cnt);
         $tData = $tDataArray[0];
-        $this->assertEquals('1', $tData['id']);
-        $this->assertEquals('Tester', $tData['groupname']);
-        $this->assertEquals('Group for testers', $tData['description']);
-        $this->assertEquals(1, db_getCountGroupsAllowed(0, $tGroupsAllowed, $dbh));
-              
-        $tDataArray = db_getProjects(0, 5, $dbh);
+        $this->assertEquals('admin', $tData['userid']);
+        $this->assertEquals('Thomas Krieger', $tData['name']);
+        
+        $tDataArray = db_getAccessRightsList($GLOBALS['DB_TEST_DATE'], 0, 5, $dbh);
+        $cnt = db_getCountAccessRightsList($GLOBALS['DB_TEST_DATE'], $dbh);
+        $this->assertEquals(3, $cnt);
         $tData = $tDataArray[0];
-        $this->assertEquals('1', $tData['id']);
         $this->assertEquals('Test1', $tData['svnmodule']);
         $this->assertEquals('/', $tData['modulepath']);
-        $this->assertEquals('Test1', $tData['reponame']);
-        
-        $this->assertEquals(2, db_getCountProjects($dbh));
-        
-        $this->assertTrue(db_check_global_admin('admin', $dbh));
-        $this->assertFalse(db_check_global_admin('test1', $dbh));
-        $this->assertFalse(db_check_global_admin('test9', $dbh));
-        
-        $this->assertTrue(db_check_global_admin_by_id(1, $dbh));
-        $this->assertFalse(db_check_global_admin_by_id(2, $dbh));
-        $this->assertFalse(db_check_global_admin_by_id(9, $dbh));
-        
-        $this->assertEquals('delete', db_check_acl('admin', 'User admin', $dbh));
-        $this->assertEquals('delete', db_check_acl('admin', 'Group admin', $dbh));
-        $this->assertEquals('none', db_check_acl('test1', 'Group admin', $dbh));
-        
-        $tDataArray = db_check_group_acl('test1', $dbh);
-        $this->assertEquals(0, count($tDataArray));
-        
-        $tDataArray = db_check_group_acl('test2', $dbh);
-        $this->assertEquals(0, count($tDataArray));
-        
-        $tDataArray = db_check_group_acl('admin', $dbh);
-        $this->assertEquals(0, count($tDataArray));
-        
-        $CONF['page_size'] = 30;
-        $CONF['user_sort_fields'] = 'name';
-        $CONF['user_sort_order'] = 'ASC';
-        
-        $tData = db_get_preferences('admin', $dbh);
-        $this->assertEquals(50, $tData['page_size']);
-        $this->assertEquals('name,givenname',$tData['user_sort_fields']);
-        $this->assertEquals('ASC', $tData['user_sort_order']);
-        
-        $this->assertEquals('SELECT * FROM test;', db_escape_string("SELECT * FROM test;", $dbh));
-        
-        $this->assertEquals('', db_determine_schema());
-        
-        $this->assertTrue(db_set_semaphore('test', 'test', $dbh));
-        $this->assertFalse(db_get_semaphore('test1', 'test', $dbh));
-        $this->assertTrue(db_get_semaphore('test', 'test', $dbh));
-        $this->assertFalse(db_unset_semaphore('test1', 'test', $dbh));
-        $this->assertTrue(db_unset_semaphore('test', 'test', $dbh));
         
         db_disconnect($dbh);
+    
+    }
+
+    public function test_wrong_db_login() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], '4711', $GLOBALS['DB_DBNAME']);
+        
+        $this->assertNull($dbh);
     
     }
 

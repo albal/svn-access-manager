@@ -1153,6 +1153,29 @@ function db_getCountAccessRights($user_id, $dbh) {
 }
 
 //
+// db_getGroupList
+// Action: get groups
+// Call: db_getGroupList(integer $start, integer $count, resource $dbh)
+//
+function db_getGroupList($start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tGroups = array();
+    $query = " SELECT * " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') " . "ORDER BY groupname ASC";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tGroups[] = $row;
+    }
+    
+    return $tGroups;
+
+}
+
+//
 // db_getGroups
 // Action: get groups
 // Call: db_getGroups(integer $start, integer $count, resource $dbh)
@@ -1329,6 +1352,404 @@ function db_getCountProjects($dbh) {
         $row = db_assoc($result[RESULT]);
         
         return $row['anz'];
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getLockedUsers
+// Action: get locked users from db
+// Call: db_getLockedUsers(integer $start, integer $count, resource $dbh)
+//
+function db_getLockedUsers($start, $count, $dbh) {
+
+    $schema = db_determine_schema();
+    $tLockedUsers = array();
+    $query = " SELECT * " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "    AND (locked != 0) " . "ORDER BY userid ASC ";
+    // " LIMIT $start, $count";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tLockedUsers[] = $row;
+    }
+    
+    return $tLockedUsers;
+
+}
+
+//
+// db_getCountLockedUsers
+// Action: get count of locked users
+// Call: db_getCountLockedUsers(resource $dbh)
+//
+function db_getCountLockedUsers($dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tUsers = array();
+    $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "    AND (locked != 0) " . "GROUP BY userid " . "ORDER BY userid";
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result['result']);
+        $count = $row['anz'];
+        
+        return $count;
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getLog
+// Action: get log entries from db
+// Call: db_getLog(integer $start, integer $count, resource $dbh)
+//
+function db_getLog($start, $count, $dbh) {
+
+    $schema = db_determine_schema();
+    $tLogmessages = array();
+    $query = " SELECT * " . "   FROM " . $schema . "log " . "ORDER BY logtimestamp DESC ";
+    // " LIMIT $start, $count";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tLogmessages[] = $row;
+    }
+    
+    return $tLogmessages;
+
+}
+
+//
+// db_getCountLog
+// Action: get count of log records
+// Call: db_getCountLog(resource $dbh)
+//
+function db_getCountLog($dbh) {
+
+    $schema = db_determine_schema();
+    $tUsers = array();
+    $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "log ";
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result['result']);
+        $count = $row['anz'];
+        
+        return $count;
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getUsers
+// Action: get users from db
+// Call: db_getUsers(integer $start, integer $count, resource $dbh)
+//
+function db_getUsers($start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tUsers = array();
+    $query = " SELECT * " . "   FROM " . $schema . "svnusers " . "   WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tUsers[] = $row;
+    }
+    
+    return $tUsers;
+
+}
+
+//
+// db_getUserData
+// Action: get data for an user from db
+// Call: db_getUserData(integer $tUserId, resource $dbh)
+//
+function db_getUserData($tUserId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (id = $tUserId)";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    
+    return ($row);
+
+}
+
+//
+// db_getGroupData
+// Action: get data for a group from db
+// Call: db_getGroupData(integer $tGroupId, resource $dbh)
+//
+function db_getGroupData($tGroupId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = $tGroupId)";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    
+    return ($row);
+
+}
+
+//
+// db_getUsersForGroup
+// Action: get all users having a particular group
+// Call: db_getUsersForGroup(integer $tGroupId, resource $dbh)
+//
+function db_getUsersForGroup($tGroupId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tUsers = array();
+    $query = "SELECT * " . "  FROM " . $schema . "svnusers, " . $schema . "svn_users_groups " . " WHERE (svn_users_groups.group_id = '$tGroupId') " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tUsers[] = $row;
+    }
+    
+    return ($tUsers);
+
+}
+
+//
+// db_getGroupAdminsForGroup
+// Action: get all admins for a particular group
+// Call: db_getGroupAdminsForGroup(integer $tGroupId, resource $dbh)
+//
+function db_getGroupAdminsForGroup($tGroupId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tAdmins = array();
+    $query = "SELECT svnusers.userid, svnusers.name, svnusers.givenname, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.group_id = '$tGroupId') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svngroups.deleted = '00000000000000') " . "ORDER BY userid ASC";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tAdmins[] = $row;
+    }
+    
+    return ($tAdmins);
+
+}
+
+//
+// db_getAccessRightsForGroup
+// Action: get all admins for a particular group
+// Call: db_getAccessRightsForGroup(integer $tGroupId, resource $dbh)
+//
+function db_getAccessRightsForGroup($tGroupId, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tAccessRights = array();
+    $curdate = strftime("%Y%m%d");
+    $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) " . "     AND (svn_access_rights.group_id = $tGroupId) " . "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnprojects.repo_id ASC, LENGTH(svn_access_rights.path) DESC";
+    
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tAccessRights[] = $row;
+    }
+    
+    return ($tAccessRights);
+
+}
+
+//
+// db_getGrantedRights
+// Action: get all granted rights
+// Call: db_getAccessRightsForGroup(integer $start, integer $count, resource $dbh)
+//
+function db_getGrantedRights($start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tGrantedRights = array();
+    $query = "  SELECT * " . "    FROM " . $schema . "svnusers " . "   WHERE deleted = '00000000000000' " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
+    // " LIMIT $start, $count";
+    $result = db_query($query, $dbh, $count, $start);
+    $olduserid = "";
+    $rights = "";
+    $entry = array();
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        if ($row['givenname'] != "") {
+            
+            $entry['name'] = $row['givenname'] . " " . $row['name'];
+        }
+        else {
+            
+            $entry['name'] = $row['name'];
+        }
+        
+        $entry['userid'] = $row['userid'];
+        $entry['locked'] = $row['locked'];
+        $id = $row['id'];
+        
+        $query = "SELECT rights.right_name, users_rights.allowed " . "  FROM " . $schema . "rights, " . $schema . "users_rights " . " WHERE (rights.id = users_rights.right_id) " . "   AND (users_rights.user_id = $id ) " . "   AND (users_rights.deleted = '00000000000000') " . "   AND (rights.deleted = '00000000000000') " . "ORDER BY user_id, right_id";
+        $resultrights = db_query($query, $dbh);
+        
+        while ( $rowrights = db_assoc($resultrights['result']) ) {
+            
+            if ($rights == "") {
+                
+                $rights = $rowrights['right_name'] . " (" . $rowrights['allowed'] . ")";
+            }
+            else {
+                
+                $rights = $rights . ", " . $rowrights['right_name'] . " (" . $rowrights['allowed'] . ")";
+            }
+        }
+        
+        $entry['rights'] = $rights;
+        $rights = "";
+        $tGrantedRights[] = $entry;
+        $entry = array();
+    }
+    
+    return $tGrantedRights;
+
+}
+
+//
+// db_getCountGrantedRight
+// Action: get count of log records
+// Call: db_getCountGrantedRight(resource $dbh)
+//
+function db_getCountGrantedRights($dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result['result']);
+        $count = $row['anz'];
+        
+        return $count;
+    }
+    else {
+        
+        return false;
+    }
+
+}
+
+//
+// db_getAccessRightsList
+// Action: get all valid rights
+// Call: db_getAccessRightsList(string $valid, integer $start, integer $count, resource $dbh)
+//
+function db_getAccessRightsList($valid, $start, $count, $dbh) {
+
+    $schema = db_determine_schema();
+    $tAccessRights = array();
+    $query = "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." . "       reponame, valid_from, valid_until, path, access_right, recursive," . "       svn_access_rights.user_id, svn_access_rights.group_id " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND (valid_from <= '$valid' ) " . "   AND (valid_until >= '$valid') " . "ORDER BY svnrepos.reponame, svn_access_rights.path ";
+    // " LIMIT $start, $count";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $entry = $row;
+        $userid = $row['user_id'];
+        if (empty($userid)) {
+            $userid = 0;
+        }
+        $groupid = $row['group_id'];
+        if (empty($groupid)) {
+            $groupid = 0;
+        }
+        $entry['groupname'] = "";
+        $entry['username'] = "";
+        
+        if ($userid != "0") {
+            
+            $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $userid";
+            $resultread = db_query($query, $dbh);
+            if ($resultread['rows'] == 1) {
+                
+                $row = db_assoc($resultread['result']);
+                $entry['username'] = $row['userid'];
+            }
+        }
+        
+        if ($groupid != "0") {
+            
+            $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $groupid";
+            $resultread = db_query($query, $dbh);
+            if ($resultread['rows'] == 1) {
+                
+                $row = db_assoc($resultread['result']);
+                $entry['groupname'] = $row['groupname'];
+            }
+            else {
+                $entry['groupname'] = "unknown";
+            }
+        }
+        
+        $tAccessRights[] = $entry;
+    }
+    
+    return $tAccessRights;
+
+}
+
+//
+// db_getCountAccessRightsList
+// Action: get count of valid rights
+// Call: db_getCountAccessRightsList(string $valid, resource $dbh)
+//
+function db_getCountAccessRightsList($valid, $dbh) {
+
+    $schema = db_determine_schema();
+    $tAccessRights = array();
+    $query = "SELECT COUNT(*) AS anz " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND (valid_from <= '$valid' ) " . "   AND (valid_until >= '$valid') ";
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result['result']);
+        $count = $row['anz'];
+        
+        return $count;
     }
     else {
         

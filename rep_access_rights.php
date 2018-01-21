@@ -38,81 +38,6 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getAccessRights($valid, $start, $count, $dbh) {
-
-    $schema = db_determine_schema();
-    $tAccessRights = array();
-    $query = "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." . "       reponame, valid_from, valid_until, path, access_right, recursive," . "       svn_access_rights.user_id, svn_access_rights.group_id " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND (valid_from <= '$valid' ) " . "   AND (valid_until >= '$valid') " . "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-    // " LIMIT $start, $count";
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $entry = $row;
-        $userid = $row['user_id'];
-        if (empty($userid)) {
-            $userid = 0;
-        }
-        $groupid = $row['group_id'];
-        if (empty($groupid)) {
-            $groupid = 0;
-        }
-        $entry['groupname'] = "";
-        $entry['username'] = "";
-        
-        if ($userid != "0") {
-            
-            $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $userid";
-            $resultread = db_query($query, $dbh);
-            if ($resultread['rows'] == 1) {
-                
-                $row = db_assoc($resultread['result']);
-                $entry['username'] = $row['userid'];
-            }
-        }
-        
-        if ($groupid != "0") {
-            
-            $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $groupid";
-            $resultread = db_query($query, $dbh);
-            if ($resultread['rows'] == 1) {
-                
-                $row = db_assoc($resultread['result']);
-                $entry['groupname'] = $row['groupname'];
-            }
-            else {
-                $entry['groupname'] = "unknown";
-            }
-        }
-        
-        $tAccessRights[] = $entry;
-    }
-    
-    return $tAccessRights;
-
-}
-
-function getCountAccessRights($valid, $dbh) {
-
-    $schema = db_determine_schema();
-    $tAccessRights = array();
-    $query = "SELECT COUNT(*) AS anz " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND (valid_from <= '$valid' ) " . "   AND (valid_until >= '$valid') ";
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
@@ -226,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $valid = $year . $month . $day;
             $_SESSION[SVNSESSID]['valid'] = $valid;
             $_SESSION[SVNSESSID]['rightcounter'] = 0;
-            $tAccessRights = getAccessRights($_SESSION[SVNSESSID]['valid'], 0, - 1, $dbh);
-            $tCountRecords = getCountAccessRights($_SESSION[SVNSESSID]['valid'], $dbh);
+            $tAccessRights = db_getAccessRightsList($_SESSION[SVNSESSID]['valid'], 0, - 1, $dbh);
+            $tCountRecords = db_getCountAccessRightsList($_SESSION[SVNSESSID]['valid'], $dbh);
             $tPrevDisabled = "disabled";
             
             if ($tCountRecords <= $CONF['page_size']) {

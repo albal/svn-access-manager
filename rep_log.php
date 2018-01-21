@@ -38,44 +38,6 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getLog($start, $count, $dbh) {
-
-    $schema = db_determine_schema();
-    $tLogmessages = array();
-    $query = " SELECT * " . "   FROM " . $schema . "log " . "ORDER BY logtimestamp DESC ";
-    // " LIMIT $start, $count";
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tLogmessages[] = $row;
-    }
-    
-    return $tLogmessages;
-
-}
-
-function getCountLog($dbh) {
-
-    $schema = db_determine_schema();
-    $tUsers = array();
-    $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "log ";
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
@@ -97,8 +59,8 @@ if ($rightAllowed == "none") {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $_SESSION[SVNSESSID]['logcounter'] = 0;
-    $tLogmessages = getLog(0, - 1, $dbh);
-    $tCountRecords = getCountLog($dbh);
+    $tLogmessages = db_getLog(0, - 1, $dbh);
+    $tCountRecords = db_getCountLog($dbh);
     $tPrevDisabled = "disabled";
     
     if ($tCountRecords <= $CONF['page_size']) {
