@@ -24,7 +24,7 @@
 		<var name="DB_DSN" value="mysql:dbname=svnamtest;host=localhost" />
 		<var name="DB_USER" value="you user here" />
 		<var name="DB_PASSWD" value="your password here" />
-		<var name="DB_DBNAME" value="yout test db name here" />
+		<var name="DB_DBNAME" value="your test db name here" />
 		<var name="DB_HOST" value="localhost" />
 		<var name="DB_TYPE" value="mysqli" />
 		<var name="DB_TEST_DATE" value="20180102" />
