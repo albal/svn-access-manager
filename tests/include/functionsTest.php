@@ -2,10 +2,10 @@
 
 /*
  *
- * $LastChangedDate: 2018-01-17 10:55:50 +0100 (Wed, 17 Jan 2018) $
- * $LastChangedBy: kriegeth $
+ * $LastChangedDate$
+ * $LastChangedBy$
  *
- * $Id: functionsTest.php 549 2018-01-17 09:55:50Z kriegeth $
+ * $Id$
  *
  */
 final class FunctionsTest extends PHPUnit_Framework_TestCase {
