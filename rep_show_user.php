@@ -21,7 +21,6 @@
 
 /*
  *
- * File: workOnGroupAccessRight.php
  * $LastChangedDate: 2018-01-17 10:55:50 +0100 (Wed, 17 Jan 2018) $
  * $LastChangedBy: kriegeth $
  *

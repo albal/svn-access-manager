@@ -21,7 +21,6 @@
 
 /*
  *
- * File: deleteGroupAccessRight.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

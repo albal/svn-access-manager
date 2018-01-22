@@ -21,7 +21,6 @@
 
 /*
  *
- * File: list_group_admins.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

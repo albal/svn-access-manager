@@ -21,7 +21,6 @@
 
 /*
  *
- * File: install.php
  * Template File: install.tpl
  * $LastChangedDate$
  * $LastChangedBy$
