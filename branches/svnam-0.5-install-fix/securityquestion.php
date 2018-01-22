@@ -21,7 +21,6 @@
 
 /*
  *
- * File: securityquestion.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

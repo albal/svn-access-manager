@@ -21,7 +21,6 @@
 
 /*
  *
- * File: resetpassword.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

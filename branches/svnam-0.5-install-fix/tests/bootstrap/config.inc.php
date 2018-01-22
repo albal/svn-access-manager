@@ -21,7 +21,6 @@
 
 /*
  *
- * File: config.inc.php.tpl
  * $LastChangedDate: 2018-01-17 11:26:25 +0100 (Wed, 17 Jan 2018) $
  * $LastChangedBy: kriegeth $
  *

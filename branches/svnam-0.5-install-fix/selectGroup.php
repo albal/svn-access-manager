@@ -21,7 +21,6 @@
 
 /*
  *
- * File: selectGroup.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

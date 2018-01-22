@@ -21,7 +21,6 @@
 
 /*
  *
- * File: lostpassword.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

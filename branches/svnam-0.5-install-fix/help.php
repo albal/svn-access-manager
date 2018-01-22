@@ -21,7 +21,6 @@
 
 /*
  *
- * File: help.php
  * $LastChangedDate$
  * $LastChangedBy$
  *

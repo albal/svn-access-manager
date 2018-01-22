@@ -20,8 +20,6 @@
  */
 
 /*
- *
- * File: workOnGroupAccessRight.php
  * $LastChangedDate$
  * $LastChangedBy$
  *
