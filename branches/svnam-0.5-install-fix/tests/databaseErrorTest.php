@@ -2,7 +2,7 @@
 
 /*
  *
- * $Id: databaseErrorTest.php 549 2018-01-17 09:55:50Z kriegeth $
+ * $Id$
  *
  */
 final class DatabaseErrorTest extends PHPUnit_Framework_TestCase {

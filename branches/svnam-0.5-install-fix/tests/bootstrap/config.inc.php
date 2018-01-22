@@ -21,10 +21,10 @@
 
 /*
  *
- * $LastChangedDate: 2018-01-17 11:26:25 +0100 (Wed, 17 Jan 2018) $
- * $LastChangedBy: kriegeth $
+ * $LastChangedDate$
+ * $LastChangedBy$
  *
- * $Id: config.inc.php 552 2018-01-17 10:26:25Z kriegeth $
+ * $Id$
  *
  */
 if (preg_match("/config.inc.php/", $_SERVER['PHP_SELF'])) {
