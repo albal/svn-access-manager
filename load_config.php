@@ -27,7 +27,6 @@
  * $Id$
  *
  */
-
 global $CONF;
 
 if (! is_array($CONF)) {
@@ -43,6 +42,9 @@ if (! is_array($CONF)) {
     else {
         die("can't load config.inc.php. Please check your installation!\n");
     }
+}
+else {
+    die("can't load config.inc.php. CONF not defined! Please check your installation!\n");
 }
 
 if (! defined('INSTALLBASE')) {
