@@ -1,0 +1,31 @@
+
+SVN Access Manager Docker Container
+===================================
+
+The dockerfile allowes you to create a docker container assembling SVN Access Manager 
+with PHP7 and MariaDB. The container will build on current CentoS 7 base image. 
+
+To build the container you can do the following:
+
+1. Switch into the docker directory
+
+2. Run the following command to create a container with the name svnamtest and version 0.1:
+   
+   docker build -t svnamtest:0.1 .
+   
+
+To run the container you can do the following:
+   
+   docker run --rm -d --name svnamtest -p 7280:80 svnamtest:0.1 
+   
+   
+The container exposes port 80. The command above maps this port to the local port 7280.
+
+Beside the exposed port the following volumes are available for external mapping:
+- /var/log/httpd,
+- /etc/svn-access-manager
+- /svn/repos
+- /var/lib/mysql
+- /var/log/mariadb
+
+Have fun.

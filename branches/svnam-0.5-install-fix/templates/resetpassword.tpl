@@ -11,7 +11,7 @@ include( "./include/output.inc.php" );
 <html>
 <!--
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
