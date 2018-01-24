@@ -21,10 +21,10 @@
 
 /*
  *
- * $LastChangedDate: 2018-01-24 09:13:56 +0100 (Wed, 24 Jan 2018) $
- * $LastChangedBy: kriegeth $
+ * $LastChangedDate$
+ * $LastChangedBy$
  *
- * $Id: addGroupToProject.php 761 2018-01-24 08:13:56Z kriegeth $
+ * $Id$
  *
  */
 include ('load_config.php');
