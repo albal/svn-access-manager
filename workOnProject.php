@@ -2,7 +2,7 @@
 
 /*
  * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+ * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,8 @@ include_once ("$installBase/include/constants.inc.php");
 require ("$installBase/include/functions.inc.php");
 require ("$installBase/include/output.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
+include_once ("$installBase/addMemberToProject.php");
+include_once ("$installBase/addGroupToProject.php");
 
 initialize_i18n();
 

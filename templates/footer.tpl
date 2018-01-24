@@ -8,6 +8,9 @@
        				<td nowrap>
 						<?php global $CONF; print $CONF['copyright']." - PHP Version: ".PHP_VERSION; ?>
 					</td>
+					<td nowrap align="center">
+					   <?php print $tBuildInfo; ?>
+					</td>
 					<td nowrap align="right">
 						<?php print $datetime; ?>
 					</td>

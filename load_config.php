@@ -2,7 +2,7 @@
 
 /*
  * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+ * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,9 +42,8 @@ if (! is_array($CONF)) {
     else {
         die("can't load config.inc.php. Please check your installation!\n");
     }
-}
-else {
-    die("can't load config.inc.php. CONF not defined! Please check your installation!\n");
+} else {
+    error_log("can't load config.inc.php. CONF is not defined! Please check your installation!");
 }
 
 if (! defined('INSTALLBASE')) {
