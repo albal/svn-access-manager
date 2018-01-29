@@ -8,6 +8,7 @@ Release 0.5.7.0
     - added unit tests and a small database xml dump for database phpunit tests
     - added mysqli driver to installer
     - basic tests with php 7
+    - added docker container build for testing purposes
 
 Release 0.5.6.6
     - updated selinux policy for CentOS 6 and CentOS 7
