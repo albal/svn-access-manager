@@ -763,7 +763,7 @@ Use '/' as path separator on Windows systems. You must write down a repository p
 	<row>
 		<field name="session_id">qj0e2kd7j14ahqmajguehhq6p6</field>
 		<field name="session_expires">1515764186</field>
-		<field name="session_data">SVNSESSID|a:32:{s:8:&quot;username&quot;;s:5:&quot;admin&quot;;s:4:&quot;name&quot;;s:7:&quot;Krieger&quot;;s:9:&quot;givenname&quot;;s:6:&quot;Thomas&quot;;s:5:&quot;admin&quot;;s:1:&quot;y&quot;;s:16:&quot;password_expired&quot;;i:0;s:9:&quot;helptopic&quot;;s:16:&quot;createacessfiles&quot;;s:11:&quot;usercounter&quot;;i:0;s:11:&quot;repocounter&quot;;i:0;s:14:&quot;projectcounter&quot;;i:0;s:12:&quot;rightcounter&quot;;i:0;s:8:&quot;max_mark&quot;;i:2;s:4:&quot;mark&quot;;a:3:{i:0;s:1:&quot;1&quot;;i:1;s:1:&quot;3&quot;;i:2;s:1:&quot;2&quot;;}s:12:&quot;groupcounter&quot;;i:0;s:10:&quot;logcounter&quot;;i:0;s:5:&quot;group&quot;;s:1:&quot;1&quot;;s:9:&quot;projectid&quot;;s:1:&quot;1&quot;;s:4:&quot;task&quot;;s:6:&quot;change&quot;;s:9:&quot;svnmodule&quot;;s:5:&quot;Test1&quot;;s:10:&quot;modulepath&quot;;s:1:&quot;/&quot;;s:4:&quot;path&quot;;a:1:{i:0;s:0:&quot;&quot;;}s:7:&quot;pathcnt&quot;;i:0;s:8:&quot;reponame&quot;;s:5:&quot;Test1&quot;;s:8:&quot;repopath&quot;;s:23:&quot;file:///svn/repos/test1&quot;;s:8:&quot;repouser&quot;;s:0:&quot;&quot;;s:12:&quot;repopassword&quot;;s:0:&quot;&quot;;s:12:&quot;pathselected&quot;;s:1:&quot;/&quot;;s:9:&quot;validfrom&quot;;s:10:&quot;00.00.0000&quot;;s:10:&quot;validuntil&quot;;s:10:&quot;99.99.9999&quot;;s:11:&quot;accessright&quot;;s:4:&quot;read&quot;;s:6:&quot;userid&quot;;s:1:&quot;1&quot;;s:7:&quot;groupid&quot;;s:1:&quot;0&quot;;s:7:&quot;rightid&quot;;s:1:&quot;3&quot;;}</field>
+		<field name="session_data">SVNSESSID|a:32:{s:8:&quot;username&quot;;s:5:&quot;admin&quot;;s:4:&quot;name&quot;;s:7:&quot;Admin&quot;;s:9:&quot;givenname&quot;;s:6:&quot;Secret&quot;;s:5:&quot;admin&quot;;s:1:&quot;y&quot;;s:16:&quot;password_expired&quot;;i:0;s:9:&quot;helptopic&quot;;s:16:&quot;createacessfiles&quot;;s:11:&quot;usercounter&quot;;i:0;s:11:&quot;repocounter&quot;;i:0;s:14:&quot;projectcounter&quot;;i:0;s:12:&quot;rightcounter&quot;;i:0;s:8:&quot;max_mark&quot;;i:2;s:4:&quot;mark&quot;;a:3:{i:0;s:1:&quot;1&quot;;i:1;s:1:&quot;3&quot;;i:2;s:1:&quot;2&quot;;}s:12:&quot;groupcounter&quot;;i:0;s:10:&quot;logcounter&quot;;i:0;s:5:&quot;group&quot;;s:1:&quot;1&quot;;s:9:&quot;projectid&quot;;s:1:&quot;1&quot;;s:4:&quot;task&quot;;s:6:&quot;change&quot;;s:9:&quot;svnmodule&quot;;s:5:&quot;Test1&quot;;s:10:&quot;modulepath&quot;;s:1:&quot;/&quot;;s:4:&quot;path&quot;;a:1:{i:0;s:0:&quot;&quot;;}s:7:&quot;pathcnt&quot;;i:0;s:8:&quot;reponame&quot;;s:5:&quot;Test1&quot;;s:8:&quot;repopath&quot;;s:23:&quot;file:///svn/repos/test1&quot;;s:8:&quot;repouser&quot;;s:0:&quot;&quot;;s:12:&quot;repopassword&quot;;s:0:&quot;&quot;;s:12:&quot;pathselected&quot;;s:1:&quot;/&quot;;s:9:&quot;validfrom&quot;;s:10:&quot;00.00.0000&quot;;s:10:&quot;validuntil&quot;;s:10:&quot;99.99.9999&quot;;s:11:&quot;accessright&quot;;s:4:&quot;read&quot;;s:6:&quot;userid&quot;;s:1:&quot;1&quot;;s:7:&quot;groupid&quot;;s:1:&quot;0&quot;;s:7:&quot;rightid&quot;;s:1:&quot;3&quot;;}</field>
 	</row>
 	</table_data>
 	<table_data name="svn_access_rights">
@@ -954,12 +954,12 @@ Use '/' as path separator on Windows systems. You must write down a repository p
 	<row>
 		<field name="id">1</field>
 		<field name="userid">admin</field>
-		<field name="name">Krieger</field>
-		<field name="givenname">Thomas</field>
+		<field name="name">Admin</field>
+		<field name="givenname">Secret</field>
 		<field name="password">$1$NLvGX4d3$SdtwVFvV8As0z8I0xtE8L.</field>
 		<field name="passwordexpires">1</field>
 		<field name="locked">0</field>
-		<field name="emailaddress">tom@tom-krieger.de</field>
+		<field name="emailaddress">admin@example.com</field>
 		<field name="admin">y</field>
 		<field name="user_mode">write</field>
 		<field name="created">20171212125535</field>

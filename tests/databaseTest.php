@@ -166,8 +166,8 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $cnt = count($tDataArray);
         $userEntry = db_getUserData(1, $dbh);
         $this->assertEquals('admin', $userEntry['userid']);
-        $this->assertEquals('Krieger', $userEntry['name']);
-        $this->assertEquals('Thomas', $userEntry['givenname']);
+        $this->assertEquals('Admin', $userEntry['name']);
+        $this->assertEquals('Secret', $userEntry['givenname']);
         
         $tDataArray = db_getLockedUsers(0, 10, $dbh);
         $cntArray = count($tDataArray);
@@ -424,7 +424,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(3, $cnt);
         $tData = $tDataArray[0];
         $this->assertEquals('admin', $tData['userid']);
-        $this->assertEquals('Thomas Krieger', $tData['name']);
+        $this->assertEquals('Secret Admin', $tData['name']);
         
         $tDataArray = db_getAccessRightsList($GLOBALS['DB_TEST_DATE'], 0, 5, $dbh);
         $cnt = db_getCountAccessRightsList($GLOBALS['DB_TEST_DATE'], $dbh);
