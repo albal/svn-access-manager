@@ -29,7 +29,7 @@
  */
 include ('load_config.php');
 
-$installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
+$installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
 require ("$installBase/include/variables.inc.php");
 
@@ -43,11 +43,11 @@ check_password_expired();
 
 $_SESSION['svn_sessid']['helptopic'] = "addgrouptoproject";
 
-function addGroupToProject($group, $currentMembers, $dbh) {
+function addGroupToProject($currentMembers, $dbh) {
 
     global $CONF;
     
-    $installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
+    $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
     $schema = db_determine_schema();
     
     $cs_array = array();
@@ -73,9 +73,9 @@ function addGroupToProject($group, $currentMembers, $dbh) {
     }
     
     $tMessage = "";
-    $header = "projects";
-    $subheader = "projects";
-    $menu = "projects";
+    $header = PROJECT;
+    $subheader = PROJECT;
+    $menu = PROJECT;
     $template = "addGroupToProject.tpl";
     
     include ("$installBase/templates/framework.tpl");
