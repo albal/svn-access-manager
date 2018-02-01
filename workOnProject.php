@@ -281,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION[SVNSESSID]['repo'] = $tRepo;
         $_SESSION[SVNSESSID]['groups'] = $tGroups;
         
-        addMemberToGroup($tGroups, $_SESSION[SVNSESSID]['members'], $dbh);
+        addMemberToGroup($_SESSION[SVNSESSID]['members'], $dbh);
         
         db_disconnect($dbh);
         exit();
@@ -315,7 +315,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION[SVNSESSID]['modulepath'] = $tModulepath;
         $_SESSION[SVNSESSID]['repo'] = $tRepo;
         
-        addGroupToProject($tGroups, $_SESSION[SVNSESSID]['groups'], $dbh);
+        addGroupToProject($_SESSION[SVNSESSID]['groups'], $dbh);
         
         db_disconnect($dbh);
         exit();

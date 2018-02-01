@@ -19,7 +19,7 @@ To run the container you can do the following:
    docker run --rm -d --name svnamtest -p 7280:80 svnamtest:0.1 
    
    
-The container exposes port 80. The command above maps this port to the local port 7280. 
+The container exposes port 80. The command above maps this port to the local port 7280.
 You can access SVN Access Manager through the mapped port. 
 
 Beside the exposed port the following volumes are available for external mapping:

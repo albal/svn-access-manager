@@ -46,6 +46,7 @@ define_constant('PROJECTS', 'projects');
 define_constant('GROUPS', 'groups');
 define_constant('USERS', 'users');
 define_constant('ACCESS', 'access');
+define_constant('PROJECT', 'project');
 
 define_constant('DBERROR', 'dberror');
 define_constant('DBQUERY', 'dbquery');

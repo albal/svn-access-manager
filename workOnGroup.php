@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION[SVNSESSID]['groupdescr'] = $tDescription;
         $_SESSION[SVNSESSID]['groupname'] = $tGroup;
         
-        addMemberToGroup($tGroup, $_SESSION[SVNSESSID]['members'], $dbh);
+        addMemberToGroup($_SESSION[SVNSESSID]['members'], $dbh);
         
         db_disconnect($dbh);
         exit();
