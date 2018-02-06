@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
-    $_SESSION[SVNSESSID]['projectid'] = $tId;
+    $_SESSION[SVNSESSID][PROJECTID] = $tId;
     
     $schema = db_determine_schema();
     
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         
         if ($result['rows'] == 1) {
             
-            $row = db_assoc($result['result']);
+            $row = db_assoc($result[RESULT]);
             $tProject = $row["svnmodule"];
             $tModulepath = $row["modulepath"];
             $tRepoid = $row['repo_id'];
@@ -90,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             
             if ($result['rows'] == 1) {
                 
-                $row = db_assoc($result['result']);
+                $row = db_assoc($result[RESULT]);
                 $tRepo = $row['reponame'];
                 
                 $query = "  SELECT svnusers.userid, svnusers.name, svnusers.givenname " . "    FROM " . $schema . "svnusers, " . $schema . "svn_projects_responsible " . "   WHERE (svnusers.id = svn_projects_responsible.user_id)" . "     AND (svn_projects_responsible.project_id = $tId) " . "     AND (svnusers.deleted = '00000000000000') " . "     AND (svn_projects_responsible.deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
                 $result = db_query($query, $dbh);
                 
-                while ( $row = db_assoc($result['result']) ) {
+                while ( $row = db_assoc($result[RESULT]) ) {
                     
                     $userid = $row['userid'];
                     $name = $row['name'];
@@ -152,9 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $projectname = db_getProjectById($_SESSION[SVNSESSID]['projectid'], $dbh);
+        $projectname = db_getProjectById($_SESSION[SVNSESSID][PROJECTID], $dbh);
         $dbnow = db_now();
-        $query = "  UPDATE " . $schema . "svnprojects " . "    SET deleted = '$dbnow', " . "        deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . "  WHERE id = " . $_SESSION[SVNSESSID]['projectid'];
+        $query = "  UPDATE " . $schema . "svnprojects " . "    SET deleted = '$dbnow', " . "        deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . "  WHERE id = " . $_SESSION[SVNSESSID][PROJECTID];
         
         db_ta('BEGIN', $dbh);
         db_log($_SESSION[SVNSESSID]['username'], "deleted project $projectname", $dbh);
@@ -164,13 +164,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($result['rows'] == 1) {
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svn_projects_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID]['projectid'] . "') " . "   AND (deleted = '00000000000000')";
+            $query = "UPDATE " . $schema . "svn_projects_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID][PROJECTID] . "') " . "   AND (deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] >= 0) {
                 
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID]['projectid'] . "') " . "   AND (deleted = '00000000000000')";
+                $query = "UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (project_id = '" . $_SESSION[SVNSESSID][PROJECTID] . "') " . "   AND (deleted = '00000000000000')";
                 $result = db_query($query, $dbh);
                 
                 db_ta('COMMIT', $dbh);

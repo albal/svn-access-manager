@@ -47,9 +47,9 @@ $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "deletegroup";
 
-if ($rightAllowed != "delete") {
+if ($rightAllowed != DELETE) {
     
-    $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID]['username'], $dbh);
+    $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID][USERNAME], $dbh);
     if (count($tGroupsAllowed) == 0) {
         db_log($SESSID_USERNAME, "tried to use deleteGroup without permission", $dbh);
         db_disconnect($dbh);
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
     
-    if (($rightAllowed != "delete") and ($tId != "") and (! array_key_exists($tId, $tGroupsAllowed))) {
+    if (($rightAllowed != DELETE) and ($tId != "") and (! array_key_exists($tId, $tGroupsAllowed))) {
         
         db_log($SESSID_USERNAME, "tried to use deleteGroup without permission", $dbh);
         db_disconnect($dbh);
@@ -81,9 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
-    $_SESSION[SVNSESSID]['groupid'] = $tId;
+    $_SESSION[SVNSESSID][GROUPID] = $tId;
     
-    if ($_SESSION[SVNSESSID]['task'] == "delete") {
+    if ($_SESSION[SVNSESSID]['task'] == DELETE) {
         
         $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $tId";
         $result = db_query($query, $dbh);
@@ -149,12 +149,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $groupname = db_getGroupById($_SESSION[SVNSESSID]['groupid'], $dbh);
+        $groupname = db_getGroupById($_SESSION[SVNSESSID][GROUPID], $dbh);
         $dbnow = db_now();
-        $query = "  UPDATE " . $schema . "svngroups " . "    SET deleted = '$dbnow', " . "        deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' WHERE id = " . $_SESSION[SVNSESSID]['groupid'];
+        $query = "  UPDATE " . $schema . "svngroups " . "    SET deleted = '$dbnow', " . "        deleted_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' WHERE id = " . $_SESSION[SVNSESSID][GROUPID];
         
         db_ta('BEGIN', $dbh);
-        db_log($_SESSION[SVNSESSID]['username'], "deleted group $groupname", $dbh);
+        db_log($_SESSION[SVNSESSID][USERNAME], "deleted group $groupname", $dbh);
         
         $result = db_query($query, $dbh);
         
@@ -162,25 +162,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $error = 0;
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svn_users_groups " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (group_id = '" . $_SESSION[SVNSESSID]['groupid'] . "') " . "   AND (deleted = '00000000000000')";
+            $query = "UPDATE " . $schema . "svn_users_groups " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE (group_id = '" . $_SESSION[SVNSESSID][GROUPID] . "') " . "   AND (deleted = '00000000000000')";
             
-            db_log($_SESSION[SVNSESSID]['username'], "deleted group user relations for $groupname", $dbh);
+            db_log($_SESSION[SVNSESSID][USERNAME], "deleted group user relations for $groupname", $dbh);
             $result = db_query($query, $dbh);
             
             if ($result['rows'] >= 0) {
                 
                 $dbnow = db_now();
-                $query = " UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . "WHERE (group_id = '" . $_SESSION[SVNSESSID]['groupid'] . "') " . "  AND (deleted = '00000000000000')";
+                $query = " UPDATE " . $schema . "svn_access_rights " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . "WHERE (group_id = '" . $_SESSION[SVNSESSID][GROUPID] . "') " . "  AND (deleted = '00000000000000')";
                 
-                db_log($_SESSION[SVNSESSID]['username'], "deleted access rights for $groupname", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "deleted access rights for $groupname", $dbh);
                 $result = db_query($query, $dbh);
                 
                 if ($result['rows'] >= 0) {
                     
                     $dbnow = db_now();
-                    $query = "UPDATE " . $schema . "svn_groups_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (group_id = '" . $_SESSION[SVNSESSID]['groupid'] . "') " . "   AND (deleted = '00000000000000')";
+                    $query = "UPDATE " . $schema . "svn_groups_responsible " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE (group_id = '" . $_SESSION[SVNSESSID][GROUPID] . "') " . "   AND (deleted = '00000000000000')";
                     
-                    db_log($_SESSION[SVNSESSID]['username'], "deleted group responsibles for $groupname", $dbh);
+                    db_log($_SESSION[SVNSESSID][USERNAME], "deleted group responsibles for $groupname", $dbh);
                     $result = db_query($query, $dbh);
                     if ($result['rows'] < 0) {
                         

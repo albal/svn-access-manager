@@ -44,7 +44,7 @@ function getUserData($tUserId, $dbh) {
     $schema = db_determine_schema();
     $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (id = $tUserId)";
     $result = db_query($query, $dbh);
-    $row = db_assoc($result['result']);
+    $row = db_assoc($result[RESULT]);
     
     return ($row);
 
@@ -57,7 +57,7 @@ function getGroupData($tGroupId, $dbh) {
     $schema = db_determine_schema();
     $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (id = $tGroupId)";
     $result = db_query($query, $dbh);
-    $row = db_assoc($result['result']);
+    $row = db_assoc($result[RESULT]);
     
     return ($row);
 
@@ -80,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $result = db_query($query, $dbh);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
-        $tUserid = $row['userid'];
+        $row = db_assoc($result[RESULT]);
+        $tUserid = $row[USERID];
         $tName = $row['name'];
         $tGivenname = $row['givenname'];
         $tEmail = $row['emailaddress'];
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tAccessRights = db_getAccessRightsForUser($tUserId, $tGroups, $dbh);
         $tProjects = db_getProjectResponsibleForUser($tUserId, $dbh);
         
-        $_SESSION[SVNSESSID]['userid'] = $row['id'];
+        $_SESSION[SVNSESSID][USERID] = $row['id'];
     }
     else {
         
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             db_ta('BEGIN', $dbh);
             db_log($_SESSION[SVNSESSID]['username'], "user changed his data( $tName, $tGivenname, $tEmail)", $dbh);
             
-            $query = "UPDATE " . $schema . "svnusers " . "   SET givenname = '$tGivenname', " . "       name = '$tName', " . "       emailaddress = '$tEmail', " . "       securityquestion = '$tSecurityQuestion', " . "       securityanswer = '$tAnswer', " . "       custom1 = '$tCustom1', " . "       custom2 = '$tCustom2', " . "       custom3 = '$tCustom3' " . " WHERE (id = " . $_SESSION[SVNSESSID]['userid'] . ")";
+            $query = "UPDATE " . $schema . "svnusers " . "   SET givenname = '$tGivenname', " . "       name = '$tName', " . "       emailaddress = '$tEmail', " . "       securityquestion = '$tSecurityQuestion', " . "       securityanswer = '$tAnswer', " . "       custom1 = '$tCustom1', " . "       custom2 = '$tCustom2', " . "       custom3 = '$tCustom3' " . " WHERE (id = " . $_SESSION[SVNSESSID][USERID] . ")";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] > 0) {
@@ -199,8 +199,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = db_query($query, $dbh);
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
-        $tUserid = $row['userid'];
+        $row = db_assoc($result[RESULT]);
+        $tUserid = $row[USERID];
         $tName = $row['name'];
         $tGivenname = $row['givenname'];
         $tEmail = $row['emailaddress'];
@@ -214,9 +214,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tCustom2 = $row['custom2'];
         $tCustom3 = $row['custom3'];
         
-        $tGroups = db_getGroupsForUser($_SESSION[SVNSESSID]['userid'], $dbh);
-        $tAccessRights = db_getAccessRightsForUser($_SESSION[SVNSESSID]['userid'], $tGroups, $dbh);
-        $tProjects = db_getProjectResponsibleForUser($_SESSION[SVNSESSID]['userid'], $dbh);
+        $tGroups = db_getGroupsForUser($_SESSION[SVNSESSID][USERID], $dbh);
+        $tAccessRights = db_getAccessRightsForUser($_SESSION[SVNSESSID][USERID], $tGroups, $dbh);
+        $tProjects = db_getProjectResponsibleForUser($_SESSION[SVNSESSID][USERID], $dbh);
     }
     else {
         

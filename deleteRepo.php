@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
-    $_SESSION[SVNSESSID]['repoid'] = $tId;
+    $_SESSION[SVNSESSID][REPOID] = $tId;
     
     $schema = db_determine_schema();
     
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         
         if ($result['rows'] == 1) {
             
-            $row = db_assoc($result['result']);
+            $row = db_assoc($result[RESULT]);
             $tReponame = $row['reponame'];
             $tRepopath = $row['repopath'];
             $tRepouser = $row['repouser'];
@@ -85,22 +85,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tDisabled = "";
             $tClass = "button";
             
-            $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION[SVNSESSID]['repoid'] . "')";
+            $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION[SVNSESSID][REPOID] . "')";
             $result = db_query($query, $dbh);
             
             if ($result['rows'] > 0) {
                 
                 $repos = "";
                 
-                while ( $row = db_assoc($result['result']) ) {
+                while ( $row = db_assoc($result[RESULT]) ) {
                     
                     if ($repos == "") {
                         
-                        $repos .= $row['svnmodule'];
+                        $repos .= $row[SVNMODULE];
                     }
                     else {
                         
-                        $repos .= ", " . $row['svnmodule'];
+                        $repos .= ", " . $row[SVNMODULE];
                     }
                 }
                 
@@ -146,18 +146,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Delete")) {
         
-        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION[SVNSESSID]['repoid'] . "')";
+        $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (deleted = '00000000000000') " . "   AND (repo_id = '" . $_SESSION[SVNSESSID][REPOID] . "')";
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 0) {
             
-            $reponame = db_getRepoById($_SESSION[SVNSESSID]['repoid'], $dbh);
+            $reponame = db_getRepoById($_SESSION[SVNSESSID][REPOID], $dbh);
             
             db_ta('BEGIN', $dbh);
             db_log($_SESSION[SVNSESSID]['username'], "deleted repository $reponame", $dbh);
             
             $dbnow = db_now();
-            $query = "UPDATE " . $schema . "svnrepos " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "'" . " WHERE id = " . $_SESSION[SVNSESSID]['repoid'];
+            $query = "UPDATE " . $schema . "svnrepos " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "'" . " WHERE id = " . $_SESSION[SVNSESSID][REPOID];
             $result = db_query($query, $dbh);
             
             if ($result['rows'] == 1) {
@@ -180,15 +180,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $repos = "";
             
-            while ( $row = db_assoc($result['result']) ) {
+            while ( $row = db_assoc($result[RESULT]) ) {
                 
                 if ($repos == "") {
                     
-                    $repos .= $row['svnmodule'];
+                    $repos .= $row[SVNMODULE];
                 }
                 else {
                     
-                    $repos .= ", " . $row['svnmodule'];
+                    $repos .= ", " . $row[SVNMODULE];
                 }
             }
             
