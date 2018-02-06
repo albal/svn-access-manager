@@ -85,10 +85,10 @@ function initialize_i18n() {
         $localepath = "./locale";
     }
     
-    $dom = bindtextdomain("messages", $localepath);
-    $msgdom = textdomain("messages");
+    $dom = bindtextdomain(MESSAGES, $localepath);
+    $msgdom = textdomain(MESSAGES);
     
-    bind_textdomain_codeset("messages", 'UTF-8');
+    bind_textdomain_codeset(MESSAGES, 'UTF-8');
 
 }
 
@@ -112,13 +112,13 @@ function check_session() {
         exit();
     }
     
-    $SESSID_USERNAME = $_SESSION[SVNSESSID]['username'];
+    $SESSID_USERNAME = $_SESSION[SVNSESSID][USERNAME];
     
     if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1)) {
         
         if (isset($CONF['ldap_bind_dn_suffix'])) {
             
-            $CONF['bind_dn'] = $_SESSION[SVNSESSID]['username'] . $CONF['ldap_bind_dn_suffix'];
+            $CONF['bind_dn'] = $_SESSION[SVNSESSID][USERNAME] . $CONF['ldap_bind_dn_suffix'];
             $CONF['bind_pw'] = $_SESSION[SVNSESSID]['password'];
         }
     }
@@ -138,7 +138,7 @@ function check_session_lpw($redirect = "y") {
     @session_start();
     
     // if (!session_is_registered ("svn_lpw")) {
-    if (! isset($_SESSION['svn_lpw'])) {
+    if (! isset($_SESSION[SVNLPW])) {
         
         $SESSID_USERNAME = "";
         
@@ -149,8 +149,8 @@ function check_session_lpw($redirect = "y") {
     }
     else {
         
-        if (isset($_SESSION['svn_lpw']['username'])) {
-            $SESSID_USERNAME = $_SESSION['svn_lpw']['username'];
+        if (isset($_SESSION[SVNLPW][USERNAME])) {
+            $SESSID_USERNAME = $_SESSION[SVNLPW][USERNAME];
         }
         else {
             $SESSID_USERNAME = "";
@@ -180,7 +180,7 @@ function check_session_status() {
     else {
         
         $ret = 1;
-        $SESSID_USERNAME = $_SESSION[SVNSESSID]['username'];
+        $SESSID_USERNAME = $_SESSION[SVNSESSID][USERNAME];
     }
     
     return array(
@@ -459,13 +459,13 @@ function escape_string($string) {
         else {
             $escaped_string = $string;
             
-            if ($CONF['database_type'] == "mysql") {
+            if ($CONF[DATABASE_TYPE] == "mysql") {
                 $escaped_string = mysql_real_escape_string($string);
             }
-            if ($CONF['database_type'] == "mysqli") {
+            if ($CONF[DATABASE_TYPE] == "mysqli") {
                 $escaped_string = mysqli_real_escape_string($string);
             }
-            if ($CONF['database_type'] == "pgsql") {
+            if ($CONF[DATABASE_TYPE] == "pgsql") {
                 $escaped_string = pg_escape_string($string);
             }
         }
@@ -708,15 +708,18 @@ function pacrypt($pw, $pw_db = "") {
 
     global $CONF;
     
-    if ($pw_db != "")
+    if ($pw_db != "") {
         $crypt = get_passwd_type_salt($pw_db, $salt);
+    }
     else {
         $salt = "";
         
-        if (isset($CONF['pwcrypt']) && $CONF['pwcrypt'] != "")
-            $crypt = $CONF['pwcrypt'];
-        else
+        if (isset($CONF[PWCRYPT]) && $CONF[PWCRYPT] != "") {
+            $crypt = $CONF[PWCRYPT];
+        }
+        else {
             $crypt = "crypt";
+        }
     }
     
     switch ($crypt) {
@@ -731,8 +734,9 @@ function pacrypt($pw, $pw_db = "") {
             break;
         case "crypt" :
             // crypt() can choose surprising behavior if the salt for DES-crypt is not provided
-            if ($salt == "")
+            if ($salt == "") {
                 $salt = create_salt(2);
+            }
             return crypt($pw, $salt);
             break;
         default :
@@ -747,7 +751,7 @@ function pacrypt($pw, $pw_db = "") {
 // Call: get_passwd_type_salt (string hashed_password, string &salt)
 //
 function get_passwd_type_salt($hpw, &$salt) {
-    
+
     // Looking first for "$<id>$<salt>$<hash>" pattern
     $split_hash = preg_split('/\$/', $hpw);
     
@@ -789,10 +793,12 @@ $ITOA64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 //
 function md5crypt($pw, $salt = "", $magic = "") {
 
-    if ($magic == "")
+    if ($magic == "") {
         $magic = '$1$';
-    if ($salt == "")
+    }
+    if ($salt == "") {
         $salt = create_salt(8);
+    }
     
     $ctx = $pw . $magic . $salt;
     $final = myhex2bin(md5($pw . $salt . $pw));
@@ -809,10 +815,12 @@ function md5crypt($pw, $salt = "", $magic = "") {
     
     while ( $i > 0 ) {
         
-        if ($i & 1)
+        if ($i & 1) {
             $ctx .= chr(0);
-        else
+        }
+        else {
             $ctx .= $pw[0];
+        }
         $i = $i >> 1;
     }
     
@@ -830,10 +838,12 @@ function md5crypt($pw, $salt = "", $magic = "") {
             $ctx1 .= substr($final, 0, 16);
         }
         
-        if ($i % 3)
+        if ($i % 3) {
             $ctx1 .= $salt;
-        if ($i % 7)
+        }
+        if ($i % 7) {
             $ctx1 .= $pw;
+        }
         if ($i & 1) {
             $ctx1 .= substr($final, 0, 16);
         }
@@ -1003,13 +1013,13 @@ function checkPasswordPolicy($password, $admin = "y") {
         }
         else {
             
-            if (isset($CONF['minPasswordGroupsUser'])) {
+            if (isset($CONF[MINPASSWORDGROUPUSER])) {
                 
-                if (($CONF['minPasswordGroupsUser'] < 1) or ($CONF['minPasswordGroupsUser'] > 4)) {
+                if (($CONF[MINPASSWORDGROUPUSER] < 1) or ($CONF[MINPASSWORDGROUPUSER] > 4)) {
                     $minGroupsUser = 3;
                 }
                 else {
-                    $minGroupsUser = $CONF['minPasswordGroupsUser'];
+                    $minGroupsUser = $CONF[MINPASSWORDGROUPUSER];
                 }
             }
             else {

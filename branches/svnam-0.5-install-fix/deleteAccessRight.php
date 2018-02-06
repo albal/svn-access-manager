@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $row = db_assoc($result[RESULT]);
             $projectid = $row['project_id'];
             $userid = $row[USER_ID];
-            $groupid = $row[GROUPID];
+            $groupid = $row[GROUP_ID];
             $tPathSelected = $row['path'];
             $validfrom = $row['valid_from'];
             $validuntil = $row['valid_until'];
@@ -213,8 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $username = "";
         }
         
-        if ($rightdata[GROUPID] != 0) {
-            $groupname = db_getGroupById($rightdata[GROUPID], $dbh);
+        if ($rightdata[GROUP_ID] != 0) {
+            $groupname = db_getGroupById($rightdata[GROUP_ID], $dbh);
         }
         
         $projectname = db_getProjectbyId($rightdata['project_id'], $dbh);

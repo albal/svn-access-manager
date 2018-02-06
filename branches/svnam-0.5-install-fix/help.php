@@ -42,12 +42,12 @@ check_password_expired();
 $dbh = db_connect();
 $tText = array();
 
-if (isset($_SESSION[SVNSESSID]['helptopic'])) {
+if (isset($_SESSION[SVNSESSID][HELPTOPIC])) {
     
     $schema = db_determine_schema();
     
     $lang = check_language();
-    $query = "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " . "  FROM " . $schema . "help " . " WHERE topic = '" . $_SESSION[SVNSESSID]['helptopic'] . "'";
+    $query = "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " . "  FROM " . $schema . "help " . " WHERE topic = '" . $_SESSION[SVNSESSID][HELPTOPIC] . "'";
     $result = db_query($query, $dbh);
     
     if ($result['rows'] > 0) {
@@ -57,7 +57,7 @@ if (isset($_SESSION[SVNSESSID]['helptopic'])) {
     else {
         
         $tText['headline'] = _("No help found");
-        $tText['helptext'] = sprintf(_("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID]['helptopic']);
+        $tText['helptext'] = sprintf(_("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID][HELPTOPIC]);
     }
 }
 else {

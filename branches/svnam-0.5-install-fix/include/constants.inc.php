@@ -66,22 +66,76 @@ define_constant('ERROR', 'error');
 define_constant('ERRORMSG', 'errormsg');
 
 define_constant('SVNSESSID', 'SVNSESSID');
-define_constant('PROJECTID', 'project_id');
-define_constant('REPOID', 'repo_id');
+define_constant('PROJECT_ID', 'project_id');
+define_constant('PROJECTID', 'projectid');
+define_constant('REPO_ID', 'repo_id');
+define_constant('REPOID', 'repoid');
 define_constant('USER_ID', 'user_id');
-define_constant('GROUPID', 'group_id');
+define_constant('USERID', 'userid');
+define_constant('GROUP_ID', 'group_id');
+define_constant('GROUPID', 'groupid');
 define_constant('RIGHTID', 'rightid');
-define_constant('PROJECTID', 'project_id');
 define_constant('GROUPNAME', 'groupname');
+define_constant('USERNAME', 'username');
+define_constant('SVNMODULE', 'svnmodule');
+define_constant('REPONAME', 'reponame');
+define_constant('USER_MODE', 'user_mode');
+define_constant('RIGHT_NAME', 'right_name');
+define_constant('ALLOWED', 'allowed');
 
 define_constant('PAGESIZE', 'page_size');
 define_constant('ACCESSBY', 'access_by');
-define_constant('ACCESSRIGHT', 'access_right');
+define_constant('ACCESS_RIGHT', 'access_right');
+define_constant('USER_SORT_FIELDS', 'user_sort_fields');
+define_constant('USER_SORT_ORDER', 'user_sort_order');
 
-define_constant('USERID', 'userid');
 define_constant('GIVENNAME', 'givenname');
 define_constant('BULKADDLIST', 'bulkaddlist');
 define_constant('EMAILADDRESS', 'emailaddress');
+
+define_constant('HELPTOPIC', 'helptopic');
+
+define_constant('SEPARATEFILESPERREPO', 'separateFilesPerRepo');
+define_constant('AUTHUSERFILE', 'AuthUserFile');
+define_constant('CREATEAUTHUSERFILE', 'createauthuserfile');
+define_constant('CREATEACCESSFILE', 'createaccessfile');
+define_constant('SVNACCESSFILE', 'SVNAccessFile');
+define_constant('REPOPATHSORTORDER', 'repoPathSortOrder');
+define_constant('CREATEVIEWVCCONF', 'createviewvcconf');
+define_constant('VIEWVCCONF', 'ViewvcConf');
+define_constant('VIEWVCGROUPS', 'ViewvcGroups');
+define_constant('VIEWVCLOCATION', 'ViewvcLocation');
+define_constant('WRITEANONYMOUSACCESSRIGHTS', 'write_anonymous_access_rights');
+
+define_constant('DATABASE_CHARSET', 'database_charset');
+define_constant('DATABASE_COLLATION', 'database_collation');
+define_constant('DATABASE_TYPE', 'database_type');
+define_constant('DATABASE_PASSWORD', 'database_password');
+define_constant('DATABASE_USER', 'database_user');
+define_constant('DATABASE_HOST', 'database_host');
+define_constant('DATABASE_NAME', 'database_name');
+define_constant('DATABASE_SCHEMA', 'database_schema');
+define_constant('DATABASE_PREFIX', 'database_prefix');
+define_constant('MYSQLI', 'mysqli');
+define_constant('MYSQL', 'mysql');
+define_constant('ROLLBACK', 'ROLLBACK');
+define_constant('BEGIN', 'BEGIN');
+define_constant('COMMIT', 'COMMIT');
+
+define_constant('LDAP_PROTOCOL', 'ldap_protocol');
+define_constant('BIND_DN', 'bind_dn');
+define_constant('USER_DN', 'user_dn');
+define_constant('LDAP_SERVER', 'ldap_server');
+define_constant('BIND_PW', 'bind_pw');
+define_constant('USER_OBJECTCLASS', 'user_objectclass');
+define_constant('ATTR_MAPPING', 'attr_mapping');
+
+define_constant('MESSAGES', 'messages');
+define_constant('SVNLPW', 'svn_lpw');
+define_constant('PWCRYPT', 'pwcrypt');
+define_constant('MINPASSWORDGROUPUSER', 'minPasswordGroupsUser');
+
+define_constant('WINDOWS', 'windows');
 
 ?>
 
