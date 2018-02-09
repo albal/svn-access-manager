@@ -22,12 +22,22 @@
 		<includePath>./config/:./include/:../config/:../include/</includePath>
 
 		<var name="DB_DSN" value="mysql:dbname=your test db name here;host=localhost" />
-		<var name="DB_USER" value="you user here" />
+		<var name="DB_USER" value="your user here" />
 		<var name="DB_PASSWD" value="your password here" />
 		<var name="DB_DBNAME" value="your test db name here" />
 		<var name="DB_HOST" value="localhost" />
 		<var name="DB_TYPE" value="mysqli" />
+		
 		<var name="DB_TEST_DATE" value="20180102" />
+		
+		<var name="PG_DB_TYPE" value="postgres8" />
+		<var name="PG_DB_DSN" value="pgsql:dbname=your test db name here;host=127.0.0.1;port=5432;user=your user here;password=your password here" />
+		<var name="PG_DB_USER" value="your user here" />
+        <var name="PG_DB_PASSWD" value="your password here" />
+        <var name="PG_DB_DBNAME" value="your test db name here" />
+        <var name="PG_DB_SCHEMA" value="public" />
+        <var name="PG_DB_HOST" value="127.0.0.1" />
+        <var name="PG_DB_PORT" value="5432" />
 
 		<server name="HTTP_HOST" value="localhost" />
 		<server name="PHP_SELF" value="meandyou.php" />
