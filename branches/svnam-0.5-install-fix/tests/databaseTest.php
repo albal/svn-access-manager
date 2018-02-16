@@ -1,4 +1,5 @@
 <?php
+
 /*
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -26,10 +27,15 @@
  * $Id$
  *
  */
-
 final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
     public $fixtures = array();
     private $conn = null;
+
+    public function __construct() {
+
+        //echo "constructor of MyDatabaseTest\n";
+    
+    }
 
     private function _get_include_contents($filename) {
 
@@ -43,15 +49,16 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function getConnection() {
-        
-        // echo "get connection called\n";
+
+        //echo "get connection for mysql called\n";
         if ($this->conn === null) {
             try {
                 $pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
                 $this->conn = $this->createDefaultDBConnection($pdo, $GLOBALS['DB_DBNAME']);
             }
             catch ( PDOException $e ) {
-                echo $e->getMessage();
+                $msg = $e->getMessage();
+                echo "Error in MySQL DB connect: " . $msg . "\n";
             }
         }
         return $this->conn;
@@ -63,9 +70,19 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
      * @return PHPUnit_Extensions_Database_DataSet_IDataSet
      */
     public function getDataSet() {
-        
-        // echo "get data set called\n";
+
+        //echo "get data set for mysql called\n";
         return $this->createMySQLXMLDataSet('./tests/files/fixture.xml');
+    
+    }
+
+    public function databaseLogin() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        
+        return db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
     
     }
 
@@ -104,7 +121,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         require_once ('functions.inc.php');
         
         $date = $GLOBALS['DB_TEST_DATE'];
-        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        $dbh = $this->databaseLogin();
         
         $this->assertTrue(db_check_global_admin('admin', $dbh));
         $this->assertFalse(db_check_global_admin('test1', $dbh));
