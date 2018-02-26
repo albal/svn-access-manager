@@ -33,8 +33,8 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function __construct() {
 
-        //echo "constructor of MyDatabaseTest\n";
     
+        // echo "constructor of MyDatabaseTest\n";
     }
 
     private function _get_include_contents($filename) {
@@ -50,7 +50,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function getConnection() {
 
-        //echo "get connection for mysql called\n";
+        // echo "get connection for mysql called\n";
         if ($this->conn === null) {
             try {
                 $pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
@@ -71,7 +71,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
      */
     public function getDataSet() {
 
-        //echo "get data set for mysql called\n";
+        // echo "get data set for mysql called\n";
         return $this->createMySQLXMLDataSet('./tests/files/fixture.xml');
     
     }
