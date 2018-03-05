@@ -19,7 +19,7 @@
 			logIncompleteSkipped="false" />
 	</logging>
 	<php>
-		<includePath>./config/:./include/:../config/:../include/</includePath>
+		<includePath>./config/:./include/:../config/:../include/:../install:./install</includePath>
 
 		<var name="DB_DSN" value="mysql:dbname=your test db name here;host=localhost" />
 		<var name="DB_USER" value="your user here" />
@@ -27,6 +27,8 @@
 		<var name="DB_DBNAME" value="your test db name here" />
 		<var name="DB_HOST" value="localhost" />
 		<var name="DB_TYPE" value="mysqli" />
+		<var name="DB_CHARSET" value="latin1" />
+		<var name="DB_COLLATION" value="latin1_swedish_ci" />
 		
 		<var name="DB_TEST_DATE" value="20180102" />
 		

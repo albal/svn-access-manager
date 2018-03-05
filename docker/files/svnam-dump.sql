@@ -161,7 +161,7 @@ CREATE TABLE `sessions` (
   `session_data` text,
   PRIMARY KEY (`session_id`),
   KEY `idx_expires` (`session_expires`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
