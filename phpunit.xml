@@ -40,6 +40,15 @@
         <var name="PG_DB_SCHEMA" value="public" />
         <var name="PG_DB_HOST" value="127.0.0.1" />
         <var name="PG_DB_PORT" value="5432" />
+        
+        <var name="DB_MYSQL_DSN" value="mysql:dbname=your test db name here;host=localhost" />
+        <var name="DB_MYSQL_USER" value="your user here" />
+        <var name="DB_MYSQL_PASSWD" value="your password here" />
+        <var name="DB_MYSQL_DBNAME" value="your test db name here" />
+        <var name="DB_MYSQL_HOST" value="localhost" />
+        <var name="DB_MYSQL_TYPE" value="mysqli" />
+        <var name="DB_MYSQL_CHARSET" value="latin1" />
+        <var name="DB_MYSQL_COLLATION" value="latin1_swedish_ci" />
 
 		<server name="HTTP_HOST" value="localhost" />
 		<server name="PHP_SELF" value="meandyou.php" />

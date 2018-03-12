@@ -18,6 +18,13 @@
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
+                                    <td width="150"><strong><?php print _("Project description").": "; ?></strong></td>
+                                    <td>
+                                        <input type="text" name="fDescription" value="<?php print $tDescription; ?>" size="30" maxsize="255" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+							   	<tr>
 							   		<td><strong><?php print _("Subversion module path").": "; ?></strong></td>
 							   		<td>
 							   			<input type="text" name="fModulepath" value="<?php print $tModulepath; ?>" size="30" maxsize="255"  />
