@@ -357,7 +357,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $tData = $tDataArray[0];
         $cntArray = count($tDataArray);
         $cnt = db_getCountLog($dbh);
-        $this->assertEquals(35, $cnt);
+        $this->assertEquals(36, $cnt);
         $this->assertEquals(5, $cntArray);
         $this->assertEquals('test', $tData['username']);
         $this->assertEquals('127.0.0.1', $tData['ipaddress']);

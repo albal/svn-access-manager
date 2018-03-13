@@ -493,7 +493,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                         
                         $dbnow = db_now();
-                        $query = "INSERT INTO " . $schema . "svn_access_rights " . "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " . "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                        $query = "INSERT INTO " . $schema . "svn_access_rights " . 
+                                 "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " . 
+                                 "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                         $result = db_query($query, $dbh);
                         if ($result['rows'] != 1) {
                             
