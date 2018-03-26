@@ -369,7 +369,7 @@ function createAccessFile($dbh) {
                             
                             if (isset($CONF[WRITEANONYMOUSACCESSRIGHTS]) and ($CONF[WRITEANONYMOUSACCESSRIGHTS] == 1)) {
                                 
-                                if (! @fwrite($fileHandle, "\$anonymous = r\n")) {
+                                if (! @fwrite($fileHandle, "* = r\n")) {
                                     
                                     $retcode = 5;
                                     db_unset_semaphore(CREATEACCESSFILE, 'sem', $dbh);
@@ -667,7 +667,7 @@ function createAccessFilePerRepo($dbh) {
                             
                             if (isset($CONF[WRITEANONYMOUSACCESSRIGHTS]) and ($CONF[WRITEANONYMOUSACCESSRIGHTS] == 1)) {
                                 
-                                if (! @fwrite($fileHandle, "\$anonymous = r\n")) {
+                                if (! @fwrite($fileHandle, "* = r\n")) {
                                     
                                     $retcode = 5;
                                     db_unset_semaphore(CREATEACCESSFILE, 'sem', $dbh);
