@@ -341,16 +341,12 @@ function check_string($var) {
 // Call: check_email (string email)
 //
 function check_email($email) {
-
-    if (preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_{|}~]+' . '@' . '([-0-9A-Z]+\.)+' . '([0-9A-Z]){2,4}$/i', trim($email))) {
-        
+    
+    if(filter_var(trim($email),FILTER_VALIDATE_EMAIL)) {
         return true;
-    }
-    else {
-        
+    } else {
         return false;
     }
-
 }
 
 //
