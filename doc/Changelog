@@ -10,6 +10,7 @@ Release 0.5.7.0
     - basic tests with php 7
     - added docker container build for testing purposes
     - fixed bug #56, missing default values and projects now need a description
+    - fixed email checking, thanks to Yusuf Tambag for the bug report and the patch
 
 Release 0.5.6.6
     - updated selinux policy for CentOS 6 and CentOS 7
