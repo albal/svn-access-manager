@@ -33,8 +33,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function __construct() {
 
-    
-        // echo "constructor of MyDatabaseTest\n";
+        
     }
 
     private function _get_include_contents($filename) {
@@ -45,7 +44,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
             return ob_get_clean();
         }
         return false;
-    
+        
     }
 
     public function getConnection() {
@@ -62,7 +61,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
             }
         }
         return $this->conn;
-    
+        
     }
 
     /**
@@ -73,7 +72,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
 
         // echo "get data set for mysql called\n";
         return $this->createMySQLXMLDataSet('./tests/files/fixture.xml');
-    
+        
     }
 
     public function databaseLogin() {
@@ -83,7 +82,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         require_once ('functions.inc.php');
         
         return db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
-    
+        
     }
 
     public function testRowCounts() {
@@ -111,7 +110,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         foreach( $rowCounts as $table => $count) {
             $this->assertGreaterThanOrEqual($count, $this->getConnection()->getRowCount($table), "Pre-Condition");
         }
-    
+        
     }
 
     public function testDatabaseFunctions() {
@@ -164,7 +163,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertTrue(db_unset_semaphore('test', 'test', $dbh));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseUserFunctions() {
@@ -193,7 +192,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals($cnt, $cntArray);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseGroupFunctions() {
@@ -290,7 +289,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(0, count($tDataArray));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseProjectFunctions() {
@@ -322,7 +321,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('Test1', $tData['reponame']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseRepoFunctions() {
@@ -339,7 +338,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertFalse(db_getRepoByName('Test3', $dbh));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseLogFunctions() {
@@ -363,7 +362,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('test entry', $tData['logmessage']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseAccessRightsFunctions() {
@@ -451,7 +450,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('/', $tData['modulepath']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_wrong_db_login() {
@@ -463,8 +462,8 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], '4711', $GLOBALS['DB_DBNAME']);
         
         $this->assertNull($dbh);
-    
+        
     }
-
+    
 }
 ?>

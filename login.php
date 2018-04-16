@@ -31,8 +31,6 @@ include ('load_config.php');
 
 $installBase = isset($CONF['install_base']) ? $CONF['install_base'] : "";
 
-// error_log( "install_base is: $installBase" );
-
 require ("$installBase/include/variables.inc.php");
 include_once ("$installBase/include/constants.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
@@ -55,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $fUsername = db_escape_string($_POST['fUsername']);
     $fPassword = db_escape_string($_POST['fPassword']);
     $tPasswordExpired = 0;
-    // error_log( "user = $fUsername");
     $result = db_query("SELECT password " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$fUsername')" . "   AND (deleted = '00000000000000')", $dbh);
     
     if ($result['rows'] == 1) {
@@ -139,11 +136,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $s = new Session();
         session_start();
-        // session_register("svn_sessid");
+
         if (! isset($_SESSION[SVNSESSID])) {
             $_SESSION[SVNSESSID] = array();
         }
-        // error_log( "session started" );
+
         $_SESSION[SVNSESSID]['username'] = $fUsername;
         $_SESSION[SVNSESSID]['name'] = $tName;
         $_SESSION[SVNSESSID]['givenname'] = $tGivenname;
@@ -152,10 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (isset($CONF['ldap_bind_use_login_data']) && $CONF['ldap_bind_use_login_data'] == 1) {
             $_SESSION[SVNSESSID]['password'] = $fPassword;
         }
-        
-        // error_log( "session data written" );
+
         db_log($_SESSION[SVNSESSID]['username'], "user $tUsername logged in", $dbh);
-        // error_log( "log data written" );
+
         if ($tPasswordExpired == 1) {
             
             db_log($_SESSION[SVNSESSID]['username'], "password of user $tUsername expired, force password change", $dbh);
@@ -163,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             header("Location: password.php");
             exit();
         }
-        // error_log( "main");
+
         db_disconnect($dbh);
         header("Location: main.php");
         exit();

@@ -51,7 +51,18 @@ function getPhpVersion() {
     $version = explode(".", PHP_VERSION);
     
     return ($version[0] . $version[1]);
+    
+}
 
+//
+// runInCli
+// Action: check if runninh in php client
+// Call: runInCli
+//
+function runInCli() {
+
+    return (php_sapi_name() == "cli");
+    
 }
 
 //
@@ -62,12 +73,10 @@ function getPhpVersion() {
 function initialize_i18n() {
 
     $locale = get_locale();
-    // error_log( "got locale: $locale" );
     
     if (! preg_match('/_/', $locale)) {
         
         $locale = $locale . "_" . strtoupper($locale);
-        // error_log( "set locale to: $locale" );
     }
     
     putenv("LANG=$locale");
@@ -89,7 +98,7 @@ function initialize_i18n() {
     $msgdom = textdomain(MESSAGES);
     
     bind_textdomain_codeset(MESSAGES, 'UTF-8');
-
+    
 }
 
 //
@@ -101,11 +110,9 @@ function check_session() {
 
     global $CONF;
     
-    // error_log( "check session" );
     $s = new Session();
     session_start();
     
-    // if (!session_is_registered ("svn_sessid")) {
     if (! isset($_SESSION[SVNSESSID])) {
         
         header("Location: login.php");
@@ -114,7 +121,7 @@ function check_session() {
     
     $SESSID_USERNAME = $_SESSION[SVNSESSID][USERNAME];
     
-    if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1)) {
+    if (isset($CONF['ldap_bind_use_login_data']) && ($CONF['ldap_bind_use_login_data'] == 1)) {
         
         if (isset($CONF['ldap_bind_dn_suffix'])) {
             
@@ -124,7 +131,7 @@ function check_session() {
     }
     
     return $SESSID_USERNAME;
-
+    
 }
 
 //
@@ -137,7 +144,6 @@ function check_session_lpw($redirect = "y") {
     $s = new Session();
     @session_start();
     
-    // if (!session_is_registered ("svn_lpw")) {
     if (! isset($_SESSION[SVNLPW])) {
         
         $SESSID_USERNAME = "";
@@ -158,7 +164,7 @@ function check_session_lpw($redirect = "y") {
     }
     
     return $SESSID_USERNAME;
-
+    
 }
 
 //
@@ -172,7 +178,6 @@ function check_session_status() {
     $SESSID_USERNAME = "";
     @session_start();
     
-    // if (!session_is_registered ("svn_sessid")) {
     if (! isset($_SESSION[SVNSESSID])) {
         
         $ret = 0;
@@ -187,7 +192,7 @@ function check_session_status() {
             $ret,
             $SESSID_USERNAME
     );
-
+    
 }
 
 //
@@ -208,7 +213,7 @@ function create_verify_string() {
     }
     
     return $verifyString;
-
+    
 }
 
 //
@@ -226,7 +231,7 @@ function check_password_expired() {
             exit();
         }
     }
-
+    
 }
 
 //
@@ -264,7 +269,7 @@ function check_language() {
     }
     
     return $lang;
-
+    
 }
 
 //
@@ -316,7 +321,7 @@ function get_locale() {
     }
     
     return $lang;
-
+    
 }
 
 //
@@ -332,7 +337,7 @@ function check_string($var) {
     else {
         return false;
     }
-
+    
 }
 
 //
@@ -341,12 +346,14 @@ function check_string($var) {
 // Call: check_email (string email)
 //
 function check_email($email) {
-    
-    if(filter_var(trim($email),FILTER_VALIDATE_EMAIL)) {
+
+    if (filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
         return true;
-    } else {
+    }
+    else {
         return false;
     }
+    
 }
 
 //
@@ -371,7 +378,7 @@ function getDateJhjjmmtt() {
     $moddate = $year . $mon . $day;
     
     return $moddate;
-
+    
 }
 
 //
@@ -387,7 +394,7 @@ function splitdate($date) {
     $datum = $day . "." . $mon . "." . $year;
     
     return $datum;
-
+    
 }
 
 //
@@ -397,36 +404,8 @@ function splitdate($date) {
 //
 function check_date($day, $month, $year) {
 
-    if (preg_match('/[0-9]{2}/', $day)) {
-        
-        if (preg_match('/[0-9]{2}/', $month)) {
-            
-            if (preg_match('/[0-9]{4}/', $year)) {
-                
-                if (checkdate($month, $day, $year)) {
-                    
-                    return true;
-                }
-                else {
-                    
-                    return false;
-                }
-            }
-            else {
-                
-                return false;
-            }
-        }
-        else {
-            
-            return false;
-        }
-    }
-    else {
-        
-        return false;
-    }
-
+    return (preg_match('/[0-9]{2}/', $day) && preg_match('/[0-9]{2}/', $month) && preg_match('/[0-9]{4}/', $year) && checkdate($month, $day, $year));
+    
 }
 
 function no_magic_quotes($query) {
@@ -434,7 +413,7 @@ function no_magic_quotes($query) {
     $data = explode("\\\\", $query);
     $cleaned = implode("\\", $data);
     return $cleaned;
-
+    
 }
 
 //
@@ -472,7 +451,7 @@ function escape_string($string) {
     }
     
     return $escaped_string;
-
+    
 }
 
 //
@@ -599,7 +578,7 @@ function encode_header($string, $default_charset) {
         $string = implode('', $aRet);
     }
     return $string;
-
+    
 }
 
 //
@@ -611,14 +590,14 @@ function generate_password() {
 
     $password = substr(md5(mt_rand()), 0, 8);
     return $password;
-
+    
 }
 
 function make_seed() {
 
     list($usec, $sec ) = explode(' ', microtime());
     return (float) $sec + ((float) $usec * 100000);
-
+    
 }
 
 //
@@ -692,7 +671,7 @@ function generatePassword($admin) {
     }
     
     return ($password);
-
+    
 }
 
 //
@@ -738,7 +717,7 @@ function pacrypt($pw, $pw_db = "") {
         default :
             throw new Exception('Unsupported password hash type: "' . $crypt . '" from hash "' . $pw_db . '"');
     }
-
+    
 }
 
 //
@@ -774,7 +753,7 @@ function get_passwd_type_salt($hpw, &$salt) {
     }
     
     return $type;
-
+    
 }
 
 //
@@ -859,7 +838,7 @@ function md5crypt($pw, $salt = "", $magic = "") {
     $passwd .= to64(ord($final[11]), 2);
     
     return "$magic$salt\$$passwd";
-
+    
 }
 
 function digestcrypt($userid, $realm, $password) {
@@ -867,7 +846,7 @@ function digestcrypt($userid, $realm, $password) {
     $pw = md5($userid . ':' . $realm . ':' . $password);
     
     return ($pw);
-
+    
 }
 
 function create_salt($len) {
@@ -881,7 +860,7 @@ function create_salt($len) {
         $salt .= substr($ITOA64, $choice, 1);
     }
     return $salt;
-
+    
 }
 
 function myhex2bin($str) {
@@ -895,7 +874,7 @@ function myhex2bin($str) {
     }
     
     return $nstr;
-
+    
 }
 
 function to64($v, $n) {
@@ -910,7 +889,7 @@ function to64($v, $n) {
     }
     
     return $ret;
-
+    
 }
 
 //
@@ -1034,7 +1013,7 @@ function checkPasswordPolicy($password, $admin = "y") {
     }
     
     return $retval;
-
+    
 }
 
 //
@@ -1058,7 +1037,7 @@ function splitDateTime($datetime) {
             $date,
             $time
     );
-
+    
 }
 
 //
@@ -1075,7 +1054,7 @@ function splitValidDate($date) {
     $datestr = $day . "." . $month . "." . $year;
     
     return $datestr;
-
+    
 }
 
 //
@@ -1095,7 +1074,7 @@ function mkUnixTimestampFromDateTime($datetime) {
     $timestamp = mktime($hour, $min, $sec, $month, $day, $year, - 1);
     
     return $timestamp;
-
+    
 }
 
 //
@@ -1129,7 +1108,7 @@ function determineOs() {
     }
     
     return ($ret);
-
+    
 }
 
 //
@@ -1176,7 +1155,7 @@ function encode_subject($in_str, $charset) {
         $out_str = $start . $out_str . $end;
     }
     return $out_str;
-
+    
 }
 
 //
@@ -1202,7 +1181,7 @@ function sortLdapUsers($a, $b) {
         // sort asc
         return $aValue > $bValue;
     }
-
+    
 }
 
 //
@@ -1220,6 +1199,6 @@ function rand_name($len = 8) {
         $name .= substr($charset, $choice, 1);
     }
     return $name;
-
+    
 }
 ?>

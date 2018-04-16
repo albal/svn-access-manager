@@ -33,27 +33,14 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function __construct() {
 
-        //echo "constructor of PgDatabaseTest\n";
-    
-    }
-
-    private function _get_include_contents($filename) {
-
-        if (is_file($filename)) {
-            ob_start();
-            include $filename;
-            return ob_get_clean();
-        }
-        return false;
-    
+        
     }
 
     public function getConnection() {
 
-        //echo "get connection for postgres called\n";
         if ($this->conn === null) {
             try {
-                // $pdo = new PDO($GLOBALS['PG_DB_DSN'], $GLOBALS['PG_DB_USER'], $GLOBALS['PG_DB_PASSWD']);
+                
                 $pdo = new PDO($GLOBALS['PG_DB_DSN']);
                 $this->conn = $this->createDefaultDBConnection($pdo, $GLOBALS['PG_DB_DBNAME']);
             }
@@ -63,7 +50,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
             }
         }
         return $this->conn;
-    
+        
     }
 
     /**
@@ -72,9 +59,8 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
      */
     public function getDataSet() {
 
-        //echo "get data set for postgres called\n";
         return $this->createMySQLXMLDataSet('./tests/files/fixture.xml');
-    
+        
     }
 
     public function databaseLogin() {
@@ -84,7 +70,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         require_once ('functions.inc.php');
         
         return db_connect_test($GLOBALS['PG_DB_TYPE'], $GLOBALS['PG_DB_HOST'], $GLOBALS['PG_DB_USER'], $GLOBALS['PG_DB_PASSWD'], $GLOBALS['PG_DB_DBNAME']);
-    
+        
     }
 
     public function testRowCounts() {
@@ -112,7 +98,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         foreach( $rowCounts as $table => $count) {
             $this->assertGreaterThanOrEqual($count, $this->getConnection()->getRowCount($table), "Pre-Condition");
         }
-    
+        
     }
 
     public function testDatabaseFunctions() {
@@ -165,7 +151,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertTrue(db_unset_semaphore('test', 'test', $dbh));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseUserFunctions() {
@@ -194,7 +180,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals($cnt, $cntArray);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseGroupFunctions() {
@@ -291,7 +277,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(0, count($tDataArray));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseProjectFunctions() {
@@ -323,7 +309,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('Test1', $tData['reponame']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseRepoFunctions() {
@@ -340,7 +326,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertFalse(db_getRepoByName('Test3', $dbh));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseLogFunctions() {
@@ -364,7 +350,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('test entry', $tData['logmessage']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseAccessRightsFunctions() {
@@ -452,7 +438,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('/', $tData['modulepath']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_wrong_db_login() {
@@ -464,8 +450,8 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $dbh = db_connect_test($GLOBALS['PG_DB_TYPE'], $GLOBALS['PG_DB_HOST'], $GLOBALS['PG_DB_USER'], '4711', $GLOBALS['PG_DB_DBNAME']);
         
         $this->assertNull($dbh);
-    
+        
     }
-
+    
 }
 ?>

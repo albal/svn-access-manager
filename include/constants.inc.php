@@ -82,6 +82,7 @@ define_constant('REPONAME', 'reponame');
 define_constant('USER_MODE', 'user_mode');
 define_constant('RIGHT_NAME', 'right_name');
 define_constant('ALLOWED', 'allowed');
+define_constant('TASK', 'task');
 
 define_constant('PAGESIZE', 'page_size');
 define_constant('ACCESSBY', 'access_by');
@@ -108,14 +109,23 @@ define_constant('VIEWVCLOCATION', 'ViewvcLocation');
 define_constant('WRITEANONYMOUSACCESSRIGHTS', 'write_anonymous_access_rights');
 
 define_constant('DATABASE_CHARSET', 'database_charset');
+define_constant('DATABASECHARSET', 'databaseCharset');
 define_constant('DATABASE_COLLATION', 'database_collation');
+define_constant('DATABASECOLLATION', 'databaseCollation');
 define_constant('DATABASE_TYPE', 'database_type');
 define_constant('DATABASE_PASSWORD', 'database_password');
+define_constant('DATABASEPASSWORD', 'databasePassword');
 define_constant('DATABASE_USER', 'database_user');
+define_constant('DATABASEUSER', 'databaseUser');
 define_constant('DATABASE_HOST', 'database_host');
+define_constant('DATABASEHOST', 'databaseHost');
 define_constant('DATABASE_NAME', 'database_name');
+define_constant('DATABASENAME', 'databaseName');
 define_constant('DATABASE_SCHEMA', 'database_schema');
+define_constant('DATABASESCHEMA', 'databaseSchema');
 define_constant('DATABASE_PREFIX', 'database_prefix');
+define_constant('DATABASE_TABLESPACE', 'database_tablespace');
+define_constant('DATABASETABLESPACE', 'databaseTablespace');
 define_constant('MYSQLI', 'mysqli');
 define_constant('MYSQL', 'mysql');
 define_constant('ROLLBACK', 'ROLLBACK');
@@ -134,8 +144,11 @@ define_constant('MESSAGES', 'messages');
 define_constant('SVNLPW', 'svn_lpw');
 define_constant('PWCRYPT', 'pwcrypt');
 define_constant('MINPASSWORDGROUPUSER', 'minPasswordGroupsUser');
+define_constant('DESCRIPTION', 'description');
 
 define_constant('WINDOWS', 'windows');
+
+define_constant('SVN_INST', 'svn_inst');
 
 ?>
 

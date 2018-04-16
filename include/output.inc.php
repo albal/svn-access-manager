@@ -46,7 +46,7 @@ function outputHeader($area) {
     print "<li><a href='doc/html/index.html#use' alt='" . _("Documentation") . "' id='doc' target='_blank'><img src='./images/help.png' border='0' />" . _("Documentation") . "</a></li>";
     print "</ul>";
     print "<div align='right'><p>&nbsp;</p>" . _("Logged in as") . ": " . $tUsername . "</div>";
-
+    
 }
 
 function outputSubHeader($area) {
@@ -115,37 +115,15 @@ function outputSubHeader($area) {
         
         print "unknown tag: $area";
     }
-
+    
 }
 
-function outputMenu($area) {
+function outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProjectAdmin, $rightRepositoryAdmin, $rightAccessRightAdmin, $tGroupsAllowed, $rightCreateFiles) {
 
     global $CONF;
     global $_SESSION;
     
-    print "\t\t\t\t<h3>" . _("My account") . "</h3>";
-    print "\t\t\t\t<ul class='leftMenu'>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='general.php'>" . _("General") . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='password.php'>" . _("Password") . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='password_policy.php'>" . _("Password policy") . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftMenu'><a href='preferences.php'>" . _("Preferences") . "</a></li>\n";
-    print "\t\t\t\t</ul>\n";
-    
-    $dbh = db_connect();
-    
-    $tUsername = isset($_SESSION[SVNSESSID]['username']) ? $_SESSION[SVNSESSID]['username'] : 'undefined';
-    $tAdmin = isset($_SESSION[SVNSESSID]['admin']) ? $_SESSION[SVNSESSID]['admin'] : 'n';
-    
-    $rightUserAdmin = db_check_acl($tUsername, 'User admin', $dbh);
-    $rightGroupAdmin = db_check_acl($tUsername, 'Group admin', $dbh);
-    $rightProjectAdmin = db_check_acl($tUsername, 'Project admin', $dbh);
-    $rightRepositoryAdmin = db_check_acl($tUsername, 'Repository admin', $dbh);
-    $rightAccessRightAdmin = db_check_acl($tUsername, 'Access rights admin', $dbh);
-    $rightCreateFiles = db_check_acl($tUsername, 'Create files', $dbh);
-    $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
-    $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
-    
-    if (($tAdmin == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
+    if (($tAdmin == "p") || ($rightUserAdmin != "none") || ($rightGroupAdmin != "none") || ($rightProjectAdmin != "none") || ($rightRepositoryAdmin != "none") || ($rightAccessRightAdmin != "none") || (count($tGroupsAllowed) > 0) || ($rightCreateFiles != "none")) {
         
         print "\t\t\t\t<p>&nbsp;</p>";
         print "\t\t\t\t<p>&nbsp;</p>";
@@ -183,7 +161,7 @@ function outputMenu($area) {
         print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_projects.php\">" . _("Projects") . "</a></li>\n";
     }
     
-    if (($rightAccessRightAdmin != "none") or ($tAdmin == "p") or ($tAdmin == "y")) {
+    if (($rightAccessRightAdmin != "none") || ($tAdmin == "p") || ($tAdmin == "y")) {
         
         print "\t\t\t\t\t<li class='leftMenu'><a href=\"list_access_rights.php\">" . _("Repository access rights") . "</a></li>\n";
     }
@@ -193,10 +171,17 @@ function outputMenu($area) {
         print "\t\t\t\t\t<li class='leftMenu'><a href=\"createAccessFiles.php\">" . _("Create access files") . "</a></li>\n";
     }
     
-    if (($tAdmin == "p") or ($rightUserAdmin != "none") or ($rightGroupAdmin != "none") or ($rightProjectAdmin != "none") or ($rightRepositoryAdmin != "none") or ($rightAccessRightAdmin != "none") or (count($tGroupsAllowed) > 0) or ($rightCreateFiles != "none")) {
+    if (($tAdmin == "p") || ($rightUserAdmin != "none") || ($rightGroupAdmin != "none") || ($rightProjectAdmin != "none") || ($rightRepositoryAdmin != "none") || ($rightAccessRightAdmin != "none") || (count($tGroupsAllowed) > 0) || ($rightCreateFiles != "none")) {
         
         print "\t\t\t\t</ul>\n";
     }
+    
+}
+
+function outputReportsMenu($rightReports) {
+
+    global $CONF;
+    global $_SESSION;
     
     if ($rightReports != "none") {
         
@@ -214,6 +199,38 @@ function outputMenu($area) {
         print "\t\t\t\t</ul>\n";
     }
     
+}
+
+function outputMenu($area) {
+
+    global $CONF;
+    global $_SESSION;
+    
+    print "\t\t\t\t<h3>" . _("My account") . "</h3>";
+    print "\t\t\t\t<ul class='leftMenu'>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='general.php'>" . _("General") . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='password.php'>" . _("Password") . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='password_policy.php'>" . _("Password policy") . "</a></li>\n";
+    print "\t\t\t\t\t<li class='leftMenu'><a href='preferences.php'>" . _("Preferences") . "</a></li>\n";
+    print "\t\t\t\t</ul>\n";
+    
+    $dbh = db_connect();
+    
+    $tUsername = isset($_SESSION[SVNSESSID]['username']) ? $_SESSION[SVNSESSID]['username'] : 'undefined';
+    $tAdmin = isset($_SESSION[SVNSESSID]['admin']) ? $_SESSION[SVNSESSID]['admin'] : 'n';
+    
+    $rightUserAdmin = db_check_acl($tUsername, 'User admin', $dbh);
+    $rightGroupAdmin = db_check_acl($tUsername, 'Group admin', $dbh);
+    $rightProjectAdmin = db_check_acl($tUsername, 'Project admin', $dbh);
+    $rightRepositoryAdmin = db_check_acl($tUsername, 'Repository admin', $dbh);
+    $rightAccessRightAdmin = db_check_acl($tUsername, 'Access rights admin', $dbh);
+    $rightCreateFiles = db_check_acl($tUsername, 'Create files', $dbh);
+    $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
+    $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
+    
+    outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProjectAdmin, $rightRepositoryAdmin, $rightAccessRightAdmin, $tGroupsAllowed, $rightCreateFiles);
+    outputReportsMenu($rightReports);
+    
     print "\t\t\t\t<p>&nbsp;</p>\n";
     
     // print "\t</table>\n";
@@ -221,7 +238,7 @@ function outputMenu($area) {
 
 function outputFooter($area) {
 
-
+    
 }
 
 ?>

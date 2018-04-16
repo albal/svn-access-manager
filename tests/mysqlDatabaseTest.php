@@ -33,24 +33,11 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function __construct() {
 
-    
-        // echo "constructor of MyDatabaseTest\n";
-    }
-
-    private function _get_include_contents($filename) {
-
-        if (is_file($filename)) {
-            ob_start();
-            include $filename;
-            return ob_get_clean();
-        }
-        return false;
-    
+        
     }
 
     public function getConnection() {
 
-        // echo "get connection for mysql called\n";
         if ($this->conn === null) {
             try {
                 $pdo = new PDO($GLOBALS['DB_MYSQL_DSN'], $GLOBALS['DB_MYSQL_USER'], $GLOBALS['DB_MYSQL_PASSWD']);
@@ -62,7 +49,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
             }
         }
         return $this->conn;
-    
+        
     }
 
     /**
@@ -71,9 +58,8 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
      */
     public function getDataSet() {
 
-        // echo "get data set for mysql called\n";
         return $this->createMySQLXMLDataSet('./tests/files/fixture.xml');
-    
+        
     }
 
     public function databaseLogin() {
@@ -83,7 +69,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         require_once ('functions.inc.php');
         
         return db_connect_test($GLOBALS['DB_MYSQL_TYPE'], $GLOBALS['DB_MYSQL_HOST'], $GLOBALS['DB_MYSQL_USER'], $GLOBALS['DB_MYSQL_PASSWD'], $GLOBALS['DB_MYSQL_DBNAME']);
-    
+        
     }
 
     public function testRowCounts() {
@@ -111,7 +97,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         foreach( $rowCounts as $table => $count) {
             $this->assertGreaterThanOrEqual($count, $this->getConnection()->getRowCount($table), "Pre-Condition");
         }
-    
+        
     }
 
     public function testDatabaseFunctions() {
@@ -164,7 +150,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertTrue(db_unset_semaphore('test', 'test', $dbh));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseUserFunctions() {
@@ -193,7 +179,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals($cnt, $cntArray);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseGroupFunctions() {
@@ -290,7 +276,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(0, count($tDataArray));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseProjectFunctions() {
@@ -322,7 +308,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('Test1', $tData['reponame']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseRepoFunctions() {
@@ -339,7 +325,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertFalse(db_getRepoByName('Test3', $dbh));
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseLogFunctions() {
@@ -363,7 +349,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('test entry', $tData['logmessage']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function testDatabaseAccessRightsFunctions() {
@@ -451,7 +437,7 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('/', $tData['modulepath']);
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_wrong_db_login() {
@@ -463,8 +449,8 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $dbh = db_connect_test($GLOBALS['DB_MYSQL_TYPE'], $GLOBALS['DB_MYSQL_HOST'], $GLOBALS['DB_MYSQL_USER'], '4711', $GLOBALS['DB_MYSQL_DBNAME']);
         
         $this->assertNull($dbh);
-    
+        
     }
-
+    
 }
 ?>

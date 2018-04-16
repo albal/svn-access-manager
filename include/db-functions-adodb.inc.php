@@ -135,7 +135,7 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
     $dbtype = ($dbtype == "") ? MYSQL : $dbtype;
     
     try {
-        // error_log( "connect to $dbtype" );
+
         $link = ADONewConnection($dbtype);
         if ($dbtype == "oci8") {
             $link->Connect($dbname, $dbuser, $dbpassword);
@@ -293,13 +293,10 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
         }
         else {
             
-            // error_log( "query: >$query<");
             $number_rows = $link->Affected_Rows();
         }
     }
     catch ( exception $e ) {
-        
-        // error_log( "ERROR: ".print_r($e, true));
         
         $_SESSION[SVNSESSID][DBERROR] = $e->msg;
         $_SESSION[SVNSESSID][DBQUERY] = $query;
@@ -318,8 +315,7 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
         }
         
         $error = 1;
-        
-        // error_log( "jumping to $location" );
+
         header("Location: $location");
         exit();
     }
@@ -469,7 +465,6 @@ function db_log($username, $data, $link = "") {
         
         $dbnow = db_now();
         $query = "INSERT INTO " . $schema . "log (logtimestamp, username, ipaddress, logmessage) " . "VALUES ('$dbnow', '$username', '$REMOTE_ADDR', '$data')";
-        // error_log( "logging: $query" );
         $link->Execute($query);
         return true;
     }
@@ -639,9 +634,7 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
     else {
         
         try {
-            // error_log( "database = ". $link->databaseType);
-            // error_log( "schema = $schema" );
-            
+
             if ($link->databaseType == "oci8") {
                 $query = "SELECT $schema.$table" . "_SEQ.currval AS id FROM dual";
             }
@@ -1369,7 +1362,6 @@ function db_getLockedUsers($start, $count, $dbh) {
     $schema = db_determine_schema();
     $tLockedUsers = array();
     $query = " SELECT * " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "    AND (locked != 0) " . "ORDER BY userid ASC ";
-    // " LIMIT $start, $count";
     $result = db_query($query, $dbh, $count, $start);
     
     while ( $row = db_assoc($result['result']) ) {
@@ -1391,16 +1383,14 @@ function db_getCountLockedUsers($dbh) {
     global $CONF;
     
     $schema = db_determine_schema();
-    $tUsers = array();
     $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "svnusers " . "  WHERE (deleted = '00000000000000') " . "    AND (locked != 0) " . "GROUP BY userid " . "ORDER BY userid";
     $result = db_query($query, $dbh);
     
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
+        return $row['anz'];
+
     }
     else {
         
@@ -1419,7 +1409,6 @@ function db_getLog($start, $count, $dbh) {
     $schema = db_determine_schema();
     $tLogmessages = array();
     $query = " SELECT * " . "   FROM " . $schema . "log " . "ORDER BY logtimestamp DESC ";
-    // " LIMIT $start, $count";
     $result = db_query($query, $dbh, $count, $start);
     
     while ( $row = db_assoc($result['result']) ) {
@@ -1439,16 +1428,14 @@ function db_getLog($start, $count, $dbh) {
 function db_getCountLog($dbh) {
 
     $schema = db_determine_schema();
-    $tUsers = array();
     $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "log ";
     $result = db_query($query, $dbh);
     
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
+        return $row['anz'];
+
     }
     else {
         
@@ -1599,9 +1586,7 @@ function db_getGrantedRights($start, $count, $dbh) {
     $schema = db_determine_schema();
     $tGrantedRights = array();
     $query = "  SELECT * " . "    FROM " . $schema . "svnusers " . "   WHERE deleted = '00000000000000' " . "ORDER BY " . $CONF[USER_SORT_FIELDS] . " " . $CONF[USER_SORT_ORDER];
-    // " LIMIT $start, $count";
     $result = db_query($query, $dbh, $count, $start);
-    $olduserid = "";
     $rights = "";
     $entry = array();
     
@@ -1661,9 +1646,8 @@ function db_getCountGrantedRights($dbh) {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
+        return $row['anz'];
+
     }
     else {
         
@@ -1671,6 +1655,42 @@ function db_getCountGrantedRights($dbh) {
     }
 
 }
+
+
+
+//
+// db_get_userid_from_record
+// Action: get userid from db record
+// Call: db_get_userid_from_record(array $row)
+//
+function db_get_userid_from_record($row) {
+
+    $userid = $row['user_id'];
+    if (empty($userid)) {
+        $userid = 0;
+    }
+    
+    return $userid;
+}
+
+
+//
+// db_get_groupid_from_record
+// Action: get groupid from db record
+// Call: db_get_groupid_from_record(array $row)
+//
+function db_get_groupid_from_record($row) {
+    
+    $groupid = $row['group_id'];
+    if (empty($groupid)) {
+        $groupid = 0;
+    }
+    
+    return $groupid;
+
+}
+
+
 
 //
 // db_getAccessRightsList
@@ -1682,20 +1702,13 @@ function db_getAccessRightsList($valid, $start, $count, $dbh) {
     $schema = db_determine_schema();
     $tAccessRights = array();
     $query = "SELECT svn_access_rights.id, svnmodule, modulepath, svnrepos." . "       reponame, valid_from, valid_until, path, access_right, recursive," . "       svn_access_rights.user_id, svn_access_rights.group_id " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND (valid_from <= '$valid' ) " . "   AND (valid_until >= '$valid') " . "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-    // " LIMIT $start, $count";
     $result = db_query($query, $dbh, $count, $start);
     
     while ( $row = db_assoc($result['result']) ) {
         
         $entry = $row;
-        $userid = $row['user_id'];
-        if (empty($userid)) {
-            $userid = 0;
-        }
-        $groupid = $row['group_id'];
-        if (empty($groupid)) {
-            $groupid = 0;
-        }
+        $userid = db_get_userid_from_record($row);
+        $groupid = db_get_groupid_from_record($row);
         $entry[GROUPNAME] = "";
         $entry[USERNAME] = "";
         
@@ -1739,16 +1752,14 @@ function db_getAccessRightsList($valid, $start, $count, $dbh) {
 function db_getCountAccessRightsList($valid, $dbh) {
 
     $schema = db_determine_schema();
-    $tAccessRights = array();
     $query = "SELECT COUNT(*) AS anz " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND (valid_from <= '$valid' ) " . "   AND (valid_until >= '$valid') ";
     $result = db_query($query, $dbh);
     
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
+        return $row['anz'];
+
     }
     else {
         
@@ -1879,7 +1890,7 @@ function db_get_preferences($userid, $link) {
     $schema = db_determine_schema();
     
     $id = db_getIdByUserid($userid, $link);
-    if ($id != false) {
+    if ($id) {
         $query = "SELECT * " . "  FROM " . $schema . "preferences " . " WHERE user_id = $id";
         $result = db_query($query, $link);
         
@@ -2011,8 +2022,6 @@ function db_determine_schema() {
         $schema = "";
     }
     
-    // error_log( "db schema: $schema" );
-    
     return ($schema);
 
 }
@@ -2072,7 +2081,6 @@ function ldap_check_user_exists($userid) {
         $protocol = "2";
     }
     
-    // error_log( "using ldap protocol version $protocol" );
     $LDAP_CONNECT_OPTIONS = Array(
             Array(
                     "OPTION_NAME" => LDAP_OPT_DEREF,
@@ -2106,7 +2114,6 @@ function ldap_check_user_exists($userid) {
     
     try {
         $ldap = &NewADOConnection('ldap');
-        // error_log( $CONF[LDAP_SERVER].",".$CONF[BIND_DN].",".$CONF[BIND_PW].",".$CONF[USER_DN] );
         $ldap->Connect($CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $ldapOpen = 1;
     }
@@ -2211,7 +2218,6 @@ function get_ldap_users() {
     
     try {
         $ldap = &NewADOConnection('ldap');
-        // error_log( $CONF[LDAP_SERVER].",".$CONF[BIND_DN].",".$CONF[BIND_PW].",".$CONF[USER_DN] );
         $ldap->Connect($CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $ldapOpen = 1;
     }
@@ -2394,18 +2400,13 @@ function check_ldap_password($userid, $password) {
             )
     );
     
-    // error_log("check_ldap_password");
-    
     try {
         $ldap = NewADOConnection('ldap');
-        // error_log( $CONF[LDAP_SERVER].",".$CONF[BIND_DN].",".$CONF[BIND_PW].",".$CONF[USER_DN] );
         $ldap->Connect($CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $ldapOpen = 1;
-        // error_log("ldap open");
     }
     catch ( exception $e ) {
-        
-        // error_log( "exception during connect" );
+
         $_SESSION[SVNSESSID][DBERROR] = $e->msg;
         $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], 'xxxxxxxx', $CONF[USER_DN]);
         $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], 'xxxxxxxx', $CONF[USER_DN]);
@@ -2415,7 +2416,6 @@ function check_ldap_password($userid, $password) {
         if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1) and strpos($tErrorMessage, "invalid") and strpos($tErrorMessage, "credentials")) {
             $ldapOpen = 0;
             $ret = 0;
-            // error_log( "check reset" );
         }
         else {
             
@@ -2441,7 +2441,6 @@ function check_ldap_password($userid, $password) {
                 
                 $arr = $rs->FetchRow();
                 $dn = $arr['dn'];
-                // error_log( "dn = $dn" );
                 $ldapUser = &NewADOConnection('ldap');
                 $ldapUser->Connect($CONF[LDAP_SERVER], $dn, $password, $CONF[USER_DN]);
                 $ret = 1;
@@ -2449,12 +2448,10 @@ function check_ldap_password($userid, $password) {
             }
             else {
                 $ret = 0;
-                // error_log( "mehrere treffer" );
             }
         }
         else {
             $ret = 0;
-            // error_log("filter keine treffer");
         }
     }
     catch ( exception $e ) {
@@ -2495,7 +2492,7 @@ class Session {
         if (self::$DEBUG != 0) {
             db_log('gc', 'open executed');
         }
-        // error_log("session open");
+
         $db_user = $CONF[DATABASE_USER];
         $db_pass = $CONF[DATABASE_PASSWORD];
         $db_host = $CONF[DATABASE_HOST];
@@ -2566,15 +2563,6 @@ class Session {
             db_log('gc', 'close executed');
         }
         
-        // error_log( "session closed");
-        // return mysql_close(self::$_sess_db);
-        
-        // try {
-        // self::$_sess_db->Close();
-        // } catch( exception $e ) {
-        //
-        // }
-        
         return true;
     
     }
@@ -2606,7 +2594,7 @@ class Session {
         
         $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
         $sql = sprintf("SELECT session_data FROM " . $schema . "sessions " . "WHERE session_id = %s", $id);
-        // error_log( "session read");
+
         try {
             
             $result = self::$_sess_db->Execute($sql);
@@ -2672,7 +2660,7 @@ class Session {
         $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
         $time = self::$_sess_db->qstr(time(), get_magic_quotes_gpc());
         $data = self::$_sess_db->qstr($data, get_magic_quotes_gpc());
-        // error_log( "session write" );
+
         try {
             
             $sql = sprintf("SELECT * FROM " . $schema . "sessions WHERE session_id = %s", $id);
@@ -2683,17 +2671,11 @@ class Session {
             else {
                 $sql = sprintf("INSERT INTO " . $schema . "sessions (session_id, session_expires, session_data) VALUES(%s, %s, %s)", $id, $time, $data);
             }
-            // error_log( "write query: $sql" );
+
             self::$_sess_db->Execute($sql);
             $error = 0;
         }
         catch ( exception $e ) {
-            
-            // adodb_backtrace($e->gettrace());
-            
-            // error_log( "session write exception 1" );
-            // error_log( print_r($e, true) );
-            // error_log( "session write exception 2" );
             
             $_SESSION[SVNSESSID][DBERROR] = $e->msg;
             $_SESSION[SVNSESSID][DBQUERY] = $sql;
@@ -2717,7 +2699,6 @@ class Session {
         }
         
         if ($error == 0) {
-            // error_log("session write true" );
             return true;
         }
         else {
@@ -2750,8 +2731,7 @@ class Session {
         else {
             $schema = "";
         }
-        
-        // error_log( "session destroyed" );
+
         $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
         $sql = sprintf("DELETE FROM " . $schema . "sessions WHERE session_id = %s", $id);
         

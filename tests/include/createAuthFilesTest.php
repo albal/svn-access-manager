@@ -1,4 +1,5 @@
 <?php
+
 /*
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -26,17 +27,7 @@
  * $Id$
  *
  */
-
 final class CreateAuthFilesTest extends PHPUnit_Framework_TestCase {
-
-    private function _execute(array $params = array()) {
-
-        $_GET = $params;
-        ob_start();
-        include 'functions.php';
-        return ob_get_clean();
-    
-    }
 
     public function test_createAuthUserFile() {
 
@@ -50,7 +41,7 @@ final class CreateAuthFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertFileEquals('/tmp/svnpasswd', 'tests/files/svnpasswd');
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_createAuthUserFilePerRepo() {
@@ -66,7 +57,7 @@ final class CreateAuthFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertFileEquals('/tmp/svn-passwd.Test2', 'tests/files/svn-passwd.Test2');
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_createAccessFile() {
@@ -81,7 +72,7 @@ final class CreateAuthFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertFileEquals('/tmp/svnaccess', 'tests/files/svnaccess');
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_createAccessFilPerRepo() {
@@ -97,7 +88,7 @@ final class CreateAuthFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertFileEquals('/tmp/svn-access.Test2', 'tests/files/svn-access.Test2');
         
         db_disconnect($dbh);
-    
+        
     }
 
     public function test_create_files_without_write_permission() {
@@ -126,8 +117,8 @@ final class CreateAuthFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $ret['error']);
         
         db_disconnect($dbh);
-    
+        
     }
-
+    
 }
 ?>
