@@ -42,8 +42,11 @@ if (! is_array($CONF)) {
     else {
         die("can't load config.inc.php. Please check your installation!\n");
     }
-} else {
-    error_log("can't load config.inc.php. CONF is not defined! Please check your installation!");
+}
+else {
+    if (php_sapi_name() != "cli") {
+        error_log("can't load config.inc.php. CONF is not defined! Please check your installation!");
+    }
 }
 
 if (! defined('INSTALLBASE')) {

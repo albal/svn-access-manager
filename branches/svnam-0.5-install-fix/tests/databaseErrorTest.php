@@ -1,4 +1,5 @@
 <?php
+
 /*
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -26,17 +27,7 @@
  * $Id$
  *
  */
-
 final class DatabaseErrorTest extends PHPUnit_Framework_TestCase {
-
-    private function _execute(array $params = array()) {
-
-        $_GET = $params;
-        ob_start();
-        include 'functions.php';
-        return ob_get_clean();
-    
-    }
 
     public function test_database_error_install() {
 
@@ -53,8 +44,8 @@ final class DatabaseErrorTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('SELECT * FROM test;', $output);
         $this->assertContains('Test error', $output);
         $this->assertContains('Test function', $output);
-    
+        
     }
-
+    
 }
 ?>

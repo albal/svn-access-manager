@@ -76,8 +76,6 @@ function createAuthUserFile($dbh) {
                         
                         if (@rename($tempfile, $CONF[AUTHUSERFILE])) {
                             
-                            // if( @unlink( $tempfile ) ) {
-                            
                             if (db_unset_semaphore(CREATEAUTHUSERFILE, 'sem', $dbh)) {
                                 
                                 $tMessage = _("Auth user file successfully created!");
@@ -89,12 +87,6 @@ function createAuthUserFile($dbh) {
                                 db_unset_semaphore(CREATEAUTHUSERFILE, 'sem', $dbh);
                             }
                             
-                            // } else {
-                            
-                            // $retcode = 4;
-                            // $tMessage = sprintf( _("Delete of %s failed!"), $tempfile );
-                            // db_unset_semaphore( CREATEAUTHUSERFILE, 'sem', $dbh );
-                            // }
                         }
                         else {
                             
@@ -193,14 +185,6 @@ function createAuthUserFilePerRepo($dbh) {
                         }
                     }
                     
-                    // if( @unlink( $tempfile ) ) {
-                    
-                    // } else {
-                    
-                    // $retcode = 4;
-                    // $tMessage = sprintf( _("Delete of %s failed!"), $tempfile );
-                    // db_unset_semaphore( CREATEAUTHUSERFILE, 'sem', $dbh );
-                    // }
                 }
                 else {
                     
@@ -389,7 +373,6 @@ function createAccessFile($dbh) {
                             $pathSort = "ASC";
                         }
                         $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) " . "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnrepos.reponame ASC, svn_access_rights.path " . $pathSort . ", access_right DESC";
-                        // error_log( $query );
                         $result = db_query($query, $dbh);
                         
                         while ( ($row = db_assoc($result[RESULT])) and ($retcode == 0) ) {
@@ -478,8 +461,6 @@ function createAccessFile($dbh) {
                         
                         if (@rename($tempfile, $CONF[SVNACCESSFILE])) {
                             
-                            // if( @unlink( $tempfile ) ) {
-                            
                             if (db_unset_semaphore(CREATEACCESSFILE, 'sem', $dbh)) {
                                 
                                 $tMessage = _("Access file successfully created!");
@@ -491,12 +472,6 @@ function createAccessFile($dbh) {
                                 db_unset_semaphore(CREATEACCESSFILE, 'sem', $dbh);
                             }
                             
-                            // } else {
-                            
-                            // $retcode = 4;
-                            // $tMessage = sprintf( _("Delete of %s failed!"), $tempfile );
-                            // db_unset_semaphore( CREATEACCESSFILE, 'sem', $dbh );
-                            // }
                         }
                         else {
                             
@@ -776,14 +751,6 @@ function createAccessFilePerRepo($dbh) {
                         }
                     }
                     
-                    // if( @unlink( $tempfile ) ) {
-                    
-                    // } else {
-                    
-                    // $retcode = 4;
-                    // $tMessage = sprintf( _("Delete of %s failed!"), $tempfile );
-                    // db_unset_semaphore( CREATEACCESSFILE, 'sem', $dbh );
-                    // }
                 }
                 else {
                     
@@ -1180,15 +1147,11 @@ function createViewvcConfig($dbh) {
                 
                 if (@rename($tempgroups, $CONF[VIEWVCGROUPS])) {
                     
-                    // if( @unlink( $tempgroups ) ) {
-                    
                     if (($os == WINDOWS) and file_exists($CONF[VIEWVCCONF])) {
                         unlink($CONF[VIEWVCCONF]);
                     }
                     
                     if (@rename($tempfile, $CONF[VIEWVCCONF])) {
-                        
-                        // if( @unlink( $tempfile ) ) {
                         
                         if (db_unset_semaphore(CREATEVIEWVCCONF, 'sem', $dbh)) {
                             
@@ -1201,12 +1164,6 @@ function createViewvcConfig($dbh) {
                             db_unset_semaphore(CREATEVIEWVCCONF, 'sem', $dbh);
                         }
                         
-                        // } else {
-                        
-                        // $retcode = 4;
-                        // $tMessage = sprintf( _("Delete of %s failed!"), $tempfile );
-                        // db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
-                        // }
                     }
                     else {
                         
@@ -1215,12 +1172,6 @@ function createViewvcConfig($dbh) {
                         db_unset_semaphore(CREATEVIEWVCCONF, 'sem', $dbh);
                     }
                     
-                    // } else {
-                    
-                    // $retcode = 4;
-                    // $tMessage = sprintf( _("Delete of %s failed!"), $tempgroups );
-                    // db_unset_semaphore( 'ccreateviewvcconf', 'sem', $dbh );
-                    // }
                 }
                 else {
                     

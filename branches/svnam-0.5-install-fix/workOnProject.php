@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tMembers = array();
     $tReadonly = "";
-    $tTask = db_escape_string($_GET['task']);
+    $tTask = db_escape_string($_GET[TASK]);
     if (isset($_GET['id'])) {
         
         $tId = db_escape_string($_GET['id']);
@@ -94,21 +94,21 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     if (strtolower($tTask) != "relist") {
         
-        $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
+        $_SESSION[SVNSESSID][TASK] = strtolower($tTask);
     }
     
-    $_SESSION[SVNSESSID]['projectid'] = $tId;
+    $_SESSION[SVNSESSID][PROJECTID] = $tId;
     
     if ($tTask == "relist") {
         
-        $tProject = $_SESSION[SVNSESSID]['project'];
+        $tProject = $_SESSION[SVNSESSID][PROJECT];
         $tModulepath = $_SESSION[SVNSESSID]['modulepath'];
         $tRepo = $_SESSION[SVNSESSID]['repo'];
-        $tDescription = $_SESSION[SVNSESSID]['description'];
+        $tDescription = $_SESSION[SVNSESSID][DESCRIPTION];
         $tMembers = $_SESSION[SVNSESSID]['members'];
-        $tGroups = $_SESSION[SVNSESSID]['groups'];
+        $tGroups = $_SESSION[SVNSESSID][GROUPS];
     }
-    elseif ($_SESSION[SVNSESSID]['task'] == "new") {
+    elseif ($_SESSION[SVNSESSID][TASK] == "new") {
         
         $tProject = "";
         $tModulepath = "";
@@ -116,15 +116,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tDescription = "";
         $tMembers = array();
         $_SESSION[SVNSESSID]['members'] = array();
-        $_SESSION[SVNSESSID]['groups'] = array();
-        $_SESSION[SVNSESSID]['project'] = "";
+        $_SESSION[SVNSESSID][GROUPS] = array();
+        $_SESSION[SVNSESSID][PROJECT] = "";
         $_SESSION[SVNSESSID]['modulepath'] = "";
         $_SESSION[SVNSESSID]['repo'] = "";
-        $_SESSION[SVNSESSID]['description'] = "";
+        $_SESSION[SVNSESSID][DESCRIPTION] = "";
     }
-    elseif ($_SESSION[SVNSESSID]['task'] == "change") {
+    elseif ($_SESSION[SVNSESSID][TASK] == "change") {
         
-        $_SESSION[SVNSESSID]['projectid'] = $tId;
+        $_SESSION[SVNSESSID][PROJECTID] = $tId;
         $tReadonly = "readonly";
         $query = "SELECT * " . "  FROM " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = $tId) " . "   AND (svnrepos.id = svnprojects.repo_id)";
         $result = db_query($query, $dbh);
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tProject = $row['svnmodule'];
             $tModulepath = $row['modulepath'];
             $tRepo = $row['repo_id'];
-            $tDescription = $row['description'];
+            $tDescription = $row[DESCRIPTION];
             
             $query = "SELECT svnusers.userid, svnusers.name, svnusers.givenname " . "  FROM " . $schema . "svnusers, " . $schema . "svn_projects_responsible " . " WHERE (svn_projects_responsible.project_id = $tId) " . "   AND (svn_projects_responsible.deleted = '00000000000000') " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_projects_responsible.user_id = svnusers.id) " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
             $result = db_query($query, $dbh);
@@ -154,11 +154,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
             
             $_SESSION[SVNSESSID]['members'] = $tMembers;
-            $_SESSION[SVNSESSID]['project'] = $tProject;
+            $_SESSION[SVNSESSID][PROJECT] = $tProject;
             $_SESSION[SVNSESSID]['modulepath'] = $tModulepath;
             $_SESSION[SVNSESSID]['repo'] = $tRepo;
-            $_SESSION[SVNSESSID]['description'] = $tDescription;
-            $_SESSION[SVNSESSID]['groups'] = array();
+            $_SESSION[SVNSESSID][DESCRIPTION] = $tDescription;
+            $_SESSION[SVNSESSID][GROUPS] = array();
         }
         else {
             
@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     else {
         
-        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+        $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID][TASK]);
     }
     
     $header = PROJECTS;
@@ -291,11 +291,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Add responsible")) {
         
-        $_SESSION[SVNSESSID]['project'] = $tProject;
+        $_SESSION[SVNSESSID][PROJECT] = $tProject;
         $_SESSION[SVNSESSID]['modulepath'] = $tModulepath;
         $_SESSION[SVNSESSID]['repo'] = $tRepo;
-        $_SESSION[SVNSESSID]['description'] = $tDescription;
-        $_SESSION[SVNSESSID]['groups'] = $tGroups;
+        $_SESSION[SVNSESSID][DESCRIPTION] = $tDescription;
+        $_SESSION[SVNSESSID][GROUPS] = $tGroups;
         
         addMemberToGroup($_SESSION[SVNSESSID]['members'], $dbh);
         
@@ -327,12 +327,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($button == _("Add group")) {
         
-        $_SESSION[SVNSESSID]['project'] = $tProject;
+        $_SESSION[SVNSESSID][PROJECT] = $tProject;
         $_SESSION[SVNSESSID]['modulepath'] = $tModulepath;
         $_SESSION[SVNSESSID]['repo'] = $tRepo;
-        $_SESSION[SVNSESSID]['description'] = $tDescription;
+        $_SESSION[SVNSESSID][DESCRIPTION] = $tDescription;
         
-        addGroupToProject($_SESSION[SVNSESSID]['groups'], $dbh);
+        addGroupToProject($_SESSION[SVNSESSID][GROUPS], $dbh);
         
         db_disconnect($dbh);
         exit();
@@ -341,7 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if (count($tGroups) > 0) {
             $new = array();
-            $old = $_SESSION[SVNSESSID]['groups'];
+            $old = $_SESSION[SVNSESSID][GROUPS];
             
             foreach( $old as $groupid => $name) {
                 
@@ -351,12 +351,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
             
-            $_SESSION[SVNSESSID]['groups'] = $new;
+            $_SESSION[SVNSESSID][GROUPS] = $new;
             $tGroups = $new;
         }
         else {
             
-            $tGroups = $_SESSION[SVNSESSID]['groups'];
+            $tGroups = $_SESSION[SVNSESSID][GROUPS];
         }
     }
     elseif ($button == _("Back")) {
@@ -367,7 +367,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($button == _("Submit")) {
         
-        if ($_SESSION[SVNSESSID]['task'] == "new") {
+        if ($_SESSION[SVNSESSID][TASK] == "new") {
             
             $error = 0;
             
@@ -407,11 +407,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION[SVNSESSID]['username'], "project $tProject ($tModulepath) added", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "project $tProject ($tModulepath) added", $dbh);
                 
                 $dbnow = db_now();
                 $query = "INSERT INTO " . $schema . "svnprojects (svnmodule, modulepath, description, repo_id, created, created_user) " . 
-                         "     VALUES ('$tProject', '$tModulepath', '$tDescription', '$tRepo', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                         "     VALUES ('$tProject', '$tModulepath', '$tDescription', '$tRepo', '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                 
                 $result = db_query($query, $dbh);
                 if ($result['rows'] != 1) {
@@ -430,12 +430,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         
                         if ($result['rows'] == 1) {
                             
-                            db_log($_SESSION[SVNSESSID]['username'], "added project responsible $userid", $dbh);
+                            db_log($_SESSION[SVNSESSID][USERNAME], "added project responsible $userid", $dbh);
                             
                             $row = db_assoc($result['result']);
                             $id = $row['id'];
                             $dbnow = db_now();
-                            $query = "INSERT INTO " . $schema . "svn_projects_responsible (user_id, project_id, created, created_user) " . "     VALUES ($id, $projectid, '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                            $query = "INSERT INTO " . $schema . "svn_projects_responsible (user_id, project_id, created, created_user) " . "     VALUES ($id, $projectid, '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                             $result = db_query($query, $dbh);
                             
                             if ($result['rows'] != 1) {
@@ -465,11 +465,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
         }
-        elseif ($_SESSION[SVNSESSID]['task'] == "change") {
+        elseif ($_SESSION[SVNSESSID][TASK] == "change") {
             
             $error = 0;
             $tReadonly = "readonly";
-            $projectid = $_SESSION[SVNSESSID]['projectid'];
+            $projectid = $_SESSION[SVNSESSID][PROJECTID];
             
             if ($tProject == "") {
                 
@@ -494,7 +494,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             else {
                 
-                $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (svnmodule = '$tProject') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID]['projectid'] . ")";
+                $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (svnmodule = '$tProject') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID][PROJECTID] . ")";
                 $result = db_query($query, $dbh);
                 
                 if ($result['rows'] > 0) {
@@ -513,15 +513,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                          "       repo_id = $tRepo, " . 
                          "       description = '$tDescription', " . 
                          "       modified = '$dbnow', " . 
-                         "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . 
-                         " WHERE (id = " . $_SESSION[SVNSESSID]['projectid'] . ")";
+                         "       modified_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . 
+                         " WHERE (id = " . $_SESSION[SVNSESSID][PROJECTID] . ")";
                 
                 db_ta('BEGIN', $dbh);
                 
                 $project = db_getProjectById($tProject, $dbh);
                 $repo = db_getRepoById($tRepo, $dbh);
                 
-                db_log($_SESSION[SVNSESSID]['username'], "updated project $tProject ($tModulepath/$repo)", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "updated project $tProject ($tModulepath/$repo)", $dbh);
                 
                 $result = db_query($query, $dbh);
                 
@@ -536,7 +536,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     $tGroupIds = array();
                     
-                    foreach( $_SESSION[SVNSESSID]['groups'] as $groupid => $groupname) {
+                    foreach( $_SESSION[SVNSESSID][GROUPS] as $groupid => $groupname) {
                         
                         $tGroupIds[] = $groupid;
                     }
@@ -552,10 +552,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         
                         if (! in_array($userid, $tUids)) {
                             
-                            db_log($_SESSION[SVNSESSID]['username'], "deleted $userid from $tProject as responsible", $dbh);
+                            db_log($_SESSION[SVNSESSID][USERNAME], "deleted $userid from $tProject as responsible", $dbh);
                             $id = $row['id'];
                             $dbnow = db_now();
-                            $query = "UPDATE " . $schema . "svn_projects_responsible " . "SET deleted = '$dbnow', " . "    deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = " . $id;
+                            $query = "UPDATE " . $schema . "svn_projects_responsible " . "SET deleted = '$dbnow', " . "    deleted_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE id = " . $id;
                             $result_del = db_query($query, $dbh);
                             
                             if ($result_del['rows'] != 1) {
@@ -586,9 +586,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             
                             if ($result['rows'] == 0) {
                                 
-                                db_log($_SESSION[SVNSESSID]['username'], " added project responsible $userid to project $tProject", $dbh);
+                                db_log($_SESSION[SVNSESSID][USERNAME], " added project responsible $userid to project $tProject", $dbh);
                                 $dbnow = db_now();
-                                $query = "INSERT INTO " . $schema . "svn_projects_responsible (user_id, project_id, created, created_user) " . "     VALUES ($id, $projectid, '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                                $query = "INSERT INTO " . $schema . "svn_projects_responsible (user_id, project_id, created, created_user) " . "     VALUES ($id, $projectid, '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                                 $result = db_query($query, $dbh);
                                 
                                 if ($result['rows'] != 1) {
@@ -625,7 +625,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         else {
             
-            $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+            $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID][TASK]);
         }
     }
     elseif ($buttonadd == _("Add")) {
@@ -659,11 +659,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION[SVNSESSID]['members'][$userid] = $name;
         }
         
-        $project = $_SESSION[SVNSESSID]['projectid'];
-        $tProject = $_SESSION[SVNSESSID]['project'];
+        $project = $_SESSION[SVNSESSID][PROJECTID];
+        $tProject = $_SESSION[SVNSESSID][PROJECT];
         $tModulepath = $_SESSION[SVNSESSID]['modulepath'];
         $tRepo = $_SESSION[SVNSESSID]['repo'];
-        $tDescription = $_SESSION[SVNSESSID]['description'];
+        $tDescription = $_SESSION[SVNSESSID][DESCRIPTION];
         $tMembers = $_SESSION[SVNSESSID]['members'];
         
         db_disconnect($dbh);
@@ -672,8 +672,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($buttonadd == _("Cancel")) {
         
-        $project = $_SESSION[SVNSESSID]['projectid'];
-        $task = $_SESSION[SVNSESSID]['task'];
+        $project = $_SESSION[SVNSESSID][PROJECTID];
+        $task = $_SESSION[SVNSESSID][TASK];
         
         db_disconnect($dbh);
         header("Location: workOnProject.php?id=$project&task=relist");
