@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="workOnUser" method="post">
 				<table>
 				   	<tr>
@@ -11,16 +11,16 @@
 				   		<td width="150"><strong><?php print _("Username").": "; ?></strong></td>
 				   		<td>
 				   			<?php
-				   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") and ($_SESSION[SVNSESSID]['task'] == "new") ) {
+				   				if( (isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) == "YES") && ($_SESSION[SVNSESSID]['task'] == "new") ) {
 				   					
 				   					print "\t\t\t\t\t\t\t<select id=\"userid\" name=\"fUserid\" class=\"chzn-select\" $tReadonly onchange=\"changeUser();\">\n";
 				   					print "\t\t\t\t\t\t\t\t<option value=\"default\">"._("--- Please select user ---")."</option>\n";
 				   					foreach( $tUsers as $entry ) {
-				   						$value	= $entry['uid'].":".$entry['name'].":".$entry['givenname'].":".$entry['emailaddress'].":";
+				   						$value	= $entry['uid'].":".$entry['name'].":".$entry[GIVENNAME].":".$entry['emailaddress'].":";
 				   						if( $entry['uid'] == $tUserid ) {
-				   							print "\t\t\t\t\t\t\t\t<option value=\"".$value."\" selected>".$entry['name']." ".$entry['givenname']." (".$entry['uid'].")"."</option>\n";
+				   							print "\t\t\t\t\t\t\t\t<option value=\"".$value."\" selected>".$entry['name']." ".$entry[GIVENNAME]." (".$entry['uid'].")"."</option>\n";
 				   						} else {
-				   							print "\t\t\t\t\t\t\t\t<option value=\"".$value."\">".$entry['name']." ".$entry['givenname']." (".$entry['uid'].")"."</option>\n";
+				   							print "\t\t\t\t\t\t\t\t<option value=\"".$value."\">".$entry['name']." ".$entry[GIVENNAME]." (".$entry['uid'].")"."</option>\n";
 				   						}
 				   					}
 				   					print "\t\t\t\t\t\t\t</select>\n";
@@ -49,7 +49,7 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<?php
-				   		if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
+				   		if( (isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES") ) {
 					   		print "\t\t\t\t\t\t<tr>\n";
 						   	print "\t\t\t\t\t\t\t<td><strong>"._("Password").": </strong></td>\n";
 						   	print "\t\t\t\t\t\t\t<td>\n";
@@ -103,7 +103,7 @@
                             print "\t\t\t\t\t\t</tr>\n";
                         }
                                                 
-			   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES") ) {
+			   			if( (isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES") ) {
 			   				print "\n\t\t\t\t\t\t<tr>\n";
 			   				print "\t\t\t\t\t\t\t<td nowrap><strong>"._("Password expires").": </strong></td>\n";
 			   				print "\t\t\t\t\t\t\t<td>\n";
@@ -192,7 +192,7 @@
 			   				print "\t\t\t\t\t\t\t<td>\n";
 			   				print "\t\t\t\t\t\t\t\t<select name='fId".$id."' title=\"".$right['description']."\">\n";
 			   				
-			   				$tNone						= "selected";
+			   				$tNone						= SELECTED;
 			   				$tRead						= "";
 			   				$tAdd						= "";
 			   				$tEdit						= "";
@@ -201,55 +201,54 @@
 			   				if( isset($tRightsGranted[$id]) ) {
 			   					if(strtolower($tRightsGranted[$id]) == "read") {
 			   						$tNone				= "";
-			   						$tRead				= "selected";
+			   						$tRead				= SELECTED;
 			   						$tAdd				= "";
 			   						$tEdit				= "";
 			   						$tDelete			= "";  
 			   					} elseif(strtolower($tRightsGranted[$id]) == "add" ) {
 			   						$tNone				= "";
 			   						$tRead				= "";
-			   						$tAdd				= "selected";
+			   						$tAdd				= SELECTED;
 			   						$tEdit				= "";
 			   						$tDelete			= "";
 			   					} elseif(strtolower($tRightsGranted[$id]) == "edit" ) {
 			   						$tNone				= "";
 			   						$tRead				= "";
 			   						$tAdd				= "";
-			   						$tEdit				= "selected";
+			   						$tEdit				= SELECTED;
 			   						$tDelete			= "";
-			   					} elseif(strtolower($tRightsGranted[$id]) == "delete" ) {
+			   					} elseif(strtolower($tRightsGranted[$id]) == DELETE ) {
 			   						$tNone				= "";
 			   						$tRead				= "";
 			   						$tAdd				= "";
 			   						$tEdit				= "";
-			   						$tDelete			= "selected";
+			   						$tDelete			= SELECTED;
 			   					}
 		   					}
 			   				
 			   							   				
 			   				print "\t\t\t\t\t\t\t\t\t<option value='none' ".$tNone.">"._("none")."</option>\n";
-			   				if( (($right['allowed_action'] == "read") 		or 
-			   					 ($right['allowed_action'] == "add") 		or
-			   					 ($right['allowed_action'] == "edit") 		or 
-			   					 ($right['allowed_action'] == "delete"))	
+			   				if( ($right[ALLOWED_ACTION] == "read") 		||  
+			   					 ($right[ALLOWED_ACTION] == "add") 		|| 
+			   					 ($right[ALLOWED_ACTION] == "edit") 		|| 
+			   					 ($right[ALLOWED_ACTION] == DELETE)	
 			   				  ) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='read' ".$tRead.">"._("read")."</option>\n";
 			   				}
-			   				if( (($right['allowed_action'] == "add" ) 		or
-			   				     ($right['allowed_action'] == "edit") 		or
-			   					 ($right['allowed_action'] == "delete"))	
+			   				if( ($right[ALLOWED_ACTION] == "add" ) 		|| 
+			   				     ($right[ALLOWED_ACTION] == "edit") 		|| 
+			   					 ($right[ALLOWED_ACTION] == DELETE)	
 			   				  ) {
 			   					print "\t\t\t\t\t\t\t\t\t<option value='add' ".$tAdd.">"._("add")."</option>\n";
 			   				}
-			   				if( (($right['allowed_action'] == "edit") 		or
-			   					 ($right['allowed_action'] == "delete"))	
+			   				if( ($right[ALLOWED_ACTION] == "edit") 		|| 
+			   					 ($right[ALLOWED_ACTION] == DELETE)	
 			   				   ) {
 			   					
 			   					print "\t\t\t\t\t\t\t\t\t<option value='edit' ".$tEdit.">"._("edit")."</option>\n";
 			   				}
-			   				if( ($right['allowed_action'] == "delete")		
-			   				  ) {
+			   				if($right[ALLOWED_ACTION] == DELETE) {
 			   				
 			   					print "\t\t\t\t\t\t\t\t\t<option value='delete' ".$tDelete.">"._("delete")."</option>\n";
 			   				}
@@ -266,7 +265,7 @@
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>

@@ -1,20 +1,20 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form action="rep_show_group.php" name="show_group" method="post">
 				<h3><?php print sprintf( _("Show group %s"), $tGroupname );?></h3>
 				<p>&nbsp;</p>
 				<table id="groupdetails">
 					<tr>
-						<td class="greyCell"><strong><?php print _("Group Name").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Group Name").": "; ?></strong></td>
 						<td><?php print $tGroupname;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td class="greyCell"><strong><?php print _("Description").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Description").": "; ?></strong></td>
 						<td><?php print $tDescription;?></td>
 					</tr>
 				</table>
 				<p>&nbsp;</p>
 				<h3><?php print _("Users in group");?></h3>
 				<p>&nbsp;</p>
-				<table id="showgroupuser_table">
+				<table id="showgroupusertable">
 					<thead>
 						<tr>
 							<th><?php print _("Username");?></th>
@@ -37,7 +37,7 @@
 				<p>&nbsp;</p>
 				<h3><?php print _("Group administrators");?></h3>
 				<p>&nbsp;</p>
-				<table id="showgroupadmin_table">
+				<table id="showgroupadmintable">
 					<thead>
 						<tr>
 							<th><?php print _("Username");?></th>
@@ -62,7 +62,7 @@
 				<p>&nbsp;</p>
 				<h3><?php print _("Access rights");?></h3>
 				<p>&nbsp;</p>
-				<table id="showgroupright_table">
+				<table id="showgrouprighttable">
 					<thead>
 						<tr>
 							<th><?php print _(" SVN Module");?></th>
@@ -88,28 +88,28 @@
 				</table>
 			</form>
 			<script type="text/javascript">
-					$("#showgroupuser_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showgroupusertable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#showgroupadmin_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showgroupadmintable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#showgroupright_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showgrouprighttable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

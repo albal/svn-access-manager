@@ -34,11 +34,11 @@ include( "./include/output.inc.php" );
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 </head>
 <body>
-	<div id="header_login">
-			<div id="header_left">
+	<div id="headerlogin">
+			<div id="headerleft">
 				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
 			</div>
-			<div id="header_right_login">
+			<div id="headerrightlogin">
 				
 			</div>
 			<div id="subheader">
@@ -47,7 +47,7 @@ include( "./include/output.inc.php" );
 		</div>
 		<div id="login">
 			<form name="lostpassword" method="post" autocomplete="off">
-				<table id="login_table">
+				<table id="logintable">
 					<tr>
 				      <td colspan="3"><h3><?php print _("Reset your password"); ?></h3></td>
 				   	</tr>
@@ -79,7 +79,7 @@ include( "./include/output.inc.php" );
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />
 				      </td>
 				   	</tr>

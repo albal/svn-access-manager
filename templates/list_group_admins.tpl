@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Group administrators"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="group_admin_list" method="post">
@@ -36,34 +36,7 @@
 					</thead>
 					<tbody>
 						<?php
-					   		foreach( $tGroups as $entry ) {
-					   		
-					   			if( ($rightAllowed == "edit") or
-					   			    ($rightAllowed == "delete" ) ) {
-					   			    $url				= htmlentities("workOnGroupAccessRight.php?id=".$entry['id']."&task=change");
-					   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$edit				= "";
-					   			}
-					   			
-					   			
-					   			if( $rightAllowed == "delete" ) {
-					   				$url				= htmlentities("deleteGroupAccessRight.php?id=".$entry['id']."&task=delete");
-					   				$delete				= "<a href=\"$url\" title=\""._("delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$delete				= "";
-					   			}
-					   			$action					= $edit."     ".$delete;
-					   			$admin					= $entry['userid'];
-					   			
-					   			print "\t\t\t\t\t<tr>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['groupname']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['description']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$admin."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['allowed']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   		}
+					   		outputGroupAdmin($tGroups, $rightAllowed);
 					   	?>
 					</tbody>
 					<tfoot>
@@ -80,10 +53,10 @@
 							</td>
 				   		</tr>
 						<tr>
-					      <td colspan="5" class="hlp_center">
+					      <td colspan="5" class="hlpcenter">
 					        <?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
 					      		    ($rightAllowed == "delete") ) {
 					      		    
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_group.png\" value=\""._("New group")."\"  title=\""._("New group")."\" />     ";
@@ -158,7 +131,7 @@
 
                 	});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

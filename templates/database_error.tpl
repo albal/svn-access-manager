@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="database_error" method="post">
 				<table>
 				   	<tr>

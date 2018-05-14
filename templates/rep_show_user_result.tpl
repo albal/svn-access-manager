@@ -1,48 +1,48 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form action="rep_show_user.php" name="show_user" method="post">
 				<h3><?php print sprintf( _("Show user %s"), $tUser );?></h3>
 				<p>&nbsp;</p>
 				<table id="userdetails">
 					<tr>
-						<td class="greyCell"><strong><?php print _("Username").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Username").": "; ?></strong></td>
 						<td><?php print $tUsername;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td class="greyCell"><strong><?php print _("Administrator").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Administrator").": "; ?></strong></td>
 						<td><?php print $tAdministrator;?></td>
 					</tr>
 					<tr>
-						<td class="greyCell"><strong><?php print _("Name").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Name").": "; ?></strong></td>
 						<td><?php print $tName;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td class="greyCell"><strong><?php print _("Givenname").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Givenname").": "; ?></strong></td>
 						<td><?php print $tGivenname;?></td>
 					</tr>
 					<tr>
-						<td class="greyCell"><strong><?php print _("Email address").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Email address").": "; ?></strong></td>
 						<td><?php print $tEmailAddress;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td class="greyCell"><strong><?php print _("Locked").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Locked").": "; ?></strong></td>
 						<td><?php print $tLocked;?></td>
 					</tr>
 					<tr>
-						<td class="greyCell"><strong><?php print _("Password expires").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Password expires").": "; ?></strong></td>
 						<td><?php print $tPasswordExpires;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td class="greyCell"><strong><?php print _("Repository access right").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Repository access right").": "; ?></strong></td>
 						<td><?php print $tAccessRight;?></td>
 					</tr>
 					<tr>
-						<td class="greyCell"><strong><?php print _("Password last modified").": "; ?></strong></td>
+						<td class="greycell"><strong><?php print _("Password last modified").": "; ?></strong></td>
 						<td><?php print $tPasswordModified;?></td>
 						<td>&nbsp;&nbsp;</td>
-						<td class="greyCell">&nbsp;</td>
+						<td class="greycell">&nbsp;</td>
 						<td>&nbsp;</td>
 					</tr>
 				</table>
 				<p>&nbsp;</p>
 				<h3><?php print _("Group membership");?></h3>
 				<p>&nbsp;</p>
-				<table id="showusergroup_table">
+				<table id="showusergrouptable">
 					<thead>
 						<tr>
 							<th><?php print _("Group name");?></th>
@@ -63,7 +63,7 @@
 				<p>&nbsp;</p>
 				<h3><?php print _("Project responsible");?></h3>
 				<p>&nbsp;</p>
-				<table id="showuserproject_table">
+				<table id="showuserprojecttable">
 					<thead>
 						<tr>
 							<th><?php print _("SVN Module");?></th>
@@ -84,7 +84,7 @@
 				<p>&nbsp;</p>
 				<h3><?php print _("Access rights");?></h3>
 				<p>&nbsp;</p>
-				<table id="showuserright_table">
+				<table id="showuserrighttable">
 					<thead>
 						<tr>
 							<th><?php print _("SVN Module");?></th>
@@ -112,28 +112,28 @@
 				</table>
 			</form>
 			<script type="text/javascript">
-					$("#showusergroup_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showusergrouptable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#showuserproject_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showuserprojecttable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#showuserright_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showuserrighttable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

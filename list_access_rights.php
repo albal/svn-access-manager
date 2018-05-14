@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tSearchGroup = isset($_POST['fSearchGroup']) ? db_escape_string($_POST['fSearchGroup']) : "";
     $tCntl = isset($_POST['fCntl']) ? db_escape_string($_POST['fCntl']) : "";
     
-    if ($button == _("Back") and ($tCntl != "filter")) {
+    if ($button == _("Back") && ($tCntl != "filter")) {
         
         db_disconnect($dbh);
         header("Location: main.php");
@@ -131,13 +131,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $tAccessRights = db_getAccessRights($tSeeUserid, 0, - 1, $dbh);
     }
-    elseif ($button == _("New access right") and ($tCntl != "filter")) {
+    elseif ($button == _("New access right") && ($tCntl != "filter")) {
         
         db_disconnect($dbh);
         header("Location: selectProject.php");
         exit();
     }
-    elseif ($button == _("Delete selected") and ($tCntl != "filter")) {
+    elseif ($button == _("Delete selected") && ($tCntl != "filter")) {
         
         $max = $_SESSION[SVNSESSID]['max_mark'];
         $error = 0;
@@ -150,7 +150,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if (isset($_POST[$field])) {
                 
-                // print $_POST[$field];exit;
                 $id = $_SESSION[SVNSESSID]['mark'][$i];
                 $right = db_getRightData($id, $dbh);
                 $projectname = db_getProjectById($right['project_id'], $dbh);

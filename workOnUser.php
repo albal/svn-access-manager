@@ -27,7 +27,6 @@
  * $Id$
  *
  */
-
 include ('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
@@ -49,13 +48,13 @@ function getRights($dbh) {
     $query = "SELECT id, right_name, allowed_action, description_$lang AS description " . "  FROM " . $schema . "rights " . " WHERE (deleted = '00000000000000') " . " ORDER BY id ASC";
     $result = db_query($query, $dbh);
     
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $tRightsAvailable[] = $row;
     }
     
     return $tRightsAvailable;
-
+    
 }
 
 function getRightsGranted($user_id, $dbh) {
@@ -68,18 +67,82 @@ function getRightsGranted($user_id, $dbh) {
     $query = "SELECT right_id, allowed " . "  FROM " . $schema . "users_rights " . " WHERE (user_id = $user_id) " . "   AND (deleted = '00000000000000')";
     $result = db_query($query, $dbh);
     
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $tRightsGranted[$row['right_id']] = $row['allowed'];
     }
     
     return $tRightsGranted;
-
+    
 }
 
 function getLdapUser() {
 
+    
+}
 
+function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
+
+    $error = 0;
+    $tMessage = '';
+    
+    foreach( $tRightsAvailable as $right) {
+        
+        $right_id = $right['id'];
+        $tOldRight = isset($_SESSION[SVNSESSID][RIGHTSGRANTED][$right_id]) ? $_SESSION[SVNSESSID][RIGHTSGRANTED][$right_id] : "";
+        $field = "fId" . $right_id;
+        $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : $tOldRight;
+        $tCurRight = $tRightsGrantedToCurUser[$right_id];
+        $tRightName = db_getRightName($right_id, $dbh);
+        $tRightsGranted[$right_id] = $value;
+        
+        if (strtolower($value) == DELETE) {
+            
+            if ($tCurRight != DELETE) {
+                
+                $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $error = 1;
+            }
+        }
+        elseif (strtolower($value) == "edit") {
+            
+            if (($tCurRight != DELETE) && ($tCurRight != "edit")) {
+                
+                $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $error = 1;
+            }
+        }
+        elseif (strtolower($value) == "add") {
+            
+            if (($tCurRight != DELETE) && ($tCurRight != "edit") && ($tCurRight != "add")) {
+                
+                $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $error = 1;
+            }
+        }
+        elseif (strtolower($value) == "read") {
+            
+            if (($tCurRight != DELETE) && ($tCurRight != "edit") && ($tCurRight != "add") && ($tCurRight != "read")) {
+                
+                $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $error = 1;
+            }
+        }
+        elseif (strtolower($value) == "none") {
+            // nothing to do
+        }
+        else {
+            
+            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+            $error = 1;
+        }
+    }
+    
+    return (array(
+            'error' => $error,
+            'message' => $tMessage
+    ));
+    
 }
 
 initialize_i18n();
@@ -100,7 +163,7 @@ if ($rightAllowed == "add") {
 else {
     $tDisabled = "";
 }
-if (($rightAllowed != "delete")) {
+if ($rightAllowed != DELETE) {
     $tDisabledAdmin = "disabled";
 }
 else {
@@ -128,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    if ((($rightAllowed == "add") and ($tTask != "new"))) {
+    if (($rightAllowed == "add") && ($tTask != "new")) {
         
         db_log($SESSID_USERNAME, "tried to use workOnUser without permission", $dbh);
         db_disconnect($dbh);
@@ -137,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
-    $_SESSION[SVNSESSID]['userid'] = $tId;
+    $_SESSION[SVNSESSID][USERID] = $tId;
     $tRightsAvailable = getRights($dbh);
     
     $schema = db_determine_schema();
@@ -166,14 +229,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tUserRight = "read";
         }
         $tRightsGranted = array();
-        if ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES")) {
+        if ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) == "YES")) {
             $tUsers = get_ldap_users();
         }
         
-        $_SESSION[SVNSESSID]['rightsgranted'] = array();
-        $_SESSION[SVNSESSID]['passwordexpires'] = "1";
-        $_SESSION[SVNSESSID]['locked'] = "0";
-        $_SESSION[SVNSESSID]['adminster'] = "n";
+        $_SESSION[SVNSESSID][RIGHTSGRANTED] = array();
+        $_SESSION[SVNSESSID][PASSWORDEXPIRES] = "1";
+        $_SESSION[SVNSESSID][LOCKED] = "0";
+        $_SESSION[SVNSESSID][ADMINSTER] = "n";
     }
     elseif ($_SESSION[SVNSESSID]['task'] == "change") {
         
@@ -182,23 +245,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $result = db_query($query, $dbh);
         if ($result['rows'] == 1) {
             
-            $row = db_assoc($result['result']);
-            $tUserid = $row['userid'];
+            $row = db_assoc($result[RESULT]);
+            $tUserid = $row[USERID];
             $tName = $row['name'];
             $tGivenname = $row['givenname'];
             $tEmail = $row['emailaddress'];
             $tCustom1 = (empty($row['custom1']) ? "''" : $row['custom1']);
             $tCustom2 = (empty($row['custom2']) ? "''" : $row['custom2']);
             $tCustom3 = (empty($row['custom3']) ? "''" : $row['custom3']);
-            $tPasswordExpires = $row['passwordexpires'];
-            $tLocked = $row['locked'];
+            $tPasswordExpires = $row[PASSWORDEXPIRES];
+            $tLocked = $row[LOCKED];
             $tAdministrator = $row['admin'];
             $tUserRight = $row['user_mode'];
             $tRightsGranted = getRightsGranted($row['id'], $dbh);
-            $_SESSION[SVNSESSID]['rightsgranted'] = $tRightsGranted;
-            $_SESSION[SVNSESSID]['passwordexpires'] = $tPasswordExpires;
-            $_SESSION[SVNSESSID]['locked'] = $tLocked;
-            $_SESSION[SVNSESSID]['adminster'] = $tAdministrator;
+            $_SESSION[SVNSESSID][RIGHTSGRANTED] = $tRightsGranted;
+            $_SESSION[SVNSESSID][PASSWORDEXPIRES] = $tPasswordExpires;
+            $_SESSION[SVNSESSID][LOCKED] = $tLocked;
+            $_SESSION[SVNSESSID][ADMINSTER] = $tAdministrator;
         }
         else {
             
@@ -231,9 +294,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tCustom1 = isset($_POST['fCustom1']) ? db_escape_string($_POST['fCustom1']) : "";
     $tCustom2 = isset($_POST['fCustom2']) ? db_escape_string($_POST['fCustom2']) : "";
     $tCustom3 = isset($_POST['fCustom3']) ? db_escape_string($_POST['fCustom3']) : "";
-    $tPasswordExpires = isset($_POST['fPasswordExpires']) ? db_escape_string($_POST['fPasswordExpires']) : $_SESSION[SVNSESSID]['passwordexpires'];
-    $tLocked = isset($_POST['fLocked']) ? db_escape_string($_POST['fLocked']) : $_SESSION[SVNSESSID]['locked'];
-    $tAdministrator = isset($_POST['fAdministrator']) ? db_escape_string($_POST['fAdministrator']) : $_SESSION[SVNSESSID]['adminster'];
+    $tPasswordExpires = isset($_POST['fPasswordExpires']) ? db_escape_string($_POST['fPasswordExpires']) : $_SESSION[SVNSESSID][PASSWORDEXPIRES];
+    $tLocked = isset($_POST['fLocked']) ? db_escape_string($_POST['fLocked']) : $_SESSION[SVNSESSID][LOCKED];
+    $tAdministrator = isset($_POST['fAdministrator']) ? db_escape_string($_POST['fAdministrator']) : $_SESSION[SVNSESSID][ADMINSTER];
     $tUserRight = isset($_POST['fUserRight']) ? db_escape_string($_POST['fUserRight']) : "";
     $tRightsAvailable = getRights($dbh);
     $tRightsGranted = array();
@@ -280,14 +343,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Name missing, please fill in!");
                 $error = 1;
             }
-            elseif ((! isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES"))) {
+            elseif ((! isset($CONF[USE_LDAP])) || ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES"))) {
                 
-                if (($tPassword == "") and ($tPassword2 == "")) {
+                if (($tPassword == "") && ($tPassword2 == "")) {
                     
                     $tMessage = _("A new user needs a password!");
                     $error = 1;
                 }
-                elseif (($tPassword != "") or ($tPassword2 != "")) {
+                elseif (($tPassword != "") || ($tPassword2 != "")) {
                     
                     if ($tPassword != $tPassword2) {
                         
@@ -330,57 +393,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if ($error == 0) {
                 
-                foreach( $tRightsAvailable as $right) {
-                    
-                    $right_id = $right['id'];
-                    $tOldRight = isset($_SESSION[SVNSESSID]['rightsgranted'][$right_id]) ? $_SESSION[SVNSESSID]['rightsgranted'][$right_id] : "";
-                    $field = "fId" . $right_id;
-                    $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : $tOldRight;
-                    $tCurRight = $tRightsGrantedToCurUser[$right_id];
-                    $tRightName = db_getRightName($right_id, $dbh);
-                    $tRightsGranted[$right_id] = $value;
-                    
-                    if (strtolower($value) == "delete") {
-                        
-                        if ($tCurRight != "delete") {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "edit") {
-                        
-                        if (($tCurRight != "delete") and ($tCurRight != "edit")) {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "add") {
-                        
-                        if (($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add")) {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "read") {
-                        
-                        if (($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add") and ($tCurRight != "read")) {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "none") {
-                        // nothing to do
-                    }
-                    else {
-                        
-                        $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                        $error = 1;
-                    }
-                }
+                $result = check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh);
+                $error = $result['error'];
+                $tMessage = $result['message'];
             }
             
             if ($error == 0) {
@@ -464,9 +479,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Name missing, please fill in!");
                 $error = 1;
             }
-            elseif ((! isset($CONF['use_ldap'])) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES"))) {
+            elseif ((! isset($CONF[USE_LDAP])) || ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES"))) {
                 
-                if (($tPassword != "") or ($tPassword2 != "")) {
+                if (($tPassword != "") || ($tPassword2 != "")) {
                     
                     if ($tPassword != $tPassword2) {
                         
@@ -509,57 +524,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if ($error == 0) {
                 
-                foreach( $tRightsAvailable as $right) {
-                    
-                    $right_id = $right['id'];
-                    $tOldRight = isset($_SESSION[SVNSESSID]['rightsgranted'][$right_id]) ? $_SESSION[SVNSESSID]['rightsgranted'][$right_id] : "";
-                    $field = "fId" . $right_id;
-                    $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : $tOldRight;
-                    $tCurRight = $tRightsGrantedToCurUser[$right_id];
-                    $tRightName = db_getRightName($right_id, $dbh);
-                    $tRightsGranted[$right_id] = $value;
-                    
-                    if (strtolower($value) == "delete") {
-                        
-                        if ($tCurRight != "delete") {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "edit") {
-                        
-                        if (($tCurRight != "delete") and ($tCurRight != "edit")) {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "add") {
-                        
-                        if (($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add")) {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "read") {
-                        
-                        if (($tCurRight != "delete") and ($tCurRight != "edit") and ($tCurRight != "add") and ($tCurRight != "read")) {
-                            
-                            $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                            $error = 1;
-                        }
-                    }
-                    elseif (strtolower($value) == "none") {
-                        // nothing to do
-                    }
-                    else {
-                        
-                        $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
-                        $error = 1;
-                    }
-                }
+                $result = check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh);
+                $error = $result['error'];
+                $tMessage = $result['message'];
             }
             
             if ($error == 0) {
@@ -573,7 +540,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $query .= ", password = '$pwcrypt'";
                 }
                 
-                $query .= " WHERE (id = " . $_SESSION[SVNSESSID]['userid'] . ")";
+                $query .= " WHERE (id = " . $_SESSION[SVNSESSID][USERID] . ")";
                 
                 db_ta('BEGIN', $dbh);
                 db_log($_SESSION[SVNSESSID]['username'], "updated user $tUserid", $dbh);
@@ -589,18 +556,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $value = isset($_POST[$field]) ? db_escape_string($_POST[$field]) : "";
                         
                         if ($value != "") {
-                            $query = "SELECT * " . "  FROM " . $schema . "users_rights " . " WHERE (right_id = $right_id) " . "   AND (user_id = " . $_SESSION[SVNSESSID]['userid'] . ") " . "   AND (deleted = '00000000000000')";
+                            $query = "SELECT * " . "  FROM " . $schema . "users_rights " . " WHERE (right_id = $right_id) " . "   AND (user_id = " . $_SESSION[SVNSESSID][USERID] . ") " . "   AND (deleted = '00000000000000')";
                             $result = db_query($query, $dbh);
                             
                             if ($result['rows'] > 0) {
                                 
                                 $dbnow = db_now();
-                                $query = "UPDATE " . $schema . "users_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "'," . "       allowed = '$value' " . " WHERE (user_id = " . $_SESSION[SVNSESSID]['userid'] . ") " . "   AND (right_id = $right_id)";
+                                $query = "UPDATE " . $schema . "users_rights " . "   SET modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "'," . "       allowed = '$value' " . " WHERE (user_id = " . $_SESSION[SVNSESSID][USERID] . ") " . "   AND (right_id = $right_id)";
                             }
                             else {
                                 
                                 $dbnow = db_now();
-                                $query = "INSERT INTO " . $schema . "users_rights (right_id, user_id, allowed, created, created_user) " . "     VALUES ($right_id, " . $_SESSION[SVNSESSID]['userid'] . ", '$value', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                                $query = "INSERT INTO " . $schema . "users_rights (right_id, user_id, allowed, created, created_user) " . "     VALUES ($right_id, " . $_SESSION[SVNSESSID][USERID] . ", '$value', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                             }
                             
                             $result = db_query($query, $dbh);
@@ -613,7 +580,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                     }
                     
-                    $tRightsGranted = getRightsGranted($_SESSION[SVNSESSID]['userid'], $dbh);
+                    $tRightsGranted = getRightsGranted($_SESSION[SVNSESSID][USERID], $dbh);
                 }
                 else {
                     
@@ -643,7 +610,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
     }
     
-    if ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES")) {
+    if ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) == "YES")) {
         $tUsers = get_ldap_users();
     }
     

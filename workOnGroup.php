@@ -50,7 +50,7 @@ $_SESSION[SVNSESSID]['helptopic'] = "workongroup";
 
 if ($rightAllowed == "none") {
     
-    $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID]['username'], $dbh);
+    $tGroupsAllowed = db_check_group_acl($_SESSION[SVNSESSID][USERNAME], $dbh);
     if (count($tGroupsAllowed) == 0) {
         db_log($SESSID_USERNAME, "tried to use workOnGroup without permission", $dbh);
         db_disconnect($dbh);
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    if (($rightAllowed == "add") and (($tTask != "new") and ($tTask != "relist"))) {
+    if (($rightAllowed == "add") && (($tTask != "new") && ($tTask != RELIST))) {
         
         db_log($SESSID_USERNAME, "tried to use workOnGroup without permission", $dbh);
         db_disconnect($dbh);
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
     }
     
-    if (($rightAllowed == "none") and ($tId != "") and (! array_key_exists($tId, $tGroupsAllowed))) {
+    if (($rightAllowed == "none") && ($tId != "") && (! array_key_exists($tId, $tGroupsAllowed))) {
         
         db_log($SESSID_USERNAME, "tried to use workOnGroup without permission", $dbh);
         db_disconnect($dbh);
@@ -90,44 +90,44 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
     }
     
-    if (strtolower($tTask) != "relist") {
+    if (strtolower($tTask) != RELIST) {
         
         $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
     }
     
-    if ($tTask == "relist") {
+    if ($tTask == RELIST) {
         
-        $tDescription = $_SESSION[SVNSESSID]['groupdescr'];
-        $tGroup = $_SESSION[SVNSESSID]['groupname'];
-        $tMembers = $_SESSION[SVNSESSID]['members'];
+        $tDescription = $_SESSION[SVNSESSID][GROUPDESCR];
+        $tGroup = $_SESSION[SVNSESSID][GROUPNAME];
+        $tMembers = $_SESSION[SVNSESSID][MEMBERS];
     }
     elseif ($_SESSION[SVNSESSID]['task'] == "new") {
         
         $tDescription = "";
         $tGroup = "";
         $tMembers = array();
-        $_SESSION[SVNSESSID]['members'] = array();
-        $_SESSION[SVNSESSID]['groupid'] = $tId;
-        $_SESSION[SVNSESSID]['groupdescr'] = "";
-        $_SESSION[SVNSESSID]['groupname'] = "";
+        $_SESSION[SVNSESSID][MEMBERS] = array();
+        $_SESSION[SVNSESSID][GROUPID] = $tId;
+        $_SESSION[SVNSESSID][GROUPDESCR] = "";
+        $_SESSION[SVNSESSID][GROUPNAME] = "";
     }
     elseif ($_SESSION[SVNSESSID]['task'] == "change") {
         
-        $_SESSION[SVNSESSID]['groupid'] = $tId;
+        $_SESSION[SVNSESSID][GROUPID] = $tId;
         $tReadonly = "readonly";
         $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $tId";
         $result = db_query($query, $dbh);
         
         if ($result['rows'] == 1) {
             
-            $row = db_assoc($result['result']);
+            $row = db_assoc($result[RESULT]);
             $tDescription = $row['description'];
-            $tGroup = $row['groupname'];
+            $tGroup = $row[GROUPNAME];
             $tMembers = array();
             $query = "SELECT svnusers.userid, svnusers.name, svnusers.givenname " . "  FROM " . $schema . "svnusers, " . $schema . "svn_users_groups " . " WHERE (svn_users_groups.group_id = $tId) " . "   AND (svn_users_groups.deleted = '00000000000000') " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_users_groups.user_id = svnusers.id) " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
             $result = db_query($query, $dbh);
             
-            while ( $row = db_assoc($result['result']) ) {
+            while ( $row = db_assoc($result[RESULT]) ) {
                 
                 $userid = $row['userid'];
                 $name = $row['name'];
@@ -141,9 +141,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 $tMembers[$userid] = $name;
             }
             
-            $_SESSION[SVNSESSID]['members'] = $tMembers;
-            $_SESSION[SVNSESSID]['groupdescr'] = $tDescription;
-            $_SESSION[SVNSESSID]['groupname'] = $tGroup;
+            $_SESSION[SVNSESSID][MEMBERS] = $tMembers;
+            $_SESSION[SVNSESSID][GROUPDESCR] = $tDescription;
+            $_SESSION[SVNSESSID][GROUPNAME] = $tGroup;
         }
     }
     else {
@@ -206,9 +206,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tGroup = db_escape_string($_POST['fGroup']);
     }
     
-    if (isset($_POST['members'])) {
+    if (isset($_POST[MEMBERS])) {
         
-        $tMembers = db_escape_string($_POST['members']);
+        $tMembers = db_escape_string($_POST[MEMBERS]);
     }
     else {
         
@@ -217,10 +217,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Add member")) {
         
-        $_SESSION[SVNSESSID]['groupdescr'] = $tDescription;
-        $_SESSION[SVNSESSID]['groupname'] = $tGroup;
+        $_SESSION[SVNSESSID][GROUPDESCR] = $tDescription;
+        $_SESSION[SVNSESSID][GROUPNAME] = $tGroup;
         
-        addMemberToGroup($_SESSION[SVNSESSID]['members'], $dbh);
+        addMemberToGroup($_SESSION[SVNSESSID][MEMBERS], $dbh);
         
         db_disconnect($dbh);
         exit();
@@ -230,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (count($tMembers) > 0) {
             
             $new = array();
-            $old = $_SESSION[SVNSESSID]['members'];
+            $old = $_SESSION[SVNSESSID][MEMBERS];
             
             foreach( $old as $userid => $name) {
                 
@@ -240,12 +240,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
             
-            $_SESSION[SVNSESSID]['members'] = $new;
+            $_SESSION[SVNSESSID][MEMBERS] = $new;
             $tMembers = $new;
         }
         else {
             
-            $tMembers = $_SESSION[SVNSESSID]['members'];
+            $tMembers = $_SESSION[SVNSESSID][MEMBERS];
         }
     }
     elseif ($button == _("Submit")) {
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tMessage = _("Group description is missing. Please fill in!");
             $error = 1;
         }
-        elseif (count($_SESSION[SVNSESSID]['members']) == 0) {
+        elseif (count($_SESSION[SVNSESSID][MEMBERS]) == 0) {
             
             $tMessage = _("A group must have one member at least! Otherwise delete the whole group!");
             $error = 1;
@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             else {
                 
-                $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (groupname = '$tGroup') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID]['groupid'] . ")";
+                $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (groupname = '$tGroup') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID][GROUPID] . ")";
             }
             
             $result = db_query($query, $dbh);
@@ -292,11 +292,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($_SESSION[SVNSESSID]['task'] == "new") {
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION[SVNSESSID]['username'], "insert of group $tGroup ($tDescription)", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "insert of group $tGroup ($tDescription)", $dbh);
                 
                 $error = 0;
                 $dbnow = db_now();
-                $query = "INSERT INTO " . $schema . "svngroups (groupname, description, created, created_user) " . "     VALUES ('$tGroup', '$tDescription', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                $query = "INSERT INTO " . $schema . "svngroups (groupname, description, created, created_user) " . "     VALUES ('$tGroup', '$tDescription', '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                 $result = db_query($query, $dbh);
                 
                 if ($result['rows'] == 0) {
@@ -306,22 +306,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
                 else {
                     
-                    $groupid = db_get_last_insert_id('svngroups', 'id', $dbh);
+                    $groupid = db_get_last_insert_id(SVNGROUPS, 'id', $dbh);
                     
-                    foreach( $_SESSION[SVNSESSID]['members'] as $userid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name) {
                         
                         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')";
                         $result = db_query($query, $dbh);
                         
                         if ($result['rows'] == 1) {
                             
-                            $row = db_assoc($result['result']);
+                            $row = db_assoc($result[RESULT]);
                             $id = $row['id'];
                             
-                            db_log($_SESSION[SVNSESSID]['username'], "added $userid to group  $tGroup", $dbh);
+                            db_log($_SESSION[SVNSESSID][USERNAME], "added $userid to group  $tGroup", $dbh);
                             
                             $dbnow = db_now();
-                            $query = "INSERT INTO " . $schema . "svn_users_groups (user_id, group_id, created, created_user) " . "     VALUES ($id, $groupid, '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                            $query = "INSERT INTO " . $schema . "svn_users_groups (user_id, group_id, created, created_user) " . "     VALUES ($id, $groupid, '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                             $result = db_query($query, $dbh);
                             
                             if ($result['rows'] != 1) {
@@ -353,19 +353,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             elseif ($_SESSION[SVNSESSID]['task'] == "change") {
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION[SVNSESSID]['username'], "changed group $tGroup ($tDescription)", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "changed group $tGroup ($tDescription)", $dbh);
                 
                 $error = 0;
-                $groupid = $_SESSION[SVNSESSID]['groupid'];
+                $groupid = $_SESSION[SVNSESSID][GROUPID];
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svngroups " . "   SET groupname = '$tGroup', " . "       description = '$tDescription', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = $groupid";
+                $query = "UPDATE " . $schema . "svngroups " . "   SET groupname = '$tGroup', " . "       description = '$tDescription', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE id = $groupid";
                 $result = db_query($query, $dbh);
                 
                 if ($result['rows'] == 1) {
                     
                     $tUids = array();
                     
-                    foreach( $_SESSION[SVNSESSID]['members'] as $uid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $uid => $name) {
                         
                         $tUids[] = $uid;
                     }
@@ -373,7 +373,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $query = "SELECT * " . "  FROM " . $schema . "svn_users_groups " . " WHERE (group_id = $groupid) " . "   AND (deleted = '00000000000000')";
                     $result = db_query($query, $dbh);
                     
-                    while ( ($row = db_assoc($result['result'])) and ($error == 0) ) {
+                    while ( ($row = db_assoc($result[RESULT])) && ($error == 0) ) {
                         
                         $userid = db_getUseridById($row['user_id'], $dbh);
                         
@@ -381,7 +381,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             
                             $id = $row['id'];
                             $dbnow = db_now();
-                            $query = "UPDATE " . $schema . "svn_users_groups " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE id = " . $id;
+                            $query = "UPDATE " . $schema . "svn_users_groups " . "   SET deleted = '$dbnow', " . "       deleted_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE id = " . $id;
                             $result_del = db_query($query, $dbh);
                             
                             if ($result_del['rows'] != 1) {
@@ -390,18 +390,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $error = 1;
                             }
                             
-                            db_log($_SESSION[SVNSESSID]['username'], "deleted user $userid from group $tGroup", $dbh);
+                            db_log($_SESSION[SVNSESSID][USERNAME], "deleted user $userid from group $tGroup", $dbh);
                         }
                     }
                     
-                    foreach( $_SESSION[SVNSESSID]['members'] as $userid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name) {
                         
                         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')";
                         $result = db_query($query, $dbh);
                         
                         if ($result['rows'] == 1) {
                             
-                            $row = db_assoc($result['result']);
+                            $row = db_assoc($result[RESULT]);
                             $id = $row['id'];
                             
                             $query = "SELECT * " . "  FROM " . $schema . "svn_users_groups " . " WHERE (user_id = $id) " . "   AND (group_id = $groupid) " . "   AND (deleted = '00000000000000')";
@@ -410,7 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result['rows'] == 0) {
                                 
                                 $dbnow = db_now();
-                                $query = "INSERT INTO " . $schema . "svn_users_groups (user_id, group_id, created, created_user) " . "     VALUES ($id, $groupid, '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                                $query = "INSERT INTO " . $schema . "svn_users_groups (user_id, group_id, created, created_user) " . "     VALUES ($id, $groupid, '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                                 $result = db_query($query, $dbh);
                                 
                                 if ($result['rows'] != 1) {
@@ -418,7 +418,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     $error = 1;
                                 }
                                 
-                                db_log($_SESSION[SVNSESSID]['username'], "added $userid to group $tGroup", $dbh);
+                                db_log($_SESSION[SVNSESSID][USERNAME], "added $userid to group $tGroup", $dbh);
                             }
                         }
                         else {
@@ -448,7 +448,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
         
-        $tMembers = $_SESSION[SVNSESSID]['members'];
+        $tMembers = $_SESSION[SVNSESSID][MEMBERS];
     }
     elseif ($button == _("Back")) {
         
@@ -474,7 +474,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if ($result['rows'] == 1) {
                 
-                $row = db_assoc($result['result']);
+                $row = db_assoc($result[RESULT]);
                 $name = $row['name'];
                 $givenname = $row['givenname'];
                 
@@ -484,12 +484,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
             
-            $_SESSION[SVNSESSID]['members'][$userid] = $name;
+            $_SESSION[SVNSESSID][MEMBERS][$userid] = $name;
         }
         
-        $group = $_SESSION[SVNSESSID]['groupid'];
-        $tDescription = $_SESSION[SVNSESSID]['groupdescr'];
-        $tGroup = $_SESSION[SVNSESSID]['groupname'];
+        $group = $_SESSION[SVNSESSID][GROUPID];
+        $tDescription = $_SESSION[SVNSESSID][GROUPDESCR];
+        $tGroup = $_SESSION[SVNSESSID][GROUPNAME];
         
         db_disconnect($dbh);
         header("Location: workOnGroup.php?group=$group&task=relist");
@@ -497,7 +497,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ($buttonAdd = _("Cancel")) {
         
-        $group = $_SESSION[SVNSESSID]['groupid'];
+        $group = $_SESSION[SVNSESSID][GROUPID];
         $task = $_SESSION[SVNSESSID]['task'];
         
         db_disconnect($dbh);

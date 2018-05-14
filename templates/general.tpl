@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="general" method="post">
 				<table>
 				   	<tr>
@@ -116,7 +116,7 @@
 				      	
 				      		<h3><?php print _("Group membership");?></h3>
 							<p>&nbsp;</p>
-							<table id="showusergroup_table">
+							<table id="showusergrouptable">
 								<thead>
 									<tr>
 										<th><?php print _("Group name");?></th>
@@ -137,7 +137,7 @@
 							<p>&nbsp;</p>
 				      		<h3><?php print _("Project responsible");?></h3>
 							<p>&nbsp;</p>
-							<table id="showuserproject_table">
+							<table id="showuserprojecttable">
 								<thead>
 									<tr>
 										<th><?php print _("SVN Module");?></th>
@@ -158,7 +158,7 @@
 							<p>&nbsp;</p>
 							<h3><?php print _("Access rights");?></h3>
 							<p>&nbsp;</p>
-							<table id="showuserright_table">
+							<table id="showuserrighttable">
 								<thead>
 									<tr>
 										<th><?php print _("SVN Module");?></th>
@@ -191,7 +191,7 @@
 				      	<td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      	<td colspan="3" class="hlp_center">
+				      	<td colspan="3" class="hlpcenter">
 				      		<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      		<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      	</td>
@@ -204,28 +204,28 @@
 				</table>
 			</form>
 			<script type="text/javascript">
-					$("#showusergroup_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showusergrouptable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#showuserproject_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showuserprojecttable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#showuserright_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
+					$("#showuserrighttable").ariaSorTable({
+						rowsToShow: <?php print $CONF[PAGESIZE];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

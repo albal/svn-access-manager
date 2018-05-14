@@ -46,9 +46,9 @@ function getUsers($start, $count, $dbh) {
     $query = " SELECT * " . "   FROM " . $schema . "svnusers " . "   WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
     $result = db_query($query, $dbh, $count, $start);
     
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
-        if ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES")) {
+        if ((isset($CONF['use_ldap'])) && (strtoupper($CONF['use_ldap']) == "YES")) {
             $row['ldap'] = ldap_check_user_exists($row['userid']);
         }
         
@@ -56,28 +56,25 @@ function getUsers($start, $count, $dbh) {
     }
     
     return $tUsers;
-
+    
 }
 
 function getCountUsers($dbh) {
 
     $schema = db_determine_schema();
-    $tUsers = array();
     $query = " SELECT COUNT(*) AS anz " . "   FROM " . $schema . "svnusers " . "   WHERE (deleted = '00000000000000') ";
     $result = db_query($query, $dbh);
     
     if ($result['rows'] == 1) {
         
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
+        $row = db_assoc($result[RESULT]);
+        return $row['anz'];
     }
     else {
         
         return false;
     }
-
+    
 }
 
 initialize_i18n();
@@ -86,7 +83,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'User admin', $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "listusers";
 
@@ -105,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tCountRecords = getCountUsers($dbh);
     $tPrevDisabled = "disabled";
     
-    if ($tCountRecords <= $CONF['page_size']) {
+    if ($tCountRecords <= $CONF[PAGESIZE]) {
         
         $tNextDisabled = "disabled";
     }
@@ -140,50 +137,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $tSearch = isset($_POST['fSearch']) ? db_escape_string($_POST['fSearch']) : "";
     
-    if (($button == "search") or ($tSearch != "")) {
+    if (($button == "search") || ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
         $_SESSION[SVNSESSID]['search'] = $tSearch;
         $_SESSION[SVNSESSID]['searchtype'] = USERS;
-        $tUsers = array();
-        
-        if ($tSearch == "") {
-            
-            $tErrorClass = "error";
-            $tMessage = _("No search string given!");
-        }
-        else {
-            
-            $schema = db_determine_schema();
-            $tArray = array();
-            $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE ((userid like '%$tSearch%') " . "    OR  (CONCAT(givenname, ' ', name) like '%$tSearch%') " . "    OR  (CONCAT(name, ' ', givenname) like '%$tSearch%') " . "    OR (name like '%$tSearch%') " . "    OR (givenname like '%$tSearch%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY name ASC , givenname ASC";
-            $result = db_query($query, $dbh);
-            while ( $row = db_assoc($result['result']) ) {
-                
-                $tArray[] = $row;
-            }
-            
-            if (count($tArray) == 0) {
-                
-                $tErrorClass = "info";
-                $tMessage = _("No user found!");
-            }
-            elseif (count($tArray) == 1) {
-                
-                $id = $tArray[0]['id'];
-                $url = "workOnUser.php?id=" . urlencode($id) . "&task=change";
-                db_disconnect($dbh);
-                header("location: $url");
-                exit();
-            }
-            else {
-                
-                db_disconnect($dbh);
-                $_SESSION[SVNSESSID]['searchresult'] = $tArray;
-                header("location: searchresult.php");
-                exit();
-            }
-        }
+        $resulrt = db_get_list('users', $tSearch, $dbh);
+        $tErrorClass = $result['errorclass'];
+        $tMessage = $result['message'];
+        $tUsers = $result[RESULT];
     }
     elseif ($button == _("New user")) {
         

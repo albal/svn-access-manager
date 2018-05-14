@@ -60,9 +60,9 @@ $schema = db_determine_schema();
 $tUsers = array();
 $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
 $result = db_query($query, $dbh);
-while ( $row = db_assoc($result['result']) ) {
+while ( $row = db_assoc($result[RESULT]) ) {
     
-    $userid = $row['userid'];
+    $userid = $row[USERID];
     $name = $row['name'];
     $givenname = $row['givenname'];
     
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    if (($rightAllowed == "add") and ($tTask != "new")) {
+    if (($rightAllowed == "add") && ($tTask != "new")) {
         
         db_log($SESSID_USERNAME, "tried to use workOnGroupAccessRight without permission", $dbh);
         db_disconnect($dbh);
@@ -104,19 +104,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tRight = "";
         $tUser = "";
         
-        $query = "SELECT groupname " . "  FROM " . $schema . "svngroups " . " WHERE id=" . $_SESSION[SVNSESSID]['groupid'];
+        $query = "SELECT groupname " . "  FROM " . $schema . "svngroups " . " WHERE id=" . $_SESSION[SVNSESSID][GROUPID];
         $result = db_query($query, $dbh);
         if ($result['rows'] > 0) {
             
-            $row = db_assoc($result['result']);
-            $tGroupName = $row['groupname'];
+            $row = db_assoc($result[RESULT]);
+            $tGroupName = $row[GROUPNAME];
         }
         else {
             
             $tGroupName = "undefined";
         }
         
-        $_SESSION[SVNSESSID]['userid'] = $tUser;
+        $_SESSION[SVNSESSID][USERID] = $tUser;
         $_SESSION[SVNSESSID]['right'] = $tRight;
     }
     elseif ($_SESSION[SVNSESSID]['task'] == "change") {
@@ -125,23 +125,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $result = db_query($query, $dbh);
         if ($result['rows'] > 0) {
             
-            $row = db_assoc($result['result']);
-            $tGroupName = $row['groupname'];
+            $row = db_assoc($result[RESULT]);
+            $tGroupName = $row[GROUPNAME];
         }
         else {
             
             $tGroupName = "undefined";
         }
         
-        $_SESSION[SVNSESSID]['groupid'] = $tId;
+        $_SESSION[SVNSESSID][GROUPID] = $tId;
         $tReadonly = "disabled";
         $query = "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svn_groups_responsible.id=$tId) " . "   AND (svnusers.id = svn_groups_responsible.user_id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000')";
         $result = db_query($query, $dbh);
         if ($result['rows'] > 0) {
             
-            $row = db_assoc($result['result']);
-            $tRight = $row['allowed'];
-            $tUser = $row['userid'];
+            $row = db_assoc($result[RESULT]);
+            $tRight = $row[ALLOWED];
+            $tUser = $row[USERID];
         }
         else {
             
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tRight = "";
         }
         
-        $_SESSION[SVNSESSID]['userid'] = $tUser;
+        $_SESSION[SVNSESSID][USERID] = $tUser;
         $_SESSION[SVNSESSID]['right'] = $tRight;
     }
     else {
@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 $tGroupResponsibleId = - 1;
                 $userid = db_getIdByUserid($tUser, $dbh);
-                $groupid = $_SESSION[SVNSESSID]['groupid'];
+                $groupid = $_SESSION[SVNSESSID][GROUPID];
                 $groupname = db_getGroupById($groupid, $dbh);
                 $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible " . " WHERE (group_id=$groupid) " . "   AND (user_id=$userid) " . "   AND (deleted = '00000000000000')";
                 $result = db_query($query, $dbh);
@@ -245,10 +245,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $result = db_query($query, $dbh);
             if ($result['rows'] > 0) {
                 
-                $row = db_assoc($result['result']);
-                $tRight = $row['allowed'];
-                $tUser = $row['userid'];
-                $tGroupName = $row['groupname'];
+                $row = db_assoc($result[RESULT]);
+                $tRight = $row[ALLOWED];
+                $tUser = $row[USERID];
+                $tGroupName = $row[GROUPNAME];
             }
             else {
                 
@@ -259,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         elseif ($_SESSION[SVNSESSID]['task'] == "change") {
             
-            $tUser = $_SESSION[SVNSESSID]['userid'];
+            $tUser = $_SESSION[SVNSESSID][USERID];
             if ($tUser == "") {
                 
                 $tMessage = _("Please select user!");
@@ -272,14 +272,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             else {
                 
-                $groupid = $_SESSION[SVNSESSID]['groupid'];
+                $groupid = $_SESSION[SVNSESSID][GROUPID];
                 $groupname = db_getGroupById($groupid, $dbh);
-                $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible " . " WHERE (id=" . $_SESSION[SVNSESSID]['groupid'] . ")";
+                $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible " . " WHERE (id=" . $_SESSION[SVNSESSID][GROUPID] . ")";
                 $result = db_query($query, $dbh);
                 if ($result['rows'] > 0) {
                     
                     $dbnow = db_now();
-                    $query = "UPDATE " . $schema . "svn_groups_responsible " . "   SET allowed='$tRight', " . "       modified='$dbnow', " . "       modified_user='" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id=" . $_SESSION[SVNSESSID]['groupid'] . ")";
+                    $query = "UPDATE " . $schema . "svn_groups_responsible " . "   SET allowed='$tRight', " . "       modified='$dbnow', " . "       modified_user='" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id=" . $_SESSION[SVNSESSID][GROUPID] . ")";
                     db_ta('BEGIN', $dbh);
                     db_log($_SESSION[SVNSESSID]['username'], "changed $tUser as responsible for group $groupname to right $tRight", $dbh);
                     
@@ -305,14 +305,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             
             $tReadonly = "disabled";
-            $query = "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svn_groups_responsible.id=" . $_SESSION[SVNSESSID]['groupid'] . ") " . "   AND (svnusers.id = svn_groups_responsible.user_id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000')";
+            $query = "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svn_groups_responsible.id=" . $_SESSION[SVNSESSID][GROUPID] . ") " . "   AND (svnusers.id = svn_groups_responsible.user_id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             if ($result['rows'] > 0) {
                 
-                $row = db_assoc($result['result']);
-                $tRight = $row['allowed'];
-                $tUser = $row['userid'];
-                $tGroupName = $row['groupname'];
+                $row = db_assoc($result[RESULT]);
+                $tRight = $row[ALLOWED];
+                $tUser = $row[USERID];
+                $tGroupName = $row[GROUPNAME];
             }
             else {
                 

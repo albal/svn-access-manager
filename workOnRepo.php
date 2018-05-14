@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tId = "";
     }
     
-    if (($rightAllowed == "add") and ($tTask != "new")) {
+    if (($rightAllowed == "add") && ($tTask != "new")) {
         
         db_log($SESSID_USERNAME, "tried to use workOnRepo without permission", $dbh);
         db_disconnect($dbh);
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
     
     $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
-    $_SESSION[SVNSESSID]['repoid'] = $tId;
+    $_SESSION[SVNSESSID][REPOID] = $tId;
     
     $schema = db_determine_schema();
     
@@ -137,7 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tRepopath = preg_replace('/\\\/', '/', $tRepopath);
     $tRepouser = db_escape_string($_POST['fRepouser']);
     $tRepopassword = db_escape_string($_POST['fRepopassword']);
-    // $tSeparate = isset( $_POST['fSeparate'] ) ? db_escape_string( $_POST['fSeparate'] ) : 0;
     $tAuthUserFile = isset($_POST['fAuthUserFile']) ? db_escape_string($_POST['fAuthUserFile']) : "";
     $tSvnAccessFile = isset($_POST['fSvnAccessFile']) ? db_escape_string($_POST['fSvnAccessFile']) : "";
     $tCreateRepo = isset($_POST['fCreateRepo']) ? db_escape_string($_POST['fCreateRepo']) : "";
@@ -180,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Repository path missing, please fill in!");
                 $error = 1;
             }
-            elseif ((! preg_match('/^file:\//', $tRepopath)) and (! preg_match('/^http:\//', $tRepopath)) and (! preg_match('/^https:\//', $tRepopath))) {
+            elseif ((! preg_match('/^file:\//', $tRepopath)) && (! preg_match('/^http:\//', $tRepopath)) && (! preg_match('/^https:\//', $tRepopath))) {
                 
                 $tMessage = _("Repository path must start with file://, http:// or https://!");
                 $error = 1;
@@ -188,10 +187,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             elseif (preg_match('/^file:\//', $tRepopath)) {
                 
                 $tmp = preg_replace('/^file:\/\//', '', $tRepopath);
-                ;
+                
                 if (substr($tmp, 0, 1) != "/") {
                     
-                    if ($os == "windows") {
+                    if ($os == WINDOWS) {
                         $example = "file:///c:/svn/testrepo";
                     }
                     else {
@@ -204,7 +203,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if ($error == 0) {
                 $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$tReponame') " . "   AND (deleted = '00000000000000')";
-                // error_log( $query );
                 $result = db_query($query, $dbh);
                 
                 if ($result['rows'] > 0) {
@@ -217,10 +215,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $dbnow = db_now();
-                $query = "INSERT INTO " . $schema . "svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " . "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                $query = "INSERT INTO " . $schema . "svnrepos (reponame, repopath, repouser, repopassword, auth_user_file, svn_access_file, created, created_user) " . "     VALUES ('$tReponame', '$tRepopath', '$tRepouser', '$tRepopassword', '$tAuthUserFile', '$tSvnAccessFile', '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION[SVNSESSID]['username'], "addes repository $tReponame ($tRepopath)", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "addes repository $tReponame ($tRepopath)", $dbh);
                 
                 $result = db_query($query, $dbh);
                 if ($result['rows'] != 1) {
@@ -238,32 +236,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     if ($tCreateRepo == "1") {
                         
-                        if (! isset($CONF['svnadmin_command']) or ($CONF['svnadmin_command'] == "")) {
+                        if (! isset($CONF[SVNADMIN_COMMAND]) || ($CONF[SVNADMIN_COMMAND] == "")) {
                             
                             $tMessage = _("Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!");
                             $warn = 1;
                         }
                         else {
                             
-                            // error_log( "tRepoPath = $tRepopath" );
-                            
                             if (preg_match('/^file:\//', $tRepopath)) {
                                 
                                 $os = determineOs();
                                 
-                                if ($os == "windows") {
+                                if ($os == WINDOWS) {
                                     
                                     $tRepopath = no_magic_quotes($tRepopath);
-                                    $svncmd = no_magic_quotes($CONF['svnadmin_command']);
+                                    $svncmd = no_magic_quotes($CONF[SVNADMIN_COMMAND]);
                                 }
                                 else {
                                     
-                                    $svncmd = $CONF['svnadmin_command'];
+                                    $svncmd = $CONF[SVNADMIN_COMMAND];
                                 }
                                 
                                 $repopath = preg_replace('/^file:\/\//', '', $tRepopath);
                                 
-                                if ($os == "windows") {
+                                if ($os == WINDOWS) {
                                     
                                     $repopath = preg_replace('/^\//', '', $repopath);
                                     $repopath = preg_replace('/\\\/', '/', $repopath);
@@ -272,9 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 $compatibility = isset($CONF['repo_compatibility']) ? $CONF['repo_compatibility'] : "--pre-1.4-compatible";
                                 $tCreateRepository = $svncmd . " " . $compatibility . " create " . $repopath;
                                 
-                                // error_log( "create: $tCreateRepository");
-                                
-                                if ($os == "windows") {
+                                if ($os == WINDOWS) {
                                     
                                     exec($tCreateRepository, $output, $returncode);
                                 }
@@ -327,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Repository path missing, please fill in!");
                 $error = 1;
             }
-            elseif ((! preg_match('/^file:\//', $tRepopath)) and (! preg_match('/^http:\//', $tRepopath)) and (! preg_match('/^https:\//', $tRepopath))) {
+            elseif ((! preg_match('/^file:\//', $tRepopath)) && (! preg_match('/^http:\//', $tRepopath)) && (! preg_match('/^https:\//', $tRepopath))) {
                 
                 $tMessage = _("Repository path must start with file://, http:// or https://!");
                 $error = 1;
@@ -337,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tmp = preg_replace('/^file:\/\//', '', $tRepopath);
                 if (substr($tmp, 0, 1) != "/") {
                     
-                    if ($os == "windows") {
+                    if ($os == WINDOWS) {
                         $example = "file:///c:/svn/testrepo";
                     }
                     else {
@@ -351,7 +345,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 if ($error == 0) {
                     
-                    $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$tReponame') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID]['repoid'] . ")";
+                    $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE (reponame = '$tReponame') " . "   AND (deleted = '00000000000000') " . "   AND (id != " . $_SESSION[SVNSESSID][REPOID] . ")";
                     $result = db_query($query, $dbh);
                     
                     if ($result['rows'] > 0) {
@@ -364,12 +358,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if ($error == 0) {
                 
-                $reponame = db_getRepoById($_SESSION[SVNSESSID]['repoid'], $dbh);
+                $reponame = db_getRepoById($_SESSION[SVNSESSID][REPOID], $dbh);
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svnrepos " . "   SET reponame = '$tReponame', " . "       repopath = '$tRepopath', " . "       repouser = '$tRepouser', " . "       repopassword = '$tRepopassword', " . "       auth_user_file='$tAuthUserFile', " . "       svn_access_file='$tSvnAccessFile', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID]['username'] . "' " . " WHERE (id = " . $_SESSION[SVNSESSID]['repoid'] . ")";
+                $query = "UPDATE " . $schema . "svnrepos " . "   SET reponame = '$tReponame', " . "       repopath = '$tRepopath', " . "       repouser = '$tRepouser', " . "       repopassword = '$tRepopassword', " . "       auth_user_file='$tAuthUserFile', " . "       svn_access_file='$tSvnAccessFile', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE (id = " . $_SESSION[SVNSESSID][REPOID] . ")";
                 
                 db_ta('BEGIN', $dbh);
-                db_log($_SESSION[SVNSESSID]['username'], "updated repository $reponame", $dbh);
+                db_log($_SESSION[SVNSESSID][USERNAME], "updated repository $reponame", $dbh);
                 
                 $result = db_query($query, $dbh);
                 

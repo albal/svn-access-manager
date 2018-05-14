@@ -45,11 +45,11 @@ $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'User admin', $dbh);
-$_SESSION[SVNSESSID]['helptopic'] = "searchresult";
+$_SESSION[SVNSESSID]['helptopic'] = SEARCHRESULT;
 $error = 0;
 $tErrorClass = "";
 $tMessage = "";
-$tArray = isset($_SESSION[SVNSESSID]['searchresult']) ? $_SESSION[SVNSESSID]['searchresult'] : array();
+$tArray = isset($_SESSION[SVNSESSID][SEARCHRESULT]) ? $_SESSION[SVNSESSID][SEARCHRESULT] : array();
 $tType = isset($_SESSION[SVNSESSID]['searchtype']) ? $_SESSION[SVNSESSID]['searchtype'] : "";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {

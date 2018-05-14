@@ -1,4 +1,5 @@
 <?php
+
 /*
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -26,20 +27,7 @@
  * $Id$
  *
  */
-
 final class TemplatesTest extends PHPUnit_Framework_TestCase {
-
-    private function _get_include_contents($filename) {
-
-        $ret = false;
-        if (is_file($filename)) {
-            ob_start();
-            include $filename;
-            $ret = ob_get_clean();
-        }
-        return $ret;
-    
-    }
 
     public function test_template_general() {
 
@@ -83,9 +71,9 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('+49 69 12345678', $output);
         $this->assertContains('+49 170 2746535', $output);
         $this->assertContains('IT Development', $output);
-    
+        
     }
-
+    
 }
 
 ?>

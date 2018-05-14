@@ -66,14 +66,14 @@ elseif (strtolower($db) == "people") {
     $schema = db_determine_schema();
     $query = "SELECT id, name, givenname " . "  FROM " . $schema . "svnusers " . " WHERE ((userid like '%$filter%') " . "    OR  (CONCAT(givenname, ' ', name) like '%$filter%') " . "    OR  (CONCAT(name, ' ', givenname) like '%$filter%') " . "    OR  (name like '%$filter%') " . "    OR  (givenname like '%$filter%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY name ASC, givenname ASC";
     $result = db_query($query, $dbh);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $data = array();
-        if ($row['givenname'] == "") {
+        if ($row[GIVENNAME] == "") {
             $data['name'] = $row['name'];
         }
         else {
-            $data['name'] = $row['givenname'] . " " . $row['name'];
+            $data['name'] = $row[GIVENNAME] . " " . $row['name'];
         }
         $data['id'] = $row['id'];
         $tArray[] = $data;
@@ -126,7 +126,7 @@ elseif (strtolower($db) == "groups") {
     }
     
     $result = db_query($query, $dbh);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $data = array();
         $data['name'] = $row['groupname'];
@@ -142,7 +142,7 @@ elseif (strtolower($db) == "repos") {
     $schema = db_determine_schema();
     $query = "SELECT id, reponame " . "  FROM " . $schema . "svnrepos " . " WHERE ((repouser like '%$filter%') " . "    OR (reponame like '%$filter%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY reponame ASC";
     $result = db_query($query, $dbh);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $data = array();
         $data['name'] = $row['reponame'];
@@ -158,7 +158,7 @@ elseif (strtolower($db) == "projects") {
     $schema = db_determine_schema();
     $query = "SELECT * " . "  FROM " . $schema . "svnprojects " . " WHERE (svnmodule like '%$filter%') " . "   AND (deleted = '00000000000000') " . "ORDER BY svnmodule ASC";
     $result = db_query($query, $dbh);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $data = array();
         $data['name'] = $row['svnmodule'];
@@ -174,11 +174,11 @@ elseif (strtolower($db) == "groupadmin") {
     $schema = db_determine_schema();
     $query = "SELECT svnusers.name, svnusers.givenname, svn_groups_responsible.id, svnusers.userid " . "  FROM " . $schema . "svn_groups_responsible," . $schema . "svnusers, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND ((svnusers.name like '%$filter%') " . "    OR  (svnusers.givenname like '%$filter%') " . "    OR  (svnusers.userid like '%$filter%') " . "    OR  (svngroups.groupname like '%$filter%') " . "    OR  (svngroups.description like '%$filter%')) " . "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
     $result = db_query($query, $dbh);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $data = array();
-        if ($row['givenname'] != "") {
-            $data['name'] = $row['givenname'] . " " . $row['name'];
+        if ($row[GIVENNAME] != "") {
+            $data['name'] = $row[GIVENNAME] . " " . $row['name'];
         }
         else {
             $data['name'] = $row['name'];
@@ -190,14 +190,13 @@ elseif (strtolower($db) == "groupadmin") {
     db_disconnect($dbh);
 }
 elseif (strtolower($db) == "accessright") {
-    
-    // error_log( "accessright: $userid" );
+
     $dbh = db_connect();
     $schema = db_determine_schema();
     $tProjectIds = "";
     $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
     $result = db_query($query, $dbh);
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         if ($tProjectIds == "") {
             
@@ -208,14 +207,13 @@ elseif (strtolower($db) == "accessright") {
             $tProjectIds = $tProjectIds . "," . $row['project_id'];
         }
     }
-    // error_log("Project Ids: $tProjectIds");
+
     if ($tProjectIds != "") {
         
         $query = "SELECT svn_access_rights.id AS rid, svnmodule, modulepath, svnrepos." . "       reponame, valid_from, valid_until, path, access_right, recursive," . "       svn_access_rights.user_id, svn_access_rights.group_id, repopath " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.id IN (" . $tProjectIds . "))" . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND ((svnmodule like '%$filter%') " . "    OR  (modulepath like '%$filter%') " . "    OR  (svnrepos.reponame like '%$filter%') " . "    OR  (path like '%$filter%') " . "    OR  (svnprojects.description like '%$filter%')) " . "ORDER BY svnrepos.reponame, svn_access_rights.path ";
-        // error_log( $query );
         $result = db_query($query, $dbh);
         
-        while ( $row = db_assoc($result['result']) ) {
+        while ( $row = db_assoc($result[RESULT]) ) {
             
             $data = array();
             $data['name'] = $row['repopath'] . "|" . $row['path'] . "|" . $row['reponame'];

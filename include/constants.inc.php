@@ -31,7 +31,7 @@ function define_constant($constant, $value) {
     if (! defined($constant)) {
         define($constant, $value);
     }
-
+    
 }
 
 if (preg_match("/constants.inc.php/", $_SERVER['PHP_SELF'])) {
@@ -64,6 +64,7 @@ define_constant('SEARCH', 'search');
 
 define_constant('ERROR', 'error');
 define_constant('ERRORMSG', 'errormsg');
+define_constant('ERRORLIST', 'errorlist');
 
 define_constant('SVNSESSID', 'SVNSESSID');
 define_constant('PROJECT_ID', 'project_id');
@@ -76,13 +77,21 @@ define_constant('GROUP_ID', 'group_id');
 define_constant('GROUPID', 'groupid');
 define_constant('RIGHTID', 'rightid');
 define_constant('GROUPNAME', 'groupname');
+define_constant('GROUPDESCR', 'groupdescr');
 define_constant('USERNAME', 'username');
 define_constant('SVNMODULE', 'svnmodule');
 define_constant('REPONAME', 'reponame');
+define_constant('REPOPATH', 'repopath');
+define_constant('REPOUSER', 'repouser');
+define_constant('REPOPASSWORD', 'repopassword');
 define_constant('USER_MODE', 'user_mode');
 define_constant('RIGHT_NAME', 'right_name');
 define_constant('ALLOWED', 'allowed');
 define_constant('TASK', 'task');
+define_constant('SVNGROUPS', 'svngroups');
+define_constant('SVNUSERS', 'svnusers');
+define_constant('MODULEPATH', 'modulepath');
+define_constant('PATHCNT', 'pathcnt');
 
 define_constant('PAGESIZE', 'page_size');
 define_constant('ACCESSBY', 'access_by');
@@ -95,6 +104,8 @@ define_constant('BULKADDLIST', 'bulkaddlist');
 define_constant('EMAILADDRESS', 'emailaddress');
 
 define_constant('HELPTOPIC', 'helptopic');
+define_constant('HEADLINE', 'headline');
+define_constant('HELPTEXT', 'helptext');
 
 define_constant('SEPARATEFILESPERREPO', 'separateFilesPerRepo');
 define_constant('AUTHUSERFILE', 'AuthUserFile');
@@ -139,6 +150,13 @@ define_constant('LDAP_SERVER', 'ldap_server');
 define_constant('BIND_PW', 'bind_pw');
 define_constant('USER_OBJECTCLASS', 'user_objectclass');
 define_constant('ATTR_MAPPING', 'attr_mapping');
+define_constant('USE_LDAP', 'use_ldap');
+define_constant('CUSTOM_COLUMN1', 'custom_column1');
+define_constant('CUSTOM_COLUMN2', 'custom_column2');
+define_constant('CUSTOM_COLUMN3', 'custom_column3');
+define_constant('ADMIN', 'admin');
+define_constant('EDIT', 'edit');
+define_constant('DELETE', 'delete');
 
 define_constant('MESSAGES', 'messages');
 define_constant('SVNLPW', 'svn_lpw');
@@ -149,6 +167,30 @@ define_constant('DESCRIPTION', 'description');
 define_constant('WINDOWS', 'windows');
 
 define_constant('SVN_INST', 'svn_inst');
+define_constant('SVNADMIN_COMMAND', 'svnadmin_command');
+define_constant('CHECKED', 'checked');
+define_constant('MEMBERS', 'members');
+define_constant('ADD', 'add');
+define_constant('NEW', 'new');
+define_constant('RELIST', 'relist');
+define_constant('PASSWORD', 'password');
+define_constant('ADMIN_EMAIL', 'admin_email');
+define_constant('PASSWORD_EXPIRES', 'password_expires');
+define_constant('WRITE', 'write');
+define_constant('CHANGE', 'change');
+define_constant('SEPARATEFILESPERREPO', 'separateFilesPerRepo');
+define_constant('NOPERMISSION', 'nopermission');
+define_constant('SECURITYQUESTION', 'securityquestion');
+define_constant('PASSWORD_POLICY', 'password_policy');
+define_constant('SELECTED', 'selected');
+define_constant('ALLOWED_ACTION', 'allowed_action');
+define_constant('SEARCHRESULT', 'searchresult');
+define_constant('RIGHTSGRANTED', 'rightsgranted');
+define_constant('PASSWORDEXPIRES', 'passwordexpires');
+define_constant('LOCKED', 'locked');
+define_constant('ADMINSTER', 'adminster');
+define_constant('APRMD5', 'apr-md5');
 
 ?>
+
 

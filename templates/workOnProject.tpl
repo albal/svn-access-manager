@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="workOnProject" method="post">
 				<table>
 					<tr valign="top">
@@ -57,7 +57,7 @@
 							      <td colspan="5">&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							      <td colspan="5" class="hlp_center">
+							      <td colspan="5" class="hlpcenter">
 							      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      				<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 							      </td>

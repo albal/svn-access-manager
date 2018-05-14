@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print sprintf( _("List of access rights for %s"), $_SESSION[SVNSESSID]['date'] ); ?></h3>
 			<p>&nbsp;</p>
 			<form action="rep_access_rights.php" name="rep_access_rights" method="post">
@@ -108,7 +108,7 @@
 						$('#page'+currentPage).addClass('currentpage');
 					}
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

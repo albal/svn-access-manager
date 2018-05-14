@@ -39,8 +39,6 @@ include_once ("$installBase/include/output.inc.php");
 
 initialize_i18n();
 
-// $dbh = db_connect();
-
 if (file_exists(realpath("./templates/database_error_install.tpl"))) {
     $location = "./templates/database_error_install.tpl";
 }

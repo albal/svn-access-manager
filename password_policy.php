@@ -41,14 +41,14 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session();
 check_password_expired();
-$_SESSION[SVNSESSID]['helptopic'] = "password_policy";
+$_SESSION[SVNSESSID]['helptopic'] = PASSWORD_POLICY;
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $template = "password_policy.tpl";
-    $header = "password_policy";
-    $subheader = "password_policy";
-    $menu = "password_policy";
+    $header = PASSWORD_POLICY;
+    $subheader = PASSWORD_POLICY;
+    $menu = PASSWORD_POLICY;
     
     include ("$installBase/templates/framework.tpl");
 }
@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $template = "password_policy.tpl";
-    $header = "password_policy";
-    $subheader = "password_policy";
-    $menu = "password_policy";
+    $header = PASSWORD_POLICY;
+    $subheader = PASSWORD_POLICY;
+    $menu = PASSWORD_POLICY;
     
     include ("$installBase/templates/framework.tpl");
 }

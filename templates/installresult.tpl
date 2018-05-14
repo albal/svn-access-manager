@@ -17,11 +17,11 @@ include( "../include/output.inc.php" );
 </head>
 <body>
 	<div id="wrap">
-		<div id="header_login">
-			<div id="header_left">
+		<div id="headerlogin">
+			<div id="headerleft">
 				<img src="../images/svn-access-manager_200_60_white.jpg" width="200" height="60" border="0" />
 			</div>
-			<div id="header_right">
+			<div id="headerright">
 				&nbsp;<br /><h1><?php print _("SVN Access Manager Installation"); ?></h1>
 			</div>
 			<div id="subheader">
@@ -83,7 +83,7 @@ include( "../include/output.inc.php" );
 				   	<tr>
 				   		<td colspan="3">
 				   			<?php 
-				   			if( $_SESSION['svn_inst']['useLdap'] == "YES" ) {
+				   			if( $_SESSION[SVN_INST]['useLdap'] == "YES" ) {
 				   				printf( "
 &lt;----- snip ----&gt;<br />
 &nbsp;<br />
@@ -118,7 +118,7 @@ Alias /svnstyle /usr/share/doc/subversion-1.4.2/tools/xslt/<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Require&nbsp;valid-user<br />
 &nbsp;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthzSVNAccessFile&nbsp;%s<br />
-", $_SESSION['svn_inst']['ldapHost'], $_SESSION['svn_inst']['ldapPort'], $_SESSION['svn_inst']['ldapUserdn'], $_SESSION['svn_inst']['ldapUserFilter'], $_SESSION['svn_inst']['ldapBinddn'], $_SESSION['svn_inst']['ldapBindpw'], $_SESSION['svn_inst']['svnAccessFile'] );
+", $_SESSION[SVN_INST]['ldapHost'], $_SESSION[SVN_INST]['ldapPort'], $_SESSION[SVN_INST]['ldapUserdn'], $_SESSION[SVN_INST]['ldapUserFilter'], $_SESSION[SVN_INST]['ldapBinddn'], $_SESSION[SVN_INST]['ldapBindpw'], $_SESSION[SVN_INST]['svnAccessFile'] );
 								print <<<EOM
  <br />
         SVNIndexXSLT /svnstyle/svnindex.xsl<br />

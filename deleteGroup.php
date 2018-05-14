@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
     
-    if (($rightAllowed != DELETE) and ($tId != "") and (! array_key_exists($tId, $tGroupsAllowed))) {
+    if (($rightAllowed != DELETE) && ($tId != "") && (! array_key_exists($tId, $tGroupsAllowed))) {
         
         db_log($SESSID_USERNAME, "tried to use deleteGroup without permission", $dbh);
         db_disconnect($dbh);

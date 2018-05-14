@@ -43,7 +43,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "listgroupadmins";
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tCountRecords = db_getCountGroups($dbh);
     $tPrevDisabled = "disabled";
     
-    if ($tCountRecords <= $CONF['page_size']) {
+    if ($tCountRecords <= $CONF[PAGESIZE]) {
         
         $tNextDisabled = "disabled";
     }
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $tSearch = isset($_POST['fSearch']) ? db_escape_string($_POST['fSearch']) : "";
     
-    if (($button == "search") or ($tSearch != "")) {
+    if (($button == "search") || ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
         $_SESSION[SVNSESSID]['search'] = $tSearch;
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 $query = $query . "       ) " . "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
             }
-            // error_log($query);
+
             $result = db_query($query, $dbh);
             while ( $row = db_assoc($result['result']) ) {
                 

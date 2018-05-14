@@ -107,7 +107,6 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         require_once ('db-functions-adodb.inc.php');
         require_once ('functions.inc.php');
         
-        $date = $GLOBALS['DB_TEST_DATE'];
         $dbh = $this->databaseLogin();
         
         $this->assertTrue(db_check_global_admin('admin', $dbh));

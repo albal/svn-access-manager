@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="user_list" method="post">
 				<h3><?php print _("User administration"); ?></h3>
 				<p>&nbsp;</p>
@@ -30,21 +30,7 @@
 					   			<?php print _("Email"); ?>
 					   		</th>
                             <?php
-                                    if (isset($CONF['column_custom1'])) {
-                                            print "\t\t\t\t\t\t<th class=\"table-sortable:default\">\n";
-                                            print "\t\t\t\t\t\t\t"._($CONF['column_custom1']);
-                                            print "\t\t\t\t\t\t</th>\n";
-                                    }
-                                    if (isset($CONF['column_custom2'])) {
-                                            print "\t\t\t\t\t\t<th class=\"table-sortable:default\">\n";
-                                            print "\t\t\t\t\t\t\t"._($CONF['column_custom2']);
-                                            print "\t\t\t\t\t\t</th>\n";
-                                    }
-                                    if (isset($CONF['column_custom3'])) {
-                                            print "\t\t\t\t\t\t<th class=\"table-sortable:default\">\n";
-                                            print "\t\t\t\t\t\t\t"._($CONF['column_custom3']);
-                                            print "\t\t\t\t\t\t</th>\n";
-                                    }
+                                    outputCustomFields();
                             ?>
 					   		<th class="table-sortable:default">
 					   			<?php print _("Right"); ?>
@@ -62,7 +48,7 @@
 					   			<?php print _("Administrator"); ?>
 					   		</th>
 					   		<?php
-					   				if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
+					   				if( (isset($CONF['use_ldap'])) && (strtoupper($CONF['use_ldap']) == "YES") ) {
                                             print "\t\t\t\t\t\t<th class=\"table-sortable:default\">\n";
                                             print "\t\t\t\t\t\t\t"._("LDAP User");
                                             print "\t\t\t\t\t\t</th>\n";
@@ -75,62 +61,12 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		foreach( $tUsers as $entry ) {
-					   		
-					   			list($date, $time)		= splitDateTime( $entry['password_modified'] );
-					   			$pwChanged 				= $date." ".$time; 
-					   			$locked					= $entry['locked'] == 0 			? _("no") : _("yes");
-					   			$expires				= $entry['passwordexpires'] == 0 	? _("no") : _("yes");
-					   			$admin					= $entry['admin'] == "n" 			? _("no") : _("yes");
-					   			$custom1                = $entry['custom1'];
-								$custom2                = $entry['custom2'];
-								$custom3                = $entry['custom3'];
-
-					   			if( ($rightAllowed == "edit") or
-					   			    ($rightAllowed == "delete" ) ) {
-					   			    $url				= htmlentities("workOnUser.php?id=".$entry['id']."&task=change");
-					   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$edit				= "";
-					   			}
-					   			
-					   			if( $rightAllowed == "delete" ) {
-					   				$url				= htmlentities("deleteUser.php?id=".$entry['id']."&task=delete");
-					   				$delete				= "<a href=\"$url\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$delete				= "";
-					   			}
-					   			$action					= $edit."     ".$delete;
-					   			
-					   			print "\t\t\t\t\t<tr>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['userid']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['name']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['givenname']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['emailaddress']."</td>\n";
-                                if (isset($CONF['column_custom1'])) print "\t\t\t\t\t\t<td>".$custom1."</td>\n";
-                                if (isset($CONF['column_custom2'])) print "\t\t\t\t\t\t<td>".$custom2."</td>\n";
-                                if (isset($CONF['column_custom3'])) print "\t\t\t\t\t\t<td>".$custom3."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['user_mode']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$locked."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$pwChanged."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$expires."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$admin."</td>\n";
-					   			if( (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES") ) {
-					   				if( isset( $entry['ldap'] ) ) {
-					   					$ldap			= ($entry['ldap'] == 1) ? _("yes") : _("no");
-					   				} else {
-					   					$ldap			= _("No");
-					   				}
-					   				print "\t\t\t\t\t\t<td>".$ldap."</td>\n";
-					   			}
-					   			print "\t\t\t\t\t\t<td>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   		}
+					   		outputUsers($tUsers, $rightAllowed);
 					   	?>
 				   	</tbody>
 					<tfoot>
 						<tr>
-				   			<td colspan="9">
+				   			<td colspan="10">
 								<a href="#" onclick="pageexample('previous'); return false;">&lt;&lt;&nbsp;Previous</a>
 								<a href="#" id="page1" class="pagelink" onclick="pageexample(0); return false;">1</a>
 								<a href="#" id="page2" class="pagelink" onclick="pageexample(1); return false;">2</a>
@@ -142,13 +78,13 @@
 							</td>
 				   		</tr>
 						<tr>
-					      <td colspan="9">&nbsp;</td>
+					      <td colspan="10">&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					      <td colspan="9" class="hlp_center">
+					      <td colspan="10" class="hlpcenter">
 					      	<?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
 					      		    ($rightAllowed == "delete") ) {
 					      		
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_user.png\" value=\""._("New user")."\"  title=\""._("New user")."\" />     ";
@@ -159,7 +95,7 @@
 					      </td>
 					   	</tr>
 					   	<tr>
-					      <td colspan="9" class="standout">
+					      <td colspan="10" class="standout">
 					      	<?php print $tMessage; ?>
 					      </td>
 					   	</tr> 	
@@ -224,7 +160,7 @@
                 	});
 					
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

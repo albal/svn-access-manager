@@ -40,7 +40,7 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session_lpw();
 $dbh = db_connect();
-$_SESSION['svn_lpw']['helptopic'] = "securityquestion";
+$_SESSION['svn_lpw']['helptopic'] = SECURITYQUESTION;
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $result = db_query($query, $dbh);
     if ($result['rows'] == 1) {
         $row = db_assoc($result['result']);
-        $tQuestion = $row['securityquestion'];
+        $tQuestion = $row[SECURITYQUESTION];
         
         if ($tQuestion == "") {
             
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($result['rows'] == 1) {
         $row = db_assoc($result['result']);
-        $tQuestion = $row['securityquestion'];
+        $tQuestion = $row[SECURITYQUESTION];
         $tEmailaddress = $row['emailaddress'];
         $givenname = $row['givenname'];
         $name = $row['name'];

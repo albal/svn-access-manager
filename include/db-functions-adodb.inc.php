@@ -61,6 +61,22 @@ Please check the documentation and website for more information.\n
 ";
 
 //
+// db_get_database_error_location
+// Action: get location of database error file
+// Call: db_get_database_error_location
+//
+function db_get_database_error_location() {
+
+    if (file_exists(realpath("database_error.php"))) {
+        return ("database_error.php");
+    }
+    else {
+        return ("../database_error.php");
+    }
+    
+}
+
+//
 // db_connect
 // Action: Makes a connection to the database if it doesn't exist
 // Call: db_connect ()
@@ -97,7 +113,6 @@ function db_connect() {
         if (($CONF[DATABASE_TYPE] == MYSQL) || ($CONF[DATABASE_TYPE] == MYSQLI)) {
             $link->Execute($nameset);
         }
-        // $link->debug = true;
     }
     catch ( exception $e ) {
         
@@ -105,19 +120,14 @@ function db_connect() {
         $_SESSION[SVNSESSID][DBQUERY] = "Database connect";
         $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
         
-        if (file_exists(realpath("database_error.php"))) {
-            $location = "database_error.php";
-        }
-        else {
-            $location = "../database_error.php";
-        }
+        $location = db_get_database_error_location();
         
         header("location: $location");
         exit();
     }
     
     return $link;
-
+    
 }
 
 //
@@ -135,7 +145,7 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
     $dbtype = ($dbtype == "") ? MYSQL : $dbtype;
     
     try {
-
+        
         $link = ADONewConnection($dbtype);
         if ($dbtype == "oci8") {
             $link->Connect($dbname, $dbuser, $dbpassword);
@@ -177,7 +187,7 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
     }
     
     return $link;
-
+    
 }
 
 //
@@ -215,7 +225,7 @@ function db_connect_test($dbtype, $dbhost, $dbuser, $dbpass, $dbname, $charset =
     }
     
     return $link;
-
+    
 }
 
 //
@@ -234,7 +244,7 @@ function db_disconnect($link) {
     }
     catch ( exception $e ) {
     }
-
+    
 }
 
 //
@@ -250,7 +260,6 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
     $result = "";
     $number_rows = "";
     $query = trim($query);
-    $error = 0;
     
     // database prefix workaround
     if (! empty($CONF[DATABASE_PREFIX])) {
@@ -265,18 +274,15 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
     
     try {
         
-        if (($CONF[DATABASE_TYPE] != MYSQL) && ($CONF[DATABASE_TYPE] != MYSQLI)) {
+        if (($CONF[DATABASE_TYPE] != MYSQL) && ($CONF[DATABASE_TYPE] != MYSQLI) && (preg_match("/LIMIT/i", $query))) {
             
-            if (preg_match("/LIMIT/i", $query)) {
-                
-                $search = "/LIMIT (\w+), (\w+)/";
-                $replace = "LIMIT \$2 OFFSET \$1";
-                $query = preg_replace($search, $replace, $query);
-            }
+            $search = "/LIMIT (\w+), (\w+)/";
+            $replace = "LIMIT \$2 OFFSET \$1";
+            $query = preg_replace($search, $replace, $query);
         }
         
         $link->SetFetchMode(ADODB_FETCH_ASSOC);
-        if (($limit != - 1)) {
+        if ($limit != - 1) {
             if ($offset != - 1) {
                 $result = $link->SelectLimit($query, $limit, $offset);
             }
@@ -307,26 +313,17 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
         error_log("DB-Error: " . $_SESSION[SVNSESSID][DBERROR]);
         error_log("DB-Query: " . $_SESSION[SVNSESSID][DBQUERY]);
         
-        if (file_exists(realpath("database_error.php"))) {
-            $location = "database_error.php";
-        }
-        else {
-            $location = "../database_error.php";
-        }
+        $location = db_get_database_error_location();
         
-        $error = 1;
-
         header("Location: $location");
         exit();
     }
     
-    $return = array(
+    return array(
             "result" => $result,
             "rows" => $number_rows
     );
     
-    return $return;
-
 }
 
 //
@@ -356,17 +353,15 @@ function db_query_install($query, $link, $limit = -1, $offset = -1) {
     
     try {
         
-        if (($CONF[DATABASE_TYPE] != MYSQL) && ($CONF[DATABASE_TYPE] != MYSQLI)) {
+        if (($CONF[DATABASE_TYPE] != MYSQL) && ($CONF[DATABASE_TYPE] != MYSQLI) && (preg_match("/LIMIT/i", $query))) {
             
-            if (preg_match("/LIMIT/i", $query)) {
-                $search = "/LIMIT (\w+), (\w+)/";
-                $replace = "LIMIT \$2 OFFSET \$1";
-                $query = preg_replace($search, $replace, $query);
-            }
+            $search = "/LIMIT (\w+), (\w+)/";
+            $replace = "LIMIT \$2 OFFSET \$1";
+            $query = preg_replace($search, $replace, $query);
         }
         
         $link->SetFetchMode(ADODB_FETCH_ASSOC);
-        if (($limit != - 1)) {
+        if ($limit != - 1) {
             if ($offset != - 1) {
                 $result = $link->SelectLimit($query, $limit, $offset);
             }
@@ -392,24 +387,17 @@ function db_query_install($query, $link, $limit = -1, $offset = -1) {
         error_log("DB Error: $tDbError");
         error_log("DB Query: $query");
         
-        if (file_exists(realpath("database_error.php"))) {
-            $location = "database_error_install.php";
-        }
-        else {
-            $location = "../database_error_install.php";
-        }
+        $location = db_get_database_error_location();
         
         header("location: " . $location . "?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install");
         exit();
     }
     
-    $return = array(
+    return array(
             "result" => $result,
             "rows" => $number_rows
     );
     
-    return $return;
-
 }
 
 // db_assoc
@@ -441,7 +429,7 @@ function db_assoc($result) {
         $row = "";
     }
     return $row;
-
+    
 }
 
 //
@@ -478,7 +466,7 @@ function db_log($username, $data, $link = "") {
         
         return false;
     }
-
+    
 }
 
 //
@@ -517,12 +505,7 @@ function db_ta($action, $link) {
                 error_log("DB-Error: " . $_SESSION[SVNSESSID][DBERROR]);
                 error_log("DB-Query: " . $_SESSION[SVNSESSID][DBQUERY]);
                 
-                if (file_exists(realpath("database_error.php"))) {
-                    $location = "database_error.php";
-                }
-                else {
-                    $location = "../database_error.php";
-                }
+                $location = db_get_database_error_location();
                 
                 header("location: $location");
                 exit();
@@ -538,12 +521,7 @@ function db_ta($action, $link) {
             error_log("DB-Error: " . $_SESSION[SVNSESSID][DBERROR]);
             error_log("DB-Query: " . $_SESSION[SVNSESSID][DBQUERY]);
             
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
+            $location = db_get_database_error_location();
             
             header("location: $location");
             exit();
@@ -551,7 +529,7 @@ function db_ta($action, $link) {
     }
     
     return true;
-
+    
 }
 
 //
@@ -576,7 +554,7 @@ function db_getUseridById($id, $link) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -601,7 +579,7 @@ function db_getIdByUserid($userid, $link) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -611,9 +589,8 @@ function db_getIdByUserid($userid, $link) {
 //
 function db_now() {
 
-    $date = date('YmdHis');
-    return $date;
-
+    return date('YmdHis');
+    
 }
 
 //
@@ -630,11 +607,12 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
     }
     
     if ($id = $link->Insert_Id()) {
+        // last insert id from MySQL
     }
     else {
         
         try {
-
+            
             if ($link->databaseType == "oci8") {
                 $query = "SELECT $schema.$table" . "_SEQ.currval AS id FROM dual";
             }
@@ -652,7 +630,7 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
     }
     
     return $id;
-
+    
 }
 
 //
@@ -670,15 +648,13 @@ function db_getUserRightByUserid($userid, $link) {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result[RESULT]);
-        $mode = strtolower($row[USER_MODE]);
-        
-        return $mode;
+        return strtolower($row[USER_MODE]);
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -692,19 +668,16 @@ function db_getGroupRightByGroupid($groupid, $link) {
     
     $mode = "";
     $schema = db_determine_schema();
-    $result = db_query("SELECT svnusers.user_mode " . "  FROM svnusers, svngroups, svn_users_groups " . " WHERE (svngroups.id = $groupid) " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')", $link);
+    $result = db_query("SELECT svnusers.user_mode " . "  FROM " . $schema . "svnusers, " . $schema . "svngroups, " . $schema . "svn_users_groups " . " WHERE (svngroups.id = $groupid) " . "   AND (svn_users_groups.group_id = svngroups.id) " . "   AND (svn_users_groups.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_users_groups.deleted = '00000000000000')", $link);
     while ( $row = db_assoc($result[RESULT]) ) {
         
-        if ((strtolower($row[USER_MODE]) == "write") and ($mode == "")) {
-            $mode = strtolower($row[USER_MODE]);
-        }
-        elseif (strtolower($row[USER_MODE]) == "read") {
+        if (((strtolower($row[USER_MODE]) == "write") && ($mode == "")) || (strtolower($row[USER_MODE]) == "read")) {
             $mode = strtolower($row[USER_MODE]);
         }
     }
     
     return $mode;
-
+    
 }
 
 //
@@ -722,15 +695,13 @@ function db_getRepoById($id, $link) {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result[RESULT]);
-        $reponame = $row['reponame'];
-        
-        return $reponame;
+        return $row['reponame'];
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -748,15 +719,13 @@ function db_getRepoByName($reponame, $link) {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result[RESULT]);
-        $id = $row['id'];
-        
-        return $id;
+        return $row['id'];
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -774,15 +743,13 @@ function db_getProjectById($id, $link) {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result[RESULT]);
-        $projectname = $row['svnmodule'];
-        
-        return $projectname;
+        return $row['svnmodule'];
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -800,15 +767,13 @@ function db_getGroupById($id, $link) {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result[RESULT]);
-        $groupname = $row[GROUPNAME];
-        
-        return $groupname;
+        return $row[GROUPNAME];
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -822,7 +787,7 @@ function db_getRightName($id, $link) {
     
     $schema = db_determine_schema();
     
-    $query = "SELECT right_name " . "  FROM rights " . " WHERE (id = $id) " . "   AND (deleted = '00000000000000')";
+    $query = "SELECT right_name " . "  FROM " . $schema . "rights " . " WHERE (id = $id) " . "   AND (deleted = '00000000000000')";
     $result = db_query($query, $link);
     if ($result['rows'] == 1) {
         $row = db_assoc($result[RESULT]);
@@ -831,7 +796,7 @@ function db_getRightName($id, $link) {
     else {
         return ("undefined");
     }
-
+    
 }
 
 //
@@ -876,7 +841,7 @@ function db_getRightData($id, $link) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -899,7 +864,7 @@ function db_getGroupsForUser($tUserId, $dbh) {
     }
     
     return ($tGroups);
-
+    
 }
 
 //
@@ -922,7 +887,7 @@ function db_getProjectResponsibleForUser($tUserId, $dbh) {
     }
     
     return ($tProjects);
-
+    
 }
 
 //
@@ -977,23 +942,14 @@ function db_getAccessRightsForUser($tUserId, $tGroups, $dbh) {
     }
     
     return ($tAccessRights);
-
+    
 }
 
-//
-// db_getAccessRights
-// Action: get access rights of an user
-// Call: db_getAccessRights(integer $user_id, integer $start, integer $count, resource $dbh)
-//
-function db_getAccessRights($user_id, $start, $count, $dbh) {
+function db_get_projectids($schema, $user_id, $dbh) {
 
-    global $CONF;
-    
-    $schema = db_determine_schema();
-    
     if ($user_id != - 1) {
         $id = db_getIdByUserid($user_id, $dbh);
-        if ($id == false) {
+        if (! $id) {
             $tProjectIds = "";
             $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
         }
@@ -1021,6 +977,75 @@ function db_getAccessRights($user_id, $start, $count, $dbh) {
         }
     }
     
+    return ($tProjectIds);
+    
+}
+
+function get_userid($row) {
+
+    $userid = $row['user_id'];
+    if (empty($userid)) {
+        $userid = 0;
+    }
+    
+    return ($userid);
+    
+}
+
+function get_groupid($row) {
+
+    $groupid = $row['group_id'];
+    if (empty($groupid)) {
+        $groupid = 0;
+    }
+    
+    return ($groupid);
+    
+}
+
+function get_userid_entry($userid, $schema, $dbh) {
+
+    $username = '';
+    $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $userid";
+    $resultread = db_query($query, $dbh);
+    if ($resultread['rows'] == 1) {
+        
+        $row = db_assoc($resultread[RESULT]);
+        $username = $row[USERID];
+    }
+    
+    return ($username);
+    
+}
+
+function get_groupid_entry($groupid, $schema, $dbh) {
+
+    $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $groupid";
+    $resultread = db_query($query, $dbh);
+    if ($resultread['rows'] == 1) {
+        
+        $row = db_assoc($resultread[RESULT]);
+        $groupname = $row[GROUPNAME];
+    }
+    else {
+        $groupname = "unknown";
+    }
+    
+    return ($groupname);
+    
+}
+
+//
+// db_getAccessRights
+// Action: get access rights of an user
+// Call: db_getAccessRights(integer $user_id, integer $start, integer $count, resource $dbh)
+//
+function db_getAccessRights($user_id, $start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tProjectIds = db_get_projectids($schema, $user_id, $dbh);
     $tAccessRights = array();
     
     if ($tProjectIds != "") {
@@ -1031,44 +1056,19 @@ function db_getAccessRights($user_id, $start, $count, $dbh) {
         while ( $row = db_assoc($result[RESULT]) ) {
             
             $entry = $row;
-            $userid = $row['user_id'];
-            if (empty($userid)) {
-                $userid = 0;
-            }
-            
-            $groupid = $row['group_id'];
-            if (empty($groupid)) {
-                $groupid = 0;
-            }
-            
+            $userid = get_userid($row);
+            $groupid = get_groupid($row);
             $entry[GROUPNAME] = "";
             $entry[USERNAME] = "";
-            $add = false;
             
             if ($userid != "0") {
                 
-                $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = $userid";
-                $resultread = db_query($query, $dbh);
-                if ($resultread['rows'] == 1) {
-                    
-                    $row = db_assoc($resultread[RESULT]);
-                    $entry[USERNAME] = $row[USERID];
-                }
+                $entry[USERNAME] = get_userid_entry($userid, $schema, $dbh);
             }
             
             if ($groupid != "0") {
                 
-                $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $groupid";
-                $resultread = db_query($query, $dbh);
-                if ($resultread['rows'] == 1) {
-                    
-                    $row = db_assoc($resultread[RESULT]);
-                    $entry[GROUPNAME] = $row[GROUPNAME];
-                    $add = true;
-                }
-                else {
-                    $entry[GROUPNAME] = "unknown";
-                }
+                $entry[GROUPNAME] = get_groupid_entry($groupid, $schema, $dbh);
             }
             
             $tAccessRights[] = $entry;
@@ -1076,7 +1076,7 @@ function db_getAccessRights($user_id, $start, $count, $dbh) {
     }
     
     return $tAccessRights;
-
+    
 }
 
 //
@@ -1092,7 +1092,7 @@ function db_getCountAccessRights($user_id, $dbh) {
     
     if ($user_id != - 1) {
         $id = db_getIdByUserid($user_id, $dbh);
-        if ($id == false) {
+        if (! $id) {
             $tProjectIds = "";
             $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (deleted = '00000000000000')";
         }
@@ -1141,7 +1141,7 @@ function db_getCountAccessRights($user_id, $dbh) {
         
         return 0;
     }
-
+    
 }
 
 //
@@ -1164,7 +1164,7 @@ function db_getGroupList($start, $count, $dbh) {
     }
     
     return $tGroups;
-
+    
 }
 
 //
@@ -1188,7 +1188,7 @@ function db_getGroups($start, $count, $dbh) {
     }
     
     return $tGroups;
-
+    
 }
 
 //
@@ -1215,7 +1215,7 @@ function db_getCountGroups($dbh) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -1258,7 +1258,7 @@ function db_getGroupsAllowed($start, $count, $groupAdmin, $tGroupsAllowed, $dbh)
     }
     
     return $tGroups;
-
+    
 }
 
 //
@@ -1303,7 +1303,7 @@ function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -1324,7 +1324,7 @@ function db_getProjects($start, $count, $dbh) {
     }
     
     return $tProjects;
-
+    
 }
 
 //
@@ -1349,7 +1349,7 @@ function db_getCountProjects($dbh) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -1370,7 +1370,56 @@ function db_getLockedUsers($start, $count, $dbh) {
     }
     
     return $tLockedUsers;
+    
+}
 
+//
+// db_getRepos
+// Action: get repos from db
+// Call: db_getRepos(integer $start, integer $count, resource $dbh)
+//
+function db_getRepos($start, $count, $dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tRepos = array();
+    $query = "SELECT   * " . "    FROM " . $schema . "svnrepos " . "   WHERE (deleted = '00000000000000') " . "ORDER BY reponame ASC ";
+    $result = db_query($query, $dbh, $count, $start);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tRepos[] = $row;
+    }
+    
+    return $tRepos;
+    
+}
+
+//
+// db_getCountRepos
+// Action: get count of repods
+// Call: db_getCountRepos(resource $dbh)
+//
+function db_getCountRepos($dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $query = "SELECT   COUNT(*) AS anz " . "    FROM " . $schema . "svnrepos " . "   WHERE (deleted = '00000000000000') ";
+    $result = db_query($query, $dbh);
+    
+    if ($result['rows'] == 1) {
+        
+        $row = db_assoc($result[RESULT]);
+        return $row['anz'];
+
+    }
+    else {
+        
+        return false;
+    }
+    
 }
 
 //
@@ -1390,13 +1439,12 @@ function db_getCountLockedUsers($dbh) {
         
         $row = db_assoc($result['result']);
         return $row['anz'];
-
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -1417,7 +1465,7 @@ function db_getLog($start, $count, $dbh) {
     }
     
     return $tLogmessages;
-
+    
 }
 
 //
@@ -1435,13 +1483,12 @@ function db_getCountLog($dbh) {
         
         $row = db_assoc($result['result']);
         return $row['anz'];
-
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -1464,7 +1511,7 @@ function db_getUsers($start, $count, $dbh) {
     }
     
     return $tUsers;
-
+    
 }
 
 //
@@ -1482,7 +1529,7 @@ function db_getUserData($tUserId, $dbh) {
     $row = db_assoc($result['result']);
     
     return ($row);
-
+    
 }
 
 //
@@ -1500,7 +1547,7 @@ function db_getGroupData($tGroupId, $dbh) {
     $row = db_assoc($result['result']);
     
     return ($row);
-
+    
 }
 
 //
@@ -1523,7 +1570,7 @@ function db_getUsersForGroup($tGroupId, $dbh) {
     }
     
     return ($tUsers);
-
+    
 }
 
 //
@@ -1546,7 +1593,7 @@ function db_getGroupAdminsForGroup($tGroupId, $dbh) {
     }
     
     return ($tAdmins);
-
+    
 }
 
 //
@@ -1571,7 +1618,7 @@ function db_getAccessRightsForGroup($tGroupId, $dbh) {
     }
     
     return ($tAccessRights);
-
+    
 }
 
 //
@@ -1627,7 +1674,7 @@ function db_getGrantedRights($start, $count, $dbh) {
     }
     
     return $tGrantedRights;
-
+    
 }
 
 //
@@ -1647,16 +1694,13 @@ function db_getCountGrantedRights($dbh) {
         
         $row = db_assoc($result['result']);
         return $row['anz'];
-
     }
     else {
         
         return false;
     }
-
+    
 }
-
-
 
 //
 // db_get_userid_from_record
@@ -1671,8 +1715,8 @@ function db_get_userid_from_record($row) {
     }
     
     return $userid;
+    
 }
-
 
 //
 // db_get_groupid_from_record
@@ -1680,17 +1724,15 @@ function db_get_userid_from_record($row) {
 // Call: db_get_groupid_from_record(array $row)
 //
 function db_get_groupid_from_record($row) {
-    
+
     $groupid = $row['group_id'];
     if (empty($groupid)) {
         $groupid = 0;
     }
     
     return $groupid;
-
+    
 }
-
-
 
 //
 // db_getAccessRightsList
@@ -1741,7 +1783,7 @@ function db_getAccessRightsList($valid, $start, $count, $dbh) {
     }
     
     return $tAccessRights;
-
+    
 }
 
 //
@@ -1759,13 +1801,12 @@ function db_getCountAccessRightsList($valid, $dbh) {
         
         $row = db_assoc($result['result']);
         return $row['anz'];
-
     }
     else {
         
         return false;
     }
-
+    
 }
 
 //
@@ -1783,13 +1824,13 @@ function db_check_global_admin($username, $link) {
     $result = db_query($query, $link);
     if ($result['rows'] > 0) {
         $row = db_assoc($result[RESULT]);
-        $ret = strtolower($row['superadmin']) == 1 ? true : false;
+        $ret = (strtolower($row['superadmin']) == 1);
         return ($ret);
     }
     else {
         return false;
     }
-
+    
 }
 
 //
@@ -1807,13 +1848,13 @@ function db_check_global_admin_by_id($id, $link) {
     $result = db_query($query, $link);
     if ($result['rows'] > 0) {
         $row = db_assoc($result[RESULT]);
-        $ret = strtolower($row['superadmin']) == 1 ? true : false;
+        $ret = (strtolower($row['superadmin']) == 1);
         return ($ret);
     }
     else {
         return false;
     }
-
+    
 }
 
 //
@@ -1842,7 +1883,7 @@ function db_check_acl($username, $action, $dbh) {
     }
     
     return $right;
-
+    
 }
 
 //
@@ -1871,7 +1912,7 @@ function db_check_group_acl($username, $dbh) {
     }
     
     return $tAllowedGroups;
-
+    
 }
 
 //
@@ -1906,7 +1947,7 @@ function db_get_preferences($userid, $link) {
     }
     
     return $preferences;
-
+    
 }
 
 //
@@ -1923,13 +1964,9 @@ function db_get_semaphore($action, $type, $link) {
     
     $query = "SELECT * " . "  FROM " . $schema . "workinfo " . " WHERE (action = '$action') " . "   AND (type = '$type') " . "   AND (status = 'open')";
     $result = db_query($query, $link);
-    if ($result['rows'] > 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
-
+    
+    return ($result['rows'] > 0);
+    
 }
 
 //
@@ -1965,7 +2002,7 @@ function db_set_semaphore($action, $type, $link) {
             return true;
         }
     }
-
+    
 }
 
 //
@@ -2000,7 +2037,7 @@ function db_unset_semaphore($action, $type, $link) {
         
         return false;
     }
-
+    
 }
 
 //
@@ -2012,10 +2049,7 @@ function db_determine_schema() {
 
     global $CONF;
     
-    if (substr($CONF[DATABASE_TYPE], 0, 8) == "postgres") {
-        $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
-    }
-    elseif ($CONF[DATABASE_TYPE] == "oci8") {
+    if ((substr($CONF[DATABASE_TYPE], 0, 8) == "postgres") || ($CONF[DATABASE_TYPE] == "oci8")) {
         $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
     }
     else {
@@ -2023,7 +2057,7 @@ function db_determine_schema() {
     }
     
     return ($schema);
-
+    
 }
 
 //
@@ -2059,20 +2093,125 @@ function db_escape_string($string, $link = "") {
     }
     
     return $escaped_string;
-
+    
 }
 
 //
-// ldap_check_user_exists
-// Action: check if an user exists in ldap directory
-// Call: ldap_check_user_exists(string userid)
+// db_get_list
+// Action: get a list ob database objects
+// Call: db_get_list(string type, string tSearch resource dbh)
 //
-function ldap_check_user_exists($userid) {
+function db_get_list($type, $tSearch, $dbh, $tParts = '') {
+
+    $ret = array();
+    $tArray = array();
+    $schema = db_determine_schema();
+    $tErrorClass = '';
+    $tMessage = '';
+    
+    switch ($type) {
+        case 'users' :
+            $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE ((userid like '%$tSearch%') " . "    OR  (CONCAT(givenname, ' ', name) like '%$tSearch%') " . "    OR  (CONCAT(name, ' ', givenname) like '%$tSearch%') " . "    OR (name like '%$tSearch%') " . "    OR (givenname like '%$tSearch%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY name ASC , givenname ASC";
+            $page = 'workOnUser.php';
+            break;
+        case 'groups' :
+            $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE ((groupname like '%$tSearch%') " . "    OR (description like '%$tSearch%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY groupname ASC";
+            $page = "workOnGroup.php";
+            break;
+        case 'groupadmins' :
+            $tParts = explode(" ", $tSearch);
+            if (count($tParts) == 1) {
+                
+                $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible," . $schema . "svnusers, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND ((svnusers.name like '%$tSearch%') " . "    OR  (svnusers.givenname like '%$tSearch%') " . "    OR  (svnusers.userid like '%$tSearch%') " . "    OR  (svngroups.groupname like '%$tSearch%') " . "    OR  (svngroups.description like '%$tSearch%')) " . "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
+            }
+            else {
+                
+                $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible," . $schema . "svnusers, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (";
+                
+                $i = 0;
+                foreach( $tParts as $entry) {
+                    
+                    if ($i == 0) {
+                        
+                        $query = $query . "       (svnusers.name like '%$entry%') ";
+                        $i ++;
+                    }
+                    else {
+                        
+                        $query = $query . "    OR (svnusers.name like '%$entry%') ";
+                    }
+                    
+                    $query = $query . "    OR  (svnusers.givenname like '%$entry%') ";
+                }
+                
+                $query = $query . "       ) " . "ORDER BY svnusers.name ASC, svnusers.givenname ASC";
+            }
+            $page = 'workOnGroupAccessRight.php';
+            break;
+        case 'projects' :
+            $query = "SELECT   svnprojects.id, svnprojects.svnmodule, svnprojects.modulepath, svnrepos.reponame " . "    FROM " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svnrepos.deleted = '00000000000000') " . "     AND (svnprojects.deleted = '00000000000000') " . "     AND (svnprojects.repo_id = svnrepos.id) " . "     AND (svnprojects.svnmodule like '%$tSearch%') " . "ORDER BY svnmodule ASC ";
+            $page = 'workOnProject.php';
+            break;
+        case 'repos' :
+            $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE ((repouser like '%$tSearch%') " . "    OR (reponame like '%$tSearch%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY reponame ASC";
+            $page = "workOnRepo.php";
+            break;
+        default :
+            break;
+    }
+    
+    if ($tSearch == "") {
+        
+        $tErrorClass = "error";
+        $tMessage = _("No search string given!");
+    }
+    else {
+        
+        $result = db_query($query, $dbh);
+        while ( $row = db_assoc($result['result']) ) {
+            
+            $tArray[] = $row;
+        }
+        
+        if (count($tArray) == 0) {
+            
+            $tErrorClass = "info";
+            $tMessage = _("No group found!");
+        }
+        elseif (count($tArray) == 1) {
+            
+            $id = $tArray[0]['id'];
+            $url = $page . "?id=" . urlencode($id) . "&task=change";
+            db_disconnect($dbh);
+            header("Location: $url");
+            exit();
+        }
+        else {
+            
+            db_disconnect($dbh);
+            $_SESSION[SVNSESSID]['searchresult'] = $tArray;
+            header("Location: searchresult.php");
+            exit();
+        }
+    }
+    
+    $ret['errorclass'] = $tErrorClass;
+    $ret['message'] = $tMessage;
+    $ret['result'] = $tArray;
+    
+    return $ret;
+    
+}
+
+//
+// set_ldap_connect_options
+// Action: create array with LDAP connect options
+
+// Call: set_ldap_connect_options
+//
+function set_ldap_connect_options() {
 
     global $CONF;
-    global $LDAP_CONNECT_OPTIONS;
-    
-    $ret = 0;
     
     if (isset($CONF[LDAP_PROTOCOL])) {
         $protocol = $CONF[LDAP_PROTOCOL];
@@ -2081,7 +2220,7 @@ function ldap_check_user_exists($userid) {
         $protocol = "2";
     }
     
-    $LDAP_CONNECT_OPTIONS = Array(
+    return Array(
             Array(
                     "OPTION_NAME" => LDAP_OPT_DEREF,
                     "OPTION_VALUE" => 2
@@ -2112,6 +2251,21 @@ function ldap_check_user_exists($userid) {
             )
     );
     
+}
+
+//
+// ldap_check_user_exists
+// Action: check if an user exists in ldap directory
+// Call: ldap_check_user_exists(string userid)
+//
+function ldap_check_user_exists($userid) {
+
+    global $CONF;
+    global $LDAP_CONNECT_OPTIONS;
+    
+    $ret = 0;
+    $LDAP_CONNECT_OPTIONS = set_ldap_connect_options();
+    
     try {
         $ldap = &NewADOConnection('ldap');
         $ldap->Connect($CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
@@ -2123,12 +2277,7 @@ function ldap_check_user_exists($userid) {
         $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         
-        if (file_exists(realpath("database_error.php"))) {
-            $location = "database_error.php";
-        }
-        else {
-            $location = "../database_error.php";
-        }
+        $location = db_get_database_error_location();
         
         header("location: $location");
         exit();
@@ -2161,7 +2310,97 @@ function ldap_check_user_exists($userid) {
     }
     
     return ($ret);
+    
+}
 
+function get_uid($arr) {
+
+    global $CONF;
+    
+    if (isset($CONF[ATTR_MAPPING]['uid'])) {
+        if (isset($arr[$CONF[ATTR_MAPPING]['uid']])) {
+            $uid = $arr[$CONF[ATTR_MAPPING]['uid']];
+        }
+        else {
+            $uid = "";
+        }
+    }
+    else {
+        if (isset($arr['uid'])) {
+            $uid = $arr['uid'];
+        }
+        else {
+            $uid = "";
+        }
+    }
+    
+    return ($uid);
+    
+}
+
+function get_name($arr) {
+
+    global $CONF;
+    
+    if (isset($CONF[ATTR_MAPPING]['name'])) {
+        if (isset($arr[$CONF[ATTR_MAPPING]['name']])) {
+            $name = $arr[$CONF[ATTR_MAPPING]['name']];
+        }
+        else {
+            $name = "";
+        }
+    }
+    else {
+        if (isset($arr['sn'])) {
+            $name = $arr['sn'];
+        }
+        else {
+            $name = "";
+        }
+    }
+    
+    return ($name);
+    
+}
+
+function get_givenname($arr) {
+
+    global $CONF;
+    
+    if (isset($CONF[ATTR_MAPPING]['givenName'])) {
+        if (isset($arr[$CONF[ATTR_MAPPING]['givenName']])) {
+            $givenname = $arr[$CONF[ATTR_MAPPING]['givenName']];
+        }
+        else {
+            $givenname = "";
+        }
+    }
+    else {
+        if (isset($arr['givenName'])) {
+            $givenname = $arr['givenName'];
+        }
+        else {
+            $givenname = "";
+        }
+    }
+    
+    return ($givenname);
+    
+}
+
+function get_emailaddress($arr) {
+
+    global $CONF;
+    
+    if (isset($CONF[ATTR_MAPPING]['mail'])) {
+        $attr = $CONF[ATTR_MAPPING]['mail'];
+    }
+    else {
+        $attr = 'mail';
+    }
+    
+    return isset($arr[$attr]) ? $arr[$attr] : "";
+    
 }
 
 //
@@ -2175,46 +2414,8 @@ function get_ldap_users() {
     global $LDAP_CONNECT_OPTIONS;
     
     $tUsers = array();
-    
     $additionalFilter = isset($CONF['additional_user_filter']) ? $CONF['additional_user_filter'] : "";
-    
-    if (isset($CONF[LDAP_PROTOCOL])) {
-        $protocol = $CONF[LDAP_PROTOCOL];
-    }
-    else {
-        $protocol = "2";
-    }
-    
-    $LDAP_CONNECT_OPTIONS = Array(
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_DEREF,
-                    "OPTION_VALUE" => 2
-            ),
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_SIZELIMIT,
-                    "OPTION_VALUE" => 1000
-            ),
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_TIMELIMIT,
-                    "OPTION_VALUE" => 30
-            ),
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_PROTOCOL_VERSION,
-                    "OPTION_VALUE" => $protocol
-            ),
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_ERROR_NUMBER,
-                    "OPTION_VALUE" => 13
-            ),
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_REFERRALS,
-                    "OPTION_VALUE" => FALSE
-            ),
-            Array(
-                    "OPTION_NAME" => LDAP_OPT_RESTART,
-                    "OPTION_VALUE" => FALSE
-            )
-    );
+    $LDAP_CONNECT_OPTIONS = set_ldap_connect_options();
     
     try {
         $ldap = &NewADOConnection('ldap');
@@ -2227,12 +2428,7 @@ function get_ldap_users() {
         $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         
-        if (file_exists(realpath("database_error.php"))) {
-            $location = "database_error.php";
-        }
-        else {
-            $location = "../database_error.php";
-        }
+        $location = db_get_database_error_location();
         
         header("location: $location");
         exit();
@@ -2254,65 +2450,10 @@ function get_ldap_users() {
                 
                 $entry = array();
                 
-                if (isset($CONF[ATTR_MAPPING]['uid'])) {
-                    if (isset($arr[$CONF[ATTR_MAPPING]['uid']])) {
-                        $entry['uid'] = $arr[$CONF[ATTR_MAPPING]['uid']];
-                    }
-                    else {
-                        $entry['uid'] = "";
-                    }
-                }
-                else {
-                    if (isset($arr['uid'])) {
-                        $entry['uid'] = $arr['uid'];
-                    }
-                    else {
-                        $entry['uid'] = "";
-                    }
-                }
-                
-                if (isset($CONF[ATTR_MAPPING]['name'])) {
-                    if (isset($arr[$CONF[ATTR_MAPPING]['name']])) {
-                        $entry['name'] = $arr[$CONF[ATTR_MAPPING]['name']];
-                    }
-                    else {
-                        $entry['name'] = "";
-                    }
-                }
-                else {
-                    if (isset($arr['sn'])) {
-                        $entry['name'] = $arr['sn'];
-                    }
-                    else {
-                        $entry['name'] = "";
-                    }
-                }
-                
-                if (isset($CONF[ATTR_MAPPING]['givenName'])) {
-                    if (isset($arr[$CONF[ATTR_MAPPING]['givenName']])) {
-                        $entry[GIVENNAME] = $arr[$CONF[ATTR_MAPPING]['givenName']];
-                    }
-                    else {
-                        $entry[GIVENNAME] = "";
-                    }
-                }
-                else {
-                    if (isset($arr['givenName'])) {
-                        $entry[GIVENNAME] = $arr['givenName'];
-                    }
-                    else {
-                        $entry[GIVENNAME] = "";
-                    }
-                }
-                
-                if (isset($CONF[ATTR_MAPPING]['mail'])) {
-                    $attr = $CONF[ATTR_MAPPING]['mail'];
-                }
-                else {
-                    $attr = 'mail';
-                }
-                
-                $entry['emailaddress'] = isset($arr[$attr]) ? $arr[$attr] : "";
+                $entry['uid'] = get_uid($arr);
+                $entry['name'] = get_name($arr);
+                $entry[GIVENNAME] = get_givenname($arr);
+                $entry['emailaddress'] = get_emailaddress($arr);
                 
                 if (isset($CONF['ldap_uservalues_encode']) && $CONF['ldap_uservalues_encode']) {
                     $entry['name'] = htmlentities($entry['name']);
@@ -2329,12 +2470,7 @@ function get_ldap_users() {
         $_SESSION[SVNSESSID][DBQUERY] = $filter;
         $_SESSION[SVNSESSID][DBFUNCTION] = "get_ldap_user";
         
-        if (file_exists(realpath("database_error.php"))) {
-            $location = "database_error.php";
-        }
-        else {
-            $location = "../database_error.php";
-        }
+        $location = db_get_database_error_location();
         
         header("location: $location");
         exit();
@@ -2347,7 +2483,7 @@ function get_ldap_users() {
     usort($tUsers, "sortLdapUsers");
     
     return ($tUsers);
-
+    
 }
 
 //
@@ -2361,44 +2497,7 @@ function check_ldap_password($userid, $password) {
     global $LDAP_CONNECT_OPTIONS;
     
     $ret = 0;
-    
-    if (isset($CONF[LDAP_PROTOCOL])) {
-        $protocol = $CONF[LDAP_PROTOCOL];
-    }
-    else {
-        $protocol = "2";
-    }
-    
-    $LDAP_CONNECT_OPTIONS = array(
-            array(
-                    "OPTION_NAME" => LDAP_OPT_DEREF,
-                    "OPTION_VALUE" => 2
-            ),
-            array(
-                    "OPTION_NAME" => LDAP_OPT_SIZELIMIT,
-                    "OPTION_VALUE" => 1000
-            ),
-            array(
-                    "OPTION_NAME" => LDAP_OPT_TIMELIMIT,
-                    "OPTION_VALUE" => 30
-            ),
-            array(
-                    "OPTION_NAME" => LDAP_OPT_PROTOCOL_VERSION,
-                    "OPTION_VALUE" => $protocol
-            ),
-            array(
-                    "OPTION_NAME" => LDAP_OPT_ERROR_NUMBER,
-                    "OPTION_VALUE" => 13
-            ),
-            array(
-                    "OPTION_NAME" => LDAP_OPT_REFERRALS,
-                    "OPTION_VALUE" => FALSE
-            ),
-            array(
-                    "OPTION_NAME" => LDAP_OPT_RESTART,
-                    "OPTION_VALUE" => FALSE
-            )
-    );
+    $LDAP_CONNECT_OPTIONS = set_ldap_connect_options();
     
     try {
         $ldap = NewADOConnection('ldap');
@@ -2406,25 +2505,18 @@ function check_ldap_password($userid, $password) {
         $ldapOpen = 1;
     }
     catch ( exception $e ) {
-
+        
         $_SESSION[SVNSESSID][DBERROR] = $e->msg;
         $_SESSION[SVNSESSID][DBQUERY] = sprintf("Database connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], 'xxxxxxxx', $CONF[USER_DN]);
         $_SESSION[SVNSESSID][DBFUNCTION] = sprintf("db_connect: %s - %s - %s - %s", $CONF[LDAP_SERVER], $CONF[BIND_DN], 'xxxxxxxx', $CONF[USER_DN]);
         
         $tErrorMessage = strtolower($_SESSION[SVNSESSID][DBERROR]);
         
-        if (isset($CONF['ldap_bind_use_login_data']) and ($CONF['ldap_bind_use_login_data'] == 1) and strpos($tErrorMessage, "invalid") and strpos($tErrorMessage, "credentials")) {
+        if (isset($CONF['ldap_bind_use_login_data']) && ($CONF['ldap_bind_use_login_data'] == 1) && strpos($tErrorMessage, "invalid") && strpos($tErrorMessage, "credentials")) {
             $ldapOpen = 0;
             $ret = 0;
         }
         else {
-            
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
             
             $ret = - 1;
             return ($ret);
@@ -2465,7 +2557,7 @@ function check_ldap_password($userid, $password) {
     }
     
     return ($ret);
-
+    
 }
 
 //
@@ -2492,11 +2584,6 @@ class Session {
         if (self::$DEBUG != 0) {
             db_log('gc', 'open executed');
         }
-
-        $db_user = $CONF[DATABASE_USER];
-        $db_pass = $CONF[DATABASE_PASSWORD];
-        $db_host = $CONF[DATABASE_HOST];
-        $db_name = $CONF[DATABASE_NAME];
         
         if (isset($CONF[DATABASE_CHARSET])) {
             $charset = $CONF[DATABASE_CHARSET];
@@ -2528,8 +2615,6 @@ class Session {
         }
         catch ( exception $e ) {
             
-            // var_dump($e);
-            
             $_SESSION[SVNSESSID][DBERROR] = $e->msg;
             $_SESSION[SVNSESSID][DBQUERY] = "Database connect";
             $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
@@ -2537,19 +2622,14 @@ class Session {
             error_log("DB error: " . $e->msg);
             error_log("DB query: Session database connect");
             
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
+            $location = db_get_database_error_location();
             
             header("location: $location");
             exit();
         }
         
         return false;
-    
+        
     }
 
     /**
@@ -2564,7 +2644,7 @@ class Session {
         }
         
         return true;
-    
+        
     }
 
     /**
@@ -2582,10 +2662,7 @@ class Session {
             db_log('gc', 'read executed');
         }
         
-        if ($CONF[DATABASE_TYPE] == "postgres8") {
-            $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
-        }
-        elseif ($CONF[DATABASE_TYPE] == "oci8") {
+        if (($CONF[DATABASE_TYPE] == "postgres8") || ($CONF[DATABASE_TYPE] == "oci8")) {
             $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
         }
         else {
@@ -2594,7 +2671,7 @@ class Session {
         
         $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
         $sql = sprintf("SELECT session_data FROM " . $schema . "sessions " . "WHERE session_id = %s", $id);
-
+        
         try {
             
             $result = self::$_sess_db->Execute($sql);
@@ -2608,8 +2685,6 @@ class Session {
         }
         catch ( exception $e ) {
             
-            // var_dump($e);
-            
             $_SESSION[SVNSESSID][DBERROR] = $e->msg;
             $_SESSION[SVNSESSID][DBQUERY] = $sql;
             $_SESSION[SVNSESSID][DBFUNCTION] = "db_connect";
@@ -2618,17 +2693,12 @@ class Session {
             error_log("DB query: $sql");
             error_log("DB query: Session read");
             
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
+            $location = db_get_database_error_location();
             
             header("location: $location");
             exit();
         }
-    
+        
     }
 
     /**
@@ -2647,10 +2717,7 @@ class Session {
             db_log('gc', 'write executed');
         }
         
-        if ($CONF[DATABASE_TYPE] == "postgres8") {
-            $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
-        }
-        elseif ($CONF[DATABASE_TYPE] == "oci8") {
+        if (($CONF[DATABASE_TYPE] == "postgres8") || ($CONF[DATABASE_TYPE] == "oci8")) {
             $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
         }
         else {
@@ -2660,7 +2727,7 @@ class Session {
         $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
         $time = self::$_sess_db->qstr(time(), get_magic_quotes_gpc());
         $data = self::$_sess_db->qstr($data, get_magic_quotes_gpc());
-
+        
         try {
             
             $sql = sprintf("SELECT * FROM " . $schema . "sessions WHERE session_id = %s", $id);
@@ -2671,7 +2738,7 @@ class Session {
             else {
                 $sql = sprintf("INSERT INTO " . $schema . "sessions (session_id, session_expires, session_data) VALUES(%s, %s, %s)", $id, $time, $data);
             }
-
+            
             self::$_sess_db->Execute($sql);
             $error = 0;
         }
@@ -2685,12 +2752,7 @@ class Session {
             error_log("DB query: $sql");
             error_log("DB query: Session write to database");
             
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
+            $location = db_get_database_error_location();
             
             header("location: $location");
             exit();
@@ -2698,13 +2760,8 @@ class Session {
             return false;
         }
         
-        if ($error == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    
+        return ($error == 0);
+        
     }
 
     /**
@@ -2722,16 +2779,13 @@ class Session {
             db_log('gc', 'destroy executed');
         }
         
-        if ($CONF[DATABASE_TYPE] == "postgres8") {
-            $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
-        }
-        elseif ($CONF[DATABASE_TYPE] == "oci8") {
+        if (($CONF[DATABASE_TYPE] == "postgres8") || ($CONF[DATABASE_TYPE] == "oci8")) {
             $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
         }
         else {
             $schema = "";
         }
-
+        
         $id = self::$_sess_db->qstr($id, get_magic_quotes_gpc());
         $sql = sprintf("DELETE FROM " . $schema . "sessions WHERE session_id = %s", $id);
         
@@ -2750,19 +2804,14 @@ class Session {
             error_log("DB query: $sql");
             error_log("DB query: Session destroy");
             
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
+            $location = db_get_database_error_location();
             
             header("location: $location");
             exit();
             
             return false;
         }
-    
+        
     }
 
     /**
@@ -2785,10 +2834,7 @@ class Session {
             db_log('gc', 'gc executed (' . $max . ')');
         }
         
-        if ($CONF[DATABASE_TYPE] == "postgres8") {
-            $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
-        }
-        elseif ($CONF[DATABASE_TYPE] == "oci8") {
+        if (($CONF[DATABASE_TYPE] == "postgres8") || ($CONF[DATABASE_TYPE] == "oci8")) {
             $schema = ($CONF[DATABASE_SCHEMA] == "") ? "" : $CONF[DATABASE_SCHEMA] . ".";
         }
         else {
@@ -2813,24 +2859,19 @@ class Session {
             error_log("DB query: $sql");
             error_log("DB query: Session gct");
             
-            if (file_exists(realpath("database_error.php"))) {
-                $location = "database_error.php";
-            }
-            else {
-                $location = "../database_error.php";
-            }
+            $location = db_get_database_error_location();
             
             header("location: $location");
             exit();
             
             return false;
         }
-    
+        
     }
-
+    
 }
 
-if (isset($CONF) and ($CONF['session_in_db'] == "YES")) {
+if (isset($CONF) && ($CONF['session_in_db'] == "YES")) {
     
     ini_set('session.gc_probability', 50);
     ini_set('session.gc_divisor', 50);

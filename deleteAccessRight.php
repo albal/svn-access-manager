@@ -47,15 +47,12 @@ $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "deleteaccessright";
 
-if ($rightAllowed != "delete") {
+if (($rightAllowed != "delete") && ($_SESSION[SVNSESSID]['admin'] != "p")) {
     
-    if (! $_SESSION[SVNSESSID]['admin'] == "p") {
-        
-        db_log($SESSID_USERNAME, "tried to use deleteAccessRight without permission", $dbh);
-        db_disconnect($dbh);
-        header("Location: nopermission.php");
-        exit();
-    }
+    db_log($SESSID_USERNAME, "tried to use deleteAccessRight without permission", $dbh);
+    db_disconnect($dbh);
+    header("Location: nopermission.php");
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {

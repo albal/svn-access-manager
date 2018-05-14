@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 
                 $tMessage = sprintf(_("Repository can not be deleted because it's referenced from other projects (%s)"), $repos);
                 $tDisabled = "disabled";
-                $tClass = "button_disabled";
+                $tClass = "buttondisabled";
             }
         }
         else {

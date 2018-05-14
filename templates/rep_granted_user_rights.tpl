@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("List of granted user rights"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="rep_granted_user_rights" method="post">
@@ -85,7 +85,7 @@
 						$('#page'+currentPage).addClass('currentpage');
 					}
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

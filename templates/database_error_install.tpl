@@ -33,12 +33,12 @@
 </head>
 <body>
 	<div id="wrap">
-		<div id="header_login">
-			<div id="header_left">
+		<div id="headerlogin">
+			<div id="headerleft">
 				<img src="images/svn-access-manager_200_60_white.jpg" width="200" height="60" border="0" />
 			</div>
 		</div>
-		<div id="edit_form">
+		<div id="editform">
 			<p>&nbsp;</p>
 			<h2><?php print _("Database error"); ?></h2>
 			<p>&nbsp;</p>

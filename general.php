@@ -162,12 +162,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $error = 1;
             $tMessage = sprintf(_("%s is not a valid email address!"), $tEmail);
         }
-        elseif (($tAnswer != "") and ($tSecurityQuestion == "")) {
+        elseif (($tAnswer != "") && ($tSecurityQuestion == "")) {
             
             $error = 1;
             $tMessage = _("Please fill in a security question too!");
         }
-        elseif (($tAnswer == "") and ($tSecurityQuestion != "")) {
+        elseif (($tAnswer == "") && ($tSecurityQuestion != "")) {
             
             $error = 1;
             $tMessage = _("Please fill in an answer for the security question too!");

@@ -43,7 +43,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "repaccessrights";
 
@@ -101,11 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($button == _("Create report")) {
         
         $tDate = isset($_POST['fDate']) ? db_escape_string($_POST['fDate']) : "";
-        // error_log( $tDate );
         $_SESSION[SVNSESSID]['date'] = $tDate;
         $lang = check_language();
         
-        if (($lang == "de") or (substr($tDate, 2, 1) == ".")) {
+        if (($lang == "de") || (substr($tDate, 2, 1) == ".")) {
             
             $day = substr($tDate, 0, 2);
             $month = substr($tDate, 3, 2);
@@ -118,7 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $year = substr($tDate, 6, 4);
         }
         
-        // error_log( "day = $day, month = $month, year = $year" );
         if (! check_date($day, $month, $year)) {
             
             $tMessage = sprintf(_("Not a valid date: %s (%s-%s-%s)"), $tDate, $day, $month, $year);
@@ -154,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tCountRecords = db_getCountAccessRightsList($_SESSION[SVNSESSID]['valid'], $dbh);
             $tPrevDisabled = "disabled";
             
-            if ($tCountRecords <= $CONF['page_size']) {
+            if ($tCountRecords <= $CONF[PAGESIZE]) {
                 
                 $tNextDisabled = "disabled";
             }

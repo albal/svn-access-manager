@@ -68,9 +68,9 @@ if( $CONF['createAccessFile'] == 'YES' ) {
 	$dbh								= db_connect();
 	$tRetAccess							= createAccessFile( $dbh );
 	
-	if( $tRetAccess['error'] != 0 ) {
+	if( $tRetAccess[ERROR] != 0 ) {
 		
-		print $tRetAccess['errormsg']." \n";
+		print $tRetAccess[ERRORMSG]." \n";
 		
 	}
 	db_disconnect( $dbh );
@@ -82,9 +82,9 @@ if( $CONF['createUserFile']	== 'YES' ) {
 	$dbh								= db_connect();
 	$tRetAuthUser						= createAuthUserFile( $dbh );
 	
-	if( $tRetAuthUser['error'] != 0 ) {
+	if( $tRetAuthUser[ERROR] != 0 ) {
 		
-		print $tRetAuthUser['errormsg']."\n";
+		print $tRetAuthUser[ERRORMSG]."\n";
 		
 	}
 	
@@ -96,9 +96,9 @@ if( $CONF['createViewvcConf'] == "YES" ) {
 	$dbh								= db_connect();
 	$tRetViewvcConf						= createViewvcConfig( $dbh );
 	
-	if( $tRetViewvcConf['error'] != 0 ) {
+	if( $tRetViewvcConf[ERROR] != 0 ) {
 		
-		print $tRetViewvcConf['errormsg']."\n";
+		print $tRetViewvcConf[ERRORMSG]."\n";
 		
 	}
 	

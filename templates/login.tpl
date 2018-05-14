@@ -35,11 +35,11 @@ include( "./include/output.inc.php" );
 </head>
 <body>
 	<div id="wrap">
-		<div id="header_login">
-			<div id="header_left">
+		<div id="headerlogin">
+			<div id="headerleft">
 				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
 			</div>
-			<div id="header_right_login">
+			<div id="headerrightlogin">
 				
 			</div>
 			<div id="subheader">
@@ -48,7 +48,7 @@ include( "./include/output.inc.php" );
 		</div>
 		<div id="login">
 			<form name="login" method="post" autocomplete="off">
-				<table id="login_table" cellspacing="10">
+				<table id="logintable" cellspacing="10">
 				   <tr>
 				      <td colspan="2" align="center">
 				      	<a href="http://www.svn-access-manager.org/" target="_blank">
@@ -74,10 +74,10 @@ include( "./include/output.inc.php" );
 				      <td colspan="2">&nbsp;</td>
 				   </tr>
 				   <?php
-				   		if( ( !isset($CONF['use_ldap']) ) or ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) ) {
+				   		if( ( !isset($CONF[USE_LDAP]) ) || ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES")) ) {
 				   			
 				   			print "\t\t\t\t\t\t<tr>\n";
-				   	   		print "\t\t\t\t\t\t\t<td colspan=\"2\" class=\"hlp_center\"><a href=\"lostpassword.php\" target=\"_top\">"._("Lost password")."</a></td>\n";
+				   	   		print "\t\t\t\t\t\t\t<td colspan=\"2\" class=\"hlpcenter\"><a href=\"lostpassword.php\" target=\"_top\">"._("Lost password")."</a></td>\n";
 				   			print "\t\t\t\t\t\t</tr>\n";
 				   			
 				   		}
@@ -86,7 +86,7 @@ include( "./include/output.inc.php" );
 				      <td colspan="2">&nbsp;</td>
 				   </tr>
 				   <tr>
-				      <td colspan="2" class="hlp_center">
+				      <td colspan="2" class="hlpcenter">
 				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Login"); ?>"  title="<?php print _("Login"); ?>" />
 				      </td>
 				   </tr>

@@ -3,7 +3,7 @@ Update to V0.5.7.0
 Update the database in case of MySQL database
 
 To update the database please use the little sql script provided with
-this update. The script update-0.5.5.x-to-0.5.6.0.sql updates the MySQL
+this update. The script update-0.5.5.x-to-0.5.7.0.sql updates the MySQL
 database.
    
 For PostgreSQL and Oracle change the database update script according to
@@ -12,9 +12,10 @@ your needs.
 Version 0.5.7.0 was cleaned up. Unused files have been deleted. If you do not use the RPM
 installer please take care about the deleted files yourself.
 
-Constants are used instead of literals where suitable.
+Constants are used instead of literals where suitable. Code duplications have been removed
+to create a more clear code.
 
-This version has includes PHP Unit tests.
+This version has included PHP Unit tests.
 
 Basic tests have been done with PHP 7. So if you want to give it a try with PHP 7 please use 
 SVN Access Manager together with PHP 7 and keep me updated.

@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tRetViewvc = createViewvcConfig($dbh);
             
-            if (($tRetViewvc[ERROR] == 0) and ($tReload != "")) {
+            if (($tRetViewvc[ERROR] == 0) && ($tReload != "")) {
                 
                 $output = array();
                 

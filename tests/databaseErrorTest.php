@@ -35,7 +35,6 @@ final class DatabaseErrorTest extends PHPUnit_Framework_TestCase {
         $_GET['dberror'] = 'Test error';
         $_GET['dbfunction'] = 'Test function';
         $_SERVER['REQUEST_METHOD'] = 'GET';
-        $tMessage = 'nothing to say';
         
         ob_start();
         include ('database_error_install.php');
