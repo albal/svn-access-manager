@@ -37,50 +37,13 @@ require_once ("$installBase/include/functions.inc.php");
 require_once ("$installBase/include/db-functions-adodb.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
-function getRepos($start, $count, $dbh) {
-
-    $schema = db_determine_schema();
-    $tRepos = array();
-    $query = "SELECT   * " . "    FROM " . $schema . "svnrepos " . "   WHERE (deleted = '00000000000000') " . "ORDER BY reponame ASC ";
-    $result = db_query($query, $dbh, $count, $start);
-    
-    while ( $row = db_assoc($result['result']) ) {
-        
-        $tRepos[] = $row;
-    }
-    
-    return $tRepos;
-
-}
-
-function getCountRepos($dbh) {
-
-    $schema = db_determine_schema();
-    $tRepos = array();
-    $query = "SELECT   COUNT(*) AS anz " . "    FROM " . $schema . "svnrepos " . "   WHERE (deleted = '00000000000000') ";
-    $result = db_query($query, $dbh);
-    
-    if ($result['rows'] == 1) {
-        
-        $row = db_assoc($result['result']);
-        $count = $row['anz'];
-        
-        return $count;
-    }
-    else {
-        
-        return false;
-    }
-
-}
-
 initialize_i18n();
 
 $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, 'Repository admin', $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "listrepos";
 
@@ -95,11 +58,11 @@ if ($rightAllowed == "none") {
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $_SESSION[SVNSESSID]['repocounter'] = 0;
-    $tRepos = getRepos(0, - 1, $dbh);
-    $tCountRecords = getCountRepos($dbh);
+    $tRepos = db_getRepos(0, - 1, $dbh);
+    $tCountRecords = db_getCountRepos($dbh);
     $tPrevDisabled = "disabled";
     
-    if ($tCountRecords <= $CONF['page_size']) {
+    if ($tCountRecords <= $CONF[PAGESIZE]) {
         
         $tNextDisabled = "disabled";
     }
@@ -134,50 +97,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $tSearch = isset($_POST['fSearch']) ? db_escape_string($_POST['fSearch']) : "";
     
-    if (($button == "search") or ($tSearch != "")) {
+    if (($button == "search") || ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
         $_SESSION[SVNSESSID]['search'] = $tSearch;
         $_SESSION[SVNSESSID]['searchtype'] = REPOS;
-        $tRepos = array();
-        
-        if ($tSearch == "") {
-            
-            $tErrorClass = "error";
-            $tMessage = _("No search string given!");
-        }
-        else {
-            
-            $tArray = array();
-            $schema = db_determine_schema();
-            $query = "SELECT * " . "  FROM " . $schema . "svnrepos " . " WHERE ((repouser like '%$tSearch%') " . "    OR (reponame like '%$tSearch%')) " . "   AND (deleted = '00000000000000') " . "ORDER BY reponame ASC";
-            $result = db_query($query, $dbh);
-            while ( $row = db_assoc($result['result']) ) {
-                
-                $tArray[] = $row;
-            }
-            
-            if (count($tArray) == 0) {
-                
-                $tErrorClass = "info";
-                $tMessage = _("No user found!");
-            }
-            elseif (count($tArray) == 1) {
-                
-                $id = $tArray[0]['id'];
-                $url = "workOnRepo.php?id=" . urlencode($id) . "&task=change";
-                db_disconnect($dbh);
-                header("location: $url");
-                exit();
-            }
-            else {
-                
-                db_disconnect($dbh);
-                $_SESSION[SVNSESSID]['searchresult'] = $tArray;
-                header("location: searchresult.php");
-                exit();
-            }
-        }
+        $result = db_get_list('repos', $tSearch, $dbh);
+        $tErrorClass = $result['errorclass'];
+        $tMessage = $result['message'];
+        $tRepos = $result[RESULT];
     }
     elseif ($button == _("New repository")) {
         

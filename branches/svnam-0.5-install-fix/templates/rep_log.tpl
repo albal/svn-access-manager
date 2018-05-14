@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Log report"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="rep_log" method="post">
@@ -80,7 +80,7 @@
 						$('#page'+currentPage).addClass('currentpage');
 					}
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

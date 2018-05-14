@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($result['rows'] == 1) {
         
-        if ((isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) == "YES")) {
+        if ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) == "YES")) {
             
             $ldapres = check_ldap_password($fUsername, $fPassword);
             if ($ldapres == 1) {
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $result = db_query("SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$fUsername') " . "   AND (password = '$password')", $dbh);
         }
         
-        if (($error == 0) and ($result['rows'] != 1)) {
+        if (($error == 0) && ($result['rows'] != 1)) {
             
             $error = 1;
             $tMessage = _('Username and/or password wrong');
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tGivenname = $row['givenname'];
             $tAdmin = $row['admin'];
             $tPasswordExpires = $row['passwordexpires'];
-            if (($tPasswordExpires != 0) and (isset($CONF['use_ldap'])) and (strtoupper($CONF['use_ldap']) != "YES")) {
+            if (($tPasswordExpires != 0) && (isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES")) {
                 
                 $tPwModified = mkUnixTimestampFromDateTime($row['password_modified']);
                 $today = time();
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $query = "SELECT * " . "  FROM " . $schema . "svn_projects_responsible " . " WHERE (user_id = $id) " . "   AND (deleted = '00000000000000')";
             $result = db_query($query, $dbh);
             
-            if (($result['rows'] > 0) and ($tAdmin == "n")) {
+            if (($result['rows'] > 0) && ($tAdmin == "n")) {
                 
                 $tAdmin = 'p';
             }
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION[SVNSESSID] = array();
         }
 
-        $_SESSION[SVNSESSID]['username'] = $fUsername;
+        $_SESSION[SVNSESSID][USERNAME] = $fUsername;
         $_SESSION[SVNSESSID]['name'] = $tName;
         $_SESSION[SVNSESSID]['givenname'] = $tGivenname;
         $_SESSION[SVNSESSID]['admin'] = $tAdmin;
@@ -150,11 +150,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION[SVNSESSID]['password'] = $fPassword;
         }
 
-        db_log($_SESSION[SVNSESSID]['username'], "user $tUsername logged in", $dbh);
+        db_log($_SESSION[SVNSESSID][USERNAME], "user $tUsername logged in", $dbh);
 
         if ($tPasswordExpired == 1) {
             
-            db_log($_SESSION[SVNSESSID]['username'], "password of user $tUsername expired, force password change", $dbh);
+            db_log($_SESSION[SVNSESSID][USERNAME], "password of user $tUsername expired, force password change", $dbh);
             db_disconnect($dbh);
             header("Location: password.php");
             exit();

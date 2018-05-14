@@ -43,7 +43,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "replockedusers";
 
@@ -62,15 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tCountRecords = db_getCountLockedUsers($dbh);
     $tPrevDisabled = "disabled";
     
-    if ($tCountRecords <= $CONF['page_size']) {
+    if ($tCountRecords <= $CONF[PAGESIZE]) {
         
         $tNextDisabled = "disabled";
     }
     
     $template = "rep_locked_users.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -84,9 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $template = "rep_locked_users.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     

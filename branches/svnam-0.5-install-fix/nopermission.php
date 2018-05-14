@@ -41,14 +41,14 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session();
 $dbh = db_connect();
-$_SESSION[SVNSESSID]['helptopic'] = "nopermission";
+$_SESSION[SVNSESSID]['helptopic'] = NOPERMISSION;
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $template = "nopermission.tpl";
-    $header = "nopermission";
-    $subheader = "nopermission";
-    $menu = "nopermission";
+    $header = NOPERMISSION;
+    $subheader = NOPERMISSION;
+    $menu = NOPERMISSION;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $template = "nopermission.tpl";
-    $header = "nopermission";
-    $subheader = "nopermission";
-    $menu = "nopermission";
+    $header = NOPERMISSION;
+    $subheader = NOPERMISSION;
+    $menu = NOPERMISSION;
     
     include ("$installBase/templates/framework.tpl");
     

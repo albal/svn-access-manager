@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form action="workOnGroup.php" method="post">
 				<table>
 					<tr>

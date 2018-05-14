@@ -1,9 +1,9 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Access rights administration search result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="list_access_rights" method="post">
 				
-				<table id="accessrightlist_table">
+				<table id="accessrightlisttable">
 				   	<thead>
 				   			<tr>
 					   		<th align="center">
@@ -36,57 +36,16 @@
 					   	</tr>				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		$i 										= 0;
-					   		$_SESSION[SVNSESSID]['max_mark']		= 0;
-					   		$_SESSUIN[SVNSESSID]['mark']			= array();
-					   		
-					   		foreach( $tArray as $entry ) {
-					   		
-					   			$id						= $entry['rid'];
-					   			$validfrom				= splitValidDate( $entry['valid_from'] );
-					   			$validuntil				= splitValiddate( $entry['valid_until'] );
-					   			$field					= "fDelete".$i;
-					   			$action					= "";
-					   			
-					   			if( $rightAllowed == "edit" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} elseif( $rightAllowed == "delete" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['rid'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} elseif( $_SESSION[SVNSESSID]['admin'] == "p" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['rid']."&task=change");
-					   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['rid']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['rid'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			}
-					   			
-					   			print "\t\t\t\t\t<tr valign=\"top\">\n";
-					   			print "\t\t\t\t\t\t<td><input type=\"checkbox\" name=\"".$field."\" /></td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
-					   			print "\t\t\t\t\t\t<td align=\"center\">".$entry['access_right']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['username']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['groupname']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$validfrom."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$validuntil."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['reponame'].":".$entry['path']."</td>\n";
-					   			print "\t\t\t\t\t\t<td nowrap>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   			
-					   			$_SESSION[SVNSESSID]['mark'][$i]		= $entry['rid'];
-					   			
-					   			$i++;
-					   		}
-					   		
-					   		$_SESSION[SVNSESSID]['max_mark'] = $i - 1;
+					   		outputAccessRights($tArray, $rightAllowed);
 					   	?>
 				   	</tbody>
 				   	<tfoot>
 				   		<tr>
-					      <td colspan="9" class="hlp_center">
+					      <td colspan="9" class="hlpcenter">
 					        <?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
-					      		    ($rightAllowed == "delete") or 
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
+					      		    ($rightAllowed == "delete") ||  
 					      		    ($_SESSION[SVNSESSID]['admin'] == "p") ) {
 					      		    
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New access right")."\"  title=\""._("New access right")."\" />     ";
@@ -105,14 +64,14 @@
 				</table>
 			</form>
 			<script>
-					$("#accessrightlist_table").ariaSorTable({
+					$("#accessrightlisttable").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

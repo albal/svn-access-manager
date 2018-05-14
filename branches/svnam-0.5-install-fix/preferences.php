@@ -56,40 +56,40 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if ($result['rows'] == 0) {
         
         $tPageSize = $CONF['page_size'];
-        $tSortField = $CONF['user_sort_fields'];
-        $tSortOrder = $CONF['user_sort_order'];
+        $tSortField = $CONF[USER_SORT_FIELDS];
+        $tSortOrder = $CONF[USER_SORT_ORDER];
     }
     else {
         
         $row = db_assoc($result['result']);
         $tPageSize = $row['page_size'];
-        $tSortField = $row['user_sort_fields'];
-        $tSortOrder = $row['user_sort_order'];
+        $tSortField = $row[USER_SORT_FIELDS];
+        $tSortOrder = $row[USER_SORT_ORDER];
         
         if ($tSortField == "") {
             
-            $tSortField = $CONF['user_sort_fields'];
-            $tSortOrder = $CONF['user_sort_order'];
+            $tSortField = $CONF[USER_SORT_FIELDS];
+            $tSortOrder = $CONF[USER_SORT_ORDER];
         }
     }
     
     // sort order asc handled in else branch
     if ($tSortOrder == "DESC") {
-        $tDesc = "checked";
+        $tDesc = CHECKED;
         $tAsc = "";
     }
     else {
-        $tAsc = "checked";
+        $tAsc = CHECKED;
         $tDesc = "";
     }
     
     // sort prefende name,givenname is handled in else branch
     if ($tSortField == "userid") {
-        $tUserid = "checked";
+        $tUserid = CHECKED;
         $tName = "";
     }
     else {
-        $tName = "checked";
+        $tName = CHECKED;
         $tUserid = "";
     }
     
@@ -152,17 +152,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $error = 1;
             $tMessage = _("Records per page must contain digits only!");
         }
-        // elseif( $tSortField == "" ) {
-        
-        // $error = 1;
-        // $tMessage = _("Please select the user sort fields!" );
-        
-        // } elseif( $tSortOrder == "" ) {
-        
-        // $error = 1;
-        // $tMessage = -_("Please select the user sort order!" );
-        
-        // }
         
         if ($error == 0) {
             
@@ -204,21 +193,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     // sort orswr ASC is handled in else brnach
     if ($tSortOrder == "DESC") {
-        $tDesc = "checked";
+        $tDesc = CHECKED;
         $tAsc = "";
     }
     else {
-        $tAsc = "checked";
+        $tAsc = CHECKED;
         $tDesc = "";
     }
     
     // sort preference name,givennme is handled in else branch
     if ($tSortField == "userid") {
-        $tUserid = "checked";
+        $tUserid = CHECKED;
         $tName = "";
     }
     else {
-        $tName = "checked";
+        $tName = CHECKED;
         $tUserid = "";
     }
     

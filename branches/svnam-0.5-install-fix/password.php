@@ -41,14 +41,14 @@ initialize_i18n();
 
 $dbh = db_connect();
 $SESSID_USERNAME = check_session();
-$_SESSION[SVNSESSID]['helptopic'] = "password";
+$_SESSION[SVNSESSID]['helptopic'] = PASSWORD;
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    $header = "password";
-    $subheader = "password";
-    $menu = "password";
+    $header = PASSWORD;
+    $subheader = PASSWORD;
+    $menu = PASSWORD;
     $template = "password.tpl";
     
     include ("$installBase/templates/framework.tpl");
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $pPassword_email_text = _("User doesn't exist!");
     }
     
-    if (empty($fPassword) or ($fPassword != $fPassword2)) {
+    if (empty($fPassword) || ($fPassword != $fPassword2)) {
         
         $error = 1;
         $pPassword_password_text = _("New passwords do not match!");
@@ -98,13 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $pPassword_password_text = _("New password can not be the same as the current password!");
     }
     
-    if ($error == 0) {
+    if (($error == 0) && (checkPasswordPolicy($fPassword, $isAdmin) == 0)) {
         
-        if (checkPasswordPolicy($fPassword, $isAdmin) == 0) {
-            
-            $tMessage = _("Password not strong enough!");
-            $error = 1;
-        }
+        $tMessage = _("Password not strong enough!");
+        $error = 1;
     }
     
     if ($error != 1) {
@@ -133,9 +130,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
     
-    $header = "password";
-    $subheader = "password";
-    $menu = "password";
+    $header = PASSWORD;
+    $subheader = PASSWORD;
+    $menu = PASSWORD;
     $template = "password.tpl";
     
     include ("$installBase/templates/framework.tpl");

@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Repository administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="repo_list" method="post">
@@ -36,33 +36,7 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		foreach( $tRepos as $entry ) {
-					   		
-					   			if( ($rightAllowed == "edit") or
-					   			    ($rightAllowed == "delete" ) ) {
-					   			    $url				= htmlentities("workOnRepo.php?id=".$entry['id']."&task=change");
-					   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$edit				= "";
-					   			}
-					   			
-					   			
-					   			if( $rightAllowed == "delete" ) {
-					   				$url				= htmlentities("deleteRepo.php?id=".$entry['id']."&task=delete");
-					   				$delete				= "<a href=\"$url\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$delete				= "";
-					   			}
-					   			$action					= $edit."     ".$delete;
-					   			
-					   			print "\t\t\t\t\t<tr>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['reponame']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['repopath']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['repouser']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['repopassword']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   		}
+					   		outputRepos($tRepos, $rightAllowed);
 					   	?>
 				   	</tbody>
 				   	<tfoot>
@@ -79,10 +53,10 @@
 							</td>
 				   		</tr>
 				   		<tr>
-					      <td colspan="5" class="hlp_center">
+					      <td colspan="5" class="hlpcenter">
 					        <?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
 					      		    ($rightAllowed == "delete") ) {
 					      		    
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New repository")."\"  title=\""._("New repository")."\" />     ";
@@ -156,7 +130,7 @@
 
                 	});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

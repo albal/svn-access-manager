@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tPassword1 = db_escape_string($_POST['fPassword1']);
     $tPassword2 = db_escape_string($_POST['fPassword2']);
     
-    if (($tPassword1 == "") or ($tPassword2 == "")) {
+    if (($tPassword1 == "") || ($tPassword2 == "")) {
         
         $tMessage = _("Please fill in the new password twice!");
         $error = 1;

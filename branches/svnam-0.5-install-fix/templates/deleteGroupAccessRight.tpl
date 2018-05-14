@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="deleteGroupAccess Right" method="post">
 				<table>
 				   	<tr>
@@ -32,7 +32,7 @@
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Delete"); ?>"  title="<?php print _("Delete"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>

@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Access rights administration"); ?></h3>
 			<p>&nbsp;</p>
 			<form id="form_access_list" name="list_access_rights" method="post">
@@ -47,48 +47,7 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		$i 										= 0;
-					   		$_SESSION[SVNSESSID]['max_mark']		= 0;
-					   		$_SESSUIN[SVNSESSID]['mark']			= array();
-					   		
-					   		foreach( $tAccessRights as $entry ) {
-					   		
-					   			$id						= $entry['id'];
-					   			$validfrom				= splitValidDate( $entry['valid_from'] );
-					   			$validuntil				= splitValiddate( $entry['valid_until'] );
-					   			$field					= "fDelete".$i;
-					   			$action					= "";
-					   			
-					   			if( $rightAllowed == "edit" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} elseif( $rightAllowed == "delete" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} elseif( $_SESSION[SVNSESSID]['admin'] == "p" ) {
-					   				$url					= htmlentities("workOnAccessRight.php?id=".$entry['id']."&task=change");
-					   				$action					= "<a href=\"workOnAccessRight.php?id=".$entry['id']."&task=change\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   				$action					= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>     <a href=\"deleteAccessRight.php?id=".htmlentities($entry['id'])."&task=delete\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			}
-					   			
-					   			print "\t\t\t\t\t<tr valign=\"top\">\n";
-					   			print "\t\t\t\t\t\t<td><input type=\"checkbox\" name=\"".$field."\" value=\"".$entry['id']."\"/></td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
-					   			print "\t\t\t\t\t\t<td align=\"center\">".$entry['access_right']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['username']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['groupname']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$validfrom."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$validuntil."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['reponame'].":".$entry['path']."</td>\n";
-					   			print "\t\t\t\t\t\t<td nowrap>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   			
-					   			$_SESSION[SVNSESSID]['mark'][$i]		= $entry['id'];
-					   			
-					   			$i++;
-					   		}
-					   		
-					   		$_SESSION[SVNSESSID]['max_mark'] = $i - 1;
+					   		outputAccessRights($tAccessRights, $rightAllowed);
 					   	?>
 				   	</tbody>
 				   	<tfoot>
@@ -105,11 +64,11 @@
 							</td>
 				   		</tr>
 				   		<tr>
-					      <td colspan="9" class="hlp_center">
+					      <td colspan="9" class="hlpcenter">
 					        <?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
-					      		    ($rightAllowed == "delete") or 
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
+					      		    ($rightAllowed == "delete") ||  
 					      		    ($_SESSION[SVNSESSID]['admin'] == "p") ) {
 					      		    
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/edit_add.png\" value=\""._("New access right")."\"  title=\""._("New access right")."\" />     ";
@@ -149,7 +108,7 @@
 						$('#page'+currentPage).addClass('currentpage');
 					}
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

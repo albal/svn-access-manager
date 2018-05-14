@@ -40,20 +40,20 @@ initialize_i18n();
 
 $SESSID_USERNAME = check_session_lpw("n");
 $dbh = db_connect();
-$_SESSION['svn_lpw']['helptopic'] = "lostpassword";
+$_SESSION[SVNLPW][HELPTOPIC] = "lostpassword";
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
-    if (isset($_SESSION['svn_lpw']['error'])) {
-        $tMessage = $_SESSION['svn_lpw']['error'];
+    if (isset($_SESSION[SVNLPW]['error'])) {
+        $tMessage = $_SESSION[SVNLPW]['error'];
     }
     else {
         $tMessage = "";
     }
     
     $tUsername = $SESSID_USERNAME;
-    $tEmailaddress = isset($_SESSION['svn_lpw']['emailaddress']) ? $_SESSION['svn_lpw']['emailaddress'] : "";
+    $tEmailaddress = isset($_SESSION[SVNLPW][EMAILADDRESS]) ? $_SESSION[SVNLPW][EMAILADDRESS] : "";
     
     include ("$installBase/templates/lostpassword.tpl");
 }
@@ -69,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $s = new Session();
         session_start();
-        // session_register("svn_lpw");
-        if (! isset($_SESSION['svn_lpw'])) {
-            $_SESSION['svn_lpw'] = array();
+
+        if (! isset($_SESSION[SVNLPW])) {
+            $_SESSION[SVNLPW] = array();
         }
-        $_SESSION['svn_lpw']['username'] = $tUsername;
-        $_SESSION['svn_lpw']['emailaddress'] = $tEmailaddress;
+        $_SESSION[SVNLPW]['username'] = $tUsername;
+        $_SESSION[SVNLPW][EMAILADDRESS] = $tEmailaddress;
         
         db_log($tUsername, "password reset requested for valid username", $dbh);
         db_disconnect($dbh);

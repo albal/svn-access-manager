@@ -1,8 +1,8 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Search group result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="group_list" method="post">
-				<table id="grouplist_table">
+				<table id="grouplisttable">
 				   	<thead>
 				   		<tr>
 					   		<th>
@@ -18,44 +18,15 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		foreach( $tArray as $entry ) {
-					   		
-					   			$groupRight				=  isset($tGroupsAllowed[$entry['id']]) ? $tGroupsAllowed[$entry['id']] : "none";
-					   			
-					   			if( ($rightAllowed == "edit") or
-					   			    ($rightAllowed == "delete") or
-					   			    ($groupRight == "edit") or
-					   			    ($groupRight == "delete") 
-					   			   ) {
-					   			   	$url				= htmlentities("workOnGroup.php?id=".$entry['id']."&task=change");
-					   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$edit				= "";
-					   			}
-					   			
-					   			
-					   			if( ($rightAllowed == "delete") or ($groupRight == "delete") ) {
-					   				$url				= htmlentities("deleteGroup.php?id=".$entry['id']."&task=delete");
-					   				$delete				= "<a href=\"$url\" title=\""._("delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$delete				= "";
-					   			}
-					   			$action					= $edit."     ".$delete;
-					   			
-					   			print "\t\t\t\t\t<tr>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['groupname']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['description']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   		}
+					   		outputGroups($tArray, $tGroupsAllowed, $rightAllowed);
 					   	?>
 				   	</tbody>
 				   	<tfoot>
 				   		<tr>
 				   			<td colspan="3">
 				   				<?php
-						      		if( ($rightAllowed == "add") or
-						      		    ($rightAllowed == "edit") or
+						      		if( ($rightAllowed == "add") || 
+						      		    ($rightAllowed == "edit") || 
 						      		    ($rightAllowed == "delete") ) {
 						      		    
 						      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_group.png\" value=\""._("New group")."\"  title=\""._("New group")."\" />     ";
@@ -74,14 +45,14 @@
 				</table>
 			</form>
 			<script>
-					$("#grouplist_table").ariaSorTable({
+					$("#grouplisttable").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

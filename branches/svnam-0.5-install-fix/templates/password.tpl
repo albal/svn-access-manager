@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 		<form name="mailbox" method="post">
 		<table>
 		   <tr>
@@ -32,7 +32,7 @@
 		      <td colspan=3>&nbsp;</td>
 		   </tr>
 		   <tr>
-		      <td colspan="3" class="hlp_center">
+		      <td colspan="3" class="hlpcenter">
 		      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Change password"); ?>"  title="<?php print _("Change password"); ?>" />
 			  </td>
 		   </tr>

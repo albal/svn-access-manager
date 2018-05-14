@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="workOnRepo" method="post">
 				<table>
 				   	<tr>
@@ -54,10 +54,10 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<?php
-				   		if( isset( $CONF['separateFilesPerRepo'] ) ) {
-				   			if( $CONF['separateFilesPerRepo'] != "YES" ) {
-				   				print "<!--\n";
-				   			}
+				   		if(isset( $CONF[SEPARATEFILESPERREPO]) && ($CONF[SEPARATEFILESPERREPO] != "YES")) {
+				   			
+			   				print "<!--\n";
+				   			
 				   		}
 				   	?>
 				   	<tr>
@@ -81,17 +81,17 @@
 				   		<td>&nbsp;</td>
 				   	</tr>
 				   	<?php
-				   		if( isset( $CONF['separateFilesPerRepo'] ) ) {
-				   			if( $CONF['separateFilesPerRepo'] != "YES" ) {
-				   				print "-->\n";
-				   			}
+				   		if(isset( $CONF[SEPARATEFILESPERREPO]) && ($CONF[SEPARATEFILESPERREPO] != "YES")) {
+				   			
+			   				print "-->\n";
+				   			
 				   		} 
 				   	?>
 				   	<tr>
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>

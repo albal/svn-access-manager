@@ -33,18 +33,18 @@
 </head>
 <body>
 	<div id="wrap">
-		<div id="header_login">
-			<div id="header_left">
+		<div id="headerlogin">
+			<div id="headerleft">
 				<img src="../../images/svn-access-manager_200_60_white.jpg" width="200" height="60" border="0" />
 			</div>
-			<div id="header_right_login">
+			<div id="headerrightlogin">
 				
 			</div>
 			<div id="subheader">
 				&nbsp;
 			</div>
 		</div>
-		<div id="edit_form">
+		<div id="editform">
 			<h2><?php print _("SVN Access Manager Online Help"); ?></h2>
 			<p>&nbsp;</p>
 			<h3></h3>

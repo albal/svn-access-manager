@@ -43,7 +43,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "repgranteduserrights";
 
@@ -55,8 +55,6 @@ if ($rightAllowed == "none") {
     exit();
 }
 
-// error_log( "page_size = ".$CONF['page_size'] );
-
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tGrantedRights = db_getGrantedRights(0, - 1, $dbh);
@@ -64,15 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tPrevDisabled = "disabled";
     $_SESSION[SVNSESSID]['rightcounter'] = 0;
     
-    if ($tCountRecords <= $CONF['page_size']) {
+    if ($tCountRecords <= $CONF[PAGESIZE]) {
         
         $tNextDisabled = "disabled";
     }
     
     $template = "rep_granted_user_rights.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     
@@ -88,9 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $template = "rep_granted_user_rights.tpl";
-    $header = "reports";
-    $subheader = "reports";
-    $menu = "reports";
+    $header = REPORTS;
+    $subheader = REPORTS;
+    $menu = REPORTS;
     
     include ("$installBase/templates/framework.tpl");
     

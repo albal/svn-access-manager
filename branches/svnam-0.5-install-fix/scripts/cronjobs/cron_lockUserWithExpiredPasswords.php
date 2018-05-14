@@ -79,7 +79,7 @@ while( $row = db_assoc( $result['result'] ) ) {
 	$id								= $row['id'];
 	$password_modified				= mkUnixTimestampFromDateTime( $row['password_modified'] );
 	$diff_warn						= $CONF['password_expires_warn'] * 86400;
-	$diff_expire					= $CONF['password_expires'] * 86400;
+	$diff_expire					= $CONF[PASSWORD_EXPIRES] * 86400;
 	$emailaddress					= $row['emailaddress'];
 	$name							= $row['name'];
 	
@@ -88,8 +88,6 @@ while( $row = db_assoc( $result['result'] ) ) {
 		$name						= $row['givenname']." ".$name;
 		
 	}
-	
-	#error_log( "start working on user $userid( $name)");
 	
 	$curtime						= time();
 	
@@ -104,14 +102,13 @@ while( $row = db_assoc( $result['result'] ) ) {
 		
 		if( $resultupd['rows'] == 1 ) {
 		
-			$mailtext				= sprintf( $CONF['mail_password_warn'], $name, $url, $CONF['password_expires'] );
+			$mailtext				= sprintf( $CONF['mail_password_warn'], $name, $url, $CONF[PASSWORD_EXPIRES] );
 			$mailtext				= wordwrap( $mailtext, 70 );
-			$header					= "From: ".$CONF['admin_email']."\r\n" .
-									  "Reply-To: ".$CONF['admin_email'];
+			$header					= "From: ".$CONF[ADMIN_EMAIL]."\r\n" .
+									  "Reply-To: ".$CONF[ADMIN_EMAIL];
 			
 			db_ta( 'COMMIT', $dbh );
 			db_log( 'expiredUserCron', "locked user $userid ($name) because password is expired", $dbh );
-			#error_log( "locked user $userid ($name) because password is expired" );
 			
 			mail( $emailaddress, "SVN Access Manager account locked - password expired", $mailtext, $header );
 		
@@ -124,21 +121,16 @@ while( $row = db_assoc( $result['result'] ) ) {
 		
 	} elseif( ($curtime - $password_modified) > $diff_warn ) {
 	
-		$mailtext				= sprintf( $CONF['mail_password_warn'], $name, $url, $CONF['password_expires'] );
+		$mailtext				= sprintf( $CONF['mail_password_warn'], $name, $url, $CONF[PASSWORD_EXPIRES] );
 		$mailtext				= wordwrap( $mailtext, 70 );
-		$header					= "From: ".$CONF['admin_email']."\r\n" .
-								  "Reply-To: ".$CONF['admin_email'];
+		$header					= "From: ".$CONF[ADMIN_EMAIL]."\r\n" .
+								  "Reply-To: ".$CONF[ADMIN_EMAIL];
 		
 		db_log( 'expiredUserCron', "notified user $userid ($name) about account to expire", $dbh );
-		#error_log( "notified user $userid ($name) about account to expire" );
 		
 		mail( $emailaddress, "SVN Access Manager account about to expire", $mailtext, $header );
 	
-	} else {
-		
-		#error_log( "$userid password not expired, nothing to do" );
-		
-	}
+	} 
 	
 }								  
 

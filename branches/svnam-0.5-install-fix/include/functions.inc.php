@@ -27,8 +27,6 @@
  * $Id$
  *
  */
-
-// error_reporting (E_ERROR | E_WARNING | E_PARSE);
 error_reporting(E_NOTICE | E_ERROR | E_WARNING | E_PARSE);
 ini_set('display_errors', 'On');
 ini_set('display_startup_errors', 'On');
@@ -94,8 +92,8 @@ function initialize_i18n() {
         $localepath = "./locale";
     }
     
-    $dom = bindtextdomain(MESSAGES, $localepath);
-    $msgdom = textdomain(MESSAGES);
+    bindtextdomain(MESSAGES, $localepath);
+    textdomain(MESSAGES);
     
     bind_textdomain_codeset(MESSAGES, 'UTF-8');
     
@@ -121,13 +119,10 @@ function check_session() {
     
     $SESSID_USERNAME = $_SESSION[SVNSESSID][USERNAME];
     
-    if (isset($CONF['ldap_bind_use_login_data']) && ($CONF['ldap_bind_use_login_data'] == 1)) {
+    if ((isset($CONF['ldap_bind_use_login_data']) && ($CONF['ldap_bind_use_login_data'] == 1)) && (isset($CONF['ldap_bind_dn_suffix']))) {
         
-        if (isset($CONF['ldap_bind_dn_suffix'])) {
-            
-            $CONF['bind_dn'] = $_SESSION[SVNSESSID][USERNAME] . $CONF['ldap_bind_dn_suffix'];
-            $CONF['bind_pw'] = $_SESSION[SVNSESSID]['password'];
-        }
+        $CONF['bind_dn'] = $_SESSION[SVNSESSID][USERNAME] . $CONF['ldap_bind_dn_suffix'];
+        $CONF['bind_pw'] = $_SESSION[SVNSESSID]['password'];
     }
     
     return $SESSID_USERNAME;
@@ -223,13 +218,10 @@ function create_verify_string() {
 //
 function check_password_expired() {
 
-    if (isset($_SESSION[SVNSESSID]['password_expired'])) {
+    if ((isset($_SESSION[SVNSESSID]['password_expired'])) && ($_SESSION[SVNSESSID]['password_expired'] == 1)) {
         
-        if ($_SESSION[SVNSESSID]['password_expired'] == 1) {
-            
-            header("Location: password.php");
-            exit();
-        }
+        header("Location: password.php");
+        exit();
     }
     
 }
@@ -331,12 +323,7 @@ function get_locale() {
 //
 function check_string($var) {
 
-    if (preg_match('/^([A-Za-z0-9 ]+)+$/', $var)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return (preg_match('/^([A-Za-z0-9 ]+)+$/', $var));
     
 }
 
@@ -375,9 +362,7 @@ function getDateJhjjmmtt() {
         $day = "0" . $day;
     }
     
-    $moddate = $year . $mon . $day;
-    
-    return $moddate;
+    return ($year . $mon . $day);
     
 }
 
@@ -391,9 +376,8 @@ function splitdate($date) {
     $year = substr($date, 0, 4);
     $mon = substr($date, 4, 2);
     $day = substr($date, 6, 2);
-    $datum = $day . "." . $mon . "." . $year;
     
-    return $datum;
+    return ($day . "." . $mon . "." . $year);
     
 }
 
@@ -411,173 +395,7 @@ function check_date($day, $month, $year) {
 function no_magic_quotes($query) {
 
     $data = explode("\\\\", $query);
-    $cleaned = implode("\\", $data);
-    return $cleaned;
-    
-}
-
-//
-// escape_string
-// Action: Escape a string
-// Call: escape_string (string string)
-//
-function escape_string($string) {
-
-    global $CONF;
-    
-    if (get_magic_quotes_gpc() == 0) {
-        
-        if (is_array($string)) {
-            
-            return $string;
-        }
-        else {
-            $escaped_string = $string;
-            
-            if ($CONF[DATABASE_TYPE] == "mysql") {
-                $escaped_string = mysql_real_escape_string($string);
-            }
-            if ($CONF[DATABASE_TYPE] == "mysqli") {
-                $escaped_string = mysqli_real_escape_string($string);
-            }
-            if ($CONF[DATABASE_TYPE] == "pgsql") {
-                $escaped_string = pg_escape_string($string);
-            }
-        }
-    }
-    else {
-        
-        $escaped_string = $string;
-    }
-    
-    return $escaped_string;
-    
-}
-
-//
-// encode_header
-// Action: Encode a string according to RFC 1522 for use in headers if it contains 8-bit characters.
-// Call: encode_header (string header, string charset)
-//
-function encode_header($string, $default_charset) {
-
-    if (strtolower($default_charset) == 'iso-8859-1') {
-        $string = str_replace("\240", ' ', $string);
-    }
-    
-    $j = strlen($string);
-    $max_l = 75 - strlen($default_charset) - 7;
-    $aRet = array();
-    $ret = '';
-    $iEncStart = $enc_init = false;
-    $cur_l = $iOffset = 0;
-    
-    for($i = 0; $i < $j; ++ $i) {
-        switch ($string{$i}) {
-            case '=' :
-            case '<' :
-            case '>' :
-            case ',' :
-            case '?' :
-            case '_' :
-                if ($iEncStart === false) {
-                    $iEncStart = $i;
-                }
-                $cur_l += 3;
-                if ($cur_l > ($max_l - 2)) {
-                    $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
-                    $aRet[] = "=?$default_charset?Q?$ret?=";
-                    $iOffset = $i;
-                    $cur_l = 0;
-                    $ret = '';
-                    $iEncStart = false;
-                }
-                else {
-                    $ret .= sprintf("=%02X", ord($string{$i}));
-                }
-                break;
-            case '(' :
-            case ')' :
-                if ($iEncStart !== false) {
-                    $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
-                    $aRet[] = "=?$default_charset?Q?$ret?=";
-                    $iOffset = $i;
-                    $cur_l = 0;
-                    $ret = '';
-                    $iEncStart = false;
-                }
-                break;
-            case ' ' :
-                if ($iEncStart !== false) {
-                    $cur_l ++;
-                    if ($cur_l > $max_l) {
-                        $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
-                        $aRet[] = "=?$default_charset?Q?$ret?=";
-                        $iOffset = $i;
-                        $cur_l = 0;
-                        $ret = '';
-                        $iEncStart = false;
-                    }
-                    else {
-                        $ret .= '_';
-                    }
-                }
-                break;
-            default :
-                $k = ord($string{$i});
-                if ($k > 126) {
-                    if ($iEncStart === false) {
-                        // do not start encoding in the middle of a string, also take the rest of the word.
-                        $sLeadString = substr($string, 0, $i);
-                        $aLeadString = explode(' ', $sLeadString);
-                        $sToBeEncoded = array_pop($aLeadString);
-                        $iEncStart = $i - strlen($sToBeEncoded);
-                        $ret .= $sToBeEncoded;
-                        $cur_l += strlen($sToBeEncoded);
-                    }
-                    $cur_l += 3;
-                    // first we add the encoded string that reached it's max size
-                    if ($cur_l > ($max_l - 2)) {
-                        $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
-                        $aRet[] = "=?$default_charset?Q?$ret?= ";
-                        $cur_l = 3;
-                        $ret = '';
-                        $iOffset = $i;
-                        $iEncStart = $i;
-                    }
-                    $enc_init = true;
-                    $ret .= sprintf("=%02X", $k);
-                }
-                else {
-                    if ($iEncStart !== false) {
-                        $cur_l ++;
-                        if ($cur_l > $max_l) {
-                            $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
-                            $aRet[] = "=?$default_charset?Q?$ret?=";
-                            $iEncStart = false;
-                            $iOffset = $i;
-                            $cur_l = 0;
-                            $ret = '';
-                        }
-                        else {
-                            $ret .= $string{$i};
-                        }
-                    }
-                }
-                break;
-        }
-    }
-    if ($enc_init) {
-        if ($iEncStart !== false) {
-            $aRet[] = substr($string, $iOffset, $iEncStart - $iOffset);
-            $aRet[] = "=?$default_charset?Q?$ret?=";
-        }
-        else {
-            $aRet[] = substr($string, $iOffset);
-        }
-        $string = implode('', $aRet);
-    }
-    return $string;
+    return (implode("\\", $data));
     
 }
 
@@ -588,8 +406,7 @@ function encode_header($string, $default_charset) {
 //
 function generate_password() {
 
-    $password = substr(md5(mt_rand()), 0, 8);
-    return $password;
+    return (substr(md5(mt_rand()), 0, 8));
     
 }
 
@@ -652,7 +469,7 @@ function generatePassword($admin) {
                         
                         case 1 :
                             $index = 60;
-                            while ( ($index == 60) or ($index == 62) ) {
+                            while ( ($index == 60) || ($index == 62) ) {
                                 $index = rand(58, 64);
                             }
                             break;
@@ -701,7 +518,7 @@ function pacrypt($pw, $pw_db = "") {
         case "sha" : //
             return '{SHA}' . base64_encode(pack('H*', sha1($pw)));
             break;
-        case "apr-md5" : // The modern Apache version of the MD5 password hash
+        case APRMD5 : // The modern Apache version of the MD5 password hash
             return md5crypt($pw, $salt, '$apr1$');
             break;
         case "md5" : // The Unix version of the MD5 password hash
@@ -733,7 +550,7 @@ function get_passwd_type_salt($hpw, &$salt) {
     if ($split_hash[0] == "" && $split_hash[1] != "") {
         switch ($split_hash[1]) {
             case "apr1" :
-                $type = "apr-md5";
+                $type = APRMD5;
                 break;
             case "1" :
                 $type = "md5";
@@ -892,6 +709,98 @@ function to64($v, $n) {
     
 }
 
+function checkAdminPasswordPolicy($passwordLength, $groups) {
+
+    global $CONF;
+    
+    if (isset($CONF['minPasswordlength'])) {
+        $minPasswordLength = $CONF['minPasswordlength'];
+    }
+    else {
+        $minPasswordLength = 14;
+    }
+    if ($passwordLength < $minPasswordLength) {
+        
+        $retval = 0;
+    }
+    else {
+        
+        if (isset($CONF['minPasswordGroups'])) {
+            $minPasswordGroups = $CONF['minPasswordGroups'];
+        }
+        else {
+            $minPasswordGroups = 4;
+        }
+        if (isset($minPasswordGroups)) {
+            
+            if (($minPasswordGroups < 1) || ($minPasswordGroups > 4)) {
+                $minGroups = 4;
+            }
+            else {
+                $minGroups = $minPasswordGroups;
+            }
+        }
+        else {
+            $minGroups = 4;
+        }
+        
+        if ($groups < $minGroups) {
+            
+            $retval = 0;
+        }
+        else {
+            
+            $retval = 1;
+        }
+    }
+    
+    return ($retval);
+    
+}
+
+function checkNormalPasswordPolicy($passwordLength, $groups) {
+
+    global $CONF;
+    
+    if (isset($CONF['minPasswordlengthUser'])) {
+        $minPasswordLengthUser = $CONF['minPasswordlengthUser'];
+    }
+    else {
+        $minPasswordLengthUser = 8;
+    }
+    if ($passwordLength < $minPasswordLengthUser) {
+        
+        $retval = 0;
+    }
+    else {
+        
+        if (isset($CONF[MINPASSWORDGROUPUSER])) {
+            
+            if (($CONF[MINPASSWORDGROUPUSER] < 1) || ($CONF[MINPASSWORDGROUPUSER] > 4)) {
+                $minGroupsUser = 3;
+            }
+            else {
+                $minGroupsUser = $CONF[MINPASSWORDGROUPUSER];
+            }
+        }
+        else {
+            $minGroupsUser = 3;
+        }
+        
+        if ($groups < $minGroupsUser) {
+            
+            $retval = 0;
+        }
+        else {
+            
+            $retval = 1;
+        }
+    }
+    
+    return ($retval);
+    
+}
+
 //
 // checkPasswordPolicy
 // Action: check password against password policy
@@ -933,83 +842,11 @@ function checkPasswordPolicy($password, $admin = "y") {
     
     if ($admin == "y") {
         
-        if (isset($CONF['minPasswordlength'])) {
-            $minPasswordLength = $CONF['minPasswordlength'];
-        }
-        else {
-            $minPasswordLength = 14;
-        }
-        if ($passwordLength < $minPasswordLength) {
-            
-            $retval = 0;
-        }
-        else {
-            
-            if (isset($CONF['minPasswordGroups'])) {
-                $minPasswordGroups = $CONF['minPasswordGroups'];
-            }
-            else {
-                $minPasswordGroups = 4;
-            }
-            if (isset($minPasswordGroups)) {
-                
-                if (($minPasswordGroups < 1) or ($minPasswordGroups > 4)) {
-                    $minGroups = 4;
-                }
-                else {
-                    $minGroups = $minPasswordGroups;
-                }
-            }
-            else {
-                $minGroups = 4;
-            }
-            
-            if ($groups < $minGroups) {
-                
-                $retval = 0;
-            }
-            else {
-                
-                $retval = 1;
-            }
-        }
+        $retval = checkAdminPasswordPolicy($passwordLength, $groups);
     }
     else {
         
-        if (isset($CONF['minPasswordlengthUser'])) {
-            $minPasswordLengthUser = $CONF['minPasswordlengthUser'];
-        }
-        else {
-            $minPasswordLengthUser = 8;
-        }
-        if ($passwordLength < $minPasswordLengthUser) {
-            
-            $retval = 0;
-        }
-        else {
-            
-            if (isset($CONF[MINPASSWORDGROUPUSER])) {
-                
-                if (($CONF[MINPASSWORDGROUPUSER] < 1) or ($CONF[MINPASSWORDGROUPUSER] > 4)) {
-                    $minGroupsUser = 3;
-                }
-                else {
-                    $minGroupsUser = $CONF[MINPASSWORDGROUPUSER];
-                }
-            }
-            else {
-                $minGroupsUser = 3;
-            }
-            
-            if ($groups < $minGroupsUser) {
-                
-                $retval = 0;
-            }
-            else {
-                
-                $retval = 1;
-            }
-        }
+        $retval = checkNormalPasswordPolicy($passwordLength, $groups);
     }
     
     return $retval;
@@ -1051,9 +888,7 @@ function splitValidDate($date) {
     $month = substr($date, 4, 2);
     $day = substr($date, 6, 2);
     
-    $datestr = $day . "." . $month . "." . $year;
-    
-    return $datestr;
+    return ($day . "." . $month . "." . $year);
     
 }
 
@@ -1071,9 +906,7 @@ function mkUnixTimestampFromDateTime($datetime) {
     $min = substr($datetime, 10, 2);
     $sec = substr($datetime, 12, 2);
     
-    $timestamp = mktime($hour, $min, $sec, $month, $day, $year, - 1);
-    
-    return $timestamp;
+    return (mktime($hour, $min, $sec, $month, $day, $year, - 1));
     
 }
 
@@ -1166,7 +999,7 @@ function encode_subject($in_str, $charset) {
 function sortLdapUsers($a, $b) {
 
     global $CONF;
-    $sortOrder = "ASC";
+    
     $aValue = $a[$CONF['ldap_sort_field']];
     $bValue = $b[$CONF['ldap_sort_field']];
     
@@ -1201,4 +1034,659 @@ function rand_name($len = 8) {
     return $name;
     
 }
+
+//
+// getGrepCommand
+// Action: determine grep command
+//
+function getGrepCommand($tGrepCommand) {
+
+    $greppath = array(
+            '/usr/local/bin/grep',
+            '/usr/bin/grep',
+            '/bin/grep'
+    );
+    
+    for($i = 0; $i < count($greppath); $i ++) {
+        if (file_exists($greppath[$i]) && ($tGrepCommand == "")) {
+            
+            $tGrepCommand = $greppath[$i];
+        }
+    }
+    
+    return ($tGrepCommand);
+    
+}
+
+//
+// getSvnadminCommand
+// Action: determine svnadmin command
+//
+function getSvnadminCommand($tSvnadminCommand) {
+
+    $svnadminpath = array(
+            '/usr/local/bin/svnadmin',
+            '/usr/bin/svnadmin',
+            '/bin/svnadmin'
+    );
+    
+    for($i = 0; $i < count($svnadminpath); $i ++) {
+        if (file_exists($svnadminpath[$i]) && ($tSvnadminCommand == "")) {
+            
+            $tSvnadminCommand = $svnadminpath[$i];
+        }
+    }
+    
+    return ($tSvnadminCommand);
+    
+}
+
+//
+// getApacheReloadCommand
+// Action: assemble apache reload command
+//
+function getApacheReloadCommand($tViewvcApacheReload) {
+
+    $apachepath = array(
+            '/etc/init.d/httpd',
+            '/etc/init.d/apache2',
+            '/etc/init.d/apache'
+    );
+    
+    for($i = 0; $i < count($apachepath); $i ++) {
+        if (file_exists($apachepath[$i]) && ($tViewvcApacheReload == "")) {
+            
+            $tViewvcApacheReload = "sudo " . $apachepath[$i] . " graceful";
+        }
+    }
+    
+    return ($tViewvcApacheReload);
+    
+}
+
+//
+// getSvnCommand
+// Actopn: determine svn command
+//
+function getSvnCommand($tSvnCommand) {
+
+    // common locations where to find grep and svn under linux/unix
+    $svnpath = array(
+            '/usr/local/bin/svn',
+            '/usr/bin/svn',
+            '/bin/svn'
+    );
+    
+    for($i = 0; $i < count($svnpath); $i ++) {
+        if (file_exists($svnpath[$i]) && ($tSvnCommand == "")) {
+            
+            $tSvnCommand = $svnpath[$i];
+        }
+    }
+    
+    return ($tSvnCommand);
+    
+}
+
+//
+// unlinkFile
+// Action: delete a file on Windows systems
+//
+function unlinkFile($os, $filename) {
+
+    if (($os == WINDOWS) && file_exists($filename)) {
+        unlink($filename);
+    }
+    
+}
+
+//
+// getSlash
+// Action: determine slash dependant on OS
+//
+function getSlash($os) {
+
+    return (($os == WINDOWS) ? "\\" : "/");
+    
+}
+
+//
+// translateRight
+// Action: translate right from database value to auth file value
+//
+function translateRight($right) {
+
+    // Right 'none' handled in else branch
+    if ($right == "read") {
+        
+        $right = "r";
+    }
+    elseif ($right == "write") {
+        
+        $right = "rw";
+    }
+    else {
+        
+        $right = "";
+    }
+    
+    return ($right);
+    
+}
+
+//
+// Installer setters
+//
+function setEncryption($tPwEnc) {
+
+    switch ($tPwEnc) {
+        case 'sha' :
+            $tPwSha = CHECKED;
+            $tPwApacheMd5 = "";
+            $tPwMd5 = "";
+            $tPwCrypt = "";
+            $tPwType = "sha";
+            break;
+        
+        case APRMD5 :
+            $tPwSha = "";
+            $tPwApacheMd5 = CHECKED;
+            $tPwMd5 = "";
+            $tPwCrypt = "";
+            $tPwType = APRMD5;
+            break;
+        
+        case 'md5' :
+            $tPwSha = "";
+            $tPwApacheMd5 = "";
+            $tPwMd5 = CHECKED;
+            $tPwCrypt = "";
+            $tPwType = "md5";
+            break;
+        
+        default :
+            $tPwSha = "";
+            $tPwApacheMd5 = "";
+            $tPwMd5 = "";
+            $tPwCrypt = CHECKED;
+            $tPwType = "crypt";
+    }
+    
+    return (array(
+            $tPwSha,
+            $tPwApacheMd5,
+            $tPwMd5,
+            $tPwCrypt,
+            $tPwType
+    ));
+    
+}
+
+function setUserDefaultAccess($tUserDefaultAccess) {
+
+    if ($tUserDefaultAccess == "read") {
+        $tUserDefaultAccessRead = CHECKED;
+        $tUserDefaultAccessWrite = "";
+    }
+    else {
+        $tUserDefaultAccessRead = "";
+        $tUserDefaultAccessWrite = CHECKED;
+    }
+    
+    return (array(
+            $tUserDefaultAccessRead,
+            $tUserDefaultAccessWrite
+    ));
+    
+}
+
+function setPasswordExpires($tExpirePassword) {
+
+    if ($tExpirePassword == 1) {
+        $tExpirePasswordYes = CHECKED;
+        $tExpirePasswordNo = "";
+    }
+    else {
+        $tExpirePasswordYes = "";
+        $tExpirePasswordNo = CHECKED;
+    }
+    
+    return (array(
+            $tExpirePasswordYes,
+            $tExpirePasswordNo
+    ));
+    
+}
+
+function setLogging($tLogging) {
+
+    if ($tLogging == "YES") {
+        $tLoggingYes = CHECKED;
+        $tLoggingNo = "";
+    }
+    else {
+        $tLoggingYes = "";
+        $tLoggingNo = CHECKED;
+    }
+    
+    return (array(
+            $tLoggingYes,
+            $tLoggingNo
+    ));
+    
+}
+
+function setJavaScript($tJavaScript) {
+
+    if ($tJavaScript == "YES") {
+        $tJavaScriptYes = CHECKED;
+        $tJavaScriptNo = "";
+    }
+    else {
+        $tJavaScriptYes = "";
+        $tJavaScriptNo = CHECKED;
+    }
+    
+    return (array(
+            $tJavaScriptYes,
+            $tJavaScriptNo
+    ));
+    
+}
+
+function setViewvcConfig($tViewvcConfig) {
+
+    if ($tViewvcConfig == "YES") {
+        $tViewvcConfigYes = CHECKED;
+        $tViewvcConfigNo = "";
+    }
+    else {
+        $tViewvcConfigYes = "";
+        $tViewvcConfigNo = CHECKED;
+    }
+    
+    return (array(
+            $tViewvcConfigYes,
+            $tViewvcConfigNo
+    ));
+    
+}
+
+function setAnonAccess($tAnonAccess) {
+
+    if ($tAnonAccess == 1) {
+        $tAnonAccessYes = CHECKED;
+        $tAnonAccessNo = "";
+    }
+    else {
+        $tAnonAccessYes = "";
+        $tAnonAccessNo = CHECKED;
+    }
+    
+    return (array(
+            $tAnonAccessYes,
+            $tAnonAccessNo
+    ));
+    
+}
+
+function setLdapBindUseLoginData($tLdapBindUseLoginData) {
+
+    if ($tLdapBindUseLoginData == 0) {
+        $tLdapBindUseLoginDataYes = "";
+        $tLdapBindUseLoginDataNo = CHECKED;
+    }
+    else {
+        $tLdapBindUseLoginDataYes = CHECKED;
+        $tLdapBindUseLoginDataNo = "";
+    }
+    
+    return (array(
+            $tLdapBindUseLoginDataYes,
+            $tLdapBindUseLoginDataNo
+    ));
+    
+}
+
+function setLdapUserSort($tLdapUserSort) {
+
+    if ($tLdapUserSort == "ASC") {
+        $tLdapUserSortAsc = CHECKED;
+        $tLdapUserSortDesc = "";
+    }
+    else {
+        $tLdapUserSortAsc = "";
+        $tLdapUserSortDesc = CHECKED;
+    }
+    
+    return (array(
+            $tLdapUserSortAsc,
+            $tLdapUserSortDesc
+    ));
+    
+}
+
+function setPathSortOrder($tPathSortOrder) {
+
+    if ($tPathSortOrder == "ASC") {
+        $tPathSortOrderAsc = CHECKED;
+        $tPathSortOrderDesc = "";
+    }
+    else {
+        $tPathSortOrderAsc = "";
+        $tPathSortOrderDesc = CHECKED;
+    }
+    
+    return (array(
+            $tPathSortOrderAsc,
+            $tPathSortOrderDesc
+    ));
+    
+}
+
+function setPerRepoFiles($tPerRepoFiles) {
+
+    if ($tPerRepoFiles == "YES") {
+        $tPerRepoFilesYes = CHECKED;
+        $tPerRepoFilesNo = "";
+    }
+    else {
+        $tPerRepoFilesYes = "";
+        $tPerRepoFilesNo = CHECKED;
+    }
+    
+    return (array(
+            $tPerRepoFilesYes,
+            $tPerRepoFilesNo
+    ));
+    
+}
+
+function setAccessControlLevel($tAccessControlLevel) {
+
+    if ($tAccessControlLevel == "dirs") {
+        $tAccessControlLevelDirs = CHECKED;
+        $tAccessControlLevelFiles = "";
+    }
+    else {
+        $tAccessControlLevelDirs = "";
+        $tAccessControlLevelFiles = CHECKED;
+    }
+    
+    return (array(
+            $tAccessControlLevelDirs,
+            $tAccessControlLevelFiles
+    ));
+    
+}
+
+function setDatabaseValues($tDatabase) {
+
+    switch ($tDatabase) {
+        case 'mysql' :
+            $tDatabaseMySQL = CHECKED;
+            $tDatabaseMySQLi = "";
+            $tDatabasePostgreSQL = "";
+            $tDatabaseOracle = "";
+            break;
+        
+        case 'mysqli' :
+            $tDatabaseMySQL = "";
+            $tDatabaseMySQLi = CHECKED;
+            $tDatabasePostgreSQL = "";
+            $tDatabaseOracle = "";
+            break;
+        
+        case 'postgres8' :
+            $tDatabaseMySQL = "";
+            $tDatabaseMySQLi = "";
+            $tDatabasePostgreSQL = CHECKED;
+            $tDatabaseOracle = "";
+            break;
+        
+        case 'oci8' :
+            $tDatabaseMySQL = "";
+            $tDatabaseMySQLi = "";
+            $tDatabasePostgreSQL = "";
+            $tDatabaseOracle = CHECKED;
+            break;
+        
+        default :
+            $tDatabaseMySQL = "";
+            $tDatabaseMySQLi = "";
+            $tDatabasePostgreSQL = "";
+            $tDatabaseOracle = "";
+    }
+    
+    return (array(
+            $tDatabaseMySQL,
+            $tDatabaseMySQLi,
+            $tDatabasePostgreSQL,
+            $tDatabaseOracle
+    ));
+    
+}
+
+function setUseSvnAccessFile($tUseSvnAccessFile) {
+
+    if ($tUseSvnAccessFile == "YES") {
+        $tUseSvnAccessFileYes = CHECKED;
+        $tUseSvnAccessFileNo = "";
+    }
+    else {
+        $tUseSvnAccessFileYes = "";
+        $tUseSvnAccessFileNo = CHECKED;
+    }
+    
+    return (array(
+            $tUseSvnAccessFileYes,
+            $tUseSvnAccessFileNo
+    ));
+    
+}
+
+function setUseAuthUserFile($tUseAuthUserFile) {
+
+    if ($tUseAuthUserFile == "YES") {
+        $tUseAuthUserFileYes = CHECKED;
+        $tUseAuthUserFileNo = "";
+    }
+    else {
+        $tUseAuthUserFileYes = "";
+        $tUseAuthUserFileNo = CHECKED;
+    }
+    
+    return (array(
+            $tUseAuthUserFileYes,
+            $tUseAuthUserFileNo
+    ));
+    
+}
+
+function setLdapprotocol($tLdapProtocol) {
+
+    if ($tLdapProtocol == "3") {
+        $tLdap3 = CHECKED;
+        $tLdap2 = "";
+    }
+    else {
+        $tLdap3 = "";
+        $tLdap2 = CHECKED;
+    }
+    
+    return (array(
+            $tLdap2,
+            $tLdap3
+    ));
+    
+}
+
+function setUseLdap($tUseLdap) {
+
+    if ($tUseLdap == "YES") {
+        $tUseLdapYes = CHECKED;
+        $tUseLdapNo = "";
+    }
+    else {
+        $tUseLdapYes = "";
+        $tUseLdapNo = CHECKED;
+    }
+    
+    return (array(
+            $tUseLdapYes,
+            $tUseLdapNo
+    ));
+    
+}
+
+function setSessionIndatabase($tSessionInDatabase) {
+
+    if ($tSessionInDatabase == "YES") {
+        $tSessionInDatabaseYes = CHECKED;
+        $tSessionInDatabaseNo = "";
+    }
+    else {
+        $tSessionInDatabaseYes = "";
+        $tSessionInDatabaseNo = CHECKED;
+    }
+    
+    return (array(
+            $tSessionInDatabaseYes,
+            $tSessionInDatabaseNo
+    ));
+    
+}
+
+function setDropDatabaseTables($tDropDatabaseTables) {
+
+    if ($tDropDatabaseTables == "YES") {
+        $tDropDatabaseTablesYes = CHECKED;
+        $tDropDatabaseTablesNo = "";
+    }
+    else {
+        $tDropDatabaseTablesYes = "";
+        $tDropDatabaseTablesNo = CHECKED;
+    }
+    
+    return (array(
+            $tDropDatabaseTablesYes,
+            $tDropDatabaseTablesNo
+    ));
+    
+}
+
+function setCreateDatabaseTables($tCreateDatabaseTables) {
+
+    if ($tCreateDatabaseTables == "YES") {
+        $tCreateDatabaseTablesYes = CHECKED;
+        $tCreateDatabaseTablesNo = "";
+    }
+    else {
+        $tCreateDatabaseTablesYes = "";
+        $tCreateDatabaseTablesNo = CHECKED;
+    }
+    
+    return (array(
+            $tCreateDatabaseTablesYes,
+            $tCreateDatabaseTablesNo
+    ));
+    
+}
+
+function setDatabaseCharset($tDatabase) {
+
+    if ((strtoupper($tDatabase) == 'MYSQL') || (strtoupper($tDatabase) == 'MYSQLI')) {
+        $tDatabaseCharsetDefault = "latin1";
+        $tDatabaseCollationDefault = "latin1_german1_ci";
+    }
+    else {
+        $tDatabaseCharsetDefault = "";
+        $tDatabaseCollationDefault = "";
+    }
+    
+    return (array(
+            $tDatabaseCharsetDefault,
+            $tDatabaseCollationDefault
+    ));
+    
+}
+
+function getLoggingFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['logging']) ? $_SESSION[SVN_INST]['logging'] : "YES");
+    
+}
+
+function getJavaScriptFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['javaScript']) ? $_SESSION[SVN_INST]['javaScript'] : "YES");
+    
+}
+
+function getPageSizeFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['pageSize']) ? $_SESSION[SVN_INST]['pageSize'] : "30");
+    
+}
+
+function getMinAdminPwSizeFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['minAdminPwSize']) ? $_SESSION[SVN_INST]['minAdminPwSize'] : "14");
+    
+}
+
+function getMinUserPwSizeFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['minUserPwSize']) ? $_SESSION[SVN_INST]['minUserPwSize'] : "8");
+    
+}
+
+function getExpirePasswordFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['expirePassword']) ? $_SESSION[SVN_INST]['expirePassword'] : 1);
+    
+}
+
+function getPwEncFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['pwEnc']) ? $_SESSION[SVN_INST]['pwEnc'] : "md5");
+    
+}
+
+function getUserDefaultAccessFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['userDefaultAccess']) ? $_SESSION[SVN_INST]['userDefaultAccess'] : "read");
+    
+}
+
+function getCustom1FromSession() {
+
+    return (isset($_SESSION[SVN_INST]['custom1']) ? $_SESSION[SVN_INST]['custom1'] : "");
+    
+}
+
+function getCustom2FromSession() {
+
+    return (isset($_SESSION[SVN_INST]['custom2']) ? $_SESSION[SVN_INST]['custom2'] : "");
+    
+}
+
+function getCustom3FromSession() {
+
+    return (isset($_SESSION[SVN_INST]['custom3']) ? $_SESSION[SVN_INST]['custom3'] : "");
+    
+}
+
+function getAuthUserFileFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['authUserFile']) ? $_SESSION[SVN_INST]['authUserFile'] : "");
+    
+}
+
+function getSvnAccessFileFromSession() {
+
+    return (isset($_SESSION[SVN_INST]['svnAccessFile']) ? $_SESSION[SVN_INST]['svnAccessFile'] : "");
+    
+}
+
 ?>

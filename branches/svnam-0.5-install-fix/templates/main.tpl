@@ -34,13 +34,13 @@
 						$tGroupsAllowed				= db_check_group_acl( $tUsername, $dbh );
 						$count						= 0;
 	
-						if( ($tAdmin == "p" ) or
-						    ($rightUserAdmin != "none") or
-	    					($rightGroupAdmin != "none") or 
-	    					($rightProjectAdmin != "none") or
-	    					($rightRepositoryAdmin != "none") or
-	    					($rightAccessRightAdmin != "none") or
-	    					(count($tGroupsAllowed) > 0) or
+						if( ($tAdmin == "p" ) ||
+						    ($rightUserAdmin != "none") || 
+	    					($rightGroupAdmin != "none") || 
+	    					($rightProjectAdmin != "none") || 
+	    					($rightRepositoryAdmin != "none") || 
+	    					($rightAccessRightAdmin != "none") || 
+	    					(count($tGroupsAllowed) > 0) || 
 	    					($rightCreateFiles != "none") ) 
 						{
 						
@@ -70,7 +70,7 @@
 							
 						}
 						
-						if( ($rightGroupAdmin != "none") or (count($tGroupsAllowed) > 0) ) {
+						if( ($rightGroupAdmin != "none") || (count($tGroupsAllowed) > 0) ) {
 		
 							print "\t\t\t\t\t\t<td><a href=\"list_groups.php\"><img border=\"0\" src=\"./images/group.png\" alt=\"Group\" /></a></td>\n";
 							print "\t\t\t\t\t\t<td width=\"5\"> </td>\n";
@@ -100,7 +100,7 @@
 							
 						}
 						
-						if( ($rightAccessRightAdmin != "none") or ($tAdmin == "p" ) ) {
+						if( ($rightAccessRightAdmin != "none") || ($tAdmin == "p" ) ) {
 							
 							if( $count >= 4 ) {
 								
@@ -144,13 +144,13 @@
 						}
 						
 						
-						if( ($tAdmin == "p" ) or
-	    					($rightUserAdmin != "none") or
-	    					($rightGroupAdmin != "none") or 
-						    ($rightProjectAdmin != "none") or
-	    					($rightRepositoryAdmin != "none") or
-	    					($rightAccessRightAdmin != "none") or
-	    					(count($tGroupsAllowed) > 0) or
+						if( ($tAdmin == "p" ) || 
+	    					($rightUserAdmin != "none") || 
+	    					($rightGroupAdmin != "none") || 
+						    ($rightProjectAdmin != "none") || 
+	    					($rightRepositoryAdmin != "none") || 
+	    					($rightAccessRightAdmin != "none") || 
+	    					(count($tGroupsAllowed) > 0) || 
 	    					($rightCreateFiles != "none") ) 
 						{
 	    		

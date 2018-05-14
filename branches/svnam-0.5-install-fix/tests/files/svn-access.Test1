@@ -6,5 +6,4 @@ admin = r
 
 [Test1:/]
 @Tester = rw
-admin = r
 

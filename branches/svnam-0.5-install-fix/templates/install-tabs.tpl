@@ -66,7 +66,7 @@ include( "../include/output.inc.php" );
 
 	<div class="enabled">
 		<div id="wrap">
-			<div id="header_login">
+			<div id="headerlogin">
 			   	<table>
 					<tr>
 						<td><img src="../images/svn-access-manager_200_60_white.jpg" width="200" height="60" /></td>
@@ -1039,7 +1039,7 @@ include( "../include/output.inc.php" );
 						      	<td colspan="4">&nbsp;</td>
 						   	</tr>
 						   	<tr>
-						      	<td colspan="4" class="hlp_center">
+						      	<td colspan="4" class="hlpcenter">
 						      		<input  type="submit" name="fSubmit_install" value="<?php print _("Start installation"); ?>" />
 						      	</td>
 						   	</tr>

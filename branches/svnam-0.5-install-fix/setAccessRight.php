@@ -47,14 +47,12 @@ $CONF['page_size'] = $preferences['page_size'];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Access rights admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "setaccessright";
 
-if (($rightAllowed != "edit") and ($rightAllowed != "delete")) {
+if (($rightAllowed != "edit") && ($rightAllowed != "delete") && ($_SESSION[SVNSESSID]['admin'] != "p")) {
     
-    if ($_SESSION[SVNSESSID]['admin'] != "p") {
-        db_log($SESSID_USERNAME, "tried to use setAccessRight without permission", $dbh);
-        db_disconnect($dbh);
-        header("Location: nopermission.php");
-        exit();
-    }
+    db_log($SESSID_USERNAME, "tried to use setAccessRight without permission", $dbh);
+    db_disconnect($dbh);
+    header("Location: nopermission.php");
+    exit();
 }
 
 $schema = db_determine_schema();
@@ -62,9 +60,9 @@ $schema = db_determine_schema();
 $tUsers = array();
 $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
 $result = db_query($query, $dbh);
-while ( $row = db_assoc($result['result']) ) {
+while ( $row = db_assoc($result[RESULT]) ) {
     
-    $id = $row['userid'];
+    $id = $row[USERID];
     $name = $row['name'];
     $givenname = $row['givenname'];
     
@@ -80,7 +78,7 @@ $tGroups = array();
 $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (deleted = '00000000000000') " . "ORDER BY svngroups.groupname ASC";
 $result = db_query($query, $dbh);
 
-while ( $row = db_assoc($result['result']) ) {
+while ( $row = db_assoc($result[RESULT]) ) {
     
     $id = $row['id'];
     $groupname = $row['groupname'];
@@ -98,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $_SESSION[SVNSESSID]['task'] = "";
     }
     
-    if ($_SESSION[SVNSESSID]['task'] == "change") {
+    if ($_SESSION[SVNSESSID]['task'] == CHANGE) {
         
         $tReadonly = "disabled";
     }
@@ -114,11 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tRepoPassword = $_SESSION[SVNSESSID]['repopassword'];
     $tModulePath = $_SESSION[SVNSESSID]['modulepath'];
     $tPathSelected = $tModulePath . $_SESSION[SVNSESSID]['pathselected'];
-    // error_log( $tPathSelected );
     $tPathSelected = str_replace('//', '/', $tPathSelected);
-    // error_log( $tPathSelected );
-    $tNone = "checked";
-    $tRecursive = "checked";
+    $tNone = CHECKED;
+    $tRecursive = CHECKED;
     
     $lang = check_language();
     
@@ -171,21 +167,21 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         
         if ($tAccessRight == "none") {
             
-            $tNone = "checked";
+            $tNone = CHECKED;
             $tRead = "";
             $tWrite = "";
         }
         elseif ($tAccessRight == "read") {
             
             $tNone = "";
-            $tRead = "checked";
+            $tRead = CHECKED;
             $tWrite = "";
         }
-        elseif ($tAccessRight == "write") {
+        elseif ($tAccessRight == WRITE) {
             
             $tNone = "";
             $tRead = "";
-            $tWrite = "checked";
+            $tWrite = CHECKED;
         }
     }
     else {
@@ -193,18 +189,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tAccessRight = "";
     }
     
-    if (isset($_SESSION[SVNSESSID]['userid'])) {
+    if (isset($_SESSION[SVNSESSID][USERID])) {
         
-        $tUid = $_SESSION[SVNSESSID]['userid'];
+        $tUid = $_SESSION[SVNSESSID][USERID];
     }
     else {
         
         $tUid = "";
     }
     
-    if (isset($_SESSION[SVNSESSID]['groupid'])) {
+    if (isset($_SESSION[SVNSESSID][GROUPID])) {
         
-        $tGid = $_SESSION[SVNSESSID]['groupid'];
+        $tGid = $_SESSION[SVNSESSID][GROUPID];
     }
     else {
         
@@ -229,9 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tRepoPassword = $_SESSION[SVNSESSID]['repopassword'];
     $tModulePath = $_SESSION[SVNSESSID]['modulepath'];
     $tPathSelected = $tModulePath . $_SESSION[SVNSESSID]['pathselected'];
-    // error_log( $tPathSelected );
     $tPathSelected = str_replace('//', '/', $tPathSelected);
-    // error_log( $tPathSelected );
     $tAccessRight = isset($_POST['fAccessRight']) ? db_escape_string($_POST['fAccessRight']) : "";
     $tRecursive = isset($_POST['fRecursive']) ? db_escape_string($_POST['fRecursive']) : "";
     $tValidFrom = isset($_POST['fValidFrom']) ? db_escape_string($_POST['fValidFrom']) : "";
@@ -271,21 +265,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($tAccessRight == "none") {
         
-        $tNone = "checked";
+        $tNone = CHECKED;
         $tRead = "";
         $tWrite = "";
     }
     elseif ($tAccessRight == "read") {
         
         $tNone = "";
-        $tRead = "checked";
+        $tRead = CHECKED;
         $tWrite = "";
     }
-    elseif ($tAccessRight == "write") {
+    elseif ($tAccessRight == WRITE) {
         
         $tNone = "";
         $tRead = "";
-        $tWrite = "checked";
+        $tWrite = CHECKED;
     }
     
     if ($button == _("Back")) {
@@ -301,7 +295,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($tValidFrom != "") {
             
-            if (($lang == "de") or (substr($tValidFrom, 2, 1) == ".")) {
+            if (($lang == "de") || (substr($tValidFrom, 2, 1) == ".")) {
                 
                 $day = substr($tValidFrom, 0, 2);
                 $month = substr($tValidFrom, 3, 2);
@@ -316,7 +310,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if (! check_date($day, $month, $year)) {
                 
-                // error_log( "$day - $month - $year" );
                 $tMessage = sprintf(_("Not a valid date: %s (valid from)"), $tValidFrom);
                 $error = 1;
             }
@@ -332,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($tValidUntil != "") {
             
-            if (($lang == "de") or (substr($tValidUntil, 2, 1) == ".")) {
+            if (($lang == "de") || (substr($tValidUntil, 2, 1) == ".")) {
                 
                 $day = substr($tValidUntil, 0, 2);
                 $month = substr($tValidUntil, 3, 2);
@@ -347,7 +340,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             if (! check_date($day, $month, $year)) {
                 
-                // error_log( "$day - $month - $year - $lang" );
                 $tMessage = sprintf(_("Not a valid date: %s (valid until)"), $tValidUntil);
                 $error = 1;
             }
@@ -371,7 +363,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $mode = db_getUserRightByUserid($userid, $dbh);
-                if (($tAccessRight == "write") and ($mode != "write")) {
+                if (($tAccessRight == WRITE) && ($mode != WRITE)) {
                     
                     $tMessage = _("User is not allowed to have write access, global right is read only");
                     $error = 1;
@@ -384,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $mode = db_getGroupRightByGroupid($groupid, $dbh);
-                if (($tAccessRight == "write") and ($mode != "write")) {
+                if (($tAccessRight == WRITE) && ($mode != WRITE)) {
                     
                     $groupName = db_getGroupById($groupid, $dbh);
                     $tMessage = sprintf(_("Group %s contains an user with no global write permission!"), $groupName);
@@ -393,37 +385,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
         
-        if ($error == 0) {
+        if (($error == 0) && ($_SESSION[SVNSESSID]['task'] == CHANGE)) {
             
-            if ($_SESSION[SVNSESSID]['task'] == "change") {
-                // error_log( "userid = ".$_SESSION[SVNSESSID]['userid']." groupid = ".$_SESSION[SVNSESSID]['groupid']);
+            if ($_SESSION[SVNSESSID][USERID] != 0) {
                 
-                if ($_SESSION[SVNSESSID]['userid'] != 0) {
+                $mode = db_getUserRightByUserid($_SESSION[SVNSESSID][USERID], $dbh);
+                if (($tAccessRight == WRITE) && ($mode != WRITE)) {
                     
-                    $mode = db_getUserRightByUserid($_SESSION[SVNSESSID]['userid'], $dbh);
-                    if (($tAccessRight == "write") and ($mode != "write")) {
-                        
-                        $tMessage = _("User is not allowed to have write access, global right is read only");
-                        $error = 1;
-                    }
+                    $tMessage = _("User is not allowed to have write access, global right is read only");
+                    $error = 1;
                 }
-                elseif ($_SESSION[SVNSESSID]['groupid'] != 0) {
-                    
-                    $mode = db_getGroupRightByGroupid($_SESSION[SVNSESSID]['groupid'], $dbh);
-                    if (($tAccessRight == "write") and ($mode != "write")) {
-                        $groupName = db_getGroupById($_SESSION[SVNSESSID]['groupid'], $dbh);
-                        $tMessage = sprintf(_("Group %s contains an user with no global write permission!"), $groupName);
-                        $error = 1;
-                    }
+            }
+            elseif ($_SESSION[SVNSESSID][GROUPID] != 0) {
+                
+                $mode = db_getGroupRightByGroupid($_SESSION[SVNSESSID][GROUPID], $dbh);
+                if (($tAccessRight == WRITE) && ($mode != WRITE)) {
+                    $groupName = db_getGroupById($_SESSION[SVNSESSID][GROUPID], $dbh);
+                    $tMessage = sprintf(_("Group %s contains an user with no global write permission!"), $groupName);
+                    $error = 1;
                 }
-                else {
-                    
-                    $mode = "undefined";
-                }
+            }
+            else {
+                
+                $mode = "undefined";
             }
         }
         
-        if (($_SESSION[SVNSESSID]['task'] == "new") and (count($tUsers) == 0) and (count($tGroups) == 0)) {
+        if (($_SESSION[SVNSESSID]['task'] == "new") && (count($tUsers) == 0) && (count($tGroups) == 0)) {
             
             $tMessage = _("No user or no group selected!");
             $error = 1;
@@ -433,7 +421,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($error == 0) {
             
-            if ($_SESSION[SVNSESSID]['task'] == "change") {
+            if ($_SESSION[SVNSESSID]['task'] == CHANGE) {
                 
                 db_ta('BEGIN', $dbh);
                 
@@ -476,7 +464,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $query = "SELECT * " . "  FROM " . $schema . "svn_access_rights " . " WHERE (user_id = '$id') " . "   AND (path = '$tPathSelected') " . "   AND (deleted = '00000000000000') " . "   AND (project_id = '$tProjectid') ";
                         $result = db_query($query, $dbh);
                         
-                        while ( ($row = db_assoc($result['result'])) and ($error == 0) ) {
+                        while ( ($row = db_assoc($result[RESULT])) && ($error == 0) ) {
                             
                             $rightid = $row['id'];
                             $tPathSelected = $row['path'];
@@ -493,9 +481,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                         
                         $dbnow = db_now();
-                        $query = "INSERT INTO " . $schema . "svn_access_rights " . 
-                                 "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " . 
-                                 "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
+                        $query = "INSERT INTO " . $schema . "svn_access_rights " . "            (project_id, user_id, path, valid_from, valid_until, access_right, created, created_user) " . "     VALUES ('$tProjectid', '$id', '$tPathSelected', '$validFrom', '$validUntil', '$tAccessRight', '$dbnow', '" . $_SESSION[SVNSESSID]['username'] . "')";
                         $result = db_query($query, $dbh);
                         if ($result['rows'] != 1) {
                             
@@ -513,7 +499,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             $query = "SELECT * " . "  FROM " . $schema . "svn_access_rights " . " WHERE (group_id = '$groupid') " . "   AND (path = '$tPathSelected') " . "   AND (deleted = '00000000000000') " . "   AND (project_id = '$tProjectid') ";
                             $result = db_query($query, $dbh);
                             
-                            while ( ($row = db_assoc($result['result'])) and ($error == 0) ) {
+                            while ( ($row = db_assoc($result[RESULT])) && ($error == 0) ) {
                                 
                                 $rightid = $row['id'];
                                 $dbnow = db_now();
@@ -569,9 +555,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "ORDER BY " . $CONF['user_sort_fields'] . " " . $CONF['user_sort_order'];
     $result = db_query($query, $dbh);
     
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
-        $id = $row['userid'];
+        $id = $row[USERID];
         $name = $row['name'];
         $givenname = $row['givenname'];
         
@@ -587,32 +573,32 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE (deleted = '00000000000000')";
     $result = db_query($query, $dbh);
     
-    while ( $row = db_assoc($result['result']) ) {
+    while ( $row = db_assoc($result[RESULT]) ) {
         
         $id = $row['id'];
         $groupname = $row['groupname'];
         $tGroups[$id] = $groupname;
     }
     
-    if (isset($_SESSION[SVNSESSID]['userid'])) {
+    if (isset($_SESSION[SVNSESSID][USERID])) {
         
-        $tUid = $_SESSION[SVNSESSID]['userid'];
+        $tUid = $_SESSION[SVNSESSID][USERID];
     }
     else {
         
         $tUid = "";
     }
     
-    if (isset($_SESSION[SVNSESSID]['groupid'])) {
+    if (isset($_SESSION[SVNSESSID][GROUPID])) {
         
-        $tGid = $_SESSION[SVNSESSID]['groupid'];
+        $tGid = $_SESSION[SVNSESSID][GROUPID];
     }
     else {
         
         $tGid = "";
     }
     
-    if ($_SESSION[SVNSESSID]['task'] == "change") {
+    if ($_SESSION[SVNSESSID]['task'] == CHANGE) {
         
         $tReadonly = "disabled";
     }

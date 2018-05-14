@@ -43,7 +43,7 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Project admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "listprojects";
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tCountRecords = db_getCountProjects($dbh);
     $tPrevDisabled = "disabled";
     
-    if ($tCountRecords <= $CONF['page_size']) {
+    if ($tCountRecords <= $CONF[PAGESIZE]) {
         
         $tNextDisabled = "disabled";
     }
@@ -98,49 +98,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $schema = db_determine_schema();
     $tSearch = isset($_POST['fSearch']) ? db_escape_string($_POST['fSearch']) : "";
     
-    if (($button == "search") or ($tSearch != "")) {
+    if (($button == "search") || ($tSearch != "")) {
         
         $tSearch = html_entity_decode($tSearch);
         $_SESSION[SVNSESSID]['search'] = $tSearch;
         $_SESSION[SVNSESSID]['searchtype'] = PROJECTS;
-        $tProjects = array();
-        
-        if ($tSearch == "") {
-            
-            $tErrorClass = "error";
-            $tMessage = _("No search string given!");
-        }
-        else {
-            
-            $tArray = array();
-            $query = "SELECT   svnprojects.id, svnprojects.svnmodule, svnprojects.modulepath, svnrepos.reponame " . "    FROM " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svnrepos.deleted = '00000000000000') " . "     AND (svnprojects.deleted = '00000000000000') " . "     AND (svnprojects.repo_id = svnrepos.id) " . "     AND (svnprojects.svnmodule like '%$tSearch%') " . "ORDER BY svnmodule ASC ";
-            $result = db_query($query, $dbh);
-            while ( $row = db_assoc($result['result']) ) {
-                
-                $tArray[] = $row;
-            }
-            
-            if (count($tArray) == 0) {
-                
-                $tErrorClass = "info";
-                $tMessage = _("No project found!");
-            }
-            elseif (count($tArray) == 1) {
-                
-                $id = $tArray[0]['id'];
-                $url = "workOnProject.php?id=" . urlencode($id) . "&task=change";
-                db_disconnect($dbh);
-                header("location: $url");
-                exit();
-            }
-            else {
-                
-                db_disconnect($dbh);
-                $_SESSION[SVNSESSID]['searchresult'] = $tArray;
-                header("location: searchresult.php");
-                exit();
-            }
-        }
+        $result = db_get_list('projects', $tSearch, $dbh);
+        $tErrorClass = $result['errorclass'];
+        $tMessage = $result['message'];
+        $tProjects = $result['result'];
     }
     elseif ($button == _("New project")) {
         

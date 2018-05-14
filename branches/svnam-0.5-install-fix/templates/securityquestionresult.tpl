@@ -34,11 +34,11 @@ include( "./include/output.inc.php" );
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 </head>
 <body>
-	<div id="header_login">
-			<div id="header_left">
+	<div id="headerlogin">
+			<div id="headerleft">
 				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
 			</div>
-			<div id="header_right_login">
+			<div id="headerrightlogin">
 				
 			</div>
 			<div id="subheader">
@@ -47,7 +47,7 @@ include( "./include/output.inc.php" );
 		</div>
 		<div id="login">
 			<form name="lostpassword" method="post">
-				<table id="login_table">
+				<table id="logintable">
 					<tr>
 				      <td colspan="3"><h3><?php print _("Recover lost password (Finished)"); ?></h3></td>
 				   	</tr>
