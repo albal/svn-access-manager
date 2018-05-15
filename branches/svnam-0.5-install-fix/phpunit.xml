@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="tests/bootstrap/bootstrap.php" backupGlobals="false">
+<phpunit colors="true" bootstrap="tests/bootstrap/bootstrap.php" backupGlobals="false" convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true" convertWarningsToExceptions="true">
 	<testsuites>
 		<testsuite name="Application Test Suite">
 			<directory>./tests/</directory>
@@ -7,11 +8,15 @@
 	</testsuites>
 	<filter>
 		<whitelist>
-			<directory suffix=".php">../include/adodb5/</directory>
-			<directory>../help/</directory>
-			<directory>../lib/</directory>
-			<directory suffix=".php">../tests/</directory>
-		</whitelist>
+            <directory suffix=".php">.</directory>
+            <directory suffix=".tpl">.</directory>
+            <directory suffix=".php">./tests/</directory>
+            <exclude>
+                <directory suffix=".php">./include/adodb5/</directory>
+                <directory>./help/</directory>
+                <directory>./lib/</directory>
+            </exclude>
+        </whitelist>
 	</filter>
 	<logging>
 		<log type="coverage-clover" target="../reports/coverage/coverage.xml" />

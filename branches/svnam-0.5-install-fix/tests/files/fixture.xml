@@ -968,7 +968,7 @@ Use '/' as path separator on Windows systems. You must write down a repository p
 		<field name="modified_user"> </field>
 		<field name="deleted">00000000000000</field>
 		<field name="deleted_user"> </field>
-		<field name="password_modified">20171213145947</field>
+		<field name="password_modified">20180510120000</field>
 		<field name="superadmin">1</field>
 		<field name="securityquestion"></field>
 		<field name="securityanswer"></field>

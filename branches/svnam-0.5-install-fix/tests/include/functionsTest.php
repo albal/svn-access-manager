@@ -2048,6 +2048,63 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(sortLdapUsers($a, $b));
         
     }
+
+    public function test_pacrypt() {
+
+        $pw = pacrypt('Start!12345678', '$1$NLvGX4d3$SdtwVFvV8As0z8I0xtE8L.');
+        $this->assertEquals('$1$NLvGX4d3$', $pw);
+        
+    }
+
+    public function test_getGrepCommand() {
+
+        $grep = getGrepCommand('');
+        $this->assertStringEndsWith('grep', $grep);
+        
+    }
+
+    public function test_getSvnadminCommand() {
+
+        $svnadmin = getSvnAdminCommand('');
+        $this->assertStringEndsWith('svnadmin', $svnadmin);
+        
+    }
+
+    public function test_getApacheReloadCommand() {
+
+        $reload = getApacheReloadCommand('');
+        $this->assertEquals('', $reload);
+        
+    }
+
+    public function test_translateRight() {
+
+        $right = translateRight('read');
+        $this->assertEquals('r', $right);
+        
+        $right = translateRight('write');
+        $this->assertEquals('rw', $right);
+        
+        $right = translateRight('blabla');
+        $this->assertEquals('', $right);
+        
+    }
+
+    public function test_encode_subject() {
+
+        $subject = encode_subject("Lost password reset", "iso-8859-1");
+        $this->assertEquals("=?iso-8859-1?B?TG9zdCBwYXNzd29yZCByZXNldA==?=", $subject);
+        
+        $subject = encode_subject("Vergessenes Passwort zurücksetzen", "iso-8859-1");
+        $this->assertEquals("=?iso-8859-1?B?VmVyZ2Vzc2VuZXMgUGFzc3dvcnQgenVyw7xja3NldHplbg==?=", $subject);
+        
+    }
+    
+    public function test_create_verify_string() {
+        
+        $str = create_verify_string();
+        $this->assertEquals(32, strlen($str));
+    }
     
 }
 
