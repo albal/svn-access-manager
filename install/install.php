@@ -959,7 +959,7 @@ function checkSessionValuesDatabase() {
         $error = 1;
     }
     
-    if ($_SESSION[SVN_INST][DATABASECOLLATION] == "") {
+    if ((($_SESSION[SVN_INST]['database'] == 'mysql') || ($_SESSION[SVN_INST]['database'] == 'mysqli')) && ($_SESSION[SVN_INST][DATABASECOLLATION] == "")) {
         
         $tErrors[] = _("Database collation is missing!");
         $error = 1;
@@ -1128,33 +1128,10 @@ function checkSessionValuesViewvc() {
 //
 //
 //
-function checkSessionValues() {
+function checkSessionValuesMisc() {
 
     $tErrors = array();
     $error = 0;
-    
-    $ret = checkSessionValuesDatabase();
-    $error = $ret[ERROR];
-    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
-    
-    if (strtoupper($_SESSION[SVN_INST]['useLdap']) == "YES") {
-        
-        $ret = checkSessionValuesLdap();
-        $error = $ret[ERROR];
-        $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
-    }
-    
-    $ret = checkSessionValuesWebsite();
-    $error = $ret[ERROR];
-    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
-    
-    $ret = checkSessionValuesViewvc();
-    $error = $ret[ERROR];
-    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
-    
-    $ret = checkSessionValuesAdmin();
-    $error = $ret[ERROR];
-    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
     
     if ($_SESSION[SVN_INST]['svnCommand'] == "") {
         
@@ -1197,6 +1174,48 @@ function checkSessionValues() {
         $tErrors[] = _("Minimal user password length is not numeric!");
         $error = 1;
     }
+    
+    return (array(
+            ERROR => $error,
+            ERRORLIST => $tErrors
+    ));
+    
+}
+
+//
+//
+//
+function checkSessionValues() {
+
+    $tErrors = array();
+    $error = 0;
+    
+    $ret = checkSessionValuesDatabase();
+    $error = $ret[ERROR];
+    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
+    
+    if (strtoupper($_SESSION[SVN_INST]['useLdap']) == "YES") {
+        
+        $ret = checkSessionValuesLdap();
+        $error = $ret[ERROR];
+        $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
+    }
+    
+    $ret = checkSessionValuesWebsite();
+    $error = $ret[ERROR];
+    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
+    
+    $ret = checkSessionValuesViewvc();
+    $error = $ret[ERROR];
+    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
+    
+    $ret = checkSessionValuesAdmin();
+    $error = $ret[ERROR];
+    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
+    
+    $ret = checkSessionValuesMisc();
+    $error = $ret[ERROR];
+    $tErrors = array_merge($tErrors, $ret[ERRORLIST]);
     
     return (array(
             ERROR => $error,
@@ -2188,7 +2207,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $error = 1;
         }
         
-        if ($tDatabaseCollation == "") {
+        if ((($tDatabase == 'mysql') || ($tDatabase == 'mysqli')) && ($tDatabaseCollation == "")) {
             
             $tErrors[] = _("Database collation is missing!");
             $error = 1;
