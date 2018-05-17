@@ -959,7 +959,7 @@ function checkSessionValuesDatabase() {
         $error = 1;
     }
     
-    if ((($_SESSION[SVN_INST]['database'] == 'mysql') || ($_SESSION[SVN_INST]['database'] == 'mysqli')) && ($_SESSION[SVN_INST][DATABASECOLLATION] == "")) {
+    if ((($_SESSION[SVN_INST]['database'] == MYSQL) || ($_SESSION[SVN_INST]['database'] == MYSQLI)) && ($_SESSION[SVN_INST][DATABASECOLLATION] == "")) {
         
         $tErrors[] = _("Database collation is missing!");
         $error = 1;
@@ -2207,7 +2207,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $error = 1;
         }
         
-        if ((($tDatabase == 'mysql') || ($tDatabase == 'mysqli')) && ($tDatabaseCollation == "")) {
+        if ((($tDatabase == MYSQL) || ($tDatabase == MYSQLI)) && ($tDatabaseCollation == "")) {
             
             $tErrors[] = _("Database collation is missing!");
             $error = 1;

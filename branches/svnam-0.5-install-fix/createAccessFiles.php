@@ -98,10 +98,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Yes")) {
         
-        $tRetAuthUser = createAuthUserFile($dbh);
-        $tRetAccess = createAccessFile($dbh);
+        if ($CONF['createUserFile'] == "YES") {
+            if ((isset($CONF[SEPARATEFILESPERREPO])) && ($CONF[SEPARATEFILESPERREPO] == "YES")) {
+                
+                $tRetAuthUser = createAuthUserFilePerRepo($dbh);
+            }
+            else {
+                $tRetAuthUser = createAuthUserFile($dbh);
+            }
+        }
+        else {
+            $tRetAuthUser[ERROR] = 0;
+            $tRetAuthUser[ERRORMSG] = _("Create of auth user file not configured!");
+        }
         
-        if ($tViewvcConfig == "YES") {
+        if ($CONF['createAccessFile'] == "YES") {
+            if ((isset($CONF[SEPARATEFILESPERREPO])) && ($CONF[SEPARATEFILESPERREPO] == "YES")) {
+                
+                $tRetAccess = createAccessFilePerRepo($dbh);
+            }
+            else {
+                $tRetAccess = createAccessFile($dbh);
+            }
+        }
+        else {
+            
+            $tRetAccess[ERROR] = 0;
+            $tRetAccess[ERRORMSG] = _("Create of access file not configured!");
+        }
+        
+        if (($tViewvcConfig == "YES") && ($CONF['createViewvcConf'] == "YES")) {
             
             $tRetViewvc = createViewvcConfig($dbh);
             

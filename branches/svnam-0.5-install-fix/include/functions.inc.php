@@ -1689,4 +1689,35 @@ function getSvnAccessFileFromSession() {
     
 }
 
+//
+//
+//
+function getRepoSortPath() {
+
+    global $CONF;
+    
+    if (isset($CONF[REPOPATHSORTORDER])) {
+        return($CONF[REPOPATHSORTORDER]);
+    }
+    else {
+        return ("ASC");
+    }
+    
+}
+
+//
+//
+//
+function getSvnAccessFile($svnaccessfile, $reponame) {
+    
+    global $CONF;
+
+    if ($svnaccessfile == "") {
+        $svnaccessfile = dirname($CONF[SVNACCESSFILE]) . "/svn-access." . $reponame;
+    }
+    
+    return ($svnaccessfile);
+    
+}
+
 ?>

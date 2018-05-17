@@ -2106,6 +2106,24 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(32, strlen($str));
     }
     
+    public function test_getSvnAccessFile() {
+        
+        global $CONF;
+        
+        $CONF['SVNAccessFile'] = '/tmp/svnaccess';
+        $CONF['AuthUserFile'] = '/tmp/svnpasswd';
+        $CONF['ViewvcConf'] = '/tmp/viewvc-apache.conf';
+        $CONF['ViewvcGroups'] = '/tmp/viewvc-groups';
+        
+        $svn = getSvnAccessFile('/var/tmp/testsvn', 'test');
+        $this->assertEquals('/var/tmp/testsvn', $svn);
+        
+        $svn = getSvnAccessFile('', 'testrepo');
+        $this->assertEquals('/tmp/svn-access.testrepo', $svn);
+        
+        // /tmp/svnaccess
+    }
+    
 }
 
 ?>
