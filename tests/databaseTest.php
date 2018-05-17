@@ -94,7 +94,7 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $rowCounts['users_rights'] = 21;
         $rowCounts['workinfo'] = 3;
         
-        foreach( $rowCounts as $table => $count) {
+        foreach( $rowCounts as $table => $count ) {
             $this->assertGreaterThanOrEqual($count, $this->getConnection()->getRowCount($table), "Pre-Condition");
         }
         
@@ -449,6 +449,41 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], '4711', $GLOBALS['DB_DBNAME']);
         
         $this->assertNull($dbh);
+        
+    }
+
+    public function test_template_main() {
+
+        require_once ('constants.inc.php');
+        require_once ('db-functions-adodb.inc.php');
+        require_once ('functions.inc.php');
+        include_once ('output.inc.php');
+        include_once ('variables.inc.php');
+        require_once ('HTML5Validate.php');
+        
+        $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
+        
+        $tMessage = 'Nothing to report';
+        $_SESSION[SVNSESSID]['username'] = 'tester1';
+        $_SESSION[SVNSESSID]['admin'] = 'n';
+        
+        ob_start();
+        include './templates/main.tpl';
+        $output = ob_get_clean();
+
+        $this->assertContains('General functions', $output);
+        
+        $_SESSION[SVNSESSID]['username'] = 'admin';
+        $_SESSION[SVNSESSID]['admin'] = 'y';
+        
+        ob_start();
+        include './templates/main.tpl';
+        $output = ob_get_clean();
+        
+        $this->assertContains('Administration', $output);
+        $this->assertContains('Reports', $output);
+        
+        db_disconnect($dbh);
         
     }
     
