@@ -1,42 +1,31 @@
-		<div id="editform">
-			<form name="createAccessFilesResult" method="post">
-				<table>
-				   	<tr>
-				      <td colspan="3"><h3><?php print _("Create Access Files"); ?></h3></td>
-				   	</tr>
-				   	<tr>
-				   		<td width="200"><strong><?php print _("Result of auth user file").": "; ?></strong></td>
-				   		<td><?php print $tRetAuthUser[ERRORMSG]; ?></td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				   		<td width="200"><strong><?php print _("Result of access file").": "; ?></strong></td>
-				   		<td><?php print $tRetAccess[ERRORMSG]; ?></td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<?php
-				   		if( $CONF['createViewvcConf'] != "YES" ) {
-				   			print "<!--\n";
-				   		}
-				   	?>
-				   	<tr>
-				   		<td width="200"><strong><?php print _("Result of viewvc config").": "; ?></strong></td>
-				   		<td><?php print $tRetViewvc[ERRORMSG]; ?></td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				   		<td width="200"><strong><?php print _("Result of webserver reload").": "; ?></strong></td>
-				   		<td><?php print $tRetReload[ERRORMSG]; ?></td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<?php
-				   		if( $CONF['createViewvcConf'] != "YES" ) {
-				   			print "-->\n";
-				   		}
-				   	?>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				</table>
-			</form>
-		</div>
+<div>      
+    <h3 class="page-header"><?php print _("Create Access Files"); ?></h3> 
+</div>
+<div>
+    <form class="form-horizontal" name="createaccessfiles" method="post">
+        <div class="form-group <?php print outputResponseClasses($tAuthUserError); ?>">
+            <label class="col-sm-3 control-label" for="name"><?php print _("Result of auth user file"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tRetAuthUser[ERRORMSG];?></p>
+            </div>
+        </div>
+        <div class="form-group <?php print outputResponseClasses($tRetAccessError); ?>">
+            <label class="col-sm-3 control-label" for="name"><?php print  _("Result of access file"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tRetAccess[ERRORMSG];?></p>
+            </div>
+        </div>
+        <div class="form-group <?php print outputResponseClasses($tRetViewvcError); ?> <?php print $tHidden; ?>">
+            <label class="col-sm-3 control-label" for="name"><?php print _("Result of viewvc config"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tRetViewvc[ERRORMSG];?></p>
+            </div>
+        </div>
+        <div class="form-group ?php print outputResponseClasses($tRetReloadError); ?> <?php print $tHidden; ?>">
+            <label class="col-sm-3 control-label" for="name"><?php print _("Result of webserver reload"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tRetReload[ERRORMSG];?></p>
+            </div>
+        </div>
+    </form>
+</div>

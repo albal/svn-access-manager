@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Release 0.5.7.0
+Release 0.6.0.0
     - compressed css stylesheets 
     - removed unused files 
     - use constants instead of literals 
@@ -15,6 +15,8 @@ Release 0.5.7.0
     - splitted database functions in installer, moved them into a file for MySQL, PostgreSQL and Oracle
     - decreased complexity of installer
     - removed duplicated code
+    - use Bootstrap
+    - redesigned installer and other forms
 
 Release 0.5.6.6
     - updated selinux policy for CentOS 6 and CentOS 7

@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Test templates
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -27,8 +34,14 @@
  * $Id$
  *
  */
+/**
+ * class for tests of templates
+ */
 final class TemplatesTest extends PHPUnit_Framework_TestCase {
 
+    /**
+     * test general tzemplate
+     */
     public function test_template_general() {
 
         require_once ('constants.inc.php');
@@ -95,6 +108,16 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $tCustom3 = 'IT Development';
         $tMessage = 'Nothing to say ;)';
         $tBuildInfo = '2018-01-02 11:11:11 4711';
+        $tUsernameError = 'ok';
+        $tGivennameError = 'ok';
+        $tNameError = 'ok';
+        $tEmailError = 'ok';
+        $tSecurityQuestionError = 'ok';
+        $tAnswerError = 'ok';
+        $tCustom1Error = 'ok';
+        $tCustom2Error = 'ok';
+        $tCustom3Error = 'ok';
+        $tMessageType = SUCCESS;
         
         ob_start();
         $_SESSION['SVNSESSID']['username'] = 'admin';
@@ -102,13 +125,16 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         include './templates/framework.tpl';
         $output = ob_get_clean();
         
-        $this->assertContains('<form name="general" method="post">', $output);
+        $this->assertContains('<form class="form-horizontal" name="general" method="post">', $output);
         $this->assertContains('+49 69 12345678', $output);
         $this->assertContains('+49 170 2746535', $output);
         $this->assertContains('IT Development', $output);
         
     }
 
+    /**
+     * test preferences template
+     */
     public function test_template_preferences() {
 
         require_once ('constants.inc.php');
@@ -124,17 +150,22 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $tAsc = 'checked';
         $tDesc = '';
         $tMessage = 'Nothing to report';
+        $tMessageType = SUCCESS;
+        $tPageSizeError = 'ok';
         
         ob_start();
         include './templates/preferences.tpl';
         $output = ob_get_clean();
         
-        $this->assertContains('<form name="preferences" method="post">', $output);
+        $this->assertContains('<form class="form-horizontal" name="preferences" method="post">', $output);
         $this->assertContains('20', $output);
         $this->assertContains('Nothing to report', $output);
         
     }
 
+    /**
+     * test log report template
+     */
     public function test_template_replog() {
 
         require_once ('constants.inc.php');
@@ -162,12 +193,13 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
                 )
         );
         $tMessage = 'Nothing to report';
+        $tMessageType = SUCCESS;
         
         ob_start();
         include './templates/rep_log.tpl';
         $output = ob_get_clean();
         
-        $this->assertContains('<form name="rep_log" method="post">', $output);
+        $this->assertContains('table id="logreport"', $output);
         $this->assertContains('127.0.0.1', $output);
         $this->assertContains('Test log 1', $output);
         $this->assertContains('admin', $output);
@@ -175,6 +207,9 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test show user report template
+     */
     public function test_template_repshowuser() {
 
         require_once ('constants.inc.php');
@@ -199,6 +234,8 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
                 )
         );
         $tMessage = 'Nothing to report';
+        $tMessageType = SUCCESS;
+        $tUserError = '';
         
         ob_start();
         include './templates/rep_show_user.tpl';
@@ -210,6 +247,9 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test show group report template
+     */
     public function test_template_repshowgroup() {
 
         require_once ('constants.inc.php');
@@ -226,6 +266,8 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
                 )
         );
         $tMessage = 'Nothing to report';
+        $tMessageType = SUCCESS;
+        $tGroupError = '';
         
         ob_start();
         include './templates/rep_show_group.tpl';

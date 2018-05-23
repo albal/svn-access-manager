@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * delete an user
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -86,10 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $tPasswordExpires = $row['passwordexpires'];
             $tLocked = $row['locked'];
             $tAdministrator = $row['admin'];
+            $tExpire = ($tPasswordExpires == 0) ? _("no") : _("yes");
+            $tLockedValue = ($tLocked == 0) ? _("no") : _("yes");
+            $tAdminValue = ($tAdministrator == "n") ? _("no") : _("yes");
         }
         else {
             
-            $tMessage = _("Invalid userid $id requested!");
+            $tMessage = sprintf(_("Invalid userid %s requested!"), $id);
+            $tMessageType = DANGER;
         }
     }
     else {
@@ -172,6 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             db_ta('COMMIT', $dbh);
             $tMessage = _("User successfully deleted");
+            $tMessageType = SUCCESS;
             
             db_disconnect($dbh);
             
@@ -181,7 +193,45 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         else {
             
             db_ta('ROLLBACK', $dbh);
+            
+            if ($_SESSION[SVNSESSID][USERID] != '') {
+                $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE id = " . $_SESSION[SVNSESSID][USERID];
+                $result = db_query($query, $dbh);
+                
+                if ($result['rows'] == 1) {
+                    
+                    $row = db_assoc($result['result']);
+                    $tUserid = $row[USERID];
+                    $tName = $row['name'];
+                    $tGivenname = $row['givenname'];
+                    $tEmail = $row['emailaddress'];
+                    $tPasswordExpires = $row['passwordexpires'];
+                    $tLocked = $row['locked'];
+                    $tAdministrator = $row['admin'];
+                    $tExpire = (tPasswordExpires == 0) ? _("no") : _("yes");
+                    $tLockedValue = ($tLocked == 0) ? _("no") : _("yes");
+                    $tAdminValue = ($tAdministrator == "n") ? _("no") : _("yes");
+                }
+                else {
+                    
+                    $tUserid = '';
+                    $tName = '';
+                    $tGivenname = '';
+                    $tEmail = '';
+                    $tPasswordExpires = '';
+                    $tLocked = '';
+                    $tAdministrator = '';
+                    $tExpire = '';
+                    $tLockedValue = '';
+                    $tAdminValue = '';
+                    
+                    $tMessage = sprintf(_("Invalid userid %s requested!"), $id);
+                    $tMessageType = DANGER;
+                }
+            }
+            
             $tMessage = _("User not deleted due to database errors");
+            $tMessageType = DANGER;
         }
     }
     elseif ($button == _("Back")) {
@@ -193,6 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $tMessage = _("Invalid button $button, anyone tampered arround with?");
+        $tMessageType = DANGER;
     }
     
     $header = USERS;

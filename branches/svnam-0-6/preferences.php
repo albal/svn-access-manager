@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * setup preferences
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -49,6 +56,7 @@ $schema = db_determine_schema();
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tReadonly = "";
+    $tPageSizeError = '';
     
     $query = "SELECT * " . "  FROM " . $schema . "preferences " . " WHERE (user_id = $userid) " . "   AND (deleted = '00000000000000')";
     $result = db_query($query, $dbh);
@@ -141,16 +149,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     elseif ($button == _("Submit")) {
         
         $error = 0;
+        $tPageSizeError = 'ok';
         
         if ($tPageSize == "") {
             
             $error = 1;
             $tMessage = _("Records per page must be filled in!");
+            $tMessageType = DANGER;
+            $tPageSizeError = 'error';
         }
         elseif (! is_numeric($tPageSize)) {
             
             $error = 1;
             $tMessage = _("Records per page must contain digits only!");
+            $tMessageType = DANGER;
+            $tPageSizeError = 'error';
         }
         
         if ($error == 0) {
@@ -178,17 +191,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 db_ta('COMMIT', $dbh);
                 $tMessage = _("Preferences changed successfully");
+                $tMessageType = SUCCESS;
             }
             else {
                 
                 db_ta('ROLLBACK', $dbh);
                 $tMessages = _("Preferences not changed due to database error");
+                $tMessageType = DANGER;
             }
         }
     }
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     // sort orswr ASC is handled in else brnach

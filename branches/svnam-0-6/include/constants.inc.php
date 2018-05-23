@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * constants definitions
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas krieger
+ * @copyright 2018 Thomas Krieger. All rights ewsserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -26,6 +33,13 @@
  * $Id$
  *
  */
+
+/**
+ * Define a constant if not yet done.
+ *
+ * @param string $constant
+ * @param string $value
+ */
 function define_constant($constant, $value) {
 
     if (! defined($constant)) {
@@ -34,6 +48,9 @@ function define_constant($constant, $value) {
     
 }
 
+/**
+ * check if called directly and redirect to login page.
+ */
 if (preg_match("/constants.inc.php/", $_SERVER['PHP_SELF'])) {
     
     header("Location: login.php");
@@ -65,6 +82,10 @@ define_constant('SEARCH', 'search');
 define_constant('ERROR', 'error');
 define_constant('ERRORMSG', 'errormsg');
 define_constant('ERRORLIST', 'errorlist');
+define_constant('ALERT', 'alert');
+define_constant('DANGER', 'danger');
+define_constant('SUCCESS', 'success');
+define_constant('WARNING', 'warning');
 
 define_constant('SVNSESSID', 'SVNSESSID');
 define_constant('PROJECT_ID', 'project_id');

@@ -1,86 +1,67 @@
-		<div id="editform">
-			<form name="workOnGroup" method="post">
-				<table>
-					<tr valign="top">
-						<td>
-							<table>
-								<tr>
-							      <td colspan="3"><h3><?php print _("Group administration / edit group"); ?></h3></td>
-							   	</tr>
-							   	<tr>
-							      <td colspan="3">&nbsp;</td>
-							   	</tr>
-							   	<tr valign="top">
-							   		<td width="150"><strong><?php print _("Group").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fGroup" value="<?php print $tGroup; ?>" maxsize="255" title="<?php print _("Enter the name of the group. The name must be unique.");?>"/>
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td><strong><?php print _("Description").": "; ?></strong></td>
-							   		<td>
-							   			<input type="text" name="fDescription" value="<?php print $tDescription; ?>" maxsize="255" title="<?php print _("Enter the group description.");?>" />
-							   		</td>
-							   		<td>&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td colspan="3">&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							   		<td colspan="3" class="hlpcenter">
-								      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							    	  	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
-							      </td>
-							   	</tr>
-							   	<tr>
-							      <td colspan="3">&nbsp;</td>
-							   	</tr>
-							   	<tr>
-							      <td colspan="3" class="standout">
-							      	<?php print $tMessage; ?>
-							      </td>
-							   	</tr>
-							</table>
-						</td>
-					
-						<td width="20">
-							&nbsp;
-						</td>
-					
-						<td>
-							<table>
-								<tr>
-									<td colspan="3">&nbsp;</td>
-								</tr>
-								<tr>
-									<td colspan="3">&nbsp;</td>
-								</tr>
-								<tr valign="top">
-									<td><strong><?php print _("Groupmembers").": "; ?></strong></td>
-									<td>
-										<select name="members[]" multiple="" size="10" style="width: 100%; height=200px;" title="<?php print sprintf(_("Members of group %s"),$tGroup);?>">
-										<?php
-											foreach($tMembers as $uid => $member) {
-												$label = $member." [".$uid."]";
-												print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$label\">$label</option>\n";
-											}   
-										?>
-										</select>
-									</td>
-							   		<td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td>&nbsp;</td>
-									<td nowrap>
-										<input type="image" name="fSubmit_add" src="./images/add_user.png" value="<?php print _("Add member"); ?>"  title="<?php print _("Add member"); ?>" />&nbsp;&nbsp;&nbsp;
-							      		<input type="image" name="fSubmit_remove" src="./images/edit_remove.png" value="<?php print _("Remove member"); ?>" title="<?php print _("Remove member"); ?>" />
-									</td>
-									<td>&nbsp;</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
+<div>      
+    <h3 class="page-header"><?php print _("Group administration / edit group"); ?></h3> 
+</div>
+<div>
+    <form class="form-horizontal" name="workOnGroup" method="post">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group <?php print outputResponseClasses($tGroupError); ?>">
+                    <label class="col-sm-2 control-label" for="group"><?php print  _("Group"); ?>:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="group" name="fGroup" value="<?php print $tGroup; ?>" data-toggle="tooltip" title="<?php print _("Enter the name of the group. The name must be unique.");?>" />
+                        <?php print outputResponseSpan($tGroupError); ?>
+                    </div>
+                </div>
+                <div class="form-group <?php print outputResponseClasses($tDescriptionError); ?>">
+                    <label class="col-sm-2 control-label" for="description"><?php print  _("Group"); ?>:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="description" name="fDescription" value="<?php print $tDescription; ?>" data-toggle="tooltip" title="<?php print _("Enter the group description.");?>" />
+                        <?php print outputResponseSpan($tDescriptionError); ?>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <p>&nbsp;</p>
+                </div>    
+                <div class="input-group">
+                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Submit"); ?>"><?php print _("Submit"); ?></button>
+                    <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><?php print _("Back"); ?></button>
+                </div>    
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label" for="umembersser"><?php print _("Groupmembers"); ?>:</label>
+                    <div class="col-sm-4">
+                        <select class="selectpicker" name="members[]" multiple id="members">
+                            <?php
+                                foreach($tMembers as $uid => $member) {
+                                    $label = $member." [".$uid."]";
+                                    print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$label\">$label</option>\n";
+                                }  
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <p>&nbsp;</p>
+                </div>    
+                <div class="input-group">
+                    <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_add" title="<?php print _("Add member"); ?>"><span class="glyphicon glyphicon-plus-sign"></span> <?php print _("Add member"); ?></button>
+                    <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_remove" title="<?php print _("Remove member"); ?>"><span class="glyphicon glyphicon-erase"></span> <?php print _("Remove member"); ?></button>
+                </div>
+            </div>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>
+        
+         <?php 
+            outputMessage($tMessage, $tMessageType);
+        ?>
+    </form>
+</div>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+</script>

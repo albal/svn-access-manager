@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * bnulk add ldap users
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -66,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tUsersLdap = get_ldap_users();
     $tUsers = array();
-    foreach( $tUsersLdap as $user) {
+    foreach( $tUsersLdap as $user ) {
         
         if (db_getIdByUserid($user['uid'], $dbh)) {
             // user already exists, nothing to import
@@ -125,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $schema = db_determine_schema();
         $tPassword = db_escape_string(pacrypt('changeme'), $dbh);
         db_ta("BEGIN", $dbh);
-        foreach( $tToAdd as $i => $userid) {
+        foreach( $tToAdd as $i => $userid ) {
             
             $entry = $_SESSION[SVNSESSID][BULKADDLIST][$userid];
             $query = "INSERT INTO " . $schema . "svnusers (userid, name, givenname, password, passwordexpires, locked, emailaddress, admin, user_mode, created, created_user, password_modified, superadmin) " . "     VALUES ('" . $entry[USERID] . "', '" . $entry['name'] . "', '" . $entry[GIVENNAME] . "', '$tPassword', 1, 0 ,'" . $entry[EMAILADDRESS] . "', 'n', '$tUserRight', now(), '" . $_SESSION[SVNSESSID]['username'] . "', '20000101000000', 0)";
@@ -142,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     $tUsers = $_SESSION[SVNSESSID][BULKADDLIST];

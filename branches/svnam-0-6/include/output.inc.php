@@ -1,6 +1,12 @@
 <?php
 
-/*
+/**
+ * Output functions to write out menues and other stuff.
+ *
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *  @license GPL v2
+ * 
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
  *
@@ -17,6 +23,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ * @filesource
+ *         
  */
 
 /*
@@ -27,99 +36,28 @@
  * $Id$
  *
  */
+/**
+ * check if called directly and redirect to loghin page
+ */
 if (preg_match("/output.inc.php/", $_SERVER['PHP_SELF'])) {
     
     header("Location: login.php");
     exit();
 }
 
-function outputHeader() {
-
-    $tUsername = isset($_SESSION[SVNSESSID][USERNAME]) ? $_SESSION[SVNSESSID][USERNAME] : "undefined";
-    
-    print "<ul class='topmenu'>";
-    print "<li class='topmenu'><a href='main.php' alt='Home'><img src='./images/gohome.png' border='0' /> " . _("Main menu") . "</a></li>";
-    print "<li class='topmenu'><a href='logout.php' alt='Logout'><img src='./images/stop.png' border='0' />" . _("Logoff") . "</a></li>";
-    print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
-    print "<li><a href='help.php' alt='help' id='help' target='_blank'><img src='./images/help.png' border='0' />" . _("Help") . "</a></li>";
-    print "<li class='topmenu'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>";
-    print "<li><a href='doc/html/index.html#use' alt='" . _("Documentation") . "' id='doc' target='_blank'><img src='./images/help.png' border='0' />" . _("Documentation") . "</a></li>";
-    print "</ul>";
-    print "<div align='right'><p>&nbsp;</p>" . _("Logged in as") . ": " . $tUsername . "</div>";
-    
-}
-
-function outputSubHeader($area) {
-
-    $area = strtolower($area);
-    
-    switch ($area) {
-        case "groups" :
-            print "<img src='./images/group.png' border='0' />  " . _("Groups");
-            break;
-        
-        case "main" :
-            print "<img src='./images/welcome.png' border='0' /> " . sprintf(_("Welcome %s"), $_SESSION[SVNSESSID]['givenname'] . " " . $_SESSION[SVNSESSID]['name']);
-            break;
-        
-        case "users" :
-            print "<img src='./images/user.png' border='0' />  " . _("Users");
-            break;
-        
-        case "password" :
-            print "<img src='./images/password.png' border='0' />  " . _("Password");
-            break;
-        
-        case "password_policy" :
-            print "<img src='./images/password.png' border='0' />  " . _("Password policy");
-            break;
-        
-        case "general" :
-            print "<img src='./images/personal.png' border='0' />  " . _("General");
-            break;
-        
-        case "noadmin" :
-            print "<img src='./images/service.png' border='0' />  " . _("Access denied");
-            break;
-        
-        case "dberror" :
-            print "<img src='./images/service.png' border='0' />  " . _("Database error");
-            break;
-        
-        case "nopermission" :
-            print "<img src='./images/password.png' border='0' />  " . _("Permission denied");
-            break;
-        
-        case "projects" :
-            print "<img src='./images/project.png' border='0' />  " . _("Projects");
-            break;
-        
-        case "repos" :
-            print "<img src='./images/service.png' border='0' />  " . _("Repositories");
-            break;
-        
-        case "access" :
-            print "<img src='./images/password.png' border='0' />  " . _("Access rights");
-            break;
-        
-        case "reports" :
-            print "<img src='./images/reports.png' border='0' />  " . _("Reports");
-            break;
-        
-        case "preferences" :
-            print "<img src='./images/macros.png' border='0' />  " . _("Preferences");
-            break;
-        
-        case "search" :
-            print "<img src='./images/search_large.png' border='0' />  " . _("Search");
-            break;
-        
-        default :
-            print "unknown tag: $area";
-    }
-    
-}
-
+/**
+ * Write admin menu to navigation bar.
+ *
+ * @param string $tAdmin
+ * @param string $rightUserAdmin
+ * @param string $rightGroupAdmin
+ * @param string $rightProjectAdmin
+ * @param string $rightRepositoryAdmin
+ * @param string $rightAccessRightAdmin
+ * @param string $tGroupsAllowed
+ * @param string $rightCreateFiles
+ *
+ */
 function outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProjectAdmin, $rightRepositoryAdmin, $rightAccessRightAdmin, $tGroupsAllowed, $rightCreateFiles) {
 
     global $CONF;
@@ -127,59 +65,71 @@ function outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProje
     
     if (($tAdmin == "p") || ($rightUserAdmin != "none") || ($rightGroupAdmin != "none") || ($rightProjectAdmin != "none") || ($rightRepositoryAdmin != "none") || ($rightAccessRightAdmin != "none") || (count($tGroupsAllowed) > 0) || ($rightCreateFiles != "none")) {
         
-        print "\t\t\t\t<p>&nbsp;</p>";
-        print "\t\t\t\t<p>&nbsp;</p>";
-        print "\t\t\t\t<h3>" . _("Administration") . "</h3>\n";
-        print "\t\t\t\t<ul class='leftmenu'>\n";
+        /**
+         * dropdown Administration
+         */
+        print '<li class="dropdown">';
+        print '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . _("Administration") . ' <span class="caret"></span></a>';
+        print '<ul class="dropdown-menu">';
     }
     
     if ($rightUserAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_users.php\">" . _("Users") . "</a></li>\n";
+        print '<li><a href="list_users.php">' . _("Users") . '</a></li>';
         
         if (isset($CONF[USE_LDAP]) && (strtoupper($CONF[USE_LDAP]) == "YES")) {
             
-            print "\t\t\t\t\t<li class='leftmenu'><a href=\"bulk_add_ldap_users.php\">" . _("Bulk add LDAP users") . "</a></li>\n";
+            print '<li><a href="bulk_add_ldap_users.php">' . _("Bulk add LDAP users") . '</a></li>';
         }
     }
     
     if ($rightGroupAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_groups.php\">" . _("Groups") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_group_admins.php\">" . _("Group administrators") . "</a></li>\n";
+        print '<li><a href="list_groups.php">' . _("Groups") . '</a></li>';
+        print '<li><a href="list_group_admins.php">' . _("Group administrators") . '</a></li>';
     }
     elseif (count($tGroupsAllowed) > 0) {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_groups.php\">" . _("Groups") . "</a></li>\n";
+        print '<li><a href="list_groups.php">' . _("Groups") . '</a></li>';
     }
     
     if ($rightRepositoryAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_repos.php\">" . _("Repositories") . "</a></li>\n";
+        print '<li><a href="list_repos.php">' . _("Repositories") . '</a></li>';
     }
     
     if ($rightProjectAdmin != "none") {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_projects.php\">" . _("Projects") . "</a></li>\n";
+        print '<li><a href="list_projects.php">' . _("Projects") . '</a></li>';
     }
     
     if (($rightAccessRightAdmin != "none") || ($tAdmin == "p") || ($tAdmin == "y")) {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"list_access_rights.php\">" . _("Repository access rights") . "</a></li>\n";
+        print '<li><a href="list_access_rights.php">' . _("Repository access rights") . '</a></li>';
     }
     
     if ($rightCreateFiles != "none") {
         
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"createAccessFiles.php\">" . _("Create access files") . "</a></li>\n";
+        print '<li><a href="createAccessFiles.php">' . _("Create access files") . '</a></li>';
     }
     
     if (($tAdmin == "p") || ($rightUserAdmin != "none") || ($rightGroupAdmin != "none") || ($rightProjectAdmin != "none") || ($rightRepositoryAdmin != "none") || ($rightAccessRightAdmin != "none") || (count($tGroupsAllowed) > 0) || ($rightCreateFiles != "none")) {
         
-        print "\t\t\t\t</ul>\n";
+        print '</ul>';
+        print '</li>';
+    /**
+     * end dropdown Administration
+     */
     }
     
 }
 
+/**
+ * Write reports menu to navigation bar.
+ *
+ * @param string $rightReports
+ *
+ */
 function outputReportsMenu($rightReports) {
 
     global $CONF;
@@ -187,34 +137,36 @@ function outputReportsMenu($rightReports) {
     
     if ($rightReports != "none") {
         
-        print "\t\t\t\t<p>&nbsp;</p>";
-        print "\t\t\t\t<p>&nbsp;</p>";
-        print "\t\t\t\t<h3>" . _("Reports") . "</h3>\n";
-        print "\t\t\t\t<ul class='leftmenu'>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"rep_access_rights.php\">" . _("Repository access rights") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"rep_log.php\">" . _("Log") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"rep_locked_users.php\">" . _("Locked users") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"rep_granted_user_rights.php\">" . _("Granted user rights") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"rep_show_user.php\">" . _("Show user") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'><a href=\"rep_show_group.php\">" . _("Show group") . "</a></li>\n";
-        print "\t\t\t\t\t<li class='leftmenu'>&nbsp;</li>\n";
-        print "\t\t\t\t</ul>\n";
+        /**
+         * dropdown Reports
+         */
+        print '<li class="dropdown">';
+        print '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . _("Reports") . ' <span class="caret"></span></a>';
+        print '<ul class="dropdown-menu">';
+        
+        print '<li><a href="rep_access_rights.php">' . _("Repository access rights") . '</a></li>';
+        print '<li><a href="rep_log.php">' . _("Log") . '</a></li>';
+        print '<li><a href="rep_locked_users.php">' . _("Locked users") . '</a></li>';
+        print '<li><a href="rep_granted_user_rights.php">' . _("Granted user rights") . '</a></li>';
+        print '<li><a href="rep_show_user.php">' . _("Show user") . '</a></li>';
+        print '<li><a href="rep_show_group.php">' . _("Show group") . '</a></li>';
+        
+        print '</ul>';
+        print '</li>';
+    /**
+     * end dropdown Reports
+     */
     }
     
 }
 
+/**
+ * Write navigation bar menu to webpage.
+ */
 function outputMenu() {
 
     global $CONF;
     global $_SESSION;
-    
-    print "\t\t\t\t<h3>" . _("My account") . "</h3>";
-    print "\t\t\t\t<ul class='leftmenu'>\n";
-    print "\t\t\t\t\t<li class='leftmenu'><a href='general.php'>" . _("General") . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftmenu'><a href='password.php'>" . _("Password") . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftmenu'><a href='password_policy.php'>" . _("Password policy") . "</a></li>\n";
-    print "\t\t\t\t\t<li class='leftmenu'><a href='preferences.php'>" . _("Preferences") . "</a></li>\n";
-    print "\t\t\t\t</ul>\n";
     
     $dbh = db_connect();
     
@@ -230,43 +182,110 @@ function outputMenu() {
     $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
     $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
     
+    print '<!-- Fixed navbar -->';
+    print '<nav class="navbar navbar-default navbar-fixed-top">';
+    print '<div class="container">';
+    print '<div class="navbar-header">';
+    print '<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">';
+    print '<span class="sr-only">Toggle navigation</span>';
+    print '<span class="icon-bar"></span>';
+    print '<span class="icon-bar"></span>';
+    print '<span class="icon-bar"></span>';
+    print '</button>';
+    print '<a class="navbar-brand" href="main.php">SVN Access Manager</a>';
+    print '</div>';
+    print '<div id="navbar" class="navbar-collapse collapse">';
+    print '<ul class="nav navbar-nav">';
+    
+    /**
+     * dropdown my account
+     */
+    print '<li class="dropdown">';
+    print '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . _("My account") . ' <span class="caret"></span></a>';
+    print '<ul class="dropdown-menu">';
+    print '<li><a href="general.php">' . _("General") . '</a></li>';
+    print '<li><a href="password.php">' . _("Password") . '</a></li>';
+    print '<li><a href="password_policy.php">' . _("Password policy") . '</a></li>';
+    print '<li><a href="preferences.php">' . _("Preferences") . '</a></li>';
+    print '<li><a href="logout.php">' . _("logoff") . '</a></li>';
+    print '</ul>';
+    print '</li>';
+    /**
+     * end dropdown my account
+     */
+    
     outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProjectAdmin, $rightRepositoryAdmin, $rightAccessRightAdmin, $tGroupsAllowed, $rightCreateFiles);
     outputReportsMenu($rightReports);
     
-    print "\t\t\t\t<p>&nbsp;</p>\n";
+    print '</ul>';
+    
+    print '<ul class="nav navbar-nav navbar-right">';
+    print '<li><a href="help.php" id="help">' . _("Help") . '</a></li>';
+    print '<li><a href="doc/html/index.html#use">' . _("Documentation") . '</a></li>';
+    print '</ul>';
+    print '</div><!--/.nav-collapse -->';
+    print '</div>';
+    print '</nav>';
     
 }
 
-function outputFooter() {
+/**
+ * Write a lamguage dropdown to navigation bar.
+ */
+function outputLanguageMenu() {
 
+    print '<li>';
+    print '<div class="bfh-selectbox bfh-languages" data-language="en_US" data-available="en_US,de_DE" data-flags="true">';
+    print '<input type="hidden" value="" name="fLanguage">';
+    print '<a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">';
+    print '<span class="bfh-selectbox-option input-medium" data-option=""></span>';
+    print '<b class="caret"></b>';
+    print '</a>';
+    print '<div class="bfh-selectbox-options">';
+    print '<div role="listbox">';
+    print '<ul role="option">';
+    print '</ul>';
+    print '</div>';
+    print '</div>';
+    print '</div>';
+    print '</li>';
     
 }
 
+/**
+ * Write custom fields to webpage.
+ */
 function outputCustomFields() {
 
     global $CONF;
     
     if (isset($CONF[CUSTOM_COLUMN1])) {
-        print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
+        print "\t\t\t\t\t\t<th>\n";
         print "\t\t\t\t\t\t\t" . _($CONF[CUSTOM_COLUMN1]);
         print "\t\t\t\t\t\t</th>\n";
     }
     if (isset($CONF[CUSTOM_COLUMN2])) {
-        print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
+        print "\t\t\t\t\t\t<th>\n";
         print "\t\t\t\t\t\t\t" . _($CONF[CUSTOM_COLUMN2]);
         print "\t\t\t\t\t\t</th>\n";
     }
     if (isset($CONF[CUSTOM_COLUMN3])) {
-        print "\t\t\t\t\t\t<th class=\"ui-table-default\">\n";
+        print "\t\t\t\t\t\t<th>\n";
         print "\t\t\t\t\t\t\t" . _($CONF[CUSTOM_COLUMN3]);
         print "\t\t\t\t\t\t</th>\n";
     }
     
 }
 
+/**
+ * Write a table with all users to webpage.
+ *
+ * @param string $tUsers
+ * @param string $rightAllowed
+ */
 function outputUsers($tUsers, $rightAllowed) {
 
-    foreach( $tUsers as $entry) {
+    foreach( $tUsers as $entry ) {
         
         global $CONF;
         
@@ -330,11 +349,17 @@ function outputUsers($tUsers, $rightAllowed) {
     
 }
 
+/**
+ * Write a table with all repositories to the webpage.
+ *
+ * @param string $tRepos
+ * @param string $rightAllowed
+ */
 function outputRepos($tRepos, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tRepos as $entry) {
+    foreach( $tRepos as $entry ) {
         
         if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
             $url = htmlentities("workOnRepo.php?id=" . $entry['id'] . "&task=change");
@@ -364,11 +389,17 @@ function outputRepos($tRepos, $rightAllowed) {
     
 }
 
+/**
+ * Write a table with all projects to the webpage.
+ *
+ * @param string $tProjects
+ * @param string $rightAllowed
+ */
 function outputProjects($tProjects, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tProjects as $entry) {
+    foreach( $tProjects as $entry ) {
         
         if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
             $url = htmlentities("workOnProject.php?id=" . $entry['id'] . "&task=change");
@@ -397,11 +428,18 @@ function outputProjects($tProjects, $rightAllowed) {
     
 }
 
+/**
+ * Write a table with all groups to the webpage.
+ *
+ * @param string $tGroups
+ * @param string $tGroupsAllowed
+ * @param string $rightAllowed
+ */
 function outputGroups($tGroups, $tGroupsAllowed, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tGroups as $entry) {
+    foreach( $tGroups as $entry ) {
         
         $groupRight = isset($tGroupsAllowed[$entry['id']]) ? $tGroupsAllowed[$entry['id']] : "none";
         
@@ -431,11 +469,17 @@ function outputGroups($tGroups, $tGroupsAllowed, $rightAllowed) {
     
 }
 
+/**
+ * Write a table with all group administrators to the webpage.
+ *
+ * @param string $tGroups
+ * @param string $rightAllowed
+ */
 function outputGroupAdmin($tGroups, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tGroups as $entry) {
+    foreach( $tGroups as $entry ) {
         
         if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
             $url = htmlentities("workOnGroupAccessRight.php?id=" . $entry['id'] . "&task=change");
@@ -466,6 +510,12 @@ function outputGroupAdmin($tGroups, $rightAllowed) {
     
 }
 
+/**
+ * Write a table with all access rights to the webpacge
+ *
+ * @param string $tAccessRights
+ * @param string $rightAllowed
+ */
 function outputAccessRights($tAccessRights, $rightAllowed) {
 
     global $CONF;
@@ -474,7 +524,7 @@ function outputAccessRights($tAccessRights, $rightAllowed) {
     $_SESSION[SVNSESSID]['max_mark'] = 0;
     $_SESSION[SVNSESSID]['mark'] = array();
     
-    foreach( $tAccessRights as $entry) {
+    foreach( $tAccessRights as $entry ) {
         
         $validfrom = splitValidDate($entry['valid_from']);
         $validuntil = splitValiddate($entry['valid_until']);
@@ -513,6 +563,81 @@ function outputAccessRights($tAccessRights, $rightAllowed) {
     }
     
     $_SESSION[SVNSESSID]['max_mark'] = $i - 1;
+    
+}
+
+/**
+ * Write a message to the webpage
+ *
+ * @param string $tMessage
+ * @param string $type
+ *            valid types: success, info, warning, danger
+ */
+function outputMessage($tMessage, $type = '') {
+
+    if (empty($tMessage)) {
+        print '<div>&nbsp;</div>';
+    }
+    else {
+        if (empty($type)) {
+            $type = 'info';
+        }
+        print "<div class=\"alert alert-" . $type . "\">" . $tMessage . "</div>";
+    }
+    
+}
+
+/**
+ * Write a span to signal a message
+ *
+ * @param string $type
+ *            valid types: ok, warn, error or empty
+ * @return string
+ */
+function outputResponseSpan($type = '') {
+
+    switch ($type) {
+        case 'ok' :
+            $type = 'ok';
+            break;
+        case 'warn' :
+            $type = 'warning-sign';
+            break;
+        case 'error' :
+            $type = 'remove';
+            break;
+        default :
+            $type = '';
+    }
+    
+    return (empty($type) ? '' : '<span class="glyphicon glyphicon-' . $type . ' form-control-feedback"></span>');
+    
+}
+
+/**
+ * return css classes for message
+ *
+ * @param string $type
+ *            valid types: ok, warn, error or empty
+ * @return string
+ */
+function outputResponseClasses($type = '') {
+
+    switch ($type) {
+        case 'ok' :
+            $type = 'has-success has-feedback';
+            break;
+        case 'warn' :
+            $type = 'has-warning has-feedback';
+            break;
+        case 'error' :
+            $type = 'has-error has-feedback';
+            break;
+        default :
+            $type = '';
+    }
+    
+    return ($type);
     
 }
 ?>

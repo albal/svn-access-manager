@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Test PostgreSQL database functionality
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -27,15 +34,33 @@
  * $Id: databaseTest.php 775 2018-01-24 12:32:49Z kriegeth $
  *
  */
+
+/**
+ * Class for tests of PostgreSQL functionality
+ */
 final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
+    /**
+     * fixtures for db load
+     */
     public $fixtures = array();
+    /**
+     * database connection
+     */
     private $conn = null;
 
+    /**
+     * constructor
+     */
     public function __construct() {
 
         
     }
 
+    /**
+     * get a database connection
+     *
+     * @return resource
+     */
     public function getConnection() {
 
         if ($this->conn === null) {
@@ -54,6 +79,7 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     /**
+     * load database data
      *
      * @return PHPUnit_Extensions_Database_DataSet_IDataSet
      */
@@ -63,6 +89,11 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * database login
+     *
+     * @return resource
+     */
     public function databaseLogin() {
 
         require_once ('constants.inc.php');
@@ -73,6 +104,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * check if row count in tables is correct
+     */
     public function testRowCounts() {
 
         $rowCounts = array();
@@ -95,12 +129,15 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $rowCounts['users_rights'] = 21;
         $rowCounts['workinfo'] = 3;
         
-        foreach( $rowCounts as $table => $count) {
+        foreach( $rowCounts as $table => $count ) {
             $this->assertGreaterThanOrEqual($count, $this->getConnection()->getRowCount($table), "Pre-Condition");
         }
         
     }
 
+    /**
+     * test database functionality
+     */
     public function testDatabaseFunctions() {
 
         require_once ('constants.inc.php');
@@ -153,6 +190,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test database functions regarding users
+     */
     public function testDatabaseUserFunctions() {
 
         require_once ('constants.inc.php');
@@ -182,6 +222,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test database functions regarding groups
+     */
     public function testDatabaseGroupFunctions() {
 
         require_once ('constants.inc.php');
@@ -279,6 +322,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test database functions regarding projects
+     */
     public function testDatabaseProjectFunctions() {
 
         require_once ('constants.inc.php');
@@ -311,6 +357,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test database functions regarding repositories
+     */
     public function testDatabaseRepoFunctions() {
 
         require_once ('constants.inc.php');
@@ -328,6 +377,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test database functions regarding logging
+     */
     public function testDatabaseLogFunctions() {
 
         require_once ('constants.inc.php');
@@ -352,6 +404,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test database functions regarding access rights
+     */
     public function testDatabaseAccessRightsFunctions() {
 
         require_once ('constants.inc.php');
@@ -440,6 +495,9 @@ final class PgDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         
     }
 
+    /**
+     * test wrong login
+     */
     public function test_wrong_db_login() {
 
         require_once ('constants.inc.php');

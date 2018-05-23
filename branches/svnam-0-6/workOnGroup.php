@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Work on a group
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -95,6 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $_SESSION[SVNSESSID]['task'] = strtolower($tTask);
     }
     
+    $tGroupError = '';
+    $tDescriptionError = '';
+    
     if ($tTask == RELIST) {
         
         $tDescription = $_SESSION[SVNSESSID][GROUPDESCR];
@@ -149,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     else {
         
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+        $tMessageType = DANGER;
     }
     
     $header = GROUPS;
@@ -232,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $new = array();
             $old = $_SESSION[SVNSESSID][MEMBERS];
             
-            foreach( $old as $userid => $name) {
+            foreach( $old as $userid => $name ) {
                 
                 if (! in_array($userid, $tMembers)) {
                     
@@ -255,16 +266,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($tGroup == "") {
             
             $tMessage = _("Group name is missing. Please fill in!");
+            $tMessageType = DANGER;
+            $tGroupError = ERROR;
             $error = 1;
         }
         elseif ($tDescription == "") {
             
             $tMessage = _("Group description is missing. Please fill in!");
+            $tMessageType = DANGER;
+            $tDescriptionError = ERROR;
             $error = 1;
         }
         elseif (count($_SESSION[SVNSESSID][MEMBERS]) == 0) {
             
             $tMessage = _("A group must have one member at least! Otherwise delete the whole group!");
+            $tMessageType = DANGER;
             $error = 1;
         }
         else {
@@ -283,6 +299,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($result['rows'] > 0) {
                 
                 $tMessage = sprintf(_("Group with name %s already exists!"), $tGroup);
+                $tMessageType = DANGER;
+                $tGroupError = ERROR;
                 $error = 1;
             }
         }
@@ -302,13 +320,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($result['rows'] == 0) {
                     
                     $tMessage = sprintf(_("Group %s not inserted due to database errors"), $tGroup);
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
                 else {
                     
                     $groupid = db_get_last_insert_id(SVNGROUPS, 'id', $dbh);
                     
-                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name ) {
                         
                         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')";
                         $result = db_query($query, $dbh);
@@ -327,12 +346,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result['rows'] != 1) {
                                 
                                 $tMessage = sprintf(_("Insert of user group relation failed for user_id %s and group_id %s"), $id, $groupid);
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                         }
                         else {
                             
                             $tMessage = sprintf(_("User %s not found!"), $userid);
+                            $tMessageType = DANGER;
                             $error = 1;
                         }
                     }
@@ -365,7 +386,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     $tUids = array();
                     
-                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $uid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $uid => $name ) {
                         
                         $tUids[] = $uid;
                     }
@@ -387,6 +408,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result_del['rows'] != 1) {
                                 
                                 $tMessage = sprintf(_("Delete of svn_users_group record with id %s failed"), $id);
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                             
@@ -394,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         }
                     }
                     
-                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name ) {
                         
                         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')";
                         $result = db_query($query, $dbh);
@@ -415,6 +437,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 
                                 if ($result['rows'] != 1) {
                                     $tMessage = sprintf(_("Insert of user/group relation (%s/%s) failed due to database error"), $id, $groupid);
+                                    $tMessageType = DANGER;
                                     $error = 1;
                                 }
                                 
@@ -424,6 +447,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         else {
                             
                             $tMessage = sprintf(_("User %s not found!"), $userid);
+                            $tMessageType = DANGER;
                             $error = 1;
                         }
                     }
@@ -431,6 +455,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 else {
                     
                     $tMessage = sprintf(_("Update of group %s failed due to database errors"), $tGroup);
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
                 
@@ -467,7 +492,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $membersadd = array();
         }
         
-        foreach( $membersadd as $userid) {
+        foreach( $membersadd as $userid ) {
             
             $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000' )";
             $result = db_query($query, $dbh);
@@ -507,6 +532,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     $header = GROUPS;

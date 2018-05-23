@@ -1,22 +1,30 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Report access rights
+ * *
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -57,6 +65,7 @@ if ($rightAllowed == "none") {
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
+    $tDateError = '';
     $lang = check_language();
     
     if ($lang == "de") {
@@ -100,26 +109,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     if ($button == _("Create report")) {
         
+        // 2018-05-09
         $tDate = isset($_POST['fDate']) ? db_escape_string($_POST['fDate']) : "";
         $_SESSION[SVNSESSID]['date'] = $tDate;
         $lang = check_language();
         
-        if (($lang == "de") || (substr($tDate, 2, 1) == ".")) {
-            
-            $day = substr($tDate, 0, 2);
-            $month = substr($tDate, 3, 2);
-            $year = substr($tDate, 6, 4);
-        }
-        else {
-            
-            $day = substr($tDate, 3, 2);
-            $month = substr($tDate, 0, 2);
-            $year = substr($tDate, 6, 4);
-        }
+        $day = substr($tDate, 8, 2);
+        $month = substr($tDate, 5, 2);
+        $year = substr($tDate, 0, 4);
         
         if (! check_date($day, $month, $year)) {
             
             $tMessage = sprintf(_("Not a valid date: %s (%s-%s-%s)"), $tDate, $day, $month, $year);
+            $tMessageType = DANGER;
+            $tDateError = 'error';
             $error = 1;
             
             if ($lang == "de") {
@@ -145,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
         else {
             
+            $tDateError = 'ok';
             $valid = $year . $month . $day;
             $_SESSION[SVNSESSID]['valid'] = $valid;
             $_SESSION[SVNSESSID]['rightcounter'] = 0;

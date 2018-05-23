@@ -1,22 +1,30 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Functions to make work easier.
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
 /*
@@ -39,11 +47,11 @@ if (preg_match("/functions.inc.php/", $_SERVER['PHP_SELF'])) {
     exit();
 }
 
-//
-// getPhpVersion
-// Action: get php version in two dgit format like "53"
-// Call: getPhpVersion
-//
+/**
+ * get php version in two dgit format like "53"
+ *
+ * @return string
+ */
 function getPhpVersion() {
 
     $version = explode(".", PHP_VERSION);
@@ -52,22 +60,22 @@ function getPhpVersion() {
     
 }
 
-//
-// runInCli
-// Action: check if runninh in php client
-// Call: runInCli
-//
+/**
+ * check if running in php client
+ *
+ * @return boolean
+ */
 function runInCli() {
 
     return (php_sapi_name() == "cli");
     
 }
 
-//
-// initalize_i18n
-// Action: inialize gettext
-// Call: initialize_i18n()
-//
+/**
+ * inialize gettext
+ *
+ * @return void
+ */
 function initialize_i18n() {
 
     $locale = get_locale();
@@ -77,12 +85,21 @@ function initialize_i18n() {
         $locale = $locale . "_" . strtoupper($locale);
     }
     
-    putenv("LANG=$locale");
-    putenv("LC_ALL=$locale");
-    setlocale(LC_ALL, 0);
-    setlocale(LC_ALL, $locale);
+    $ret = putenv("LANG=$locale");
+    error_log("result setting LANG: " . $ret);
     
-    // Path "./locale/de/LC_MESSAGES/messages.mo" handled in else branch
+    $ret = putenv("LC_ALL=$locale");
+    error_log("result setting LC_ALL to " . $locale . ": " . $ret);
+    
+    $ret = setlocale(LC_ALL, 0);
+    error_log("result setlocale LC_ALL to 0: " . $ret);
+    
+    $ret = setlocale(LC_ALL, $locale);
+    error_log("result setlocale LC_ALL to " . $locale . ": " . $ret);
+    
+    /**
+     * Path "./locale/de/LC_MESSAGES/messages.mo" handled in else branch
+     */
     if (file_exists(realpath("../locale/de/LC_MESSAGES/messages.mo"))) {
         
         $localepath = "../locale";
@@ -92,18 +109,23 @@ function initialize_i18n() {
         $localepath = "./locale";
     }
     
-    bindtextdomain(MESSAGES, $localepath);
-    textdomain(MESSAGES);
+    $dom = bindtextdomain("messages", $localepath);
+    error_log("Language file path is " . $dom);
     
-    bind_textdomain_codeset(MESSAGES, 'UTF-8');
+    $msgdom = textdomain("messages");
+    error_log("Language textdomain is " . $msgdom);
+    
+    $charset = bind_textdomain_codeset(MESSAGES, 'UTF-8');
+    error_log("Language characterset: " . $charset);
     
 }
 
-//
-// check_session
-// Action: Check if a session already exists, if not redirect to login.php
-// Call: check_session ()
-//
+/**
+ * Check if a session already exists, if not redirect to login.php
+ *
+ * @return string
+ * @source
+ */
 function check_session() {
 
     global $CONF;
@@ -129,11 +151,12 @@ function check_session() {
     
 }
 
-//
-// check_session_lpw
-// Action: Check if a session already exists, if not redirect to login.php
-// Call: check_session ()
-//
+/**
+ * Check if a session already exists, if not redirect to login.php
+ *
+ * @param string $redirect
+ * @return string
+ */
 function check_session_lpw($redirect = "y") {
 
     $s = new Session();
@@ -162,11 +185,11 @@ function check_session_lpw($redirect = "y") {
     
 }
 
-//
-// check_session_status
-// Action: Check if a session already exists, if not redirect to login.php
-// Call: check_session_status ()
-//
+/**
+ * Check if a session already exists, if not redirect to login.php
+ *
+ * @return array
+ */
 function check_session_status() {
 
     $ret = 0;
@@ -190,11 +213,12 @@ function check_session_status() {
     
 }
 
-//
-// create_verify_string
-// Action: create a verify string for email verification
-// Call: create_verify_string
-//
+/**
+ * create a verify string for email verification
+ *
+ * @return string The srting to be used for verification
+ *        
+ */
 function create_verify_string() {
 
     $validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
@@ -211,11 +235,11 @@ function create_verify_string() {
     
 }
 
-//
-// check_password_expired
-// Action: checks if a password is expired and akes the user to the password change mask
-// Call: check_password_expired
-//
+/**
+ * checks if a password is expired and akes the user to the password change mask
+ *
+ * @return void
+ */
 function check_password_expired() {
 
     if ((isset($_SESSION[SVNSESSID]['password_expired'])) && ($_SESSION[SVNSESSID]['password_expired'] == 1)) {
@@ -226,11 +250,11 @@ function check_password_expired() {
     
 }
 
-//
-// check_language
-// Action: checks what language the browser uses
-// Call: check_language
-//
+/**
+ * checks what language the browser uses
+ *
+ * @return string The language string
+ */
 function check_language() {
 
     global $CONF;
@@ -260,20 +284,29 @@ function check_language() {
         $lang = $CONF['default_language'];
     }
     
+    error_log("Language check_language: " . $lang);
+    
     return $lang;
     
 }
 
-//
-// check_language
-// Action: checks what language the browser uses
-// Call: check_language
-//
+/**
+ * Get the locale from the accepted languages, checks what language the browser uses
+ *
+ * @author Thomas Krieger
+ *        
+ * @return string
+ *
+ */
 function get_locale() {
 
+    /**
+     *
+     * @global $CONF
+     */
     global $CONF;
     
-    if (isset($CONF)) {
+    if (isset($CONF) && isset($CONF['supported_languages'])) {
         $supported_languages = $CONF['supported_languages'];
     }
     else {
@@ -316,22 +349,26 @@ function get_locale() {
     
 }
 
-//
-// check_string
-// Action: checks if a string is valid and returns TRUE is this is the case.
-// Call: check_string (string var)
-//
+/**
+ * checks if a string is valid and returns TRUE is this is the case.
+ *
+ * @param string $var
+ * @return boolean True if string meets regex
+ *        
+ */
 function check_string($var) {
 
     return (preg_match('/^([A-Za-z0-9 ]+)+$/', $var));
     
 }
 
-//
-// check_email
-// Action: Checks if email is valid and returns TRUE if this is the case.
-// Call: check_email (string email)
-//
+/**
+ * Checks if email is valid and returns TRUE if this is the case.
+ *
+ * @param string $email
+ * @return boolean True if email address is valid
+ *        
+ */
 function check_email($email) {
 
     if (filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
@@ -343,11 +380,11 @@ function check_email($email) {
     
 }
 
-//
-// getDateJhjjmmtt
-// Action: retrieve date in format YYYYMMTT
-// Call getDateJhjjmmtt
-//
+/**
+ * retrieve date in format YYYYMMTT
+ *
+ * @return string
+ */
 function getDateJhjjmmtt() {
 
     $date = getdate();
@@ -366,11 +403,13 @@ function getDateJhjjmmtt() {
     
 }
 
-//
-// splitDate
-// Action: convert date from jhjjmmtt to t.mm.jhjj
-// Call: splitdate( string date )
-//
+/**
+ * convert date from jhjjmmtt to t.mm.jhjj
+ *
+ * @param string $date
+ * @return string
+ *
+ */
 function splitdate($date) {
 
     $year = substr($date, 0, 4);
@@ -381,17 +420,33 @@ function splitdate($date) {
     
 }
 
-//
-// check_date
-// Action: check a date string if it is a valid date
-// Call: check_date (string day, string month, string year)
-//
+/**
+ * Check a date if its numeric and valid
+ *
+ * @param string $day
+ *            The day
+ * @param string $month
+ *            The month
+ * @param string $year
+ *            The year must have 4 digits
+ *            
+ * @return boolean True if date is valid
+ * @source
+ *
+ */
 function check_date($day, $month, $year) {
 
     return (preg_match('/[0-9]{2}/', $day) && preg_match('/[0-9]{2}/', $month) && preg_match('/[0-9]{4}/', $year) && checkdate($month, $day, $year));
     
 }
 
+/**
+ * remove magic quotes
+ *
+ * @param string $query
+ * @return string
+ *
+ */
 function no_magic_quotes($query) {
 
     $data = explode("\\\\", $query);
@@ -399,17 +454,22 @@ function no_magic_quotes($query) {
     
 }
 
-//
-// generate_password
-// Action: Generates a random password
-// Call: generate_password ()
-//
+/**
+ * Generates a random password
+ *
+ * @return string
+ */
 function generate_password() {
 
     return (substr(md5(mt_rand()), 0, 8));
     
 }
 
+/**
+ * create a seed
+ *
+ * @return number
+ */
 function make_seed() {
 
     list($usec, $sec ) = explode(' ', microtime());
@@ -417,11 +477,13 @@ function make_seed() {
     
 }
 
-//
-// generatePassword
-// Action: Generates a random password
-// Call: generatePassword ()
-//
+/**
+ * Generates a random password
+ *
+ * @param string $admin
+ * @return string The generated password
+ *        
+ */
 function generatePassword($admin) {
 
     global $CONF;
@@ -491,11 +553,15 @@ function generatePassword($admin) {
     
 }
 
-//
-// pacrypt
-// Action: Encrypts password based on config settings
-// Call: pacrypt (string cleartextpassword, optional hashedpassword)
-//
+/**
+ * Encrypts password based on config settings
+ *
+ * @param string $pw
+ * @param string $pw_db
+ * @throws Exception
+ * @return string Encrypted password
+ *        
+ */
 function pacrypt($pw, $pw_db = "") {
 
     global $CONF;
@@ -515,17 +581,28 @@ function pacrypt($pw, $pw_db = "") {
     }
     
     switch ($crypt) {
-        case "sha" : //
+        case "sha" :
+            /**
+             * sha password hash
+             */
             return '{SHA}' . base64_encode(pack('H*', sha1($pw)));
             break;
-        case APRMD5 : // The modern Apache version of the MD5 password hash
+        /**
+         * The modern Apache version of the MD5 password hash
+         */
+        case APRMD5 :
             return md5crypt($pw, $salt, '$apr1$');
             break;
-        case "md5" : // The Unix version of the MD5 password hash
+        /**
+         * The Unix version of the MD5 password hash
+         */
+        case "md5" :
             return md5crypt($pw, $salt, '$1$');
             break;
         case "crypt" :
-            // crypt() can choose surprising behavior if the salt for DES-crypt is not provided
+            /**
+             * crypt() can choose surprising behavior if the salt for DES-crypt is not provided
+             */
             if ($salt == "") {
                 $salt = create_salt(2);
             }
@@ -537,14 +614,20 @@ function pacrypt($pw, $pw_db = "") {
     
 }
 
-//
-// get_passwd_type_salt
-// Action: Parse hashed password to determine hash type and existing salt
-// Call: get_passwd_type_salt (string hashed_password, string &salt)
-//
+/**
+ * Parse hashed password to determine hash type and existing salt
+ *
+ * @param string $hpw
+ * @param string $salt
+ * @throws Exception
+ * @return string The type of hash
+ *        
+ */
 function get_passwd_type_salt($hpw, &$salt) {
 
-    // Looking first for "$<id>$<salt>$<hash>" pattern
+    /**
+     * Looking first for "$<id>$<salt>$<hash>" pattern
+     */
     $split_hash = preg_split('/\$/', $hpw);
     
     if ($split_hash[0] == "" && $split_hash[1] != "") {
@@ -573,16 +656,23 @@ function get_passwd_type_salt($hpw, &$salt) {
     
 }
 
-//
-// Legal hashed password character set for base 64 representation
-//
+/**
+ * Legal hashed password character set for base 64 representation
+ *
+ * @global string $ITOA64
+ */
 $ITOA64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-//
-// md5crypt
-// Action: Creates MD5 encrypted password
-// Call: md5crypt (string cleartextpassword, string existingsalt, string md5typeidentifier)
-//
+/**
+ *
+ * Creates MD5 encrypted password
+ *
+ * @param string $pw
+ * @param string $salt
+ * @param string $magic
+ * @return string
+ *
+ */
 function md5crypt($pw, $salt = "", $magic = "") {
 
     if ($magic == "") {
@@ -658,6 +748,15 @@ function md5crypt($pw, $salt = "", $magic = "") {
     
 }
 
+/**
+ * digest crypt
+ *
+ * @param string $userid
+ * @param string $realm
+ * @param string $password
+ * @return string Encrypted password
+ *        
+ */
 function digestcrypt($userid, $realm, $password) {
 
     $pw = md5($userid . ':' . $realm . ':' . $password);
@@ -666,6 +765,12 @@ function digestcrypt($userid, $realm, $password) {
     
 }
 
+/**
+ * create a salt
+ *
+ * @param integer $len
+ * @return string Created salt
+ */
 function create_salt($len) {
 
     global $ITOA64;
@@ -680,6 +785,12 @@ function create_salt($len) {
     
 }
 
+/**
+ * own hex2bin function
+ *
+ * @param string $str
+ * @return string
+ */
 function myhex2bin($str) {
 
     $len = strlen($str);
@@ -694,6 +805,13 @@ function myhex2bin($str) {
     
 }
 
+/**
+ * to64
+ *
+ * @param string $v
+ * @param string $n
+ * @return string
+ */
 function to64($v, $n) {
 
     global $ITOA64;
@@ -709,6 +827,14 @@ function to64($v, $n) {
     
 }
 
+/**
+ * check if an admin password is compliant to the policy
+ *
+ * @param integer $passwordLength
+ * @param integer $groups
+ * @return integer Returns 1 if compliant
+ *        
+ */
 function checkAdminPasswordPolicy($passwordLength, $groups) {
 
     global $CONF;
@@ -758,6 +884,14 @@ function checkAdminPasswordPolicy($passwordLength, $groups) {
     
 }
 
+/**
+ * check id´f a normal user password is compliant to the policy
+ *
+ * @param integer $passwordLength
+ * @param integer $groups
+ * @return integer Returns 1 if compliant
+ *        
+ */
 function checkNormalPasswordPolicy($passwordLength, $groups) {
 
     global $CONF;
@@ -801,12 +935,13 @@ function checkNormalPasswordPolicy($passwordLength, $groups) {
     
 }
 
-//
-// checkPasswordPolicy
-// Action: check password against password policy
-// call: checkPasswordPolicy
-// Return: 1 = password ok, 0 = password not ok
-//
+/**
+ * check password against password policy
+ *
+ * @param string $password
+ * @param string $admin
+ * @return integer Returns 1 if password is compliant
+ */
 function checkPasswordPolicy($password, $admin = "y") {
 
     global $CONF;
@@ -853,11 +988,12 @@ function checkPasswordPolicy($password, $admin = "y") {
     
 }
 
-//
-// splitDateTime
-// Action: split a datetime value from mysql to date and time
-// Call: splitdateTime (string datetime)
-//
+/**
+ * plit a datetime value from mysql to date and time
+ *
+ * @param string $datetime
+ * @return string[]
+ */
 function splitDateTime($datetime) {
 
     $year = substr($datetime, 0, 4);
@@ -877,11 +1013,13 @@ function splitDateTime($datetime) {
     
 }
 
-//
-// splitValidDate
-// Action split valid date
-// Call: splitValidDate (string date)
-//
+/**
+ * split valid date
+ *
+ * @param string $date
+ * @return string
+ *
+ */
 function splitValidDate($date) {
 
     $year = substr($date, 0, 4);
@@ -892,11 +1030,30 @@ function splitValidDate($date) {
     
 }
 
-//
-// mkUnixTimestampFromDateTime
-// Action: create a unix timestamp from a datetime field
-// Call: mkUnixTimestampFromDateTime(string datetime)
-//
+/**
+ * split a date in format yyyymmdd into a bootstrap compatible format
+ *
+ * @param string $date
+ * @return string
+ *
+ */
+function splitDateForBootstrap($date) {
+
+    $year = substr($date, 0, 4);
+    $month = substr($date, 4, 2);
+    $day = substr($date, 6, 2);
+    
+    return ($year . '-' . $month . '-' . $day);
+    
+}
+
+/**
+ * create a unix timestamp from a datetime field
+ *
+ * @param string $datetime
+ * @return integer
+ *
+ */
 function mkUnixTimestampFromDateTime($datetime) {
 
     $year = substr($datetime, 0, 4);
@@ -910,11 +1067,11 @@ function mkUnixTimestampFromDateTime($datetime) {
     
 }
 
-//
-// determineOs
-// Action: determine if windows or not
-// Call: determineOs()
-//
+/**
+ * determine if windows or not
+ *
+ * @return string
+ */
 function determineOs() {
 
     $ret = "undef";
@@ -924,7 +1081,7 @@ function determineOs() {
     $info = ob_get_contents();
     ob_end_clean();
     
-    foreach( explode("\n", $info) as $line) {
+    foreach( explode("\n", $info) as $line ) {
         
         if (strpos($line, "System") !== false) {
             
@@ -944,26 +1101,32 @@ function determineOs() {
     
 }
 
-//
-// encode_subject
-// Action: encode subject of a email
-// Call: encode_subject( string $in_str, string $charset )
-//
+/**
+ * encode subject of a email
+ *
+ * @param string $in_str
+ * @param string $charset
+ * @return string The encdoded subject string
+ */
 function encode_subject($in_str, $charset) {
 
     $out_str = $in_str;
     if ($out_str && $charset) {
         
-        // define start delimimter, end delimiter and spacer
+        /**
+         * define start delimimter, end delimiter and spacer
+         */
         $end = "?=";
         $start = "=?" . $charset . "?B?";
         $spacer = $end . "\r\n " . $start;
         
-        // determine length of encoded text within chunks
-        // and ensure length is even
+        /**
+         * determine length of encoded text within chunks
+         * and ensure length is even
+         */
         $length = 75 - strlen($start) - strlen($end);
         
-        /*
+        /**
          * [EDIT BY danbrown AT php DOT net: The following
          * is a bugfix provided by (gardan AT gmx DOT de)
          * on 31-MAR-2005 with the following note:
@@ -976,13 +1139,17 @@ function encode_subject($in_str, $charset) {
          */
         $length = $length - ($length % 4);
         
-        // encode the string and split it into chunks
-        // with spacers after each chunk
+        /**
+         * encode the string and split it into chunks
+         * with spacers after each chunk
+         */
         $out_str = base64_encode($out_str);
         $out_str = chunk_split($out_str, $length, $spacer);
         
-        // remove trailing spacer and
-        // add start and end delimiters
+        /**
+         * remove trailing spacer and
+         * add start and end delimiters
+         */
         $spacer = preg_quote($spacer);
         $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
         $out_str = $start . $out_str . $end;
@@ -991,11 +1158,13 @@ function encode_subject($in_str, $charset) {
     
 }
 
-//
-// sortLdapUsers
-// Action: sort ldap user by a preconfigured field
-// Call: sortLdapUsers( string $a, string $b )
-//
+/**
+ * sort ldap user by a preconfigured field
+ *
+ * @param string $a
+ * @param string $b
+ * @return boolean
+ */
 function sortLdapUsers($a, $b) {
 
     global $CONF;
@@ -1007,20 +1176,26 @@ function sortLdapUsers($a, $b) {
     $bValue = strtolower($bValue);
     
     if (isset($CONF['ldap_sort_order']) && $CONF['ldap_sort_order'] == "DESC") {
-        // sort desc
+        /**
+         * sort descending
+         */
         return $aValue < $bValue;
     }
     else {
-        // sort asc
+        /**
+         * sort ascending
+         */
         return $aValue > $bValue;
     }
     
 }
 
-//
-// rand_name
-// Action: Create a safe random name using alphabetic and numeric characters only
-//
+/**
+ * Create a safe random name using alphabetic and numeric characters only
+ *
+ * @param number $len
+ * @return string
+ */
 function rand_name($len = 8) {
 
     $charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -1035,10 +1210,14 @@ function rand_name($len = 8) {
     
 }
 
-//
-// getGrepCommand
-// Action: determine grep command
-//
+/**
+ * determine grep command
+ * #
+ *
+ * @param string $tGrepCommand
+ * @return string
+ *
+ */
 function getGrepCommand($tGrepCommand) {
 
     $greppath = array(
@@ -1058,10 +1237,12 @@ function getGrepCommand($tGrepCommand) {
     
 }
 
-//
-// getSvnadminCommand
-// Action: determine svnadmin command
-//
+/**
+ * determine svnadmin command
+ *
+ * @param string $tSvnadminCommand
+ * @return string
+ */
 function getSvnadminCommand($tSvnadminCommand) {
 
     $svnadminpath = array(
@@ -1081,10 +1262,12 @@ function getSvnadminCommand($tSvnadminCommand) {
     
 }
 
-//
-// getApacheReloadCommand
-// Action: assemble apache reload command
-//
+/**
+ * assemble apache reload command
+ *
+ * @param string $tViewvcApacheReload
+ * @return string
+ */
 function getApacheReloadCommand($tViewvcApacheReload) {
 
     $apachepath = array(
@@ -1104,13 +1287,17 @@ function getApacheReloadCommand($tViewvcApacheReload) {
     
 }
 
-//
-// getSvnCommand
-// Actopn: determine svn command
-//
+/**
+ * determine svn command
+ *
+ * @param string $tSvnCommand
+ * @return string
+ */
 function getSvnCommand($tSvnCommand) {
 
-    // common locations where to find grep and svn under linux/unix
+    /**
+     * common locations where to find grep and svn under linux/unix
+     */
     $svnpath = array(
             '/usr/local/bin/svn',
             '/usr/bin/svn',
@@ -1128,10 +1315,12 @@ function getSvnCommand($tSvnCommand) {
     
 }
 
-//
-// unlinkFile
-// Action: delete a file on Windows systems
-//
+/**
+ * delete a file on Windows systems
+ *
+ * @param string $os
+ * @param string $filename
+ */
 function unlinkFile($os, $filename) {
 
     if (($os == WINDOWS) && file_exists($filename)) {
@@ -1140,23 +1329,29 @@ function unlinkFile($os, $filename) {
     
 }
 
-//
-// getSlash
-// Action: determine slash dependant on OS
-//
+/**
+ * determine slash dependant on OS
+ *
+ * @param string $os
+ * @return string
+ */
 function getSlash($os) {
 
     return (($os == WINDOWS) ? "\\" : "/");
     
 }
 
-//
-// translateRight
-// Action: translate right from database value to auth file value
-//
+/**
+ * ranslate right from database value to auth file value
+ *
+ * @param string $right
+ * @return string
+ */
 function translateRight($right) {
 
-    // Right 'none' handled in else branch
+    /**
+     * Right 'none' handled in else branch
+     */
     if ($right == "read") {
         
         $right = "r";
@@ -1174,9 +1369,12 @@ function translateRight($right) {
     
 }
 
-//
-// Installer setters
-//
+/**
+ * set encryption
+ *
+ * @param string $tPwEnc
+ * @return string[]
+ */
 function setEncryption($tPwEnc) {
 
     switch ($tPwEnc) {
@@ -1222,6 +1420,12 @@ function setEncryption($tPwEnc) {
     
 }
 
+/**
+ * set user default access
+ *
+ * @param string $tUserDefaultAccess
+ * @return string[]
+ */
 function setUserDefaultAccess($tUserDefaultAccess) {
 
     if ($tUserDefaultAccess == "read") {
@@ -1240,6 +1444,12 @@ function setUserDefaultAccess($tUserDefaultAccess) {
     
 }
 
+/**
+ * set password expires
+ *
+ * @param string $tExpirePassword
+ * @return string[]
+ */
 function setPasswordExpires($tExpirePassword) {
 
     if ($tExpirePassword == 1) {
@@ -1258,6 +1468,12 @@ function setPasswordExpires($tExpirePassword) {
     
 }
 
+/**
+ * set logging
+ *
+ * @param string $tLogging
+ * @return string[]
+ */
 function setLogging($tLogging) {
 
     if ($tLogging == "YES") {
@@ -1276,6 +1492,12 @@ function setLogging($tLogging) {
     
 }
 
+/**
+ * set JavaScript usage
+ *
+ * @param string $tJavaScript
+ * @return string[]
+ */
 function setJavaScript($tJavaScript) {
 
     if ($tJavaScript == "YES") {
@@ -1294,6 +1516,12 @@ function setJavaScript($tJavaScript) {
     
 }
 
+/**
+ * set viewvc config
+ *
+ * @param string $tViewvcConfig
+ * @return string[]
+ */
 function setViewvcConfig($tViewvcConfig) {
 
     if ($tViewvcConfig == "YES") {
@@ -1312,6 +1540,12 @@ function setViewvcConfig($tViewvcConfig) {
     
 }
 
+/**
+ * set anonymous access
+ *
+ * @param string $tAnonAccess
+ * @return string[]
+ */
 function setAnonAccess($tAnonAccess) {
 
     if ($tAnonAccess == 1) {
@@ -1330,6 +1564,12 @@ function setAnonAccess($tAnonAccess) {
     
 }
 
+/**
+ * set if ldap uses login data of user for bind
+ *
+ * @param string $tLdapBindUseLoginData
+ * @return string[]
+ */
 function setLdapBindUseLoginData($tLdapBindUseLoginData) {
 
     if ($tLdapBindUseLoginData == 0) {
@@ -1348,6 +1588,12 @@ function setLdapBindUseLoginData($tLdapBindUseLoginData) {
     
 }
 
+/**
+ * set ldap user sort order
+ *
+ * @param string $tLdapUserSort
+ * @return string[]
+ */
 function setLdapUserSort($tLdapUserSort) {
 
     if ($tLdapUserSort == "ASC") {
@@ -1366,6 +1612,12 @@ function setLdapUserSort($tLdapUserSort) {
     
 }
 
+/**
+ * set path sort oreder
+ *
+ * @param string $tPathSortOrder
+ * @return string[]
+ */
 function setPathSortOrder($tPathSortOrder) {
 
     if ($tPathSortOrder == "ASC") {
@@ -1384,6 +1636,12 @@ function setPathSortOrder($tPathSortOrder) {
     
 }
 
+/**
+ * set per repo files
+ *
+ * @param string $tPerRepoFiles
+ * @return string[]
+ */
 function setPerRepoFiles($tPerRepoFiles) {
 
     if ($tPerRepoFiles == "YES") {
@@ -1402,6 +1660,12 @@ function setPerRepoFiles($tPerRepoFiles) {
     
 }
 
+/**
+ * set access control level
+ *
+ * @param string $tAccessControlLevel
+ * @return string[]
+ */
 function setAccessControlLevel($tAccessControlLevel) {
 
     if ($tAccessControlLevel == "dirs") {
@@ -1420,6 +1684,13 @@ function setAccessControlLevel($tAccessControlLevel) {
     
 }
 
+/**
+ * set database values dependant on database type.
+ * Currently MySQL, PostgreSQL and Oracle are supported.
+ *
+ * @param string $tDatabase
+ * @return string[]
+ */
 function setDatabaseValues($tDatabase) {
 
     switch ($tDatabase) {
@@ -1467,6 +1738,12 @@ function setDatabaseValues($tDatabase) {
     
 }
 
+/**
+ * set usage of svn access file
+ *
+ * @param string $tUseSvnAccessFile
+ * @return string[]
+ */
 function setUseSvnAccessFile($tUseSvnAccessFile) {
 
     if ($tUseSvnAccessFile == "YES") {
@@ -1485,6 +1762,12 @@ function setUseSvnAccessFile($tUseSvnAccessFile) {
     
 }
 
+/**
+ * set usage of user auth file
+ *
+ * @param string $tUseAuthUserFile
+ * @return string[]
+ */
 function setUseAuthUserFile($tUseAuthUserFile) {
 
     if ($tUseAuthUserFile == "YES") {
@@ -1503,6 +1786,12 @@ function setUseAuthUserFile($tUseAuthUserFile) {
     
 }
 
+/**
+ * set ldap protocol to use
+ *
+ * @param string $tLdapProtocol
+ * @return string[]
+ */
 function setLdapprotocol($tLdapProtocol) {
 
     if ($tLdapProtocol == "3") {
@@ -1521,6 +1810,12 @@ function setLdapprotocol($tLdapProtocol) {
     
 }
 
+/**
+ * sewt ldap usage
+ *
+ * @param string $tUseLdap
+ * @return string[]
+ */
 function setUseLdap($tUseLdap) {
 
     if ($tUseLdap == "YES") {
@@ -1539,6 +1834,13 @@ function setUseLdap($tUseLdap) {
     
 }
 
+/**
+ * set session handling.
+ * Session can be in databaayew or in filesystem.
+ *
+ * @param string $tSessionInDatabase
+ * @return string[]
+ */
 function setSessionIndatabase($tSessionInDatabase) {
 
     if ($tSessionInDatabase == "YES") {
@@ -1557,6 +1859,12 @@ function setSessionIndatabase($tSessionInDatabase) {
     
 }
 
+/**
+ * set if database tables are dropped during installation.
+ *
+ * @param string $tDropDatabaseTables
+ * @return string[]
+ */
 function setDropDatabaseTables($tDropDatabaseTables) {
 
     if ($tDropDatabaseTables == "YES") {
@@ -1575,6 +1883,12 @@ function setDropDatabaseTables($tDropDatabaseTables) {
     
 }
 
+/**
+ * set create of database tables during installation
+ *
+ * @param string $tCreateDatabaseTables
+ * @return string[]
+ */
 function setCreateDatabaseTables($tCreateDatabaseTables) {
 
     if ($tCreateDatabaseTables == "YES") {
@@ -1593,6 +1907,12 @@ function setCreateDatabaseTables($tCreateDatabaseTables) {
     
 }
 
+/**
+ * set datav´base characterset
+ *
+ * @param string $tDatabase
+ * @return string[]
+ */
 function setDatabaseCharset($tDatabase) {
 
     if ((strtoupper($tDatabase) == 'MYSQL') || (strtoupper($tDatabase) == 'MYSQLI')) {
@@ -1611,93 +1931,160 @@ function setDatabaseCharset($tDatabase) {
     
 }
 
+/**
+ * get loggong config from session
+ *
+ * @return string
+ */
 function getLoggingFromSession() {
 
     return (isset($_SESSION[SVN_INST]['logging']) ? $_SESSION[SVN_INST]['logging'] : "YES");
     
 }
 
+/**
+ * get JavaScript setting dfrom session
+ *
+ * @return string
+ */
 function getJavaScriptFromSession() {
 
     return (isset($_SESSION[SVN_INST]['javaScript']) ? $_SESSION[SVN_INST]['javaScript'] : "YES");
     
 }
 
+/**
+ * get page size from session
+ *
+ * @return string
+ */
 function getPageSizeFromSession() {
 
     return (isset($_SESSION[SVN_INST]['pageSize']) ? $_SESSION[SVN_INST]['pageSize'] : "30");
     
 }
 
+/**
+ * get minimal admin password length from session
+ *
+ * @return string
+ */
 function getMinAdminPwSizeFromSession() {
 
     return (isset($_SESSION[SVN_INST]['minAdminPwSize']) ? $_SESSION[SVN_INST]['minAdminPwSize'] : "14");
     
 }
 
+/**
+ * get minimal user password length from session
+ *
+ * @return string
+ */
 function getMinUserPwSizeFromSession() {
 
     return (isset($_SESSION[SVN_INST]['minUserPwSize']) ? $_SESSION[SVN_INST]['minUserPwSize'] : "8");
     
 }
 
+/**
+ * get passwoerd expires from session
+ *
+ * @return number
+ */
 function getExpirePasswordFromSession() {
 
     return (isset($_SESSION[SVN_INST]['expirePassword']) ? $_SESSION[SVN_INST]['expirePassword'] : 1);
     
 }
 
+/**
+ * get password encryption cfrom session
+ *
+ * @return string
+ */
 function getPwEncFromSession() {
 
     return (isset($_SESSION[SVN_INST]['pwEnc']) ? $_SESSION[SVN_INST]['pwEnc'] : "md5");
     
 }
 
+/**
+ * get default user av´ccess from session
+ *
+ * @return string
+ */
 function getUserDefaultAccessFromSession() {
 
     return (isset($_SESSION[SVN_INST]['userDefaultAccess']) ? $_SESSION[SVN_INST]['userDefaultAccess'] : "read");
     
 }
 
+/**
+ * get custom field 1 from session
+ *
+ * @return string
+ */
 function getCustom1FromSession() {
 
     return (isset($_SESSION[SVN_INST]['custom1']) ? $_SESSION[SVN_INST]['custom1'] : "");
     
 }
 
+/**
+ * get custom field 2 from session
+ *
+ * @return string
+ */
 function getCustom2FromSession() {
 
     return (isset($_SESSION[SVN_INST]['custom2']) ? $_SESSION[SVN_INST]['custom2'] : "");
     
 }
 
+/**
+ * get custom field 3 from session
+ *
+ * @return string
+ */
 function getCustom3FromSession() {
 
     return (isset($_SESSION[SVN_INST]['custom3']) ? $_SESSION[SVN_INST]['custom3'] : "");
     
 }
 
+/**
+ * get auth user file from session
+ *
+ * @return string
+ */
 function getAuthUserFileFromSession() {
 
     return (isset($_SESSION[SVN_INST]['authUserFile']) ? $_SESSION[SVN_INST]['authUserFile'] : "");
     
 }
 
+/**
+ * get svn access file from session
+ *
+ * @return string
+ */
 function getSvnAccessFileFromSession() {
 
     return (isset($_SESSION[SVN_INST]['svnAccessFile']) ? $_SESSION[SVN_INST]['svnAccessFile'] : "");
     
 }
 
-//
-//
-//
+/**
+ * get repository sort order for pathes
+ *
+ * @return string
+ */
 function getRepoSortPath() {
 
     global $CONF;
     
     if (isset($CONF[REPOPATHSORTORDER])) {
-        return($CONF[REPOPATHSORTORDER]);
+        return ($CONF[REPOPATHSORTORDER]);
     }
     else {
         return ("ASC");
@@ -1705,13 +2092,17 @@ function getRepoSortPath() {
     
 }
 
-//
-//
-//
+/**
+ * get svn access file
+ *
+ * @param string $svnaccessfile
+ * @param string $reponame
+ * @return string
+ */
 function getSvnAccessFile($svnaccessfile, $reponame) {
-    
-    global $CONF;
 
+    global $CONF;
+    
     if ($svnaccessfile == "") {
         $svnaccessfile = dirname($CONF[SVNACCESSFILE]) . "/svn-access." . $reponame;
     }
