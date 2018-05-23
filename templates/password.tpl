@@ -1,44 +1,49 @@
-		<div id="editform">
-		<form name="mailbox" method="post">
-		<table>
-		   <tr>
-		      <td colspan="3"><h3><?php print _("Password change"); ?></h3></td>
-		   </tr>
-		   <tr>
-		      <td colspan=3>&nbsp;</td>
-		   </tr>
-		   <tr>
-			 <td colspan=3><?php print _( "Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords."); ?></td>
-		   </tr>
-		    <tr>
-		      <td colspan=3>&nbsp;</td>
-		   </tr>
-		   <tr>
-		      <td width="150"><strong><?php print _("Current password").": "; ?></strong></td>
-		      <td><input type="password" name="fPassword_current" autocomplete="off" /></td>
-		      <td><?php print $pPassword_password_current_text; ?></td>
-		   </tr>
-		   <tr>
-		      <td width="150"><strong><?php print _("New password").": "; ?></strong></td>
-		      <td><input type="password" name="fPassword" autocomplete="off" /></td>
-		      <td><?php print $pPassword_password_text; ?></td>
-		   </tr>
-		   <tr>
-		      <td width="150"><strong><?php print _("Retype new password").": "; ?></strong></td>
-		      <td><input type="password" name="fPassword2" autocomplete="off" /></td>
-		      <td>&nbsp;</td>
-		   </tr>
-		   <tr>
-		      <td colspan=3>&nbsp;</td>
-		   </tr>
-		   <tr>
-		      <td colspan="3" class="hlpcenter">
-		      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Change password"); ?>"  title="<?php print _("Change password"); ?>" />
-			  </td>
-		   </tr>
-		   <tr>
-		      <td colspan="3" class="standout"><?php print $tMessage; ?></td>
-		   </tr>
-		</table>
-		</form>
-		</div>
+<div> 
+    <p>&nbsp;</p>       
+    <h3 class="page-header"><?php print _("Password change"); ?></h3> 
+</div>
+<div>
+    <p><?php print _( "Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords."); ?></p>
+    <form name="passwordchange" method="post">
+      <div class="form-group <?php print outputResponseClasses($tCurrentError); ?>">
+        <label class="col-sm-2 control-label" for="currpass"><?php print _("Current password"); ?>:</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="currpass" name="fPassword_current" autocomplete="off">
+            <?php print outputResponseSpan($tCurrentError); ?>
+        </div>
+      </div>
+      <div class="form-group <?php print outputResponseClasses($tPasswordError); ?>">
+        <label class="col-sm-2 control-label" for="pwd"><?php print _("New password"); ?>:</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="pwd" name="fPassword" autocomplete="off">
+            <?php print outputResponseSpan($tPasswordError); ?>
+        </div>
+      </div>
+      <div class="form-group <?php print outputResponseClasses($tPassword2Error); ?>">
+        <label class="col-sm-2 control-label" for="pwd2"><?php print _("Retype new password"); ?>:</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="pwd2" name="fPassword2" autocomplete="off">
+            <?php print outputResponseSpan($tPassword2Error); ?>
+        </div>
+      </div>
+      <div class="input-group">
+          <p>&nbsp;</p>
+      </div>    
+      <div class="input-group">
+          <button class="btn btn-sm btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-ok"></span> <?php print _("Change password"); ?></button>
+      </div>
+      <div class="input-group">
+          <p>&nbsp;</p>
+      </div>        
+      
+      <?php 
+            outputMessage($tMessage, $tMessageType);
+      ?>
+    </form>
+</div>      
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+      

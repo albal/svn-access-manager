@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Work on a project
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -97,6 +104,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $_SESSION[SVNSESSID][TASK] = strtolower($tTask);
     }
     
+    $tProjectError = '';
+    $tModulePathError = '';
+    $tResponsibleError = '';
+    $tDescriptionError = '';
+    
     $_SESSION[SVNSESSID][PROJECTID] = $tId;
     
     if ($tTask == "relist") {
@@ -163,11 +175,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         else {
             
             $tMessage = _("Invalid projectid $id requested!");
+            $tMessageType = DANGER;
         }
     }
     else {
         
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID][TASK]);
+        $tMessageType = DANGER;
     }
     
     $header = PROJECTS;
@@ -182,6 +196,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $button = "";
     $buttonadd = "";
+    
+    $tProjectError = 'ok';
+    $tModulePathError = 'ok';
+    $tResponsibleError = 'ok';
+    $tDescriptionError = 'ok';
     
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
@@ -264,11 +283,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['fDescription'])) {
         
         $tDescription = db_escape_string($_POST['fDescription']);
-        
-    } else {
+    }
+    else {
         
         $tDescription = "";
-        
     }
     
     if (isset($_POST[MEMBERS])) {
@@ -309,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $new = array();
             $old = $_SESSION[SVNSESSID][MEMBERS];
             
-            foreach( $old as $userid => $name) {
+            foreach( $old as $userid => $name ) {
                 
                 if (! in_array($userid, $tMembers)) {
                     
@@ -343,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $new = array();
             $old = $_SESSION[SVNSESSID][GROUPS];
             
-            foreach( $old as $groupid => $name) {
+            foreach( $old as $groupid => $name ) {
                 
                 if (! in_array($groupid, $tGroups)) {
                     
@@ -374,22 +392,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tProject == "") {
                 
                 $tMessage = _("Subversion project is missing, please fill in!");
+                $tProjectError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
-            elseif( $tDescription == "") {
+            elseif ($tDescription == "") {
                 
                 $tMessage = _("Project description is missing, please fill in!");
+                $tDescriptionError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
-                
             }
             elseif ($tModulepath == "") {
                 
                 $tMessage = _("Subversion module path missing, please fill in!");
+                $tModulePathError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif (empty($_SESSION[SVNSESSID][MEMBERS])) {
                 
                 $tMessage = _("Project responsible user missing, please fill in!");
+                $tResponsibleError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             else {
@@ -400,6 +425,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($result['rows'] > 0) {
                     
                     $tMessage = _("The project with the name $tProject exists already");
+                    $tProjectError = ERROR;
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
             }
@@ -410,20 +437,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 db_log($_SESSION[SVNSESSID][USERNAME], "project $tProject ($tModulepath) added", $dbh);
                 
                 $dbnow = db_now();
-                $query = "INSERT INTO " . $schema . "svnprojects (svnmodule, modulepath, description, repo_id, created, created_user) " . 
-                         "     VALUES ('$tProject', '$tModulepath', '$tDescription', '$tRepo', '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
+                $query = "INSERT INTO " . $schema . "svnprojects (svnmodule, modulepath, description, repo_id, created, created_user) " . "     VALUES ('$tProject', '$tModulepath', '$tDescription', '$tRepo', '$dbnow', '" . $_SESSION[SVNSESSID][USERNAME] . "')";
                 
                 $result = db_query($query, $dbh);
                 if ($result['rows'] != 1) {
                     
                     $tMessaage = _("Error during database insert");
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
                 else {
                     
                     $projectid = db_get_last_insert_id('svnprojects', 'id', $dbh);
                     
-                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name ) {
                         
                         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')";
                         $result = db_query($query, $dbh);
@@ -441,12 +468,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result['rows'] != 1) {
                                 
                                 $tMessage = sprintf(_("Insert of user project relation failed for user_id %s and project_id %s"), $id, $projectid);
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                         }
                         else {
                             
                             $tMessage = sprintf(_("User %s not found!"), $userid);
+                            $tMessageType = DANGER;
                             $error = 1;
                         }
                     }
@@ -474,22 +503,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tProject == "") {
                 
                 $tMessage = _("Subversion project name is missing, please fill in!");
+                $tProjectError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif ($tModulepath == "") {
                 
                 $tMessage = _("Subversion module path missing, please fill in!");
+                $tModulePathError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
-            elseif($tDescription == "") {
+            elseif ($tDescription == "") {
                 
                 $tMessage = _("Project description is missing, please fill in!");
+                $tDescriptionError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
-                
             }
             elseif (empty($_SESSION[SVNSESSID][MEMBERS])) {
                 
                 $tMessage = _("Project responsible user missing, please fill in!");
+                $tResponsibleError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             else {
@@ -500,6 +536,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($result['rows'] > 0) {
                     
                     $tMessage = _("The project with the name $tProject exists already");
+                    $tProjectError = ERROR;
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
             }
@@ -507,14 +545,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "svnprojects " . 
-                         "   SET svnmodule = '$tProject', " . 
-                         "       modulepath = '$tModulepath', " . 
-                         "       repo_id = $tRepo, " . 
-                         "       description = '$tDescription', " . 
-                         "       modified = '$dbnow', " . 
-                         "       modified_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . 
-                         " WHERE (id = " . $_SESSION[SVNSESSID][PROJECTID] . ")";
+                $query = "UPDATE " . $schema . "svnprojects " . "   SET svnmodule = '$tProject', " . "       modulepath = '$tModulepath', " . "       repo_id = $tRepo, " . "       description = '$tDescription', " . "       modified = '$dbnow', " . "       modified_user = '" . $_SESSION[SVNSESSID][USERNAME] . "' " . " WHERE (id = " . $_SESSION[SVNSESSID][PROJECTID] . ")";
                 
                 db_ta('BEGIN', $dbh);
                 
@@ -529,14 +560,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     $tUids = array();
                     
-                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $uid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $uid => $name ) {
                         
                         $tUids[] = $uid;
                     }
                     
                     $tGroupIds = array();
                     
-                    foreach( $_SESSION[SVNSESSID][GROUPS] as $groupid => $groupname) {
+                    foreach( $_SESSION[SVNSESSID][GROUPS] as $groupid => $groupname ) {
                         
                         $tGroupIds[] = $groupid;
                     }
@@ -561,12 +592,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result_del['rows'] != 1) {
                                 
                                 $tMessage = sprintf(_("Delete of svn_projects_responsible record with id %s failed"), $id);
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                         }
                     }
                     
-                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name) {
+                    foreach( $_SESSION[SVNSESSID][MEMBERS] as $userid => $name ) {
                         
                         $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')";
                         $result = db_query($query, $dbh);
@@ -595,6 +627,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         else {
                             
                             $tMessage = sprintf(_("User %s not found!"), $userid);
+                            $tMessageType = DANGER;
                             $error = 1;
                         }
                     }
@@ -602,6 +635,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 else {
                     
                     $tMessage = _("Project not modified due to database error");
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
                 
@@ -621,6 +655,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         else {
             
             $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID][TASK]);
+            $tMessageType = DANGER;
         }
     }
     elseif ($buttonadd == _("Add")) {
@@ -634,7 +669,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $membersadd = array();
         }
         
-        foreach( $membersadd as $userid) {
+        foreach( $membersadd as $userid ) {
             
             $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000' )";
             $result = db_query($query, $dbh);
@@ -660,6 +695,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tRepo = $_SESSION[SVNSESSID]['repo'];
         $tDescription = $_SESSION[SVNSESSID][DESCRIPTION];
         $tMembers = $_SESSION[SVNSESSID][MEMBERS];
+        $tProjectError = '';
+        $tModulePathError = '';
+        $tResponsibleError = '';
+        $tDescriptionError = '';
         
         db_disconnect($dbh);
         header("Location: workOnProject.php?id=$project&task=relist");
@@ -677,6 +716,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $tMessage = sprintf(_("Invalid button (%s/%s), anyone tampered arround with?"), $button, $buttonadd);
+        $tMessageType = DANGER;
     }
     
     $header = PROJECTS;

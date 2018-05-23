@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Work on a repository
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -81,6 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
     
+    $tReponameError = '';
+    $tRepopathError = '';
+    
     if ($_SESSION[SVNSESSID]['task'] == "new") {
         
         $tReponame = "";
@@ -112,11 +122,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         else {
             
             $tMessage = _("Invalid userid $id requested!");
+            $tMessageType = DANGER;
         }
     }
     else {
         
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+        $tMessageType = DANGER;
     }
     
     $header = REPOS;
@@ -157,6 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $schema = db_determine_schema();
     
+    $tReponameError = 'ok';
+    $tRepopathError = 'ok';
+    
     if ($button == _("Back")) {
         
         db_disconnect($dbh);
@@ -172,16 +187,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tReponame == "") {
                 
                 $tMessage = _("Repository name is missing, please fill in!");
+                $tReponameError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif ($tRepopath == "") {
                 
                 $tMessage = _("Repository path missing, please fill in!");
+                $tRepopathError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif ((! preg_match('/^file:\//', $tRepopath)) && (! preg_match('/^http:\//', $tRepopath)) && (! preg_match('/^https:\//', $tRepopath))) {
                 
                 $tMessage = _("Repository path must start with file://, http:// or https://!");
+                $tRepopathError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif (preg_match('/^file:\//', $tRepopath)) {
@@ -197,6 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $example = "file:///svn/testrepo";
                     }
                     $tMessage = sprintf(_("A repository path must start with '/' after file:// like %s"), $example);
+                    $tRepopathError = error;
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
             }
@@ -208,6 +231,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($result['rows'] > 0) {
                     
                     $tMessage = sprintf(_("The repository with the name %s exists already"), $tReponame);
+                    $tReponameError = ERROR;
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
             }
@@ -226,12 +251,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     db_ta('ROLLBACK', $dbh);
                     
                     $tMessage = _("Error during database insert");
+                    $tMessageType = DANGER;
                 }
                 else {
                     
                     db_ta('COMMIT', $dbh);
                     
                     $tMessage = _("Repository successfully inserted");
+                    $tMessageType = SUCCESS;
                     $warn = 0;
                     
                     if ($tCreateRepo == "1") {
@@ -239,6 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         if (! isset($CONF[SVNADMIN_COMMAND]) || ($CONF[SVNADMIN_COMMAND] == "")) {
                             
                             $tMessage = _("Repository successfully inserted into database but not created in the filesystem because no svnadmin command given in config.inc.php!");
+                            $tMessageType = WARNING;
                             $warn = 1;
                         }
                         else {
@@ -282,17 +310,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 if ($returncode != 0) {
                                     
                                     $tMessage = _("Repository successfully inserted into database but creation of repository in the filesystem failed. Do this manually!");
+                                    $tMessageType = WARNING;
                                     $warn = 1;
                                 }
                                 else {
                                     
                                     $tMessage = _("Repository successfully inserted into database and created in filesystem");
+                                    $tMessageType = SUCCESS;
                                     $warn = 1;
                                 }
                             }
                             else {
                                 
                                 $tMessage = _("Repository sucessfully inserted into database but not created in filesystem because it's not locally hosted!");
+                                $tMessageType = WARNING;
                                 $warn = 1;
                             }
                         }
@@ -314,16 +345,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tReponame == "") {
                 
                 $tMessage = _("Repository name is missing, please fill in!");
+                $tReponameError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif ($tRepopath == "") {
                 
                 $tMessage = _("Repository path missing, please fill in!");
+                $tRepopathError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif ((! preg_match('/^file:\//', $tRepopath)) && (! preg_match('/^http:\//', $tRepopath)) && (! preg_match('/^https:\//', $tRepopath))) {
                 
                 $tMessage = _("Repository path must start with file://, http:// or https://!");
+                $tRepopathError = ERROR;
+                $tMessageType = DANGER;
                 $error = 1;
             }
             elseif (preg_match('/^file:\//', $tRepopath)) {
@@ -338,6 +375,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $example = "file:///svn/testrepo";
                     }
                     $tMessage = sprintf(_("A repository path must start with '/' after file:// like %s"), $example);
+                    $tRepopathError = ERROR;
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
             }
@@ -351,6 +390,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if ($result['rows'] > 0) {
                         
                         $tMessage = _("The repository with the name $tReponame exists already");
+                        $tReponameError = ERROR;
+                        $tMessageType = DANGER;
                         $error = 1;
                     }
                 }
@@ -375,23 +416,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     exit();
                     
                     $tMessage = _("Repository successfully modified");
+                    $tMessageType = SUCCESS;
                 }
                 else {
                     
                     db_ta('ROLLBACK', $dbh);
                     
                     $tMessage = _("Repository not modified due to database error");
+                    $tMessageType = DANGER;
                 }
             }
         }
         else {
             
             $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+            $tMessageType = DANGER;
         }
     }
     else {
         
         $tMessage = _("Invalid button $button, anyone tampered arround with?");
+        $tMessageType = DANGER;
     }
     
     $header = REPOS;

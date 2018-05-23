@@ -1,34 +1,49 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Tests for functiomns
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 20128 Thomas Krieger. All righhts reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
-
 /*
- *
  * $LastChangedDate$
  * $LastChangedBy$
  *
  * $Id$
+ */
+
+/**
+ * Class with tests for common functions
  *
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
  */
 final class FunctionsTest extends PHPUnit_Framework_TestCase {
 
+    /**
+     * Test function check_string
+     */
     public function testcheck_string() {
 
         include_once 'functions.inc.php';
@@ -37,6 +52,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test function check_data
+     */
     public function testcheck_date() {
 
         include_once 'functions.inc.php';
@@ -49,6 +67,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test funcxtion splitdate
+     */
     public function testsplitdate() {
 
         include_once 'functions.inc.php';
@@ -57,12 +78,18 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test function GetPhpVersion
+     */
     public function testGetPhpVersion() {
 
         $this->assertGreaterThan('50', getPhpVersion());
         
     }
 
+    /**
+     * test function splitdatetime
+     */
     public function testSplitDateTime() {
 
         list($date, $time ) = splitDateTime('20160302101112');
@@ -71,6 +98,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test function splitvaliddate
+     */
     public function testSplitValiddate() {
 
         include_once 'functions.inc.php';
@@ -79,18 +109,27 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test mkunixtimestampfromdate function
+     */
     public function testMkUnixTimestampFromDateTime() {
 
         $this->assertEquals(1456909872, mkUnixTimestampFromDateTime('20160302101112'));
         
     }
 
+    /**
+     * test function nomagicxquotes
+     */
     public function testNoMagicQuotes() {
 
         $this->assertEquals('SELECT * FROM `eurokurse` WHERE kurs like \%;', no_magic_quotes('SELECT * FROM `eurokurse` WHERE kurs like \%;'));
         
     }
 
+    /**
+     * test finction getlocale
+     */
     public function test_getLocale() {
 
         include_once 'functions.inc.php';
@@ -99,6 +138,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test function initialize_i18n
+     */
     public function test_initialize_i18n() {
 
         include_once 'functions.inc.php';
@@ -107,6 +149,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test function checklanguage
+     */
     public function test_checkLanguage() {
 
         include_once 'functions.inc.php';
@@ -119,24 +164,36 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test getdatejhjjmmtt function
+     */
     public function test_getDateJhjjmmtt() {
 
         $this->assertEquals(date('Ymd'), getDateJhjjmmtt());
         
     }
 
+    /**
+     * test no_magic_quotes functions
+     */
     public function test_no_magic_quotes() {
 
         $this->assertEquals('SELECT * FROM test;', no_magic_quotes('SELECT * FROM test;'));
         
     }
 
+    /**
+     * test digestcrypt function
+     */
     public function test_digestcrypt() {
 
         $this->assertEquals('81d477272475b5bcf5fe5659c7b1d05d', digestcrypt('admin', 'huibuh', '1234567890'));
         
     }
 
+    /**
+     * test checkpasswordpolicy function
+     */
     public function test_checkPasswordPolicy() {
 
         $this->assertEquals(1, checkPasswordPolicy('Start!1234567_', 'y'));
@@ -149,6 +206,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test check_email function with tons of email addresse
+     */
     public function test_check_email() {
 
         $emailAddresses = array(
@@ -1701,7 +1761,7 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
                 'q@q.c;om' => false
         );
         
-        foreach( $emailAddresses as $emailAddress => $result) {
+        foreach( $emailAddresses as $emailAddress => $result ) {
             if ($result) {
                 $this->assertTrue(check_email($emailAddress));
             }
@@ -1712,6 +1772,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test generate_password function
+     */
     public function test_generate_password() {
 
         $pw = generate_password();
@@ -1720,6 +1783,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test generatePassword function
+     */
     public function test_generatePassword() {
 
         $pw = generatePassword('y');
@@ -1732,6 +1798,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test setter functions
+     */
     public function test_setter() {
 
         list($tAccessControlLevelDirs, $tAccessControlLevelFiles ) = setAccessControlLevel('dirs');
@@ -1931,6 +2000,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test getter functions
+     */
     public function test_getter() {
 
         $value = getLoggingFromSession();
@@ -2028,12 +2100,18 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * teswt runInCli functions
+     */
     public function test_runIncli() {
 
         $this->assertTrue(runInCli());
         
     }
 
+    /**
+     * test sortLdapUsers functions
+     */
     public function test_sortLdapUsers() {
 
         $a = array(
@@ -2049,6 +2127,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test pacrypt function
+     */
     public function test_pacrypt() {
 
         $pw = pacrypt('Start!12345678', '$1$NLvGX4d3$SdtwVFvV8As0z8I0xtE8L.');
@@ -2056,6 +2137,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test getGrrep Command function
+     */
     public function test_getGrepCommand() {
 
         $grep = getGrepCommand('');
@@ -2063,6 +2147,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test getSvnadminCommand function
+     */
     public function test_getSvnadminCommand() {
 
         $svnadmin = getSvnAdminCommand('');
@@ -2070,6 +2157,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test getApacheReloadCommand function
+     */
     public function test_getApacheReloadCommand() {
 
         $reload = getApacheReloadCommand('');
@@ -2077,6 +2167,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test traslateRight function
+     */
     public function test_translateRight() {
 
         $right = translateRight('read');
@@ -2090,6 +2183,9 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    /**
+     * test encode_subject function
+     */
     public function test_encode_subject() {
 
         $subject = encode_subject("Lost password reset", "iso-8859-1");
@@ -2099,15 +2195,22 @@ final class FunctionsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("=?iso-8859-1?B?VmVyZ2Vzc2VuZXMgUGFzc3dvcnQgenVyw7xja3NldHplbg==?=", $subject);
         
     }
-    
+
+    /**
+     * test create_verify_string function
+     */
     public function test_create_verify_string() {
-        
+
         $str = create_verify_string();
         $this->assertEquals(32, strlen($str));
-    }
-    
-    public function test_getSvnAccessFile() {
         
+    }
+
+    /**
+     * test getSvnAccessFile funcdtion
+     */
+    public function test_getSvnAccessFile() {
+
         global $CONF;
         
         $CONF['SVNAccessFile'] = '/tmp/svnaccess';

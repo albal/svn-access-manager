@@ -1,6 +1,14 @@
 <?php
 
-/*
+/**
+ *
+ * Functions to make work with databases easier.
+ *
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ * @filesource
+ * 
  * SVN Access Manager - a subversion access rights management tool
  * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
  *
@@ -17,9 +25,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- */
-
-/*
+ *
  *
  * $LastChangedDate$
  * $LastChangedBy$
@@ -27,12 +33,19 @@
  * $Id$
  *
  */
+
+/**
+ * check if called directly and redirect to login page
+ */
 if (preg_match("/db-functions-adodb\.inc\.php/", $_SERVER['PHP_SELF'])) {
     
     header("Location: login.php");
     exit();
 }
 
+/**
+ * set install base and include database classes for adbdb
+ */
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
 if (file_exists(realpath("./include/adodb5/adodb.inc.php"))) {
@@ -55,16 +68,20 @@ else {
     die("can't find adodb.inc.php! Check your installation!\n");
 }
 
+/**
+ * debug text
+ * @global string $DEBUG_TEXT
+ */
 $DEBUG_TEXT = "\n
 <p />\n
 Please check the documentation and website for more information.\n
 ";
 
-//
-// db_get_database_error_location
-// Action: get location of database error file
-// Call: db_get_database_error_location
-//
+/**
+ * get location of database error file
+ *
+ * @return string
+ */
 function db_get_database_error_location() {
 
     if (file_exists(realpath("database_error.php"))) {
@@ -76,14 +93,23 @@ function db_get_database_error_location() {
     
 }
 
-//
-// db_connect
-// Action: Makes a connection to the database if it doesn't exist
-// Call: db_connect ()
-//
+/**
+ * Makes a connection to the database if it doesn't exist
+ *
+ * @return resource
+ */
 function db_connect() {
 
+    /**
+     *
+     * @global artray $CONF
+     */
     global $CONF;
+    
+    /**
+     *
+     * @global string $DEBUG_TEXT
+     */
     global $DEBUG_TEXT;
     
     $link = "";
@@ -130,14 +156,33 @@ function db_connect() {
     
 }
 
-//
-// db_connect_install
-// Action: Makes a connection to the database if it doesn't exist
-// Call: db_connect (string dbhost, string dbuser, string dbpassword, string dbname)
-//
+/**
+ * Makes a connection to the database if it doesn't exist.
+ * Used during installation.
+ *
+ * @param string $dbhost
+ * @param string $dbuser
+ * @param string $dbpassword
+ * @param string $dbname
+ * @param string $charset
+ * @param string $collation
+ * @param string $dbtype
+ * @param string $test
+ * @return array
+ * @return resource
+ */
 function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $collation, $dbtype = "", $test = "no") {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
+    
+    /**
+     *
+     * @global string $DEBUG_TEXT
+     */
     global $DEBUG_TEXT;
     
     $link = "";
@@ -190,13 +235,25 @@ function db_connect_install($dbhost, $dbuser, $dbpassword, $dbname, $charset, $c
     
 }
 
-//
-// db_connect_test
-// Action: Makes a connection to the database if it doesn't exist
-// Call: db_connect ()
-//
+/**
+ * Makes a connection to the database if it doesn't exist.
+ * used during unit tests
+ *
+ * @param string $dbtype
+ * @param string $dbhost
+ * @param string $dbuser
+ * @param string $dbpass
+ * @param string $dbname
+ * @param string $charset
+ * @param string $collation
+ * @return resource
+ */
 function db_connect_test($dbtype, $dbhost, $dbuser, $dbpass, $dbname, $charset = 'utf8', $collation = 'utf8_general_ci') {
 
+    /**
+     *
+     * @global string $DEBUG_TEXT
+     */
     global $DEBUG_TEXT;
     
     $link = "";
@@ -228,14 +285,22 @@ function db_connect_test($dbtype, $dbhost, $dbuser, $dbpass, $dbname, $charset =
     
 }
 
-//
-// db_disconnect
-// Action: close connection to database
-// Call: db_disconnect (resource link);
-//
+/**
+ * close connection to database
+ *
+ * @param resource $link
+ */
 function db_disconnect($link) {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
+    /**
+     *
+     * @global string $DEBUG_TEXT
+     */
     global $DEBUG_TEXT;
     
     try {
@@ -243,25 +308,41 @@ function db_disconnect($link) {
         $link->Close();
     }
     catch ( exception $e ) {
+        //
     }
     
 }
 
-//
-// db_query
-// Action: Sends a query to the database and returns query result and number of rows
-// Call: db_query (string query, resource link)
-//
+/**
+ * Sends a query to the database and returns query result and number of rows
+ *
+ * @param string $query
+ * @param string $link
+ * @param string $limit
+ * @param string $offset
+ * @return string[]
+ */
 function db_query($query, $link, $limit = -1, $offset = -1) {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
+    
+    /**
+     *
+     * @global string $DEBIG_TEXT
+     */
     global $DEBUG_TEXT;
     
     $result = "";
     $number_rows = "";
     $query = trim($query);
     
-    // database prefix workaround
+    /**
+     * database prefix workaround
+     */
     if (! empty($CONF[DATABASE_PREFIX])) {
         
         if (preg_match("/^SELECT/i", $query)) {
@@ -326,21 +407,37 @@ function db_query($query, $link, $limit = -1, $offset = -1) {
     
 }
 
-//
-// db_query_install
-// Action: Sends a query to the database and returns query result and number of rows
-// Call: db_query_install (string query, resource link)
-//
+/**
+ * Sends a query to the database and returns query result and number of rows.
+ * Used during installatiomn.
+ *
+ * @param string $query
+ * @param string $link
+ * @param string $limit
+ * @param string $offset
+ * @return string[]
+ */
 function db_query_install($query, $link, $limit = -1, $offset = -1) {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
+    
+    /**
+     *
+     * @global string $DEBUG_TEXT
+     */
     global $DEBUG_TEXT;
     
     $result = "";
     $number_rows = "";
     $query = trim($query);
     
-    // database prefix workaround
+    /**
+     * database prefix workaround
+     */
     if (! empty($CONF[DATABASE_PREFIX])) {
         
         if (preg_match("/^SELECT/i", $query)) {
@@ -400,12 +497,20 @@ function db_query_install($query, $link, $limit = -1, $offset = -1) {
     
 }
 
-// db_assoc
-// Action: Returns a row from a table
-// Call: db_assoc(int result)
-//
+/**
+ * Create associative array from database results.
+ * The function returns an empty string in case of an error.Otherwise an array is returned.
+ *
+ * @param resource $result
+ * @return array
+ * @return string
+ */
 function db_assoc($result) {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
     
     try {
@@ -417,7 +522,7 @@ function db_assoc($result) {
             
             $newrow = array();
             
-            foreach( $row as $key => $value) {
+            foreach( $row as $key => $value ) {
                 $key = strtolower($key);
                 $newrow[$key] = $value;
             }
@@ -432,11 +537,14 @@ function db_assoc($result) {
     
 }
 
-//
-// db_log
-// Action: Logs actions from admin
-// Call: db_delete (string username, string domain, string action, string data, resource link)
-//
+/**
+ * Logs actions from admin
+ *
+ * @param string $username
+ * @param string $data
+ * @param string $link
+ * @return boolean
+ */
 function db_log($username, $data, $link = "") {
 
     global $CONF;
@@ -469,11 +577,13 @@ function db_log($username, $data, $link = "") {
     
 }
 
-//
-// db_ta
-// Action: transactions
-// Call: db_ta (string action, resource link)
-//
+/**
+ * Handle database trasactions
+ *
+ * @param string $action
+ * @param string $link
+ * @return boolean
+ */
 function db_ta($action, $link) {
 
     global $CONF;
@@ -532,11 +642,14 @@ function db_ta($action, $link) {
     
 }
 
-//
-// db_getUseridById
-// Action: get userid from database table svnusers with id
-// Call: db_getUseridById (string id, resource link)
-//
+/**
+ * get userid from database table svnusers with id.
+ * The function returns false in case of an error. Otherwise the userid is returned as string.
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return string!boolean
+ */
 function db_getUseridById($id, $link) {
 
     global $CONF;
@@ -557,11 +670,14 @@ function db_getUseridById($id, $link) {
     
 }
 
-//
-// db_getIdByUserid
-// Action: get id from database table svnusers with userid
-// Call: db_getIdByUserid (string userid, resource link)
-//
+/**
+ * get id from database table svnusers with userid.
+ * The function returns false in case of an error. Otherwise the id of the user is returned as integer.
+ *
+ * @param string $userid
+ * @param resource $link
+ * @return integer|boolean
+ */
 function db_getIdByUserid($userid, $link) {
 
     global $CONF;
@@ -582,22 +698,26 @@ function db_getIdByUserid($userid, $link) {
     
 }
 
-//
-// db_now
-// Action: get a 14 digit timestamp in format jjjjmmddhhmmss
-// Call: db_now()
-//
+/**
+ * get a 14 digit timestamp in format jjjjmmddhhmmss
+ *
+ * @return string
+ */
 function db_now() {
 
     return date('YmdHis');
     
 }
 
-//
-// db_last_insert_id
-// Action: get last inserted id in a table
-// Call: db_get_last_insert_id($table, $column, $link)
-//
+/**
+ * get last inserted id in a table
+ *
+ * @param string $table
+ * @param string $column
+ * @param resource $link
+ * @param string $schema
+ * @return boolean
+ */
 function db_get_last_insert_id($table, $column, $link, $schema = "") {
 
     global $CONF;
@@ -633,11 +753,13 @@ function db_get_last_insert_id($table, $column, $link, $schema = "") {
     
 }
 
-//
-// db_getUserRightByUserid
-// Action: get global user right by userid
-// Call: db_getUserRightByUserid (string userid, ressource link)
-//
+/**
+ * get global user right by userid
+ *
+ * @param string $userid
+ * @param resource $link
+ * @return array|boolean
+ */
 function db_getUserRightByUserid($userid, $link) {
 
     global $CONF;
@@ -657,11 +779,13 @@ function db_getUserRightByUserid($userid, $link) {
     
 }
 
-//
-// db_getGroupRightByGroupid
-// Action: check a group and return the lowest privilege of an user
-// Call: db_getGroupRightByGroupid (string groupid, resource link)
-//
+/**
+ * check a group and return the lowest privilege of an user
+ *
+ * @param string $groupid
+ * @param resource $link
+ * @return string
+ */
 function db_getGroupRightByGroupid($groupid, $link) {
 
     global $CONF;
@@ -680,11 +804,13 @@ function db_getGroupRightByGroupid($groupid, $link) {
     
 }
 
-//
-// db_getRepoById
-// Action: get repository by id
-// Call: db_getRepobyId (string id, ressource link)
-//
+/**
+ * get repository by id
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return string|boolean
+ */
 function db_getRepoById($id, $link) {
 
     global $CONF;
@@ -704,11 +830,13 @@ function db_getRepoById($id, $link) {
     
 }
 
-//
-// db_getRepoByName
-// Action: get repository by name
-// Call: db_getRepobyId (string reponame, ressource link)
-//
+/**
+ * get repository by name
+ *
+ * @param string $reponame
+ * @param resource $link
+ * @return integer|boolean
+ */
 function db_getRepoByName($reponame, $link) {
 
     global $CONF;
@@ -728,11 +856,13 @@ function db_getRepoByName($reponame, $link) {
     
 }
 
-//
-// db_getProjectById
-// Action: get project by id
-// Call: db_getProjectById (string id, ressource link)
-//
+/**
+ * get project by id
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return string|boolean
+ */
 function db_getProjectById($id, $link) {
 
     global $CONF;
@@ -752,11 +882,13 @@ function db_getProjectById($id, $link) {
     
 }
 
-//
-// db_getGroupById
-// Action: get group by id
-// Call: db_getGroupById (string id, ressource link)
-//
+/**
+ * get group by id
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return string|boolean
+ */
 function db_getGroupById($id, $link) {
 
     global $CONF;
@@ -776,11 +908,13 @@ function db_getGroupById($id, $link) {
     
 }
 
-//
-// db_getRightName
-// Action: get name for a right
-// Call: db_getRightName(string id, resource link)
-//
+/**
+ * get name for a right
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return string
+ */
 function db_getRightName($id, $link) {
 
     global $CONF;
@@ -799,11 +933,13 @@ function db_getRightName($id, $link) {
     
 }
 
-//
-// db_getRightData
-// Action: get data for access right
-// Call: db_getRightData(string id, resource link)
-//
+/**
+ * get data for access right
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return boolean|array[]
+ */
 function db_getRightData($id, $link) {
 
     global $CONF;
@@ -844,11 +980,13 @@ function db_getRightData($id, $link) {
     
 }
 
-//
-// db_getGroupsForUser
-// Action: get all groups for an user
-// Call: db_getGroupsForUser(string $tUserId, resource $dbh)
-//
+/**
+ * get all groups for an user
+ *
+ * @param string $tUserId
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getGroupsForUser($tUserId, $dbh) {
 
     global $CONF;
@@ -867,11 +1005,13 @@ function db_getGroupsForUser($tUserId, $dbh) {
     
 }
 
-//
-// db_getProjectResponsibleForUser
-// Action: get projects an user is responsible for
-// Call: db_getProjectResponsibleForUser(string $tUserId, resource $dbh)
-//
+/**
+ * get projects an user is responsible for
+ *
+ * @param string $tUserId
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getProjectResponsibleForUser($tUserId, $dbh) {
 
     global $CONF;
@@ -890,11 +1030,14 @@ function db_getProjectResponsibleForUser($tUserId, $dbh) {
     
 }
 
-//
-// db_getAccessRightsForUser
-// Action: get access rights assigned to an user
-// Call: db_getAccessRightsForUser(string $tUserId, array $tGroups, resource $dbh)
-//
+/**
+ * get access rights assigned to an user
+ *
+ * @param string $tUserId
+ * @param string $tGroups
+ * @param resource $dbh
+ * @return string[]
+ */
 function db_getAccessRightsForUser($tUserId, $tGroups, $dbh) {
 
     global $CONF;
@@ -912,7 +1055,7 @@ function db_getAccessRightsForUser($tUserId, $tGroups, $dbh) {
     $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) ";
     if (count($tGroups) > 0) {
         $query .= "     AND ((svn_access_rights.user_id = $tUserId) ";
-        foreach( $tGroups as $entry) {
+        foreach( $tGroups as $entry ) {
             $query .= "    OR (svn_access_rights.group_id = " . $entry[GROUP_ID] . ") ";
         }
         $query .= "       ) ";
@@ -945,6 +1088,14 @@ function db_getAccessRightsForUser($tUserId, $tGroups, $dbh) {
     
 }
 
+/**
+ * get project ids
+ *
+ * @param string $schema
+ * @param integer $user_id
+ * @param resource $dbh
+ * @return string
+ */
 function db_get_projectids($schema, $user_id, $dbh) {
 
     if ($user_id != - 1) {
@@ -981,6 +1132,12 @@ function db_get_projectids($schema, $user_id, $dbh) {
     
 }
 
+/**
+ * retrieve userid from db row
+ *
+ * @param array $row
+ * @return integer
+ */
 function get_userid($row) {
 
     $userid = $row['user_id'];
@@ -992,6 +1149,12 @@ function get_userid($row) {
     
 }
 
+/**
+ * get group id from db row
+ *
+ * @param array $row
+ * @return integer
+ */
 function get_groupid($row) {
 
     $groupid = $row['group_id'];
@@ -1003,6 +1166,14 @@ function get_groupid($row) {
     
 }
 
+/**
+ * het data for a userid
+ *
+ * @param integer $userid
+ * @param string $schema
+ * @param resource $dbh
+ * @return string
+ */
 function get_userid_entry($userid, $schema, $dbh) {
 
     $username = '';
@@ -1018,6 +1189,14 @@ function get_userid_entry($userid, $schema, $dbh) {
     
 }
 
+/**
+ * get group name for group id
+ *
+ * @param integer $groupid
+ * @param string $schema
+ * @param resource $dbh
+ * @return string
+ */
 function get_groupid_entry($groupid, $schema, $dbh) {
 
     $query = "SELECT * " . "  FROM " . $schema . "svngroups " . " WHERE id = $groupid";
@@ -1035,11 +1214,15 @@ function get_groupid_entry($groupid, $schema, $dbh) {
     
 }
 
-//
-// db_getAccessRights
-// Action: get access rights of an user
-// Call: db_getAccessRights(integer $user_id, integer $start, integer $count, resource $dbh)
-//
+/**
+ * get access rights of an user
+ *
+ * @param string $user_id
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getAccessRights($user_id, $start, $count, $dbh) {
 
     global $CONF;
@@ -1079,11 +1262,13 @@ function db_getAccessRights($user_id, $start, $count, $dbh) {
     
 }
 
-//
-// db_getCountAccessRights
-// Action: get count of user's access rights
-// Call: db_getCountAccessRights(integer $user_id, resource $dbh)
-//
+/**
+ * get count of user's access rights
+ *
+ * @param integer $user_id
+ * @param resource $dbh
+ * @return boolean|integer
+ */
 function db_getCountAccessRights($user_id, $dbh) {
 
     global $CONF;
@@ -1144,11 +1329,14 @@ function db_getCountAccessRights($user_id, $dbh) {
     
 }
 
-//
-// db_getGroupList
-// Action: get groups
-// Call: db_getGroupList(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get groups
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getGroupList($start, $count, $dbh) {
 
     global $CONF;
@@ -1167,11 +1355,14 @@ function db_getGroupList($start, $count, $dbh) {
     
 }
 
-//
-// db_getGroups
-// Action: get groups
-// Call: db_getGroups(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get groups
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getGroups($start, $count, $dbh) {
 
     global $CONF;
@@ -1191,11 +1382,12 @@ function db_getGroups($start, $count, $dbh) {
     
 }
 
-//
-// db_getCountGroups
-// Action: get number of groups
-// Call: db_getCountGroups(resource $dbh);
-//
+/**
+ * get number of groups
+ *
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountGroups($dbh) {
 
     global $CONF;
@@ -1218,11 +1410,16 @@ function db_getCountGroups($dbh) {
     
 }
 
-//
-// db_getGroupsAllowed
-// Action: get allowed groups
-// Call: db_getGroupsAllowed(integer $start, integer $count, integer $groupAdmin, array $tGroupsAllowed, resource $dbh)
-//
+/**
+ * get allowed groups
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param string $groupAdmin
+ * @param array $tGroupsAllowed
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getGroupsAllowed($start, $count, $groupAdmin, $tGroupsAllowed, $dbh) {
 
     $schema = db_determine_schema();
@@ -1232,7 +1429,7 @@ function db_getGroupsAllowed($start, $count, $groupAdmin, $tGroupsAllowed, $dbh)
         
         $grouplist = "";
         
-        foreach( $tGroupsAllowed as $groupid => $right) {
+        foreach( $tGroupsAllowed as $groupid => $right ) {
             
             if ($grouplist == "") {
                 $grouplist = "'" . $groupid . "'";
@@ -1261,11 +1458,14 @@ function db_getGroupsAllowed($start, $count, $groupAdmin, $tGroupsAllowed, $dbh)
     
 }
 
-//
-// db_getCountGroupsAllowed
-// Action: get count of allowed groups
-// Call: db_getCountGroupsAllowed(integer $groupAdmin, array $tGroupsAllowed, resource $dbh)
-//
+/**
+ * get count of allowed groups
+ *
+ * @param string $groupAdmin
+ * @param array $tGroupsAllowed
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
 
     $schema = db_determine_schema();
@@ -1273,7 +1473,7 @@ function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
     if ($groupAdmin == 1) {
         $grouplist = "";
         
-        foreach( $tGroupsAllowed as $groupid => $right) {
+        foreach( $tGroupsAllowed as $groupid => $right ) {
             
             if ($grouplist == "") {
                 $grouplist = "'" . $groupid . "'";
@@ -1306,11 +1506,14 @@ function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
     
 }
 
-//
-// db_getProjects
-// Action: get projects from db
-// Call: db_getProjects(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get projects from db
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getProjects($start, $count, $dbh) {
 
     $schema = db_determine_schema();
@@ -1327,11 +1530,12 @@ function db_getProjects($start, $count, $dbh) {
     
 }
 
-//
-// db_getCountProjects
-// Action: get count of projects
-// Call: db_getCountProjects(resource $dbh)
-//
+/**
+ * get count of projects
+ *
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountProjects($dbh) {
 
     $schema = db_determine_schema();
@@ -1352,11 +1556,14 @@ function db_getCountProjects($dbh) {
     
 }
 
-//
-// db_getLockedUsers
-// Action: get locked users from db
-// Call: db_getLockedUsers(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get locked users from db
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getLockedUsers($start, $count, $dbh) {
 
     $schema = db_determine_schema();
@@ -1373,11 +1580,14 @@ function db_getLockedUsers($start, $count, $dbh) {
     
 }
 
-//
-// db_getRepos
-// Action: get repos from db
-// Call: db_getRepos(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get repos from db
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getRepos($start, $count, $dbh) {
 
     global $CONF;
@@ -1396,11 +1606,12 @@ function db_getRepos($start, $count, $dbh) {
     
 }
 
-//
-// db_getCountRepos
-// Action: get count of repods
-// Call: db_getCountRepos(resource $dbh)
-//
+/**
+ * get count of repos
+ *
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountRepos($dbh) {
 
     global $CONF;
@@ -1413,7 +1624,6 @@ function db_getCountRepos($dbh) {
         
         $row = db_assoc($result[RESULT]);
         return $row['anz'];
-
     }
     else {
         
@@ -1422,11 +1632,12 @@ function db_getCountRepos($dbh) {
     
 }
 
-//
-// db_getCountLockedUsers
-// Action: get count of locked users
-// Call: db_getCountLockedUsers(resource $dbh)
-//
+/**
+ * get count of locked users
+ *
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountLockedUsers($dbh) {
 
     global $CONF;
@@ -1447,11 +1658,14 @@ function db_getCountLockedUsers($dbh) {
     
 }
 
-//
-// db_getLog
-// Action: get log entries from db
-// Call: db_getLog(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get log entries from db
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getLog($start, $count, $dbh) {
 
     $schema = db_determine_schema();
@@ -1468,11 +1682,12 @@ function db_getLog($start, $count, $dbh) {
     
 }
 
-//
-// db_getCountLog
-// Action: get count of log records
-// Call: db_getCountLog(resource $dbh)
-//
+/**
+ * get count of log records
+ *
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountLog($dbh) {
 
     $schema = db_determine_schema();
@@ -1491,11 +1706,14 @@ function db_getCountLog($dbh) {
     
 }
 
-//
-// db_getUsers
-// Action: get users from db
-// Call: db_getUsers(integer $start, integer $count, resource $dbh)
-//
+/**
+ * get users from db
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getUsers($start, $count, $dbh) {
 
     global $CONF;
@@ -1514,11 +1732,13 @@ function db_getUsers($start, $count, $dbh) {
     
 }
 
-//
-// db_getUserData
-// Action: get data for an user from db
-// Call: db_getUserData(integer $tUserId, resource $dbh)
-//
+/**
+ * get data for an user from db
+ *
+ * @param integer $tUserId
+ * @param resource $dbh
+ * @return array
+ */
 function db_getUserData($tUserId, $dbh) {
 
     global $CONF;
@@ -1532,11 +1752,14 @@ function db_getUserData($tUserId, $dbh) {
     
 }
 
-//
-// db_getGroupData
-// Action: get data for a group from db
-// Call: db_getGroupData(integer $tGroupId, resource $dbh)
-//
+/**
+ *
+ * get data for a group from db
+ *
+ * @param integer $tGroupId
+ * @param resource $dbh
+ * @return array
+ */
 function db_getGroupData($tGroupId, $dbh) {
 
     global $CONF;
@@ -1550,11 +1773,13 @@ function db_getGroupData($tGroupId, $dbh) {
     
 }
 
-//
-// db_getUsersForGroup
-// Action: get all users having a particular group
-// Call: db_getUsersForGroup(integer $tGroupId, resource $dbh)
-//
+/**
+ * get all users having a particular group
+ *
+ * @param integer $tGroupId
+ * @param resource $dbh
+ * @return array
+ */
 function db_getUsersForGroup($tGroupId, $dbh) {
 
     global $CONF;
@@ -1573,11 +1798,13 @@ function db_getUsersForGroup($tGroupId, $dbh) {
     
 }
 
-//
-// db_getGroupAdminsForGroup
-// Action: get all admins for a particular group
-// Call: db_getGroupAdminsForGroup(integer $tGroupId, resource $dbh)
-//
+/**
+ * get all admins for a particular group
+ *
+ * @param integer $tGroupId
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getGroupAdminsForGroup($tGroupId, $dbh) {
 
     global $CONF;
@@ -1596,11 +1823,13 @@ function db_getGroupAdminsForGroup($tGroupId, $dbh) {
     
 }
 
-//
-// db_getAccessRightsForGroup
-// Action: get all admins for a particular group
-// Call: db_getAccessRightsForGroup(integer $tGroupId, resource $dbh)
-//
+/**
+ * get all admins for a particular group
+ *
+ * @param integer $tGroupId
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_getAccessRightsForGroup($tGroupId, $dbh) {
 
     global $CONF;
@@ -1626,6 +1855,14 @@ function db_getAccessRightsForGroup($tGroupId, $dbh) {
 // Action: get all granted rights
 // Call: db_getAccessRightsForGroup(integer $start, integer $count, resource $dbh)
 //
+/**
+ * get all granted rights
+ *
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return string[][]
+ */
 function db_getGrantedRights($start, $count, $dbh) {
 
     global $CONF;
@@ -1677,11 +1914,12 @@ function db_getGrantedRights($start, $count, $dbh) {
     
 }
 
-//
-// db_getCountGrantedRight
-// Action: get count of log records
-// Call: db_getCountGrantedRight(resource $dbh)
-//
+/**
+ * get count of log records
+ *
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountGrantedRights($dbh) {
 
     global $CONF;
@@ -1702,11 +1940,12 @@ function db_getCountGrantedRights($dbh) {
     
 }
 
-//
-// db_get_userid_from_record
-// Action: get userid from db record
-// Call: db_get_userid_from_record(array $row)
-//
+/**
+ * get userid from db record
+ *
+ * @param array $row
+ * @return integer
+ */
 function db_get_userid_from_record($row) {
 
     $userid = $row['user_id'];
@@ -1718,11 +1957,12 @@ function db_get_userid_from_record($row) {
     
 }
 
-//
-// db_get_groupid_from_record
-// Action: get groupid from db record
-// Call: db_get_groupid_from_record(array $row)
-//
+/**
+ * get groupid from db record
+ *
+ * @param array $row
+ * @return integer
+ */
 function db_get_groupid_from_record($row) {
 
     $groupid = $row['group_id'];
@@ -1734,11 +1974,15 @@ function db_get_groupid_from_record($row) {
     
 }
 
-//
-// db_getAccessRightsList
-// Action: get all valid rights
-// Call: db_getAccessRightsList(string $valid, integer $start, integer $count, resource $dbh)
-//
+/**
+ * get all valid rights
+ *
+ * @param string $valid
+ * @param integer $start
+ * @param integer $count
+ * @param resource $dbh
+ * @return string[]
+ */
 function db_getAccessRightsList($valid, $start, $count, $dbh) {
 
     $schema = db_determine_schema();
@@ -1786,11 +2030,13 @@ function db_getAccessRightsList($valid, $start, $count, $dbh) {
     
 }
 
-//
-// db_getCountAccessRightsList
-// Action: get count of valid rights
-// Call: db_getCountAccessRightsList(string $valid, resource $dbh)
-//
+/**
+ * get count of valid rights
+ *
+ * @param string $valid
+ * @param resource $dbh
+ * @return integer|boolean
+ */
 function db_getCountAccessRightsList($valid, $dbh) {
 
     $schema = db_determine_schema();
@@ -1809,11 +2055,13 @@ function db_getCountAccessRightsList($valid, $dbh) {
     
 }
 
-//
-// db_check_global_admin
-// Action: check if an user is an global admin
-// Call: db_check_global_admin( string username, resource link )
-//
+/**
+ * check if an user is an global admin
+ *
+ * @param string $username
+ * @param resource $link
+ * @return boolean
+ */
 function db_check_global_admin($username, $link) {
 
     global $CONF;
@@ -1833,11 +2081,13 @@ function db_check_global_admin($username, $link) {
     
 }
 
-//
-// db_check_global_admin_by_id
-// Action: check if an user is an global admin
-// Call: db_check_global_admin_by_id( string id, resource link )
-//
+/**
+ * check if an user is an global admin
+ *
+ * @param integer $id
+ * @param resource $link
+ * @return boolean
+ */
 function db_check_global_admin_by_id($id, $link) {
 
     global $CONF;
@@ -1857,11 +2107,14 @@ function db_check_global_admin_by_id($id, $link) {
     
 }
 
-//
-// db_check_acl
-// Action: check if user has permission to do something
-// Call: db_check_acl( string username, string action, resource dbh )
-//
+/**
+ * check if user has permission to do something
+ *
+ * @param string $username
+ * @param string $action
+ * @param resource $dbh
+ * @return string
+ */
 function db_check_acl($username, $action, $dbh) {
 
     global $CONF;
@@ -1886,11 +2139,13 @@ function db_check_acl($username, $action, $dbh) {
     
 }
 
-//
-// db_check_group_acl
-// Action: check if user is allowed to administer a particular group
-// Call: db_check_group_acl( string username, resource dbh )
-//
+/**
+ * check if user is allowed to administer a particular group
+ *
+ * @param string $username
+ * @param resource $dbh
+ * @return array[]
+ */
 function db_check_group_acl($username, $dbh) {
 
     global $CONF;
@@ -1915,11 +2170,13 @@ function db_check_group_acl($username, $dbh) {
     
 }
 
-//
-// db_get_preference
-// Action: load user's preferences
-// Call: db_get_preferences(int userid, resource link)
-//
+/**
+ * load user's preferences
+ *
+ * @param integer $userid
+ * @param resource $link
+ * @return array[]
+ */
 function db_get_preferences($userid, $link) {
 
     global $CONF;
@@ -1950,12 +2207,14 @@ function db_get_preferences($userid, $link) {
     
 }
 
-//
-// db_get_semaphore
-// Action: check if semaphore is set,
-// returns true if semaphore is set
-// Call: db_get_semaphore(string action, string type, resource link)
-//
+/**
+ * check if semaphore is set, returns true if semaphore is set
+ *
+ * @param string $action
+ * @param string $type
+ * @param resource $link
+ * @return boolean
+ */
 function db_get_semaphore($action, $type, $link) {
 
     global $CONF;
@@ -1969,12 +2228,14 @@ function db_get_semaphore($action, $type, $link) {
     
 }
 
-//
-// db_set_semaphore
-// Action: set semaphore and check if a semaphore is already open,
-// returns false if a semaphore could not be set
-// Call: db_set_semaphore(string action, string type, resource link)
-//
+/**
+ * set semaphore and check if a semaphore is already open, returns false if a semaphore could not be set
+ *
+ * @param string $action
+ * @param string $type
+ * @param resource $link
+ * @return boolean
+ */
 function db_set_semaphore($action, $type, $link) {
 
     global $CONF;
@@ -2005,11 +2266,14 @@ function db_set_semaphore($action, $type, $link) {
     
 }
 
-//
-// db_unset_semaphore
-// Action: unset semaphore
-// Call: db_unset_semaphore(string action, string type, resource link)
-//
+/**
+ * unset semaphore
+ *
+ * @param string $action
+ * @param string $type
+ * @param resource $link
+ * @return boolean
+ */
 function db_unset_semaphore($action, $type, $link) {
 
     global $CONF;
@@ -2040,11 +2304,11 @@ function db_unset_semaphore($action, $type, $link) {
     
 }
 
-//
-// db_determine_schema
-// Action: get schema and return string
-// Call: db_determine_schema()
-//
+/**
+ * get schema and return string
+ *
+ * @return string
+ */
 function db_determine_schema() {
 
     global $CONF;
@@ -2060,11 +2324,13 @@ function db_determine_schema() {
     
 }
 
-//
-// db_escape_string
-// Action: Escape a string
-// Call: db_escape_string (string string, resource link)
-//
+/**
+ * Escape a string
+ *
+ * @param string $string
+ * @param resource $link
+ * @return string
+ */
 function db_escape_string($string, $link = "") {
 
     global $CONF;
@@ -2096,11 +2362,15 @@ function db_escape_string($string, $link = "") {
     
 }
 
-//
-// db_get_list
-// Action: get a list ob database objects
-// Call: db_get_list(string type, string tSearch resource dbh)
-//
+/**
+ * get a list ob database objects
+ *
+ * @param string $type
+ * @param string $tSearch
+ * @param resource $dbh
+ * @param string $tParts
+ * @return array[][]
+ */
 function db_get_list($type, $tSearch, $dbh, $tParts = '') {
 
     $ret = array();
@@ -2129,7 +2399,7 @@ function db_get_list($type, $tSearch, $dbh, $tParts = '') {
                 $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible," . $schema . "svnusers, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (";
                 
                 $i = 0;
-                foreach( $tParts as $entry) {
+                foreach( $tParts as $entry ) {
                     
                     if ($i == 0) {
                         
@@ -2203,12 +2473,11 @@ function db_get_list($type, $tSearch, $dbh, $tParts = '') {
     
 }
 
-//
-// set_ldap_connect_options
-// Action: create array with LDAP connect options
-
-// Call: set_ldap_connect_options
-//
+/**
+ * create array with LDAP connect options
+ *
+ * @return array[][]
+ */
 function set_ldap_connect_options() {
 
     global $CONF;
@@ -2253,11 +2522,12 @@ function set_ldap_connect_options() {
     
 }
 
-//
-// ldap_check_user_exists
-// Action: check if an user exists in ldap directory
-// Call: ldap_check_user_exists(string userid)
-//
+/**
+ * check if an user exists in ldap directory
+ *
+ * @param string $userid
+ * @return integer
+ */
 function ldap_check_user_exists($userid) {
 
     global $CONF;
@@ -2313,6 +2583,12 @@ function ldap_check_user_exists($userid) {
     
 }
 
+/**
+ * get uid from array ldap result
+ *
+ * @param array $arr
+ * @return integer
+ */
 function get_uid($arr) {
 
     global $CONF;
@@ -2338,6 +2614,12 @@ function get_uid($arr) {
     
 }
 
+/**
+ * get name from array ldap result
+ *
+ * @param array $arr
+ * @return string
+ */
 function get_name($arr) {
 
     global $CONF;
@@ -2363,6 +2645,12 @@ function get_name($arr) {
     
 }
 
+/**
+ * get givenname from ldap result array
+ *
+ * @param array $arr
+ * @return string
+ */
 function get_givenname($arr) {
 
     global $CONF;
@@ -2388,6 +2676,12 @@ function get_givenname($arr) {
     
 }
 
+/**
+ * get email adress from ldap result array
+ *
+ * @param array $arr
+ * @return string
+ */
 function get_emailaddress($arr) {
 
     global $CONF;
@@ -2403,11 +2697,11 @@ function get_emailaddress($arr) {
     
 }
 
-//
-// get_ldap_users
-// Action: get available users from ldap
-// Call: et_ldap_users()
-//
+/**
+ * get available users from ldap
+ *
+ * @return array
+ */
 function get_ldap_users() {
 
     global $CONF;
@@ -2486,11 +2780,13 @@ function get_ldap_users() {
     
 }
 
-//
-// check_ldap_password
-// Action: check password against ldap
-// Call: check_ldap_password(string userid, string password)
-//
+/**
+ * check password against ldap
+ *
+ * @param string $userid
+ * @param string $password
+ * @return integer
+ */
 function check_ldap_password($userid, $password) {
 
     global $CONF;
@@ -2560,9 +2856,13 @@ function check_ldap_password($userid, $password) {
     
 }
 
-//
-// session handling
-//
+/**
+ * Session handling in database
+ *
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. Allrights reserved.
+ *           
+ */
 class Session {
     /**
      * a database connection resource
@@ -2570,6 +2870,11 @@ class Session {
      * @var resource
      */
     private static $_sess_db;
+    
+    /**
+     * switch debugging on or off
+     * @var integer
+     */
     private static $DEBUG = 0;
 
     /**
@@ -2650,9 +2955,9 @@ class Session {
     /**
      * Read the session
      *
-     * @param
+     * @param integer $id
      *            int session id
-     * @return string string of the sessoin
+     * @return string string of the session
      */
     public static function read($id) {
 
@@ -2704,9 +3009,9 @@ class Session {
     /**
      * Write the session
      *
-     * @param
+     * @param integer $id
      *            int session id
-     * @param
+     * @param string $data
      *            string data of the session
      */
     public static function write($id, $data) {
@@ -2767,7 +3072,7 @@ class Session {
     /**
      * Destoroy the session
      *
-     * @param
+     * @param integer $id
      *            int session id
      * @return bool
      */
@@ -2817,7 +3122,7 @@ class Session {
     /**
      * Garbage Collector
      *
-     * @param
+     * @param integer $max
      *            int life time (sec.)
      * @return bool
      * @see session.gc_divisor 100
@@ -2871,6 +3176,9 @@ class Session {
     
 }
 
+/**
+ * session handler registration
+ */
 if (isset($CONF) && ($CONF['session_in_db'] == "YES")) {
     
     ini_set('session.gc_probability', 50);
@@ -2899,5 +3207,8 @@ if (isset($CONF) && ($CONF['session_in_db'] == "YES")) {
     ));
 }
 
+/**
+ * set session cache expire time
+ */
 session_cache_expire(30);
 ?>

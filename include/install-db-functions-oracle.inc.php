@@ -1,8 +1,39 @@
 <?php
 
-//
-//
-//
+/**
+ * Functions around Oracle databases.
+ *
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
+ *
+ */
+
+/**
+ * drop Oracle databases during install
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @return integer[]|string[]
+ */
 function dropOracleDatabaseTables($dbh, $schema) {
 
     global $DBTABLES;
@@ -10,7 +41,7 @@ function dropOracleDatabaseTables($dbh, $schema) {
     $error = 0;
     $tMessage = "";
     
-    foreach( $DBTABLES as $dbtable) {
+    foreach( $DBTABLES as $dbtable ) {
         
         if ($error == 0) {
             
@@ -30,9 +61,12 @@ function dropOracleDatabaseTables($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create ehelp text table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createHelpTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"HELP_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -58,9 +92,12 @@ function createHelpTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create log table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createLogTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"LOG_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -86,9 +123,12 @@ function createLogTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create preferences table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createPreferencesTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"PREFERENCES_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -115,9 +155,12 @@ function createPreferencesTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create workinfo table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createWorkinfoTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"WORKINFO_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -125,9 +168,12 @@ function createWorkinfoTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create rights table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createRightsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"RIGHTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -152,9 +198,12 @@ function createRightsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create session table
+ *
+ * @param resourcfe $dbh
+ * @param string $schema
+ */
 function createSessionTableOracle($dbh, $schema) {
 
     $query = "CREATE TABLE $schema.\"SESSIONS\" (\"SESSION_ID\"      VARCHAR2(255 BYTE) NOT NULL ENABLE, \"SESSION_EXPIRES\" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, \"SESSION_DATA\" CLOB, CONSTRAINT \"SESSIONS_SESSION_EXPIRES_CHECK\" CHECK (SESSION_EXPIRES >= 0) ENABLE)";
@@ -168,9 +217,12 @@ function createSessionTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svngroups table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvngroupsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVNGROUPS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -198,9 +250,12 @@ function createSvngroupsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnmailingliosts table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnmailinglistsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVNMAILINGLISTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -225,9 +280,12 @@ function createSvnmailinglistsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create passwordresewt table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createPasswordresetTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVNPASSWORDRESET_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -252,9 +310,12 @@ function createPasswordresetTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnrepos table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnreposTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVNREPOS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -282,9 +343,12 @@ function createSvnreposTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnprojects table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnprojectsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVNPROJECTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -315,9 +379,12 @@ function createSvnprojectsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnuser table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnusersTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVNUSERS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -351,9 +418,12 @@ function createSvnusersTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnaccessrigts table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnAccessrightsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVN_ACCESS_RIGHTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -390,9 +460,12 @@ function createSvnAccessrightsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * createw svngroupresponsible table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnGroupsResponsibleTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVN_GROUPS_RESPONSIBLE_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -423,9 +496,12 @@ function createSvnGroupsResponsibleTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * creste svnprojectsmailionglists table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnProjectsMailinglistsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVN_PROJECTS_MAILINGLISTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -456,9 +532,12 @@ function createSvnProjectsMailinglistsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnprojectsresponsible table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnProjectsresponsibleTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVN_PROJECTS_RESPONSIBLE_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -489,9 +568,12 @@ function createSvnProjectsresponsibleTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * create svnusersgroups table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createSvnUsersGroupsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"SVN_USERS_GROUPS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -525,9 +607,12 @@ function createSvnUsersGroupsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * creste userrights table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ */
 function createUserRightsTableOracle($dbh, $schema) {
 
     $query = "CREATE SEQUENCE $schema.\"USERS_RIGHTS_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
@@ -558,9 +643,13 @@ function createUserRightsTableOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * load data into oracle tables
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @return integer[]|string[]
+ */
 function loadOracleDbData($dbh, $schema) {
 
     db_ta(BEGIN, $dbh);

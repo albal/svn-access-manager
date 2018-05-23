@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Work on an user
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -26,6 +33,10 @@
  *
  * $Id$
  *
+ */
+
+/**
+ * work on users
  */
 include ('load_config.php');
 
@@ -37,6 +48,12 @@ require ("$installBase/include/functions.inc.php");
 require ("$installBase/include/output.inc.php");
 require ("$installBase/include/db-functions-adodb.inc.php");
 
+/**
+ * get rights
+ *
+ * @param resource $dbh
+ * @return array[]
+ */
 function getRights($dbh) {
 
     global $CONF;
@@ -57,6 +74,13 @@ function getRights($dbh) {
     
 }
 
+/**
+ * get granted rights
+ *
+ * @param integer $user_id
+ * @param resource $dbh
+ * @return array[]
+ */
 function getRightsGranted($user_id, $dbh) {
 
     global $CONF;
@@ -76,17 +100,21 @@ function getRightsGranted($user_id, $dbh) {
     
 }
 
-function getLdapUser() {
-
-    
-}
-
+/**
+ * check right
+ *
+ * @param array $tRightsAvailable
+ * @param array $tRightsGrantedToCurUser
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
 
     $error = 0;
     $tMessage = '';
+    $tMessageType = '';
     
-    foreach( $tRightsAvailable as $right) {
+    foreach( $tRightsAvailable as $right ) {
         
         $right_id = $right['id'];
         $tOldRight = isset($_SESSION[SVNSESSID][RIGHTSGRANTED][$right_id]) ? $_SESSION[SVNSESSID][RIGHTSGRANTED][$right_id] : "";
@@ -101,6 +129,7 @@ function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
             if ($tCurRight != DELETE) {
                 
                 $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $tMessageType = DANGER;
                 $error = 1;
             }
         }
@@ -109,6 +138,7 @@ function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
             if (($tCurRight != DELETE) && ($tCurRight != "edit")) {
                 
                 $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $tMessageType = DANGER;
                 $error = 1;
             }
         }
@@ -117,6 +147,7 @@ function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
             if (($tCurRight != DELETE) && ($tCurRight != "edit") && ($tCurRight != "add")) {
                 
                 $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $tMessageType = DANGER;
                 $error = 1;
             }
         }
@@ -125,6 +156,7 @@ function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
             if (($tCurRight != DELETE) && ($tCurRight != "edit") && ($tCurRight != "add") && ($tCurRight != "read")) {
                 
                 $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+                $tMessageType = DANGER;
                 $error = 1;
             }
         }
@@ -134,13 +166,15 @@ function check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh) {
         else {
             
             $tMessage = sprintf(_("You are not allowed to grant the right '%s' for '%s' because you have insufficient privileges: '%s'"), $value, $tRightName, $tCurRight);
+            $tMessageType = DANGER;
             $error = 1;
         }
     }
     
     return (array(
-            'error' => $error,
-            'message' => $tMessage
+            ERROR => $error,
+            'message' => $tMessage,
+            'messagetype' => $tMessageType
     ));
     
 }
@@ -205,6 +239,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
     
+    $tUseridError = '';
+    $tNameError = '';
+    $tPasswordError = '';
+    $tPassword2Error = '';
+    $tEmailError = '';
+    
     if ($_SESSION[SVNSESSID]['task'] == "new") {
         
         $tUserid = "";
@@ -266,11 +306,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         else {
             
             $tMessage = sprintf(_("Invalid userid %s requested!"), $id);
+            $tMessageType = DANGER;
         }
     }
     else {
         
         $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+        $tMessageType = DANGER;
     }
     
     $header = USERS;
@@ -300,6 +342,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tUserRight = isset($_POST['fUserRight']) ? db_escape_string($_POST['fUserRight']) : "";
     $tRightsAvailable = getRights($dbh);
     $tRightsGranted = array();
+    $tUseridError = 'ok';
+    $tNameError = 'ok';
+    $tPasswordError = 'ok';
+    $tPassword2Error = 'ok';
+    $tEmailError = 'ok';
     
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
@@ -331,16 +378,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tUserid == "") {
                 
                 $tMessage = _("Userid is missing, please fill in!");
+                $tMessageType = DANGER;
+                $tUseridError = ERROR;
                 $error = 1;
             }
             elseif ($tUserid == "default") {
                 
                 $tMessage = _("Please select an user!");
+                $tMessageType = DANGER;
+                $tUseridError = ERROR;
                 $error = 1;
             }
             elseif ($tName == "") {
                 
                 $tMessage = _("Name missing, please fill in!");
+                $tMessageType = DANGER;
+                $tNameError = ERROR;
                 $error = 1;
             }
             elseif ((! isset($CONF[USE_LDAP])) || ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES"))) {
@@ -348,6 +401,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if (($tPassword == "") && ($tPassword2 == "")) {
                     
                     $tMessage = _("A new user needs a password!");
+                    $tMessageType = DANGER;
+                    $tPasswordError = ERROR;
+                    $tPassword2Error = ERROR;
                     $error = 1;
                 }
                 elseif (($tPassword != "") || ($tPassword2 != "")) {
@@ -355,6 +411,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if ($tPassword != $tPassword2) {
                         
                         $tMessage = _("Passwords do not match!");
+                        $tMessageType = DANGER;
+                        $tPasswordError = ERROR;
+                        $tPassword2Error = ERROR;
                         $error = 1;
                     }
                     else {
@@ -363,6 +422,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         if ($retval == 0) {
                             
                             $tMessage = _("Password does not match the password policy!");
+                            $tMessageType = DANGER;
+                            $tPasswordError = ERROR;
+                            $tPassword2Error = ERROR;
                             $error = 1;
                         }
                     }
@@ -372,11 +434,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tEmail == "") {
                 
                 $tMessage = _("Email address is missing, please fill in!");
+                $tMessageType = DANGER;
+                $tEmailError = ERROR;
                 $error = 1;
             }
             elseif (! check_email($tEmail)) {
                 
                 $tMessage = sprintf(_("%s is not a valid email address!"), $tEmail);
+                $tMessageType = DANGER;
+                $tEmailError = ERROR;
                 $error = 1;
             }
             else {
@@ -387,6 +453,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($result['rows'] > 0) {
                     
                     $tMessage = sprintf(_("The user with the userid %s exists already"), $tUserid);
+                    $tMessageType = DANGER;
+                    $tUseridError = ERROR;
                     $error = 1;
                 }
             }
@@ -394,8 +462,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $result = check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh);
-                $error = $result['error'];
+                $error = $result[ERROR];
                 $tMessage = $result['message'];
+                $tMessageType = $result['messagetype'];
             }
             
             if ($error == 0) {
@@ -413,7 +482,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     $lastid = db_get_last_insert_id('svnusers', 'id', $dbh);
                     
-                    foreach( $tRightsAvailable as $right) {
+                    foreach( $tRightsAvailable as $right ) {
                         
                         $right_id = $right['id'];
                         $field = "fId" . $right_id;
@@ -461,6 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     db_ta('COMMIT', $dbh);
                     
                     $tMessage = _("User successfully inserted");
+                    $tMessageType = SUCCESS;
                 }
             }
         }
@@ -472,11 +542,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tUserid == "") {
                 
                 $tMessage = _("Userid is missing, please fill in!");
+                $tMessageType = DANGER;
+                $tUseridError = ERROR;
                 $error = 1;
             }
             elseif ($tName == "") {
                 
                 $tMessage = _("Name missing, please fill in!");
+                $tMessageType = DANGER;
+                $tNameError = ERROR;
                 $error = 1;
             }
             elseif ((! isset($CONF[USE_LDAP])) || ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) != "YES"))) {
@@ -486,6 +560,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if ($tPassword != $tPassword2) {
                         
                         $tMessage = _("Passwords do not match!");
+                        $tMessageType = DANGER;
+                        $tPasswordError = ERROR;
+                        $tPassword2Error = ERROR;
                         $error = 1;
                     }
                     else {
@@ -494,6 +571,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         if ($retval == 0) {
                             
                             $tMessage = _("Password does not match the password policy!");
+                            $tMessageType = DANGER;
+                            $tPassword2Error = ERROR;
+                            $tPasswordError = ERROR;
                             $error = 1;
                         }
                     }
@@ -503,11 +583,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($tEmail == "") {
                 
                 $tMessage = _("Emailaddress is missing, please fill in!");
+                $tMessageType = DANGER;
+                $tEmailError = ERROR;
                 $error = 1;
             }
             elseif (! check_email($tEmail)) {
                 
                 $tMessage = sprintf(_("%s is not a valid email address!"), $tEmail);
+                $tMessageType = DANGER;
+                $tEmailError = ERROR;
                 $error = 1;
             }
             else {
@@ -518,6 +602,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($result['rows'] == 0) {
                     
                     $tMessage = sprintf(_("The user %s does not exist"), $tUserid);
+                    $tMessageType = DANGER;
+                    $tUseridError = ERROR;
                     $error = 1;
                 }
             }
@@ -525,8 +611,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($error == 0) {
                 
                 $result = check_right($tRightsAvailable, $tRightsGrantedToCurUser, $dbh);
-                $error = $result['error'];
+                $error = $result[ERROR];
                 $tMessage = $result['message'];
+                $tMessageType = $result['messagetype'];
             }
             
             if ($error == 0) {
@@ -549,7 +636,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 if ($result['rows'] == 1) {
                     
-                    foreach( $tRightsAvailable as $right) {
+                    foreach( $tRightsAvailable as $right ) {
                         
                         $right_id = $right['id'];
                         $field = "fId" . $right_id;
@@ -575,6 +662,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result['rows'] == 0) {
                                 
                                 $tMessage = _("Error during database write of user rights");
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                         }
@@ -585,6 +673,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 else {
                     
                     $tMessage = _("User not modified due to database error");
+                    $tMessageType = DANGER;
                     $error = 1;
                 }
                 
@@ -593,6 +682,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     db_ta('COMMIT', $dbh);
                     
                     $tMessage = _("User successfully modified");
+                    $tMessageType = SUCCESS;
                 }
                 else {
                     
@@ -603,11 +693,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         else {
             
             $tMessage = sprintf(_("Invalid task %s, anyone tampered arround with?"), $_SESSION[SVNSESSID]['task']);
+            $tMessageType = DANGER;
         }
     }
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     if ((isset($CONF[USE_LDAP])) && (strtoupper($CONF[USE_LDAP]) == "YES")) {

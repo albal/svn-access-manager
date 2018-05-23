@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Set an access right
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -115,27 +122,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tPathSelected = str_replace('//', '/', $tPathSelected);
     $tNone = CHECKED;
     $tRecursive = CHECKED;
+    $tValidFromError = '';
+    $tValidUntilError = '';
+    $tAccessRightError = '';
+    $tUsersError = '';
+    $tGroupsError = '';
     
     $lang = check_language();
     
-    if ($lang == "de") {
-        
-        $tDateFormatText = "TT.MM.JJJJ";
-        $tDate = date("d") . "." . date("m") . "." . date("Y");
-        $tDateFormat = "dd-mm-yy";
-        $tLocale = "de";
-    }
-    else {
-        
-        $tDateFormatText = "MM/DD/YYYY";
-        $tDate = date("m") . "/" . date("d") . "/" . date("Y");
-        $tDateFormat = "mm-dd-yy";
-        $tLocale = "en";
-    }
-    
     if (isset($_SESSION[SVNSESSID]['validfrom'])) {
         
-        $tValidFrom = $_SESSION[SVNSESSID]['validfrom'];
+        $tValidFrom = splitDateForBootstrap($_SESSION[SVNSESSID]['validfrom']);
     }
     else {
         
@@ -144,19 +141,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     if (isset($_SESSION[SVNSESSID]['validuntil'])) {
         
-        $tValidUntil = $_SESSION[SVNSESSID]['validuntil'];
+        $tValidUntil = splitDateForBootstrap($_SESSION[SVNSESSID]['validuntil']);
     }
     else {
         
         $tValidUntil = "";
     }
     
-    if ($tValidFrom == "00.00.0000") {
+    if ($tValidFrom == "0000-00-00") {
         
         $tValidFrom = "";
     }
     
-    if ($tValidUntil == "99.99.9999") {
+    if ($tValidUntil == "9999-99-99") {
         
         $tValidUntil = "";
     }
@@ -232,6 +229,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tValidUntil = isset($_POST['fValidUntil']) ? db_escape_string($_POST['fValidUntil']) : "";
     $tUsers = isset($_POST['fUsers']) ? db_escape_string($_POST['fUsers']) : array();
     $tGroups = isset($_POST['fGroups']) ? db_escape_string($_POST['fGroups']) : array();
+    $tValidFromError = 'ok';
+    $tValidUntilError = 'ok';
+    $tAccessRightError = 'ok';
+    $tUsersError = 'ok';
+    $tGroupsError = 'ok';
     
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
@@ -247,21 +249,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $lang = check_language();
-    
-    if ($lang == "de") {
-        
-        $tDateFormatText = "TT.MM.JJJJ";
-        $tDate = date("d") . "." . date("m") . "." . date("Y");
-        $tDateFormat = "dd-mm-yy";
-        $tLocale = "de";
-    }
-    else {
-        
-        $tDateFormatText = "MM/DD/YYYY";
-        $tDate = date("m") . "/" . date("d") . "/" . date("Y");
-        $tDateFormat = "mm-dd-yy";
-        $tLocale = "en";
-    }
     
     if ($tAccessRight == "none") {
         
@@ -295,22 +282,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($tValidFrom != "") {
             
-            if (($lang == "de") || (substr($tValidFrom, 2, 1) == ".")) {
-                
-                $day = substr($tValidFrom, 0, 2);
-                $month = substr($tValidFrom, 3, 2);
-                $year = substr($tValidFrom, 6, 4);
-            }
-            else {
-                
-                $day = substr($tValidFrom, 3, 2);
-                $month = substr($tValidFrom, 0, 2);
-                $year = substr($tValidFrom, 6, 4);
-            }
+            $day = substr($tValidFrom, 8, 2);
+            $month = substr($tValidFrom, 5, 2);
+            $year = substr($tValidFrom, 0, 4);
             
             if (! check_date($day, $month, $year)) {
                 
                 $tMessage = sprintf(_("Not a valid date: %s (valid from)"), $tValidFrom);
+                $tMessageType = DANGER;
+                $tValidFromError = ERROR;
                 $error = 1;
             }
             else {
@@ -325,22 +305,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         if ($tValidUntil != "") {
             
-            if (($lang == "de") || (substr($tValidUntil, 2, 1) == ".")) {
-                
-                $day = substr($tValidUntil, 0, 2);
-                $month = substr($tValidUntil, 3, 2);
-                $year = substr($tValidUntil, 6, 4);
-            }
-            else {
-                
-                $day = substr($tValidUntil, 3, 2);
-                $month = substr($tValidUntil, 0, 2);
-                $year = substr($tValidUntil, 6, 4);
-            }
+            $day = substr($tValidUntil, 8, 2);
+            $month = substr($tValidUntil, 5, 2);
+            $year = substr($tValidUntil, 0, 4);
             
             if (! check_date($day, $month, $year)) {
                 
                 $tMessage = sprintf(_("Not a valid date: %s (valid until)"), $tValidUntil);
+                $tMessageType = DANGER;
+                $tValidUntilError = ERROR;
                 $error = 1;
             }
             else {
@@ -358,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tPathSelected = "/" . $tPathSelected;
         }
         
-        foreach( $tUsers as $userid) {
+        foreach( $tUsers as $userid ) {
             
             if ($error == 0) {
                 
@@ -366,12 +339,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if (($tAccessRight == WRITE) && ($mode != WRITE)) {
                     
                     $tMessage = _("User is not allowed to have write access, global right is read only");
+                    $tMessageType = DANGER;
+                    $tAccessRightError = ERROR;
                     $error = 1;
                 }
             }
         }
         
-        foreach( $tGroups as $groupid) {
+        foreach( $tGroups as $groupid ) {
             
             if ($error == 0) {
                 
@@ -380,6 +355,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     $groupName = db_getGroupById($groupid, $dbh);
                     $tMessage = sprintf(_("Group %s contains an user with no global write permission!"), $groupName);
+                    $tMessageType = 'warning';
+                    $tAccessRightError = 'warn';
                     $error = 1;
                 }
             }
@@ -402,6 +379,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if (($tAccessRight == WRITE) && ($mode != WRITE)) {
                     $groupName = db_getGroupById($_SESSION[SVNSESSID][GROUPID], $dbh);
                     $tMessage = sprintf(_("Group %s contains an user with no global write permission!"), $groupName);
+                    $tMessageType = 'warning';
+                    $tAccessRightError = 'warn';
                     $error = 1;
                 }
             }
@@ -414,6 +393,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (($_SESSION[SVNSESSID]['task'] == "new") && (count($tUsers) == 0) && (count($tGroups) == 0)) {
             
             $tMessage = _("No user or no group selected!");
+            $tMessageType = DANGER;
+            $tUsersError = ERROR;
+            $tGroupsError = ERROR;
             $error = 1;
         }
         
@@ -449,6 +431,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     db_ta('ROLLBACK', $dbh);
                     $tMessage = _("Error while writing access right modification");
+                    $tMessageType = DANGER;
                 }
             }
             else {
@@ -457,7 +440,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     db_ta('BEGIN', $dbh);
                     
-                    foreach( $tUsers as $userid) {
+                    foreach( $tUsers as $userid ) {
                         
                         $id = db_getIdByUserid($userid, $dbh);
                         $mode = db_getUserRightByUserid($userid, $dbh);
@@ -474,6 +457,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($resultupd['rows'] != 1) {
                                 
                                 $tMessage = _("Error while deleting access right");
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                             
@@ -486,6 +470,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         if ($result['rows'] != 1) {
                             
                             $tMessage = sprintf(_("Error while inserting access right for user %s"), $userid);
+                            $tMessageType = DANGER;
                             $error = 1;
                         }
                         
@@ -494,7 +479,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     if ($error == 0) {
                         
-                        foreach( $tGroups as $groupid) {
+                        foreach( $tGroups as $groupid ) {
                             
                             $query = "SELECT * " . "  FROM " . $schema . "svn_access_rights " . " WHERE (group_id = '$groupid') " . "   AND (path = '$tPathSelected') " . "   AND (deleted = '00000000000000') " . "   AND (project_id = '$tProjectid') ";
                             $result = db_query($query, $dbh);
@@ -508,6 +493,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 if ($resultupd['rows'] != 1) {
                                     
                                     $tMessage = _("Error while deleting access right");
+                                    $tMessageType = DANGER;
                                     $error = 1;
                                 }
                                 
@@ -520,6 +506,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             if ($result['rows'] != 1) {
                                 
                                 $tMessage = sprintf(_("Error while inserting access right for group %s"), $groupid);
+                                $tMessageType = DANGER;
                                 $error = 1;
                             }
                             
@@ -549,6 +536,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     $tUsers = array();

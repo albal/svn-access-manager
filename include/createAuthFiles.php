@@ -1,31 +1,48 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * create configuration files for Subversion access and viewvc access.
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+  * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @license GPL v2
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ *            $LastChangedDate$
+ *            $LastChangedBy$
+ *           
+ *            $Id$
+ *           
+ *           
+ *         
+ * @filesource
  */
 
-/*
+/**
+ * write a line to a open file
  *
- * $LastChangedDate$
- * $LastChangedBy$
- *
- * $Id$
- *
+ * @param resource $fileHandle
+ * @param string $content
+ * @param resource $dbh
+ * @param string $semaphore
+ * @param string $filename
+ * @return integer[]|string[]
  */
 function writeToFile($fileHandle, $content, $dbh = '', $semaphore = '', $filename = '') {
 
@@ -49,9 +66,14 @@ function writeToFile($fileHandle, $content, $dbh = '', $semaphore = '', $filenam
     
 }
 
-//
-//
-//
+/**
+ * write all users to file
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @return string[]|integer[]
+ */
 function writeAllUsers($dbh, $schema, $fileHandle) {
 
     $retcode = 0;
@@ -71,9 +93,15 @@ function writeAllUsers($dbh, $schema, $fileHandle) {
     
 }
 
-//
-//
-//
+/**
+ * write users per repository
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param integer $repoid
+ * @return string[]|integer[]
+ */
 function writeUserPerRepo($dbh, $schema, $fileHandle, $repoid) {
 
     $retcode = 0;
@@ -94,9 +122,14 @@ function writeUserPerRepo($dbh, $schema, $fileHandle, $repoid) {
     
 }
 
-//
-//
-//
+/**
+ * add administrator access
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @return string[]|integer[]
+ */
 function addAdmins($dbh, $schema, $fileHandle) {
 
     $retcode = 0;
@@ -116,9 +149,13 @@ function addAdmins($dbh, $schema, $fileHandle) {
     
 }
 
-//
-//
-//
+/**
+ * get name and path of auth user file
+ *
+ * @param string $authuserfile
+ * @param string $reponame
+ * @return string
+ */
 function getAuthUserFile($authuserfile, $reponame) {
 
     global $CONF;
@@ -131,9 +168,12 @@ function getAuthUserFile($authuserfile, $reponame) {
     
 }
 
-//
-//
-//
+/**
+ * create auth user file
+ *
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function createAuthUserFile($dbh) {
 
     global $CONF;
@@ -205,9 +245,13 @@ function createAuthUserFile($dbh) {
     
 }
 
-//
-//
-//
+/**
+ * copy a file
+ *
+ * @param string $tempfile
+ * @param string $authuserfile
+ * @return integer[]|string[]
+ */
 function copyFile($tempfile, $authuserfile) {
 
     if (@rename($tempfile, $authuserfile)) {
@@ -228,9 +272,12 @@ function copyFile($tempfile, $authuserfile) {
     
 }
 
-//
-//
-//
+/**
+ * create auth user file on per repo basis
+ *
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function createAuthUserFilePerRepo($dbh) {
 
     global $CONF;
@@ -265,7 +312,9 @@ function createAuthUserFilePerRepo($dbh) {
         
         if ($fileHandle = @fopen($tempfile, 'w')) {
             
-            // always add admin users to per repo password files
+            /**
+             * always add admin users to per repo password files
+             */
             list($retcode, $tMessage ) = addAdmins($dbh, $schema, $fileHandle);
             list($retcode, $tMessage ) = writeUserPerRepo($dbh, $schema, $fileHandle, $repoid);
             
@@ -311,6 +360,13 @@ function createAuthUserFilePerRepo($dbh) {
     
 }
 
+/**
+ * concatenate user
+ *
+ * @param string $users
+ * @param string $user
+ * @return string
+ */
 function concatUsers($users, $user) {
 
     if ($users == "") {
@@ -326,9 +382,15 @@ function concatUsers($users, $user) {
     
 }
 
-//
-//
-//
+/**
+ * write groups to file
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param string $tempfile
+ * @return string[]|integer[]
+ */
 function writeGroups($dbh, $schema, $fileHandle, $tempfile) {
 
     $retcode = 0;
@@ -380,9 +442,15 @@ function writeGroups($dbh, $schema, $fileHandle, $tempfile) {
     
 }
 
-//
-//
-//
+/**
+ * write admin to access file
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param resource $tempfile
+ * @return string[]|integer[]
+ */
 function writeAdminToAccessFile($dbh, $schema, $fileHandle, $tempfile) {
 
     global $CONF;
@@ -417,9 +485,12 @@ function writeAdminToAccessFile($dbh, $schema, $fileHandle, $tempfile) {
     
 }
 
-//
-//
-//
+/**
+ * check svn repository path
+ *
+ * @param string $tPath
+ * @return string
+ */
 function checkPath($tPath) {
 
     if ($tPath == "") {
@@ -429,9 +500,12 @@ function checkPath($tPath) {
     
 }
 
-//
-//
-//
+/**
+ * check repository name
+ *
+ * @param string $repoName
+ * @return string
+ */
 function checkRepoName($repoName) {
 
     if ($repoName == "/:") {
@@ -442,9 +516,17 @@ function checkRepoName($repoName) {
     
 }
 
-//
-//
-//
+/**
+ * write groups to file
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param array $row
+ * @param string $right
+ * @param string $tempfile
+ * @return string[]|integer[]
+ */
 function writeGroupToFile($dbh, $schema, $fileHandle, $row, $right, $tempfile) {
 
     $retcode = 0;
@@ -469,9 +551,17 @@ function writeGroupToFile($dbh, $schema, $fileHandle, $row, $right, $tempfile) {
     
 }
 
-//
-//
-//
+/**
+ * write users to file
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param array $row
+ * @param string $right
+ * @param string $tempfile
+ * @return string[]|integer[]
+ */
 function writeUserToFile($dbh, $schema, $fileHandle, $row, $right, $tempfile) {
 
     $retcode = 0;
@@ -496,9 +586,15 @@ function writeUserToFile($dbh, $schema, $fileHandle, $row, $right, $tempfile) {
     
 }
 
-//
-//
-//
+/**
+ * write access rights to file
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param string $tempfile
+ * @return string[]|integer[]
+ */
 function writeAccessRightsToFile($dbh, $schema, $fileHandle, $tempfile) {
 
     global $CONF;
@@ -536,9 +632,12 @@ function writeAccessRightsToFile($dbh, $schema, $fileHandle, $tempfile) {
     
 }
 
-//
-//
-//
+/**
+ * create svn access file
+ *
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function createAccessFile($dbh) {
 
     global $CONF;
@@ -573,7 +672,9 @@ function createAccessFile($dbh) {
         return $ret;
     }
     
-    // write groups to file
+    /**
+     * write groups to file
+     */
     list($retcode, $tMessage ) = writeGroups($dbh, $schema, $fileHandle, $tempfile);
     
     if ($retcode == 0) {
@@ -583,7 +684,9 @@ function createAccessFile($dbh) {
     
     if ($retcode == 0) {
         
-        // write access rights to file
+        /**
+         * write access rights to file
+         */
         list($retcode, $tMessage ) = writeAccessRightsToFile($dbh, $schema, $fileHandle, $tempfile);
         
         if (! @fwrite($fileHandle, "\n")) {
@@ -626,9 +729,16 @@ function createAccessFile($dbh) {
     
 }
 
-//
-//
-//
+/**
+ * write groups on per repository base
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param string $tempfile
+ * @param integer $repoid
+ * @return string[]|integer[]
+ */
 function writeGroupsPerRepo($dbh, $schema, $fileHandle, $tempfile, $repoid) {
 
     $retcode = 0;
@@ -684,9 +794,16 @@ function writeGroupsPerRepo($dbh, $schema, $fileHandle, $tempfile, $repoid) {
     
 }
 
-//
-//
-//
+/**
+ * write access rights on per repository basis
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param resource $fileHandle
+ * @param string $tempfile
+ * @param integer $repoid
+ * @return string[]|integer[]
+ */
 function writeAccessRightsPerRepoToFile($dbh, $schema, $fileHandle, $tempfile, $repoid) {
 
     $retcode = 0;
@@ -724,11 +841,18 @@ function writeAccessRightsPerRepoToFile($dbh, $schema, $fileHandle, $tempfile, $
     
 }
 
-//
-//
-//
+/**
+ * creste acces file on per repo basis
+ *
+ * @param resource $dbh
+ * @return integer[]|string
+ */
 function createAccessFilePerRepo($dbh) {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
     
     $schema = db_determine_schema();
@@ -761,13 +885,19 @@ function createAccessFilePerRepo($dbh) {
         
         if ($fileHandle = @fopen($tempfile, 'w')) {
             
-            // write groups to file
+            /**
+             * write groups to file
+             */
             list($retcode, $tMessage ) = writeGroupsPerRepo($dbh, $schema, $fileHandle, $tempfile, $repoid);
             
-            // write admin to access file
+            /**
+             * write admin to access file
+             */
             list($retcode, $tMessage ) = writeAdminToAccessFile($dbh, $schema, $fileHandle, $tempfile);
             
-            // write access rights to file
+            /**
+             * write access rights to file
+             */
             list($retcode, $tMessage ) = writeAccessRightsPerRepoToFile($dbh, $schema, $fileHandle, $tempfile, $repoid);
             list($retcode, $tMessage ) = writeToFile($fileHandle, "\n", $dbh, CREATEACCESSFILE, $tempfile);
             
@@ -787,7 +917,10 @@ function createAccessFilePerRepo($dbh) {
             $tMessage = sprintf(_("Cannot open %s for wrtiting"), $tempfile);
             db_unset_semaphore(CREATEACCESSFILE, 'sem', $dbh);
         }
-    } // end iteration over repos
+    }
+    /**
+     * end iteration over repos
+     */
     
     if (db_unset_semaphore(CREATEACCESSFILE, 'sem', $dbh)) {
         
@@ -808,11 +941,19 @@ function createAccessFilePerRepo($dbh) {
     
 }
 
-//
-//
-//
+/**
+ * get group members
+ *
+ * @param integer $groupid
+ * @param resource $dbh
+ * @return array[]
+ */
 function getGroupMembers($groupid, $dbh) {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
     
     $schema = db_determine_schema();
@@ -828,9 +969,13 @@ function getGroupMembers($groupid, $dbh) {
     
 }
 
-//
-//
-//
+/**
+ * delete user from array
+ *
+ * @param array $members
+ * @param string $userid
+ * @return array[]
+ */
 function deleteUser($members, $userid) {
 
     $new = array();
@@ -847,9 +992,13 @@ function deleteUser($members, $userid) {
     
 }
 
-//
-//
-//
+/**
+ * get users for upper directory
+ *
+ * @param string $checkpath
+ * @param string $repopathes
+ * @return array[]
+ */
 function getUpperDirUsers($checkpath, $repopathes) {
 
     $parts = explode('/', $checkpath);
@@ -876,9 +1025,16 @@ function getUpperDirUsers($checkpath, $repopathes) {
     
 }
 
-//
-//
-//
+/**
+ * write Apache auth cdonfiguration
+ *
+ * @param resource $dbh
+ * @param resource $fileHandle
+ * @param string $tempfile
+ * @param string $modulepath
+ * @param string $currentgroup
+ * @return array[]
+ */
 function writeApacheAuthConfig($dbh, $fileHandle, $tempfile, $modulepath, $currentgroup) {
 
     global $CONF;
@@ -901,9 +1057,14 @@ function writeApacheAuthConfig($dbh, $fileHandle, $tempfile, $modulepath, $curre
     
 }
 
-//
-//
-//
+/**
+ * write Apache viewvc location match entries
+ *
+ * @param resource $dbh
+ * @param resource $fileHandle
+ * @param string $tempfile
+ * @return array[]
+ */
 function writeApacheViewvcLocationMatch($dbh, $fileHandle, $tempfile) {
 
     global $CONF;
@@ -925,9 +1086,15 @@ function writeApacheViewvcLocationMatch($dbh, $fileHandle, $tempfile) {
     
 }
 
-//
-//
-//
+/**
+ * write viewvc groups
+ *
+ * @param resource $dbh
+ * @param resource $fileHandle
+ * @param string $groups
+ * @param string $tempgroups
+ * @return string[]|integer[]
+ */
 function writeViewvcGroups($dbh, $fileHandle, $groups, $tempgroups) {
 
     $retcode = 0;
@@ -965,9 +1132,18 @@ function writeViewvcGroups($dbh, $fileHandle, $groups, $tempgroups) {
     
 }
 
-//
-//
-//
+/**
+ * write viewvc access users
+ *
+ * @param array $row
+ * @param array $groups
+ * @param array $repopathes
+ * @param string $currentgroup
+ * @param string $checkpath
+ * @param resource $dbh
+ * @param string $schema
+ * @return array[]
+ */
 function writeViewvcAccessUsers($row, $groups, $repopathes, $currentgroup, $checkpath, $dbh, $schema) {
 
     if (($row[USER_ID] != "0") && (! empty($row[USER_ID]))) {
@@ -1001,9 +1177,15 @@ function writeViewvcAccessUsers($row, $groups, $repopathes, $currentgroup, $chec
     
 }
 
-//
-//
-//
+/**
+ * update groups in array
+ *
+ * @param string $right
+ * @param array $groups
+ * @param string $currentgroup
+ * @param string $member
+ * @return array
+ */
 function updateGroups($right, $groups, $currentgroup, $member) {
 
     if ($right != "none") {
@@ -1017,9 +1199,15 @@ function updateGroups($right, $groups, $currentgroup, $member) {
     
 }
 
-//
-//
-//
+/**
+ * update repository pathes
+ *
+ * @param string $right
+ * @param array $repopathes
+ * @param string $checkpath
+ * @param string $member
+ * @return array
+ */
 function updateRepoPathes($right, $repopathes, $checkpath, $member) {
 
     if ($right != "none") {
@@ -1033,9 +1221,18 @@ function updateRepoPathes($right, $repopathes, $checkpath, $member) {
     
 }
 
-//
-//
-//
+/**
+ * write viewvc acces groups
+ *
+ * @param array $row
+ * @param array $groups
+ * @param array $repopathes
+ * @param string $currentgroup
+ * @param string $checkpath
+ * @param resource $dbh
+ * @param string $schema
+ * @return array[]
+ */
 function writeViewvcAccessGroups($row, $groups, $repopathes, $currentgroup, $checkpath, $dbh, $schema) {
 
     if (($row[GROUP_ID] != "0") && (! empty($row[GROUP_ID]))) {
@@ -1068,9 +1265,15 @@ function writeViewvcAccessGroups($row, $groups, $repopathes, $currentgroup, $che
     
 }
 
-//
-//
-//
+/**
+ * coipy viewvc group config file
+ *
+ * @param string $tempgroups
+ * @param string $file
+ * @param string $semaphore
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function copyViewvcGroupFile($tempgroups, $file, $semaphore = '', $dbh = '') {
 
     $tMessage = '';
@@ -1096,9 +1299,15 @@ function copyViewvcGroupFile($tempgroups, $file, $semaphore = '', $dbh = '') {
     
 }
 
-//
-//
-//
+/**
+ * copy viewvc config file
+ *
+ * @param string $tempfile
+ * @param string $file
+ * @param string $semaphore
+ * @param string $dbh
+ * @return integer[]|string[]
+ */
 function copyViewvcConfFile($tempfile, $file, $semaphore = '', $dbh = '') {
 
     $tMessage = '';
@@ -1124,9 +1333,12 @@ function copyViewvcConfFile($tempfile, $file, $semaphore = '', $dbh = '') {
     
 }
 
-//
-//
-//
+/**
+ * create viewvc configuration
+ *
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function createViewvcConfig($dbh) {
 
     global $CONF;

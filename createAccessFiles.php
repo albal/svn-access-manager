@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * create the files necessary for subversion access
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -62,11 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tViewvcConfigNo = "no";
         $tViewvcConfigYes = "checked";
         $tReload = $CONF['ViewvcApacheReload'];
+        $tHidden = '';
     }
     else {
         $tViewvcConfigNo = "checked";
         $tViewvcConfigYes = "";
         $tReload = "";
+        $tHidden = 'hidden';
     }
     
     $header = ACCESS;
@@ -95,6 +104,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tViewvcConfig = isset($_POST['fViewvcConfig']) ? db_escape_string($_POST['fViewvcConfig']) : "";
     $tReload = isset($_POST['fReload']) ? db_escape_string($_POST['fReload']) : "";
     $tRetReload = array();
+    $tAuthUserError = 'ok';
+    $tRetAccessError = 'ok';
+    $tRetViewvcError = 'ok';
+    $tRetReloadError = 'ok';
     
     if ($button == _("Yes")) {
         
@@ -106,6 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             else {
                 $tRetAuthUser = createAuthUserFile($dbh);
             }
+            
+            $tAuthUserError = ($tRetAuthUser[ERROR] == 0) ? 'ok' : ERROR;
         }
         else {
             $tRetAuthUser[ERROR] = 0;
@@ -120,6 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             else {
                 $tRetAccess = createAccessFile($dbh);
             }
+            
+            $tRetAccessError = ($tRetAccess[ERROR] == 0) ? 'ok' : ERROR;
         }
         else {
             
@@ -130,6 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (($tViewvcConfig == "YES") && ($CONF['createViewvcConf'] == "YES")) {
             
             $tRetViewvc = createViewvcConfig($dbh);
+            $tRetViewvcError = ($tRetViewvc[ERROR] == 0) ? 'ok' : ERROR;
             
             if (($tRetViewvc[ERROR] == 0) && ($tReload != "")) {
                 
@@ -160,6 +178,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tRetViewvc[ERRORMSG] = _("No viewvc configuration to create");
         }
         
+        $tRetReloadError = ($tRetReload[ERROR] == 0) ? 'ok' : ERROR;
+        
         db_log($SESSID_USERNAME, "created auth files", $dbh);
     }
     elseif ($button == _("No")) {
@@ -171,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     $header = ACCESS;

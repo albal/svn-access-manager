@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * SVN Access manager Installer
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -36,6 +43,10 @@ require ("../include/install-db-functions-pg.inc.php");
 require ("../include/install-db-functions-oracle.inc.php");
 require ("../include/functions.inc.php");
 
+/**
+ *
+ * @global array $WEBCHARSETS
+ */
 $WEBCHARSETS = array(
         'ISO_8859-1',
         'ISO_8859-2',
@@ -296,6 +307,10 @@ $WEBCHARSETS = array(
         'windows-874'
 );
 
+/**
+ *
+ * @global array $DBTABLES
+ */
 $DBTABLES = array(
         'help',
         'log',
@@ -317,9 +332,16 @@ $DBTABLES = array(
         'users_rights'
 );
 
-//
-// create PostgreSQL database tables
-//
+/**
+ * create PostgreSQL database tables
+ *
+ * @param resource $dbh
+ * @param string $charset
+ * @param string $schema
+ * @param string $tablespace
+ * @param string $dbuser
+ * @return integer[]|string[]
+ */
 function createPgDatabaseTables($dbh, $charset, $schema, $tablespace, $dbuser) {
 
     $error = 0;
@@ -409,9 +431,13 @@ function createPgDatabaseTables($dbh, $charset, $schema, $tablespace, $dbuser) {
     
 }
 
-//
-// create Oracle database tables
-//
+/**
+ * create Oracle database tables
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @return integer[]|string[]
+ */
 function createOracleDatabaseTables($dbh, $schema) {
 
     $error = 0;
@@ -476,9 +502,14 @@ function createOracleDatabaseTables($dbh, $schema) {
     
 }
 
-//
-// create MySQL database tables
-//
+/**
+ * create MySQL database tables
+ *
+ * @param resource $dbh
+ * @param string $charset
+ * @param string $collation
+ * @return integer[]|string[]
+ */
 function createMySQLDatabaseTables($dbh, $charset, $collation) {
 
     $error = 0;
@@ -512,9 +543,19 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
     
 }
 
-//
-//
-//
+/**
+ * create admin user
+ *
+ * @param string $userid
+ * @param string $password
+ * @param string $givenname
+ * @param string $name
+ * @param string $emailaddress
+ * @param string $databasetype
+ * @param resource $dbh
+ * @param string $schema
+ * @return integer[]|string[]
+ */
 function createAdmin($userid, $password, $givenname, $name, $emailaddress, $databasetype, $dbh, $schema) {
 
     db_ta(BEGIN, $dbh);
@@ -575,9 +616,12 @@ function createAdmin($userid, $password, $givenname, $name, $emailaddress, $data
     
 }
 
-//
-//
-//
+/**
+ * get filename for help texts
+ *
+ * @param string $filename
+ * @return string
+ */
 function getHelptextFilename($filename) {
 
     if (file_exists(realpath("./$filename"))) {
@@ -593,11 +637,18 @@ function getHelptextFilename($filename) {
         $filenamer = '';
     }
     
+    return ($filename);
+    
 }
 
-//
-//
-//
+/**
+ * load help texts
+ *
+ * @param string $database
+ * @param string $schema
+ * @param resource $dbh
+ * @return integer[]|string[]
+ */
 function loadHelpTexts($database, $schema, $dbh) {
 
     $error = 0;
@@ -649,9 +700,11 @@ function loadHelpTexts($database, $schema, $dbh) {
     
 }
 
-//
-//
-//
+/**
+ * perform database connect test
+ *
+ * @return integer[]|string[]
+ */
 function doDbtest() {
 
     $tErrors = array();
@@ -663,15 +716,31 @@ function doDbtest() {
     $CONF[DATABASE_SCHEMA] = $_SESSION[SVN_INST][DATABASESCHEMA];
     $CONF[DATABASE_TABLESPACE] = $_SESSION[SVN_INST][DATABASETABLESPACE];
     
-    $dbh = db_connect_install($_SESSION[SVN_INST][DATABASEHOST], $_SESSION[SVN_INST][DATABASEUSER], $_SESSION[SVN_INST][DATABASEPASSWORD], $_SESSION[SVN_INST][DATABASENAME], $_SESSION[SVN_INST][DATABASECHARSET], $_SESSION[SVN_INST][DATABASECOLLATION], $_SESSION[SVN_INST]['database'], "yes");
-    
-    if (is_array($dbh)) {
-        $tErrors[] = $dbh[ERROR];
+    if (empty($CONF[DATABASE_HOST])) {
+        $tErrors[] = _("No database host specified. Connect not possible.");
         $error = 1;
     }
-    else {
-        $tErrors[] = _("Database test ok, connection works");
+    if (empty($CONF[DATABASE_USER])) {
+        $tErrors[] = _("No database user specified. Connect not possible.");
         $error = 1;
+    }
+    if (empty($CONF[DATABASE_NAME])) {
+        $tErrors[] = _("No database name specified. Connect not possible.");
+        $error = 1;
+    }
+    
+    if ($error == 0) {
+        
+        $dbh = db_connect_install($_SESSION[SVN_INST][DATABASEHOST], $_SESSION[SVN_INST][DATABASEUSER], $_SESSION[SVN_INST][DATABASEPASSWORD], $_SESSION[SVN_INST][DATABASENAME], $_SESSION[SVN_INST][DATABASECHARSET], $_SESSION[SVN_INST][DATABASECOLLATION], $_SESSION[SVN_INST]['database'], "yes");
+        
+        if (is_array($dbh)) {
+            $tErrors[] = $dbh[ERROR];
+            $error = 1;
+        }
+        else {
+            $tErrors[] = _("Database test ok, connection works");
+            $error = 1;
+        }
     }
     
     $tDatabaseHost = isset($_SESSION[SVN_INST][DATABASEHOST]) ? $_SESSION[SVN_INST][DATABASEHOST] : "";
@@ -683,23 +752,19 @@ function doDbtest() {
     $tDatabaseCharset = isset($_SESSION[SVN_INST][DATABASECHARSET]) ? $_SESSION[SVN_INST][DATABASECHARSET] : "";
     $tDatabaseCollation = isset($_SESSION[SVN_INST][DATABASECOLLATION]) ? $_SESSION[SVN_INST][DATABASECOLLATION] : "";
     
-    if ($error == 0) {
-        $tPage = 1;
-    }
-    else {
-        $tPage = 7;
-    }
-    
     $ret = array();
-    $ret['page'] = $tPage;
+    $ret['page'] = ($error == 0) ? 1 : 7;
     $ret['errors'] = $tErrors;
     return ($ret);
     
 }
 
-//
-//
-//
+/**
+ * perform a lxap connection test
+ *
+ * @param string $tLdapProtocol
+ * @return number[]|string[]
+ */
 function ldapConnectTest($tLdapProtocol) {
 
     $error = 0;
@@ -735,9 +800,11 @@ function ldapConnectTest($tLdapProtocol) {
     
 }
 
-//
-//
-//
+/**
+ * perform a ldap connection test
+ *
+ * @return integer[]|string[][]
+ */
 function doLdapTest() {
 
     $tErrors = array();
@@ -786,9 +853,12 @@ function doLdapTest() {
     
 }
 
-//
-//
-//
+/**
+ * get configuration variables
+ *
+ * @param string $tBaseDir
+ * @return string[]
+ */
 function getConfigVariables($tBaseDir) {
 
     if (determineOs() == "windows") {
@@ -818,9 +888,12 @@ function getConfigVariables($tBaseDir) {
     
 }
 
-//
-//
-//
+/**
+ * check if config directory is writable
+ *
+ * @param string $tConfigDir
+ * @return string
+ */
 function isConfigWritable($tConfigDir) {
 
     if (is_writable($tConfigDir)) {
@@ -834,9 +907,11 @@ function isConfigWritable($tConfigDir) {
     
 }
 
-//
-//
-//
+/**
+ * check settings for ldap in PHP session
+ *
+ * @return integer[]|string[]
+ */
 function checkSessionValuesLdap() {
 
     $tErrors = array();
@@ -927,9 +1002,11 @@ function checkSessionValuesLdap() {
     
 }
 
-//
-//
-//
+/**
+ * check database settings in PHP session
+ *
+ * @return integer[]|string[]
+ */
 function checkSessionValuesDatabase() {
 
     $tErrors = array();
@@ -972,9 +1049,11 @@ function checkSessionValuesDatabase() {
     
 }
 
-//
-//
-//
+/**
+ * check settings for admin in PHP session
+ *
+ * @return integer[]|string[]
+ */
 function checkSessionValuesAdmin() {
 
     $tErrors = array();
@@ -1027,9 +1106,11 @@ function checkSessionValuesAdmin() {
     
 }
 
-//
-//
-//
+/**
+ * check settings for website in PHP session
+ *
+ * @return integer[]|string[]
+ */
 function checkSessionValuesWebsite() {
 
     $tErrors = array();
@@ -1076,9 +1157,11 @@ function checkSessionValuesWebsite() {
     
 }
 
-//
-//
-//
+/**
+ * check settings for ViewVC in PHP session
+ *
+ * @return integer[]|String[]
+ */
 function checkSessionValuesViewvc() {
 
     $tErrors = array();
@@ -1125,9 +1208,11 @@ function checkSessionValuesViewvc() {
     
 }
 
-//
-//
-//
+/**
+ * check settings for misc values in PHP session
+ *
+ * @return integer[]|string[]
+ */
 function checkSessionValuesMisc() {
 
     $tErrors = array();
@@ -1182,9 +1267,11 @@ function checkSessionValuesMisc() {
     
 }
 
-//
-//
-//
+/**
+ * check values in PHP session
+ *
+ * @return array[]
+ */
 function checkSessionValues() {
 
     $tErrors = array();
@@ -1224,9 +1311,16 @@ function checkSessionValues() {
     
 }
 
-//
-//
-//
+/**
+ * replace tokens in config file
+ *
+ * @param string $content
+ * @param string $viewvcconf
+ * @param string $viewvcgroups
+ * @param string $preCompatible
+ * @param string $installBase
+ * @return string
+ */
 function replaceTokens($content, $viewvcconf, $viewvcgroups, $preCompatible, $installBase) {
 
     $content = str_replace('###DBTYPE###', $_SESSION[SVN_INST]['database'], $content);
@@ -1306,9 +1400,11 @@ function replaceTokens($content, $viewvcconf, $viewvcgroups, $preCompatible, $in
     
 }
 
-//
-//
-//
+/**
+ * check svnadmin command
+ * 
+ * @return string
+ */
 function checkSvnadminCommand() {
 
     $output = "";
@@ -1321,7 +1417,7 @@ function checkSvnadminCommand() {
         
         if (count($treffer) > 0) {
             
-            foreach( $treffer as $entry) {
+            foreach( $treffer as $entry ) {
                 
                 $entry = explode(":", $entry);
                 $entry = $entry[0];
@@ -1343,18 +1439,23 @@ function checkSvnadminCommand() {
     
 }
 
-//
-//
-//
+/**
+ * get installbase
+ * 
+ * @return string
+ */
 function getInstallBase() {
 
     return (isset($_SERVER['SCRIPT_FILENAME']) ? dirname(dirname($_SERVER['SCRIPT_FILENAME'])) : '');
     
 }
 
-//
-//
-//
+/**
+ * write config file content
+ * @param string $confignew
+ * @param string $content
+ * @return array[][]
+ */
 function writeConfigContent($confignew, $content) {
 
     $tMessage = "";
@@ -1386,9 +1487,14 @@ function writeConfigContent($confignew, $content) {
     
 }
 
-//
-//
-//
+/**
+ * write configuration file
+ * 
+ * @param string $configtmpl
+ * @param string $confignew
+ * @param string $configfile
+ * @return array[][]
+ */
 function doInstallConfigFile($configtmpl, $confignew, $configfile) {
 
     $error = 0;
@@ -1450,6 +1556,12 @@ function doInstallConfigFile($configtmpl, $confignew, $configfile) {
     
 }
 
+/**
+ * install MNySQL dfatabase tables
+ * 
+ * @param resource $dbh
+ * @return array[][]
+ */
 function doInstallDatabaseMySQL($dbh) {
 
     $error = 0;
@@ -1515,9 +1627,12 @@ function doInstallDatabaseMySQL($dbh) {
     
 }
 
-//
-//
-//
+/**
+ * install postgresql database tables
+ * 
+ * @param resource $dbh
+ * @return array[][]
+ */
 function doInstallDatabasePostgres($dbh) {
 
     $error = 0;
@@ -1583,9 +1698,13 @@ function doInstallDatabasePostgres($dbh) {
     
 }
 
-//
-//
-//
+/**
+ * install oracle database tables
+ * 
+ * @param resource $dbh
+ * @param string $schema
+ * @return array[][]
+ */
 function doInstallDatabaseOracle($dbh, $schema) {
 
     $error = 0;
@@ -1651,9 +1770,9 @@ function doInstallDatabaseOracle($dbh, $schema) {
     
 }
 
-//
-//
-//
+/**
+ * runn database installations
+ */
 function doInstallDatabase() {
 
     $error = 0;
@@ -1726,9 +1845,11 @@ function doInstallDatabase() {
     
 }
 
-//
-//
-//
+/**
+ * perform installatiomn
+ * 
+ * @return array[]
+ */
 function doInstall() {
 
     $error = 0;
@@ -1808,6 +1929,11 @@ function doInstall() {
     
 }
 
+/**
+ * get installe configuration directory
+ * 
+ * @return string
+ */
 function getInstallerConfigDir() {
 
     if (file_exists(realpath("./config/config.inc.php"))) {
@@ -1978,7 +2104,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tErrors = array();
     
-    include ("../templates/install-tabs.tpl");
+    include ("../templates/install.tpl");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -2593,7 +2719,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     list($tPwSha, $tPwApacheMd5, $tPwMd5, $tPwCrypt, $CONF['pwcrypt'] ) = setEncryption($tPwEnc);
     list($tUserDefaultAccessRead, $tUserDefaultAccessWrite ) = setUserDefaultAccess($tUserDefaultAccess);
     
-    include ("../templates/install-tabs.tpl");
+    include ("../templates/install.tpl");
 }
 
 ?>

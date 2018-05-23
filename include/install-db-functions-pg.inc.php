@@ -1,8 +1,37 @@
 <?php
 
-//
-//
-//
+/**
+ * Database functions arround PostgrSQL for installer.
+ *
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All righhts reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
+ */
+
+/**
+ * drop PostgreSQL database tables during installation
+ *
+ * @param resource $dbh
+ * @return number[]|string[]
+ */
 function dropPostgresDatabaseTables($dbh) {
 
     global $DBTABLES;
@@ -10,7 +39,7 @@ function dropPostgresDatabaseTables($dbh) {
     $error = 0;
     $tMessage = "";
     
-    foreach( $DBTABLES as $dbtable) {
+    foreach( $DBTABLES as $dbtable ) {
         
         if ($error == 0) {
             
@@ -30,9 +59,13 @@ function dropPostgresDatabaseTables($dbh) {
     
 }
 
-//
-//
-//
+/**
+ * create help text table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createHelpTablePostgresql($dbh, $schema, $dbuser) {
 
     // Table help
@@ -57,9 +90,13 @@ function createHelpTablePostgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create PostgreSQL tables
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createLogTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table log
@@ -84,9 +121,13 @@ function createLogTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create preferences table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createPreferencesTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table preferences
@@ -111,9 +152,13 @@ function createPreferencesTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create rights table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createRightsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table rights
@@ -136,9 +181,13 @@ function createRightsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create workinfo table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createWorkinfoTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table workinfo
@@ -161,9 +210,13 @@ function createWorkinfoTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create sessions table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSessionsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table sessions
@@ -178,9 +231,13 @@ function createSessionsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svngoups table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvngroupsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svngroups
@@ -205,9 +262,13 @@ function createSvngroupsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnprojects table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnprojectsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svnprojects
@@ -234,9 +295,13 @@ function createSvnprojectsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnusers table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnusersTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svnusers
@@ -267,9 +332,13 @@ function createSvnusersTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * cfreate svnaccessrights table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnAccessRightsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svn_access_rights
@@ -316,9 +385,13 @@ function createSvnAccessRightsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svngroupsresponsible table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnGroupsResponsibleTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svn_groups_responsible
@@ -343,9 +416,13 @@ function createSvnGroupsResponsibleTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnprojectsmailinglists table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnProjectsMailinglisteTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svn_projects_mailinglists
@@ -372,9 +449,13 @@ function createSvnProjectsMailinglisteTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnprojectsresponsible table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnProjectsResponsibleTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svn_projects_responsible
@@ -401,9 +482,13 @@ function createSvnProjectsResponsibleTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnusersgroups table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnUsersGroupsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svn_users_groups
@@ -432,9 +517,13 @@ function createSvnUsersGroupsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnmailinglists table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnmailinglistsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svnmailinglists
@@ -457,9 +546,13 @@ function createSvnmailinglistsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnpasswordreset table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnpasswordresetTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svnpasswordreset
@@ -480,9 +573,13 @@ function createSvnpasswordresetTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create svnrepos table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createSvnreposTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table svnrepos
@@ -507,9 +604,13 @@ function createSvnreposTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * create userrights table
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
 function createUserrightsTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table users_rights
@@ -540,9 +641,13 @@ function createUserrightsTableProstgresql($dbh, $schema, $dbuser) {
     
 }
 
-//
-//
-//
+/**
+ * load data into PostgreSQL database
+ *
+ * @param resource $dbh
+ * @param string $schema
+ * @return integer[]|string[]
+ */
 function loadPostgresDbData($dbh, $schema) {
 
     if ($schema != "") {

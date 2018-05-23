@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * Ajax service for searches
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -106,7 +113,7 @@ elseif (strtolower($db) == "groups") {
         
         $grouplist = "";
         
-        foreach( $tGroupsAllowed as $groupid => $right) {
+        foreach( $tGroupsAllowed as $groupid => $right ) {
             
             if ($grouplist == "") {
                 $grouplist = "'" . $groupid . "'";
@@ -190,7 +197,7 @@ elseif (strtolower($db) == "groupadmin") {
     db_disconnect($dbh);
 }
 elseif (strtolower($db) == "accessright") {
-
+    
     $dbh = db_connect();
     $schema = db_determine_schema();
     $tProjectIds = "";
@@ -207,7 +214,7 @@ elseif (strtolower($db) == "accessright") {
             $tProjectIds = $tProjectIds . "," . $row['project_id'];
         }
     }
-
+    
     if ($tProjectIds != "") {
         
         $query = "SELECT svn_access_rights.id AS rid, svnmodule, modulepath, svnrepos." . "       reponame, valid_from, valid_until, path, access_right, recursive," . "       svn_access_rights.user_id, svn_access_rights.group_id, repopath " . "  FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . " WHERE (svnprojects.id = svn_access_rights.project_id) " . "   AND (svnprojects.id IN (" . $tProjectIds . "))" . "   AND (svnprojects.repo_id = svnrepos.id) " . "   AND (svn_access_rights.deleted = '00000000000000') " . "   AND ((svnmodule like '%$filter%') " . "    OR  (modulepath like '%$filter%') " . "    OR  (svnrepos.reponame like '%$filter%') " . "    OR  (path like '%$filter%') " . "    OR  (svnprojects.description like '%$filter%')) " . "ORDER BY svnrepos.reponame, svn_access_rights.path ";

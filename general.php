@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * general information about the own account
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -26,6 +33,10 @@
  *
  * $Id$
  *
+ */
+
+/**
+ * display information about own account
  */
 include ('load_config.php');
 
@@ -37,6 +48,13 @@ require_once ("$installBase/include/db-functions-adodb.inc.php");
 require_once ("$installBase/include/functions.inc.php");
 include_once ("$installBase/include/output.inc.php");
 
+/**
+ * get user's data
+ *
+ * @param integer $tUserId
+ * @param resource $dbh
+ * @return array
+ */
 function getUserData($tUserId, $dbh) {
 
     global $CONF;
@@ -47,9 +65,16 @@ function getUserData($tUserId, $dbh) {
     $row = db_assoc($result[RESULT]);
     
     return ($row);
-
+    
 }
 
+/**
+ * get group data
+ *
+ * @param integer $tGroupId
+ * @param resource $dbh
+ * @return array
+ */
 function getGroupData($tGroupId, $dbh) {
 
     global $CONF;
@@ -60,7 +85,7 @@ function getGroupData($tGroupId, $dbh) {
     $row = db_assoc($result[RESULT]);
     
     return ($row);
-
+    
 }
 
 initialize_i18n();
@@ -75,6 +100,15 @@ $_SESSION[SVNSESSID]['helptopic'] = GENERAL;
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $schema = db_determine_schema();
+    $tUsernameError = '';
+    $tGivennameError = '';
+    $tNameError = '';
+    $tEmailError = '';
+    $tSecurityQuestionError = '';
+    $tAnswerError = '';
+    $tCustom1Error = '';
+    $tCustom2Error = '';
+    $tCustom3Error = '';
     
     $query = "SELECT * " . "  FROM " . $schema . "svnusers " . " WHERE (deleted = '00000000000000') " . "   AND (userid = '" . $SESSID_USERNAME . "') " . "ORDER BY userid ASC";
     $result = db_query($query, $dbh);
@@ -134,6 +168,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     
     $schema = db_determine_schema();
+    $tUsernameError = 'ok';
+    $tGivennameError = 'ok';
+    $tNameError = 'ok';
+    $tEmailError = 'ok';
+    $tSecurityQuestionError = 'ok';
+    $tAnsewrError = 'ok';
+    $tCustom1Error = 'ok';
+    $tCustom2Error = 'ok';
+    $tCustom3Error = 'ok';
     
     if ($button == _("Submit")) {
         
@@ -151,26 +194,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $error = 1;
             $tMessage = _("Please fill in your name!");
+            $tMessageType = ALERT;
+            $tNameError = ERROR;
         }
         elseif ($tEmail == "") {
             
             $error = 1;
             $tMessage = _("Please fill in your email address!");
+            $tMessageType = ALERT;
+            $tEmailError = ERROR;
         }
         elseif (! check_email($tEmail)) {
             
             $error = 1;
             $tMessage = sprintf(_("%s is not a valid email address!"), $tEmail);
+            $tMessageType = ALERT;
+            $tEmailError = ERROR;
         }
         elseif (($tAnswer != "") && ($tSecurityQuestion == "")) {
             
             $error = 1;
             $tMessage = _("Please fill in a security question too!");
+            $tMessageType = ALERT;
+            $tSecurityQuestionError = ERROR;
         }
         elseif (($tAnswer == "") && ($tSecurityQuestion != "")) {
             
             $error = 1;
             $tMessage = _("Please fill in an answer for the security question too!");
+            $tMessageType = ALERT;
+            $tAnswerError = ERROR;
         }
         
         if ($error == 0) {
@@ -185,6 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 db_ta('COMMIT', $dbh);
                 $tMessage = _("Changed data successfully");
+                $tMessageType = "success";
             }
         }
     }
@@ -222,6 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $tUser = array();
         $tMessage = _("User " . $SESSID_USERNAME . " does not exist!");
+        $tMessageType = ALERT;
     }
     
     $template = "general.tpl";

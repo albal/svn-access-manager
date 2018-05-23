@@ -1,22 +1,29 @@
 <?php
 
-/*
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+/**
+ * set a new password
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * @author Thomas Krieger
+ * @copyright 2018 Thomas Krieger. All rights reserved.
+ *           
+ *            SVN Access Manager - a subversion access rights management tool
+ *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *           
+ *            This program is free software; you can redistribute it and/or modify
+ *            it under the terms of the GNU General Public License as published by
+ *            the Free Software Foundation; either version 2 of the License, or
+ *            (at your option) any later version.
+ *           
+ *            This program is distributed in the hope that it will be useful,
+ *            but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *            GNU General Public License for more details.
+ *           
+ *            You should have received a copy of the GNU General Public License
+ *            along with this program; if not, write to the Free Software
+ *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *           
+ * @filesource
  */
 
 /*
@@ -46,6 +53,9 @@ $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
+    $tCurrentError = '';
+    $tPasswordError = '';
+    $tPassword2Error = '';
     $header = PASSWORD;
     $subheader = PASSWORD;
     $menu = PASSWORD;
@@ -57,6 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $error = 0;
+    $tCurrentError = 'ok';
+    $tPasswordError = 'ok';
+    $tPassword2Error = 'ok';
     $fUser = $SESSID_USERNAME;
     $fPassword_current = db_escape_string($_POST['fPassword_current']);
     $fPassword = db_escape_string($_POST['fPassword']);
@@ -73,7 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($result['rows'] != 1) {
             
             $error = 1;
-            $pPassword_password_current_text = _("Current password not entered!");
+            $tMessage = _("Current password not entered!");
+            $tMessageType = DANGER;
+            $tCurrentError = ERROR;
         }
         else {
             
@@ -84,23 +99,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     else {
         
         $error = 1;
-        $pPassword_email_text = _("User doesn't exist!");
+        $tMessage = _("User doesn't exist!");
+        $tMessageType = DANGER;
     }
     
     if (empty($fPassword) || ($fPassword != $fPassword2)) {
         
         $error = 1;
-        $pPassword_password_text = _("New passwords do not match!");
+        $tMessage = _("New passwords do not match!");
+        $tMessageType = DANGER;
+        $tPasswordError = ERROR;
+        $tPassword2Error = ERROR;
     }
     elseif ($fPassword == $fPassword_current) {
         
         $error = 1;
-        $pPassword_password_text = _("New password can not be the same as the current password!");
+        $tMessage = _("New password can not be the same as the current password!");
     }
     
     if (($error == 0) && (checkPasswordPolicy($fPassword, $isAdmin) == 0)) {
         
         $tMessage = _("Password not strong enough!");
+        $tMessageType = DANGER;
+        $tPasswordError = ERROR;
+        $tPassword2Error = ERROR;
         $error = 1;
     }
     
@@ -118,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             db_log($_SESSION[SVNSESSID]['username'], "password changed", $dbh);
             
             $tMessage = _("Password changed successfully");
+            $tMessageType = SUCCESS;
             
             db_ta("COMMIT", $dbh);
             
@@ -126,6 +149,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         else {
             
             $tMessage = _("Password change failed due to database error!");
+            $tMessageType = DANGER;
+            
             db_ta("ROLLBACK", $dbh);
         }
     }
