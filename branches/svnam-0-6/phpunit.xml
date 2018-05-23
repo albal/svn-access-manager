@@ -61,5 +61,6 @@
 		<server name="REMOTE_ADDR" value="127.0.0.1" />
 		
 		<const name="SVNSESSID" value="SVNSESSID" />
+		<const name="SVN_INST" value="svn_inst" />
 	</php>
 </phpunit>

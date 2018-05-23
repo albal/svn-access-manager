@@ -3,7 +3,7 @@
     <h3 class="page-header"><?php print _("Password change"); ?></h3> 
 </div>
 <div>
-    <p><?php print _( "Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords."); ?></p>
+    <p class="alert alert-info"><?php print _( "Note that your new password becomes valid for the SVN Access Manager Webinterface immediately, but may take some time for repository access itself. The latter depends from if and how your system administrator has setup the update-interval for passwords."); ?></p>
     <form name="passwordchange" method="post">
       <div class="form-group <?php print outputResponseClasses($tCurrentError); ?>">
         <label class="col-sm-2 control-label" for="currpass"><?php print _("Current password"); ?>:</label>
