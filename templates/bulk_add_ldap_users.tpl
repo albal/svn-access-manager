@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="buld_add" method="post">
 				<h3><?php print _("Bulk add LDAP users"); ?></h3>
 				<table id="bulkuseradd_table">
@@ -70,10 +70,10 @@
 					      <td colspan="7">&nbsp;</td>
 					   	</tr>
 					   	<tr>
-					      <td colspan="7" class="hlp_center">
+					      <td colspan="7" class="hlpcenter">
 					      	<?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
 					      		    ($rightAllowed == "delete") ) {
 					      		
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_user.png\" value=\""._("Add user")."\"  title=\""._("Add user")."\" />     ";
@@ -94,7 +94,7 @@
 			</form>
 			<script type="text/javascript">
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

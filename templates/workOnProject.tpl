@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="workOnProject" method="post">
 				<table>
 					<tr valign="top">
@@ -17,6 +17,13 @@
 							   		</td>
 							   		<td>&nbsp;</td>
 							   	</tr>
+							   	<tr>
+                                    <td width="150"><strong><?php print _("Project description").": "; ?></strong></td>
+                                    <td>
+                                        <input type="text" name="fDescription" value="<?php print $tDescription; ?>" size="30" maxsize="255" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
 							   	<tr>
 							   		<td><strong><?php print _("Subversion module path").": "; ?></strong></td>
 							   		<td>
@@ -50,7 +57,7 @@
 							      <td colspan="5">&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							      <td colspan="5" class="hlp_center">
+							      <td colspan="5" class="hlpcenter">
 							      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      				<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 							      </td>
@@ -75,7 +82,7 @@
 								</tr>
 								<tr>
 									<td>
-										<select name="members[]" multiple="" size="13" style="width: 100%; height=200px;">
+										<select id="members" name="members[]" multiple="" size="13" style="width: 100%; height=200px;">
 											<?php
 												foreach($tMembers as $uid => $member) {
 													$label = $member." [".$uid."]";
@@ -104,4 +111,7 @@
 					</tr>
 				</table>
 			</form>
+			<script>
+				
+			</script>
 		</div>

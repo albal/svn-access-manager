@@ -1,5 +1,5 @@
 		<?php
-			#if( $CONF['use_javascript'] == "YES" ) {
+			
 			
 				echo "\t\t\t<script language=\"JavaScript1.3\">\n"; 
 				echo "\t\t\t\tfunction onChangeDir() {\n";
@@ -8,11 +8,9 @@
 				echo "\t\t\t</script>\n";
 
 				$tChangeFunction = 'onchange="onChangeDir();"';
-			#} else {
-			#	$tChangeFunction = "";
-			#}
+			
 		?>
-		<div id="edit_form">
+		<div id="editform">
 			<form name="workOnAccessRight" method="post">
 				<table>
 				   	<tr>
@@ -55,7 +53,7 @@
 				   			<select name="fPath" size="15" style="width: 100%; height=200px;" <?php print $tChangeFunction; ?> title="<?php print _("Select the directory you want to descend into and click 'Change to directory' afterwards if no JavaScript is enabled. '..' ascends one level if possible." ); ?>">
 				   				
 				   				<?php
-				   					if( $_SESSION['svn_sessid']['pathcnt'] > 0 ) {
+				   					if( $_SESSION[SVNSESSID]['pathcnt'] > 0 ) {
 				   						print "\t\t\t\t\t\t\t\t<option value=\"[back]\">[..]</option>\n";
 				   					}
 				   					
@@ -63,15 +61,6 @@
 										
 										$files = array();
 					   					foreach( $tRepodirs as $dir ) {
-					   					
-					   						#$dirs = explode("/", $dir);
-					   						#$count = count( $dir ) - 1;
-					   						#if( $count >= 0 ) {
-					   						#	$direntry = $dirs[$count];
-					   						#	print '\t\t\t\t\t\t\t\t<option value="'.$dir.'">'.$direntry."/".'</option>\n';
-					   						#} elseif( strtolower($accessControl) == "files" ) {
-					   						#	$files[] = $dir;
-					   						#}
 					   						
 					   						if( preg_match( '/\/$/', $dir ) ) {
 					   							print '\t\t\t\t\t\t\t\t<option value="'.$dir.'">'.$dir.'</option>\n';
@@ -95,7 +84,7 @@
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_chdir" src="./images/chdir.png" value="<?php print _("Change to directory"); ?>"  title="<?php print _("Change to directory"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_set" src="./images/forward.png" value="<?php print _("Set access rights"); ?>"  title="<?php print _("Set access rights"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />

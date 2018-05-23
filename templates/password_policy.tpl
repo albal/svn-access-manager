@@ -1,6 +1,6 @@
 
 			<?php
-				if( ($_SESSION['svn_sessid']['admin'] == "y") or ($_SESSION['svn_sessid']['admin'] == "p") ) {
+				if( ($_SESSION[SVNSESSID]['admin'] == "y") || ($_SESSION[SVNSESSID]['admin'] == "p") ) {
 					
 					$len			= $CONF['minPasswordlength'];
 					

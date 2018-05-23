@@ -2,7 +2,7 @@
 
 /*
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -103,10 +103,10 @@ $CONF['password_expires_warn']	= ###PASSWORDEXPIRESWARN###;
 // define default value for password expire, allowed values 0 and 1
 $CONF['expire_password']		= '###EXPIREPASSWORD###';
 
-# valid values for pwcrypt are md5 or crypt
+# valid values for pwcrypt are sha, apr-md5, md5, or crypt
 $CONF['pwcrypt']				= '###PWCRYPT###';
 
-$CONF['copyright']				= '(C) 2008, 2009, 2010 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+$CONF['copyright']				= '(C) 2008-2018 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
 
 $CONF['svn_command']			= '###SVNCMD###';
 $CONF['svnadmin_command']		= '###SVNADMINCMD###';

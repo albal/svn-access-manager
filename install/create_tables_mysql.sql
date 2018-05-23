@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `session_data` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`session`),
   KEY `idx_expires` (`session_expires`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -400,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `users_rights` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `svnpasswordreset`
+-- Tabellenstruktur fï¿½r Tabelle `svnpasswordreset`
 --
 
 CREATE TABLE IF NOT EXISTS `svnpasswordreset` (

@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form action="rep_show_user.php" name="show_user_select" method="post">
 				<table>
 				   	<tr>
@@ -10,7 +10,7 @@
 				   	<tr valign="top">
 				   		<td width="150"><strong><?php print _("User").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fUser">
+				   			<select name="fUser" id="user" class="chzn-select">
 				   				<?php
 				   					print "\t\t\t<option value='default'>"._("--- Select user ---")."</option>\n";
 				   					foreach( $tUsers as $entry ) {
@@ -32,7 +32,7 @@
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_show" src="./images/ok.png" value="<?php print _("Create report"); ?>"  title="<?php print _("Create report"); ?>" />
 				      </td>
 				   	</tr>
@@ -46,4 +46,7 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				$("#user").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>

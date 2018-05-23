@@ -1,26 +1,29 @@
 /*
    $Id$
 */
-
-* {margin:0;padding:0;}
+* {
+	margin: 0;
+	padding: 0;
+}
 
 body {
 	background: #ffffff;
 	color: #000000;
-	font-family: BitStream Vera Sans, Verdana, Arial, Helvetica, sans-serif;
+	font-family: 'BitStream Vera Sans', 'Verdana', 'Arial', 'Helvetica',
+		sans-serif;
 	font-size: 11px;
 	font-weight: normal;
 	text-align: center;
 }
 
 a {
-    text-decoration: none;
-    color: #0000a8;
+	text-decoration: none;
+	color: #0000a8;
 }
 
 a:hover {
-    text-decoration: underline;
-    color: #0000a8;
+	text-decoration: underline;
+	color: #0000a8;
 }
 
 a:visited, a:active {
@@ -35,29 +38,21 @@ a:visited, a:active {
 	height: 550px;
 }
 
-#header{
-	background-color:#EAEAE8; /*#C2D8FF;*/
+#header {
+	background-color: #eaeae8; /*#C2D8FF;*/
 }
 
-#header_login {
-	background-color:#FFFFFF; /*#C2D8FF;*/
+#headerlogin {
+	background-color: #ffffff; /*#C2D8FF;*/
 }
 
-#header_left {
+#headerleft {
 	height: 60px;
 	vertical-align: middle;
 }
 
-#header_right {
-	background-color:#EAEAE8;
-	height: 60px;
-	min-width: 500px;
-	text-align: left;
-	vertical-align: middle;
-	padding-right: 10px;
-}
-
-#header_right_login {
+#headerright {
+	background-color: #EAEAE8;
 	height: 60px;
 	min-width: 500px;
 	text-align: left;
@@ -65,8 +60,16 @@ a:visited, a:active {
 	padding-right: 10px;
 }
 
-#subheader_pld {
-	background-color: #FFFFFF; /*#CFFDFF;*/
+#headerrightlogin {
+	height: 60px;
+	min-width: 500px;
+	text-align: left;
+	vertical-align: middle;
+	padding-right: 10px;
+}
+
+#subheaderpld {
+	background-color: #ffffff; /*#CFFDFF;*/
 	padding-left: 200px;
 	height: 60px;
 	font-size: 24px;
@@ -87,13 +90,13 @@ a:visited, a:active {
 	/* padding-top: 5px; */
 }
 
-#subheader_right h5 {
+#subheaderright h5 {
 	vertical-align: middle;
 	color: #0000ff;
 }
 
-#subheader_left {
-	background-color:#EAEAE8;
+#subheaderleft {
+	background-color: #EAEAE8;
 	height: 60px;
 	width: 200px;
 	font-size: 24px;
@@ -102,8 +105,8 @@ a:visited, a:active {
 	vertical-align: middle;
 }
 
-#subheader_right {
-	background-color: #FFFFFF; /*#CFFDFF;*/
+#subheaderright {
+	background-color: #ffffff; /*#CFFDFF;*/
 	height: 60px;
 	font-size: 24px;
 	font-weight: bold;
@@ -117,19 +120,18 @@ a:visited, a:active {
 .clear {
 	clear: both;
 	/*height: 10px;*/
-	float:none;
+	float: none;
 }
 
 #wrap {
-	max-width:980px;
-	margin:auto;
-	padding:0.5em;
-	text-align:left;
-	padding-top:0.2em;
-	margin-bottom:16px;
-	min-width:700px;
+	max-width: 980px;
+	margin: auto;
+	padding: .5em;
+	text-align: left;
+	padding-top: .2em;
+	margin-bottom: 16px;
+	min-width: 700px;
 }
-
 
 #left {
 	width: 200px;
@@ -145,7 +147,7 @@ a:visited, a:active {
 	color: #ffffff;
 }
 
-#left menuheader {
+#left .menuheader {
 	background-color: #C2D8FF;
 	text-align: center;
 	font-weight: bold;
@@ -162,7 +164,7 @@ a:visited, a:active {
 	border-top-style: solid;
 	border-top-width: 1px;
 	vertical-align: middle;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
 
 #righttext {
@@ -170,36 +172,36 @@ a:visited, a:active {
 }
 
 #footer {
-	text-align:left;
-	margin-bottom:16px;
-	min-width:700px;
+	text-align: left;
+	margin-bottom: 16px;
+	min-width: 700px;
 	border-style: solid;
 	border-color: #000000;
 	border-width: 2px 0 0 0;
 }
 
 #footer {
-    	border-top: 1px solid #bbbbbb;
-    	/* background: #ddeeff; */ /* #efefef; */
-    	background-color: #EAEAE8;
-    	color: #000000; /* #999999; */
-    	text-align: left;
-    	padding-left: 15px;
-    	padding-right: 15px;
-   	font-size: 9px;
+	border-top: 1px solid #bbbbbb;
+	/* background: #ddeeff; */ /* #efefef; */
+	background-color: #eaeae8;
+	color: #000000; /* #999999; */
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 9px;
 }
 
 #footer a {
-    text-decoration: none;
-    color: #000000; /* #999999; */
+	text-decoration: none;
+	color: #000000; /* #999999; */
 }
 
 #footer a:hover {
-    text-decoration: underline;
-    color: #000000; /* #777777; */
+	text-decoration: underline;
+	color: #000000; /* #777777; */
 }
 
-.leftMenu ul li {
+.leftmenu ul li {
 	display: block;
 	list-style-type: none;
 	padding-left: 10px;
@@ -209,52 +211,52 @@ a:visited, a:active {
 }
 
 .hidden {
-	display:none;
+	display: none;
 }
 
 .visible {
-	display:table-row;
+	display: table-row;
 }
 
 .select {
-    font-size: 11px;
+	font-size: 11px;
 }
 
 .input {
-    font-size: 11px;
+	font-size: 11px;
 }
 
 .button {
-    border: 2px solid #aaaaaa;
-    color: #000000; /* #777777; */
-    background: #ddeeff; /* #dddddd; */
-    padding: 3px 3px 3px 3px;
-    font-size: 10px;
-    font-weight: bold;
-    outline-style: ridge;
-    outline-width: thin;
+	border: 2px solid #aaaaaa;
+	color: #000000; /* #777777; */
+	background: #ddeeff; /* #dddddd; */
+	padding: 3px 3px 3px 3px;
+	font-size: 10px;
+	font-weight: bold;
+	outline-style: ridge;
+	outline-width: thin;
 }
 
 .button:hover {
-    background: #99ccff; /* #BCFF36 */
-    color: #000000; /* #888888; */
+	background: #99ccff; /* #BCFF36 */
+	color: #000000; /* #888888; */
 }
 
-.button_disabled {
-    border: 2px solid #aaaaaa;
-    color: #000000; /* #777777; */
-    background: #dddddd;
-    padding: 3px 3px 3px 3px;
-    font-size: 10px;
-    font-weight: bold;
-    outline-style: ridge;
-    outline-width: thin;
+.buttondisabled {
+	border: 2px solid #aaaaaa;
+	color: #000000; /* #777777; */
+	background: #dddddd;
+	padding: 3px 3px 3px 3px;
+	font-size: 10px;
+	font-weight: bold;
+	outline-style: ridge;
+	outline-width: thin;
 }
 
 .btn_css {
 	display: block;
 	float: right;
-	background:transparent url(./images/button_right.jpg) no-repeat 100% 0;
+	background: transparent url(./images/button_right.jpg) no-repeat 100% 0;
 	font-size: 10px;
 	font-weight: bold;
 	padding-right: 8px;
@@ -268,14 +270,14 @@ a:visited, a:active {
 .btn_css span {
 	display: block;
 	padding: 0 11px 0 25px;
-	background:transparent url(./images/button_bg.jpg) no-repeat;
+	background: transparent url(./images/button_bg.jpg) no-repeat;
 	line-height: 30px;
-} 
+}
 
 .flat {
 	border: 1px solid #888888;
 	outline-style: ridge;
-    	outline-width: thin;
+	outline-width: thin;
 }
 
 .error_msg {
@@ -283,105 +285,105 @@ a:visited, a:active {
 }
 
 .standout {
-    color: maroon;
-    padding: 3px 3px 3px 3px;
-    text-align: center;
+	color: maroon;
+	padding: 3px 3px 3px 3px;
+	text-align: center;
 }
 
 .standoutinst {
-    color: maroon;
-    padding: 3px 3px 3px 3px;
-    text-align: left;
+	color: maroon;
+	padding: 3px 3px 3px 3px;
+	text-align: left;
 }
 
 .standoutinst ul {
 	padding-left: 15px;
 }
 
+.chzn-select {
+	white-space: nowrap;
+}
+
 .error_flag {
 	color: red;
 	font-size: 16pt;
 	font-weight: bold;
-	font-family: BitStream Vera Sans, Verdana, Arial, Helvetica, sans-serif;
+	font-family: 'BitStream Vera Sans', 'Verdana', 'Arial', 'Helvetica',
+		sans-serif;
 }
 
-.hlp_center {
+.hlpcenter {
 	text-align: left;
 }
 
-.greyCell {
+.greycell {
 	background-color: #dddddd;
 }
 
 #login_header {
-    /* width: 750px; */
-    width: 100%;
-    margin: 0 auto;
-    padding-bottom: 10px;
-    text-align: left;
+	width: 100%;
+	margin: 0 auto;
+	padding-bottom: 10px;
+	text-align: left;
 }
-
 
 #login {
-    /* width: 750px;*/
-    width: 100%;
-    margin: 0 auto;
+	width: 100%;
+	margin: 0 auto;
 }
 
-#login_table {
-    border-left: 8px solid gray;
-    border-right: 8px solid gray;
-    background: #eeeeee;
-    width: 350px;
-    margin: 0 auto;
+#logintable {
+	border-left: 8px solid gray;
+	border-right: 8px solid gray;
+	background: #eeeeee;
+	width: 350px;
+	margin: 0 auto;
 }
 
-#login_table h4 {
-    font-size: 13px;
+#logintable h4 {
+	font-size: 13px;
 }
 
 #menu {
-    /* width: 750px; */
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 10px;
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 10px;
 }
 
 #menu ul li {
-    display: inline;
-    background: #ddeeff; /*#efefef; */
-    padding: 20px 5px 5px 5px;
-    margin-right: 3px;
-    border-top: 4px solid #aaaaaa;
+	display: inline;
+	background: #ddeeff; /*#efefef; */
+	padding: 20px 5px 5px 5px;
+	margin-right: 3px;
+	border-top: 4px solid #aaaaaa;
 }
 
 #menu ul li:hover {
-    background: #99ccff; /* #BFFF00; /* #888888 /* #F32121; */
-    color: white;
+	background: #99ccff; /* #BFFF00; /* #888888 /* #F32121; */
+	color: white;
 }
 
 #menu ul li a {
-    color: #000000; /* #888888; */
+	color: #000000; /* #888888; */
 }
 
 #menu ul li a:hover {
-    color: #000000; /* #888888; */
+	color: #000000; /* #888888; */
 }
 
-
-#main_menu, #edit_form {
-    /* width: 750px; */
-    width: 100%;
-    margin: 0 auto;
+#mainmenu, #editform {
+	/* width: 750px; */
+	width: 100%;
+	margin: 0 auto;
 }
 
-#main_menu h2 {
+#mainmenu h2 {
 	font-size: 24px;
 	font-weight: bold;
 	text-align: left;
 }
 
-#main_menu h3 {
+#mainmenu h3 {
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
@@ -396,815 +398,691 @@ a:visited, a:active {
 	background-color: #f0f0f0;
 }
 
-.topmenu ul {display: block;}
+.topmenu ul {
+	display: block;
+}
+
 .topmenu li {
-	float:left;
-	list-style:none;
-	padding-left:10px;
-	padding-top:10px;
+	float: left;
+	list-style: none;
+	padding-left: 10px;
+	padding-top: 10px;
 }
 
-.bgEAEAE8 {
-	background-color: #EAEAE8;
+.bgeaeae8 {
+	background-color: #eaeae8;
 }
-
-
 
 #installtabs {
 	height: 550px;
 }
 
 #installtabs tr {
-	font-size:100%;
+	font-size: 100%;
 }
 
 #installtabs a {
-	font-size:100%;
+	font-size: 100%;
 }
 
-.helpDialog {
-	text-align:left;
-	font-size:1.1em;
+.helpdialog {
+	text-align: left;
+	font-size: 1.1em;
 }
 
-
-#userlist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#userlist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#userlist_table th {white-space:nowrap;}
-#userlist_table td[headers~=ui-table-userlist_table-header-4] {text-align:center;}
-#userlist_table td[headers~=ui-table-userlist_table-header-5] {text-align:center;}
-#userlist_table td[headers~=ui-table-userlist_table-header-6] {text-align:center;}
-#userlist_table td[headers~=ui-table-userlist_table-header-7] {text-align:center;}
-#userlist_table td[headers~=ui-table-userlist_table-header-8] {text-align:center;}
-#userlist_table td[headers~=ui-table-userlist_table-header-9] {white-space:nowrap;text-align:center}
-
-#userlist_table th { 	
-	border: 1px solid #cccccc; 
+/* common table definitions */
+#userlisttable td, #logtable td, #lockedusertable td,
+	#accessreptable td, #grantedrightstable td, #grouplisttable td,
+	#groupadminlisttable td, #repolisttable td, #projectlisttable td,
+	#accessrightlisttable td, #showuserprojecttable td,
+	#showusergrouptable td, #showgroupusertable td, #showuserrighttable td,
+	#showgrouprighttable td, #showgroupadmintable td {
+	padding-left: 1px;
+	padding-right: 1px;
+	font-size: 1em;
 }
-#userlist_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
+
+#userlisttable th, #logtable th, #lockedusertable th,
+	#accessreptable th, #grantedrightstable th, #grouplisttable th,
+	#groupadminlisttable th, #repolisttable th, #projectlisttable th,
+	#accessrightlisttable th, #showuserprojecttable th,
+	#showusergrouptable th, #showgroupusertable th, #showuserrighttable th,
+	#showgrouprighttable th, #showgroupadmintable th {
+	white-space: nowrap;
+	border: 1px solid #cccccc;
+}
+
+#userlisttable th a, #logtable th a, #lockedusertable th a,
+	#accessreptable th a, #grantedrightstable th a, #grouplisttable th a,
+	#groupadminlisttable th a, #repolisttable th a, #projectlisttable th a,
+	#accessrightlisttable th a, #showuserprojecttable th a,
+	#showusergrouptable th a, #showgroupusertable th a,
+	#showuserrighttable th a, #showgrouprighttable th a,
+	#showgroupadmintable th a {
+	padding: .5em 2em .5em .7em;
 	display: block;
 	line-height: 1;
 	color: black;
 	border: 0 !important;
 	position: relative;
 }
-#userlist_table th a:hover {
-	text-decoration:none;
-}	
-#userlist_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
+
+#userlisttable th a:hover, #logtable th a:hover, #lockedusertable th a:hover,
+	#accessreptable th a:hover, #grantedrightstable th a:hover,
+	#grouplisttable th a:hover, #groupadminlisttable th a:hover,
+	#repolisttable th a:hover, #projectlisttable th a:hover,
+	#accessrightlisttable th a:hover, #showuserprojecttable th a:hover,
+	#showusergrouptable th a:hover, #showgroupusertable th a:hover,
+	#showuserrighttable th a:hover, #showgrouprighttable th a:hover,
+	#showgroupadmintable th a:hover {
+	text-decoration: none;
 }
-#userlist_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
+
+#userlisttable .ui-state-active, #logtable .ui-state-active,
+	#lockedusertable .ui-state-active, #accessreptable .ui-state-active,
+	#grantedrightstable .ui-state-active, #grouplisttable .ui-state-active,
+	#groupadminlisttable .ui-state-active, #repolisttable .ui-state-active,
+	#projectlisttable .ui-state-active, #accessrightlisttable .ui-state-active,
+	#showuserprojecttable .ui-state-active, #showusergrouptable .ui-state-active,
+	#showgroupusertable .ui-state-active, #showuserrighttable .ui-state-active,
+	#showgrouprighttable .ui-state-active, #showgroupadmintable .ui-state-active
+	{
+	background: #99ccff none repeat scroll 0 0;
 }
-#userlist_table th.ui-table-desc a:hover,	
-#userlist_table th.ui-table-desc a:active,	
-#userlist_table th.ui-table-desc a:focus, 
-#userlist_table th a:hover,	
-#userlist_table th a:active,	
-#userlist_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#userlist_table th.ui-table-asc a:hover, 
-#userlist_table th.ui-table-asc a:active, 
-#userlist_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#userlist_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#userlist_table tr.odd {
+
+#userlisttable tr.odd, #logtable tr.odd, #lockedusertable tr.odd,
+	#accessreptable tr.odd, #grantedrightstable tr.odd, #grouplisttable tr.odd,
+	#groupadminlisttable tr.odd, #repolisttable tr.odd,
+	#projectlisttable tr.odd, #accessrightlisttable tr.odd,
+	#showuserprojecttable tr.odd, #showusergrouptable tr.odd,
+	#showgroupusertable tr.odd, #showuserrighttable tr.odd,
+	#showgrouprighttable tr.odd, #showgroupadmintable tr.odd {
 	background-color: #e3e3e3;
 }
 
-
-#log_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#log_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#log_table th {white-space:nowrap;}
-#log_table td[headers~=ui-table-log_table-header-1] {white-space:nowrap;}
-
-#log_table th { 	
-	border: 1px solid #cccccc; 
+/* special table definitions */
+#userlisttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
 }
-#log_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
+
+#userlisttable td[headers~=ui-table-userlisttable-header-4] {
+	text-align: center;
+}
+
+#userlisttable td[headers~=ui-table-userlisttable-header-5] {
+	text-align: center;
+}
+
+#userlisttable td[headers~=ui-table-userlisttable-header-6] {
+	text-align: center;
+}
+
+#userlisttable td[headers~=ui-table-userlisttable-header-7] {
+	text-align: center;
+}
+
+#userlisttable td[headers~=ui-table-userlisttable-header-8] {
+	text-align: center;
+}
+
+#userlisttable td[headers~=ui-table-userlisttable-header-9] {
+	white-space: nowrap;
+	text-align: center
+}
+
+#userlisttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#userlisttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#userlisttable th.ui-table-desc a:hover, #userlisttable th.ui-table-desc a:active,
+	#userlisttable th.ui-table-desc a:focus, #userlisttable th a:hover,
+	#userlisttable th a:active, #userlisttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#userlisttable th.ui-table-asc a:hover, #userlisttable th.ui-table-asc a:active,
+	#userlisttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#logtable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#logtable td[headers~=ui-table-logtable-header-1] {
+	white-space: nowrap;
+}
+
+#logtable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#logtable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#logtable th.ui-table-desc a:hover, #logtable th.ui-table-desc a:active,
+	#logtable th.ui-table-desc a:focus, #logtable th a:hover, #logtable th a:active,
+	#logtable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#logtable th.ui-table-asc a:hover, #logtable th.ui-table-asc a:active,
+	#logtable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#lockedusertable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#lockedusertable td[headers~=ui-table-lockedusertable-header-1] {
+	white-space: nowrap;
+	text-align: center;
+}
+
+#lockedusertable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#lockedusertable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#lockedusertable th.ui-table-desc a:hover, #lockedusertable th.ui-table-desc a:active,
+	#lockedusertable th.ui-table-desc a:focus, #lockedusertable th a:hover,
+	#lockedusertable th a:active, #lockedusertable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#lockedusertable th.ui-table-asc a:hover, #lockedusertable th.ui-table-asc a:active,
+	#lockedusertable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#accessreptable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#accessreptable td[headers~=ui-table-accessreptable-header-1] {
+	white-space: nowrap;
+	text-align: center;
+}
+
+#accessreptable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#accessreptable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#accessreptable th.ui-table-desc a:hover, #accessreptable th.ui-table-desc a:active,
+	#accessreptable th.ui-table-desc a:focus, #accessreptable th a:hover,
+	#accessreptable th a:active, #accessreptable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#accessreptable th.ui-table-asc a:hover, #accessreptable th.ui-table-asc a:active,
+	#accessreptable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#grantedrightstable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#grantedrightstable td[headers~=ui-table-grantedrightstable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#grantedrightstable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#grantedrightstable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#grantedrightstable th.ui-table-desc a:hover, #grantedrightstable th.ui-table-desc a:active,
+	#grantedrightstable th.ui-table-desc a:focus, #grantedrightstable th a:hover,
+	#grantedrightstable th a:active, #grantedrightstable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#grantedrightstable th.ui-table-asc a:hover, #grantedrightstable th.ui-table-asc a:active,
+	#grantedrightstable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#grouplisttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#grouplisttable td[headers~=ui-table-grouplisttable-header-1] {
+	white-space: nowrap;
+	text-align: left;
+}
+
+#grouplisttable td[headers~=ui-table-grouplisttable-header-2] {
+	text-align: left;
+}
+
+#grouplisttable td[headers~=ui-table-grouplisttable-header-3] {
+	white-space: nowrap;
+	text-align: center;
+}
+
+#grouplisttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#grouplisttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#grouplisttable th.ui-table-desc a:hover, #grouplisttable th.ui-table-desc a:active,
+	#grouplisttable th.ui-table-desc a:focus, #grouplisttable th a:hover,
+	#grouplisttable th a:active, #grouplisttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#grouplisttable th.ui-table-asc a:hover, #grouplisttable th.ui-table-asc a:active,
+	#grouplisttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#groupadminlisttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#groupadminlisttable td[headers~=ui-table-groupadminlisttable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#groupadminlisttable td[headers~=ui-table-groupadminlisttable-header-2]
+	{
+	text-align: left;
+}
+
+#groupadminlisttable td[headers~=ui-table-groupadminlisttable-header-5]
+	{
+	white-space: nowrap;
+	text-align: center;
+}
+
+#groupadminlisttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#groupadminlisttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#groupadminlisttable th.ui-table-desc a:hover, #groupadminlisttable th.ui-table-desc a:active,
+	#groupadminlisttable th.ui-table-desc a:focus, #groupadminlisttable th a:hover,
+	#groupadminlisttable th a:active, #groupadminlisttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#groupadminlisttable th.ui-table-asc a:hover, #groupadminlisttable th.ui-table-asc a:active,
+	#groupadminlisttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#repolisttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#repolisttable td[headers~=ui-table-repolisttable-header-1] {
+	white-space: nowrap;
+	text-align: left;
+}
+
+#repolisttable td[headers~=ui-table-repolisttable-header-2] {
+	text-align: left;
+}
+
+#repolisttable td[headers~=ui-table-repolisttable-header-5] {
+	white-space: nowrap;
+	text-align: center;
+}
+
+#repolisttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#repolisttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#repolisttable th.ui-table-desc a:hover, #repolisttable th.ui-table-desc a:active,
+	#repolisttable th.ui-table-desc a:focus, #repolisttable th a:hover,
+	#repolisttable th a:active, #repolisttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#repolisttable th.ui-table-asc a:hover, #repolisttable th.ui-table-asc a:active,
+	#repolisttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#projectlisttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#projectlisttable td[headers~=ui-table-projectlisttable-header-1] {
+	white-space: nowrap;
+	text-align: left;
+}
+
+#projectlisttable td[headers~=ui-table-projectlisttable-header-2] {
+	text-align: left;
+}
+
+#projectlisttable td[headers~=ui-table-projectlisttable-header-4] {
+	white-space: nowrap;
+	text-align: center;
+}
+
+#projectlisttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#projectlisttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#projectlisttable th.ui-table-desc a:hover, #projectlisttable th.ui-table-desc a:active,
+	#projectlisttable th.ui-table-desc a:focus, #projectlisttable th a:hover,
+	#projectlisttable th a:active, #projectlisttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#projectlisttable th.ui-table-asc a:hover, #projectlisttable th.ui-table-asc a:active,
+	#projectlisttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#accessrightlisttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#accessrightlisttable td[headers~=ui-table-accessrightlisttable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#accessrightlisttable td[headers~=ui-table-accessrightlisttable-header-2]
+	{
+	text-align: left;
+}
+
+#accessrightlisttable td[headers~=ui-table-accessrightlisttable-header-9]
+	{
+	white-space: nowrap;
+	text-align: center;
+}
+
+#accessrightlisttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#accessrightlisttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#accessrightlisttable th.ui-table-desc a:hover, #accessrightlisttable th.ui-table-desc a:active,
+	#accessrightlisttable th.ui-table-desc a:focus, #accessrightlisttable th a:hover,
+	#accessrightlisttable th a:active, #accessrightlisttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#accessrightlisttable th.ui-table-asc a:hover, #accessrightlisttable th.ui-table-asc a:active,
+	#accessrightlisttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showuserprojecttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#showuserprojecttable td {
+	padding-left: 1px;
+	padding-right: 1px;
+	font-size: 1em;
+}
+
+#showuserprojecttable th {
+	white-space: nowrap;
+	border: 1px solid #cccccc;
+}
+
+#showuserprojecttable td[headers~=ui-table-showuserprojecttable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#showuserprojecttable td[headers~=ui-table-showuserprojecttable-header-2]
+	{
+	text-align: left;
+}
+
+#showuserprojecttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showuserprojecttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showuserprojecttable th.ui-table-desc a:hover, #showuserprojecttable th.ui-table-desc a:active,
+	#showuserprojecttable th.ui-table-desc a:focus, #showuserprojecttable th a:hover,
+	#showuserprojecttable th a:active, #showuserprojecttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showuserprojecttable th.ui-table-asc a:hover, #showuserprojecttable th.ui-table-asc a:active,
+	#showuserprojecttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showusergrouptable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#showusergrouptable td[headers~=ui-table-showusergrouptable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#showusergrouptable td[headers~=ui-table-showusergrouptable-header-2]
+	{
+	text-align: left;
+}
+
+#showusergrouptable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showusergrouptable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showusergrouptable th.ui-table-desc a:hover, #showusergrouptable th.ui-table-desc a:active,
+	#showusergrouptable th.ui-table-desc a:focus, #showusergrouptable th a:hover,
+	#showusergrouptable th a:active, #showusergrouptable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showusergrouptable th.ui-table-asc a:hover, #showusergrouptable th.ui-table-asc a:active,
+	#showusergrouptable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showgroupusertable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#showgroupusertable td[headers~=ui-table-showgroupusertable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#showgroupusertable td[headers~=ui-table-showgroupusertable-header-2]
+	{
+	text-align: left;
+}
+
+#showgroupusertable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showgroupusertable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showgroupusertable th.ui-table-desc a:hover, #showgroupusertable th.ui-table-desc a:active,
+	#showgroupusertable th.ui-table-desc a:focus, #showgroupusertable th a:hover,
+	#showgroupusertable th a:active, #showgroupusertable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showgroupusertable th.ui-table-asc a:hover, #showgroupusertable th.ui-table-asc a:active,
+	#showgroupusertable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showuserrighttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#showuserrighttable td[headers~=ui-table-showuserrighttable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#showuserrighttable td[headers~=ui-table-showuserrighttable-header-2]
+	{
+	text-align: left;
+}
+
+#showuserrighttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showuserrighttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showuserrighttable th.ui-table-desc a:hover, #showuserrighttable th.ui-table-desc a:active,
+	#showuserrighttable th.ui-table-desc a:focus, #showuserrighttable th a:hover,
+	#showuserrighttable th a:active, #showuserrighttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showuserrighttable th.ui-table-asc a:hover, #showuserrighttable th.ui-table-asc a:active,
+	#showuserrighttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showgrouprighttable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#showgrouprighttable td[headers~=ui-table-showgrouprighttable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#showgrouprighttable td[headers~=ui-table-showgrouprighttable-header-2]
+	{
+	text-align: left;
+}
+
+#showgrouprighttable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showgrouprighttable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showgrouprighttable th.ui-table-desc a:hover, #showgrouprighttable th.ui-table-desc a:active,
+	#showgrouprighttable th.ui-table-desc a:focus, #showgrouprighttable th a:hover,
+	#showgrouprighttable th a:active, #showgrouprighttable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showgrouprighttable th.ui-table-asc a:hover, #showgrouprighttable th.ui-table-asc a:active,
+	#showgrouprighttable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showgroupadmintable table[aria-labelledby~=table-caption] {
+	table-layout: auto;
+}
+
+#showgroupadmintable td[headers~=ui-table-showgroupadmintable-header-1]
+	{
+	white-space: nowrap;
+	text-align: left;
+}
+
+#showgroupadmintable td[headers~=ui-table-showgroupadmintable-header-2]
+	{
+	text-align: left;
+}
+
+#showgroupadmintable th.ui-table-desc a {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#showgroupadmintable th.ui-table-asc a {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showgroupadmintable th.ui-table-desc a:hover, #showgroupadmintable th.ui-table-desc a:active,
+	#showgroupadmintable th.ui-table-desc a:focus, #showgroupadmintable th a:hover,
+	#showgroupadmintable th a:active, #showgroupadmintable th a:focus {
+	background: url(./images/asc.gif) right center no-repeat;
+}
+
+#showgroupadmintable th.ui-table-asc a:hover, #showgroupadmintable th.ui-table-asc a:active,
+	#showgroupadmintable th.ui-table-asc a:focus {
+	background: url(./images/desc.gif) right center no-repeat;
+}
+
+#disabled {
+	display: none;
+}
+
+.noscript .enabled {
+	display: none;
+}
+
+.noscript .disabled {
 	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#log_table th a:hover {
-	text-decoration:none;
-}	
-#log_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#log_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#log_table th.ui-table-desc a:hover,	
-#log_table th.ui-table-desc a:active,	
-#log_table th.ui-table-desc a:focus, 
-#log_table th a:hover,	
-#log_table th a:active,	
-#log_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#log_table th.ui-table-asc a:hover, 
-#log_table th.ui-table-asc a:active, 
-#log_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#log_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#log_table tr.odd {
-	background-color: #e3e3e3;
 }
 
-
-#lockeduser_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#lockeduser_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#lockeduser_table th {white-space:nowrap;}
-#lockeduser_table td[headers~=ui-table-lockeduser_table-header-1] {white-space:nowrap; text-align:center;}
-
-#lockeduser_table th { 	
-	border: 1px solid #cccccc; 
-}
-#lockeduser_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#lockeduser_table th a:hover {
-	text-decoration:none;
-}	
-#lockeduser_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#lockeduser_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#lockeduser_table th.ui-table-desc a:hover,	
-#lockeduser_table th.ui-table-desc a:active,	
-#lockeduser_table th.ui-table-desc a:focus, 
-#lockeduser_table th a:hover,	
-#lockeduser_table th a:active,	
-#lockeduser_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#lockeduser_table th.ui-table-asc a:hover, 
-#lockeduser_table th.ui-table-asc a:active, 
-#lockeduser_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#lockeduser_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#lockeduser_table tr.odd {
-	background-color: #e3e3e3;
+.enabled {
+	display: block
 }
 
-
-#accessrep_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#accessrep_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#accessrep_table th {white-space:nowrap;}
-#accessrep_table td[headers~=ui-table-accessrep_table-header-1] {white-space:nowrap; text-align:center;}
-
-#accessrep_table th { 	
-	border: 1px solid #cccccc; 
+.disabled {
+	display: none
 }
-#accessrep_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#accessrep_table th a:hover {
-	text-decoration:none;
-}	
-#accessrep_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#accessrep_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#accessrep_table th.ui-table-desc a:hover,	
-#accessrep_table th.ui-table-desc a:active,	
-#accessrep_table th.ui-table-desc a:focus, 
-#accessrep_table th a:hover,	
-#accessrep_table th a:active,	
-#accessrep_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#accessrep_table th.ui-table-asc a:hover, 
-#accessrep_table th.ui-table-asc a:active, 
-#accessrep_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#accessrep_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#accessrep_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#grantedrights_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#grantedrights_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#grantedrights_table th {white-space:nowrap;}
-#grantedrights_table td[headers~=ui-table-grantedrights_table-header-1] {white-space:nowrap; text-align:left;}
-
-#grantedrights_table th { 	
-	border: 1px solid #cccccc; 
-}
-#grantedrights_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#grantedrights_table th a:hover {
-	text-decoration:none;
-}	
-#grantedrights_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#grantedrights_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#grantedrights_table th.ui-table-desc a:hover,	
-#grantedrights_table th.ui-table-desc a:active,	
-#grantedrights_table th.ui-table-desc a:focus, 
-#grantedrights_table th a:hover,	
-#grantedrights_table th a:active,	
-#grantedrights_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#grantedrights_table th.ui-table-asc a:hover, 
-#grantedrights_table th.ui-table-asc a:active, 
-#grantedrights_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#grantedrights_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#grantedrights_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#grouplist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#grouplist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#grouplist_table th {white-space:nowrap;}
-#grouplist_table td[headers~=ui-table-grouplist_table-header-1] {white-space:nowrap; text-align:left;}
-#grouplist_table td[headers~=ui-table-grouplist_table-header-2] {text-align:left;}
-#grouplist_table td[headers~=ui-table-grouplist_table-header-3] {white-space:nowrap; text-align:center;}
-
-#grouplist_table th { 	
-	border: 1px solid #cccccc; 
-}
-#grouplist_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#grouplist_table th a:hover {
-	text-decoration:none;
-}	
-#grouplist_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#grouplist_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#grouplist_table th.ui-table-desc a:hover,	
-#grouplist_table th.ui-table-desc a:active,	
-#grouplist_table th.ui-table-desc a:focus, 
-#grouplist_table th a:hover,	
-#grouplist_table th a:active,	
-#grouplist_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#grouplist_table th.ui-table-asc a:hover, 
-#grouplist_table th.ui-table-asc a:active, 
-#grouplist_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#grouplist_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#grouplist_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#groupadminlist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#groupadminlist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#groupadminlist_table th {white-space:nowrap;}
-#groupadminlist_table td[headers~=ui-table-groupadminlist_table-header-1] {white-space:nowrap; text-align:left;}
-#groupadminlist_table td[headers~=ui-table-groupadminlist_table-header-2] {text-align:left;}
-#groupadminlist_table td[headers~=ui-table-groupadminlist_table-header-5] {white-space:nowrap; text-align:center;}
-
-#groupadminlist_table th { 	
-	border: 1px solid #cccccc; 
-}
-#groupadminlist_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#groupadminlist_table th a:hover {
-	text-decoration:none;
-}	
-#groupadminlist_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#groupadminlist_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#groupadminlist_table th.ui-table-desc a:hover,	
-#groupadminlist_table th.ui-table-desc a:active,	
-#groupadminlist_table th.ui-table-desc a:focus, 
-#groupadminlist_table th a:hover,	
-#groupadminlist_table th a:active,	
-#groupadminlist_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#groupadminlist_table th.ui-table-asc a:hover, 
-#groupadminlist_table th.ui-table-asc a:active, 
-#groupadminlist_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#groupadminlist_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#groupadminlist_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#repolist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#repolist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#repolist_table th {white-space:nowrap;}
-#repolist_table td[headers~=ui-table-repolist_table-header-1] {white-space:nowrap; text-align:left;}
-#repolist_table td[headers~=ui-table-repolist_table-header-2] {text-align:left;}
-#repolist_table td[headers~=ui-table-repolist_table-header-5] {white-space:nowrap; text-align:center;}
-
-#repolist_table th { 	
-	border: 1px solid #cccccc; 
-}
-#repolist_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#repolist_table th a:hover {
-	text-decoration:none;
-}	
-#repolist_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#repolist_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#repolist_table th.ui-table-desc a:hover,	
-#repolist_table th.ui-table-desc a:active,	
-#repolist_table th.ui-table-desc a:focus, 
-#repolist_table th a:hover,	
-#repolist_table th a:active,	
-#repolist_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#repolist_table th.ui-table-asc a:hover, 
-#repolist_table th.ui-table-asc a:active, 
-#repolist_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#repolist_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#repolist_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#projectlist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#projectlist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#projectlist_table th {white-space:nowrap;}
-#projectlist_table td[headers~=ui-table-projectlist_table-header-1] {white-space:nowrap; text-align:left;}
-#projectlist_table td[headers~=ui-table-projectlist_table-header-2] {text-align:left;}
-#projectlist_table td[headers~=ui-table-projectlist_table-header-4] {white-space:nowrap; text-align:center;}
-
-#projectlist_table th { 	
-	border: 1px solid #cccccc; 
-}
-#projectlist_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#projectlist_table th a:hover {
-	text-decoration:none;
-}	
-#projectlist_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#projectlist_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#projectlist_table th.ui-table-desc a:hover,	
-#projectlist_table th.ui-table-desc a:active,	
-#projectlist_table th.ui-table-desc a:focus, 
-#projectlist_table th a:hover,	
-#projectlist_table th a:active,	
-#projectlist_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#projectlist_table th.ui-table-asc a:hover, 
-#projectlist_table th.ui-table-asc a:active, 
-#projectlist_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#projectlist_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#projectlist_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#accessrightlist_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#accessrightlist_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#accessrightlist_table th {white-space:nowrap;}
-#accessrightlist_table td[headers~=ui-table-accessrightlist_table-header-1] {white-space:nowrap; text-align:left;}
-#accessrightlist_table td[headers~=ui-table-accessrightlist_table-header-2] {text-align:left;}
-#accessrightlist_table td[headers~=ui-table-accessrightlist_table-header-9] {white-space:nowrap; text-align:center;}
-
-#accessrightlist_table th { 	
-	border: 1px solid #cccccc; 
-}
-#accessrightlist_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#accessrightlist_table th a:hover {
-	text-decoration:none;
-}	
-#accessrightlist_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#accessrightlist_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#accessrightlist_table th.ui-table-desc a:hover,	
-#accessrightlist_table th.ui-table-desc a:active,	
-#accessrightlist_table th.ui-table-desc a:focus, 
-#accessrightlist_table th a:hover,	
-#accessrightlist_table th a:active,	
-#accessrightlist_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#accessrightlist_table th.ui-table-asc a:hover, 
-#accessrightlist_table th.ui-table-asc a:active, 
-#accessrightlist_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#accessrightlist_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#accessrightlist_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-
-#showuserproject_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#showuserproject_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#showuserproject_table th {white-space:nowrap;}
-#showuserproject_table td[headers~=ui-table-showuserproject_table-header-1] {white-space:nowrap; text-align:left;}
-#showuserproject_table td[headers~=ui-table-showuserproject_table-header-2] {text-align:left;}
-
-#showuserproject_table th { 	
-	border: 1px solid #cccccc; 
-}
-#showuserproject_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#showuserproject_table th a:hover {
-	text-decoration:none;
-}	
-#showuserproject_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showuserproject_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showuserproject_table th.ui-table-desc a:hover,	
-#showuserproject_table th.ui-table-desc a:active,	
-#showuserproject_table th.ui-table-desc a:focus, 
-#showuserproject_table th a:hover,	
-#showuserproject_table th a:active,	
-#showuserproject_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showuserproject_table th.ui-table-asc a:hover, 
-#showuserproject_table th.ui-table-asc a:active, 
-#showuserproject_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showuserproject_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#showuserproject_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-
-#showusergroup_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#showusergroup_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#showusergroup_table th {white-space:nowrap;}
-#showusergroup_table td[headers~=ui-table-showusergroup_table-header-1] {white-space:nowrap; text-align:left;}
-#showusergroup_table td[headers~=ui-table-showusergroup_table-header-2] {text-align:left;}
-
-#showusergroup_table th { 	
-	border: 1px solid #cccccc; 
-}
-#showusergroup_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#showusergroup_table th a:hover {
-	text-decoration:none;
-}	
-#showusergroup_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showusergroup_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showusergroup_table th.ui-table-desc a:hover,	
-#showusergroup_table th.ui-table-desc a:active,	
-#showusergroup_table th.ui-table-desc a:focus, 
-#showusergroup_table th a:hover,	
-#showusergroup_table th a:active,	
-#showusergroup_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showusergroup_table th.ui-table-asc a:hover, 
-#showusergroup_table th.ui-table-asc a:active, 
-#showusergroup_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showusergroup_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#showusergroup_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#showgroupuser_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#showgroupuser_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#showgroupuser_table th {white-space:nowrap;}
-#showgroupuser_table td[headers~=ui-table-showgroupuser_table-header-1] {white-space:nowrap; text-align:left;}
-#showgroupuser_table td[headers~=ui-table-showgroupuser_table-header-2] {text-align:left;}
-
-#showgroupuser_table th { 	
-	border: 1px solid #cccccc; 
-}
-#showgroupuser_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#showgroupuser_table th a:hover {
-	text-decoration:none;
-}	
-#showgroupuser_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showgroupuser_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showgroupuser_table th.ui-table-desc a:hover,	
-#showgroupuser_table th.ui-table-desc a:active,	
-#showgroupuser_table th.ui-table-desc a:focus, 
-#showgroupuser_table th a:hover,	
-#showgroupuser_table th a:active,	
-#showgroupuser_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showgroupuser_table th.ui-table-asc a:hover, 
-#showgroupuser_table th.ui-table-asc a:active, 
-#showgroupuser_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showgroupuser_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#showgroupuser_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#showuserright_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#showuserright_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#showuserright_table th {white-space:nowrap;}
-#showuserright_table td[headers~=ui-table-showuserright_table-header-1] {white-space:nowrap; text-align:left;}
-#showuserright_table td[headers~=ui-table-showuserright_table-header-2] {text-align:left;}
-
-#showuserright_table th { 	
-	border: 1px solid #cccccc; 
-}
-#showuserright_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#showuserright_table th a:hover {
-	text-decoration:none;
-}	
-#showuserright_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showuserright_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showuserright_table th.ui-table-desc a:hover,	
-#showuserright_table th.ui-table-desc a:active,	
-#showuserright_table th.ui-table-desc a:focus, 
-#showuserright_table th a:hover,	
-#showuserright_table th a:active,	
-#showuserright_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showuserright_table th.ui-table-asc a:hover, 
-#showuserright_table th.ui-table-asc a:active, 
-#showuserright_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showuserright_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#showuserright_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#showgroupright_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#showgroupright_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#showgroupright_table th {white-space:nowrap;}
-#showgroupright_table td[headers~=ui-table-showgroupright_table-header-1] {white-space:nowrap; text-align:left;}
-#showgroupright_table td[headers~=ui-table-showgroupright_table-header-2] {text-align:left;}
-
-#showgroupright_table th { 	
-	border: 1px solid #cccccc; 
-}
-#showgroupright_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#showgroupright_table th a:hover {
-	text-decoration:none;
-}	
-#showgroupright_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showgroupright_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showgroupright_table th.ui-table-desc a:hover,	
-#showgroupright_table th.ui-table-desc a:active,	
-#showgroupright_table th.ui-table-desc a:focus, 
-#showgroupright_table th a:hover,	
-#showgroupright_table th a:active,	
-#showgroupright_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showgroupright_table th.ui-table-asc a:hover, 
-#showgroupright_table th.ui-table-asc a:active, 
-#showgroupright_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showgroupright_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#showgroupright_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#showgroupadmin_table table[aria-labelledby~=table-caption] {table-layout: auto;}
-#showgroupadmin_table td {padding-left:1px; padding-right:1px;font-size:1em;}
-#showgroupadmin_table th {white-space:nowrap;}
-#showgroupadmin_table td[headers~=ui-table-showgroupadmin_table-header-1] {white-space:nowrap; text-align:left;}
-#showgroupadmin_table td[headers~=ui-table-showgroupadmin_table-header-2] {text-align:left;}
-
-#showgroupadmin_table th { 	
-	border: 1px solid #cccccc; 
-}
-#showgroupadmin_table th a {	
-	/*padding: 0.5em 2em 0.5em 0.7em; */
-	padding: 0.5em 2em 0.5em 0.7em;
-	display: block;
-	line-height: 1;
-	color: black;
-	border: 0 !important;
-	position: relative;
-}
-#showgroupadmin_table th a:hover {
-	text-decoration:none;
-}	
-#showgroupadmin_table th.ui-table-desc a {	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showgroupadmin_table th.ui-table-asc a{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showgroupadmin_table th.ui-table-desc a:hover,	
-#showgroupadmin_table th.ui-table-desc a:active,	
-#showgroupadmin_table th.ui-table-desc a:focus, 
-#showgroupadmin_table th a:hover,	
-#showgroupadmin_table th a:active,	
-#showgroupadmin_table th a:focus{	
-	background: url(./images/asc.gif) right center no-repeat;
-}
-#showgroupadmin_table th.ui-table-asc a:hover, 
-#showgroupadmin_table th.ui-table-asc a:active, 
-#showgroupadmin_table th.ui-table-asc a:focus{	
-	background: url(./images/desc.gif) right center no-repeat;
-}
-#showgroupadmin_table .ui-state-active {
-	background: #99CCFF none repeat scroll 0 0;
-}
-#showgroupadmin_table tr.odd {
-	background-color: #e3e3e3;
-}
-
-
-#disabled {display:none;}
-.noscript .enabled {display:none;}
-.noscript .disabled {display:block;}
-.enabled {display:block}
-.disabled{display:none}

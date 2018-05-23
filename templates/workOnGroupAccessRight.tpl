@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form name="workOnGroupAccessRight" method="post">
 				<table>
 				   	<tr>
@@ -17,7 +17,7 @@
 				   	<tr valign="top">
 				   		<td nowrap><strong><?php print _("Select user").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fUser" size="1" <?php print $tReadonly;?> style="width: 100%; height=200px;" title="<?php print _("Select the user to grant access to the group.");?>">
+				   			<select id="user" name="fUser" size="1" <?php print $tReadonly;?> style="width: 100%; height=200px;" title="<?php print _("Select the user to grant access to the group.");?>">
 				   				
 				   				<?php  					
 				   					foreach( $tUsers as $id => $user ) {
@@ -44,19 +44,18 @@
 				   					$delete							= "";
 				   					
 				   					if( $tRight == "none" ) {
-				   						$none						= "selected";
+				   						$none						= SELECTED;
 				   					}
 				   					if( $tRight == "read" ) {
-				   						$read						= "selected";
+				   						$read						= SELECTED;
 				   					}
 				   					if( $tRight == "edit" ) {
-				   						$edit						= "selected";
+				   						$edit						= SELECTED;
 				   					}
 				   					if( $tRight == "delete" ) {
-				   						$delete 					= "selected";
+				   						$delete 					= SELECTED;
 				   					}
-				   					
-				   					#print "\t\t\t\t\t\t\t<option value='none' ".$none." >"._("none")."</option>\n";
+				   				
 					   				print "\t\t\t\t\t\t\t<option value='read' ".$read." >"._("read")."</option>\n";
 					   				print "\t\t\t\t\t\t\t<option value='edit' ".$edit." >"._("edit")."</option>\n";
 					   				print "\t\t\t\t\t\t\t<option value='delete' ".$delete." >"._("delete")."</option>\n";
@@ -69,7 +68,7 @@
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
 				      </td>
@@ -84,4 +83,7 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				$("#user").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>

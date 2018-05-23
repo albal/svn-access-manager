@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form action="workOnProject.php" method="post">
 				<table>
 					<tr>
@@ -13,7 +13,7 @@
 					</tr>
 					<tr valign="top">
 						<td>
-							<select name="groupsadd[]" multiple="" size="15" style="width: 100%; height=200px;" title="<?php print _("Select the groups to add.");?>">
+							<select name="groupsadd[]" multiple="" size="15" style="width: 100%; height=200px;" class="chzn-select" title="<?php print _("Select the groups to add.");?>">
 							<?php
 								foreach($tGroups as $id => $name) {
 									

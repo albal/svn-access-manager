@@ -9,7 +9,7 @@
 <html>
 <!--
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,23 +38,24 @@
   	<title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
   	<meta name="GENERATOR" content="Quanta Plus" />
   	<meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>" />
-  	<!--<link rel="stylesheet" type="text/css" href="./style/lhelstyle.css" />-->
+  	
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" type="text/css" href="./style/lhelie.css" />
 	<![endif]-->
-	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+	<link rel="stylesheet" type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" />	
 	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
 	<link rel="stylesheet" type="text/css" href="./style/chosen.css" />
-	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="./style/table.css" />
+	<link rel="stylesheet" type="text/css" href="./stylesheet.css" />
 	
 	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
-	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
 	<script language="javaScript" type="text/javascript" src="./lib/jquery/chosen.jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./lib/jquery/table.js"></script>
 	<script language="javascript" type="text/javascript">
 		
 		$(document).ready(function() {
@@ -113,28 +114,28 @@
 					</a>
 				</td>
 				<td>
-					<div id="header_right" class="bgEAEAE8">
-						<?php outputHeader($header); ?>
+					<div id="headerright" class="bgeaeae8">
+						<?php outputHeader(); ?>
 					</div>
 				</td>
 			</tr>
 			<tr valign="top">
 				<td width="200">
-					<div id="subheader_left">
+					<div id="subheaderleft">
 						&nbsp;
 					</div>
 				</td>
 				<td>
-					<div id="subheader_right">
+					<div id="subheaderright">
 						<?php outputSubHeader($subheader); ?>
 					</div>
 				</td>
 			</tr>
 			<tr valign="top">
 				<td width="200" bgcolor="#EAEAE8">
-					<div id="left" class="leftMenu">
+					<div id="left" class="leftmenu">
 						<!--<ul> -->
-							<?php outputMenu($menu); ?>
+							<?php outputMenu(); ?>
 						<!--</ul>-->
 					</div>
 				</td>
@@ -155,19 +156,19 @@
 	<div id="dialog-confirm" class="ui-dialog" style="display: none;">
 			<p>
 				<!--<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;text-align:justified"></span>-->
-				<span class="helpDialog">
+				<span class="helpdialog">
 				<?php 
 					$dbh 										= db_connect ();
 					$tText 										= array();
 						
-					if( isset( $_SESSION['svn_sessid']['helptopic'] ) ) {
+					if( isset( $_SESSION[SVNSESSID][HELPTOPIC] ) ) {
 							
 						$schema									= db_determine_schema();
 					    
 						$lang									= check_language();
 						$query									= "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
 																  "  FROM ".$schema."help " .
-																  " WHERE topic = '".$_SESSION['svn_sessid']['helptopic']."'";
+																  " WHERE topic = '".$_SESSION[SVNSESSID][HELPTOPIC]."'";
 						$result									= db_query( $query, $dbh );
 						
 						if( $result['rows'] > 0 ) {
@@ -176,22 +177,22 @@
 							
 						} else {
 							
-							$tText['headline']					= _("No help found");
-							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION['svn_sessid']['helptopic'] );
+							$tText[HEADLINE]					= _("No help found");
+							$tText[HELPTEXT]					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID][HELPTOPIC] );
 						}
 						
 					} else {
 						
-						$tText['headline']						= _("No help found");
-						$tText['helptext']						= _("There is no help topic set");
+						$tText[HEADLINE]						= _("No help found");
+						$tText[HELPTEXT]						= _("There is no help topic set");
 							
 					}
 					
-					$text_arr			= explode( "\r\n", $tText['helptext'] );
-					print "<p class='helpDialog'>&nbsp;</p>\n";
+					$text_arr			= explode( "\r\n", $tText[HELPTEXT] );
+					print "<p class='helpdialog'>&nbsp;</p>\n";
 					foreach( $text_arr as $text ) {
 					
-						print "<p class='helpDialog'>$text<br/>&nbsp;</p>\n";
+						print "<p class='helpdialog'>$text<br/>&nbsp;</p>\n";
 						
 					}
 				?>
@@ -204,7 +205,7 @@
 			height: 300,
 			width: 400,				
 			modal: true,
-			title: '<?php print _("Help")."::".$tText['headline'];?>',
+			title: '<?php print _("Help")."::".$tText[HEADLINE];?>',
 			autoOpen: false,
 		});
 		

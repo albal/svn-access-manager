@@ -1,4 +1,4 @@
-		<div id="edit_form">
+		<div id="editform">
 			<form action="rep_show_group.php" name="show_group_select" method="post">
 				<table>
 				   	<tr>
@@ -10,7 +10,7 @@
 				   	<tr valign="top">
 				   		<td width="150"><strong><?php print _("Group").": "; ?></strong></td>
 				   		<td>
-				   			<select name="fGroup">
+				   			<select name="fGroup" id="group" class="chzn-select">
 				   				<?php
 				   					print "\t\t\t<option value='default'>"._("--- Select group ---")."</option>\n";
 				   					foreach( $tGroups as $entry ) {
@@ -26,7 +26,7 @@
 				      <td colspan="3">&nbsp;</td>
 				   	</tr>
 				   	<tr>
-				      <td colspan="3" class="hlp_center">
+				      <td colspan="3" class="hlpcenter">
 				      	<input type="image" name="fSubmit_show" src="./images/ok.png" value="<?php print _("Create report"); ?>"  title="<?php print _("Create report"); ?>" />
 				      </td>
 				   	</tr>
@@ -40,4 +40,7 @@
 				   	</tr>
 				</table>
 			</form>
+			<script>
+				$("#group").chosen({no_results_text: "No results matched"});
+			</script>
 		</div>

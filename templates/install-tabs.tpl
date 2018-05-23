@@ -11,7 +11,7 @@ include( "../include/output.inc.php" );
 <html>
 <!--
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ include( "../include/output.inc.php" );
 
 	<div class="enabled">
 		<div id="wrap">
-			<div id="header_login">
+			<div id="headerlogin">
 			   	<table>
 					<tr>
 						<td><img src="../images/svn-access-manager_200_60_white.jpg" width="200" height="60" /></td>
@@ -223,6 +223,7 @@ include( "../include/output.inc.php" );
 							   		<td nowrap title="<?php print _("Select the database you want to use.");?>"><strong><?php print _("Database").": "; ?></strong></td>
 							   		<td>
 							   			<input type="radio" name="fDatabase" value="mysql" <?php print $tDatabaseMySQL; ?> />&nbsp;&nbsp;<?php print _("MySQL"); ?>&nbsp;&nbsp;&nbsp;
+							   			<input type="radio" name="fDatabase" value="mysqli" <?php print $tDatabaseMySQLi; ?> />&nbsp;&nbsp;<?php print _("MySQLI"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fDatabase" value="postgres8" <?php print $tDatabasePostgreSQL; ?> />&nbsp;&nbsp;<?php print _("PostgreSQL"); ?>&nbsp;&nbsp;&nbsp;
 						   				<input type="radio" name="fDatabase" value="oci8" <?php print $tDatabaseOracle; ?> />&nbsp;&nbsp;<?php print _("Oracle"); ?>
 							   		</td>
@@ -943,10 +944,12 @@ include( "../include/output.inc.php" );
 							   		<td>&nbsp;</td>
 							   	</tr>
 							   	<tr>
-							   		<td nowrap title="<?php print _("Decide if passwords should be md5 encrypted.");?>"><strong><?php print _("Use md5 encryption").": "; ?></strong></td>
+							   		<td nowrap title="<?php print _("Choose password encryption.");?>"><strong><?php print _("Password encryption").": "; ?></strong></td>
 							   		<td>
-							   			<input type="radio" name="fUseMd5" value="md5" <?php print $tMd5Yes; ?> />&nbsp;&nbsp;<?php print _("Yes"); ?>&nbsp;&nbsp;&nbsp;
-						   				<input type="radio" name="fUseMd5" value="crypt" <?php print $tMd5No; ?> />&nbsp;&nbsp;<?php print _("No"); ?>
+										<input type="radio" name="fPwEnc" value="sha" <?php print $tPwSha; ?> />&nbsp;&nbsp;<?php print _("SHA"); ?>&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="fPwEnc" value="apr-md5" <?php print $tPwApacheMd5; ?> />&nbsp;&nbsp;<?php print _("Apache MD5"); ?>&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="fPwEnc" value="md5" <?php print $tPwMd5; ?> />&nbsp;&nbsp;<?php print _("MD5"); ?>&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="fPwEnc" value="crypt" <?php print $tPwCrypt; ?> />&nbsp;&nbsp;<?php print _("Crypt"); ?>
 							   		</td>
 							   		<td>
 							   			&nbsp;
@@ -1036,7 +1039,7 @@ include( "../include/output.inc.php" );
 						      	<td colspan="4">&nbsp;</td>
 						   	</tr>
 						   	<tr>
-						      	<td colspan="4" class="hlp_center">
+						      	<td colspan="4" class="hlpcenter">
 						      		<input  type="submit" name="fSubmit_install" value="<?php print _("Start installation"); ?>" />
 						      	</td>
 						   	</tr>

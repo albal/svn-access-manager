@@ -9,7 +9,7 @@
 <html>
 <!--
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,18 +33,18 @@
 </head>
 <body>
 	<div id="wrap">
-		<div id="header_login">
-			<div id="header_left">
+		<div id="headerlogin">
+			<div id="headerleft">
 				<img src="../../images/svn-access-manager_200_60_white.jpg" width="200" height="60" border="0" />
 			</div>
-			<div id="header_right_login">
+			<div id="headerrightlogin">
 				
 			</div>
 			<div id="subheader">
 				&nbsp;
 			</div>
 		</div>
-		<div id="edit_form">
+		<div id="editform">
 			<h2><?php print _("SVN Access Manager Online Help"); ?></h2>
 			<p>&nbsp;</p>
 			<h3>Passwort</h3>

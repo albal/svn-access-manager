@@ -1,8 +1,8 @@
-		<div id="edit_form">
+		<div id="editform">
 			<h3><?php print _("Project search result"); ?></h3>
 			<p>&nbsp;</p>
 			<form name="project_list" method="post">
-				<table id="projectlist_table">
+				<table id="projectlisttable">
 				   	<thead>
 				   		<tr>
 					   		<th>
@@ -21,42 +21,15 @@
 				   	</thead>
 				   	<tbody>
 				   		<?php
-					   		foreach( $tArray as $entry ) {
-					   		
-					   			$id						= $entry['id'];
-					   			
-					   			if( ($rightAllowed == "edit") or
-					   			    ($rightAllowed == "delete" ) ) {
-					   			    $url				= htmlentities("workOnProject.php?id=".$entry['id']."&task=change");
-					   			    $edit				= "<a href=\"$url\" title=\""._("Change")."\" alt=\""._("Change")."\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$edit				= "";
-					   			}
-					   			
-					   			
-					   			if( $rightAllowed == "delete" ) {
-					   				$url				= htmlentities("deleteProject.php?id=".$entry['id']."&task=delete");
-					   				$delete				= "<a href=\"$url\" title=\""._("Delete")."\" alt=\""._("Delete")."\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
-					   			} else {
-					   				$delete				= "";
-					   			}
-					   			$action					= $edit."     ".$delete;
-					   			
-					   			print "\t\t\t\t\t<tr>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['svnmodule']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['modulepath']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['reponame']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$action."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   		}
+					   		outputProjects($tArray, $rightAllowed);
 					   	?>
 				   	</tbody>
 				   	<tfoot>
 				   		<tr>
-					      <td colspan="4" class="hlp_center">
+					      <td colspan="4" class="hlpcenter">
 					        <?php
-					      		if( ($rightAllowed == "add") or
-					      		    ($rightAllowed == "edit") or
+					      		if( ($rightAllowed == "add") || 
+					      		    ($rightAllowed == "edit") || 
 					      		    ($rightAllowed == "delete") ) {
 					      		    
 					      			print "<input type=\"image\" name=\"fSubmit_new\" src=\"./images/add_project.png\" value=\""._("New project")."\"  title=\""._("New project")."\" />     ";
@@ -75,14 +48,14 @@
 				</table>
 			</form>
 			<script>
-					$("#projectlist_table").ariaSorTable({
+					$("#projectlisttable").ariaSorTable({
 						rowsToShow: <?php print $CONF['page_size'];?>,
 						pager: true,
 						textPager: '<?php print _("Page").":"; ?>',
 						onInit: function(){	}
 					});
 					
-					$("#edit_form *").tooltip({
+					$("#editform *").tooltip({
 						showURL: false
 					});
 			</script>

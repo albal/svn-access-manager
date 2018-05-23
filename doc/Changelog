@@ -1,17 +1,111 @@
 Change Log
 ==========
 
+Release 0.5.7.0
+    - compressed css stylesheets 
+    - removed unused files 
+    - use constants instead of literals 
+    - added unit tests and a small database xml dump for database phpunit tests
+    - added mysqli driver to installer
+    - basic tests with php 7
+    - added docker container build for testing purposes
+    - fixed bug #56, missing default values and projects now need a description
+    - fixed email checking, thanks to Yusuf Tambag for the bug report and the patch
+    - updated choosen JavaScript library to 1.8.5
+    - splitted database functions in installer, moved them into a file for MySQL, PostgreSQL and Oracle
+    - decreased complexity of installer
+    - removed duplicated code
 
-Release 0.5.5.17
-	- feature request ID: 
-	  add userid to groupadmin search
+Release 0.5.6.6
+    - updated selinux policy for CentOS 6 and CentOS 7
+    - fixed a typo in the docs
+    - fixed a typo in the install.php file
+    
+Release 0.5.6.5
+	- fix for issue #54 Creation of group in authz file doesnt check deleted user.
+	  Thanks to Michael Melin
+	
+Release 0.5.6.4
+	- fix for filenames and pathes with blanks. Thanks to David Helwig for the patch.
+	
+Release 0.5.6.3
+	- fixed 2 bugs
+	  Thanks to Juergen Prusseit for the patches.
 	  
-	- Feature request ID:
-	  show only groups an user may work with in search results
+Release 0.5.6.2
+	- fixed a typo in the installer
+	
+	- non mysql database help texts
+	
+	- support for Apache MD5 password hashing
+	  thanks to Bill Meine for the patch
+	
+Release 0.5.5.22
+	- fixed bug ID: 3602643
+	  'temporarily loss of "edit access rights" permission'
+
+	- changed select box type at user add from ldap
+
+Release 0.5.5.20
+	- fixed bug ID: 3594777
+	  'Undefined variable' if search string wasn't found
+	  
+	- fixed bug ID: 3594781
+	  'Undefined index' on project searchresult page
+	  
+Release 0.5.5.19
+	- fixed bug ID: 3585176
+	  editable custom fields on general page
+	  
+	- fixed bug ID: 3589118
+	  cron scripts: duplicate require "config.inc.php"
+	  
+	- fixed bug ID: 3593675
+	  Buttons on searchresult page not working
+	  
+	- fixed bug ID: 3593676
+	  wrong date sorting on log page
+	  
+	- removed unnecessary error_log calls
+	  
+Release 0.5.5.18
+	- changed search in access right list to a filter
+	
+	- Fixed bug ID: 3585176
+	  editable custom fields on general page
+	  
+	- Feature request ID: 3584758 	
+	  select group adm & project resp. via AJAX
+	  
+	- Feature request ID: 3585100
+	  Ajax based search for list_access_rights.php
+	  
+	- Feature request ID: 3585094
+	  ajax based search in reports
+	  
+	- Feature request ID: 3586321
+	  replace show user/group select box
+	  
+	- table filters do not start compare from the beginning 
+	  of the table cell content
+	  
+	- new updated help texts. Thanks to Jan for the new verion
+	  of the help texts.
+	  
+Release 0.5.5.17
+	- added userid to groupadmin search
+	  
+	- show only groups an user may work with in search results
 	 
 	- write permission violations to log
 	
 	- added search to repository access rights (Repository, path)
+	
+	- Fixed bug ID: 3584773
+	  missing $t-Variables on general page
+	  
+	- Fixed bug ID: 3581934
+	  Database error when deleting project
 	 
 Release 0.5.5.16
 	- Feature request ID: 3582680
