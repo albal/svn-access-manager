@@ -1,0 +1,15 @@
+.col1 {
+    width: 100%;
+}
+
+#editform form {
+    font-size: .8em;
+}
+
+#userlisttable th a, #classtable th a {
+    font-size: .8em;
+}
+
+.small {
+    font-size: .8em;
+}
