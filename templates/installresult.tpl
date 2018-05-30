@@ -53,8 +53,6 @@ include( "../include/output.inc.php" );
     <link href="../lib/bootstrap-3.3.7/css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="../lib/bootstrap-3.3.7/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="../style/svnam.css" rel="stylesheet">
-    
-    <script src="../lib/bootstrap-3.3.7/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -231,7 +229,7 @@ EOM;
     <script type="text/javascript">
     
         $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip(); 
+            $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 00, hide: 100}}); 
             
             page = $( "#errors" ).val();
             ref = "#tabs-" + page;

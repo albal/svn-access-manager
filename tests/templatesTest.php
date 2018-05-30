@@ -4,7 +4,7 @@
  * Test templates
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -40,7 +40,7 @@
 final class TemplatesTest extends PHPUnit_Framework_TestCase {
 
     /**
-     * test general tzemplate
+     * test general template
      */
     public function test_template_general() {
 
@@ -118,6 +118,17 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $tCustom2Error = 'ok';
         $tCustom3Error = 'ok';
         $tMessageType = SUCCESS;
+        $tRecordsPerPage = array(
+            '10' => '10',
+            '25' => '25',
+            '50' => '50',
+            '-1' => 'All'
+        );
+        
+        $CONF = array();
+        $CONF[PAGESIZE] = 50;
+        $CONF[TOOLTIP_SHOW] = 700;
+        $CONF[TOOLTIP_HIDE] = 300;
         
         ob_start();
         $_SESSION['SVNSESSID']['username'] = 'admin';
@@ -145,6 +156,8 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         require_once ('HTML5Validate.php');
         
         $tPageSize = 20;
+        $tTooltipShow = 700;
+        $tTooltipHide = 300;
         $tName = 'checked';
         $tUserid = '';
         $tAsc = 'checked';
@@ -152,6 +165,19 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $tMessage = 'Nothing to report';
         $tMessageType = SUCCESS;
         $tPageSizeError = 'ok';
+        $tTooltipShowError = 'ok';
+        $tTooltipHideError = 'ok';
+        $tRecordsPerPage = array(
+            '10' => '10',
+            '25' => '25',
+            '50' => '50',
+            '-1' => 'All'
+        );
+        
+        $CONF = array();
+        $CONF[PAGESIZE] = 30;
+        $CONF[TOOLTIP_SHOW] = 700;
+        $CONF[TOOLTIP_HIDE] = 300;
         
         ob_start();
         include './templates/preferences.tpl';
@@ -176,7 +202,9 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         require_once ('HTML5Validate.php');
         
         $CONF = array();
-        $CONF['page_size'] = 30;
+        $CONF[PAGESIZE] = 30;
+        $CONF[TOOLTIP_SHOW] = 700;
+        $CONF[TOOLTIP_HIDE] = 300;
         
         $tLogmessages = array(
                 array(
@@ -237,6 +265,11 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $tMessageType = SUCCESS;
         $tUserError = '';
         
+        $CONF = array();
+        $CONF[PAGESIZE] = 30;
+        $CONF[TOOLTIP_SHOW] = 700;
+        $CONF[TOOLTIP_HIDE] = 300;
+        
         ob_start();
         include './templates/rep_show_user.tpl';
         $output = ob_get_clean();
@@ -268,6 +301,11 @@ final class TemplatesTest extends PHPUnit_Framework_TestCase {
         $tMessage = 'Nothing to report';
         $tMessageType = SUCCESS;
         $tGroupError = '';
+        
+        $CONF = array();
+        $CONF[PAGESIZE] = 30;
+        $CONF[TOOLTIP_SHOW] = 700;
+        $CONF[TOOLTIP_HIDE] = 300;
         
         ob_start();
         include './templates/rep_show_group.tpl';

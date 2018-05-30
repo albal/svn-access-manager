@@ -1,7 +1,9 @@
 <div>       
-    <h3 class="page-header"><?php print _("Log report"); ?></h3> 
+    <h3 class="page-header"><?php print _("Report log entries"); ?></h3> 
 </div>
-
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <table id="logreport" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
@@ -23,7 +25,7 @@
         <?php
             foreach( $tLogmessages as $entry ) {
             
-                list($date, $time)      = splitDateTime( $entry['logtimestamp'] );
+                list($date, $time)      = splitDateTimeI18n( $entry['logtimestamp'] );
                 
                 print "    <tr>\n";
                 print "        <td>".$date." ".$time."</td>\n";
@@ -51,17 +53,19 @@
         </tr>
     </tfoot>
 </table>
-
-<?php 
-    outputMessage($tMessage, $tMessageType);
-?>
         
 <script>
 $(document).ready(function() {
     $('#logreport').DataTable({
         "order": [[ 0, "desc" ]],
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
 } );
 </script>

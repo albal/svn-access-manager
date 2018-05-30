@@ -4,7 +4,7 @@
  * setup preferences
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -49,30 +49,46 @@ initialize_i18n();
 $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
+$preferences = db_get_preferences($SESSID_USERNAME, $dbh);
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $userid = db_getIdByUserid($SESSID_USERNAME, $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = PREFERENCES;
 $schema = db_determine_schema();
+$tRecordsPerPage = array(
+        '10' => '10',
+        '25' => '25',
+        '50' => '50',
+        '-1' => 'All'
+);
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tReadonly = "";
     $tPageSizeError = '';
+    $tTooltipShowError = '';
+    $tTooltipHideError = '';
     
     $query = "SELECT * " . "  FROM " . $schema . "preferences " . " WHERE (user_id = $userid) " . "   AND (deleted = '00000000000000')";
     $result = db_query($query, $dbh);
     
     if ($result['rows'] == 0) {
         
-        $tPageSize = $CONF['page_size'];
+        $tPageSize = $CONF[PAGESIZE];
         $tSortField = $CONF[USER_SORT_FIELDS];
         $tSortOrder = $CONF[USER_SORT_ORDER];
+        $tTooltipShow = $CONF[TOOLTIP_SHOW];
+        $tTooltipHide = $CONF[TOOLTIP_HIDE];
     }
     else {
         
         $row = db_assoc($result['result']);
-        $tPageSize = $row['page_size'];
+        $tPageSize = $row[PAGESIZE];
         $tSortField = $row[USER_SORT_FIELDS];
         $tSortOrder = $row[USER_SORT_ORDER];
+        $tTooltipShow = $row[TOOLTIP_SHOW];
+        $tTooltipHide = $row[TOOLTIP_HIDE];
         
         if ($tSortField == "") {
             
@@ -139,6 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tPageSize = isset($_POST['fPageSize']) ? db_escape_string($_POST['fPageSize']) : "";
     $tSortField = isset($_POST['fSortField']) ? db_escape_string($_POST['fSortField']) : "";
     $tSortOrder = isset($_POST['fSortOrder']) ? db_escape_string($_POST['fSortOrder']) : "";
+    $tTooltipShow = isset($_POST['fTooltipShow']) ? db_escape_string($_POST['fTooltipShow']) : "";
+    $tTooltipHide = isset($_POST['fTooltipHide']) ? db_escape_string($_POST['fTooltipHide']) : "";
     
     if ($button == _("Back")) {
         
@@ -150,20 +168,52 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $error = 0;
         $tPageSizeError = 'ok';
+        $tTooltipShowError = 'ok';
+        $tTooltipHideError = 'ok';
         
         if ($tPageSize == "") {
             
             $error = 1;
             $tMessage = _("Records per page must be filled in!");
             $tMessageType = DANGER;
-            $tPageSizeError = 'error';
+            $tPageSizeError = ERROR;
         }
         elseif (! is_numeric($tPageSize)) {
             
             $error = 1;
             $tMessage = _("Records per page must contain digits only!");
             $tMessageType = DANGER;
-            $tPageSizeError = 'error';
+            $tPageSizeError = ERROR;
+        }
+        
+        if ($tTooltipShow == "") {
+            
+            $error = 1;
+            $tMessage = _("Tooltip milliseconds for show up must be filled in!");
+            $tMessageType = DANGER;
+            $tTooltipShowError = ERROR;
+        }
+        elseif (! is_numeric($tTooltipShow)) {
+            
+            $error = 1;
+            $tMessage = _("Tooltip show up milliseconds must be numeric!");
+            $tMessageType = DAMGER;
+            $tTooltipShowError = ERROR;
+        }
+        
+        if ($tTooltipHide == "") {
+            
+            $error = 1;
+            $tMessage = _("Tooltip milliseconds for vanish up must be filled in!");
+            $tMessageType = DANGER;
+            $tTooltipHideError = ERROR;
+        }
+        elseif (! is_numeric($tTooltipHide)) {
+            
+            $error = 1;
+            $tMessage = _("Tooltip vanish milliseconds must be numeric!");
+            $tMessageType = DAMGER;
+            $tTooltipHideError = ERROR;
         }
         
         if ($error == 0) {
@@ -177,12 +227,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($result['rows'] == 0) {
                 
                 $dbnow = db_now();
-                $query = "INSERT INTO " . $schema . "preferences (user_id, page_size, user_sort_fields, user_sort_order, created, created_user) " . "     VALUES ($userid, $tPageSize, '$tSortField', '$tSortOrder', '$dbnow', '$SESSID_USERNAME')";
+                $query = "INSERT INTO " . $schema . "preferences (user_id, page_size, user_sort_fields, user_sort_order, tooltip_show, tooltip_hide, created, created_user) " . "     VALUES ($userid, $tPageSize, '$tSortField', '$tSortOrder', $tTooltipShow, $tTooltipHide, '$dbnow', '$SESSID_USERNAME')";
             }
             else {
                 
                 $dbnow = db_now();
-                $query = "UPDATE " . $schema . "preferences " . "   SET page_size = $tPageSize, " . "       user_sort_fields = '$tSortField', " . "       user_sort_order = '$tSortOrder', " . "       modified = '$dbnow', " . "       modified_user = '$SESSID_USERNAME' " . " WHERE (user_id = $userid) " . "   AND (deleted = '00000000000000')";
+                $query = "UPDATE " . $schema . "preferences " . "   SET page_size = $tPageSize, " . "       user_sort_fields = '$tSortField', " . "       user_sort_order = '$tSortOrder', " . "       tooltip_show = $tTooltipShow, " . "       tooltip_hide = $tTooltipHide, " . "       modified = '$dbnow', " . "       modified_user = '$SESSID_USERNAME' " . " WHERE (user_id = $userid) " . "   AND (deleted = '00000000000000')";
             }
             
             $result = db_query($query, $dbh);

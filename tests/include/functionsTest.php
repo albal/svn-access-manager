@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 /*
  * $LastChangedDate$
@@ -36,7 +36,7 @@
  * Class with tests for common functions
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  */
 final class FunctionsTest extends PHPUnit_Framework_TestCase {

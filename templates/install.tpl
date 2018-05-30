@@ -53,8 +53,6 @@ include( "../include/output.inc.php" );
     <link href="../lib/bootstrap-3.3.7/css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="../lib/bootstrap-3.3.7/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="../style/svnam.css" rel="stylesheet">
-    
-    <script src="../lib/bootstrap-3.3.7/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -108,7 +106,7 @@ include( "../include/output.inc.php" );
             <h3 class="page-header"><?php print _("SVN Access Manager Installation"); ?></h3> 
         </div>
         <div> <!-- install content -->
-            <form class="form-horizontal" name="workOnUser" method="post">
+            <form class="form-horizontal" name="installform" method="post">
                 <ul class="nav nav-tabs">              
                     <li class="active"><a data-toggle="tab" href="#tabs-0"><?php print _("Instructions");?></a></li>
                     <li><a data-toggle="tab" href="#tabs-1"><?php print _("Database");?></a></li>
@@ -187,7 +185,7 @@ include( "../include/output.inc.php" );
     <script type="text/javascript">
     
         $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip(); 
+            $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 800, hide: 100}}); 
             
             page = $( "#errors" ).val();
             ref = "#tabs-" + page;

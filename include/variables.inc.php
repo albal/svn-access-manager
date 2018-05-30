@@ -4,7 +4,7 @@
  * define a bunch of variables and set them to suitable default values.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights ereserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights ereserved.
  * @license GPL v2
  *         
  *          SVN Access Manager - a subversion access rights management tool
@@ -25,7 +25,7 @@
  *          Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *         
  *         
- * @filesource
+ *
  *
  */
 

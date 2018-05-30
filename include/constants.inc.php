@@ -4,7 +4,7 @@
  * constants definitions
  *
  * @author Thomas krieger
- * @copyright 2018 Thomas Krieger. All rights ewsserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights ewsserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -58,159 +58,164 @@ if (preg_match("/constants.inc.php/", $_SERVER['PHP_SELF'])) {
 }
 
 define_constant('INSTALLBASE', 'install_base');
-
-define_constant('PROJECTS', 'projects');
-define_constant('GROUPS', 'groups');
-define_constant('USERS', 'users');
-define_constant('ACCESS', 'access');
-define_constant('PROJECT', 'project');
-
-define_constant('DBERROR', 'dberror');
-define_constant('DBQUERY', 'dbquery');
-define_constant('DBFUNCTION', 'dbfunction');
-define_constant('RESULT', 'result');
-define_constant('NOTSET', 'not set');
-
-define_constant('BACK', 'back');
-define_constant('DELETE', 'delete');
-define_constant('REPOS', 'repos');
-define_constant('GENERAL', 'general');
-define_constant('PREFERENCES', 'preferences');
-define_constant('REPORTS', 'reports');
-define_constant('SEARCH', 'search');
-
-define_constant('ERROR', 'error');
-define_constant('ERRORMSG', 'errormsg');
-define_constant('ERRORLIST', 'errorlist');
-define_constant('ALERT', 'alert');
-define_constant('DANGER', 'danger');
-define_constant('SUCCESS', 'success');
-define_constant('WARNING', 'warning');
-
 define_constant('SVNSESSID', 'SVNSESSID');
-define_constant('PROJECT_ID', 'project_id');
-define_constant('PROJECTID', 'projectid');
-define_constant('REPO_ID', 'repo_id');
-define_constant('REPOID', 'repoid');
-define_constant('USER_ID', 'user_id');
-define_constant('USERID', 'userid');
-define_constant('GROUP_ID', 'group_id');
-define_constant('GROUPID', 'groupid');
-define_constant('RIGHTID', 'rightid');
-define_constant('GROUPNAME', 'groupname');
-define_constant('GROUPDESCR', 'groupdescr');
-define_constant('USERNAME', 'username');
-define_constant('SVNMODULE', 'svnmodule');
-define_constant('REPONAME', 'reponame');
-define_constant('REPOPATH', 'repopath');
-define_constant('REPOUSER', 'repouser');
-define_constant('REPOPASSWORD', 'repopassword');
-define_constant('USER_MODE', 'user_mode');
-define_constant('RIGHT_NAME', 'right_name');
-define_constant('ALLOWED', 'allowed');
-define_constant('TASK', 'task');
-define_constant('SVNGROUPS', 'svngroups');
-define_constant('SVNUSERS', 'svnusers');
-define_constant('MODULEPATH', 'modulepath');
-define_constant('PATHCNT', 'pathcnt');
-
-define_constant('PAGESIZE', 'page_size');
-define_constant('ACCESSBY', 'access_by');
-define_constant('ACCESS_RIGHT', 'access_right');
-define_constant('USER_SORT_FIELDS', 'user_sort_fields');
-define_constant('USER_SORT_ORDER', 'user_sort_order');
-
-define_constant('GIVENNAME', 'givenname');
-define_constant('BULKADDLIST', 'bulkaddlist');
-define_constant('EMAILADDRESS', 'emailaddress');
-
-define_constant('HELPTOPIC', 'helptopic');
-define_constant('HEADLINE', 'headline');
-define_constant('HELPTEXT', 'helptext');
-
-define_constant('SEPARATEFILESPERREPO', 'separateFilesPerRepo');
-define_constant('AUTHUSERFILE', 'AuthUserFile');
-define_constant('CREATEAUTHUSERFILE', 'createauthuserfile');
-define_constant('CREATEACCESSFILE', 'createaccessfile');
-define_constant('SVNACCESSFILE', 'SVNAccessFile');
-define_constant('REPOPATHSORTORDER', 'repoPathSortOrder');
-define_constant('CREATEVIEWVCCONF', 'createviewvcconf');
-define_constant('VIEWVCCONF', 'ViewvcConf');
-define_constant('VIEWVCGROUPS', 'ViewvcGroups');
-define_constant('VIEWVCLOCATION', 'ViewvcLocation');
-define_constant('WRITEANONYMOUSACCESSRIGHTS', 'write_anonymous_access_rights');
-
-define_constant('DATABASE_CHARSET', 'database_charset');
-define_constant('DATABASECHARSET', 'databaseCharset');
-define_constant('DATABASE_COLLATION', 'database_collation');
-define_constant('DATABASECOLLATION', 'databaseCollation');
-define_constant('DATABASE_TYPE', 'database_type');
-define_constant('DATABASE_PASSWORD', 'database_password');
-define_constant('DATABASEPASSWORD', 'databasePassword');
-define_constant('DATABASE_USER', 'database_user');
-define_constant('DATABASEUSER', 'databaseUser');
-define_constant('DATABASE_HOST', 'database_host');
-define_constant('DATABASEHOST', 'databaseHost');
-define_constant('DATABASE_NAME', 'database_name');
-define_constant('DATABASENAME', 'databaseName');
-define_constant('DATABASE_SCHEMA', 'database_schema');
-define_constant('DATABASESCHEMA', 'databaseSchema');
-define_constant('DATABASE_PREFIX', 'database_prefix');
-define_constant('DATABASE_TABLESPACE', 'database_tablespace');
-define_constant('DATABASETABLESPACE', 'databaseTablespace');
-define_constant('MYSQLI', 'mysqli');
-define_constant('MYSQL', 'mysql');
-define_constant('ROLLBACK', 'ROLLBACK');
-define_constant('BEGIN', 'BEGIN');
-define_constant('COMMIT', 'COMMIT');
-
-define_constant('LDAP_PROTOCOL', 'ldap_protocol');
-define_constant('BIND_DN', 'bind_dn');
-define_constant('USER_DN', 'user_dn');
-define_constant('LDAP_SERVER', 'ldap_server');
-define_constant('BIND_PW', 'bind_pw');
-define_constant('USER_OBJECTCLASS', 'user_objectclass');
-define_constant('ATTR_MAPPING', 'attr_mapping');
-define_constant('USE_LDAP', 'use_ldap');
-define_constant('CUSTOM_COLUMN1', 'custom_column1');
-define_constant('CUSTOM_COLUMN2', 'custom_column2');
-define_constant('CUSTOM_COLUMN3', 'custom_column3');
-define_constant('ADMIN', 'admin');
-define_constant('EDIT', 'edit');
-define_constant('DELETE', 'delete');
-
-define_constant('MESSAGES', 'messages');
-define_constant('SVNLPW', 'svn_lpw');
-define_constant('PWCRYPT', 'pwcrypt');
-define_constant('MINPASSWORDGROUPUSER', 'minPasswordGroupsUser');
-define_constant('DESCRIPTION', 'description');
-
-define_constant('WINDOWS', 'windows');
-
 define_constant('SVN_INST', 'svn_inst');
-define_constant('SVNADMIN_COMMAND', 'svnadmin_command');
-define_constant('CHECKED', 'checked');
-define_constant('MEMBERS', 'members');
-define_constant('ADD', 'add');
-define_constant('NEW', 'new');
-define_constant('RELIST', 'relist');
-define_constant('PASSWORD', 'password');
-define_constant('ADMIN_EMAIL', 'admin_email');
-define_constant('PASSWORD_EXPIRES', 'password_expires');
-define_constant('WRITE', 'write');
-define_constant('CHANGE', 'change');
-define_constant('SEPARATEFILESPERREPO', 'separateFilesPerRepo');
-define_constant('NOPERMISSION', 'nopermission');
-define_constant('SECURITYQUESTION', 'securityquestion');
-define_constant('PASSWORD_POLICY', 'password_policy');
-define_constant('SELECTED', 'selected');
-define_constant('ALLOWED_ACTION', 'allowed_action');
-define_constant('SEARCHRESULT', 'searchresult');
-define_constant('RIGHTSGRANTED', 'rightsgranted');
-define_constant('PASSWORDEXPIRES', 'passwordexpires');
-define_constant('LOCKED', 'locked');
-define_constant('ADMINSTER', 'adminster');
-define_constant('APRMD5', 'apr-md5');
+
+define('PROJECTS', 'projects');
+define('GROUPS', 'groups');
+define('USERS', 'users');
+define('ACCESS', 'access');
+define('PROJECT', 'project');
+define('RIGHT', 'right');
+
+define('DBERROR', 'dberror');
+define('DBQUERY', 'dbquery');
+define('DBFUNCTION', 'dbfunction');
+define('RESULT', 'result');
+define('NOTSET', 'not set');
+
+define('BACK', 'back');
+define('DELETE', 'delete');
+define('REPOS', 'repos');
+define('GENERAL', 'general');
+define('PREFERENCES', 'preferences');
+define('REPORTS', 'reports');
+define('SEARCH', 'search');
+
+define('ERROR', 'error');
+define('ERRORMSG', 'errormsg');
+define('ERRORLIST', 'errorlist');
+define('ERRORTYPE', 'errortype');
+define('ALERT', 'alert');
+define('DANGER', 'danger');
+define('SUCCESS', 'success');
+define('WARNING', 'warning');
+
+define('PROJECT_ID', 'project_id');
+define('PROJECTID', 'projectid');
+define('REPO_ID', 'repo_id');
+define('REPOID', 'repoid');
+define('USER_ID', 'user_id');
+define('USERID', 'userid');
+define('GROUP_ID', 'group_id');
+define('GROUPID', 'groupid');
+define('RIGHTID', 'rightid');
+define('GROUPNAME', 'groupname');
+define('GROUPDESCR', 'groupdescr');
+define('USERNAME', 'username');
+define('SVNMODULE', 'svnmodule');
+define('REPONAME', 'reponame');
+define('REPOPATH', 'repopath');
+define('REPOUSER', 'repouser');
+define('REPOPASSWORD', 'repopassword');
+define('USER_MODE', 'user_mode');
+define('RIGHT_NAME', 'right_name');
+define('ALLOWED', 'allowed');
+define('TASK', 'task');
+define('SVNGROUPS', 'svngroups');
+define('SVNUSERS', 'svnusers');
+define('MODULEPATH', 'modulepath');
+define('PATHCNT', 'pathcnt');
+
+define('PAGESIZE', 'page_size');
+define('ACCESSBY', 'access_by');
+define('ACCESS_RIGHT', 'access_right');
+define('USER_SORT_FIELDS', 'user_sort_fields');
+define('USER_SORT_ORDER', 'user_sort_order');
+
+define('GIVENNAME', 'givenname');
+define('BULKADDLIST', 'bulkaddlist');
+define('EMAILADDRESS', 'emailaddress');
+
+define('HELPTOPIC', 'helptopic');
+define('HEADLINE', 'headline');
+define('HELPTEXT', 'helptext');
+
+define('SEPARATEFILESPERREPO', 'separateFilesPerRepo');
+define('AUTHUSERFILE', 'AuthUserFile');
+define('CREATEAUTHUSERFILE', 'createauthuserfile');
+define('CREATEACCESSFILE', 'createaccessfile');
+define('SVNACCESSFILE', 'SVNAccessFile');
+define('REPOPATHSORTORDER', 'repoPathSortOrder');
+define('CREATEVIEWVCCONF', 'createviewvcconf');
+define('VIEWVCCONF', 'ViewvcConf');
+define('VIEWVCGROUPS', 'ViewvcGroups');
+define('VIEWVCLOCATION', 'ViewvcLocation');
+define('WRITEANONYMOUSACCESSRIGHTS', 'write_anonymous_access_rights');
+
+define('DATABASE_CHARSET', 'database_charset');
+define('DATABASECHARSET', 'databaseCharset');
+define('DATABASE_COLLATION', 'database_collation');
+define('DATABASECOLLATION', 'databaseCollation');
+define('DATABASE_TYPE', 'database_type');
+define('DATABASE_PASSWORD', 'database_password');
+define('DATABASEPASSWORD', 'databasePassword');
+define('DATABASE_USER', 'database_user');
+define('DATABASEUSER', 'databaseUser');
+define('DATABASE_HOST', 'database_host');
+define('DATABASEHOST', 'databaseHost');
+define('DATABASE_NAME', 'database_name');
+define('DATABASENAME', 'databaseName');
+define('DATABASE_SCHEMA', 'database_schema');
+define('DATABASESCHEMA', 'databaseSchema');
+define('DATABASE_PREFIX', 'database_prefix');
+define('DATABASE_TABLESPACE', 'database_tablespace');
+define('DATABASETABLESPACE', 'databaseTablespace');
+define('MYSQLI', 'mysqli');
+define('MYSQL', 'mysql');
+define('ROLLBACK', 'ROLLBACK');
+define('BEGIN', 'BEGIN');
+define('COMMIT', 'COMMIT');
+
+define('LDAP_PROTOCOL', 'ldap_protocol');
+define('BIND_DN', 'bind_dn');
+define('USER_DN', 'user_dn');
+define('LDAP_SERVER', 'ldap_server');
+define('BIND_PW', 'bind_pw');
+define('USER_OBJECTCLASS', 'user_objectclass');
+define('ATTR_MAPPING', 'attr_mapping');
+define('USE_LDAP', 'use_ldap');
+define('CUSTOM_COLUMN1', 'custom_column1');
+define('CUSTOM_COLUMN2', 'custom_column2');
+define('CUSTOM_COLUMN3', 'custom_column3');
+define('ADMIN', 'admin');
+define('EDIT', 'edit');
+
+define('MESSAGES', 'messages');
+define('SVNLPW', 'svn_lpw');
+define('PWCRYPT', 'pwcrypt');
+define('MINPASSWORDGROUPUSER', 'minPasswordGroupsUser');
+define('DESCRIPTION', 'description');
+
+define('WINDOWS', 'windows');
+define('SVNADMIN_COMMAND', 'svnadmin_command');
+define('CHECKED', 'checked');
+define('MEMBERS', 'members');
+define('ADD', 'add');
+define('NEW', 'new');
+define('RELIST', 'relist');
+define('PASSWORD', 'password');
+define('PASSWORD2', 'password2');
+define('ADMIN_EMAIL', 'admin_email');
+define('PASSWORD_EXPIRES', 'password_expires');
+define('WRITE', 'write');
+define('CHANGE', 'change');
+define('NOPERMISSION', 'nopermission');
+define('SECURITYQUESTION', 'securityquestion');
+define('PASSWORD_POLICY', 'password_policy');
+define('SELECTED', 'selected');
+define('ALLOWED_ACTION', 'allowed_action');
+define('SEARCHRESULT', 'searchresult');
+define('RIGHTSGRANTED', 'rightsgranted');
+define('PASSWORDEXPIRES', 'passwordexpires');
+define('LOCKED', 'locked');
+define('ADMINSTER', 'adminster');
+define('APRMD5', 'apr-md5');
+define('LDAP_SORT_FIELD', 'ldap_sort_field');
+
+define('MESSAGEID', 'messageid');
+define('TOOLTIP_SHOW', 'tooltip_show');
+define('TOOLTIP_HIDE', 'tooltip_hide');
 
 ?>
 

@@ -4,7 +4,7 @@
  * Database functions arround PostgrSQL for installer.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All righhts reserved.
+ * @copyright 2008-2018 Thomas Krieger. All righhts reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /**
@@ -131,7 +131,7 @@ function createLogTableProstgresql($dbh, $schema, $dbuser) {
 function createPreferencesTableProstgresql($dbh, $schema, $dbuser) {
 
     // Table preferences
-    $query = "CREATE TABLE preferences (id bigint NOT NULL, user_id integer NOT NULL, page_size integer NOT NULL, user_sort_fields character varying(255) NOT NULL, user_sort_order character varying(255) NOT NULL, created character varying(14) NOT NULL  DEFAULT '00000000000000', created_user character varying(255) DEFAULT ' ', modified character varying(14) NOT NULL DEFAULT '00000000000000', modified_user character varying(255) DEFAULT ' ', deleted character varying(14) NOT NULL DEFAULT '00000000000000', deleted_user character varying(255) DEFAULT ' ');";
+    $query = "CREATE TABLE preferences (id bigint NOT NULL, user_id integer NOT NULL, page_size integer NOT NULL, user_sort_fields character varying(255) NOT NULL, user_sort_order character varying(255) NOT NULL, tooltip_show integer NOT NULL DEFAULT 700, tooltip_hide integer NOT NULL DEFAULT 300, created character varying(14) NOT NULL  DEFAULT '00000000000000', created_user character varying(255) DEFAULT ' ', modified character varying(14) NOT NULL DEFAULT '00000000000000', modified_user character varying(255) DEFAULT ' ', deleted character varying(14) NOT NULL DEFAULT '00000000000000', deleted_user character varying(255) DEFAULT ' ');";
     db_query_install($query, $dbh);
     $query = "ALTER TABLE $schema.preferences OWNER TO $dbuser;";
     db_query_install($query, $dbh);
@@ -360,9 +360,9 @@ function createSvnAccessRightsTableProstgresql($dbh, $schema, $dbuser) {
     db_query_install($query, $dbh);
     $query = "ALTER TABLE svn_access_rights ALTER COLUMN id SET DEFAULT nextval('svn_access_rights_id_seq'::regclass);";
     db_query_install($query, $dbh);
-    $query = "ALTER TABLE svn_access_rights ALTER COLUMN user_id SET DEFAULT 0;";
+    $query = "ALTER TABLE svn_access_rights ALTER COLUMN user_id SET DEFAULT NULL;";
     db_query_install($query, $dbh);
-    $query = "ALTER TABLE svn_access_rights ALTER COLUMN group_id SET DEFAULT 0;";
+    $query = "ALTER TABLE svn_access_rights ALTER COLUMN group_id SET DEFAULT NULL;";
     db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY svn_access_rights ADD CONSTRAINT svn_access_rights_pkey PRIMARY KEY (id);";
     db_query_install($query, $dbh);
@@ -637,6 +637,35 @@ function createUserrightsTableProstgresql($dbh, $schema, $dbuser) {
     $query = "ALTER TABLE ONLY users_rights ADD CONSTRAINT users_rights_right_id_fkey FOREIGN KEY (right_id) REFERENCES rights(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
     db_query_install($query, $dbh);
     $query = "ALTER TABLE ONLY users_rights ADD CONSTRAINT users_rights_user_id_fkey FOREIGN KEY (user_id) REFERENCES svnusers(id) ON UPDATE RESTRICT ON DELETE CASCADE;";
+    db_query_install($query, $dbh);
+    
+}
+
+/**
+ * cresate table messagews
+ * 
+ * @param resource $dbh
+ * @param string $schema
+ * @param string $dbuser
+ */
+function createMessagesTableProstgresql($dbh, $schema, $dbuser) {
+    
+    // Table messages
+    $query = "CREATE TABLE messages (id bigint NOT NULL, validfrom character varying(8) DEFAULT '00000000'::character varying NOT NULL, validuntil character varying(8) NOT NULL DEFAULT '99999999', message character varying DEFAULT ' ', created character varying(14) NOT NULL DEFAULT '00000000000000', created_user character varying(255) DEFAULT ' ',modified character varying(14) NOT NULL DEFAULT '00000000000000', modified_user character varying(255) DEFAULT ' ', deleted character varying(14) NOT NULL DEFAULT '00000000000000', deleted_user character varying(255) DEFAULT ' ');";
+    db_query_install($query, $dbh);
+    $query = "ALTER TABLE $schema.messages OWNER TO $dbuser;";
+    db_query_install($query, $dbh);
+    $query = "COMMENT ON TABLE messages IS 'Table of messages';";
+    db_query_install($query, $dbh);
+    $query = "CREATE SEQUENCE messages_id_seq START WITH 1 INCREMENT BY 1 NO MAXVALUE NO MINVALUE CACHE 1;";
+    db_query_install($query, $dbh);
+    $query = "ALTER TABLE $schema.messages_id_seq OWNER TO $dbuser;";
+    db_query_install($query, $dbh);
+    $query = "ALTER SEQUENCE messages_id_seq OWNED BY messages.id;";
+    db_query_install($query, $dbh);
+    $query = "ALTER TABLE messages ALTER COLUMN id SET DEFAULT nextval('messages_id_seq'::regclass);";
+    db_query_install($query, $dbh);
+    $query = "ALTER TABLE ONLY messages ADD CONSTRAINT messages_pkey PRIMARY KEY (id);";
     db_query_install($query, $dbh);
     
 }

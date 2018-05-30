@@ -4,7 +4,7 @@
  * SVN Access manager Installer
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -423,6 +423,9 @@ function createPgDatabaseTables($dbh, $charset, $schema, $tablespace, $dbuser) {
     // Table users_rights
     createUserrightsTableProstgresql($dbh, $schema, $dbuser);
     
+    // Table messages
+    createMessagesTableProstgresql($dbh, $schema, $dbuser);
+    
     $ret = array();
     $ret[ERROR] = $error;
     $ret[ERRORMSG] = $tMessage;
@@ -534,6 +537,7 @@ function createMySQLDatabaseTables($dbh, $charset, $collation) {
     createUserRightsTableMySQL($dbh, $charset, $collation);
     createSvnGroupsResponsibleTableMySQL($dbh, $charset, $collation);
     createSvnPasswordResetTableMySQL($dbh, $charset, $collation);
+    createMessagesTableMySQL($dbh, $charset, $collation);
     
     $ret = array();
     $ret[ERROR] = $error;
@@ -1065,18 +1069,18 @@ function checkSessionValuesAdmin() {
         $error = 1;
     }
     
-    if (($_SESSION[SVN_INST]['password'] == "") || ($_SESSION[SVN_INST]['password2'] == "")) {
+    if ((($_SESSION[SVN_INST][PASSWORD] == "") || ($_SESSION[SVN_INST][PASSWORD2] == "")) && (strtoupper($_SESSION[SVN_INST]['useLdap']) != "YES")) {
         
         $tErrors[] = _("Administrator password is missing!");
         $error = 1;
     }
     
-    if ($_SESSION[SVN_INST]['password'] != $_SESSION[SVN_INST]['password2']) {
+    if ($_SESSION[SVN_INST][PASSWORD] != $_SESSION[SVN_INST][PASSWORD2]) {
         
         $tErrors[] = _("Administrator passwords do not match!");
         $error = 1;
     }
-    elseif (checkPasswordPolicy($_SESSION[SVN_INST]['password'], 'y') == 0) {
+    elseif ((checkPasswordPolicy($_SESSION[SVN_INST][PASSWORD], 'y') == 0) && (strtoupper($_SESSION[SVN_INST]['useLdap']) != "YES")) {
         
         $tErrors[] = _("Administrator password is not strong enough!");
         $error = 1;
@@ -1402,7 +1406,7 @@ function replaceTokens($content, $viewvcconf, $viewvcgroups, $preCompatible, $in
 
 /**
  * check svnadmin command
- * 
+ *
  * @return string
  */
 function checkSvnadminCommand() {
@@ -1417,7 +1421,7 @@ function checkSvnadminCommand() {
         
         if (count($treffer) > 0) {
             
-            foreach( $treffer as $entry ) {
+            foreach( $treffer as $entry) {
                 
                 $entry = explode(":", $entry);
                 $entry = $entry[0];
@@ -1441,7 +1445,7 @@ function checkSvnadminCommand() {
 
 /**
  * get installbase
- * 
+ *
  * @return string
  */
 function getInstallBase() {
@@ -1452,6 +1456,7 @@ function getInstallBase() {
 
 /**
  * write config file content
+ *
  * @param string $confignew
  * @param string $content
  * @return array[][]
@@ -1489,7 +1494,7 @@ function writeConfigContent($confignew, $content) {
 
 /**
  * write configuration file
- * 
+ *
  * @param string $configtmpl
  * @param string $confignew
  * @param string $configfile
@@ -1558,7 +1563,7 @@ function doInstallConfigFile($configtmpl, $confignew, $configfile) {
 
 /**
  * install MNySQL dfatabase tables
- * 
+ *
  * @param resource $dbh
  * @return array[][]
  */
@@ -1629,7 +1634,7 @@ function doInstallDatabaseMySQL($dbh) {
 
 /**
  * install postgresql database tables
- * 
+ *
  * @param resource $dbh
  * @return array[][]
  */
@@ -1700,7 +1705,7 @@ function doInstallDatabasePostgres($dbh) {
 
 /**
  * install oracle database tables
- * 
+ *
  * @param resource $dbh
  * @param string $schema
  * @return array[][]
@@ -1814,7 +1819,7 @@ function doInstallDatabase() {
         
         if ($error == 0) {
             
-            $ret = createAdmin($_SESSION[SVN_INST]['username'], $_SESSION[SVN_INST]['password'], $_SESSION[SVN_INST]['givenname'], $_SESSION[SVN_INST]['name'], $_SESSION[SVN_INST]['adminEmail'], $_SESSION[SVN_INST]['database'], $dbh, $_SESSION[SVN_INST][DATABASESCHEMA]);
+            $ret = createAdmin($_SESSION[SVN_INST]['username'], $_SESSION[SVN_INST][PASSWORD], $_SESSION[SVN_INST]['givenname'], $_SESSION[SVN_INST]['name'], $_SESSION[SVN_INST]['adminEmail'], $_SESSION[SVN_INST]['database'], $dbh, $_SESSION[SVN_INST][DATABASESCHEMA]);
             if ($ret[ERROR] != 0) {
                 
                 $tErrors[] = $ret[ERRORMSG];
@@ -1847,7 +1852,7 @@ function doInstallDatabase() {
 
 /**
  * perform installatiomn
- * 
+ *
  * @return array[]
  */
 function doInstall() {
@@ -1931,7 +1936,7 @@ function doInstall() {
 
 /**
  * get installe configuration directory
- * 
+ *
  * @return string
  */
 function getInstallerConfigDir() {
@@ -2024,7 +2029,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tWebsiteCharset = "";
     $tWebsiteUrl = "";
     $tLpwMailSender = "";
-    $tLpwLinkValid = "";
+    $tLpwLinkValid = 2;
     $tUsername = "";
     $tPassword = "";
     $tPassword2 = "";
@@ -2263,8 +2268,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $_SESSION[SVN_INST]['lpwMailSender'] = $tLpwMailSender;
     $_SESSION[SVN_INST]['lpwLinkValid'] = $tLpwLinkValid;
     $_SESSION[SVN_INST]['username'] = $tUsername;
-    $_SESSION[SVN_INST]['password'] = $tPassword;
-    $_SESSION[SVN_INST]['password2'] = $tPassword2;
+    $_SESSION[SVN_INST][PASSWORD] = $tPassword;
+    $_SESSION[SVN_INST][PASSWORD2] = $tPassword2;
     $_SESSION[SVN_INST]['givenname'] = $tGivenname;
     $_SESSION[SVN_INST]['name'] = $tName;
     $_SESSION[SVN_INST]['adminEmail'] = $tAdminEmail;
@@ -2481,7 +2486,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $error = 1;
         }
         
-        if (($tPassword == "") || ($tPassword2 == "")) {
+        if ((($tPassword == "") || ($tPassword2 == "")) && (strtoupper($tUseLdap) != "YES")) {
             
             $tErrors[] = _("Administrator password is missing!");
             $error = 1;
@@ -2491,7 +2496,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tErrors[] = _("Administrator passwords do not match!");
             $error = 1;
         }
-        elseif (checkPasswordPolicy($tPassword, 'y') == 0) {
+        elseif ((checkPasswordPolicy($tPassword, 'y') == 0) && (strtoupper($tUseLdap) != "YES")) {
             
             $tErrors[] = _("Administrator password is not strong enough!");
             $error = 1;
@@ -2654,8 +2659,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tLpwMailSender = isset($_SESSION[SVN_INST]['lpwMailSender']) ? $_SESSION[SVN_INST]['lpwMailSender'] : "";
     $tLpwLinkValid = isset($_SESSION[SVN_INST]['lpwLinkValid']) ? $_SESSION[SVN_INST]['lpwLinkValid'] : "";
     $tUsername = isset($_SESSION[SVN_INST]['username']) ? $_SESSION[SVN_INST]['username'] : "";
-    $tPassword = isset($_SESSION[SVN_INST]['password']) ? $_SESSION[SVN_INST]['password'] : "";
-    $tPassword2 = isset($_SESSION[SVN_INST]['password2']) ? $_SESSION[SVN_INST]['password2'] : "";
+    $tPassword = isset($_SESSION[SVN_INST][PASSWORD]) ? $_SESSION[SVN_INST][PASSWORD] : "";
+    $tPassword2 = isset($_SESSION[SVN_INST][PASSWORD2]) ? $_SESSION[SVN_INST][PASSWORD2] : "";
     $tGivenname = isset($_SESSION[SVN_INST]['givenname']) ? $_SESSION[SVN_INST]['givenname'] : "";
     $tName = isset($_SESSION[SVN_INST]['name']) ? $_SESSION[SVN_INST]['name'] : "";
     $tAdminEmail = isset($_SESSION[SVN_INST]['adminEmail']) ? $_SESSION[SVN_INST]['adminEmail'] : "";

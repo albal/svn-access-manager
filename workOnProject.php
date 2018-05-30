@@ -4,7 +4,7 @@
  * Work on a project
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *           
  */
 
 /*
@@ -52,7 +52,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Project admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "workonproject";
 
@@ -108,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tModulePathError = '';
     $tResponsibleError = '';
     $tDescriptionError = '';
+    $tMembersError = '';
     
     $_SESSION[SVNSESSID][PROJECTID] = $tId;
     
@@ -201,6 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tModulePathError = 'ok';
     $tResponsibleError = 'ok';
     $tDescriptionError = 'ok';
+    $tMembersError = 'ok';
     
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
@@ -342,6 +346,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tMembers = $_SESSION[SVNSESSID][MEMBERS];
         }
+        
+        $tProjectError = '';
+        $tModulePathError = '';
+        $tResponsibleError = '';
+        $tDescriptionError = '';
+        $tMembersError = '';
     }
     elseif ($button == _("Add group")) {
         
@@ -376,6 +386,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tGroups = $_SESSION[SVNSESSID][GROUPS];
         }
+        
+        $tProjectError = '';
+        $tModulePathError = '';
+        $tResponsibleError = '';
+        $tDescriptionError = '';
+        $tMembersError = '';
     }
     elseif ($button == _("Back")) {
         
@@ -415,6 +431,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Project responsible user missing, please fill in!");
                 $tResponsibleError = ERROR;
                 $tMessageType = DANGER;
+                $tMembersError = ERROR;
                 $error = 1;
             }
             else {
@@ -485,6 +502,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     db_ta('COMMIT', $dbh);
                     db_disconnect($dbh);
+                    $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                    $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
                     header("Location: list_projects.php");
                     exit();
                 }
@@ -526,6 +545,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Project responsible user missing, please fill in!");
                 $tResponsibleError = ERROR;
                 $tMessageType = DANGER;
+                $tMembersError = ERROR;
                 $error = 1;
             }
             else {
@@ -535,7 +555,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 if ($result['rows'] > 0) {
                     
-                    $tMessage = _("The project with the name $tProject exists already");
+                    $tMessage = sprintf(_("The project with the name %s exists already"), $tProject);
                     $tProjectError = ERROR;
                     $tMessageType = DANGER;
                     $error = 1;
@@ -549,7 +569,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 db_ta('BEGIN', $dbh);
                 
-                $project = db_getProjectById($tProject, $dbh);
+                $project = db_getProjectById($_SESSION[SVNSESSID][PROJECTID], $dbh);
                 $repo = db_getRepoById($tRepo, $dbh);
                 
                 db_log($_SESSION[SVNSESSID][USERNAME], "updated project $tProject ($tModulepath/$repo)", $dbh);
@@ -641,8 +661,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 if ($error == 0) {
                     
+                    $tMessage = _("Project successfully updated.");
+                    $tMessageType = SUCCESS;
                     db_ta('COMMIT', $dbh);
                     db_disconnect($dbh);
+                    $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                    $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
                     header("Location: list_projects.php");
                     exit();
                 }

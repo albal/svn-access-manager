@@ -4,28 +4,28 @@
  * Output functions to write out menues and other stuff.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
- *  @license GPL v2
- * 
- * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- * 
- * @filesource
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
+ * @license GPL v2
  *         
+ *          SVN Access Manager - a subversion access rights management tool
+ *          Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *         
+ *          This program is free software; you can redistribute it and/or modify
+ *          it under the terms of the GNU General Public License as published by
+ *          the Free Software Foundation; either version 2 of the License, or
+ *          (at your option) any later version.
+ *         
+ *          This program is distributed in the hope that it will be useful,
+ *          but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *          GNU General Public License for more details.
+ *         
+ *          You should have received a copy of the GNU General Public License
+ *          along with this program; if not, write to the Free Software
+ *          Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *         
+ *
+ *
  */
 
 /*
@@ -111,6 +111,12 @@ function outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProje
     if ($rightCreateFiles != "none") {
         
         print '<li><a href="createAccessFiles.php">' . _("Create access files") . '</a></li>';
+    }
+    
+    if ($rightUserAdmin != "none") {
+        
+        print '<li role="separator" class="divider"></li>';
+        print '<li><a href="list_messages.php">' . _("Messages") . '</a></li>';
     }
     
     if (($tAdmin == "p") || ($rightUserAdmin != "none") || ($rightGroupAdmin != "none") || ($rightProjectAdmin != "none") || ($rightRepositoryAdmin != "none") || ($rightAccessRightAdmin != "none") || (count($tGroupsAllowed) > 0) || ($rightCreateFiles != "none")) {
@@ -205,9 +211,7 @@ function outputMenu() {
     print '<ul class="dropdown-menu">';
     print '<li><a href="general.php">' . _("General") . '</a></li>';
     print '<li><a href="password.php">' . _("Password") . '</a></li>';
-    print '<li><a href="password_policy.php">' . _("Password policy") . '</a></li>';
     print '<li><a href="preferences.php">' . _("Preferences") . '</a></li>';
-    print '<li><a href="logout.php">' . _("logoff") . '</a></li>';
     print '</ul>';
     print '</li>';
     /**
@@ -220,8 +224,9 @@ function outputMenu() {
     print '</ul>';
     
     print '<ul class="nav navbar-nav navbar-right">';
-    print '<li><a href="help.php" id="help">' . _("Help") . '</a></li>';
-    print '<li><a href="doc/html/index.html#use">' . _("Documentation") . '</a></li>';
+    print '<li><a href="help.php" id="help"><span class="glyphicon glyphicon-question-sign"></span> ' . _("Help") . '</a></li>';
+    print '<li><a target="_blank" href="https://www.svn-access-manager.org/using-svn-access-manager/"><span class="glyphicon glyphicon-info-sign"></span> ' . _("Documentation") . '</a></li>';
+    print '<li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> ' . _("Logout") . '</a></li>';
     print '</ul>';
     print '</div><!--/.nav-collapse -->';
     print '</div>';
@@ -285,11 +290,11 @@ function outputCustomFields() {
  */
 function outputUsers($tUsers, $rightAllowed) {
 
-    foreach( $tUsers as $entry ) {
+    foreach( $tUsers as $entry) {
         
         global $CONF;
         
-        list($date, $time ) = splitDateTime($entry['password_modified']);
+        list($date, $time ) = splitDateTimeI18n($entry['password_modified']);
         $pwChanged = $date . " " . $time;
         $locked = $entry['locked'] == 0 ? _("no") : _("yes");
         $expires = $entry['passwordexpires'] == 0 ? _("no") : _("yes");
@@ -359,7 +364,7 @@ function outputRepos($tRepos, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tRepos as $entry ) {
+    foreach( $tRepos as $entry) {
         
         if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
             $url = htmlentities("workOnRepo.php?id=" . $entry['id'] . "&task=change");
@@ -399,7 +404,7 @@ function outputProjects($tProjects, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tProjects as $entry ) {
+    foreach( $tProjects as $entry) {
         
         if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
             $url = htmlentities("workOnProject.php?id=" . $entry['id'] . "&task=change");
@@ -429,6 +434,45 @@ function outputProjects($tProjects, $rightAllowed) {
 }
 
 /**
+ * Write a table with all messages to the webpage.
+ *
+ * @param array $tUserMessages
+ * @param string $rightAllowed
+ */
+function outputMessages($tUserMessages, $rightAllowed) {
+
+    global $CONF;
+    
+    foreach( $tUserMessages as $entry) {
+        
+        if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
+            $url = htmlentities("workOnMessage.php?id=" . $entry['id'] . "&task=change");
+            $edit = "<a href=\"$url\" title=\"" . _("Change") . "\" alt=\"" . _("Change") . "\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+        }
+        else {
+            $edit = "";
+        }
+        
+        if ($rightAllowed == DELETE) {
+            $url = htmlentities("deleteMessage.php?id=" . $entry['id'] . "&task=delete");
+            $delete = "<a href=\"$url\" title=\"" . _("Delete") . "\" alt=\"" . _("Delete") . "\"><img src=\"./images/edittrash.png\" border=\"0\" /></a>";
+        }
+        else {
+            $delete = "";
+        }
+        $action = $edit . "     " . $delete;
+        
+        print "\t\t\t\t\t<tr>\n";
+        print "\t\t\t\t\t\t<td>" . $entry['validfrom_date'] . "</td>\n";
+        print "\t\t\t\t\t\t<td>" . $entry['validuntil_date'] . "</td>\n";
+        print "\t\t\t\t\t\t<td>" . $entry['message'] . "</td>\n";
+        print "\t\t\t\t\t\t<td>" . $action . "</td>\n";
+        print "\t\t\t\t\t</tr>\n";
+    }
+    
+}
+
+/**
  * Write a table with all groups to the webpage.
  *
  * @param string $tGroups
@@ -439,7 +483,7 @@ function outputGroups($tGroups, $tGroupsAllowed, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tGroups as $entry ) {
+    foreach( $tGroups as $entry) {
         
         $groupRight = isset($tGroupsAllowed[$entry['id']]) ? $tGroupsAllowed[$entry['id']] : "none";
         
@@ -479,7 +523,7 @@ function outputGroupAdmin($tGroups, $rightAllowed) {
 
     global $CONF;
     
-    foreach( $tGroups as $entry ) {
+    foreach( $tGroups as $entry) {
         
         if (($rightAllowed == EDIT) || ($rightAllowed == DELETE)) {
             $url = htmlentities("workOnGroupAccessRight.php?id=" . $entry['id'] . "&task=change");
@@ -524,7 +568,7 @@ function outputAccessRights($tAccessRights, $rightAllowed) {
     $_SESSION[SVNSESSID]['max_mark'] = 0;
     $_SESSION[SVNSESSID]['mark'] = array();
     
-    foreach( $tAccessRights as $entry ) {
+    foreach( $tAccessRights as $entry) {
         
         $validfrom = splitValidDate($entry['valid_from']);
         $validuntil = splitValiddate($entry['valid_until']);
@@ -576,9 +620,19 @@ function outputAccessRights($tAccessRights, $rightAllowed) {
 function outputMessage($tMessage, $type = '') {
 
     if (empty($tMessage)) {
-        print '<div>&nbsp;</div>';
+        
+        if ((isset($_SESSION[SVNSESSID][ERRORMSG])) && (! empty($_SESSION[SVNSESSID][ERRORMSG]))) {
+            $tMessage = $_SESSION[SVNSESSID][ERRORMSG];
+            $type = (isset($_SESSION[SVNSESSID][ERRORTYPE])) ? $_SESSION[SVNSESSID][ERRORTYPE] : 'info';
+            
+            print "<div class=\"alert alert-" . $type . "\">" . $tMessage . "</div>";
+            
+            $_SESSION[SVNSESSID][ERRORMSG] = '';
+            $_SESSION[SVNSESSID][ERRORTYPE] = '';
+        }
     }
     else {
+        
         if (empty($type)) {
             $type = 'info';
         }
@@ -638,6 +692,80 @@ function outputResponseClasses($type = '') {
     }
     
     return ($type);
+    
+}
+
+/**
+ * output configuration data
+ */
+function outputConfig() {
+
+    global $CONF;
+    
+    print '<div><h3>' . _("Configuration") . '</h3></div>';
+    print '<div>';
+    print '<div>';
+    print '<label>' . _("Database type") . ':</label>';
+    print '<div>';
+    print '<p>' . $CONF['database_type'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '<div>';
+    print '<label>' . _("Database host") . ':</label>';
+    print '<div>';
+    print '<p>' . $CONF['database_host'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '<div>';
+    print '<label>' . _("Database user") . ':</label>';
+    print '<div>';
+    print '<p>' . $CONF['database_user'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '<div>';
+    print '<label>' . _("Database name") . ':</label>';
+    print '<div>';
+    print '<p>' . $CONF['database_name'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '</div>';
+    
+}
+
+/**
+ * output statistics data
+ *
+ * @param array $tStats
+ */
+function outputStatistics($tStats) {
+
+    print '<div><h3>' . _("Statistics") . '</h3></div>';
+    print '<div>';
+    print '<div>';
+    print '<label>' . _("Users active / locked / deleted") . '</label>';
+    print '<div>';
+    print '<p>' . $tStats['user_active'] . ' / ' . $tStats['user_locked'] . ' / ' . $tStats['user_deleted'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '<div>';
+    print '<label>' . _("Groups active / deleted") . '</label>';
+    print '<div>';
+    print '<p>' . $tStats['group_active'] . ' / ' . $tStats['group_deleted'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '<div>';
+    print '<label>' . _("Projects active / deleted") . '</label>';
+    print '<div>';
+    print '<p>' . $tStats['project_active'] . ' / ' . $tStats['project_deleted'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '<div>';
+    print '<label>' . _("Repositories active / deleted") . '</label>';
+    print '<div>';
+    print '<p>' . $tStats['repo_active'] . ' / ' . $tStats['repo_deleted'] . '</p>';
+    print '</div>';
+    print '</div>';
+    print '</div>';
     
 }
 ?>

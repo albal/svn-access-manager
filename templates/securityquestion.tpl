@@ -34,7 +34,13 @@ include( "./include/output.inc.php" );
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="SVN Access Manager Sign in">
     <meta name="author" content="Thomas Krieger">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="/imaghes/favicon.ico">
+    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
 
     <title>SVN Access Manager</title>
 
@@ -48,10 +54,6 @@ include( "./include/output.inc.php" );
     <link href="./style/signin.css" rel="stylesheet">
     <link href="./lib/bootstrap-3.3.7/css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="./style/svnam.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./lib/bootstrap-3.3.7/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -120,7 +122,7 @@ include( "./include/output.inc.php" );
         <div class="form-group <?php print outputResponseClasses($tAnswerError); ?>">
             <label class="col-sm-3 control-label" for="answer"><?php print _("Answer"); ?>:</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="answer" name="ffAnswer" value="<?php print $tAnswer; ?>" />
+                <input type="text" class="form-control" id="answer" name="ffAnswer" value="<?php print $tAnswer; ?>" data-toggle="tooltip" title="<?php print _("Enter the answer to the security question."); ?>" />
                 <?php print outputResponseSpan($tAnswerError); ?>
             </div>
         </div>

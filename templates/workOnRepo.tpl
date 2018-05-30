@@ -1,32 +1,35 @@
 <div>      
     <h3 class="page-header"><?php print _("Repository administration"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="workOnRepo" method="post">
-        <div class="form-group <?php print outputResponseClasses($ReponameError); ?>">
+        <div class="form-group <?php print outputResponseClasses($tReponameError); ?>">
             <label class="col-sm-3 control-label" for="name"><?php print _("Repository name"); ?>:</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="name" name="fReponame" value="<?php print $tReponame; ?>" />
+                <input type="text" class="form-control" id="name" name="fReponame" value="<?php print $tReponame; ?>" data-toggle="tooltip" totle="<?php print _("Enter repository name"); ?>" />
                 <?php print outputResponseSpan($tReponameError); ?>
             </div>
         </div>
         <div class="form-group <?php print outputResponseClasses($tRepopathError); ?>">
             <label class="col-sm-3 control-label" for="path"><?php print _("Repository path"); ?>:</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="path" name="fRepopath" value="<?php print $tRepopath; ?>" />
+                <input type="text" class="form-control" id="path" name="fRepopath" value="<?php print $tRepopath; ?>" data-toggle="tooltip" title="<?php print _("Enter repository path"); ?>" />
                 <?php print outputResponseSpan($tRepopathError); ?>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label" for="user"><?php print _("Repository user"); ?>:</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="user" name="fRepouser" value="<?php print $tRepouser; ?>" />
+                <input type="text" class="form-control" id="user" name="fRepouser" value="<?php print $tRepouser; ?>" data-toggle="tooltip" title="<?php print _("Enter the user to access a remote repository."); ?>" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label" for="password"><?php print _("Repository password"); ?>:</label>
             <div class="col-sm-9">
-                <input type="password" class="form-control" id="password" name="fRepopassword" value="<?php print $tRepopassword; ?>" />
+                <input type="password" class="form-control" id="password" name="fRepopassword" value="<?php print $tRepopassword; ?>" data-toggle="tooltip" title="<?php print _("Enter the password to access a remote repository."); ?>" />
             </div>
         </div>
         <div class="form-group">
@@ -41,7 +44,7 @@
                     }
                 }
             ?>
-            <label><input type="checkbox" name="fCreateRepo" value="1" <?php print $checked; ?> ><?php print _("Create repository in filesystem"); ?></label>
+            <label><?php print _("Create repository in filesystem"); ?> <input type="checkbox" name="fCreateRepo" value="1" <?php print $checked; ?> data-toggle="tooltip" title="<?php print _("Select if repository should be created in filesystem too. Appropriate rights for the webserver are mandatory."); ?>" ></label>
         </div>
         <?php
             if(isset( $CONF[SEPARATEFILESPERREPO]) && ($CONF[SEPARATEFILESPERREPO] != "YES")) {
@@ -70,20 +73,16 @@
         </div>    
         <div class="input-group">
             <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Save"); ?>"><span class="glyphicon glyphicon-save"></span> <?php print _("Save"); ?></button>
-            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php print _("Back"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
         </div>
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-         <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script type="text/javascript">
    
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
     });
 </script>

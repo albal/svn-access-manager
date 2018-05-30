@@ -42,7 +42,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="SVN Access Manager">
     <meta name="author" content="Thomas Krieger">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
 
     <title>SVN Access Manager</title>
 
@@ -66,19 +66,21 @@
     <link href="./style/svnam.css" rel="stylesheet">
     
     <!-- Bootstrap formhelpers -->
-    <link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers.css" rel="stylesheet">
-    <link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers-countries.flags.css" rel="stylesheet">
-    <link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers-currencies.flags.css" rel="stylesheet">
-    
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--<script src="./lib/bootstrap-3.3.7/js/ie-emulation-modes-warning.js"></script>-->
+    <!--<link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers.css" rel="stylesheet">-->
+    <!--<link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers-countries.flags.css" rel="stylesheet">-->
+    <!--<link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers-currencies.flags.css" rel="stylesheet">-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="./lib/bootstrap-3.3.7/js/html5shiv.min.js"></script>
       <script src="./lib/bootstrap-3.3.7/js/respond.min.js"></script>
     <![endif]-->
+    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
     
     
     <script language="javascript" type="text/javascript">
@@ -162,6 +164,7 @@
      
                 <?php 
                     $datetime = htmlentities(strftime("%c"));
+                    $tBuildInfo = 'Build: ###DATE### - ###BUILDNR###';
                 ?>
             
                 <div class="row">
@@ -177,34 +180,28 @@
     <div id="dialog-confirm" class="modal toggle fade" role="dialog">
       <div class="modal-dialog">
         <?php 
-            $dbh                                        = db_connect ();
+            $dbh                                        = db_connect();
             $tText                                      = array();
                 
             if( isset( $_SESSION[SVNSESSID][HELPTOPIC] ) ) {
                     
-                $schema                                 = db_determine_schema();
-                
+                $schema                                 = db_determine_schema();               
                 $lang                                   = check_language();
                 $query                                  = "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
                                                           "  FROM ".$schema."help " .
                                                           " WHERE topic = '".$_SESSION[SVNSESSID][HELPTOPIC]."'";
                 $result                                 = db_query( $query, $dbh );
                 
-                if( $result['rows'] > 0 ) {
-                
+                if( $result['rows'] > 0 ) {  
                     $tText                              = db_assoc( $result['result'] );
-                    
                 } else {
-                    
                     $tText[HEADLINE]                    = _("No help found");
                     $tText[HELPTEXT]                    = sprintf( _("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID][HELPTOPIC] );
                 }
                 
             } else {
-                
                 $tText[HEADLINE]                        = _("No help found");
-                $tText[HELPTEXT]                        = _("There is no help topic set");
-                    
+                $tText[HELPTEXT]                        = _("There is no help topic set");    
             }
         ?>
                 
@@ -219,9 +216,7 @@
                 <?php
                     $text_arr           = explode( "\r\n", $tText[HELPTEXT] );
                     foreach( $text_arr as $text ) {
-                    
-                        print "<p>$text<br/>&nbsp;</p>\n";
-                        
+                        print "<p>$text<br/>&nbsp;</p>\n";                        
                     }
                 ?>
           </div>
@@ -240,10 +235,10 @@
 	<script src="./lib/bootstrap-3.3.7/js/bootstrap-select.min.js"></script>
 	<script src="./lib/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script>
 	
-	<script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-selectbox.js"></script>
-    <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-countries.en_US.js"></script>
-    <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-languages.codes.js"></script>
-    <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-languages.js"></script>
+	<!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-selectbox.js"></script> -->
+    <!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-countries.en_US.js"></script> -->
+    <!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-languages.codes.js"></script> -->
+    <!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-languages.js"></script> -->
     
 	<script type="text/javascript">
 		

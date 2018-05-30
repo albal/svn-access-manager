@@ -4,7 +4,7 @@
  * Work on a group
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -33,6 +33,10 @@
  *
  * $Id$
  *
+ */
+
+/**
+ * work on groups
  */
 include ('load_config.php');
 
@@ -51,7 +55,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "workongroup";
 
@@ -104,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tGroupError = '';
     $tDescriptionError = '';
+    $tMembersError = '';
     
     if ($tTask == RELIST) {
         
@@ -226,6 +233,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tMembers = array();
     }
     
+    $tGroupError = 'ok';
+    $tDescriptionError = 'ok';
+    $tMembersError = 'ok';
+    
     if ($button == _("Add member")) {
         
         $_SESSION[SVNSESSID][GROUPDESCR] = $tDescription;
@@ -258,6 +269,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tMembers = $_SESSION[SVNSESSID][MEMBERS];
         }
+        
+        $tGroupError = '';
+        $tDescriptionError = '';
+        $tMembersError = '';
+        
     }
     elseif ($button == _("Submit")) {
         
@@ -281,6 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             
             $tMessage = _("A group must have one member at least! Otherwise delete the whole group!");
             $tMessageType = DANGER;
+            $tMembersError = ERROR;
             $error = 1;
         }
         else {
@@ -363,6 +380,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     db_ta('COMMIT', $dbh);
                     db_disconnect($dbh);
+                    $tMessage = _("Group successfully added");
+                    $tMessageType = SUCCESS;
+                    $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                    $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
                     header("Location: list_groups.php");
                     exit();
                 }
@@ -463,6 +484,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     db_ta('COMMIT', $dbh);
                     db_disconnect($dbh);
+                    $tMessage = _("Group successfully modified");
+                    $tMessageType = SUCCESS;
+                    $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                    $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
                     header("Location: list_groups.php");
                     exit();
                 }

@@ -4,7 +4,7 @@
  * Load global configuration file
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  * @license GPL v2
  *         
  *          SVN Access Manager - a subversion access rights management tool
@@ -24,7 +24,7 @@
  *          along with this program; if not, write to the Free Software
  *          Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *         
- * @filesource
+ *
  */
 
 /*
@@ -36,10 +36,6 @@
  *
  */
 
-/**
- *
- * @global array $CONF
- */
 global $CONF;
 
 /**
@@ -59,12 +55,10 @@ if (! is_array($CONF)) {
         die("can't load config.inc.php. Please check your installation!\n");
     }
 }
-else {
-    if (php_sapi_name() != "cli") {
-        error_log("can't load config.inc.php. CONF is not defined! Please check your installation!");
-    }
-}
 
+/**
+ * define a constant for the install base directory if not yet done
+ */
 if (! defined('INSTALLBASE')) {
     define('INSTALLBASE', 'install_base');
 }

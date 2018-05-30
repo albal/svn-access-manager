@@ -4,7 +4,7 @@
  * Work on an user
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -185,7 +185,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "User admin", $dbh);
 $isGlobalAdmin = db_check_global_admin($SESSID_USERNAME, $dbh);
 $SESSID_USERID = db_getIdByUserid($SESSID_USERNAME, $dbh);
@@ -305,7 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         else {
             
-            $tMessage = sprintf(_("Invalid userid %s requested!"), $id);
+            $tMessage = sprintf(_("Invalid userid %s requested!"), $tId);
             $tMessageType = DANGER;
         }
     }
@@ -507,6 +509,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             
                             if ($result['rows'] == 0) {
                                 
+                                $tMessageType = 'error';
                                 $tMessage = _("Error during database write of user rights");
                                 $error = 1;
                             }
@@ -518,7 +521,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 else {
                     
                     $error = 1;
-                    $tMessaage = _("Error during database insert of user data");
+                    $tMessage = _("Error during database insert of user data");
+                    $tMessageType = 'error';
                 }
                 
                 if ($error != 0) {
@@ -527,10 +531,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
                 else {
                     
-                    db_ta('COMMIT', $dbh);
-                    
-                    $tMessage = _("User successfully inserted");
+                    $tMessage = _("User successfully saved");
                     $tMessageType = SUCCESS;
+                    $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                    $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
+                    
+                    db_ta('COMMIT', $dbh);
+                    db_disconnect($dbh);
+                    header("Location: list_users.php");
+                    exit();
                 }
             }
         }
@@ -683,6 +692,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     
                     $tMessage = _("User successfully modified");
                     $tMessageType = SUCCESS;
+                    $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                    $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
+                    db_disconnect($dbh);
+                    header("Location: list_users.php");
+                    exit();
                 }
                 else {
                     

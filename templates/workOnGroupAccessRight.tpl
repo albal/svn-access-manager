@@ -1,6 +1,9 @@
 <div>      
     <h3 class="page-header"><?php print _("Group access right administration / Step 2: select user and access rights"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="workOnGroupAccessRight" method="post">
         <div class="form-group <?php print outputResponseClasses($tUserError); ?>">
@@ -13,11 +16,15 @@
             <label class="col-sm-2 control-label" for="user"><?php print _("Group members"); ?>:</label>
             <div class="col-sm-4">
                 <select class="selectpicker" name="fUser" id="user" <?php print $tReadonly;?> data-toggle="tooltip" title="<?php print _("Select the user to grant access to the group.");?>" >
-                    <?php
-                        foreach($tMembers as $uid => $member) {
-                            $label = $member." [".$uid."]";
-                            print "\t\t\t\t\t\t\t<option value=\"$uid\" label=\"$label\">$label</option>\n";
-                        }  
+                    <?php                   
+                        foreach( $tUsers as $id => $user ) {
+                        
+                            if( $id == $tUser ) {
+                                print '\t\t\t\t\t\t\t\t<option value="'.$id.'" selected>'.$user.' ['.$id.']</option>\n';
+                            } else {
+                                print '\t\t\t\t\t\t\t\t<option value="'.$id.'">'.$user.' ['.$id.']</option>\n';
+                            }                                       
+                        }
                     ?>
                 </select>
             </div>
@@ -57,20 +64,16 @@
         </div>    
         <div class="input-group">
             <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Save"); ?>"><span class="glyphicon glyphicon-save"></span> <?php print _("Save"); ?></button>
-            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php print _("Back"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
         </div>
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-         <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script type="text/javascript">
     
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
     });
 </script>

@@ -43,15 +43,15 @@
 <div class="form-group">
     <label class="col-sm-3 control-label" for="pwexpire" data-toggle="tooltip" title="<?php print _("Default value for password expiration.");?>"><?php print _("Passwords expire"); ?>:</label>
     <div class="col-sm-4">
-        <label class="radio-inline"><input id="pwexpire" type="radio" name="fExpirePassword"  value="YES" <?php print $tExpirePasswordYes; ?> ><?php print _("Yes"); ?></label>
-        <label class="radio-inline"><input id="pwexpire" type="radio" name="fExpirePassword"  value="NO" <?php print $tExpirePasswordNo; ?> ><?php print _("No"); ?></label>
+        <label class="radio-inline"><input id="pwexpire" type="radio" name="fExpirePassword"  value="1" <?php print $tExpirePasswordYes; ?> ><?php print _("Yes"); ?></label>
+        <label class="radio-inline"><input id="pwexpire" type="radio" name="fExpirePassword"  value="0" <?php print $tExpirePasswordNo; ?> ><?php print _("No"); ?></label>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-3 control-label" for="pwenc" data-toggle="tooltip" title="<?php print _("Choose password encryption.");?>"><?php print _("Password encryption"); ?>:</label>
     <div class="col-sm-4">
-        <label class="radio-inline"><input id="pwenc" type="radio" name="fPwEnc"  value="sha" <?php print $fPwEnc; ?> ><?php print _("SHA"); ?></label>
-        <label class="radio-inline"><input id="pwenc" type="radio" name="fPwEnc"  value="apr-md5" <?php print $fPwEnc; ?> ><?php print _("Apache MD5"); ?></label>
+        <label class="radio-inline"><input id="pwenc" type="radio" name="fPwEnc"  value="sha" <?php print $tPwSha; ?> ><?php print _("SHA"); ?></label>
+        <label class="radio-inline"><input id="pwenc" type="radio" name="fPwEnc"  value="apr-md5" <?php print $tPwApacheMd5; ?> ><?php print _("Apache MD5"); ?></label>
         <label class="radio-inline"><input id="pwenc" type="radio" name="fPwEnc"  value="md5" <?php print $tPwMd5; ?> ><?php print _("MD5"); ?></label>
         <label class="radio-inline"><input id="pwenc" type="radio" name="fPwEnc"  value="crypt" <?php print $tPwCrypt; ?> ><?php print _("Crypt"); ?></label>
     </div>

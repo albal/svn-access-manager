@@ -1,6 +1,9 @@
 <div>      
     <h3 class="page-header"><?php print _("Create Access Files"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="createaccessfiles" method="post">
         <div class="form-group <?php print $tHidden; ?>">
@@ -29,16 +32,12 @@
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-        <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script>
 $(document).ready(function() {
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
     });
 } );
 </script>

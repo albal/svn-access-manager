@@ -4,7 +4,7 @@
  * login to SVN Access manager page
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -50,6 +50,8 @@ $_SESSION[SVNSESSID]['helptopic'] = "login";
 $schema = db_determine_schema();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    
+    $tUsername = "";
     
     include ("$installBase/templates/login.tpl");
 }
@@ -137,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
         $error = 1;
         $tMessage = _('Username and/or password wrong');
+        $tMessageType = 'danger';
     }
     
     if ($error != 1) {
@@ -160,6 +163,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         db_log($_SESSION[SVNSESSID][USERNAME], "user $tUsername logged in", $dbh);
         
         if ($tPasswordExpired == 1) {
+            
+            $_SESSION[SVNSESSID][ERRORMSG] = _('Your password expired.');
+            $_SESSION[SVNSESSID][ERRORTYPE] = 'warning';
             
             db_log($_SESSION[SVNSESSID][USERNAME], "password of user $tUsername expired, force password change", $dbh);
             db_disconnect($dbh);

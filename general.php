@@ -4,7 +4,7 @@
  * general information about the own account
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *           
  */
 
 /*
@@ -94,7 +94,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $_SESSION[SVNSESSID]['helptopic'] = GENERAL;
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -119,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $tName = $row['name'];
         $tGivenname = $row['givenname'];
         $tEmail = $row['emailaddress'];
-        list($date, $time ) = splitdateTime($row['password_modified']);
+        list($date, $time ) = splitDateTimeI18n($row['password_modified']);
         $tPwModified = $date . " " . $time;
         $tLocked = $row['locked'] == 0 ? _("no") : _("yes");
         $tSecurityQuestion = $row['securityquestion'];
@@ -173,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tNameError = 'ok';
     $tEmailError = 'ok';
     $tSecurityQuestionError = 'ok';
-    $tAnsewrError = 'ok';
+    $tAnswerError = 'ok';
     $tCustom1Error = 'ok';
     $tCustom2Error = 'ok';
     $tCustom3Error = 'ok';
@@ -254,19 +256,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($result['rows'] == 1) {
         
         $row = db_assoc($result[RESULT]);
+        
         $tUserid = $row[USERID];
-        $tName = $row['name'];
-        $tGivenname = $row['givenname'];
-        $tEmail = $row['emailaddress'];
+        
         list($date, $time ) = splitdateTime($row['password_modified']);
         $tPwModified = $date . " " . $time;
         $tLocked = $row['locked'] == 0 ? _("no") : _("yes");
-        $tSecurityQuestion = $row['securityquestion'];
-        $tAnswer = $row['securityanswer'];
         $tPasswordExpires = $row['passwordexpires'] == 1 ? _("Yes") : _("No");
-        $tCustom1 = $row['custom1'];
-        $tCustom2 = $row['custom2'];
-        $tCustom3 = $row['custom3'];
+        
+        if ($error == 0) {
+            $tSecurityQuestion = $row['securityquestion'];
+            $tAnswer = $row['securityanswer'];
+            $tName = $row['name'];
+            $tGivenname = $row['givenname'];
+            $tEmail = $row['emailaddress'];
+            $tCustom1 = $row['custom1'];
+            $tCustom2 = $row['custom2'];
+            $tCustom3 = $row['custom3'];
+        }
         
         $tGroups = db_getGroupsForUser($_SESSION[SVNSESSID][USERID], $dbh);
         $tAccessRights = db_getAccessRightsForUser($_SESSION[SVNSESSID][USERID], $tGroups, $dbh);

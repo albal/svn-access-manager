@@ -5,7 +5,7 @@
  *
  * lauthor Thomas Krieger
  *
- * @copyright 2018 Thomas Krieger. Allrights reeserved.
+ * @copyright 2008-2018 Thomas Krieger. Allrights reeserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -24,7 +24,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -39,7 +39,7 @@
  * Test class to test output functionality.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  */
 final class OutputTest extends PHPUnit_Framework_TestCase {

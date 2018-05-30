@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Ü
  * main menu
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -24,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -51,7 +50,26 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $_SESSION[SVNSESSID]['helptopic'] = "main";
 
+$dbh = db_connect();
+$preferences = db_get_preferences($SESSID_USERNAME, $dbh);
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
+
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    
+    $tUsername = isset($_SESSION[SVNSESSID][USERNAME]) ? $_SESSION[SVNSESSID][USERNAME] : 'undefined';
+    $tAdmin = isset($_SESSION[SVNSESSID][ADMIN]) ? $_SESSION[SVNSESSID][ADMIN] : 'n';
+    $rightUserAdmin = db_check_acl($tUsername, 'User admin', $dbh);
+    $rightGroupAdmin = db_check_acl($tUsername, 'Group admin', $dbh);
+    $rightProjectAdmin = db_check_acl($tUsername, 'Project admin', $dbh);
+    $rightRepositoryAdmin = db_check_acl($tUsername, 'Repository admin', $dbh);
+    $rightAccessRightAdmin = db_check_acl($tUsername, 'Access rights admin', $dbh);
+    $rightCreateFiles = db_check_acl($tUsername, 'Create files', $dbh);
+    $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
+    $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
+    $tUserMessages = db_getMessagesShort($dbh);
+    $tStats = db_getStatistics($dbh);
     
     $template = "main.tpl";
     $header = "main";
@@ -63,6 +81,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
+    $tUsername = isset($_SESSION[SVNSESSID][USERNAME]) ? $_SESSION[SVNSESSID][USERNAME] : 'undefined';
+    $tAdmin = isset($_SESSION[SVNSESSID][ADMIN]) ? $_SESSION[SVNSESSID][ADMIN] : 'n';
+    $rightUserAdmin = db_check_acl($tUsername, 'User admin', $dbh);
+    $rightGroupAdmin = db_check_acl($tUsername, 'Group admin', $dbh);
+    $rightProjectAdmin = db_check_acl($tUsername, 'Project admin', $dbh);
+    $rightRepositoryAdmin = db_check_acl($tUsername, 'Repository admin', $dbh);
+    $rightAccessRightAdmin = db_check_acl($tUsername, 'Access rights admin', $dbh);
+    $rightCreateFiles = db_check_acl($tUsername, 'Create files', $dbh);
+    $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
+    $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
+    $tUserMessages = db_getMessagesShort($dbh);
+    $tStats = db_getStatistics($dbh);
+    
     $template = "main.tpl";
     $header = "main";
     $subheader = "main";
@@ -70,5 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     include ("$installBase/templates/framework.tpl");
 }
+
+db_disconnect($dbh);
 
 ?>

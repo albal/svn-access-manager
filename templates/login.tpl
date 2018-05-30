@@ -8,7 +8,7 @@
 include( "./include/output.inc.php" );
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <!--
     SVN Access Manager - a subversion access rights management tool
     Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -34,7 +34,13 @@ include( "./include/output.inc.php" );
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="SVN Access Manager Sign in">
     <meta name="author" content="Thomas Krieger">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
+    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
 
     <title>SVN Access Manager</title>
 
@@ -49,17 +55,15 @@ include( "./include/output.inc.php" );
     <link href="./lib/bootstrap-3.3.7/css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="./style/svnam.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./lib/bootstrap-3.3.7/js/ie-emulation-modes-warning.js"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="./lib/bootstrap-3.3.7/js/html5shiv.min.js"></script>
       <script src="./lib/bootstrap-3.3.7/js/respond.min.js"></script>
     <![endif]-->
+    
     <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="./lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    
     <script>
       $(document).ready(function() {
           $("#noJS").hide();
@@ -114,7 +118,7 @@ include( "./include/output.inc.php" );
         </div>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="username" type="text" class="form-control" name="fUsername" placeholder="<?php print _('Username');?>" required autofocus>
+            <input id="username" type="text" class="form-control" name="fUsername" value="<?php print $tUsername; ?>" placeholder="<?php print _('Username'); ?>" required autofocus>
         </div>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
@@ -170,5 +174,10 @@ include( "./include/output.inc.php" );
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./lib/bootstrap-3.3.7/js/ie10-viewport-bug-workaround.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("#username").focus();
+    });
+    </script>
   </body>
 </html>

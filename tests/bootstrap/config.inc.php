@@ -4,7 +4,7 @@
  * global configs for tests
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -212,6 +212,10 @@ $CONF['ldap_sort_order'] = 'ASC';
 $CONF['ldap_bind_use_login_data'] = 0;
 // LDAP bind dn suffix
 $CONF['ldap_bind_dn_suffix'] = '';
+
+// added version 0.6
+$CONF['tooltip_show'] = 700;
+$CONF['tooltip_hide'] = 300;
 
 //
 // END OF CONFIG FILE

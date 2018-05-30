@@ -4,7 +4,7 @@
  * create configuration files for Subversion access and viewvc access.
  *
   * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  * @license GPL v2
  *           
  *            SVN Access Manager - a subversion access rights management tool
@@ -31,7 +31,7 @@
  *           
  *           
  *         
- * @filesource
+ *
  */
 
 /**
@@ -1366,6 +1366,7 @@ function createViewvcConfig($dbh) {
     $dir = dirname($CONF[VIEWVCCONF]);
     $entropy = rand_name();
     $tempfile = $dir . $slash . "viewvc_conf_temp_" . $entropy;
+    $tempgroups = $dir . $slash . "viewvc_groups_temp_" . $entropy;
     
     if ((! $fileHandle = @fopen($tempfile, 'w')) || (! $groupHandle = @fopen($tempgroups, 'w'))) {
         
@@ -1378,7 +1379,6 @@ function createViewvcConfig($dbh) {
     
     $dir = dirname($CONF[VIEWVCGROUPS]);
     $entropy = rand_name();
-    $tempgroups = $dir . $slash . "viewvc_groups_temp_" . $entropy;
     
     $pathSort = getRepoSortPath();
     $query = "SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) " . "     AND (svnprojects.repo_id = svnrepos.id) " . "ORDER BY svnrepos.reponame ASC, svn_access_rights.path " . $pathSort . ", svn_access_rights.access_right DESC";

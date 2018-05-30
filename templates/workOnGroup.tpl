@@ -1,6 +1,9 @@
 <div>      
     <h3 class="page-header"><?php print _("Group administration / edit group"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="workOnGroup" method="post">
         <div class="row">
@@ -13,7 +16,7 @@
                     </div>
                 </div>
                 <div class="form-group <?php print outputResponseClasses($tDescriptionError); ?>">
-                    <label class="col-sm-2 control-label" for="description"><?php print  _("Group"); ?>:</label>
+                    <label class="col-sm-2 control-label" for="description"><?php print  _("Description"); ?>:</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="description" name="fDescription" value="<?php print $tDescription; ?>" data-toggle="tooltip" title="<?php print _("Enter the group description.");?>" />
                         <?php print outputResponseSpan($tDescriptionError); ?>
@@ -23,15 +26,15 @@
                     <p>&nbsp;</p>
                 </div>    
                 <div class="input-group">
-                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Submit"); ?>"><?php print _("Submit"); ?></button>
-                    <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><?php print _("Back"); ?></button>
+                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Submit"); ?>"><span class="glyphicon glyphicon-save"></span> <?php print _("Submit"); ?></button>
+                    <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
                 </div>    
             </div>
             <div class="col-sm-6">
-                <div class="form-group ">
-                    <label class="col-sm-2 control-label" for="umembersser"><?php print _("Groupmembers"); ?>:</label>
+                <div class="form-group <?php print outputResponseClasses($tMembersError); ?>">
+                    <label class="col-sm-2 control-label" for="umembersser"><?php print _("Group members"); ?>:</label>
                     <div class="col-sm-4">
-                        <select class="selectpicker" name="members[]" multiple id="members">
+                        <select class="form-control" size="5" name="members[]" multiple id="members" data-toggle="tooltip" title="<?php print _("Select the group members."); ?>">
                             <?php
                                 foreach($tMembers as $uid => $member) {
                                     $label = $member." [".$uid."]";
@@ -53,15 +56,11 @@
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-         <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script type="text/javascript">
     
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
     });
 </script>

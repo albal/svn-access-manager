@@ -1,413 +1,635 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.3
--- http://www.phpmyadmin.net
+-- version 4.4.15.10
+-- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2009 at 11:50 PM
--- Server version: 5.1.37
--- PHP Version: 5.2.11
+-- Erstellungszeit: 25. Mai 2018 um 14:06
+-- Server-Version: 5.5.56-MariaDB
+-- PHP-Version: 5.4.16
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 --
--- Database: `svnadmin`
+-- Datenbank: `svnam`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `help`
+-- Tabellenstruktur für Tabelle `help`
 --
 
 DROP TABLE IF EXISTS `help`;
 CREATE TABLE IF NOT EXISTS `help` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `topic` varchar(255) NOT NULL,
   `headline_en` varchar(255) NOT NULL,
   `headline_de` varchar(255) NOT NULL,
   `helptext_de` longtext NOT NULL,
-  `helptext_en` longtext NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_topic` (`topic`),
-  FULLTEXT KEY `helptext_de` (`helptext_de`),
-  FULLTEXT KEY `helptext_en` (`helptext_en`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Table of help texts';
+  `helptext_en` longtext NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Table of help texts';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log`
+-- Tabellenstruktur für Tabelle `log`
 --
 
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `logtimestamp` datetime NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `logtimestamp` varchar(14) NOT NULL DEFAULT '00000000000000',
   `username` varchar(255) NOT NULL,
   `ipaddress` varchar(15) NOT NULL,
-  `logmessage` longtext NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_timestamp` (`logtimestamp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of log messages';
+  `logmessage` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of log messages';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `preferences`
+-- Tabellenstruktur für Tabelle `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(10) unsigned NOT NULL,
+  `validfrom` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `validuntil` varchar(14) NOT NULL DEFAULT '99999999999999',
+  `message` text NOT NULL,
+  `created` varchar(14) DEFAULT '00000000000000',
+  `create_user` varchar(255) NOT NULL DEFAULT '',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT '',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of messages';
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `preferences`
 --
 
 DROP TABLE IF EXISTS `preferences`;
 CREATE TABLE IF NOT EXISTS `preferences` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `user_id` int(10) NOT NULL,
   `page_size` int(4) NOT NULL,
-  `user_sort_fields` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `user_sort_order` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_userid` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of user preferences';
+  `user_sort_fields` varchar(255) NOT NULL,
+  `user_sort_order` varchar(255) NOT NULL,
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL,
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of user preferences';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rights`
+-- Tabellenstruktur für Tabelle `rights`
 --
 
 DROP TABLE IF EXISTS `rights`;
 CREATE TABLE IF NOT EXISTS `rights` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `right_name` varchar(255) NOT NULL,
   `description_en` varchar(255) NOT NULL,
   `description_de` varchar(255) NOT NULL,
   `allowed_action` enum('none','read','edit','delete') NOT NULL DEFAULT 'none',
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of rights to grant to users';
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of rights to grant to users';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workinfo`
---
-
-DROP TABLE IF EXISTS `workinfo`;
-CREATE TABLE IF NOT EXISTS `workinfo` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `usertimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `action` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='table of workinfos';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sessions`
+-- Tabellenstruktur für Tabelle `sessions`
 --
 
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `session_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `session_id` varchar(255) NOT NULL,
   `session_expires` int(10) unsigned NOT NULL DEFAULT '0',
-  `session_data` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`session`),
-  KEY `idx_expires` (`session_expires`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `session_data` text
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svngroups`
+-- Tabellenstruktur für Tabelle `svngroups`
 --
 
 DROP TABLE IF EXISTS `svngroups`;
 CREATE TABLE IF NOT EXISTS `svngroups` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `groupname` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `description` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `groupname` (`groupname`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of svn user groups';
+  `id` int(10) unsigned NOT NULL,
+  `groupname` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of svn user groups';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svnmailinglists`
+-- Tabellenstruktur für Tabelle `svnmailinglists`
 --
 
 DROP TABLE IF EXISTS `svnmailinglists`;
 CREATE TABLE IF NOT EXISTS `svnmailinglists` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `mailinglist` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `emailaddress` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `description` mediumtext COLLATE latin1_german1_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of available svn mailing lists';
+  `id` int(10) unsigned NOT NULL,
+  `mailinglist` varchar(255) NOT NULL,
+  `emailaddress` varchar(255) NOT NULL,
+  `description` mediumtext NOT NULL,
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of available svn mailing lists';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svnprojects`
+-- Tabellenstruktur für Tabelle `svnpasswordreset`
+--
+
+DROP TABLE IF EXISTS `svnpasswordreset`;
+CREATE TABLE IF NOT EXISTS `svnpasswordreset` (
+  `id` int(11) unsigned NOT NULL,
+  `unixtime` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `idstr` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `svnprojects`
 --
 
 DROP TABLE IF EXISTS `svnprojects`;
 CREATE TABLE IF NOT EXISTS `svnprojects` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `repo_id` int(10) unsigned NOT NULL,
-  `svnmodule` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modulepath` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `description` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_repoid` (`repo_id`),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of svn modules';
+  `svnmodule` varchar(255) NOT NULL,
+  `modulepath` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of svn modules';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svnrepos`
+-- Tabellenstruktur für Tabelle `svnrepos`
 --
 
 DROP TABLE IF EXISTS `svnrepos`;
 CREATE TABLE IF NOT EXISTS `svnrepos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `reponame` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `repopath` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `repouser` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `repopassword` varchar(255) COLLATE latin1_german1_ci NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `reponame` varchar(255) NOT NULL,
+  `repopath` varchar(255) NOT NULL,
+  `repouser` varchar(255) NOT NULL,
+  `repopassword` varchar(255) NOT NULL,
   `different_auth_files` tinyint(1) NOT NULL DEFAULT '0',
-  `auth_user_file` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `svn_access_file` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of svn repositories';
+  `auth_user_file` varchar(255) NOT NULL,
+  `svn_access_file` varchar(255) NOT NULL,
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of svn repositories';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svnusers`
+-- Tabellenstruktur für Tabelle `svnusers`
 --
 
 DROP TABLE IF EXISTS `svnusers`;
 CREATE TABLE IF NOT EXISTS `svnusers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `name` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `givenname` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `password` varchar(255) COLLATE latin1_german1_ci NOT NULL DEFAULT '',
+  `id` int(10) unsigned NOT NULL,
+  `userid` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `givenname` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL DEFAULT '',
   `passwordexpires` tinyint(1) NOT NULL DEFAULT '1',
   `locked` tinyint(1) NOT NULL DEFAULT '0',
-  `emailaddress` varchar(255) COLLATE latin1_german1_ci NOT NULL DEFAULT '',
-  `admin` char(1) COLLATE latin1_german1_ci NOT NULL DEFAULT 'n',
-  `user_mode` varchar(10) COLLATE latin1_german1_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `password_modified` datetime NOT NULL,
+  `emailaddress` varchar(255) NOT NULL DEFAULT '',
+  `admin` char(1) NOT NULL DEFAULT 'n',
+  `user_mode` varchar(10) NOT NULL,
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' ',
+  `password_modified` varchar(14) NOT NULL DEFAULT '00000000000000',
   `superadmin` tinyint(1) NOT NULL DEFAULT '0',
   `securityquestion` varchar(255) DEFAULT '',
   `securityanswer` varchar(255) DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_userid` (`userid`,`deleted`),
-  KEY `idx_mode` (`locked`),
-  KEY `idx_passwordexpires` (`passwordexpires`),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of all known users';
+  `custom1` varchar(255) DEFAULT '',
+  `custom2` varchar(255) DEFAULT '',
+  `custom3` varchar(255) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of all known users';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svn_access_rights`
+-- Tabellenstruktur für Tabelle `svn_access_rights`
 --
 
 DROP TABLE IF EXISTS `svn_access_rights`;
 CREATE TABLE IF NOT EXISTS `svn_access_rights` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `project_id` int(10) NOT NULL,
-  `user_id` int(10) NOT NULL,
-  `group_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL DEFAULT '0',
+  `group_id` int(10) NOT NULL DEFAULT '0',
   `path` longtext NOT NULL,
   `valid_from` varchar(14) NOT NULL COMMENT 'JHJJMMTT',
   `valid_until` varchar(14) NOT NULL COMMENT 'JHJJMMTT',
-  `access_right` set('none','read','write') NOT NULL DEFAULT 'none',
+  `access_right` enum('none','read','write') NOT NULL DEFAULT 'none',
   `recursive` enum('yes','no') NOT NULL DEFAULT 'yes',
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_projectid` (`project_id`),
-  KEY `idx_userid` (`user_id`),
-  KEY `idx_groupid` (`group_id`),
-  KEY `idx_path` (`path`(512)),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of user or group access rights';
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of user or group access rights';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svn_groups_responsible`
+-- Tabellenstruktur für Tabelle `svn_groups_responsible`
 --
 
 DROP TABLE IF EXISTS `svn_groups_responsible`;
 CREATE TABLE IF NOT EXISTS `svn_groups_responsible` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `group_id` int(10) unsigned NOT NULL,
   `allowed` enum('none','read','edit','delete') NOT NULL DEFAULT 'none',
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_projectid_userid_groupid` (`user_id`,`group_id`),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svn_projects_mailinglists`
+-- Tabellenstruktur für Tabelle `svn_projects_mailinglists`
 --
 
 DROP TABLE IF EXISTS `svn_projects_mailinglists`;
 CREATE TABLE IF NOT EXISTS `svn_projects_mailinglists` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `project_id` int(10) unsigned NOT NULL,
   `mailinglisten_id` int(10) unsigned NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `moduleid` (`project_id`,`mailinglisten_id`),
-  KEY `mailinglistenid` (`mailinglisten_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of modules and mailinglist relations';
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of modules and mailinglist relations';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svn_projects_responsible`
+-- Tabellenstruktur für Tabelle `svn_projects_responsible`
 --
 
 DROP TABLE IF EXISTS `svn_projects_responsible`;
 CREATE TABLE IF NOT EXISTS `svn_projects_responsible` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `project_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_projectid` (`project_id`),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of project responsible users';
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of project responsible users';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `svn_users_groups`
+-- Tabellenstruktur für Tabelle `svn_users_groups`
 --
 
 DROP TABLE IF EXISTS `svn_users_groups`;
 CREATE TABLE IF NOT EXISTS `svn_users_groups` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `group_id` int(10) unsigned NOT NULL,
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) COLLATE latin1_german1_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_groupid` (`group_id`),
-  KEY `idx_userid` (`user_id`),
-  KEY `idx_deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci COMMENT='Table of user group relations';
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of user group relations';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users_rights`
+-- Tabellenstruktur für Tabelle `users_rights`
 --
 
 DROP TABLE IF EXISTS `users_rights`;
 CREATE TABLE IF NOT EXISTS `users_rights` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `user_id` int(10) NOT NULL,
   `right_id` int(10) NOT NULL,
-  `allowed` enum('none','add','read','edit','delete') NOT NULL DEFAULT 'none',
-  `created` datetime NOT NULL,
-  `created_user` varchar(255) NOT NULL,
-  `modified` datetime NOT NULL,
-  `modified_user` varchar(255) NOT NULL,
-  `deleted` datetime NOT NULL,
-  `deleted_user` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_user_id` (`user_id`),
-  KEY `idx_right_id` (`right_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table of granted user rights';
+  `allowed` enum('none','read','add','edit','delete') NOT NULL DEFAULT 'none',
+  `created` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `created_user` varchar(255) NOT NULL DEFAULT ' ',
+  `modified` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `modified_user` varchar(255) NOT NULL DEFAULT ' ',
+  `deleted` varchar(14) NOT NULL DEFAULT '00000000000000',
+  `deleted_user` varchar(255) NOT NULL DEFAULT ' '
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table of granted user rights';
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur f�r Tabelle `svnpasswordreset`
+-- Tabellenstruktur für Tabelle `workinfo`
 --
 
-CREATE TABLE IF NOT EXISTS `svnpasswordreset` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `unixtime` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `idstr` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `workinfo`;
+CREATE TABLE IF NOT EXISTS `workinfo` (
+  `id` int(10) unsigned NOT NULL,
+  `usertimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `action` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='table of workinfo';
+
+--
+-- Indizes der exportierten Tabellen
+--
+
+--
+-- Indizes für die Tabelle `help`
+--
+ALTER TABLE `help`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_topic` (`topic`),
+  ADD FULLTEXT KEY `helptext_de` (`helptext_de`);
+ALTER TABLE `help`
+  ADD FULLTEXT KEY `helptext_en` (`helptext_en`);
+
+--
+-- Indizes für die Tabelle `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_timestamp` (`logtimestamp`);
+
+--
+-- Indizes für die Tabelle `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `preferences`
+--
+ALTER TABLE `preferences`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_userid` (`user_id`);
+
+--
+-- Indizes für die Tabelle `rights`
+--
+ALTER TABLE `rights`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`),
+  ADD KEY `idx_expires` (`session_expires`);
+
+--
+-- Indizes für die Tabelle `svngroups`
+--
+ALTER TABLE `svngroups`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `groupname` (`groupname`);
+
+--
+-- Indizes für die Tabelle `svnmailinglists`
+--
+ALTER TABLE `svnmailinglists`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `svnpasswordreset`
+--
+ALTER TABLE `svnpasswordreset`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `svnprojects`
+--
+ALTER TABLE `svnprojects`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_repoid` (`repo_id`),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `svnrepos`
+--
+ALTER TABLE `svnrepos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `svnusers`
+--
+ALTER TABLE `svnusers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `idx_userid` (`userid`,`deleted`),
+  ADD KEY `idx_mode` (`locked`),
+  ADD KEY `idx_passwordexpires` (`passwordexpires`),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `svn_access_rights`
+--
+ALTER TABLE `svn_access_rights`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_projectid` (`project_id`),
+  ADD KEY `idx_userid` (`user_id`),
+  ADD KEY `idx_groupid` (`group_id`),
+  ADD KEY `idx_path` (`path`(512)),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `svn_groups_responsible`
+--
+ALTER TABLE `svn_groups_responsible`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_projectid_userid_groupid` (`user_id`,`group_id`),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `svn_projects_mailinglists`
+--
+ALTER TABLE `svn_projects_mailinglists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `moduleid` (`project_id`,`mailinglisten_id`),
+  ADD KEY `mailinglistenid` (`mailinglisten_id`);
+
+--
+-- Indizes für die Tabelle `svn_projects_responsible`
+--
+ALTER TABLE `svn_projects_responsible`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_projectid` (`project_id`),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `svn_users_groups`
+--
+ALTER TABLE `svn_users_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_groupid` (`group_id`),
+  ADD KEY `idx_userid` (`user_id`),
+  ADD KEY `idx_deleted` (`deleted`);
+
+--
+-- Indizes für die Tabelle `users_rights`
+--
+ALTER TABLE `users_rights`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_user_id` (`user_id`),
+  ADD KEY `idx_right_id` (`right_id`);
+
+--
+-- Indizes für die Tabelle `workinfo`
+--
+ALTER TABLE `workinfo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `help`
+--
+ALTER TABLE `help`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `log`
+--
+ALTER TABLE `log`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `preferences`
+--
+ALTER TABLE `preferences`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `rights`
+--
+ALTER TABLE `rights`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svngroups`
+--
+ALTER TABLE `svngroups`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svnmailinglists`
+--
+ALTER TABLE `svnmailinglists`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svnpasswordreset`
+--
+ALTER TABLE `svnpasswordreset`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svnprojects`
+--
+ALTER TABLE `svnprojects`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svnrepos`
+--
+ALTER TABLE `svnrepos`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svnusers`
+--
+ALTER TABLE `svnusers`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svn_access_rights`
+--
+ALTER TABLE `svn_access_rights`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svn_groups_responsible`
+--
+ALTER TABLE `svn_groups_responsible`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svn_projects_mailinglists`
+--
+ALTER TABLE `svn_projects_mailinglists`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svn_projects_responsible`
+--
+ALTER TABLE `svn_projects_responsible`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `svn_users_groups`
+--
+ALTER TABLE `svn_users_groups`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `users_rights`
+--
+ALTER TABLE `users_rights`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `workinfo`
+--
+ALTER TABLE `workinfo`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+  

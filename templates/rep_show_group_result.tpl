@@ -1,6 +1,9 @@
 <div>     
     <h3 class="page-header"><?php print sprintf( _("Show group %s"), $tGroupname ); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="general" method="post">
         <div class="form-group">
@@ -104,28 +107,40 @@
         </table>
     </form>
 </div>
-
-
-
-<?php 
-    outputMessage($tMessage, $tMessageType);
-?>
         
 <script>
 $(document).ready(function() {
     $('#usertable').DataTable({
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
     
     $('#groupadmintable').DataTable({
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
     
     $('#accessrighttable').DataTable({
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
 } );
 </script>

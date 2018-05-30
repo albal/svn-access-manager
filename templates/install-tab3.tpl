@@ -6,7 +6,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label" for="url" data-toggle="tooltip" title="<?php print _("Enter the URL which should be printed into expired password warning mail!" ); ?>"><?php print _("SVN Access Manager Website URL"); ?>:</label>
     <div class="col-sm-4">
-        <input type="text" class="form-control" id="url" name="fWebsiteUrl" value="<?php print $tWebsiteUrl; ?>" data-toggle="tooltip" title="<?php print _("Enter the URL which should be printed into expired password warning mail!" );?>" />
+        <input type="url" class="form-control" id="url" name="fWebsiteUrl" value="<?php print $tWebsiteUrl; ?>" data-toggle="tooltip" title="<?php print _("Enter the URL which should be printed into expired password warning mail!" );?>" />
     </div>
 </div>
 <div class="form-group">
