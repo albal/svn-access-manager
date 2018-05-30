@@ -14,6 +14,9 @@
 <div>    
     <h3 class="page-header"><?php print _("Access right administration / Step 2: select directory"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="workOnAccessRight" method="post">
         <div class="form-group">
@@ -68,22 +71,18 @@
             <p>&nbsp;</p>
         </div>    
         <div class="input-group">
-            <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_chdir" title="<?php print _("Change to directory"); ?>"><span class="glyphicon glyphicon-open"></span> <?php print _("Change to directory"); ?></button>
-            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_set" title="<?php print _("Set access rights"); ?>"><span class="glyphicon glyphicon-ok"></span> <?php print _("Set access rights"); ?></button>
-            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php print _("Back"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_chdir" title="<?php print _("Change to directory"); ?>"><span class="glyphicon glyphicon-open"></span> <?php print _("Change to directory"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_set" title="<?php print _("Set access rights"); ?>"><span class="glyphicon glyphicon-menu-right"></span> <?php print _("Set access rights"); ?></button>
         </div>
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-         <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script type="text/javascript">
 
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
     });
 </script>

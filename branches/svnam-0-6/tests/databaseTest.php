@@ -5,7 +5,7 @@
  * Test MariDB database functionality
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -24,7 +24,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *           
  */
 
 /*
@@ -167,12 +167,12 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $tDataArray = db_check_group_acl('admin', $dbh);
         $this->assertEquals(0, count($tDataArray));
         
-        $CONF['page_size'] = 30;
+        $CONF[PAGESIZE] = 30;
         $CONF['user_sort_fields'] = 'name';
         $CONF['user_sort_order'] = 'ASC';
         
         $tData = db_get_preferences('admin', $dbh);
-        $this->assertEquals(50, $tData['page_size']);
+        $this->assertEquals(50, $tData[PAGESIZE]);
         $this->assertEquals('name,givenname', $tData['user_sort_fields']);
         $this->assertEquals('ASC', $tData['user_sort_order']);
         
@@ -525,8 +525,31 @@ final class MyDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $dbh = db_connect_test($GLOBALS['DB_TYPE'], $GLOBALS['DB_HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD'], $GLOBALS['DB_DBNAME']);
         
         $tMessage = 'Nothing to report';
-        $_SESSION[SVNSESSID]['username'] = 'tester1';
-        $_SESSION[SVNSESSID]['admin'] = 'n';
+        $tMessageType = 'info';
+        $_SESSION[SVNSESSID]['username'] = 'admin';
+        $_SESSION[SVNSESSID]['admin'] = 'y';
+        $tUserMessages = array();
+        $tUsername = isset($_SESSION[SVNSESSID]['username']) ? $_SESSION[SVNSESSID]['username'] : 'undefined';
+        $tAdmin = isset($_SESSION[SVNSESSID]['admin']) ? $_SESSION[SVNSESSID]['admin'] : 'n';
+        $rightUserAdmin = db_check_acl($tUsername, 'User admin', $dbh);
+        $rightGroupAdmin = db_check_acl($tUsername, 'Group admin', $dbh);
+        $rightProjectAdmin = db_check_acl($tUsername, 'Project admin', $dbh);
+        $rightRepositoryAdmin = db_check_acl($tUsername, 'Repository admin', $dbh);
+        $rightAccessRightAdmin = db_check_acl($tUsername, 'Access rights admin', $dbh);
+        $rightCreateFiles = db_check_acl($tUsername, 'Create files', $dbh);
+        $rightReports = db_check_acl($tUsername, 'Reports', $dbh);
+        $tGroupsAllowed = db_check_group_acl($tUsername, $dbh);
+        $tUserMessages = db_getMessagesShort($dbh);
+        $tStats = db_getStatistics($dbh);
+        
+        $CONF = array();
+        $CONF[PAGESIZE] = 30;
+        $CONF[TOOLTIP_SHOW] = 700;
+        $CONF[TOOLTIP_HIDE] = 300;
+        $CONF['database_type'] = 'mysqli';
+        $CONF['database_host'] = 'localhost';
+        $CONF['database_user'] = 'svnam';
+        $CONF['database_name'] = 'svnam';
         
         ob_start();
         include './templates/main.tpl';

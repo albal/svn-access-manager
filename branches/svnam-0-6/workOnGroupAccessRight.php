@@ -4,7 +4,7 @@
  * Work on group access rights
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -50,7 +50,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "workongroupaccessright";
 
@@ -116,17 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $query = "SELECT groupname " . "  FROM " . $schema . "svngroups " . " WHERE id=" . $_SESSION[SVNSESSID][GROUPID];
         $result = db_query($query, $dbh);
         if ($result['rows'] > 0) {
-            
             $row = db_assoc($result[RESULT]);
             $tGroupName = $row[GROUPNAME];
         }
         else {
-            
             $tGroupName = "undefined";
         }
         
         $_SESSION[SVNSESSID][USERID] = $tUser;
-        $_SESSION[SVNSESSID]['right'] = $tRight;
+        $_SESSION[SVNSESSID][RIGHT] = $tRight;
+        $_SESSION[SVNSESSID][GROUPNAME] = $tGroupName;
     }
     elseif ($_SESSION[SVNSESSID]['task'] == "change") {
         
@@ -159,7 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         
         $_SESSION[SVNSESSID][USERID] = $tUser;
-        $_SESSION[SVNSESSID]['right'] = $tRight;
+        $_SESSION[SVNSESSID][RIGHT] = $tRight;
+        $_SESSION[SVNSESSID][GROUPNAME] = $tGroupName;
     }
     else {
         
@@ -192,6 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $tUserError = 'ok';
     $tRightError = 'ok';
+    $error = 0;
     
     if ($button == _("Back")) {
         
@@ -240,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         
                         db_ta('ROLLBACK', $dbh);
                         
-                        $tMessaage = _("Error during database insert");
+                        $tMessage = _("Error during database insert");
                         $tMessageType = DANGER;
                     }
                     else {
@@ -260,21 +263,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             }
             
-            $tReadonly = "";
-            $query = "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svn_groups_responsible.id=" . $tGroupResponsibleId . ") " . "   AND (svnusers.id = svn_groups_responsible.user_id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000')";
-            $result = db_query($query, $dbh);
-            if ($result['rows'] > 0) {
-                
-                $row = db_assoc($result[RESULT]);
-                $tRight = $row[ALLOWED];
-                $tUser = $row[USERID];
-                $tGroupName = $row[GROUPNAME];
+            if ($error == 0) {
+                $tReadonly = "";
+                $query = "SELECT svngroups.groupname, svnusers.userid, svn_groups_responsible.allowed " . "  FROM " . $schema . "svnusers, " . $schema . "svn_groups_responsible, " . $schema . "svngroups " . " WHERE (svngroups.id = svn_groups_responsible.group_id) " . "   AND (svn_groups_responsible.id=" . $tGroupResponsibleId . ") " . "   AND (svnusers.id = svn_groups_responsible.user_id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000')";
+                $result = db_query($query, $dbh);
+                if ($result['rows'] > 0) {
+                    
+                    $row = db_assoc($result[RESULT]);
+                    $tRight = $row[ALLOWED];
+                    $tUser = $row[USERID];
+                    $tGroupName = $row[GROUPNAME];
+                }
+                else {
+                    
+                    $tUser = "";
+                    $tRight = "";
+                    $tGroupName = "undefined";
+                }
             }
             else {
-                
-                $tUser = "";
-                $tRight = "";
-                $tGroupName = "undefined";
+                $tGroupName = $_SESSION[SVNSESSID][GROUPNAME];
             }
         }
         elseif ($_SESSION[SVNSESSID]['task'] == "change") {

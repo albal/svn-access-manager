@@ -106,7 +106,7 @@ $CONF['expire_password']		= '###EXPIREPASSWORD###';
 # valid values for pwcrypt are sha, apr-md5, md5, or crypt
 $CONF['pwcrypt']				= '###PWCRYPT###';
 
-$CONF['copyright']				= '(C) 2008-2018 Thomas Krieger (tom(at)svn-access-manager(dot)org)';
+$CONF['copyright']				= '&copy; 2008-2018 Thomas Krieger';
 
 $CONF['svn_command']			= '###SVNCMD###';
 $CONF['svnadmin_command']		= '###SVNADMINCMD###';
@@ -203,6 +203,10 @@ $CONF['ldap_bind_use_login_data']				= ###LDAPBINDUSELOGINDATA###;
 // LDAP bind dn suffix
 $CONF['ldap_bind_dn_suffix']					= '###LDAPBINDDNSUFFIX###';
 
+
+// added version 0.6
+$CONF['tooltip_show']                           = 700;
+$CONF['tooltip_hide']                           = 300;
 //
 // END OF CONFIG FILE
 //

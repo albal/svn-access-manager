@@ -83,7 +83,7 @@ $CONF['logging']                                = 'YES';
 // Page Size
 // Set the number of entries that you would like to see
 // in one page.
-$CONF['page_size']                              = '50';
+$CONF[PAGESIZE]                              = '50';
 
 $CONF['passwordSpecialChars']   = '[\!\"\§\$\%\/\(\)=\?\*\+\#\-\_\.\:\,\;\<\>\|\@]';
 $CONF['passwordSpecialCharsTxt']= '!"§$%/()=?*+#-_.:,;<>|@';

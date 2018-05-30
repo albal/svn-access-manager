@@ -4,7 +4,7 @@
  * Report user
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -50,7 +50,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "repshowuser";
 
@@ -89,6 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     elseif ((isset($_POST['fSubmit_show_x'])) || (isset($_POST['fSubmit_show']))) {
         $button = _("Create report");
     }
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
+        $button = _("Back");
+    }
     else {
         $button = "undef";
     }
@@ -98,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tUserId = isset($_POST['fUser']) ? db_escape_string($_POST['fUser']) : "";
         $_SESSION[SVNSESSID]['user'] = $tUserId;
         
-        if ($tUserId == "default") {
+        if (($tUserId == "default") || empty($tUserId)) {
             
             $tMessage = _("No user selected!");
             $tMessageType = DANGER;
@@ -129,12 +134,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tLocked = $tUserData['locked'] == 0 ? _("No") : _("Yes");
             $tPasswordExpires = $tUserData['passwordexpires'] == 1 ? _("Yes") : _("No");
             $tAccessRight = $tUserData['user_mode'];
-            $tPasswordModified = implode(" ", splitDateTime($tUserData['password_modified']));
+            $tPasswordModified = implode(" ", splitDateTimeI18n($tUserData['password_modified']));
             $lang = check_language();
             $tGroups = db_getGroupsForUser($tUserId, $dbh);
             $tAccessRights = db_getAccessRightsForUser($tUserId, $tGroups, $dbh);
             $tProjects = db_getProjectResponsibleForUser($tUserId, $dbh);
         }
+    }
+    elseif ($button == _("Back")) {
+        
+        db_disconnect($dbh);
+        header("Location: main.php");
+        exit();
     }
     else {
         

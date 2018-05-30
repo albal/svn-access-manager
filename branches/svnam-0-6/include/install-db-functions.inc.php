@@ -4,7 +4,7 @@
  * Database functions arround MySQL for installer.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All righhts reserved.
+ * @copyright 2008-2018 Thomas Krieger. All righhts reserved.
  *           
  *            * SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /**
@@ -79,7 +79,7 @@ function createHelpTableMySQL($dbh, $charset, $collation) {
  */
 function createLogTableMySQL($dbh, $charset, $collation) {
 
-    $query = "CREATE TABLE IF NOT EXISTS `log` (`id` int(10) unsigned NOT NULL auto_increment, `logtimestamp` varchar(14) NOT NULL DEFAULT '00000000000000', `username` varchar(255) NOT NULL, `ipaddress` varchar(15) NOT NULL, `logmessage` longtext NOT NULL, PRIMARY KEY  (`id`), KEY `idx_timestamp` (`logtimestamp`) ) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of log messages';";
+    $query = "CREATE TABLE IF NOT EXISTS `log` (`id` int(10) unsigned NOT NULL auto_increment, `logtimestamp` varchar(14) NOT NULL DEFAULT '00000000000000', `username` varchar(255) NOT NULL DEFAULT ' ', `ipaddress` varchar(15) NOT NULL DEFAULT ' ', `logmessage` longtext NOT NULL, PRIMARY KEY  (`id`), KEY `idx_timestamp` (`logtimestamp`) ) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of log messages';";
     db_query_install($query, $dbh);
     
 }
@@ -93,7 +93,7 @@ function createLogTableMySQL($dbh, $charset, $collation) {
  */
 function createPreferencesTableMySQL($dbh, $charset, $collation) {
 
-    $query = "CREATE TABLE IF NOT EXISTS `preferences` (`id` int(10) unsigned NOT NULL auto_increment, `user_id` int(10) NOT NULL, `page_size` int(4) NOT NULL, `user_sort_fields` varchar(255) NOT NULL, `user_sort_order` varchar(255) NOT NULL, `created` varchar(14) NOT NULL DEFAULT '00000000000000', `created_user` varchar(255) NOT NULL DEFAULT ' ', `modified` varchar(14) NOT NULL DEFAULT '00000000000000', `modified_user` varchar(255) NOT NULL, `deleted` varchar(14) NOT NULL DEFAULT '00000000000000', `deleted_user` varchar(255) NOT NULL, PRIMARY KEY  (`id`), KEY `idx_userid` (`user_id`) ) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user preferences';";
+    $query = "CREATE TABLE IF NOT EXISTS `preferences` (`id` int(10) unsigned NOT NULL auto_increment, `user_id` int(10) NOT NULL, `page_size` int(4) NOT NULL, `user_sort_fields` varchar(255) NOT NULL, `user_sort_order` varchar(255) NOT NULL, `tooltip_show` int(5) NOT NULL DEFAULT 700, `tooltip_hide` int(5) NOT NULL DEFAULT 300, `created` varchar(14) NOT NULL DEFAULT '00000000000000', `created_user` varchar(255) NOT NULL DEFAULT ' ', `modified` varchar(14) NOT NULL DEFAULT '00000000000000', `modified_user` varchar(255) NOT NULL DEFAULT ' ', `deleted` varchar(14) NOT NULL DEFAULT '00000000000000', `deleted_user` varchar(255) NOT NULL DEFAULT ' ', PRIMARY KEY  (`id`), KEY `idx_userid` (`user_id`) ) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of user preferences';";
     db_query_install($query, $dbh);
     
 }
@@ -306,6 +306,19 @@ function createUserRightsTableMySQL($dbh, $charset, $collation) {
     $query = "CREATE TABLE IF NOT EXISTS `users_rights` (`id` int(10) unsigned NOT NULL auto_increment, `user_id` int(10) NOT NULL, `right_id` int(10) NOT NULL, `allowed` enum('none','read','add','edit','delete') NOT NULL default 'none', `created` varchar(14) NOT NULL DEFAULT '00000000000000', `created_user` varchar(255) NOT NULL DEFAULT ' ', `modified` varchar(14) NOT NULL DEFAULT '00000000000000', `modified_user` varchar(255) NOT NULL DEFAULT ' ', `deleted` varchar(14) NOT NULL DEFAULT '00000000000000', `deleted_user` varchar(255) NOT NULL DEFAULT ' ', PRIMARY KEY  (`id`), KEY `idx_user_id` (`user_id`), KEY `idx_right_id` (`right_id`)) ENGINE=InnoDB DEFAULT CHARSET=$charset COLLATE=$collation COMMENT='Table of granted user rights';";
     db_query_install($query, $dbh);
     
+}
+
+/**
+ * create messages table
+ * 
+ * @param resource $dbh
+ * @param string $charset
+ * @param string $collation
+ */
+function createMessagesTableMySQL($dbh, $charset, $collation) {
+    
+    $query = "CREATE TABLE IF NOT EXISTS `svnam`.`messages` ( `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT , `validfrom` VARCHAR(8) NOT NULL DEFAULT '00000000' , `validuntil` VARCHAR(8) NOT NULL DEFAULT '99999999' , `message` TEXT NOT NULL, `created` VARCHAR(14) NULL DEFAULT '00000000000000' , `created_user` VARCHAR(255) NOT NULL DEFAULT ' ' , `modified` VARCHAR(14) NOT NULL DEFAULT '00000000000000' , `modified_user` VARCHAR(255) NOT NULL DEFAULT ' ' , `deleted` VARCHAR(14) NOT NULL DEFAULT '00000000000000' , `deleted_user` VARCHAR(255) NOT NULL DEFAULT ' ' , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=$charset COLLATE=$collation COMMENT = 'Table of messages';";
+    db_query_install($query, $dbh);
 }
 
 /**

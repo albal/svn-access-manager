@@ -1,10 +1,14 @@
 <?php
-
 /**
+ *
+ * @filesource
+ */
+/**
+ *
  * Functions to make work easier.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,8 +27,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
- *
+ *           
  */
 
 /*
@@ -48,8 +51,9 @@ if (preg_match("/functions.inc.php/", $_SERVER['PHP_SELF'])) {
 }
 
 /**
- * get php version in two dgit format like "53"
+ * get php version in two digit format like "53"
  *
+ * @source
  * @return string
  */
 function getPhpVersion() {
@@ -63,6 +67,7 @@ function getPhpVersion() {
 /**
  * check if running in php client
  *
+ * @source
  * @return boolean
  */
 function runInCli() {
@@ -74,6 +79,7 @@ function runInCli() {
 /**
  * inialize gettext
  *
+ * @source
  * @return void
  */
 function initialize_i18n() {
@@ -81,50 +87,35 @@ function initialize_i18n() {
     $locale = get_locale();
     
     if (! preg_match('/_/', $locale)) {
-        
         $locale = $locale . "_" . strtoupper($locale);
     }
     
-    $ret = putenv("LANG=$locale");
-    error_log("result setting LANG: " . $ret);
-    
-    $ret = putenv("LC_ALL=$locale");
-    error_log("result setting LC_ALL to " . $locale . ": " . $ret);
-    
-    $ret = setlocale(LC_ALL, 0);
-    error_log("result setlocale LC_ALL to 0: " . $ret);
-    
-    $ret = setlocale(LC_ALL, $locale);
-    error_log("result setlocale LC_ALL to " . $locale . ": " . $ret);
+    putenv("LANG=$locale");
+    putenv("LC_ALL=$locale");
+    setlocale(LC_ALL, 0);
+    setlocale(LC_ALL, $locale);
     
     /**
      * Path "./locale/de/LC_MESSAGES/messages.mo" handled in else branch
      */
     if (file_exists(realpath("../locale/de/LC_MESSAGES/messages.mo"))) {
-        
         $localepath = "../locale";
     }
     else {
-        
         $localepath = "./locale";
     }
     
-    $dom = bindtextdomain("messages", $localepath);
-    error_log("Language file path is " . $dom);
-    
-    $msgdom = textdomain("messages");
-    error_log("Language textdomain is " . $msgdom);
-    
-    $charset = bind_textdomain_codeset(MESSAGES, 'UTF-8');
-    error_log("Language characterset: " . $charset);
+    bindtextdomain("messages", $localepath);
+    textdomain("messages");
+    bind_textdomain_codeset(MESSAGES, 'UTF-8');
     
 }
 
 /**
  * Check if a session already exists, if not redirect to login.php
  *
- * @return string
  * @source
+ * @return string
  */
 function check_session() {
 
@@ -154,6 +145,7 @@ function check_session() {
 /**
  * Check if a session already exists, if not redirect to login.php
  *
+ * @source
  * @param string $redirect
  * @return string
  */
@@ -188,6 +180,7 @@ function check_session_lpw($redirect = "y") {
 /**
  * Check if a session already exists, if not redirect to login.php
  *
+ * @source
  * @return array
  */
 function check_session_status() {
@@ -216,7 +209,8 @@ function check_session_status() {
 /**
  * create a verify string for email verification
  *
- * @return string The srting to be used for verification
+ * @source
+ * @return string The string to be used for verification
  *        
  */
 function create_verify_string() {
@@ -236,7 +230,7 @@ function create_verify_string() {
 }
 
 /**
- * checks if a password is expired and akes the user to the password change mask
+ * checks if a password is expired and takes the user to the password change mask
  *
  * @return void
  */
@@ -284,8 +278,6 @@ function check_language() {
         $lang = $CONF['default_language'];
     }
     
-    error_log("Language check_language: " . $lang);
-    
     return $lang;
     
 }
@@ -293,8 +285,7 @@ function check_language() {
 /**
  * Get the locale from the accepted languages, checks what language the browser uses
  *
- * @author Thomas Krieger
- *        
+ *
  * @return string
  *
  */
@@ -417,6 +408,20 @@ function splitdate($date) {
     $day = substr($date, 6, 2);
     
     return ($day . "." . $mon . "." . $year);
+    
+}
+
+/**
+ * convert a date according to language settings
+ *
+ * @param string $day
+ * @param string $month
+ * @param string $year
+ * @return string
+ */
+function convert_date_i18n($day, $month, $year) {
+
+    return ((check_language() == 'de') ? $day . '.' . $month . '.' . $year : $month . '/' . $day . '/' . $year);
     
 }
 
@@ -989,7 +994,7 @@ function checkPasswordPolicy($password, $admin = "y") {
 }
 
 /**
- * plit a datetime value from mysql to date and time
+ * split a datetime value from mysql to date and time
  *
  * @param string $datetime
  * @return string[]
@@ -1000,6 +1005,30 @@ function splitDateTime($datetime) {
     $month = substr($datetime, 4, 2);
     $day = substr($datetime, 6, 2);
     $date = $day . "." . $month . "." . $year;
+    
+    $hour = substr($datetime, 8, 2);
+    $min = substr($datetime, 10, 2);
+    $sec = substr($datetime, 12, 2);
+    $time = $hour . ":" . $min . ":" . $sec;
+    
+    return array(
+            $date,
+            $time
+    );
+    
+}
+
+/**
+ *
+ * @param string $datetime
+ * @return string[]
+ */
+function splitDateTimeI18n($datetime) {
+
+    $year = substr($datetime, 0, 4);
+    $month = substr($datetime, 4, 2);
+    $day = substr($datetime, 6, 2);
+    $date = convert_date_i18n($day, $month, $year);
     
     $hour = substr($datetime, 8, 2);
     $min = substr($datetime, 10, 2);
@@ -1063,7 +1092,7 @@ function mkUnixTimestampFromDateTime($datetime) {
     $min = substr($datetime, 10, 2);
     $sec = substr($datetime, 12, 2);
     
-    return (mktime($hour, $min, $sec, $month, $day, $year, - 1));
+    return (mktime($hour, $min, $sec, $month, $day, $year));
     
 }
 
@@ -1159,18 +1188,30 @@ function encode_subject($in_str, $charset) {
 }
 
 /**
- * sort ldap user by a preconfigured field
+ * sort ldap user by a preconfigured field.
+ * If preconfigured field is not available fall back to uid for sort.
  *
- * @param string $a
- * @param string $b
+ * @param array $a
+ * @param array $b
  * @return boolean
  */
 function sortLdapUsers($a, $b) {
 
     global $CONF;
     
-    $aValue = $a[$CONF['ldap_sort_field']];
-    $bValue = $b[$CONF['ldap_sort_field']];
+    if (array_key_exists($CONF[LDAP_SORT_FIELD], $a)) {
+        $aValue = $a[$CONF[LDAP_SORT_FIELD]];
+    }
+    else {
+        $aValue = $a['uid'];
+    }
+    
+    if (array_key_exists($CONF[LDAP_SORT_FIELD], $b)) {
+        $bValue = $b[$CONF[LDAP_SORT_FIELD]];
+    }
+    else {
+        $bValue = $b['uid'];
+    }
     
     $aValue = strtolower($aValue);
     $bValue = strtolower($bValue);
@@ -2111,4 +2152,46 @@ function getSvnAccessFile($svnaccessfile, $reponame) {
     
 }
 
+/**
+ * get current preset page size
+ * 
+ * @return integer
+ */
+function getCurrentPageSize() {
+
+    global $CONF;
+
+    return( (isset($CONF[PAGESIZE])) ? $CONF[PAGESIZE] : 10);
+}
+
+/**
+ * translate access rights for report generation
+ *
+ * @param string $right
+ * @return string
+ */
+function translateAccessRightReport($right) {
+
+    return (($right == 'none') ? '-' : $right);
+    
+}
+
+/**
+ * translate account locked into icon for report or blank
+ *
+ * @param string $locked
+ * @return string
+ */
+function translateLockReport($locked) {
+
+    if ($locked == 1) {
+        $locked = "<img src='./images/locked_16_16.png' width='16' height='16' border='0' alt='" . _("User locked") . "' title='" . _("User locked") . "' />";
+    }
+    else {
+        $locked = "&nbsp;";
+    }
+    
+    return ($locked);
+    
+}
 ?>

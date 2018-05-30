@@ -4,7 +4,7 @@
  * Functions around Oracle databases.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  *
  */
 
@@ -134,7 +134,7 @@ function createPreferencesTableOracle($dbh, $schema) {
     $query = "CREATE SEQUENCE $schema.\"PREFERENCES_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
     db_query_install($query, $dbh);
     
-    $query = "CREATE TABLE $schema.\"PREFERENCES\" (\"ID\"               NUMBER(*,0) NOT NULL ENABLE, \"USER_ID\"          NUMBER(*,0) NOT NULL ENABLE, \"PAGE_SIZE\"        NUMBER(*,0) NOT NULL ENABLE, \"USER_SORT_FIELDS\" VARCHAR2(255 BYTE) NOT NULL ENABLE, \"USER_SORT_ORDER\"  VARCHAR2(255 BYTE) NOT NULL ENABLE, \"CREATED\"          VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"CREATED_USER\"     VARCHAR2(255 BYTE) DEFAULT '', \"MODIFIED\"         VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"MODIFIED_USER\"    VARCHAR2(255 BYTE) DEFAULT '', \"DELETED\"          VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"DELETED_USER\"     VARCHAR2(255 BYTE) DEFAULT '', CONSTRAINT \"PREFERENCES_PK\" PRIMARY KEY (\"ID\")  ENABLE)";
+    $query = "CREATE TABLE $schema.\"PREFERENCES\" (\"ID\"               NUMBER(*,0) NOT NULL ENABLE, \"USER_ID\"          NUMBER(*,0) NOT NULL ENABLE, \"PAGE_SIZE\"        NUMBER(*,0) NOT NULL ENABLE, \"USER_SORT_FIELDS\" VARCHAR2(255 BYTE) NOT NULL ENABLE, \"USER_SORT_ORDER\"  VARCHAR2(255 BYTE) NOT NULL ENABLE, \"TOOLTIP_SHOW\"  NUMBER(*,0) NOT NULL DEFAULT 700 ENABLE, \"TOOLTIP_HIDE\"  NUMBER(*,0) NOT NULL DEFAULT 300 ENABLE,\"CREATED\"          VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"CREATED_USER\"     VARCHAR2(255 BYTE) DEFAULT '', \"MODIFIED\"         VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"MODIFIED_USER\"    VARCHAR2(255 BYTE) DEFAULT '', \"DELETED\"          VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"DELETED_USER\"     VARCHAR2(255 BYTE) DEFAULT '', CONSTRAINT \"PREFERENCES_PK\" PRIMARY KEY (\"ID\")  ENABLE)";
     db_query_install($query, $dbh);
     
     $query = "COMMENT ON TABLE $schema.\"PREFERENCES\" IS 'Table of user preferences'";
@@ -201,7 +201,7 @@ function createRightsTableOracle($dbh, $schema) {
 /**
  * create session table
  *
- * @param resourcfe $dbh
+ * @param resource $dbh
  * @param string $schema
  */
 function createSessionTableOracle($dbh, $schema) {
@@ -639,6 +639,36 @@ function createUserRightsTableOracle($dbh, $schema) {
     db_query_install($query, $dbh);
     
     $query = "ALTER TRIGGER $schema.\"USERS_RIGHTS_TRG\" ENABLE";
+    db_query_install($query, $dbh);
+    
+}
+
+/**
+ * create messages table
+ * 
+ * @param resource $dbh
+ * @param string $schema
+ */
+function createMessagesTableOracle($dbh, $schema) {
+    
+    $query = "CREATE SEQUENCE $schema.\"MESSAGES_SEQ\" MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER NOCYCLE";
+    db_query_install($query, $dbh);
+    
+    $query = "CREATE TABLE $schema.\"MESSAGES\" (\"ID\"            NUMBER(*,0) NOT NULL ENABLE, \"VALIDFROM\"       VARCHAR2(8 BYTE) DEFAULT '00000000' NOT NULL ENABLE, \"VALIDUNTIL\"       VARCHAR2(8 BYTE) DEFAULT '99999999' NOT NULL ENABLE, \"ALLOWED\"       VARCHAR2(255 BYTE) DEFAULT ' ' NOT NULL ENABLE, \"CREATED\"       VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"CREATED_USER\"  VARCHAR2(255 BYTE) DEFAULT '', \"MODIFIED\"      VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"MODIFIED_USER\" VARCHAR2(255 BYTE) DEFAULT '', \"DELETED\"       VARCHAR2(14 BYTE) DEFAULT '00000000000000' NOT NULL ENABLE, \"DELETED_USER\"  VARCHAR2(255 BYTE) DEFAULT '', CONSTRAINT \"MESSAGES_PK\" PRIMARY KEY (\"ID\")  ENABLE)";
+    db_query_install($query, $dbh);
+    
+    $query = "COMMENT ON TABLE $schema.\"MESSAGES\" IS 'Table of messages'";
+    db_query_install($query, $dbh);
+    
+    $query = "CREATE OR REPLACE TRIGGER $schema.\"MESSAGES_TRG\" BEFORE
+												  INSERT ON $schema.MESSAGES FOR EACH ROW BEGIN <<COLUMN_SEQUENCES>> BEGIN IF :NEW.ID IS NULL THEN
+												  SELECT MESSAGES_SEQ.NEXTVAL INTO :NEW.ID FROM DUAL;
+												END IF;
+												END COLUMN_SEQUENCES;
+												END;";
+    db_query_install($query, $dbh);
+    
+    $query = "ALTER TRIGGER $schema.\"MESSAGES_TRG\" ENABLE";
     db_query_install($query, $dbh);
     
 }

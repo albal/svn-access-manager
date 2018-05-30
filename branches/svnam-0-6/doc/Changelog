@@ -1,22 +1,25 @@
 Change Log
 ==========
 
-Release 0.6.0.0
-    - compressed css stylesheets 
-    - removed unused files 
-    - use constants instead of literals 
-    - added unit tests and a small database xml dump for database phpunit tests
+Release 0.6.0.0    
+    - added phpunit tests and a small database xml dump for database phpunit tests
     - added mysqli driver to installer
     - basic tests with php 7
     - added docker container build for testing purposes
     - fixed bug #56, missing default values and projects now need a description
     - fixed email checking, thanks to Yusuf Tambag for the bug report and the patch
-    - updated choosen JavaScript library to 1.8.5
     - splitted database functions in installer, moved them into a file for MySQL, PostgreSQL and Oracle
-    - decreased complexity of installer
+    - decreased complexity of installer code
     - removed duplicated code
-    - use Bootstrap
+    - use Bootstrap 3
+    - removed jQuery-UI
+    - updated jQuery version
     - redesigned installer and other forms
+    - html documentation was removed and can be found here: https://www.svn-access-manager.org/
+    - compressed css stylesheets 
+    - removed unused files 
+    - use constants instead of literals
+    - table page sizes will be stored in browser's local storage for each table if possible
 
 Release 0.5.6.6
     - updated selinux policy for CentOS 6 and CentOS 7

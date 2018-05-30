@@ -19,7 +19,7 @@
 </div>
 <div class="form-group">
     <label class="col-sm-3 control-label" for="databasetype"><?php print _("Drop existing datbase tables"); ?>:</label>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id="dbtype">
         <label class="radio-inline"><input id="databasetype" type="radio" name="fDatabase"  value="mysql" <?php print $tDatabaseMySQL; ?> ><?php print _("MySQL"); ?></label>
         <label class="radio-inline"><input id="databasetype" type="radio" name="fDatabase"  value="mysqli" <?php print $tDatabaseMySQLi; ?> ><?php print _("MySQLI"); ?></label>
         <label class="radio-inline"><input id="databasetype" type="radio" name="fDatabase"  value="postgres8" <?php print $tDatabasePostgreSQL; ?> ><?php print _("PostgreSQL"); ?></label>
@@ -27,10 +27,10 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-3 control-label" for="seddioindb" data-toggle="tooltip" title="<?php print _("Decide if you want to keep the PHP sessions in the database or in the file system.");?>"><?php print _("Hold sessions in database"); ?>:</label>
+    <label class="col-sm-3 control-label" for="sessionindb" data-toggle="tooltip" title="<?php print _("Decide if you want to keep the PHP sessions in the database or in the file system.");?>"><?php print _("Hold sessions in database"); ?>:</label>
     <div class="col-sm-4">
-        <label class="radio-inline"><input id="seddioindb" type="radio" name="fSessionInDatabase"  value="YES" <?php print $tSessionInDatabaseYes; ?> ><?php print _("Yes"); ?></label>
-        <label class="radio-inline"><input id="seddioindb" type="radio" name="fSessionInDatabase"  value="NO" <?php print $tSessionInDatabaseNo; ?> ><?php print _("No"); ?></label>
+        <label class="radio-inline"><input id="sessionindb" type="radio" name="fSessionInDatabase"  value="YES" <?php print $tSessionInDatabaseYes; ?> ><?php print _("Yes"); ?></label>
+        <label class="radio-inline"><input id="sessionindb" type="radio" name="fSessionInDatabase"  value="NO" <?php print $tSessionInDatabaseNo; ?> ><?php print _("No"); ?></label>
     </div>
 </div>
 <div class="form-group">
@@ -66,14 +66,14 @@
 <div class="form-group">
     <label class="col-sm-3 control-label" for="dbcollation" data-toggle="tooltip" title="<?php print _("Enter the collation you want to use" ); ?>"><?php print _("Database collation"); ?>:</label>
     <div class="col-sm-4">
-        <input type="text" class="form-control" id="dbcollation" name="fDatabaseCollation" value="<?php print $tDatabaseCollation; ?>" data-toggle="tooltip" title="<?php print _("Enter the collation you want to use" );?>" />
+        <input type="text" class="form-control" id="dbcollation" name="fDatabaseCollation" value="<?php print $tDatabaseCollation; ?>" data-toggle="tooltip" title="<?php print _("Enter the collation you want to use" );?>" placeholder="<?php print _("Only MySQL"); ?>" />
     </div>
 </div>
 
 <div class="form-group">
     <label class="col-sm-3 control-label" for="dbschema" data-toggle="tooltip" title="<?php print _("Enter the database schema you want to use" ); ?>"><?php print _("Database schema"); ?>:</label>
     <div class="col-sm-4">
-        <input type="text" class="form-control" id="dbschema" name="fDatabaseSchema" value="<?php print $tDatabaseSchema; ?>" data-toggle="tooltip" title="<?php print _("Enter the database schema you want to use" );?>" />
+        <input type="text" class="form-control" id="dbschema" name="fDatabaseSchema" value="<?php print $tDatabaseSchema; ?>" data-toggle="tooltip" title="<?php print _("Enter the database schema you want to use" );?>" disabled placeholder="<?php print _("Only PostgreSQL and Oracle"); ?>" />
     </div>
 </div>
 <div class="input-group">
@@ -82,3 +82,18 @@
 <div class="input-group pull-right">
     <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_testdb" title="<?php print _("Run a database connection test."); ?>"><span class="glyphicon glyphicon-ok"></span> <?php print _("Test database connection"); ?></button>
 </div>
+<script>
+    
+    $("#dbtype input[name='fDatabase']").click(function(){
+        
+        if (($('input:radio[name=fDatabase]:checked').val() == "mysqli") ||
+           ($('input:radio[name=fDatabase]:checked').val() == "mysql")) {
+            $( "#dbschema" ).attr('disabled', true);
+            $( "#dbcollation" ).attr('disabled', false);
+        } else {
+            $( "#dbcollation" ).attr('disabled', true);
+            $( "#dbschema" ).attr('disabled', false);
+        }
+    });
+
+</script>

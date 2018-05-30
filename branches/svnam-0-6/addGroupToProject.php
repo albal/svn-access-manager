@@ -4,7 +4,7 @@
  * add a group to a project
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
@@ -22,6 +22,19 @@
  *            You should have received a copy of the GNU General Public License
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+
+/*
+ *
+ * $LastChangedDate$
+ * $LastChangedBy$
+ *
+ * $Id$
+ *
+ */
+
+/**
+ * handle adding groupts to projects
  */
 include ('load_config.php');
 
@@ -75,6 +88,7 @@ function addGroupToProject($currentMembers, $dbh) {
     }
     
     $tMessage = "";
+    $tMessageType = '';
     $header = PROJECT;
     $subheader = PROJECT;
     $menu = PROJECT;

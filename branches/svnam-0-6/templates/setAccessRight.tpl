@@ -1,6 +1,9 @@
 <div>     
     <h3 class="page-header"><?php print  _("Access right administration / Step 3: set access rights"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="selectproject" method="post">
         <div class="form-group">
@@ -22,8 +25,8 @@
             </div>
         </div>
         <div class="form-group <?php print outputResponseClasses($tAccessRightError); ?>">
-            <label class="col-sm-3 control-label" for="accessright"><?php print _("Create viewvc configuration"); ?>:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-3 control-label" for="accessright"><?php print _("Repository access right"); ?>:</label>
+            <div class="col-sm-9" data-toggle="tooltip" title="<?php print _("Select the repository access right."); ?>">
                 <label class="radio-inline"><input id="accessright" type="radio" name="fAccessRight"  value="none" <?php print $tNone; ?> ><?php print _("None"); ?></label>
                 <label class="radio-inline"><input id="accessright" type="radio" name="fAccessRight"  value="read" <?php print $tRead; ?> ><?php print _("Read"); ?></label>
                 <label class="radio-inline"><input id="accessright" type="radio" name="fAccessRight"  value="write" <?php print $tWrite; ?> ><?php print _("Write"); ?></label>
@@ -85,19 +88,15 @@
         </div>    
         <div class="input-group">
             <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Submit"); ?>"><span class="glyphicon glyphicon-ok"></span> <?php print _("Submit"); ?></button>
-            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php print _("Back"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
         </div>
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-        <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script>
 $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
     });
 </script>

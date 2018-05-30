@@ -5,7 +5,7 @@
  * *
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -24,7 +24,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -52,6 +52,8 @@ check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "repaccessrights";
 
@@ -67,23 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     
     $tDateError = '';
     $lang = check_language();
+    $tDate = date("Y-m-d");
     
-    if ($lang == "de") {
-        
-        $tDate = "TT.MM.JJJJ";
-        $tDate = date("d") . "." . date("m") . "." . date("Y");
-        $tDateFormat = "dd-mm-yy";
-        $tLocale = "de";
-    }
-    else {
-        
-        $tDate = "MM/DD/YYYY";
-        $tDate = date("m") . "/" . date("d") . "/" . date("Y");
-        $tDateFormat = "mm-dd-yy";
-        $tLocale = "en";
-    }
-    
-    $template = "getDateForAccessRights.tpl";
+    $template = "getDateForAccessRightsModal.tpl";
     $header = REPORTS;
     $subheader = REPORTS;
     $menu = REPORTS;
@@ -102,6 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     elseif ((isset($_POST['fSubmit_date_x'])) || (isset($_POST['fSubmit_date']))) {
         $button = _("Create report");
+    }
+    elseif ((isset($_POST['fSubmit_cancel_x'])) || (isset($_POST['fSubmit_cancel']))) {
+        $button = _("Cancel");
     }
     else {
         $button = "undef";
@@ -125,18 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tDateError = 'error';
             $error = 1;
             
-            if ($lang == "de") {
-                
-                $tDateFormat = "dd-mm-yy";
-                $tLocale = "de";
-            }
-            else {
-                
-                $tDateFormat = "mm-dd-yy";
-                $tLocale = "en";
-            }
-            
-            $template = "getDateForAccessRights.tpl";
+            $template = "getDateForAccessRightsModal.tpl";
             $header = REPORTS;
             $subheader = REPORTS;
             $menu = REPORTS;
@@ -155,16 +135,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tAccessRights = db_getAccessRightsList($_SESSION[SVNSESSID]['valid'], 0, - 1, $dbh);
             $tCountRecords = db_getCountAccessRightsList($_SESSION[SVNSESSID]['valid'], $dbh);
             $tPrevDisabled = "disabled";
-            
-            if ($tCountRecords <= $CONF[PAGESIZE]) {
-                
-                $tNextDisabled = "disabled";
-            }
         }
+    }
+    elseif (($button == _("Cancel")) || ($button == 'undef')) {
+        
+        db_disconnect($dbh);
+        header("Location: main.php");
+        exit();
     }
     else {
         
         $tMessage = sprintf(_("Invalid button %s, anyone tampered arround with?"), $button);
+        $tMessageType = DANGER;
     }
     
     $template = "rep_access_rights.tpl";

@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -165,12 +165,12 @@ final class MyMysqlDatabaseTest extends PHPUnit_Extensions_Database_TestCase {
         $tDataArray = db_check_group_acl('admin', $dbh);
         $this->assertEquals(0, count($tDataArray));
         
-        $CONF['page_size'] = 30;
+        $CONF[PAGESIZE] = 30;
         $CONF['user_sort_fields'] = 'name';
         $CONF['user_sort_order'] = 'ASC';
         
         $tData = db_get_preferences('admin', $dbh);
-        $this->assertEquals(50, $tData['page_size']);
+        $this->assertEquals(50, $tData[PAGESIZE]);
         $this->assertEquals('name,givenname', $tData['user_sort_fields']);
         $this->assertEquals('ASC', $tData['user_sort_order']);
         

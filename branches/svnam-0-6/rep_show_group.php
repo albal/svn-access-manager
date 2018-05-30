@@ -4,7 +4,7 @@
  * Report group
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -50,7 +50,9 @@ $SESSID_USERNAME = check_session();
 check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
-$CONF['page_size'] = $preferences['page_size'];
+$CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Reports", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "repshowgroup";
 
@@ -88,6 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     elseif ((isset($_POST['fSubmit_show_x'])) || (isset($_POST['fSubmit_show']))) {
         $button = _("Create report");
     }
+    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
+        $button = _("Back");
+    }
     else {
         $button = "undef";
     }
@@ -97,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tGroupId = isset($_POST['fGroup']) ? db_escape_string($_POST['fGroup']) : "";
         $_SESSION[SVNSESSID]['group'] = $tGroupId;
         
-        if ($tGroupId == "default") {
+        if (($tGroupId == "default") || empty($tGroupId)) {
             
             $tMessage = _("No group selected!");
             $tMessageType = DANGER;
@@ -126,6 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $tAccessRights = db_getAccessRightsForGroup($tGroupId, $dbh);
             $tAdmins = db_getGroupAdminsForGroup($tGroupId, $dbh);
         }
+    }
+    elseif ($button == _("Back")) {
+        
+        db_disconnect($dbh);
+        header("Location: main.php");
+        exit();
     }
     else {
         

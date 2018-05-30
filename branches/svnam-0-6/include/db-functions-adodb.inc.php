@@ -5,33 +5,31 @@
  * Functions to make work with databases easier.
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
- * @filesource
- * 
  * SVN Access Manager - a subversion access rights management tool
- * Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- *
- * $LastChangedDate$
- * $LastChangedBy$
- *
- * $Id$
- *
+ *             Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
+ *            
+ *             This program is free software; you can redistribute it and/or modify
+ *             it under the terms of the GNU General Public License as published by
+ *             the Free Software Foundation; either version 2 of the License, or
+ *             (at your option) any later version.
+ *            
+ *             This program is distributed in the hope that it will be useful,
+ *             but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *             GNU General Public License for more details.
+ *            
+ *             You should have received a copy of the GNU General Public License
+ *             along with this program; if not, write to the Free Software
+ *             Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *            
+ *            
+ *             $LastChangedDate$
+ *             $LastChangedBy$
+ *            
+ *             $Id$
+ *            
  */
 
 /**
@@ -70,6 +68,7 @@ else {
 
 /**
  * debug text
+ *
  * @global string $DEBUG_TEXT
  */
 $DEBUG_TEXT = "\n
@@ -82,14 +81,26 @@ Please check the documentation and website for more information.\n
  *
  * @return string
  */
-function db_get_database_error_location() {
+function db_get_database_error_location($install = '') {
 
-    if (file_exists(realpath("database_error.php"))) {
-        return ("database_error.php");
+    if (empty($install)) {
+        if (file_exists(realpath("database_error.php"))) {
+            $file = "database_error.php";
+        }
+        else {
+            $file = "../database_error.php";
+        }
     }
     else {
-        return ("../database_error.php");
+        if (file_exists(realpath("database_error.php"))) {
+            $file = "database_error_install.php";
+        }
+        else {
+            $file = "../database_error_install.php";
+        }
     }
+    
+    return ($file);
     
 }
 
@@ -102,7 +113,7 @@ function db_connect() {
 
     /**
      *
-     * @global artray $CONF
+     * @global array $CONF
      */
     global $CONF;
     
@@ -484,7 +495,7 @@ function db_query_install($query, $link, $limit = -1, $offset = -1) {
         error_log("DB Error: $tDbError");
         error_log("DB Query: $query");
         
-        $location = db_get_database_error_location();
+        $location = db_get_database_error_location('1');
         
         header("location: " . $location . "?dbquery=$tDbQuery&dberror=$tDbError&dbfunction=db_query_install");
         exit();
@@ -522,7 +533,7 @@ function db_assoc($result) {
             
             $newrow = array();
             
-            foreach( $row as $key => $value ) {
+            foreach( $row as $key => $value) {
                 $key = strtolower($key);
                 $newrow[$key] = $value;
             }
@@ -683,7 +694,8 @@ function db_getIdByUserid($userid, $link) {
     global $CONF;
     
     $schema = db_determine_schema();
-    
+
+    /** @var array $result */
     $result = db_query("SELECT id " . "  FROM " . $schema . "svnusers " . " WHERE (userid = '$userid') " . "   AND (deleted = '00000000000000')", $link);
     if ($result['rows'] == 1) {
         
@@ -716,10 +728,14 @@ function db_now() {
  * @param string $column
  * @param resource $link
  * @param string $schema
- * @return boolean
+ * @return integer|boolean
  */
 function db_get_last_insert_id($table, $column, $link, $schema = "") {
 
+    /**
+     *
+     * @global array $CONF
+     */
     global $CONF;
     
     if ($schema == "") {
@@ -1055,7 +1071,7 @@ function db_getAccessRightsForUser($tUserId, $tGroups, $dbh) {
     $query = "  SELECT svnmodule, modulepath, reponame, path, user_id, group_id, access_right, repo_id " . "    FROM " . $schema . "svn_access_rights, " . $schema . "svnprojects, " . $schema . "svnrepos " . "   WHERE (svn_access_rights.deleted = '00000000000000') " . "     AND (svn_access_rights.valid_from <= '$curdate') " . "     AND (svn_access_rights.valid_until >= '$curdate') " . "     AND (svn_access_rights.project_id = svnprojects.id) ";
     if (count($tGroups) > 0) {
         $query .= "     AND ((svn_access_rights.user_id = $tUserId) ";
-        foreach( $tGroups as $entry ) {
+        foreach( $tGroups as $entry) {
             $query .= "    OR (svn_access_rights.group_id = " . $entry[GROUP_ID] . ") ";
         }
         $query .= "       ) ";
@@ -1429,7 +1445,7 @@ function db_getGroupsAllowed($start, $count, $groupAdmin, $tGroupsAllowed, $dbh)
         
         $grouplist = "";
         
-        foreach( $tGroupsAllowed as $groupid => $right ) {
+        foreach( $tGroupsAllowed as $groupid => $right) {
             
             if ($grouplist == "") {
                 $grouplist = "'" . $groupid . "'";
@@ -1473,7 +1489,7 @@ function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
     if ($groupAdmin == 1) {
         $grouplist = "";
         
-        foreach( $tGroupsAllowed as $groupid => $right ) {
+        foreach( $tGroupsAllowed as $groupid => $right) {
             
             if ($grouplist == "") {
                 $grouplist = "'" . $groupid . "'";
@@ -1490,7 +1506,8 @@ function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
     else {
         $query = "SELECT  COUNT(*) AS anz " . "   FROM " . $schema . "svngroups " . "   WHERE (deleted = '00000000000000') ";
     }
-    
+
+    /** @var array $result */
     $result = db_query($query, $dbh);
     
     if ($result['rows'] == 1) {
@@ -1503,6 +1520,29 @@ function db_getCountGroupsAllowed($groupAdmin, $tGroupsAllowed, $dbh) {
         
         return false;
     }
+    
+}
+
+/**
+ * get user messages valid for current date
+ *
+ * @param resource $dbh
+ * @return array
+ */
+function db_getMessagesShort($dbh) {
+
+    $schema = db_determine_schema();
+    $tUserMessages = array();
+    $date = date('Ymd');
+    $query = "SELECT message FROM " . $schema . "messages WHERE ('" . $date . "' >= validfrom) AND ('" . $date . "' <= validuntil) AND (deleted = '00000000000000');";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $tUserMessages[] = $row['message'];
+    }
+    
+    return ($tUserMessages);
     
 }
 
@@ -1527,6 +1567,34 @@ function db_getProjects($start, $count, $dbh) {
     }
     
     return $tProjects;
+    
+}
+
+/**
+ * get all not deleted messages in full
+ *
+ * @param resource $dbh
+ * @return $tUserMessages[]
+ */
+function db_getMessages($dbh) {
+
+    $schema = db_determine_schema();
+    $tUserMessages = array();
+    $query = "SELECT * FROM " . $schema . "messages WHERE deleted = '00000000000000';";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result[RESULT]) ) {
+        
+        $date = splitValidDate($row['validfrom']);
+        $row['validfrom_date'] = $date;
+        
+        $date = splitValidDate($row['validuntil']);
+        $row['validuntil_date'] = $date;
+        
+        $tUserMessages[] = $row;
+    }
+    
+    return ($tUserMessages);
     
 }
 
@@ -1850,11 +1918,6 @@ function db_getAccessRightsForGroup($tGroupId, $dbh) {
     
 }
 
-//
-// db_getGrantedRights
-// Action: get all granted rights
-// Call: db_getAccessRightsForGroup(integer $start, integer $count, resource $dbh)
-//
 /**
  * get all granted rights
  *
@@ -1911,6 +1974,54 @@ function db_getGrantedRights($start, $count, $dbh) {
     }
     
     return $tGrantedRights;
+    
+}
+
+/**
+ * get rights list for all users
+ *
+ * @param resource $dbh
+ * @return $tGrantedRights[]
+ */
+function db_getGrantedRightsList($dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tGrantedRights = array();
+    $query = "SELECT rights.right_name, rights.id, users_rights.allowed, svnusers.name, svnusers.givenname, svnusers.locked, svnusers.userid " . "  FROM " . $schema . "rights, " . $schema . "users_rights, " . $schema . "svnusers " . " WHERE (rights.id = users_rights.right_id) " . "   AND (svnusers.id = users_rights.user_id)" . "   AND (users_rights.deleted = '00000000000000') " . "   AND (rights.deleted = '00000000000000') " . "ORDER BY name, givenname, rights.id";
+    $resultrights = db_query($query, $dbh);
+    
+    while ( $rowrights = db_assoc($resultrights['result']) ) {
+        
+        $tGrantedRights[] = $rowrights;
+    }
+    
+    return $tGrantedRights;
+    
+}
+
+/**
+ * get an array with all rights
+ *
+ * @param resource $dbh
+ * @return $tRights[]
+ */
+function db_getRights($dbh) {
+
+    global $CONF;
+    
+    $schema = db_determine_schema();
+    $tRights = array();
+    $query = "SELECT id, right_name FROM " . $schema . "rights WHERE deleted = '00000000000000' ORDER BY id;";
+    $result = db_query($query, $dbh);
+    
+    while ( $row = db_assoc($result['result']) ) {
+        
+        $tRights[] = $row;
+    }
+    
+    return ($tRights);
     
 }
 
@@ -2184,6 +2295,8 @@ function db_get_preferences($userid, $link) {
     $preferences[PAGESIZE] = $CONF[PAGESIZE];
     $preferences[USER_SORT_FIELDS] = $CONF[USER_SORT_FIELDS];
     $preferences[USER_SORT_ORDER] = $CONF[USER_SORT_ORDER];
+    $preferences[TOOLTIP_SHOW] = $CONF[TOOLTIP_SHOW];
+    $preferences[TOOLTIP_HIDE] = $CONF[TOOLTIP_HIDE];
     
     $schema = db_determine_schema();
     
@@ -2200,6 +2313,8 @@ function db_get_preferences($userid, $link) {
             $preferences[PAGESIZE] = $page_size;
             $preferences[USER_SORT_FIELDS] = $row[USER_SORT_FIELDS];
             $preferences[USER_SORT_ORDER] = $row[USER_SORT_ORDER];
+            $preferences[TOOLTIP_SHOW] = $row[TOOLTIP_SHOW];
+            $preferences[TOOLTIP_HIDE] = $row[TOOLTIP_HIDE];
         }
     }
     
@@ -2399,7 +2514,7 @@ function db_get_list($type, $tSearch, $dbh, $tParts = '') {
                 $query = "SELECT * " . "  FROM " . $schema . "svn_groups_responsible," . $schema . "svnusers, " . $schema . "svngroups " . " WHERE (svn_groups_responsible.user_id = svnusers.id) " . "   AND (svnusers.deleted = '00000000000000') " . "   AND (svn_groups_responsible.deleted = '00000000000000') " . "   AND (svn_groups_responsible.group_id = svngroups.id) " . "   AND (svngroups.deleted = '00000000000000') " . "   AND (";
                 
                 $i = 0;
-                foreach( $tParts as $entry ) {
+                foreach( $tParts as $entry) {
                     
                     if ($i == 0) {
                         
@@ -2474,6 +2589,66 @@ function db_get_list($type, $tSearch, $dbh, $tParts = '') {
 }
 
 /**
+ * gather statistics
+ * 
+ * @param resource $dbh
+ * @return array[]
+ */
+function db_getStatistics($dbh) {
+
+    $schema = db_determine_schema();
+    $stats = array();
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnusers WHERE (deleted = '00000000000000') AND (locked = 0);";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['user_active'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnusers WHERE (deleted = '00000000000000') AND (locked = 1);";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['user_locked'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnusers WHERE (deleted != '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['user_deleted'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnrepos WHERE (deleted = '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['repo_active'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnrepos WHERE (deleted != '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['repo_deleted'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svngroups WHERE (deleted = '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['group_active'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svngroups WHERE (deleted != '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['group_deleted'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnprojects WHERE (deleted = '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['project_active'] = $row['cnt'];
+    
+    $query = "SELECT count(*) AS cnt FROM " . $schema . "svnprojects WHERE (deleted != '00000000000000');";
+    $result = db_query($query, $dbh);
+    $row = db_assoc($result['result']);
+    $stats['project_deleted'] = $row['cnt'];
+    
+    return ($stats);
+    
+}
+
+/**
  * create array with LDAP connect options
  *
  * @return array[][]
@@ -2537,7 +2712,7 @@ function ldap_check_user_exists($userid) {
     $LDAP_CONNECT_OPTIONS = set_ldap_connect_options();
     
     try {
-        $ldap = &NewADOConnection('ldap');
+        $ldap = NewADOConnection('ldap');
         $ldap->Connect($CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $ldapOpen = 1;
     }
@@ -2712,7 +2887,7 @@ function get_ldap_users() {
     $LDAP_CONNECT_OPTIONS = set_ldap_connect_options();
     
     try {
-        $ldap = &NewADOConnection('ldap');
+        $ldap = NewADOConnection('ldap');
         $ldap->Connect($CONF[LDAP_SERVER], $CONF[BIND_DN], $CONF[BIND_PW], $CONF[USER_DN]);
         $ldapOpen = 1;
     }
@@ -2829,7 +3004,7 @@ function check_ldap_password($userid, $password) {
                 
                 $arr = $rs->FetchRow();
                 $dn = $arr['dn'];
-                $ldapUser = &NewADOConnection('ldap');
+                $ldapUser = NewADOConnection('ldap');
                 $ldapUser->Connect($CONF[LDAP_SERVER], $dn, $password, $CONF[USER_DN]);
                 $ret = 1;
                 $ldapUser->Close();
@@ -2860,7 +3035,7 @@ function check_ldap_password($userid, $password) {
  * Session handling in database
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. Allrights reserved.
+ * @copyright 2008-2018 Thomas Krieger. Allrights reserved.
  *           
  */
 class Session {
@@ -2873,6 +3048,7 @@ class Session {
     
     /**
      * switch debugging on or off
+     *
      * @var integer
      */
     private static $DEBUG = 0;

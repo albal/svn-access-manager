@@ -1,6 +1,9 @@
 <div>      
     <h3 class="page-header"><?php print _("Account information"); ?></h3> 
 </div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
 <div>
     <form class="form-horizontal" name="general" method="post">
         <div class="row">
@@ -96,10 +99,11 @@
                     </div>
                 </div>
             </div>
+        </div>  
+        <div class="input-group">
+            <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Save"); ?>"><span class="glyphicon glyphicon-save"></span> <?php print _("Save"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
         </div>
-        
-        
-        
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
@@ -182,21 +186,6 @@
                 ?>
             </tbody>
         </table>
-        
-        <div class="input-group">
-            <p>&nbsp;</p>
-        </div>    
-        <div class="input-group">
-            <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Save"); ?>"><span class="glyphicon glyphicon-save"></span> <?php print _("Save"); ?></button>
-            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-arow-left"></span> <?php print _("Back"); ?></button>
-        </div>
-        <div class="input-group">
-            <p>&nbsp;</p>
-        </div>
-        
-         <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script>
@@ -204,23 +193,41 @@ $(document).ready(function() {
     $('#showusergrouptable').DataTable({
         "order": [[ 0, "asc" ]],
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
     
     $('#showprojecttable').DataTable({
         "order": [[ 0, "asc" ]],
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
     
     $('#showuserrighttable').DataTable({
         "order": [[ 0, "asc" ]],
         stateSave: true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
     });
     
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
-    });
+    $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
+    
+    $("givenname").focus();
 } );
 </script>

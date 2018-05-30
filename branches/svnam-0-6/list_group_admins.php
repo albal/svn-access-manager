@@ -4,7 +4,7 @@
  * list group administrators
  *
  * @author Thomas Krieger
- * @copyright 2018 Thomas Krieger. All rights reserved.
+ * @copyright 2008-2018 Thomas Krieger. All rights reserved.
  *           
  *            SVN Access Manager - a subversion access rights management tool
  *            Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
@@ -23,7 +23,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *           
- * @filesource
+ *
  */
 
 /*
@@ -51,6 +51,8 @@ check_password_expired();
 $dbh = db_connect();
 $preferences = db_get_preferences($SESSID_USERNAME, $dbh);
 $CONF[PAGESIZE] = $preferences[PAGESIZE];
+$CONF[TOOLTIP_SHOW] = $preferences[TOOLTIP_SHOW];
+$CONF[TOOLTIP_HIDE] = $preferences[TOOLTIP_HIDE];
 $rightAllowed = db_check_acl($SESSID_USERNAME, "Group admin", $dbh);
 $_SESSION[SVNSESSID]['helptopic'] = "listgroupadmins";
 
@@ -67,12 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $_SESSION[SVNSESSID]['groupcounter'] = 0;
     $tGroups = db_getGroups(0, - 1, $dbh);
     $tCountRecords = db_getCountGroups($dbh);
-    $tPrevDisabled = "disabled";
-    
-    if ($tCountRecords <= $CONF[PAGESIZE]) {
-        
-        $tNextDisabled = "disabled";
-    }
     
     $template = "list_group_admins.tpl";
     $header = GROUPS;

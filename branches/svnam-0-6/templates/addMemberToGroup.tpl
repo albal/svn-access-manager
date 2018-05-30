@@ -3,6 +3,9 @@
 </div>
 <div>
     <form class="form-horizontal" action="workOnGroup.php" name="workOnGroup" method="post">
+        <?php 
+            outputMessage($tMessage, $tMessageType);
+        ?>
         <div class="form-group">
             <label class="col-sm-3 control-label" for="members"><?php print _("Choose the members to add"); ?>:</label>
             <div class="col-sm-9">
@@ -27,15 +30,11 @@
         <div class="input-group">
             <p>&nbsp;</p>
         </div>
-        
-         <?php 
-            outputMessage($tMessage, $tMessageType);
-        ?>
     </form>
 </div>
 <script type="text/javascript">
     
     $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}});  
     });
 </script>
