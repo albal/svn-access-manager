@@ -5,11 +5,11 @@
 @header ("Cache-Control: post-check=0, pre-check=0", false);
 @header ("Pragma: no-cache");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <!--
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,30 +34,61 @@
 		$charset		= "iso8859-15";
 	}
 ?>
-<head>
-  	<title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
-  	<meta name="GENERATOR" content="Quanta Plus" />
-  	<meta http-equiv="Content-Type" content="text/html; charset=<?php print $charset;?>" />
-  	<!--<link rel="stylesheet" type="text/css" href="./style/lhelstyle.css" />-->
-	<!--[if lt IE 9]>
-		<link rel="stylesheet" type="text/css" href="./style/lhelie.css" />
-	<![endif]-->
-	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
-	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
-	<link rel="stylesheet" type="text/css" href="./style/chosen.css" />
-	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
-	
-	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
-	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
-	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
-	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
-	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
-	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
-	<script language="javaScript" type="text/javascript" src="./lib/jquery/jquery.timers-1.2.js"></script>
-	<script language="javaScript" type="text/javascript" src="./lib/jquery/chosen.jquery.min.js"></script>
-	<script language="javascript" type="text/javascript">
-		
-		$(document).ready(function() {
+
+  <head>
+    <meta charset="<?php print $charset; ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="SVN Access Manager">
+    <meta name="author" content="Thomas Krieger">
+    <link rel="icon" href="/images/favicon.ico">
+
+    <title>SVN Access Manager</title>
+
+    <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./lib/jquery/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="./lib/jquery/jquery.timers-1.2.js"></script>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="./lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./lib/bootstrap-3.3.7/css/ie10-viewport-bug-workaround.min.css" rel="stylesheet">
+
+    <!-- DataTable style -->
+    <link href="./lib/bootstrap-3.3.7/css/datatables.min.css" rel="stylesheet">
+    <link href="./lib/DataTables-1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="./lib/bootstrap-3.3.7/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="./lib/bootstrap-3.3.7/css/bootstrap-select.min.css" rel="stylesheet">
+    
+    <!-- site sprcific styles -->
+    <link href="./style/svnam.css" rel="stylesheet">
+    
+    <!-- Bootstrap formhelpers -->
+    <!--<link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers.css" rel="stylesheet">-->
+    <!--<link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers-countries.flags.css" rel="stylesheet">-->
+    <!--<link href="./lib/bootstrap-3.3.7/css/bootstrap-formhelpers-currencies.flags.css" rel="stylesheet">-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="./lib/bootstrap-3.3.7/js/html5shiv.min.js"></script>
+      <script src="./lib/bootstrap-3.3.7/js/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+    
+    <script language="javascript" type="text/javascript">
+        
+        $(document).ready(function() {
+        
+            $("#noJS").hide();
+            $("#site").show();
             
             sess_ok = "<?php list( $ret, $dummy) = check_session_status(); print $ret;?>";
             if(sess_ok != "1") {
@@ -66,9 +97,9 @@
             }
         });             
                 
-        $(document).everyTime(5000, function checkSession() {
+        $(document).everyTime("5s", function checkSession() {
              var dDate = new Date();
-			 var iTimeStamp = dDate.getTime();
+             var iTimeStamp = dDate.getTime();
              $.ajax({
                 url: 'checkSession.php?antiCache='+iTimeStamp,
                 success: function(newVal) {
@@ -79,134 +110,137 @@
                   }
                 });
         });
-		
-	</script>
-</head>
-<body  class="noscript">
-	<script type="text/javascript">
-		$("body").removeClass("noscript");
-	</script>
+        
+    </script>
+    <style>
+    #site {
+        display: none;
+    }
+    
+    .logoBar {
+        vertical-align:bottom;
+        background-color:#efeff8;
+        width:716px;
+        height:70px;
+    }
+    
+    .helpdialog {
+        text-align: left;
+        font-size: 1.1em;
+    }
+    </style>
+  </head>
+  <body>
+	<noscript>
+    	<div id="noJS">
+    		
+    		<div class="logoBar nojs">
+    			<a href="#">
+    				<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+    			</a>
+    		</div>
+    		
+    		<!-- BEGIN Liquid Middle Column -->	
+    		<div class="Content">
+    		   
+    			<p><?php print _("Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"); ?></p>
+    
+    		</div>
+    		<!-- END Liquid Middle Column -->	
+    	</div>
+	</noscript>
 	
-	<div class="disabled">
-		
-		<div class="logoBar">
-			<a href="#">
-				<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
-			</a>
-		</div>
-		
-		<!-- BEGIN Liquid Middle Column -->	
-		<div class="Content">
-		   
-			<p><?php print _("Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"); ?></p>
+	<?php outputMenu(); ?>
 
-		</div>
-		<!-- END Liquid Middle Column -->	
-	</div>
+	<div class="container" id="site">
+	
+		<?php include( "./templates/".$template ); ?>
+		
+	</div>  <!--  end container -->
+	
+	<footer class="footer">
+      <div class="container">
+        <p class="text-muted small">
+     
+                <?php 
+                    $datetime = htmlentities(strftime("%c"));
+                    $tBuildInfo = 'Build: ###DATE### - ###BUILDNR###';
+                ?>
+            
+                <div class="row">
+                    <div class="col-sm-6 small"><?php global $CONF; print $CONF['copyright']." - PHP Version: ".PHP_VERSION; ?></div>
+                    <div class="col-sm-3 small"><?php print $tBuildInfo; ?></div>
+                    <div class="col-sm-3 small"><?php print $datetime; ?></div>
+                </div>
 
-	<div class="enabled">
-		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<tr valign="top">
-				<td width="200" bgcolor="#EAEAE8">
-					<a href="http://www.svn-access-manager.org/" target="_blank">
-						<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
-					</a>
-				</td>
-				<td>
-					<div id="header_right" class="bgEAEAE8">
-						<?php outputHeader($header); ?>
-					</div>
-				</td>
-			</tr>
-			<tr valign="top">
-				<td width="200">
-					<div id="subheader_left">
-						&nbsp;
-					</div>
-				</td>
-				<td>
-					<div id="subheader_right">
-						<?php outputSubHeader($subheader); ?>
-					</div>
-				</td>
-			</tr>
-			<tr valign="top">
-				<td width="200" bgcolor="#EAEAE8">
-					<div id="left" class="leftMenu">
-						<!--<ul> -->
-							<?php outputMenu($menu); ?>
-						<!--</ul>-->
-					</div>
-				</td>
-				<td>
-					<div id="right">
-						<?php include( "./templates/".$template ); ?>
-					</div>
-				
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<?php include( "footer.tpl" ); ?>
-				</td>
-			</tr>
-		</table>
-	</div>  
-	<div id="dialog-confirm" class="ui-dialog" style="display: none;">
-			<p>
-				<!--<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;text-align:justified"></span>-->
-				<span class="helpDialog">
-				<?php 
-					$dbh 										= db_connect ();
-					$tText 										= array();
-						
-					if( isset( $_SESSION['svn_sessid']['helptopic'] ) ) {
-							
-						$schema									= db_determine_schema();
-					    
-						$lang									= check_language();
-						$query									= "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
-																  "  FROM ".$schema."help " .
-																  " WHERE topic = '".$_SESSION['svn_sessid']['helptopic']."'";
-						$result									= db_query( $query, $dbh );
-						
-						if( $result['rows'] > 0 ) {
-						
-							$tText								= db_assoc( $result['result'] );
-							
-						} else {
-							
-							$tText['headline']					= _("No help found");
-							$tText['helptext']					= sprintf( _("There is no help topic '%s' in the database"), $_SESSION['svn_sessid']['helptopic'] );
-						}
-						
-					} else {
-						
-						$tText['headline']						= _("No help found");
-						$tText['helptext']						= _("There is no help topic set");
-							
-					}
-					
-					$text_arr			= explode( "\r\n", $tText['helptext'] );
-					print "<p class='helpDialog'>&nbsp;</p>\n";
-					foreach( $text_arr as $text ) {
-					
-						print "<p class='helpDialog'>$text<br/>&nbsp;</p>\n";
-						
-					}
-				?>
-				</span>
-			</p>
-	</div>
+        </p>
+      </div>
+    </footer>
+	
+    <div id="dialog-confirm" class="modal toggle fade" role="dialog">
+      <div class="modal-dialog">
+        <?php 
+            $dbh                                        = db_connect();
+            $tText                                      = array();
+                
+            if( isset( $_SESSION[SVNSESSID][HELPTOPIC] ) ) {
+                    
+                $schema                                 = db_determine_schema();               
+                $lang                                   = check_language();
+                $query                                  = "SELECT topic, headline_$lang AS headline, helptext_$lang AS helptext " .
+                                                          "  FROM ".$schema."help " .
+                                                          " WHERE topic = '".$_SESSION[SVNSESSID][HELPTOPIC]."'";
+                $result                                 = db_query( $query, $dbh );
+                
+                if( $result['rows'] > 0 ) {  
+                    $tText                              = db_assoc( $result['result'] );
+                } else {
+                    $tText[HEADLINE]                    = _("No help found");
+                    $tText[HELPTEXT]                    = sprintf( _("There is no help topic '%s' in the database"), $_SESSION[SVNSESSID][HELPTOPIC] );
+                }
+                
+            } else {
+                $tText[HEADLINE]                        = _("No help found");
+                $tText[HELPTEXT]                        = _("There is no help topic set");    
+            }
+        ?>
+                
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><?php print _("Help")."::".$tText[HEADLINE];?></h4>
+          </div>
+          <div class="modal-body">
+            
+                <?php
+                    $text_arr           = explode( "\r\n", $tText[HELPTEXT] );
+                    foreach( $text_arr as $text ) {
+                        print "<p>$text<br/>&nbsp;</p>\n";                        
+                    }
+                ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./lib/bootstrap-3.3.7/js/ie10-viewport-bug-workaround.min.js"></script>
+	<script src="./lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<script src="./lib/bootstrap-3.3.7/js/datatables.min.js"></script>
+	<script src="./lib/bootstrap-3.3.7/js/bootstrap-select.min.js"></script>
+	<script src="./lib/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script>
+	
+	<!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-selectbox.js"></script> -->
+    <!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-countries.en_US.js"></script> -->
+    <!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-languages.codes.js"></script> -->
+    <!-- <script src="./lib/bootstrap-3.3.7/js/bootstrap-formhelpers-languages.js"></script> -->
+    
 	<script type="text/javascript">
-		var dlg = $("#dialog-confirm").dialog({
-			resizable: true,
-			height: 300,
-			width: 400,				
-			modal: true,
-			title: '<?php print _("Help")."::".$tText['headline'];?>',
-			autoOpen: false,
-		});
 		
 		$("#help").bind("click", function(event){
 			event.preventDefault();
@@ -217,7 +251,7 @@
 				event.cancelBubble = true;
 			}
 			
-			dlg.dialog("open");
+			$('#dialog-confirm').modal('show');
 		});
 	</script>  
 </body>
