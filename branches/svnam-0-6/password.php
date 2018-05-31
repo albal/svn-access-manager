@@ -34,15 +34,15 @@
  * $Id$
  *
  */
-include ('load_config.php');
+include('load_config.php');
 
 $installBase = isset($CONF[INSTALLBASE]) ? $CONF[INSTALLBASE] : "";
 
-require ("$installBase/include/variables.inc.php");
-include_once ("$installBase/include/constants.inc.php");
-require ("$installBase/include/functions.inc.php");
-require ("$installBase/include/output.inc.php");
-require ("$installBase/include/db-functions-adodb.inc.php");
+require("$installBase/include/variables.inc.php");
+include_once("$installBase/include/constants.inc.php");
+require("$installBase/include/functions.inc.php");
+require("$installBase/include/output.inc.php");
+require("$installBase/include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
@@ -65,21 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $menu = PASSWORD;
     $template = "password.tpl";
 
-    include ("$installBase/templates/framework.tpl");
+    include("$installBase/templates/framework.tpl");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
-    }
-    elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
+    } elseif ((isset($_POST['fSubmit_ok_x'])) || (isset($_POST['fSubmit_ok']))) {
         $button = _("Change password");
-    }
-    elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
+    } elseif ((isset($_POST['fSubmit_back_x'])) || (isset($_POST['fSubmit_back']))) {
         $button = _("Cancel");
-    }
-    else {
+    } else {
         $button = "undef";
     }
 
@@ -87,8 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         db_disconnect($dbh);
         header("Location: main.php");
         exit();
-    }
-    elseif ($button == _("Change password")) {
+    } elseif ($button == _("Change password")) {
         $error = 0;
         $tCurrentError = 'ok';
         $tPasswordError = 'ok';
@@ -135,6 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $error = 1;
             $tMessage = _("New password can not be the same as the current password!");
+            $tMessageType = DANGER;
+            $tPasswordError = ERROR;
+            $tPassword2Error = ERROR;
         }
 
         if (($error == 0) && (checkPasswordPolicy($fPassword, $isAdmin) == 0)) {
@@ -186,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $menu = PASSWORD;
     $template = "password.tpl";
 
-    include ("$installBase/templates/framework.tpl");
+    include("$installBase/templates/framework.tpl");
 }
 
 db_disconnect($dbh);

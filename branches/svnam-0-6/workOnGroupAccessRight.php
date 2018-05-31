@@ -253,6 +253,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         
                         $tMessage = _("Group responsible user successfully inserted");
                         $tMessageType = SUCCESS;
+                        $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                        $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
+                        db_disconnect($dbh);
+                        header("Location: list_group_admins.php");
+                        exit();
                     }
                 }
                 else {
@@ -329,6 +334,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         
                         $tMessage = _("Group responsible user successfully changed");
                         $tMessageType = SUCCESS;
+                        $_SESSION[SVNSESSID][ERRORMSG] = $tMessage;
+                        $_SESSION[SVNSESSID][ERRORTYPE] = $tMessageType;
+                        db_disconnect($dbh);
+                        header("Location: list_group_dmins.php");
+                        exit();
                     }
                 }
                 else {

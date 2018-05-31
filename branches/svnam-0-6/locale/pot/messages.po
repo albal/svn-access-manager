@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 19:32+0200\n"
-"PO-Revision-Date: 2018-05-29 19:35+0200\n"
+"POT-Creation-Date: 2018-05-31 08:18+0200\n"
+"PO-Revision-Date: 2018-05-31 08:31+0200\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -377,6 +377,7 @@ msgstr "3"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:121
 #: ../../preferences.php:121 ../..//preferences.php:121
 #: ../../preferences.php:114 ../../preferences.php:131
+#: ../../preferences.php:137
 msgid "<"
 msgstr "<"
 
@@ -611,7 +612,7 @@ msgstr "<"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:119
 #: ../../preferences.php:119 ../..//preferences.php:119
 #: ../../preferences.php:111 ../../preferences.php:118
-#: ../../preferences.php:128
+#: ../../preferences.php:128 ../../preferences.php:134
 msgid "<<"
 msgstr "<<"
 
@@ -945,7 +946,7 @@ msgstr ""
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:123
 #: ../../preferences.php:123 ../..//preferences.php:123
 #: ../../preferences.php:117 ../../preferences.php:124
-#: ../../preferences.php:134
+#: ../../preferences.php:134 ../../preferences.php:140
 msgid ">"
 msgstr ">"
 
@@ -1198,7 +1199,7 @@ msgstr ">"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:125
 #: ../../preferences.php:125 ../..//preferences.php:125
 #: ../../preferences.php:120 ../../preferences.php:127
-#: ../../preferences.php:137
+#: ../../preferences.php:137 ../../preferences.php:143
 msgid ">>"
 msgstr ">>"
 
@@ -1219,6 +1220,7 @@ msgstr "Ein Datenbankfehler ist aufgetreten:"
 #: ../../workOnGroup.php:290 ../..//workOnGroup.php:290
 #: ../../workOnGroup.php:293 ../../workOnGroup.php:275
 #: ../../workOnGroup.php:282 ../../workOnGroup.php:288
+#: ../../workOnGroup.php:298
 msgid "A group must have one member at least! Otherwise delete the whole group!"
 msgstr "Eine Gruppe braucht mindestens ein Mitglied! Ansonsten die Gruppe l&ouml;schen!"
 
@@ -1280,13 +1282,14 @@ msgstr "Ein Repository Pfad muss mit '/' nach file:// beginnen wie %s"
 #: ../../templates/install-tabs.tpl:499 ../../templates/install-tabs.tpl:761
 #: ../../templates/install-tab5.tpl:49 ../../templates/install-tab2.tpl:111
 msgid "ASC"
-msgstr "aufsteigend"
+msgstr "Aufsteigend"
 
 #: ../../templates/rep_show_user_result.tpl:88
 #: ../..//templates/rep_show_user_result.tpl:88 ../../templates/general.tpl:146
 #: ../../templates/rep_show_user_result.tpl:95 ../../templates/general.tpl:169
 #: ../../templates/rep_show_user_result.tpl:121 ../../templates/general.tpl:159
 #: ../../templates/rep_show_user_result.tpl:124 ../../templates/general.tpl:167
+#: ../../templates/general.tpl:171
 msgid "Access by"
 msgstr "Zugriff durch"
 
@@ -1438,6 +1441,7 @@ msgstr "Datei mit Zugriffsberechtigungen erfolgreich geschrieben!"
 #: ../../templates/rep_show_user_result.tpl:123
 #: ../../templates/workOnGroupAccessRight.tpl:33
 #: ../../templates/deleteAccessRight.tpl:28 ../../templates/general.tpl:166
+#: ../../templates/general.tpl:170
 msgid "Access right"
 msgstr "Zugriffsrecht"
 
@@ -1481,7 +1485,7 @@ msgstr "Zugriffsreche verwaltung / Rechte l&ouml;schen"
 
 #: ../../setAccessRight.php:533
 msgid "Access right successfully written to database"
-msgstr "Zugriffsrecht erfolgreich in die Datenbank geschrieben."
+msgstr "Zugriffsrecht erfolgreich in die Datenbank geschrieben"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:57
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:112
@@ -1507,6 +1511,7 @@ msgstr "Zugriffsrecht erfolgreich in die Datenbank geschrieben."
 #: ../../include/output.inc.php:102
 #: ../../templates/rep_show_group_result.tpl:82
 #: ../../templates/rep_show_user_result.tpl:114 ../../templates/general.tpl:157
+#: ../../templates/general.tpl:161
 msgid "Access rights"
 msgstr "Zugriffsrechte"
 
@@ -1731,7 +1736,8 @@ msgstr "Aktion"
 #: ../../templates/addGroupToProject.tpl:27
 #: ../../templates/addMemberToProject.tpl:27 ../../workOnProject.php:667
 #: ../../workOnGroup.php:207 ../../workOnGroup.php:498
-#: ../../workOnProject.php:669
+#: ../../workOnProject.php:669 ../../workOnProject.php:253
+#: ../../workOnProject.php:703 ../../workOnGroup.php:509
 msgid "Add"
 msgstr "Hinzuf&uuml;gen"
 
@@ -1762,6 +1768,7 @@ msgstr "Hinzuf&uuml;gen"
 #: ../../workOnProject.php:345 ../../workOnProject.php:214
 #: ../../workOnProject.php:339 ../../workOnProject.php:346
 #: ../../workOnProject.php:223 ../../workOnProject.php:348
+#: ../../workOnProject.php:227 ../../workOnProject.php:359
 msgid "Add group"
 msgstr "Gruppe hinzuf&uuml;gen"
 
@@ -1825,6 +1832,7 @@ msgstr "Gruppenmitglied hinzuf&uuml;gen"
 #: ../../workOnGroup.php:222 ../../workOnGroup.php:188
 #: ../../workOnGroup.php:229 ../../templates/workOnGroup.tpl:51
 #: ../../templates/workOnProject.tpl:80 ../../workOnGroup.php:235
+#: ../../templates/workOnProject.tpl:81 ../../workOnGroup.php:240
 msgid "Add member"
 msgstr "Mitglied hinzuf&uuml;gen"
 
@@ -1886,6 +1894,7 @@ msgstr "Projektverantwortlichen hinzuf&uuml;gen"
 #: ../../workOnProject.php:307 ../../workOnProject.php:208
 #: ../../workOnProject.php:215 ../../workOnProject.php:310
 #: ../../workOnProject.php:217 ../../workOnProject.php:312
+#: ../../workOnProject.php:221 ../../workOnProject.php:316
 msgid "Add responsible"
 msgstr "Verantwortlichen hinzuf&uuml;gen"
 
@@ -1945,7 +1954,7 @@ msgstr "Benutzer hinzuf&uuml;gen"
 #: ../..//install/install.php:3446 ../../install/install.php:3446
 #: ../../install/install-new.php:1705 ../../install/install.php:1705
 #: ../../install/install.php:1824 ../../install/install.php:1828
-#: ../../install/install.php:1829
+#: ../../install/install.php:1829 ../../install/install.php:1830
 msgid "Admin account successfully created"
 msgstr "Admin Kennung erfolgreich angelegt"
 
@@ -2301,6 +2310,7 @@ msgstr "Administrator Kennung"
 #: ../../install/install.php:2387 ../../install/install.php:1098
 #: ../../install/install.php:2513 ../../install/install.php:1102
 #: ../../install/install.php:2517 ../../install/install.php:2518
+#: ../../install/install.php:1103 ../../install/install.php:2519
 #, php-format
 msgid "Administrator email address %s is not a valid email address!"
 msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
@@ -2387,6 +2397,7 @@ msgstr "E-Mailadresse des Administrators %s ist nicht g&uuml;ltig!"
 #: ../../install/install.php:2382 ../../install/install.php:1093
 #: ../../install/install.php:2508 ../../install/install.php:1097
 #: ../../install/install.php:2512 ../../install/install.php:2513
+#: ../../install/install.php:1098 ../../install/install.php:2514
 msgid "Administrator email address is missing!"
 msgstr "E-Mailadresse des Administrators fehlt!"
 
@@ -2467,6 +2478,7 @@ msgstr "E-Mailadresse des Administrators fehlt!"
 #: ../../install/install.php:2376 ../../install/install.php:1087
 #: ../../install/install.php:2502 ../../install/install.php:1091
 #: ../../install/install.php:2506 ../../install/install.php:2507
+#: ../../install/install.php:1092 ../../install/install.php:2508
 msgid "Administrator name is missing!"
 msgstr "Nachname des Administrators fehlt!"
 
@@ -2547,6 +2559,7 @@ msgstr "Nachname des Administrators fehlt!"
 #: ../../install/install.php:2360 ../../install/install.php:1070
 #: ../../install/install.php:2486 ../../install/install.php:1074
 #: ../../install/install.php:2490 ../../install/install.php:2491
+#: ../../install/install.php:1075 ../../install/install.php:2492
 msgid "Administrator password is missing!"
 msgstr "Passwort des Administrators fehlt!"
 
@@ -2627,6 +2640,7 @@ msgstr "Passwort des Administrators fehlt!"
 #: ../../install/install.php:2370 ../../install/install.php:1081
 #: ../../install/install.php:2496 ../../install/install.php:1085
 #: ../../install/install.php:2500 ../../install/install.php:2501
+#: ../../install/install.php:1086 ../../install/install.php:2502
 msgid "Administrator password is not strong enough!"
 msgstr "Administrator Passwort ist nicht stark genug!"
 
@@ -2707,6 +2721,7 @@ msgstr "Administrator Passwort ist nicht stark genug!"
 #: ../../install/install.php:2365 ../../install/install.php:1076
 #: ../../install/install.php:2491 ../../install/install.php:1080
 #: ../../install/install.php:2495 ../../install/install.php:2496
+#: ../../install/install.php:1081 ../../install/install.php:2497
 msgid "Administrator passwords do not match!"
 msgstr "Administrator Passworte sind verschieden!"
 
@@ -2787,6 +2802,7 @@ msgstr "Administrator Passworte sind verschieden!"
 #: ../../install/install.php:2354 ../../install/install.php:1064
 #: ../../install/install.php:2480 ../../install/install.php:1068
 #: ../../install/install.php:2484 ../../install/install.php:2485
+#: ../../install/install.php:1069 ../../install/install.php:2486
 msgid "Administrator username is missing!"
 msgstr "Administrator Kennung fehlt!"
 
@@ -2853,7 +2869,7 @@ msgstr "Erlaubte Benutzer"
 #: ../..//templates/workOnUser.tpl:145 ../../templates/workOnUser.tpl:145
 #: ../../templates/workOnUser.tpl:139 ../../templates/workOnUser.tpl:142
 msgid "An administrator has more privileges as a normal user. Administrators have a stronger password policy as normal users."
-msgstr "Ein Administrator hat mehr Rechte als ein normaler Benutzer. Administratoren haben eine strengere Passwort Richtlinie als normale Benutzer. "
+msgstr "Ein Administrator hat mehr Rechte als ein normaler Benutzer. Administratoren haben eine strengere Passwort Richtlinie als normale Benutzer."
 
 #: ../../templates/workOnUser.tpl:282
 msgid ""
@@ -3021,7 +3037,7 @@ msgstr "Benutzerauthentifizierungsdatei erfolgreich erstellt aber das Semaphore 
 #: ../../install/old/install-alt.php:2752 ../../install/install.php:3079
 #: ../..//install/install.php:3079 ../../install/install-new.php:1097
 #: ../../install/install.php:1097 ../../install/install.php:1180
-#: ../../install/install.php:1184
+#: ../../install/install.php:1184 ../../install/install.php:1185
 msgid "Auth user file is missing!"
 msgstr "Benutzer Authentifizierungsdatei fehlt!"
 
@@ -4153,7 +4169,11 @@ msgstr "Auth User Datei erfolgreich geschrieben!"
 #: ../../templates/getDateForAccessRights.tpl:21
 #: ../../templates/rep_show_group.tpl:29 ../../rep_show_group.php:94
 #: ../../rep_show_group.php:135 ../../rep_show_user.php:95
-#: ../../rep_show_user.php:144
+#: ../../rep_show_user.php:144 ../../templates/workOnProject.tpl:59
+#: ../../templates/preferences.tpl:43 ../../templates/general.tpl:105
+#: ../../preferences.php:149 ../../preferences.php:161
+#: ../../workOnProject.php:218 ../../workOnProject.php:400
+#: ../../workOnGroup.php:192 ../../workOnGroup.php:503
 msgid "Back"
 msgstr "Zur&uuml;ck"
 
@@ -4217,7 +4237,7 @@ msgstr "Zugriffsrecht mit Id %s kann nicht gel&ouml;scht werden"
 #: ../../install/old/install-alt.php:2415 ../../install/install.php:2700
 #: ../..//install/install.php:2700 ../../install/install-new.php:719
 #: ../../install/install.php:719 ../../install/install.php:784
-#: ../../install/install.php:788
+#: ../../install/install.php:788 ../../install/install.php:789
 #, php-format
 msgid "Can't bind to ldap server: %s"
 msgstr "Verbindung zu LDAP Server nicht m&ouml;glich: %s"
@@ -4235,7 +4255,7 @@ msgstr "Verbindung zu LDAP Server nicht m&ouml;glich: %s"
 #: ../../install/old/install-alt.php:2422 ../../install/install.php:2708
 #: ../..//install/install.php:2708 ../../install/install-new.php:727
 #: ../../install/install.php:727 ../../install/install.php:792
-#: ../../install/install.php:796
+#: ../../install/install.php:796 ../../install/install.php:797
 msgid "Can't connect to ldap server, hostname/ip and port are ok?"
 msgstr "Verbindung zu LDAP Server nicht m&ouml;glich. Hostname/IP und Port sind korrekt?"
 
@@ -4333,7 +4353,7 @@ msgstr "Semaphore kann nicht gesetzt werden, ein anderer Prozess schreibt gerade
 #: ../../resetpassword.php:140 ../../resetpassword.php:150
 #: ../../resetpassword.php:157
 msgid "Can't update password. Please try again later."
-msgstr "Passwort kann nicht ge&auml;ndert werden. Bitte versuchen Sie es sp&auml;ter noch einmal!"
+msgstr "Passwort kann nicht ge&auml;ndert werden. Bitte versuchen Sie es sp&auml;ter noch einmal."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:875
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:976
@@ -4385,9 +4405,9 @@ msgstr "Passwort kann nicht ge&auml;ndert werden. Bitte versuchen Sie es sp&auml
 #: ../..//install/install.php:3299 ../../install/install.php:3299
 #: ../../install/install-new.php:1369 ../../install/install.php:1369
 #: ../../install/install.php:1470 ../../install/install.php:1474
-#: ../../install/install.php:1475
+#: ../../install/install.php:1475 ../../install/install.php:1476
 msgid "Can't write new config.inc.php file!"
-msgstr "kann config.inc.php nicht schreiben!"
+msgstr "Kann config.inc.php nicht schreiben!"
 
 #: ../../include/createAuthFiles.php:1162
 #: ../../include/createAuthFiles.php:1374
@@ -4545,7 +4565,8 @@ msgstr "Kann AuthUser Datei nicht schreiben"
 #: ../../templates/addMemberToProject.tpl:28 ../../workOnProject.php:713
 #: ../../workOnGroup.php:537 ../../workOnProject.php:715
 #: ../../rep_access_rights.php:95 ../../rep_access_rights.php:140
-#: ../../password.php:80 ../../password.php:86
+#: ../../password.php:80 ../../password.php:86 ../../workOnProject.php:749
+#: ../../workOnGroup.php:211 ../../workOnGroup.php:548
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -4566,7 +4587,7 @@ msgstr "Abbrechen"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/install/install.php:708
 #, php-format
 msgid "Cannot create table "
-msgstr "Kann Tabelle nicht anlegen"
+msgstr "Kann Tabelle nicht anlegen "
 
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:56
 #: /export/home/kriegeth/workspace/svn_access_manager/install/install.php:68
@@ -5632,7 +5653,7 @@ msgstr "Daten erfolgreich ge&auml;ndert"
 
 #: ../../templates/install-tab6.tpl:51 ../../templates/install-tabs.tpl:947
 msgid "Choose password encryption."
-msgstr "Passwort Verschl&uuml;sselung ausw&auml;hlen"
+msgstr "Passwort Verschl&uuml;sselung ausw&auml;hlen."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/addMemberToGroup.tpl:11
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/addGroupToProject.tpl:11
@@ -5718,6 +5739,7 @@ msgstr "Kommando zum Laden der Webserver Konfiguration"
 #: ../..//install/install.php:2848 ../../install/install-new.php:1745
 #: ../../install/install.php:1745 ../../install/install.php:1866
 #: ../../install/install.php:1870 ../../install/install.php:1871
+#: ../../install/install.php:1872
 #, php-format
 msgid "Config directory %s not writable!"
 msgstr "Konfigurationsverzeichnis %s ist nicht schreibbar!"
@@ -6004,7 +6026,7 @@ msgstr "Datei f&uuml;r Benutzerauthentifizierung und Benutzerrechte erstellen?"
 #: ../../include/createAuthFiles.php:1421 ../../createAccessFiles.php:137
 #: ../../createAccessFiles.php:144 ../../createAccessFiles.php:146
 msgid "Create of access file not configured!"
-msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
+msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:69
 #: /export/home/kriegeth/workspace/svn_access_manager/include/createAuthFiles.php:71
@@ -6028,7 +6050,7 @@ msgstr "Erstellung der Datei mit Benutzerrechten nicht konfiguriert"
 #: ../..//include/createAuthFiles.php:260 ../../createAccessFiles.php:120
 #: ../../createAccessFiles.php:127 ../../createAccessFiles.php:129
 msgid "Create of auth user file not configured!"
-msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert"
+msgstr "Erstellung der Datei zur Benutzerauthentifizierung nicht konfiguriert!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:265
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:285
@@ -6140,6 +6162,8 @@ msgstr "Zugriffsdateien pro Repository erzeugen"
 #: ../../rep_access_rights.php:101
 #: ../../templates/getDateForAccessRightsModal.tpl:26
 #: ../../rep_show_group.php:100 ../../rep_show_user.php:101
+#: ../../templates/getDateForAccessRightsModal.tpl:25
+#: ../../templates/rep_show_user.tpl:39 ../../templates/rep_show_group.tpl:31
 msgid "Create report"
 msgstr "Bericht erstellen"
 
@@ -6261,7 +6285,7 @@ msgstr "DB Abfrage"
 
 #: ../../templates/install-tabs.tpl:664
 msgid "DEC"
-msgstr "absteigend"
+msgstr "Absteigend"
 
 #: ../../templates/install-tabs.tpl:664 ../..//templates/install-tabs.tpl:664
 #: ../../templates/install-tabs.tpl:685 ../..//templates/install-tabs.tpl:706
@@ -6272,7 +6296,7 @@ msgstr "absteigend"
 #: ../../templates/install-tabs.tpl:500 ../../templates/install-tabs.tpl:762
 #: ../../templates/install-tab5.tpl:50 ../../templates/install-tab2.tpl:112
 msgid "DESC"
-msgstr "absteigend"
+msgstr "Absteigend"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:106
 #: /export/home/kriegeth/workspace/svn_access_manager/general.php:120
@@ -6398,6 +6422,7 @@ msgstr "Datenbank Zeichensatz"
 #: ../../install/install.php:2206 ../../install/install.php:1035
 #: ../../install/install.php:2332 ../../install/install.php:1039
 #: ../../install/install.php:2336 ../../install/install.php:2337
+#: ../../install/install.php:1040 ../../install/install.php:2338
 msgid "Database charset is missing!"
 msgstr "Datenbank Zeichensatz fehlt!"
 
@@ -6484,6 +6509,7 @@ msgstr "Datenbank Sortierung"
 #: ../../install/install.php:2212 ../../install/install.php:1041
 #: ../../install/install.php:2338 ../../install/install.php:1045
 #: ../../install/install.php:2342 ../../install/install.php:2343
+#: ../../install/install.php:1046 ../../install/install.php:2344
 msgid "Database collation is missing!"
 msgstr "Datenbank Sortierfolge fehlt!"
 
@@ -6612,6 +6638,7 @@ msgstr "Datenbank Server"
 #: ../../install/install.php:2188 ../../install/install.php:1017
 #: ../../install/install.php:2314 ../../install/install.php:1021
 #: ../../install/install.php:2318 ../../install/install.php:2319
+#: ../../install/install.php:1022 ../../install/install.php:2320
 msgid "Database host is missing!"
 msgstr "Datenbank Rechner fehlt!"
 
@@ -6714,6 +6741,7 @@ msgstr "Datenbank Name"
 #: ../../install/install.php:2200 ../../install/install.php:1029
 #: ../../install/install.php:2326 ../../install/install.php:1033
 #: ../../install/install.php:2330 ../../install/install.php:2331
+#: ../../install/install.php:1034 ../../install/install.php:2332
 msgid "Database name is missing!"
 msgstr "Datenbankname fehlt!"
 
@@ -6874,7 +6902,10 @@ msgstr "Datenbankeintsllungen - Teil 2"
 #: ../../install/install.php:1765 ../../install/install.php:1610
 #: ../../install/install.php:1623 ../../install/install.php:1681
 #: ../../install/install.php:1694 ../../install/install.php:1753
-#: ../../install/install.php:1766
+#: ../../install/install.php:1766 ../../install/install.php:1611
+#: ../../install/install.php:1624 ../../install/install.php:1682
+#: ../../install/install.php:1695 ../../install/install.php:1754
+#: ../../install/install.php:1767
 msgid "Database tables successfully created"
 msgstr "Datenbanktabellen erfolgreich angelegt"
 
@@ -6933,7 +6964,8 @@ msgstr "Datenbanktabellen erfolgreich angelegt"
 #: ../../install/install.php:1731 ../../install/install.php:1592
 #: ../../install/install.php:1663 ../../install/install.php:1735
 #: ../../install/install.php:1593 ../../install/install.php:1664
-#: ../../install/install.php:1736
+#: ../../install/install.php:1736 ../../install/install.php:1594
+#: ../../install/install.php:1665 ../../install/install.php:1737
 msgid "Database tables successfully dropped"
 msgstr "Datenbanktabellen erfolgreich gel&ouml;scht"
 
@@ -6959,7 +6991,7 @@ msgstr "Datenbank Tabelspace"
 #: ../..//install/install.php:2655 ../..//install/old/install-alt.php:2386
 #: ../../install/old/install-alt.php:2386 ../../install/install-new.php:673
 #: ../../install/install.php:673 ../../install/install.php:741
-#: ../../install/install.php:745
+#: ../../install/install.php:745 ../../install/install.php:746
 msgid "Database test ok, connection works"
 msgstr "Datenbanktest in Ordnung, Verbindung ok"
 
@@ -7066,6 +7098,7 @@ msgstr "Datenbank Benutzer"
 #: ../../install/install.php:2194 ../../install/install.php:1023
 #: ../../install/install.php:2320 ../../install/install.php:1027
 #: ../../install/install.php:2324 ../../install/install.php:2325
+#: ../../install/install.php:1028 ../../install/install.php:2326
 msgid "Database user is missing!"
 msgstr "Datenbankbenutzer fehlt!"
 
@@ -7083,6 +7116,7 @@ msgstr "Datenbankbenutzer fehlt!"
 #: ../../templates/getDateForAccessRights.tpl:7 ../../templates/rep_log.tpl:11
 #: ../../templates/rep_log.tpl:42 ../../templates/getDateForAccessRights.tpl:10
 #: ../../templates/getDateForAccessRightsModal.tpl:17
+#: ../../templates/getDateForAccessRightsModal.tpl:16
 msgid "Date"
 msgstr "Datum"
 
@@ -7094,6 +7128,7 @@ msgstr "Datum"
 #: ../..//templates/getDateForAccessRights.tpl:5
 #: ../../templates/getDateForAccessRights.tpl:2
 #: ../../templates/getDateForAccessRightsModal.tpl:9
+#: ../../templates/getDateForAccessRightsModal.tpl:8
 msgid "Date for access rights report"
 msgstr "Datum f&uuml;r Zugriffsrechte Bericht"
 
@@ -7113,7 +7148,7 @@ msgstr "Entscheiden Sie ob eine ViewVC Konfiguration geschrieben wird."
 #: ../..//templates/install-tabs.tpl:726 ../../templates/install-tabs.tpl:726
 #: ../../templates/install-tabs.tpl:727 ../../templates/install-tab5.tpl:27
 msgid "Decide if a auth user file should be generated."
-msgstr "Entscheiden Sie ob eine Datei mit Benutzerlogins geschrieben wird.  "
+msgstr "Entscheiden Sie ob eine Datei mit Benutzerlogins geschrieben wird."
 
 #: ../..//templates/install-tabs.tpl:694 ../../templates/install-tabs.tpl:694
 #: ../../templates/install-tabs.tpl:695 ../../templates/install-tab5.tpl:7
@@ -7152,7 +7187,7 @@ msgstr "Entscheiden Sie ob Sie LDAP benutzen wollen. Wenn Sie LDAP benutzen m&uu
 #: ../../templates/install-tabs.tpl:935 ../../templates/install-tab6.tpl:44
 #: ../../templates/install-tabs.tpl:936
 msgid "Default value for password expiration."
-msgstr "Standardwert f&uuml; Passwortablauf"
+msgstr "Standardwert f&uuml; Passwortablauf."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:42
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteRepo.tpl:55
@@ -7528,9 +7563,10 @@ msgstr "L&ouml;schen von %s fehlgeschlagen!"
 #: ../../workOnProject.php:589 ../..//workOnProject.php:589
 #: ../../workOnProject.php:591 ../../workOnProject.php:587
 #: ../../workOnProject.php:594 ../../workOnProject.php:598
+#: ../../workOnProject.php:632
 #, php-format
 msgid "Delete of svn_projects_responsible record with id %s failed"
-msgstr "L&ouml;schen des Projektverantwortlichen mit der Id %s fehlgeschlagen!"
+msgstr "L&ouml;schen des Projektverantwortlichen mit der Id %s fehlgeschlagen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:385
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:425
@@ -7542,7 +7578,7 @@ msgstr "L&ouml;schen des Projektverantwortlichen mit der Id %s fehlgeschlagen!"
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnProject.php:469
 #, php-format
 msgid "Delete of svn_projects_responsiblep record with id %s failed"
-msgstr "L&ouml;schen des Datensatzes svn_projects_responsiblep mit id %s fehlgeschlagen!"
+msgstr "L&ouml;schen des Datensatzes svn_projects_responsiblep mit id %s fehlgeschlagen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:314
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnGroup.php:347
@@ -7562,9 +7598,10 @@ msgstr "L&ouml;schen des Datensatzes svn_projects_responsiblep mit id %s fehlges
 #: ../../workOnGroup.php:439 ../..//workOnGroup.php:439
 #: ../../workOnGroup.php:442 ../../workOnGroup.php:403
 #: ../../workOnGroup.php:410 ../../workOnGroup.php:420
+#: ../../workOnGroup.php:431
 #, php-format
 msgid "Delete of svn_users_group record with id %s failed"
-msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen!"
+msgstr "L&ouml;schen des Datensatzes svn_users_group mit id %s fehlgeschlagen"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/list_access_rights.php:153
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_access_rights.tpl:81
@@ -7664,7 +7701,7 @@ msgstr "Ausgew&auml;hlte l&ouml;schen"
 #: ../../templates/rep_show_user_result.tpl:70
 #: ../../templates/deleteGroup.tpl:16
 #: ../../templates/deleteGroupAccessRight.tpl:16
-#: ../../templates/general.tpl:113
+#: ../../templates/general.tpl:113 ../../templates/general.tpl:117
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -7886,11 +7923,11 @@ msgstr "Wenn ben&ouml;tigt, zus&auml;tzliche Filter f&uuml;r Benutzer eintragen.
 
 #: ../../templates/workOnRepo.tpl:12
 msgid "Enter repository name"
-msgstr "Repositroy Namen eingeben."
+msgstr "Repositroy Namen eingeben"
 
 #: ../../templates/workOnRepo.tpl:19
 msgid "Enter repository path"
-msgstr "Repository Pfad eingeben."
+msgstr "Repository Pfad eingeben"
 
 #: ../../templates/install-tab2.tpl:119 ../../templates/install-tab2.tpl:121
 #: ../../templates/install-tab2.tpl:123 ../../templates/install-tab2.tpl:125
@@ -8181,7 +8218,7 @@ msgstr "Geben Sie die Sortierfolge ein, die Sie verwenden wollen"
 #: ../../templates/install-tabs.tpl:309 ../../templates/install-tab1.tpl:74
 #: ../../templates/install-tab1.tpl:76
 msgid "Enter the database schema you want to use"
-msgstr "Bitte geben Sie das Datenbank Schema ein, dass Sie benutzen wollen!"
+msgstr "Bitte geben Sie das Datenbank Schema ein, dass Sie benutzen wollen"
 
 #: ../../templates/install-tabs.tpl:822 ../..//templates/install-tabs.tpl:822
 #: ../../templates/install-tabs.tpl:833 ../../templates/install-tabs.tpl:854
@@ -8192,7 +8229,7 @@ msgstr "Bitte geben Sie das Datenbank Schema ein, dass Sie benutzen wollen!"
 #: ../../templates/install-tab6.tpl:34 ../../templates/install-tabs.tpl:916
 #: ../../templates/install-tabs.tpl:918
 msgid "Enter the days a password is valid before it expires."
-msgstr "Anzahl der Tage eingeben, die ein Passwort g&uuml;ltig ist"
+msgstr "Anzahl der Tage eingeben, die ein Passwort g&uuml;ltig ist."
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:185
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:265
@@ -8263,7 +8300,7 @@ msgstr "Bitte den DN eingeben, unter dem die Benutzer zu finden sind."
 #: ../../templates/install-tab4.tpl:37 ../../templates/install-tab4.tpl:39
 #: ../../templates/install-tabs.tpl:672 ../../templates/install-tabs.tpl:674
 msgid "Enter the email address of the administrator."
-msgstr "Die E-Mailadresse des Administrators eingeben"
+msgstr "Die E-Mailadresse des Administrators eingeben."
 
 #: ../..//templates/general.tpl:42 ../..//templates/workOnUser.tpl:73
 #: ../../templates/general.tpl:42 ../../templates/workOnUser.tpl:73
@@ -8297,7 +8334,7 @@ msgstr "Geben Sie die Emailadresse des Benutzers ein. Bitte geben Sie eine g&uum
 #: ../../templates/install-tabs.tpl:591 ../../templates/install-tab3.tpl:40
 #: ../../templates/install-tab3.tpl:42
 msgid "Enter the email address to use as sender address for lost password emails."
-msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessenen Passwort benutzt werden soll!"
+msgstr "Bitte die Emailadresse eingeben, die als Absender der Mail zum vergessenen Passwort benutzt werden soll."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:231
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:252
@@ -8473,7 +8510,7 @@ msgstr "Den vollen Pfad und den Dateinamen des svn Kommandos eingeben."
 #: ../../templates/install-tabs.tpl:842 ../../templates/install-tabs.tpl:844
 #: ../../templates/install-tab5.tpl:99 ../../templates/install-tab5.tpl:101
 msgid "Enter the full path and the name of the svnadmin command."
-msgstr "Pfad und Name des svnadmin Kommandos eingeben"
+msgstr "Pfad und Name des svnadmin Kommandos eingeben."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:281
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:292
@@ -8539,7 +8576,7 @@ msgstr "Beschreibung der Gruppe eingeben."
 #: ../../templates/install-tabs.tpl:346 ../../templates/install-tabs.tpl:348
 #: ../../templates/install-tab2.tpl:18
 msgid "Enter the ip or the hostname of the LDAP server"
-msgstr "Bitte die IP oder den Hostnamen des LDAP Servers eingeben."
+msgstr "Bitte die IP oder den Hostnamen des LDAP Servers eingeben"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:81
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:92
@@ -8571,7 +8608,7 @@ msgstr "Die IP oder den Rechnernamen des MySQL Datenbankservers eingeben"
 #: ../../templates/install-tabs.tpl:249 ../../templates/install-tab1.tpl:37
 #: ../../templates/install-tab1.tpl:39
 msgid "Enter the ip or the hostname of the database host"
-msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein!"
+msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:328
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:339
@@ -8608,7 +8645,7 @@ msgstr "Bitte geben Sie die IP oder den Namen des Datenbank Servers ein!"
 #: ../../templates/install-tab6.tpl:20 ../../templates/install-tab6.tpl:22
 #: ../../templates/install-tabs.tpl:896 ../../templates/install-tabs.tpl:898
 msgid "Enter the minimal length for administrator passwords."
-msgstr "Die minimale L&auml;nge von Administrator Passworten eingeben"
+msgstr "Die minimale L&auml;nge von Administrator Passworten eingeben."
 
 #: ../../templates/install-tabs.tpl:801 ../..//templates/install-tabs.tpl:801
 #: ../../templates/install-tabs.tpl:812 ../..//templates/install-tabs.tpl:812
@@ -8649,7 +8686,7 @@ msgstr "Bitte die minimale L&auml;nge des Passwortes f&uuml; Benutzer eingeben."
 #: ../../templates/old/install_page_6.tpl:113
 #: ../../templates/old/install.tpl:543
 msgid "Enter the minimal length for user passwordws."
-msgstr "Die minimale L&auml;nge von Benutzer Passworten eingeben"
+msgstr "Die minimale L&auml;nge von Benutzer Passworten eingeben."
 
 #: ../../templates/workOnProject.tpl:28
 msgid "Enter the module path."
@@ -8685,7 +8722,7 @@ msgstr "Den Namen der MySQL Datenabnk eingeben"
 #: ../../templates/install-tabs.tpl:279 ../../templates/install-tab1.tpl:55
 #: ../../templates/install-tab1.tpl:57
 msgid "Enter the name of the database"
-msgstr "Bitte geben Se den Namen der Datenbank ein!"
+msgstr "Bitte geben Se den Namen der Datenbank ein"
 
 #: ../..//templates/workOnGroup.tpl:16 ../../templates/workOnGroup.tpl:16
 #: ../../templates/workOnGroup.tpl:11 ../../templates/workOnGroup.tpl:14
@@ -8709,7 +8746,7 @@ msgstr "Nachname des Benutzers eingeben."
 #: ../../templates/install-tab6.tpl:40 ../../templates/install-tabs.tpl:926
 #: ../../templates/install-tabs.tpl:928
 msgid "Enter the number of days after a user is warned before his password expires."
-msgstr "Anzahl der Tage ab wann ein Benutzer zum Passwortablauf gewarnt wird"
+msgstr "Anzahl der Tage ab wann ein Benutzer zum Passwortablauf gewarnt wird."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:297
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:318
@@ -8854,7 +8891,7 @@ msgstr "Das Passwort f&uuml;r den Administrator eingeben. Es muss mindestens 14 
 #: ../../templates/install-tabs.tpl:269 ../../templates/install-tab1.tpl:49
 #: ../../templates/install-tab1.tpl:51
 msgid "Enter the password for the database"
-msgstr "Bitte geben Sie das Passwort zur Datenbank ein!"
+msgstr "Bitte geben Sie das Passwort zur Datenbank ein"
 
 #: ../../templates/workOnRepo.tpl:32
 msgid "Enter the password to access a remote repository."
@@ -8882,11 +8919,11 @@ msgstr "Passwort eintragen. Bitte beachten, dass das Passwort der Passwortrichtl
 #: ../../templates/install-tabs.tpl:356 ../../templates/install-tabs.tpl:358
 #: ../../templates/install-tab2.tpl:24
 msgid "Enter the port to connect to the LDAP server"
-msgstr "Bitte das Protokoll zur Verbindung mit dem LDAP Server eingeben."
+msgstr "Bitte das Protokoll zur Verbindung mit dem LDAP Server eingeben"
 
 #: ../../templates/workOnProject.tpl:21
 msgid "Enter the project description"
-msgstr "Projektbeschreibung eintragen."
+msgstr "Projektbeschreibung eintragen"
 
 #: ../..//templates/install-tabs.tpl:801
 msgid "Enter the realm for the sebserver authentication."
@@ -8903,7 +8940,7 @@ msgstr "Den Bereich f&uuml;r die Webserver Aitentifizierung eingeben."
 #: ../../templates/install.tpl:188 ../..//templates/install.tpl:188
 #: ../..//templates/old/install.tpl:188 ../../templates/old/install.tpl:188
 msgid "Enter the tablespace you want to use"
-msgstr "Bitte geben Sie den Tabelspace an, den Sie benutzen wollen!"
+msgstr "Bitte geben Sie den Tablespace an, den Sie benutzen wollen"
 
 #: ../../templates/workOnRepo.tpl:26
 msgid "Enter the user to access a remote repository."
@@ -8942,7 +8979,7 @@ msgstr "Den Benutzer f&uuml;r die MySQL Datenbank eingeben"
 #: ../../templates/old/install_page_4.tpl:71
 #: ../../templates/old/install.tpl:268
 msgid "Enter the username for the administrator account."
-msgstr "Den Benutzernamen f&uuml;r die Administrator Kennung eingeben"
+msgstr "Den Benutzernamen f&uuml;r die Administrator Kennung eingeben."
 
 #: ../../templates/install-tabs.tpl:524 ../../templates/install-tabs.tpl:532
 #: ../..//templates/install-tabs.tpl:532 ../../templates/install-tabs.tpl:553
@@ -8976,7 +9013,7 @@ msgstr "Geben Sie den Benutzernamen des Administrator Kontos ein. Wenn Sie LDAP 
 #: ../../templates/install-tabs.tpl:259 ../../templates/install-tab1.tpl:43
 #: ../../templates/install-tab1.tpl:45
 msgid "Enter the username for the database"
-msgstr "Bitte geben Sie den Datenbank Benutzer ein!"
+msgstr "Bitte geben Sie den Datenbank Benutzer ein"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/install.tpl:210
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:241
@@ -9002,7 +9039,7 @@ msgstr "Bitte geben Sie den Datenbank Benutzer ein!"
 #: ../../templates/install-tabs.tpl:601 ../../templates/install-tab3.tpl:46
 #: ../../templates/install-tab3.tpl:48
 msgid "Enter tne number of days a lost password link will be valid."
-msgstr "Bitte die Anzahl Tage eingeben, die ein Link f&uuml;r ein vergessenes Passwort g&uuml;ltig bleibt!"
+msgstr "Bitte die Anzahl Tage eingeben, die ein Link f&uuml;r ein vergessenes Passwort g&uuml;ltig bleibt."
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/install/install-new.php:2687
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/install/install.php:2759
@@ -9025,7 +9062,7 @@ msgstr "Bitte die Anzahl Tage eingeben, die ein Link f&uuml;r ein vergessenes Pa
 #: ../..//install/install.php:3334 ../../install/install.php:3334
 #: ../../install/install-new.php:1441 ../../install/install.php:1441
 #: ../../install/install.php:1547 ../../install/install.php:1551
-#: ../../install/install.php:1552
+#: ../../install/install.php:1552 ../../install/install.php:1553
 #, php-format
 msgid "Error copying temporary config file %s to %s!"
 msgstr "Fehler beim Kopieren der tempor&auml;ren Konfigurationsdatei von %s nach %s!"
@@ -9129,7 +9166,7 @@ msgstr "Fehler beim Anlegen des Administrator Benutzers: %s"
 #: ../..//install/install.php:3322 ../../install/install.php:3322
 #: ../../install/install-new.php:1430 ../../install/install.php:1430
 #: ../../install/install.php:1536 ../../install/install.php:1540
-#: ../../install/install.php:1541
+#: ../../install/install.php:1541 ../../install/install.php:1542
 msgid "Error deleting temporary config file"
 msgstr "Fehler beim L&ouml;schen der tempor&auml;ren Konfig Datei"
 
@@ -9202,13 +9239,14 @@ msgstr "Fehler beim L&ouml;schen der tempor&auml;ren Konfig Datei"
 #: ../../workOnGroupAccessRight.php:243 ../../workOnGroupAccessRight.php:315
 #: ../../workOnRepo.php:253 ../../workOnProject.php:447
 #: ../../workOnGroupAccessRight.php:246 ../../workOnGroupAccessRight.php:323
-#: ../../workOnRepo.php:255
+#: ../../workOnRepo.php:255 ../../workOnProject.php:473
+#: ../../workOnGroupAccessRight.php:328
 msgid "Error during database insert"
 msgstr "Fehler beim Einf&uuml;gen in die Datenbank"
 
 #: ../../workOnMessage.php:247
 msgid "Error during database insert of message data"
-msgstr "Fehler beim Schreiben der Nachrichten Daten in die Datenbank."
+msgstr "Fehler beim Schreiben der Nachrichten Daten in die Datenbank"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:293
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:306
@@ -9910,6 +9948,7 @@ msgstr "Gew&auml;hrte Benutzerrechte"
 #: ../../install/install.php:2426 ../../install/install.php:1235
 #: ../../install/install.php:2552 ../../install/install.php:1239
 #: ../../install/install.php:2556 ../../install/install.php:2557
+#: ../../install/install.php:1240 ../../install/install.php:2558
 msgid "Grep command is missinbg!"
 msgstr "Grep Kommando fehlt!"
 
@@ -9970,6 +10009,7 @@ msgstr "Grep Kommando fehlt!"
 #: ../../templates/workOnGroupAccessRight.tpl:10
 #: ../../templates/deleteGroupAccessRight.tpl:10
 #: ../../templates/selectGroup.tpl:10 ../../templates/rep_show_group.tpl:10
+#: ../../templates/rep_show_group.tpl:16
 msgid "Group"
 msgstr "Gruppe"
 
@@ -10150,6 +10190,7 @@ msgstr "Gruppenbeschreibung"
 #: ../../workOnGroup.php:285 ../..//workOnGroup.php:285
 #: ../../workOnGroup.php:288 ../../workOnGroup.php:268
 #: ../../workOnGroup.php:275 ../../workOnGroup.php:281
+#: ../../workOnGroup.php:291
 msgid "Group description is missing. Please fill in!"
 msgstr "Gruppenbeschreibung fehlt, bitte eingeben!"
 
@@ -10172,6 +10213,7 @@ msgstr "Gruppenmitglieder"
 #: ../../templates/rep_show_user_result.tpl:43 ../../templates/general.tpl:117
 #: ../../templates/rep_show_user_result.tpl:61 ../../templates/general.tpl:99
 #: ../../templates/rep_show_user_result.tpl:64 ../../templates/general.tpl:107
+#: ../../templates/general.tpl:111
 msgid "Group membership"
 msgstr "Mitglied in Gruppen"
 
@@ -10205,6 +10247,7 @@ msgstr "Mitglied in Gruppen"
 #: ../../templates/list_group_admins.tpl:13
 #: ../../templates/list_group_admins.tpl:37 ../../templates/general.tpl:112
 #: ../../templates/list_groups.tpl:13 ../../templates/list_groups.tpl:31
+#: ../../templates/general.tpl:116
 msgid "Group name"
 msgstr "Gruppenname"
 
@@ -10224,6 +10267,7 @@ msgstr "Gruppenname"
 #: ../../workOnGroup.php:280 ../..//workOnGroup.php:280
 #: ../../workOnGroup.php:283 ../../workOnGroup.php:261
 #: ../../workOnGroup.php:268 ../../workOnGroup.php:274
+#: ../../workOnGroup.php:284
 msgid "Group name is missing. Please fill in!"
 msgstr "Gruppenname fehlt, bitte eingeben!"
 
@@ -10296,6 +10340,7 @@ msgstr "Gruppenverantworlicher wegnen Datenbankfehler nicht gel&ouml;scht"
 #: ../../workOnGroupAccessRight.php:355 ../..//workOnGroupAccessRight.php:355
 #: ../../workOnGroupAccessRight.php:357 ../../workOnGroupAccessRight.php:321
 #: ../../workOnGroupAccessRight.php:328 ../../workOnGroupAccessRight.php:336
+#: ../../workOnGroupAccessRight.php:346
 #, php-format
 msgid "Group responsible user for group %s (%s) does not exist!"
 msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s) existiert nicht!"
@@ -10312,6 +10357,7 @@ msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s) existiert nicht!"
 #: ../../workOnGroupAccessRight.php:276 ../..//workOnGroupAccessRight.php:276
 #: ../../workOnGroupAccessRight.php:278 ../../workOnGroupAccessRight.php:250
 #: ../../workOnGroupAccessRight.php:257 ../../workOnGroupAccessRight.php:260
+#: ../../workOnGroupAccessRight.php:265
 #, php-format
 msgid "Group responsible user for group %s (%s/%s) already exists!"
 msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s/%s) existiert bereits!"
@@ -10329,6 +10375,7 @@ msgstr "Gruppenverantwortlicher f&uuml;r Gruppe %s (%s/%s) existiert bereits!"
 #: ../../workOnGroupAccessRight.php:349 ../..//workOnGroupAccessRight.php:349
 #: ../../workOnGroupAccessRight.php:351 ../../workOnGroupAccessRight.php:315
 #: ../../workOnGroupAccessRight.php:322 ../../workOnGroupAccessRight.php:330
+#: ../../workOnGroupAccessRight.php:335
 msgid "Group responsible user successfully changed"
 msgstr "Gruppenverantwortlicher erfogreich ge&auml;ndert"
 
@@ -10348,9 +10395,9 @@ msgstr "Gruppenverantwortlicher erfogreich ge&auml;ndert"
 msgid "Group responsible user successfully inserted"
 msgstr "Gruppenverantwortlicher erfolgreich eingef&uuml;gt"
 
-#: ../../workOnGroup.php:372
+#: ../../workOnGroup.php:372 ../../workOnGroup.php:383
 msgid "Group successfully added"
-msgstr "Gruppe erfolgreiche hinzugef&uuml;gt."
+msgstr "Gruppe erfolgreiche hinzugef&uuml;gt"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:143
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteGroup.php:145
@@ -10382,12 +10429,12 @@ msgstr "Gruppe erfolgreiche hinzugef&uuml;gt."
 msgid "Group successfully deleted"
 msgstr "Gruppe erfolgreich gel&ouml;scht"
 
-#: ../../workOnGroup.php:476
+#: ../../workOnGroup.php:476 ../../workOnGroup.php:487
 msgid "Group successfully modified"
-msgstr "Gruppe erfolgreich ge&auml;ändert."
+msgstr "Gruppe erfolgreich ge&auml;ändert"
 
 #: ../../templates/rep_show_group.tpl:5 ../..//templates/rep_show_group.tpl:5
-#: ../../templates/rep_show_group.tpl:2
+#: ../../templates/rep_show_group.tpl:2 ../../templates/rep_show_group.tpl:8
 msgid "Group to show"
 msgstr "Anzuzeigende Gruppe"
 
@@ -10680,7 +10727,7 @@ msgstr "Einf&uuml;gen der Benutzer-Gruppen Relation f&uuml;r Benutzer Id %s und 
 #: ../..//workOnProject.php:458 ../../workOnProject.php:460
 #: ../../workOnProject.php:461 ../..//workOnProject.php:461
 #: ../../workOnProject.php:463 ../../workOnProject.php:470
-#: ../../workOnProject.php:472
+#: ../../workOnProject.php:472 ../../workOnProject.php:498
 #, php-format
 msgid "Insert of user project relation failed for user_id %s and project_id %s"
 msgstr "Einf&uuml;gen der Projekt-Benutzer Relation f&uuml;r Benutzer-Id %s und Pojekt-Id %s fehlgeschlagen"
@@ -10703,6 +10750,7 @@ msgstr "Einf&uuml;gen der Projekt-Benutzer Relation f&uuml;r Benutzer-Id %s und 
 #: ../../workOnGroup.php:482 ../..//workOnGroup.php:482
 #: ../../workOnGroup.php:485 ../../workOnGroup.php:432
 #: ../../workOnGroup.php:439 ../../workOnGroup.php:449
+#: ../../workOnGroup.php:460
 #, php-format
 msgid "Insert of user/group relation (%s/%s) failed due to database error"
 msgstr "Einf&uuml;gen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -10727,7 +10775,7 @@ msgstr "Einf&uuml;gen der Benutzer/Gruppen-Relation (%s/%s) aufgrund eines Daten
 #: ../..//workOnProject.php:632 ../../workOnProject.php:634
 #: ../../workOnProject.php:635 ../..//workOnProject.php:635
 #: ../../workOnProject.php:637 ../../workOnProject.php:615
-#: ../../workOnProject.php:626
+#: ../../workOnProject.php:626 ../../workOnProject.php:660
 #, php-format
 msgid "Insert of user/project relation (%s/%s) failed due to database error"
 msgstr "Einf&uuml;gen der Projekt/Benutzer-Relation (%s/%s) aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -11076,6 +11124,8 @@ msgstr "Anweisungen"
 #: ../../bulk_add_ldap_users.php:153 ../../bulk_add_ldap_users.php:154
 #: ../../rep_access_rights.php:153 ../../rep_show_group.php:143
 #: ../../rep_access_rights.php:149 ../../rep_show_user.php:152
+#: ../../preferences.php:256 ../../rep_access_rights.php:148
+#: ../../workOnGroupAccessRight.php:377 ../../workOnGroup.php:559
 #, php-format
 msgid "Invalid button %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
@@ -11101,7 +11151,7 @@ msgstr "Ung&uuml;ltiger Knopf %s, hat jemend dran herumgespielt?"
 #: ../../workOnProject.php:736 ../..//workOnProject.php:736
 #: ../../workOnProject.php:738 ../../workOnProject.php:711
 #: ../../workOnProject.php:718 ../../workOnProject.php:724
-#: ../../workOnProject.php:726
+#: ../../workOnProject.php:726 ../../workOnProject.php:760
 #, php-format
 msgid "Invalid button (%s/%s), anyone tampered arround with?"
 msgstr "Ung&uuml;ltiger Knopf(%s/%s), hat jemand daran herumgespielt?"
@@ -11218,9 +11268,10 @@ msgstr "Ung&uuml;ltige Projekt-Id %s angefordert"
 #: ../../install/install.php:2232 ../../install/install.php:934
 #: ../../install/install.php:2358 ../../install/install.php:938
 #: ../../install/install.php:2362 ../../install/install.php:2363
+#: ../../install/install.php:939 ../../install/install.php:2364
 #, php-format
 msgid "Invalid protocol version %s!"
-msgstr "Ung&uuml;ltige protokollversion: %s"
+msgstr "Ung&uuml;ltige Protokoll Version: %s!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:110
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnAccessRight.php:120
@@ -11244,7 +11295,7 @@ msgstr "Ung&uuml;ltige protokollversion: %s"
 #: ../../workOnAccessRight.php:219 ../../workOnAccessRight.php:221
 #, php-format
 msgid "Invalid repository id %s requested!"
-msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
+msgstr "Ung&uuml;ltige Repository-Id %s angefordert!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:65
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnRepo.php:198
@@ -11494,6 +11545,8 @@ msgstr "Ung&uuml;ltige Repository-Id %s angefordert"
 #: ../../deleteUser.php:110 ../../workOnAccessRight.php:306
 #: ../../deleteGroup.php:133 ../../workOnRepo.php:132 ../../workOnRepo.php:438
 #: ../../deleteMessage.php:104 ../../workOnProject.php:665
+#: ../../workOnProject.php:187 ../../workOnProject.php:699
+#: ../../workOnGroupAccessRight.php:371 ../../workOnGroup.php:168
 #, php-format
 msgid "Invalid task %s, anyone tampered arround with?"
 msgstr "Ung&uuml;ltige Aufgabe %s, hat jemand daran herumgespielt?"
@@ -11535,7 +11588,7 @@ msgstr "Ung&uuml;ltiger Transaktionstyp %s"
 #: ../../deleteUser.php:104 ../../deleteUser.php:230
 #, php-format
 msgid "Invalid userid %s requested!"
-msgstr "Ung&uuml;ltige Benutzer-Id %s angefordert"
+msgstr "Ung&uuml;ltige Benutzer-Id %s angefordert!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/framework.tpl:72
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:61
@@ -11582,6 +11635,7 @@ msgstr "LDAP Bind Dn Suffix"
 #: ../../install/install.php:4188 ../../install/install-new.php:2314
 #: ../../install/install.php:2314 ../../install/install.php:2440
 #: ../../install/install.php:2444 ../../install/install.php:2445
+#: ../../install/install.php:2446
 msgid "LDAP Bind Dn Suffix is missing!"
 msgstr "LDAP Bind Dn Suffix fehlt!"
 
@@ -11608,7 +11662,7 @@ msgstr "Attribut Sortierung LDAP Benutzer"
 #: ../..//install/install.php:4171 ../../install/install.php:4171
 #: ../../install/install-new.php:2298 ../../install/install.php:2298
 #: ../../install/install.php:2424 ../../install/install.php:2428
-#: ../../install/install.php:2429
+#: ../../install/install.php:2429 ../../install/install.php:2430
 msgid "LDAP attribute for sorting users missing!"
 msgstr "LDAP Attribut zur Sortierung der Benutzer fehlt!"
 
@@ -11647,6 +11701,7 @@ msgstr "LDAP Attribut zur Sortierung der Benutzer fehlt!"
 #: ../../install/install.php:2280 ../../install/install.php:982
 #: ../../install/install.php:2406 ../../install/install.php:986
 #: ../../install/install.php:2410 ../../install/install.php:2411
+#: ../../install/install.php:987 ../../install/install.php:2412
 msgid "LDAP attribute mapping for given name is missing!"
 msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 
@@ -11685,6 +11740,7 @@ msgstr "LDAP Attribut das den Vornamen abbildet fehlt!"
 #: ../../install/install.php:2286 ../../install/install.php:988
 #: ../../install/install.php:2412 ../../install/install.php:992
 #: ../../install/install.php:2416 ../../install/install.php:2417
+#: ../../install/install.php:993 ../../install/install.php:2418
 msgid "LDAP attribute mapping for mail is missing!"
 msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 
@@ -11723,6 +11779,7 @@ msgstr "LDAP Attribut das die E-Mailadresse abbildet fehlt!"
 #: ../../install/install.php:2274 ../../install/install.php:976
 #: ../../install/install.php:2400 ../../install/install.php:980
 #: ../../install/install.php:2404 ../../install/install.php:2405
+#: ../../install/install.php:981 ../../install/install.php:2406
 msgid "LDAP attribute mapping for name is missing!"
 msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 
@@ -11761,6 +11818,7 @@ msgstr "LDAP Attribut das den nachnamen abblidet fehlt!"
 #: ../../install/install.php:2268 ../../install/install.php:970
 #: ../../install/install.php:2394 ../../install/install.php:974
 #: ../../install/install.php:2398 ../../install/install.php:2399
+#: ../../install/install.php:975 ../../install/install.php:2400
 msgid "LDAP attribute mapping for uid is missing!"
 msgstr "LDAP Attribut das die UID abbildet fehlt!"
 
@@ -11799,6 +11857,7 @@ msgstr "LDAP Attribut das die UID abbildet fehlt!"
 #: ../../install/install.php:2292 ../../install/install.php:994
 #: ../../install/install.php:2418 ../../install/install.php:998
 #: ../../install/install.php:2422 ../../install/install.php:2423
+#: ../../install/install.php:999 ../../install/install.php:2424
 msgid "LDAP attribute mapping for user password is missing!"
 msgstr "LDAP Attribut das das Passwort abbildet fehlt!"
 
@@ -11862,6 +11921,7 @@ msgstr "LDAP Bind Dn"
 #: ../../install/install.php:2238 ../../install/install.php:940
 #: ../../install/install.php:2364 ../../install/install.php:944
 #: ../../install/install.php:2368 ../../install/install.php:2369
+#: ../../install/install.php:945 ../../install/install.php:2370
 msgid "LDAP bind dn is missing!"
 msgstr "LDAP Bind Dn fehlt!"
 
@@ -11929,6 +11989,7 @@ msgstr "LDAP Bind Passwort"
 #: ../../install/install.php:2244 ../../install/install.php:946
 #: ../../install/install.php:2370 ../../install/install.php:950
 #: ../../install/install.php:2374 ../../install/install.php:2375
+#: ../../install/install.php:951 ../../install/install.php:2376
 msgid "LDAP bind password is missing!"
 msgstr "LDAP Bind Passwort fehlt!"
 
@@ -11936,6 +11997,7 @@ msgstr "LDAP Bind Passwort fehlt!"
 #: ../../install/install.php:4183 ../../install/install-new.php:2309
 #: ../../install/install.php:2309 ../../install/install.php:2435
 #: ../../install/install.php:2439 ../../install/install.php:2440
+#: ../../install/install.php:2441
 #, php-format
 msgid "LDAP bind uses login data is missing or invalid: %s"
 msgstr "LDAP Bind mit Benutzerdaten fehlt oder ist ung&uuml;tig: %s"
@@ -11959,7 +12021,7 @@ msgstr "LDAP Bind mit Benutzerdaten"
 #: ../../install/old/install-alt.php:2411 ../../install/install.php:2695
 #: ../..//install/install.php:2695 ../../install/install-new.php:714
 #: ../../install/install.php:714 ../../install/install.php:779
-#: ../../install/install.php:783
+#: ../../install/install.php:783 ../../install/install.php:784
 msgid "LDAP connection test ok, connection works"
 msgstr "LDAP Verbindungstest ok, die Verbindung funktioniert"
 
@@ -12023,6 +12085,7 @@ msgstr "LDAP Server"
 #: ../../install/install.php:2220 ../../install/install.php:922
 #: ../../install/install.php:2346 ../../install/install.php:926
 #: ../../install/install.php:2350 ../../install/install.php:2351
+#: ../../install/install.php:927 ../../install/install.php:2352
 msgid "LDAP host is missing!"
 msgstr "LDAP Server fehlt!"
 
@@ -12095,6 +12158,7 @@ msgstr "LDAP Port"
 #: ../../install/install.php:2226 ../../install/install.php:928
 #: ../../install/install.php:2352 ../../install/install.php:932
 #: ../../install/install.php:2356 ../../install/install.php:2357
+#: ../../install/install.php:933 ../../install/install.php:2358
 msgid "LDAP port is missing!"
 msgstr "LDAP Port fehlt!"
 
@@ -12215,6 +12279,7 @@ msgstr "LDAP Benutzer DN"
 #: ../../install/install.php:2250 ../../install/install.php:952
 #: ../../install/install.php:2376 ../../install/install.php:956
 #: ../../install/install.php:2380 ../../install/install.php:2381
+#: ../../install/install.php:957 ../../install/install.php:2382
 msgid "LDAP user dn is missing!"
 msgstr "LDAP Benutzer DN fehlt!"
 
@@ -12282,6 +12347,7 @@ msgstr "LDAP Benutzerfilter Attribut"
 #: ../../install/install.php:2256 ../../install/install.php:958
 #: ../../install/install.php:2382 ../../install/install.php:962
 #: ../../install/install.php:2386 ../../install/install.php:2387
+#: ../../install/install.php:963 ../../install/install.php:2388
 msgid "LDAP user filter attribute is missing!"
 msgstr "LDAP Benutzerfilter Attribut fehlt!"
 
@@ -12345,6 +12411,7 @@ msgstr "LDAP Benutzer Objektklasse"
 #: ../../install/install.php:2262 ../../install/install.php:964
 #: ../../install/install.php:2388 ../../install/install.php:968
 #: ../../install/install.php:2392 ../../install/install.php:2393
+#: ../../install/install.php:969 ../../install/install.php:2394
 msgid "LDAP user object class is missing!"
 msgstr "LDAP Benutzer Objektklasse fehlt!"
 
@@ -12360,7 +12427,7 @@ msgstr "Sortierreihenfolge LDAP Benutzer"
 #: ../..//install/install.php:4178 ../../install/install.php:4178
 #: ../../install/install-new.php:2304 ../../install/install.php:2304
 #: ../../install/install.php:2430 ../../install/install.php:2434
-#: ../../install/install.php:2435
+#: ../../install/install.php:2435 ../../install/install.php:2436
 #, php-format
 msgid "LDAP user sort order is missing or invalid: %s"
 msgstr "Sortierreihenfolge LDAP Benutzer fehlt oder ist ung&uuml;ltig: %s"
@@ -12672,6 +12739,7 @@ msgstr "Vergessenes Passwort"
 #: ../../install/install.php:2343 ../../install/install.php:1144
 #: ../../install/install.php:2469 ../../install/install.php:1148
 #: ../../install/install.php:2473 ../../install/install.php:2474
+#: ../../install/install.php:1149 ../../install/install.php:2475
 msgid "Lost password days link valid missing!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt fehlen!"
 
@@ -12734,6 +12802,7 @@ msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt feh
 #: ../../install/install.php:2348 ../../install/install.php:1149
 #: ../../install/install.php:2474 ../../install/install.php:1153
 #: ../../install/install.php:2478 ../../install/install.php:2479
+#: ../../install/install.php:1154 ../../install/install.php:2480
 msgid "Lost password days link valid must be numeric!"
 msgstr "Anzahl Tage die ein Link zum vergessenen Passwort g&uuml;ltig bleibt muss numerisch sein!"
 
@@ -12843,6 +12912,7 @@ msgstr "Absender der Mail"
 #: ../../install/install.php:2337 ../../install/install.php:1138
 #: ../../install/install.php:2463 ../../install/install.php:1142
 #: ../../install/install.php:2467 ../../install/install.php:2468
+#: ../../install/install.php:1143 ../../install/install.php:2469
 #, php-format
 msgid "Lost password mail sender address %s is not a valid email address!"
 msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
@@ -12906,6 +12976,7 @@ msgstr "Absenderadresse %s ist keine g&uuml;ltige Emailadresse!"
 #: ../../install/install.php:2332 ../../install/install.php:1133
 #: ../../install/install.php:2458 ../../install/install.php:1137
 #: ../../install/install.php:2462 ../../install/install.php:2463
+#: ../../install/install.php:1138 ../../install/install.php:2464
 msgid "Lost password mail sender address is missing!"
 msgstr "Absenderadresse fehlt!"
 
@@ -12993,7 +13064,7 @@ msgstr "Nachrichten Verwaltung / Nachricht l&ouml;schon"
 
 #: ../../deleteMessage.php:161
 msgid "Message not deleted due to database error"
-msgstr "Nachricht wegen Datenbankfehler nicht gel&ouml;scht."
+msgstr "Nachricht wegen Datenbankfehler nicht gel&ouml;scht"
 
 #: ../../workOnMessage.php:278
 #, php-format
@@ -13020,11 +13091,11 @@ msgstr "Nachrichten"
 msgid "Messages administration"
 msgstr "Nachrichten Verwaltung"
 
-#: ../../templates/preferences.tpl:19
+#: ../../templates/preferences.tpl:19 ../../templates/preferences.tpl:27
 msgid "Milliseconds until a tooltip shows up."
 msgstr "Millisekunden zur Anzeige Tooltip."
 
-#: ../../templates/preferences.tpl:26
+#: ../../templates/preferences.tpl:26 ../../templates/preferences.tpl:34
 msgid "Milliseconds until a tooltip vanishes."
 msgstr "Millisekunden bis zum ausblenden Tooltip."
 
@@ -13115,6 +13186,7 @@ msgstr "Millisekunden bis zum ausblenden Tooltip."
 #: ../../install/install.php:2444 ../../install/install.php:1253
 #: ../../install/install.php:2570 ../../install/install.php:1257
 #: ../../install/install.php:2574 ../../install/install.php:2575
+#: ../../install/install.php:1258 ../../install/install.php:2576
 msgid "Minimal administrator password length is not numeric!"
 msgstr "Minimale L&auml;nge von Administrator Passworten ist nicht numerisch!"
 
@@ -13275,6 +13347,7 @@ msgstr "Minimale L&auml;nge von Benutzer Passworten"
 #: ../../install/install.php:2450 ../../install/install.php:1259
 #: ../../install/install.php:2576 ../../install/install.php:1263
 #: ../../install/install.php:2580 ../../install/install.php:2581
+#: ../../install/install.php:1264 ../../install/install.php:2582
 msgid "Minimal user password length is not numeric!"
 msgstr "Minimale L&auml;nge von Benutzer Passworten ist nicht numerisch!"
 
@@ -13337,6 +13410,7 @@ msgstr "Ge&auml;ndert von Benutzer"
 #: ../../templates/rep_show_user_result.tpl:119 ../../templates/general.tpl:157
 #: ../../templates/rep_show_group_result.tpl:90
 #: ../../templates/rep_show_user_result.tpl:122 ../../templates/general.tpl:165
+#: ../../templates/general.tpl:169
 msgid "Module path"
 msgstr "Modul Pfad"
 
@@ -13716,7 +13790,7 @@ msgstr "Neue Gruppe"
 
 #: ../../templates/list_group_admins.tpl:58
 msgid "New group access right"
-msgstr "Neues Gruppen Zugangsrecht."
+msgstr "Neues Gruppen Zugangsrecht"
 
 #: ../../templates/list_messages.tpl:27 ../../list_messages.php:89
 #: ../../list_messages.php:100
@@ -13748,8 +13822,9 @@ msgstr "Neues Passwort"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/password.php:105
 #: ../../password.php:105 ../..//password.php:105 ../../password.php:110
 #: ../../password.php:117 ../../password.php:121 ../../password.php:140
+#: ../../password.php:137
 msgid "New password can not be the same as the current password!"
-msgstr "Das neue Passwort kann nicht dasselbe sein, wie das alte"
+msgstr "Das neue Passwort kann nicht dasselbe sein, wie das alte!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/password.php:72
 #: /export/home/kriegeth/workspace/svn_access_manager/password.php:75
@@ -13762,6 +13837,7 @@ msgstr "Das neue Passwort kann nicht dasselbe sein, wie das alte"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/password.php:100
 #: ../../password.php:100 ../..//password.php:100 ../../password.php:102
 #: ../../password.php:109 ../../password.php:113 ../../password.php:132
+#: ../../password.php:130
 msgid "New passwords do not match!"
 msgstr "Die neuen Passworte sind nicht identisch!"
 
@@ -14342,7 +14418,7 @@ msgstr "N&auml;chste Seite"
 #: ../../rep_show_user.php:132 ../../createAccessFiles.php:100
 #: ../../createAccessFiles.php:187 ../../general.php:129 ../../general.php:268
 #: ../../include/output.inc.php:347 ../../rep_show_user.php:134
-#: ../../rep_show_user.php:135
+#: ../../rep_show_user.php:135 ../../general.php:265
 msgid "No"
 msgstr "Nein"
 
@@ -14351,10 +14427,12 @@ msgid "No access rights found!"
 msgstr "Keine Zugriffsrechte gefunden!"
 
 #: ../../install/install.php:720 ../../install/install.php:724
+#: ../../install/install.php:725
 msgid "No database host specified. Connect not possible."
 msgstr "Kein Datenbank Server angegeben.Verbindung nicht m&ouml;glich."
 
 #: ../../install/install.php:728 ../../install/install.php:732
+#: ../../install/install.php:733
 msgid "No database name specified. Connect not possible."
 msgstr "Kein Datenbank Name angegeben. Verbindung nicht m&ouml;gloch."
 
@@ -14408,7 +14486,7 @@ msgstr "Kein Datenbank Name angegeben. Verbindung nicht m&ouml;gloch."
 #: ../..//install/install.php:3461 ../../install/install.php:3461
 #: ../../install/install-new.php:1718 ../../install/install.php:1718
 #: ../../install/install.php:1837 ../../install/install.php:1841
-#: ../../install/install.php:1842
+#: ../../install/install.php:1842 ../../install/install.php:1843
 msgid "No database tables created"
 msgstr "Keine Datenbanktabellen angelegt"
 
@@ -14467,16 +14545,19 @@ msgstr "Keine Datenbanktabellen angelegt"
 #: ../../install/install.php:1736 ../../install/install.php:1597
 #: ../../install/install.php:1668 ../../install/install.php:1740
 #: ../../install/install.php:1598 ../../install/install.php:1669
-#: ../../install/install.php:1741
+#: ../../install/install.php:1741 ../../install/install.php:1599
+#: ../../install/install.php:1670 ../../install/install.php:1742
 msgid "No database tables dropped"
 msgstr "Keine Datenbanktabellen gel&ouml;scht"
 
 #: ../../install/install.php:724 ../../install/install.php:728
+#: ../../install/install.php:729
 msgid "No database user specified. Connect not possible."
 msgstr "Kein Datenbank Benutzer angegeben. Verbindung nicht m&ouml;glich."
 
 #: ../../install/install-new.php:619 ../../install/install.php:619
 #: ../../install/install.php:670 ../../install/install.php:674
+#: ../../install/install.php:675
 msgid "No file with help texts found."
 msgstr "Keine Datei mit Hilfe texten gefunden."
 
@@ -14491,6 +14572,7 @@ msgstr "Keinen Gruppenadministrator gefunden!"
 #: ../../include/db-functions-adodb.inc.php:2179
 #: ../../include/db-functions-adodb.inc.php:2449
 #: ../../include/db-functions-adodb.inc.php:2562
+#: ../../include/db-functions-adodb.inc.php:2564
 msgid "No group found!"
 msgstr "Keine Gruppe gefunden!"
 
@@ -14564,6 +14646,7 @@ msgstr "Kein Neuladen bauftragt"
 #: ../../include/db-functions-adodb.inc.php:2436
 #: ../../list_group_admins.php:115
 #: ../../include/db-functions-adodb.inc.php:2549
+#: ../../include/db-functions-adodb.inc.php:2551
 msgid "No search string given!"
 msgstr "Kein Suchbegriff angegeben!"
 
@@ -14610,7 +14693,7 @@ msgstr "Kein Benutzer ausgew&auml;hlt!"
 #: ../..//lostpassword.php:102 ../../lostpassword.php:102
 #: ../../lostpassword.php:87 ../../lostpassword.php:95
 msgid "No user with this username and this emailaddress is known"
-msgstr "Kein Benutzer mit diesem Benutzernamen und dieser Emailadresse bekannt!"
+msgstr "Kein Benutzer mit diesem Benutzernamen und dieser Emailadresse bekannt"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/resetpassword.php:159
 #: /export/home/kriegeth/workspace/svn_access_manager/resetpassword.php:159
@@ -15013,6 +15096,7 @@ msgstr "Seitengr&ouml;&szlig;e"
 #: ../../install/install.php:2432 ../../install/install.php:1241
 #: ../../install/install.php:2558 ../../install/install.php:1245
 #: ../../install/install.php:2562 ../../install/install.php:2563
+#: ../../install/install.php:1246 ../../install/install.php:2564
 msgid "Page size is missing!"
 msgstr "Seitengr&ouml;&szlig;e fehlt!"
 
@@ -15105,6 +15189,7 @@ msgstr "Seitengr&ouml;&szlig;e fehlt!"
 #: ../../install/install.php:2438 ../../install/install.php:1247
 #: ../../install/install.php:2564 ../../install/install.php:1251
 #: ../../install/install.php:2568 ../../install/install.php:2569
+#: ../../install/install.php:1252 ../../install/install.php:2570
 msgid "Page size is not numeric!"
 msgstr "Seitengr&ouml;&szlig;e ict nicht numerisch!"
 
@@ -15200,8 +15285,9 @@ msgstr "Passwort &auml;ndern"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/password.php:143
 #: ../../password.php:143 ../..//password.php:143 ../../password.php:144
 #: ../../password.php:151 ../../password.php:161 ../../password.php:180
+#: ../../password.php:176
 msgid "Password change failed due to database error!"
-msgstr "Passwort&auml;nderung aufgrund eines Datenbankfehlers fehlgeschlagen"
+msgstr "Passwort&auml;nderung aufgrund eines Datenbankfehlers fehlgeschlagen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/user_list.tpl:24
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/list_users.tpl:24
@@ -15230,7 +15316,7 @@ msgstr "Passwort ge&auml;ndert"
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/password.php:135
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/password.php:135
 #: ../../password.php:135 ../..//password.php:135 ../../password.php:142
-#: ../../password.php:146 ../../password.php:165
+#: ../../password.php:146 ../../password.php:165 ../../password.php:162
 msgid "Password changed successfully"
 msgstr "Passwort erfolgreich ge&auml;ndert"
 
@@ -15276,7 +15362,7 @@ msgstr "Passwort erfolgreich ge&auml;ndert"
 #: ../../workOnUser.php:424 ../../workOnUser.php:573 ../../workOnUser.php:426
 #: ../../workOnUser.php:582
 msgid "Password does not match the password policy!"
-msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie"
+msgstr "Passwort erf&uuml;llt nicht die Passwort Richtlinie!"
 
 #: ../../templates/install-tab6.tpl:51 ../../templates/install-tabs.tpl:947
 msgid "Password encryption"
@@ -15298,7 +15384,7 @@ msgstr "Anzahl Tage Passwort Ablauf"
 #: ../..//install/install.php:4362 ../../install/install.php:4362
 #: ../../install/install-new.php:2468 ../../install/install.php:2468
 #: ../../install/install.php:2594 ../../install/install.php:2598
-#: ../../install/install.php:2599
+#: ../../install/install.php:2599 ../../install/install.php:2600
 msgid "Password expire days must not be smaller or equal than password expire warn days!"
 msgstr "Tage Passwort Ablauf müssen gr&ouml;&szlig;er als Tage Passwort Ablauf Warnung sein!"
 
@@ -15309,7 +15395,7 @@ msgstr "Tage Passwort Ablauf müssen gr&ouml;&szlig;er als Tage Passwort Ablauf 
 #: ../..//install/install.php:4348 ../../install/install.php:4348
 #: ../../install/install-new.php:2456 ../../install/install.php:2456
 #: ../../install/install.php:2582 ../../install/install.php:2586
-#: ../../install/install.php:2587
+#: ../../install/install.php:2587 ../../install/install.php:2588
 msgid "Password expire days not numeric!"
 msgstr "Tage Passwort Ablauf sind nicht numerisch!"
 
@@ -15320,7 +15406,7 @@ msgstr "Tage Passwort Ablauf sind nicht numerisch!"
 #: ../..//install/install.php:4355 ../../install/install.php:4355
 #: ../../install/install-new.php:2462 ../../install/install.php:2462
 #: ../../install/install.php:2588 ../../install/install.php:2592
-#: ../../install/install.php:2593
+#: ../../install/install.php:2593 ../../install/install.php:2594
 msgid "Password expire warn days not numeric!"
 msgstr "Tage Passwort Ablauf Warnung sind nicht numersich!"
 
@@ -15398,9 +15484,9 @@ msgstr "Passwort ge&auml;ndert"
 #: ../../resetpassword.php:117 ../../password.php:113 ../..//password.php:113
 #: ../..//resetpassword.php:117 ../../password.php:115
 #: ../../resetpassword.php:110 ../../password.php:122 ../../password.php:126
-#: ../../password.php:145
+#: ../../password.php:145 ../../password.php:142
 msgid "Password not strong enough!"
-msgstr "Passwort nicht stark genug"
+msgstr "Passwort nicht stark genug!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/main.tpl:17
 #: /export/home/kriegeth/workspace/svn_access_manager/include/output.inc.php:37
@@ -15516,6 +15602,7 @@ msgstr "Passworte laufen ab"
 #: ../../templates/rep_show_user_result.tpl:118 ../../templates/general.tpl:156
 #: ../../templates/rep_show_group_result.tpl:89
 #: ../../templates/rep_show_user_result.tpl:121 ../../templates/general.tpl:164
+#: ../../templates/general.tpl:168
 msgid "Path"
 msgstr "Pfad"
 
@@ -15716,7 +15803,7 @@ msgstr "Bitte folgen Sie dem Link unten und geben Sie das Sicherheitstoken, das 
 #: ../..//templates/install-tabs.tpl:142 ../../templates/install-tabs.tpl:142
 #: ../../templates/install-tab0.tpl:33
 msgid "Please make sure that in your php.ini file the varibale date.timezone is set to a value according to your timezone. Don't forget to restart your webserver after changing the value of date.timezone!"
-msgstr "Bitte vergewissern Sie sich, dass die variable date.timezne in der php.ini auf einen zu Ihrer Zeitzone passenden Wert gesetzt ist. Vergessen Sie nicht, den Webserver nach der &Auml;nderung neu zu starten."
+msgstr "Bitte vergewissern Sie sich, dass die variable date.timezone in der php.ini auf einen zu Ihrer Zeitzone passenden Wert gesetzt ist. Vergessen Sie nicht, den Webserver nach der &Auml;nderung neu zu starten!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:127
 msgid "Please make sure that in your php.ini file the varibale mysql.allow_persistent is set to on! Otherwiese you may have problems with login after the installation. Please set the variable mysql.allow_persistent to on before you proceed with the installation. Don't forget to restart your webserver after changing the value of mysql.allow_persistent!"
@@ -15735,7 +15822,7 @@ msgstr "Bitte stellen Sie sicher, dass in Ihrer php.ini Datei die Variable mysql
 #: ../../templates/deleteRepo.tpl:46 ../..//templates/deleteRepo.tpl:46
 #: ../../templates/deleteRepo.tpl:6 ../../templates/deleteRepo.tpl:9
 msgid "Please note that a repository can only be deleted when it is no longer used in any project. Removing a repository does not affect the subversion repository itself. It is only removed from the database!"
-msgstr "Bitte zur Kenntnis nehmen, dass ein Repository nur gel&ouml;scht werden kann, wenn es nicht l&auml;nger benutzt ist. Das L&ouml;schen eines Repositories wirkt sich nicht auf das Repository selbst aus. Es wird nur aus der Datenbank gel&ouml;scht."
+msgstr "Bitte zur Kenntnis nehmen, dass ein Repository nur gel&ouml;scht werden kann, wenn es nicht l&auml;nger benutzt ist. Das L&ouml;schen eines Repositories wirkt sich nicht auf das Repository selbst aus. Es wird nur aus der Datenbank gel&ouml;scht!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/workOnUser.php:253
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/workOnUser.php:253
@@ -15770,6 +15857,7 @@ msgstr "Bitte einen Benutzer ausw&auml;hlen!"
 #: ../../workOnGroupAccessRight.php:211 ../../workOnGroupAccessRight.php:285
 #: ../../workOnGroupAccessRight.php:218 ../../workOnGroupAccessRight.php:292
 #: ../../workOnGroupAccessRight.php:221 ../../workOnGroupAccessRight.php:300
+#: ../../workOnGroupAccessRight.php:305
 msgid "Please select right!"
 msgstr "Bitte Recht ausw&auml;hlen!"
 
@@ -15816,6 +15904,7 @@ msgstr "Bitte die Felder f&uuml;r die Benutzersortierung ausw&auml;hlen!"
 #: ../../workOnGroupAccessRight.php:204 ../../workOnGroupAccessRight.php:278
 #: ../../workOnGroupAccessRight.php:211 ../../workOnGroupAccessRight.php:285
 #: ../../workOnGroupAccessRight.php:214 ../../workOnGroupAccessRight.php:293
+#: ../../workOnGroupAccessRight.php:298
 msgid "Please select user!"
 msgstr "Bitte Benutzer ausw&auml;hlen!"
 
@@ -15825,7 +15914,7 @@ msgstr "Bitte die Felder f&uuml;r die Benutzersortierung ausw&auml;hlen!"
 
 #: ../../templates/install-tab7.tpl:8
 msgid "Please take care about the following warnings and errors."
-msgstr "Bitte k&uuml;mmern Sie sich um die folgenden Warnungen und Fehler. "
+msgstr "Bitte k&uuml;mmern Sie sich um die folgenden Warnungen und Fehler."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/install.tpl:103
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install.tpl:103
@@ -15895,7 +15984,7 @@ msgstr "Voreinstellungen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:211
 #: ../../preferences.php:211 ../..//preferences.php:211
 #: ../../preferences.php:186 ../../preferences.php:193
-#: ../../preferences.php:237
+#: ../../preferences.php:237 ../../preferences.php:243
 msgid "Preferences changed successfully"
 msgstr "Voreinstellungen erfolgreich ge&auml;ndert"
 
@@ -15912,7 +16001,7 @@ msgstr "Voreinstellungen erfolgreich ge&auml;ndert"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:216
 #: ../../preferences.php:216 ../..//preferences.php:216
 #: ../../preferences.php:192 ../../preferences.php:199
-#: ../../preferences.php:243
+#: ../../preferences.php:243 ../../preferences.php:249
 msgid "Preferences not changed due to database error"
 msgstr "Voreinstellungen aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
@@ -16050,6 +16139,7 @@ msgstr "Projekt Beschreibung"
 #: ../../workOnProject.php:394 ../../workOnProject.php:512
 #: ../../workOnProject.php:401 ../../workOnProject.php:519
 #: ../../workOnProject.php:403 ../../workOnProject.php:523
+#: ../../workOnProject.php:421 ../../workOnProject.php:549
 msgid "Project description is missing, please fill in!"
 msgstr "Projektbeschreibung fehlt, bitte eingeben!"
 
@@ -16070,7 +16160,7 @@ msgstr "Projektbeschreibung fehlt, bitte eingeben!"
 #: ../../deleteProject.php:198 ../../deleteProject.php:205
 #: ../../deleteProject.php:207
 msgid "Project not deleted due to database error"
-msgstr "Projekt aufgrund eines Datenbankfehlers nicht gel&ouml;scht."
+msgstr "Projekt aufgrund eines Datenbankfehlers nicht gel&ouml;scht"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:194
 #: /export/home/kriegeth/workspace/svn_access_manager/deleteProject.php:198
@@ -16124,6 +16214,7 @@ msgstr "Projekt aufgrund von Datenbankfehlern beim L&ouml;schen der Benutzer/Pro
 #: ../../workOnProject.php:653 ../..//workOnProject.php:653
 #: ../../workOnProject.php:655 ../../workOnProject.php:630
 #: ../../workOnProject.php:637 ../../workOnProject.php:641
+#: ../../workOnProject.php:675
 msgid "Project not modified due to database error"
 msgstr "Projekt aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 
@@ -16132,6 +16223,7 @@ msgstr "Projekt aufgrund eines Datenbankfehlers nicht ge&auml;ndert"
 #: ../../templates/rep_show_user_result.tpl:64 ../../templates/general.tpl:138
 #: ../../templates/rep_show_user_result.tpl:86 ../../templates/general.tpl:124
 #: ../../templates/rep_show_user_result.tpl:89 ../../templates/general.tpl:132
+#: ../../templates/general.tpl:136
 msgid "Project responsible"
 msgstr "Verantwortlich f&uuml;r Projekt"
 
@@ -16144,6 +16236,7 @@ msgstr "Verantwortlich f&uuml;r Projekt"
 #: ../../workOnProject.php:408 ../../workOnProject.php:519
 #: ../../workOnProject.php:415 ../../workOnProject.php:526
 #: ../../workOnProject.php:417 ../../workOnProject.php:530
+#: ../../workOnProject.php:442 ../../workOnProject.php:563
 msgid "Project responsible user missing, please fill in!"
 msgstr "Verantwortlicher Benutzer f&uuml;r das Projekt feht. Bitte eintragen!"
 
@@ -16171,7 +16264,7 @@ msgstr "Ergebnis Projekt Suche"
 msgid "Project successfully deleted"
 msgstr "Projekt erfolgreich gel&ouml;scht"
 
-#: ../../workOnProject.php:648
+#: ../../workOnProject.php:648 ../../workOnProject.php:682
 msgid "Project successfully updated."
 msgstr "Projekt erfolgreich ge&auml;ndert."
 
@@ -16263,7 +16356,7 @@ msgstr "Zeilen pro Seite"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:155
 #: ../../preferences.php:155 ../..//preferences.php:155
 #: ../../preferences.php:150 ../../preferences.php:157
-#: ../../preferences.php:171
+#: ../../preferences.php:171 ../../preferences.php:177
 msgid "Records per page must be filled in!"
 msgstr "Zeilen pro seite muss ausgef&uuml;llt werden!"
 
@@ -16278,7 +16371,7 @@ msgstr "Zeilen pro seite muss ausgef&uuml;llt werden!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/preferences.php:160
 #: ../../preferences.php:160 ../..//preferences.php:160
 #: ../../preferences.php:157 ../../preferences.php:164
-#: ../../preferences.php:178
+#: ../../preferences.php:178 ../../preferences.php:184
 msgid "Records per page must contain digits only!"
 msgstr "Zeilen pro seite muss numerisch sein!"
 
@@ -16392,6 +16485,7 @@ msgstr "Neuladen der Webserver Konfiguration fehlgeschlagen"
 #: ../..//workOnProject.php:354 ../../workOnProject.php:228
 #: ../../workOnProject.php:356 ../../workOnProject.php:217
 #: ../../workOnProject.php:358 ../../workOnProject.php:360
+#: ../../workOnProject.php:230 ../../workOnProject.php:371
 msgid "Remove group"
 msgstr "Gruppe ls&ouml;chen"
 
@@ -16437,7 +16531,8 @@ msgstr "Gruppe ls&ouml;chen"
 #: ../../workOnGroup.php:232 ../../workOnGroup.php:191
 #: ../../workOnGroup.php:239 ../../templates/workOnGroup.tpl:52
 #: ../../templates/workOnProject.tpl:81 ../../workOnGroup.php:197
-#: ../../workOnGroup.php:245
+#: ../../workOnGroup.php:245 ../../templates/workOnProject.tpl:82
+#: ../../workOnGroup.php:250
 msgid "Remove member"
 msgstr "Mitglied l&ouml;schen"
 
@@ -16487,6 +16582,7 @@ msgstr "Mitglied l&ouml;schen"
 #: ../..//workOnProject.php:317 ../../workOnProject.php:220
 #: ../../workOnProject.php:319 ../../workOnProject.php:211
 #: ../../workOnProject.php:323 ../../workOnProject.php:325
+#: ../../workOnProject.php:224 ../../workOnProject.php:329
 msgid "Remove responsible"
 msgstr "Verantwortlichen l&ouml;schen"
 
@@ -16503,6 +16599,7 @@ msgstr "Verantwortlichen l&ouml;schen"
 #: ../../templates/rep_show_user_result.tpl:117 ../../templates/general.tpl:155
 #: ../../templates/rep_show_group_result.tpl:88
 #: ../../templates/rep_show_user_result.tpl:120 ../../templates/general.tpl:163
+#: ../../templates/general.tpl:167
 msgid "Reporitory"
 msgstr "Repository"
 
@@ -16742,7 +16839,7 @@ msgstr "Repository kann nicht gel&ouml;scht werden, weil sich die Projekte (%s) 
 #: ../../templates/list_repos.tpl:37
 #: ../../templates/rep_show_user_result.tpl:95
 #: ../../templates/workOnRepo.tpl:10 ../../templates/general.tpl:138
-#: ../../templates/deleteRepo.tpl:14
+#: ../../templates/deleteRepo.tpl:14 ../../templates/general.tpl:142
 msgid "Repository name"
 msgstr "Repository Name"
 
@@ -17332,7 +17429,7 @@ msgstr "Passwort wiederholen"
 #: ../../templates/install-tabs.tpl:641 ../../templates/install-tabs.tpl:643
 #: ../../templates/install-tabs.tpl:642 ../../templates/install-tabs.tpl:644
 msgid "Retype the admin's password."
-msgstr "Admin Passwort wiederholen"
+msgstr "Admin Passwort wiederholen."
 
 #: ../..//templates/workOnUser.tpl:63 ../../templates/workOnUser.tpl:63
 #: ../../templates/workOnUser.tpl:66
@@ -17483,7 +17580,7 @@ msgstr "SVN Access Datei"
 #: ../../install/old/install-alt.php:2745 ../../install/install.php:3072
 #: ../..//install/install.php:3072 ../../install/install-new.php:1091
 #: ../../install/install.php:1091 ../../install/install.php:1174
-#: ../../install/install.php:1178
+#: ../../install/install.php:1178 ../../install/install.php:1179
 msgid "SVN Access File is missing!"
 msgstr "SVN Access Datei fehlt!"
 
@@ -17727,7 +17824,7 @@ msgstr "SVN Access Manager URL Webseite"
 #: ../..//install/install.php:2984 ../../install/install.php:2987
 #: ../..//install/install.php:2987 ../../install/install-new.php:1040
 #: ../../install/install.php:1040 ../../install/install.php:1121
-#: ../../install/install.php:1125
+#: ../../install/install.php:1125 ../../install/install.php:1126
 msgid "SVN Access Manager website url is missing!"
 msgstr "SVN Access Manager Webseiten URL fehlt!"
 
@@ -17743,6 +17840,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../../install/install.php:4194 ../../install/install-new.php:2320
 #: ../../install/install.php:2320 ../../install/install.php:2446
 #: ../../install/install.php:2450 ../../install/install.php:2451
+#: ../../install/install.php:2452
 msgid "SVN Access Manger Website URL is missing!"
 msgstr "SVN Access Manager Webseiten URL fehlt!"
 
@@ -17758,7 +17856,7 @@ msgstr "SVN Access Manager Webseiten URL fehlt!"
 #: ../../templates/general.tpl:154 ../../templates/rep_show_group_result.tpl:87
 #: ../../templates/rep_show_user_result.tpl:94
 #: ../../templates/rep_show_user_result.tpl:119 ../../templates/general.tpl:137
-#: ../../templates/general.tpl:162
+#: ../../templates/general.tpl:162 ../../templates/general.tpl:166
 msgid "SVN Module"
 msgstr "SVN Modul"
 
@@ -17892,6 +17990,7 @@ msgstr "Sortierung SVN Zugriffsdatei"
 #: ../../install/install.php:2414 ../../install/install.php:1223
 #: ../../install/install.php:2540 ../../install/install.php:1227
 #: ../../install/install.php:2544 ../../install/install.php:2545
+#: ../../install/install.php:1228 ../../install/install.php:2546
 msgid "SVN command is missing!"
 msgstr "SVN Kommando fehlt!"
 
@@ -17902,7 +18001,8 @@ msgstr "SVN Kommando fehlt!"
 #: ../../templates/workOnMessage.tpl:35
 #: ../../templates/workOnGroupAccessRight.tpl:66
 #: ../../templates/workOnRepo.tpl:75 ../../templates/workOnUser.tpl:262
-#: ../../templates/general.tpl:190
+#: ../../templates/general.tpl:190 ../../templates/workOnProject.tpl:58
+#: ../../templates/general.tpl:104
 msgid "Save"
 msgstr "Speichern"
 
@@ -17979,7 +18079,7 @@ msgstr "Projekt nach Name suchen."
 
 #: ../../templates/list_projects.tpl:11 ../..//templates/list_projects.tpl:11
 msgid "Search project."
-msgstr "Projekt suchen"
+msgstr "Projekt suchen."
 
 #: ../..//templates/list_repos.tpl:7 ../../templates/list_repos.tpl:7
 msgid "Search repositories"
@@ -18088,7 +18188,7 @@ msgstr "Gruppe ausw&auml;hlen"
 msgid "Select group to work with."
 msgstr "Zu bearbeitende Gruppe ausw&auml;hlen."
 
-#: ../../templates/rep_show_group.tpl:12
+#: ../../templates/rep_show_group.tpl:12 ../../templates/rep_show_group.tpl:18
 msgid "Select group."
 msgstr "Gruppe ausw&auml;hlen."
 
@@ -18155,6 +18255,7 @@ msgstr "Projekt ausw&auml;hlen"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/workOnProject.tpl:73
 #: ../../templates/workOnProject.tpl:73 ../..//templates/workOnProject.tpl:73
 #: ../../templates/workOnProject.tpl:60 ../../templates/workOnProject.tpl:63
+#: ../../templates/workOnProject.tpl:64
 msgid "Select project responsible users"
 msgstr "Projektverantwortliche Benutzer ausw&auml;hlen"
 
@@ -18188,6 +18289,7 @@ msgstr "W&auml;holen Sie die Datenbank aus, die Sie verwenden wollen."
 #: ../../templates/getDateForAccessRights.tpl:9
 #: ../../templates/getDateForAccessRights.tpl:12
 #: ../../templates/getDateForAccessRightsModal.tpl:19
+#: ../../templates/getDateForAccessRightsModal.tpl:18
 msgid "Select the date for the report."
 msgstr "W&auml;hlen Sie das Datum f&uuml;r den Bericht aus."
 
@@ -18232,7 +18334,7 @@ msgstr "W&auml;holen Sie die zum Zugriff berechtigten Gruppen aus."
 msgid "Select the groups to add."
 msgstr "W&auml;holen Sie die hinzuzuf&uuml;genden Gruppen aus."
 
-#: ../../templates/workOnProject.tpl:65
+#: ../../templates/workOnProject.tpl:65 ../../templates/workOnProject.tpl:66
 msgid "Select the project responsible person."
 msgstr "Projekt verantwortliche Person ausw&auml;hlen."
 
@@ -18276,7 +18378,7 @@ msgstr "Benutzer ausw&auml;heln die Zugriff erhalten sollen."
 #: ../../templates/addMemberToGroup.tpl:12
 #: ../../templates/addMemberToProject.tpl:12
 msgid "Select the users to add."
-msgstr "Den hinzuzuf&uuml;genden Benutzer ausw&auml;hlen. "
+msgstr "Den hinzuzuf&uuml;genden Benutzer ausw&auml;hlen."
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnGroupAccessRight.tpl:18
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/workOnGroupAccessRight.tpl:18
@@ -18288,7 +18390,7 @@ msgstr "Den hinzuzuf&uuml;genden Benutzer ausw&auml;hlen. "
 msgid "Select user"
 msgstr "Benutzer ausw&auml;hlen"
 
-#: ../../templates/rep_show_user.tpl:12
+#: ../../templates/rep_show_user.tpl:12 ../../templates/rep_show_user.tpl:18
 msgid "Select user."
 msgstr "Benutzer ausw&auml;hlen."
 
@@ -18964,7 +19066,10 @@ msgstr "Subversion Projekt"
 #: ../../bulk_add_ldap_users.php:117 ../../bulk_add_ldap_users.php:132
 #: ../../templates/resetpasswordresult.tpl:128
 #: ../../templates/resetpassword.tpl:137
-#: ../../templates/securityquestion.tpl:133
+#: ../../templates/securityquestion.tpl:133 ../../templates/preferences.tpl:42
+#: ../../preferences.php:146 ../../preferences.php:167
+#: ../../workOnProject.php:215 ../../workOnProject.php:406
+#: ../../workOnGroup.php:189 ../../workOnGroup.php:278
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -19067,7 +19172,8 @@ msgstr "Subversion Modulpfad"
 #: ../../workOnProject.php:504 ../../workOnProject.php:401
 #: ../../workOnProject.php:505 ../../workOnProject.php:408
 #: ../../workOnProject.php:512 ../../workOnProject.php:410
-#: ../../workOnProject.php:516
+#: ../../workOnProject.php:516 ../../workOnProject.php:428
+#: ../../workOnProject.php:542
 msgid "Subversion module path missing, please fill in!"
 msgstr "Subversion Modulpfad fehlt, bitte eingeben!"
 
@@ -19105,6 +19211,7 @@ msgstr "Subversion Projekt"
 #: ../../workOnProject.php:391 ../../workOnProject.php:392
 #: ../..//workOnProject.php:392 ../../workOnProject.php:394
 #: ../../workOnProject.php:387 ../../workOnProject.php:396
+#: ../../workOnProject.php:414
 msgid "Subversion project is missing, please fill in!"
 msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 
@@ -19128,8 +19235,13 @@ msgstr "Subversion Prjekt fehlt, bitte eingeben!"
 #: ../../workOnProject.php:497 ../..//workOnProject.php:497
 #: ../../workOnProject.php:499 ../../workOnProject.php:498
 #: ../../workOnProject.php:505 ../../workOnProject.php:509
+#: ../../workOnProject.php:535
 msgid "Subversion project name is missing, please fill in!"
 msgstr "Subversion projektname fehlt, bitte eingeben!"
+
+#: ../../workOnProject.php:435 ../../workOnProject.php:556
+msgid "Subversion repository not selected. Please select a repository!"
+msgstr "Kein Subversion Repository ausgew&auml;hlt. Bitte ein Repetitory ausw&auml;hlen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/workOnProject.tpl:14
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/deleteProject.tpl:11
@@ -19211,6 +19323,7 @@ msgstr "Subversion Projekt"
 #: ../../install/install.php:2420 ../../install/install.php:1229
 #: ../../install/install.php:2546 ../../install/install.php:1233
 #: ../../install/install.php:2550 ../../install/install.php:2551
+#: ../../install/install.php:1234 ../../install/install.php:2552
 msgid "Svnadmin command missing!"
 msgstr "Svnadmin Kommando fehlt!"
 
@@ -19220,7 +19333,7 @@ msgstr "Svnadmin Kommando fehlt!"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/general.tpl:44
 #: ../../templates/general.tpl:44 ../..//templates/general.tpl:44
 msgid "Take care that you have a valid email address submitted. Otherwise notifications concerning your account will be lost!"
-msgstr "Beachten Sie, dass Sie eine g&uuml;ltige E-Mailadresse eingegeben haben. Ansonsten k&ouml;nnen Mitteilungen Ihren Zugang betreffend verloren gehen."
+msgstr "Beachten Sie, dass Sie eine g&uuml;ltige E-Mailadresse eingegeben haben. Ansonsten k&ouml;nnen Mitteilungen Ihren Zugang betreffend verloren gehen!"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_5/templates/install_page_1.tpl:251
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/install-tabs.tpl:375
@@ -19278,6 +19391,7 @@ msgstr "Datenbankverbindung testen"
 #: ../../install/install.php:4400 ../../install/install-new.php:2504
 #: ../../install/install.php:2504 ../../install/install.php:2630
 #: ../../install/install.php:2634 ../../install/install.php:2635
+#: ../../install/install.php:2636
 msgid "Testing LDAP connection doesn't make sense if you do not use LDAP!"
 msgstr "LDAP Verbindungstest sinnlos, wenn lDAP nicht benutzt wird!"
 
@@ -19292,11 +19406,16 @@ msgstr "LDAP Verbindungstest sinnlos, wenn lDAP nicht benutzt wird!"
 msgid "The link is only valid for %s day(s)!"
 msgstr "Der Link glit nur %s Tag(e)!"
 
+#: ../../workOnProject.php:455 ../../workOnProject.php:576
+#, php-format
+msgid "The project with the name %s exists already"
+msgstr "Das Projekt mit dem Namen %s existiert bereits"
+
 #: ../../workOnRepo.php:225 ../..//workOnRepo.php:225 ../../workOnRepo.php:227
 #: ../../workOnRepo.php:226 ../../workOnRepo.php:233 ../../workOnRepo.php:235
 #, php-format
 msgid "The repository with the name %s exists already"
-msgstr "Das Repository mit dem Namen %s existiert bereits!"
+msgstr "Das Repository mit dem Namen %s existiert bereits"
 
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:263
 #: /export/home/kriegeth/workspace/svn_access_manager/workOnUser.php:267
@@ -19473,7 +19592,7 @@ msgstr "Um Erl&auml;terungen zu bekommen, bewegen Sie die maus einfach &uuml;her
 msgid "Token"
 msgstr "Token"
 
-#: ../../templates/preferences.tpl:24
+#: ../../templates/preferences.tpl:24 ../../templates/preferences.tpl:32
 msgid "Tooltip hide (ms)"
 msgstr "Tooltip ausblenden (ms)"
 
@@ -19481,7 +19600,7 @@ msgstr "Tooltip ausblenden (ms)"
 msgid "Tooltip milliseconds for show up mus be filled in!"
 msgstr "Millisekunden Anzeige Tooltip m&uuml;ssen eingegeben werden!"
 
-#: ../../preferences.php:186
+#: ../../preferences.php:186 ../../preferences.php:192
 msgid "Tooltip milliseconds for show up must be filled in!"
 msgstr "Millisekunden Anzeige Tooltip m&uuml;ssen eingegeben werden!"
 
@@ -19489,19 +19608,19 @@ msgstr "Millisekunden Anzeige Tooltip m&uuml;ssen eingegeben werden!"
 msgid "Tooltip milliseconds for vanish up mus be filled in!"
 msgstr "Millisekunden Ausblenden Tooltip m&uuml;ssen eingegeben werden!"
 
-#: ../../preferences.php:201
+#: ../../preferences.php:201 ../../preferences.php:207
 msgid "Tooltip milliseconds for vanish up must be filled in!"
 msgstr "Millisekunden Ausblenden Tooltip m&uuml;ssen eingegeben werden!"
 
-#: ../../templates/preferences.tpl:17
+#: ../../templates/preferences.tpl:17 ../../templates/preferences.tpl:25
 msgid "Tooltip show (ms)"
 msgstr "Tooltip anzeigen (ms)"
 
-#: ../../preferences.php:193
+#: ../../preferences.php:193 ../../preferences.php:199
 msgid "Tooltip show up milliseconds must be numeric!"
 msgstr "Millisekunden Anzeige Tooltip m&uuml;ssen numerisch sein!"
 
-#: ../../preferences.php:208
+#: ../../preferences.php:208 ../../preferences.php:214
 msgid "Tooltip vanish milliseconds must be numeric!"
 msgstr "Millisekunden Ausblenden Tooltip m&uuml;ssen numerisch sein!"
 
@@ -19524,7 +19643,7 @@ msgstr "Uid"
 
 #: ../../install/install-new.php:1689 ../../install/install.php:1689
 #: ../../install/install.php:1808 ../../install/install.php:1812
-#: ../../install/install.php:1813
+#: ../../install/install.php:1813 ../../install/install.php:1814
 #, php-format
 msgid "Unknown database type: %s"
 msgstr "Unbekannter Datenbank Typ: %s"
@@ -19561,6 +19680,7 @@ msgstr "Unbekannter Benutzer. Hat jemand an den Formulardaten gepielt? Entschuld
 #: ../../workOnGroup.php:500 ../..//workOnGroup.php:500
 #: ../../workOnGroup.php:503 ../../workOnGroup.php:450
 #: ../../workOnGroup.php:457 ../../workOnGroup.php:467
+#: ../../workOnGroup.php:478
 #, php-format
 msgid "Update of group %s failed due to database errors"
 msgstr "&Auml;nderung der Gruppe %s aufgrund eines Datenbankfehlers fehlgeschlagen"
@@ -19795,7 +19915,7 @@ msgstr "MD5 Verrschl&uuml;sselung benutzen"
 #: ../../templates/list_access_rights.tpl:58
 #: ../../templates/rep_access_rights.tpl:17
 #: ../../templates/rep_access_rights.tpl:74
-#: ../../templates/rep_show_user.tpl:10
+#: ../../templates/rep_show_user.tpl:10 ../../templates/rep_show_user.tpl:16
 msgid "User"
 msgstr "Benutzer"
 
@@ -19828,7 +19948,7 @@ msgstr "Benutzer"
 #: ../..//general.php:202 ../../general.php:211 ../../general.php:335
 #: ../../general.php:214 ../../general.php:348 ../../general.php:117
 #: ../../general.php:253 ../../general.php:142 ../../general.php:278
-#: ../../general.php:144 ../../general.php:280
+#: ../../general.php:144 ../../general.php:280 ../../general.php:285
 msgid "User "
 msgstr "Benutzer"
 
@@ -19908,7 +20028,9 @@ msgstr "Benutzer"
 #: ../../workOnProject.php:629 ../../workOnGroup.php:355
 #: ../../workOnGroup.php:449 ../../workOnProject.php:479
 #: ../../workOnProject.php:633 ../../workOnGroup.php:361
-#: ../../workOnGroup.php:459
+#: ../../workOnGroup.php:459 ../../workOnProject.php:505
+#: ../../workOnProject.php:667 ../../workOnGroup.php:372
+#: ../../workOnGroup.php:470
 #, php-format
 msgid "User %s not found!"
 msgstr "Benutzer %s nicht gefunden!"
@@ -19967,6 +20089,7 @@ msgstr "Standard Zugriffsrecht f&uuml;r Benutzer"
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/password.php:93
 #: ../../password.php:93 ../..//password.php:93 ../../password.php:95
 #: ../../password.php:102 ../../password.php:106 ../../password.php:125
+#: ../../password.php:123
 msgid "User doesn't exist!"
 msgstr "Benutzer existiert nicht!"
 
@@ -19997,7 +20120,7 @@ msgstr "Benutzer existiert nicht!"
 #: ../../setAccessRight.php:372 ../../setAccessRight.php:343
 #: ../../setAccessRight.php:374
 msgid "User is not allowed to have write access, global right is read only"
-msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale Recht ist \"nur lesen\""
+msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale Recht des Benutzers ist \"nur lesen\""
 
 #: /export/home/kriegeth/workspace/svn_access_manager/templates/rep_granted_user_rights.tpl:30
 #: /export/home/kriegeth/workspace/svn_access_manager_b_0_4/templates/rep_granted_user_rights.tpl:30
@@ -20008,6 +20131,7 @@ msgstr "Dem Benutzer ist es nicht gestattet Schreibzugriff zu haben. Das globale
 #: ../../templates/rep_granted_user_rights.tpl:34
 #: ../../include/functions.inc.php:2118 ../../include/functions.inc.php:2130
 #: ../../include/functions.inc.php:2168 ../../include/functions.inc.php:2176
+#: ../../include/functions.inc.php:2188
 msgid "User locked"
 msgstr "Benutzer gesperrt"
 
@@ -20143,7 +20267,7 @@ msgstr "Benutzer erfolgreich gespeichert"
 
 #: /export/home/kriegeth/workspace/svn_access_manager_0_5/templates/rep_show_user.tpl:5
 #: ../../templates/rep_show_user.tpl:5 ../..//templates/rep_show_user.tpl:5
-#: ../../templates/rep_show_user.tpl:2
+#: ../../templates/rep_show_user.tpl:2 ../../templates/rep_show_user.tpl:8
 msgid "User to show"
 msgstr "Anzuzeigender Benutzer"
 
@@ -20564,6 +20688,7 @@ msgstr "ViewVC Konfigurationsverzeichnis"
 #: ../../install/install.php:2395 ../../install/install.php:1189
 #: ../../install/install.php:2521 ../../install/install.php:1193
 #: ../../install/install.php:2525 ../../install/install.php:2526
+#: ../../install/install.php:1194 ../../install/install.php:2527
 msgid "ViewVC configuration directory is missing!"
 msgstr "ViewVC Konfigurationsverzeichnis fehlt!"
 
@@ -20668,6 +20793,7 @@ msgstr "ViewVC Realm"
 #: ../../install/install.php:2407 ../../install/install.php:1199
 #: ../../install/install.php:2533 ../../install/install.php:1203
 #: ../../install/install.php:2537 ../../install/install.php:2538
+#: ../../install/install.php:1204 ../../install/install.php:2539
 msgid "ViewVC realm is missing!"
 msgstr "ViewVC realm fehlt!"
 
@@ -20777,6 +20903,7 @@ msgstr "ViewVC Webserver Alias"
 #: ../../install/install.php:2401 ../../install/install.php:1194
 #: ../../install/install.php:2527 ../../install/install.php:1198
 #: ../../install/install.php:2531 ../../install/install.php:2532
+#: ../../install/install.php:1199 ../../install/install.php:2533
 msgid "ViewVC webserver alias is missing!"
 msgstr "ViewVC Webserver Alias fehlt!"
 
@@ -21007,6 +21134,7 @@ msgstr "Website Zeichensatz"
 #: ../../install/install.php:2326 ../../install/install.php:1127
 #: ../../install/install.php:2452 ../../install/install.php:1131
 #: ../../install/install.php:2456 ../../install/install.php:2457
+#: ../../install/install.php:1132 ../../install/install.php:2458
 msgid "Website charset is missing!"
 msgstr "Website Zeichensatz fehlt!"
 
@@ -21420,7 +21548,7 @@ msgstr "Falsche Antwort!"
 #: ../../rep_show_user.php:131 ../../rep_show_user.php:132
 #: ../../createAccessFiles.php:97 ../../createAccessFiles.php:114
 #: ../../general.php:129 ../../general.php:268 ../../rep_show_user.php:134
-#: ../../rep_show_user.php:135
+#: ../../rep_show_user.php:135 ../../general.php:265
 msgid "Yes"
 msgstr "Ja"
 
@@ -21591,7 +21719,7 @@ msgstr "aufsteigend"
 #: ../..//install/install.php:3306 ../../install/install.php:3306
 #: ../../install/install-new.php:1377 ../../install/install.php:1377
 #: ../../install/install.php:1478 ../../install/install.php:1482
-#: ../../install/install.php:1483
+#: ../../install/install.php:1483 ../../install/install.php:1484
 #, php-format
 msgid "can't open %s for writing. Please make sure the config directory is writeable for the webserver user!"
 msgstr "Datei %s kann nicht zum Schreiben ge&ouml;ffnet werden.Bitte stellen Sie sicher, dass das Konfigurationsverzeichnis für den Webserver schreibbar ist!"
@@ -21606,6 +21734,7 @@ msgstr "Datei %s kann nicht zum Schreiben ge&ouml;ffnet werden.Bitte stellen Sie
 #: ../../install/install.php:3286 ../../install/install-new.php:1415
 #: ../../install/install.php:1415 ../../install/install.php:1521
 #: ../../install/install.php:1525 ../../install/install.php:1526
+#: ../../install/install.php:1527
 #, php-format
 msgid "can't open config template %s for reading!"
 msgstr "Konfigurationstemplate %s ist nicht lesbar!"
@@ -21751,7 +21880,7 @@ msgstr "Kann config.inc.php nicht zum schreiben &ouml;ffnen. Bitte stellen Sie s
 #: ../..//install/install.php:3327 ../../install/install.php:3327
 #: ../../install/install-new.php:1435 ../../install/install.php:1435
 #: ../../install/install.php:1541 ../../install/install.php:1545
-#: ../../install/install.php:1546
+#: ../../install/install.php:1546 ../../install/install.php:1547
 msgid "config.inc.php successfully created"
 msgstr "config.inc.php erfolgreich angelegt"
 
@@ -21873,6 +22002,7 @@ msgstr "grep Kommando"
 #: ../../include/db-functions-adodb.inc.php:933
 #: ../../include/db-functions-adodb.inc.php:1076
 #: ../../include/db-functions-adodb.inc.php:1091
+#: ../../include/db-functions-adodb.inc.php:1092
 msgid "group id"
 msgstr "Gruppe"
 
@@ -22027,6 +22157,7 @@ msgstr "Abmelden"
 #: ../../deleteUser.php:100 ../../deleteUser.php:214 ../../deleteUser.php:215
 #: ../../general.php:126 ../../general.php:265 ../../include/output.inc.php:299
 #: ../../include/output.inc.php:300 ../../include/output.inc.php:344
+#: ../../general.php:264
 msgid "no"
 msgstr "Nein"
 
@@ -22101,7 +22232,8 @@ msgstr "keine"
 #: ../../install/install.php:2082 ../../install/install.php:2155
 #: ../../install/install.php:907 ../../install/install.php:2086
 #: ../../install/install.php:2159 ../../install/install.php:2087
-#: ../../install/install.php:2160
+#: ../../install/install.php:2160 ../../install/install.php:908
+#: ../../install/install.php:2088 ../../install/install.php:2161
 msgid "not writable"
 msgstr "nicht schreibbar"
 
@@ -22254,6 +22386,7 @@ msgstr "svnadmin Kommando"
 #: ../../include/db-functions-adodb.inc.php:936
 #: ../../include/db-functions-adodb.inc.php:1079
 #: ../../include/db-functions-adodb.inc.php:1094
+#: ../../include/db-functions-adodb.inc.php:1095
 msgid "user id"
 msgstr "Benutzer"
 
@@ -22262,6 +22395,7 @@ msgstr "Benutzer"
 #: ../../include/db-functions-adodb.inc.php:930
 #: ../../include/db-functions-adodb.inc.php:1073
 #: ../../include/db-functions-adodb.inc.php:1088
+#: ../../include/db-functions-adodb.inc.php:1089
 msgid "user id + group id"
 msgstr "Benutzer + Gruppe"
 
@@ -22294,7 +22428,8 @@ msgstr "Benutzer + Gruppe"
 #: ../../install/install.php:2079 ../../install/install.php:2152
 #: ../../install/install.php:904 ../../install/install.php:2083
 #: ../../install/install.php:2156 ../../install/install.php:2084
-#: ../../install/install.php:2157
+#: ../../install/install.php:2157 ../../install/install.php:905
+#: ../../install/install.php:2085 ../../install/install.php:2158
 msgid "writable"
 msgstr "schreibbar"
 
@@ -22476,6 +22611,7 @@ msgstr "schreiben"
 #: ../../deleteUser.php:100 ../../deleteUser.php:214 ../../deleteUser.php:215
 #: ../../general.php:126 ../../general.php:265 ../../include/output.inc.php:299
 #: ../../include/output.inc.php:300 ../../include/output.inc.php:344
+#: ../../general.php:264
 msgid "yes"
 msgstr "Ja"
 

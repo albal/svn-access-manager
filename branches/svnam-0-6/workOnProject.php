@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $tResponsibleError = '';
     $tDescriptionError = '';
     $tMembersError = '';
+    $tRepositoryError = '';
     
     $_SESSION[SVNSESSID][PROJECTID] = $tId;
     
@@ -205,6 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $tResponsibleError = 'ok';
     $tDescriptionError = 'ok';
     $tMembersError = 'ok';
+    $tRepositoryError = 'ok';
     
     if (isset($_POST['fSubmit'])) {
         $button = db_escape_string($_POST['fSubmit']);
@@ -351,6 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tModulePathError = '';
         $tResponsibleError = '';
         $tDescriptionError = '';
+        $tRepositoryError = '';
         $tMembersError = '';
     }
     elseif ($button == _("Add group")) {
@@ -391,6 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tModulePathError = '';
         $tResponsibleError = '';
         $tDescriptionError = '';
+        $tRepositoryError = '';
         $tMembersError = '';
     }
     elseif ($button == _("Back")) {
@@ -426,6 +430,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessageType = DANGER;
                 $error = 1;
             }
+            elseif (empty($tRepo)) {
+
+                $tMessage = _("Subversion repository not selected. Please select a repository!");
+                $tMessageType = DANGER;
+                $tRepositoryError = ERROR;
+                $error = 1;
+            }
             elseif (empty($_SESSION[SVNSESSID][MEMBERS])) {
                 
                 $tMessage = _("Project responsible user missing, please fill in!");
@@ -441,7 +452,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 
                 if ($result['rows'] > 0) {
                     
-                    $tMessage = _("The project with the name $tProject exists already");
+                    $tMessage = sprintf(_("The project with the name %s exists already"), $tProject);
                     $tProjectError = ERROR;
                     $tMessageType = DANGER;
                     $error = 1;
@@ -538,6 +549,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $tMessage = _("Project description is missing, please fill in!");
                 $tDescriptionError = ERROR;
                 $tMessageType = DANGER;
+                $error = 1;
+            }
+            elseif (empty($tRepo)) {
+
+                $tMessage = _("Subversion repository not selected. Please select a repository!");
+                $tMessageType = DANGER;
+                $tRepositoryError = ERROR;
                 $error = 1;
             }
             elseif (empty($_SESSION[SVNSESSID][MEMBERS])) {
