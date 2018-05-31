@@ -12,21 +12,22 @@ your needs.
 Version 0.6.0.0 was cleaned up. Unused files have been deleted. If you do not use the RPM
 installer please take care about the deleted files yourself.
 
-For the layout Bootstrap 3 is now used. Please check to copy all the Bootstrap related stuff
-during manual installation to have a complete environment.
+For the webpages Bootstrap 3 is now used. Please check to copy all the Bootstrap related 
+stuff during manual installation to have a complete environment.
 
 Constants are used instead of literals where suitable. Code duplications have been removed
-to create a more clear code.
+to create a more clean code.
 
 This version has included PHP Unit tests.
 
 Basic tests have been done with PHP 7. So if you want to give it a try with PHP 7 please use 
-SVN Access Manager together with PHP 7 and keep me updated.
+SVN Access Manager together with PHP 7 and keep me updated. During the tests with PHP 7 no
+problems have shown up.
  
 There's also a fix for the installer included. MySQLi is now available as database type.
 If you already installed SVN Access Manager this fix is not needed. If you want to use
 the mysqli driver instead of the mysql driver please update your config.inc.php file
-accordingsly and use 'mysqli' for database_type.
+accordingly and use 'mysqli' for database_type.
 
 #-------------------------------------------------------------------------------------------#
 
