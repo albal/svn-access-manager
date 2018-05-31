@@ -1,0 +1,21 @@
+.greycell {
+    background-color: #dddddd;
+}
+
+.nojs {
+    height: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.nojs>p {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: -9px;
+}
+
+.tooltip-inner {
+  background-color: #aaa;
+}
