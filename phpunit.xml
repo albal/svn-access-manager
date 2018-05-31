@@ -58,7 +58,7 @@
         <var name="DB_MYSQL_PASSWD" value="svnampass" />
         <var name="DB_MYSQL_DBNAME" value="svnamtest" />
         <var name="DB_MYSQL_HOST" value="127.0.0.1:33061" />
-        <var name="DB_MYSQL_PORT" value="33067" />
+        <var name="DB_MYSQL_PORT" value="33061" />
         <var name="DB_MYSQL_TYPE" value="mysqli" />
         <var name="DB_MYSQL_CHARSET" value="latin1" />
         <var name="DB_MYSQL_COLLATION" value="latin1_swedish_ci" />
