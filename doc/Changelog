@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Release 0.6.0.0    
+Release 0.6.0.8
     - added phpunit tests and a small database xml dump for database phpunit tests
     - added mysqli driver to installer
     - basic tests with php 7
