@@ -1,43 +1,40 @@
-		<div id="edit_form">
-			<form action="workOnProject.php" method="post">
-				<table>
-					<tr>
-						<td align="center" colspan="2"><h2><?php print _("Add group members"); ?></h2></td>
-					</tr>
-					<tr>
-						<td colspan="2">&nbsp;</td>
-					</tr>
-					<tr valign="top">
-						<td align="left"><?php print _("Choose the members to add"); ?></td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr valign="top">
-						<td>
-							<select name="groupsadd[]" multiple="" size="15" style="width: 100%; height=200px;" title="<?php print _("Select the groups to add.");?>">
-							<?php
-								foreach($tGroups as $id => $name) {
-									
-									print "\t\t\t\t\t\t\t<option value=\"$id\" label=\"$name\">$name</option>\n";
-									
-								}   
-							?>
-							</select>
-						</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td colspan="2">&nbsp;</td>
-					</tr>
-					<tr valign="top">
-						<td nowrap>
-							<input type="image" name="fSubmitAddGroup_ok" src="./images/ok.png" value="<?php print _("Add"); ?>"  title="<?php print _("Add"); ?>" />&nbsp;&nbsp;&nbsp;
-				      		<input type="image" name="fSubmitAddGroup_back" src="./images/button_cancel.png" value="<?php print _("Cancel"); ?>" title="<?php print _("Cancel"); ?>" />
-						</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td colspan="2"><?php print $tMessage; ?></td>
-					</tr>
-				</table>
-			</form>
-		</div>
+<div>      
+    <h3 class="page-header"><?php print _("Add group members"); ?></h3> 
+</div>
+<div>
+    <form class="form-horizontal" action="workOnProject.php" name="workOnProject" method="post">
+        <?php 
+            outputMessage($tMessage, $tMessageType);
+        ?>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="members"><?php print _("Choose the members to add"); ?>:</label>
+            <div class="col-sm-9">
+                <select id="members" name="groupadd[]" class="selectpicker" multiple size="15" data-toggle="tooltip" title="<?php print _("Select the groups to add.");?>">
+                <?php
+                    foreach($tGroups as $id => $name) {
+                        
+                        print "\t\t\t\t\t\t\t<option value=\"$id\" label=\"$name\">$name</option>\n";
+                        
+                    }  
+                ?>
+                </select>
+            </div>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>    
+        <div class="input-group">
+            <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmitAddGroup_ok" title="<?php print _("Add"); ?>"><span class="glyphicon glyphicon-plus-sign"></span> <?php print _("Add"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmitAddGroup_back" title="<?php print _("Cancel"); ?>"><span class="glyphicon glyphicon-remove-circle"></span> <?php print _("Cancel"); ?></button>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
+    });
+</script>

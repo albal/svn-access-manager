@@ -56,7 +56,8 @@ To use SVN Access Manager you need
 - Apache 2.0 or higher
 - PHP 4 or higher with php mysql and php ldap,
   recommended is PHP 5.3
-- Mysql 4 or higher, recommended is MySQL 5
+- Mysql 5
+- a web browser supporting HTML 5
 
 
 
@@ -78,7 +79,7 @@ Installation
 
 For installation please look into the documentation in the html directory or
 simply install the RPM provided on 
-https://sourceforge.net/projects/svn-access-mana/files/
+https://www.svn-access-manager.org/
 
 
 
