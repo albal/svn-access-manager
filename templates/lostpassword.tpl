@@ -7,11 +7,11 @@
 
 include( "./include/output.inc.php" );
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <!--
     SVN Access Manager - a subversion access rights management tool
-    Copyright (C) 2008 Thomas Krieger <tom@svn-access-manager.org>
+    Copyright (C) 2008-2018 Thomas Krieger <tom@svn-access-manager.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,66 +27,133 @@ include( "./include/output.inc.php" );
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 -->
-<head>
-  <title><?php print _("SVN Access Manager")." - ".$_SERVER['HTTP_HOST']; ?></title>
-  <meta name="GENERATOR" content="Quanta Plus">
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
-  <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
-</head>
-<body>
-	<div id="header_login">
-			<div id="header_left">
-				<!--<img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />-->
-			</div>
-			<div id="header_right_login">
-				
-			</div>
-			<div id="subheader">
-				&nbsp;
-			</div>
-		</div>
-		<div id="login">
-			<form name="lostpassword" method="post" autocomplete="off">
-				<table id="login_table">
-					<tr>
-				      <td colspan="3"><h3><?php print _("Recover lost password (Step 1)"); ?></h3></td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				   		<td width="150"><strong><?php print _("Username").": "; ?></strong></td>
-				   		<td>
-				   			<input type="text" name="fUsername" value="<?php print $tUsername; ?>" size="40" maxsize="255" />
-				   		</td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				   		<td width="150"><strong><?php print _("Email address").": "; ?></strong></td>
-				   		<td>
-				   			<input type="text" name="fEmailaddress" value="<?php print $tEmailaddress; ?>" size="40" maxsize="255" />
-				   		</td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3" class="hlp_center">
-				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Submit"); ?>"  title="<?php print _("Submit"); ?>" />
-				      </td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3" class="standout">
-				      	<?php print $tMessage; ?>
-				      </td>
-				   	</tr>
-				</table>
-			</form>
-		</div>
-	</div>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="SVN Access Manager Sign in">
+    <meta name="author" content="Thomas Krieger">
+    <link rel="icon" href="favicon.ico">
+
+    <title>SVN Access Manager</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./lib/bootstrap-3.3.7/css/ie10-viewport-bug-workaround.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./style/signin.css" rel="stylesheet">
+    <link href="./lib/bootstrap-3.3.7/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="./style/svnam.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="./lib/bootstrap-3.3.7/js/html5shiv.min.js"></script>
+      <script src="./lib/bootstrap-3.3.7/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="./lib/jquery/jquery-3.3.1.min.js"></script>
+    <script src="./lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+     <script>
+      $(document).ready(function() {
+          $("#noJS").hide();
+          $("#site").show();
+      });
+    </script>
+    <style>
+    #site {
+        display: none;
+    }
+    
+    .logoBar {
+        vertical-align:bottom;
+        background-color:#efeff8;
+        width:716px;
+        height:70px;
+    }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+        <div id="noJS">
+            
+            <div class="logoBar">
+                <a href="#">
+                    <img src="./images/svn-access-manager_200_60.jpg" width="200" height="60" border="0" />
+                </a>
+            </div>
+            
+            <!-- BEGIN Liquid Middle Column --> 
+            <div class="Content">
+               
+                <p><?php print _("Javascript is disabled. This site needs JavaScript to work correctly. Please enable JavaScript in your browser!"); ?></p>
+    
+            </div>
+            <!-- END Liquid Middle Column -->   
+        </div>
+    </noscript>
+    
+    <div class="container" id="site">
+      
+      <form class="form-horizontal" name="lostpassword" method="post" autocomplete="off">
+
+        <div class="input-group">
+            <p><h3><?php print _("Recover lost password (Step 1)"); ?></h3></p>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="username" type="text" class="form-control" name="fUsername" placeholder="<?php print _('Username');?>" value="<?php print $tUsername; ?>" required autofocus>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+            <input id="emailaddress" type="email" class="form-control" name="fEmailaddress" placeholder="<?php print _('Email address');?> " value="<?php print $tEmailaddress; ?>" required>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>    
+        <div class="input-group">
+            <button class="btn btn-sm btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-ok"></span> <?php print _("Submit"); ?></button>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>
+            <p><?php 
+                if(empty($tMessage)) { 
+                    print '<div>&nbsp;</div>'; 
+                } else {
+                    print "<div class=\"alert alert-danger\">".$tMessage."</div>"; 
+                } ?></p>
+        
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>
+        
+      </form>
+
+    </div> <!-- /container -->
+    
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted small">
+     
+                <?php 
+                    $datetime = htmlentities(strftime("%c"));
+                ?>
+            
+                <div class="row">
+                    <div class="col-sm-6"><?php global $CONF; print $CONF['copyright']." - PHP Version: ".PHP_VERSION; ?></div>
+                    <div class="col-sm-3"><?php print $tBuildInfo; ?></div>
+                    <div class="col-sm-3"><?php print $datetime; ?></div>
+                </div>
+
+        </p>
+      </div>
+    </footer>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./lib/bootstrap-3.3.7/js/ie10-viewport-bug-workaround.min.js"></script>
+  </body>
 </html>
