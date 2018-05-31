@@ -1,9 +1,9 @@
-Update to V0.6.0.0
+Update to V0.6.0.8
 
 Update the database in case of MySQL database
 
 To update the database please use the little sql script provided with
-this update. The script update-0.5.6.x-to-0.6.0.0.sql updates the MySQL
+this update. The script update-0.5.6.x-to-0.6.0.8.sql updates the MySQL
 database.
    
 For PostgreSQL and Oracle change the database update script according to
