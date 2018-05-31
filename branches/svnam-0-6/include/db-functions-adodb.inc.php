@@ -1989,7 +1989,7 @@ function db_getGrantedRightsList($dbh) {
     
     $schema = db_determine_schema();
     $tGrantedRights = array();
-    $query = "SELECT rights.right_name, rights.id, users_rights.allowed, svnusers.name, svnusers.givenname, svnusers.locked, svnusers.userid " . "  FROM " . $schema . "rights, " . $schema . "users_rights, " . $schema . "svnusers " . " WHERE (rights.id = users_rights.right_id) " . "   AND (svnusers.id = users_rights.user_id)" . "   AND (users_rights.deleted = '00000000000000') " . "   AND (rights.deleted = '00000000000000') " . "ORDER BY name, givenname, rights.id";
+    $query = "SELECT rights.right_name, rights.id, users_rights.allowed, svnusers.name, svnusers.givenname, svnusers.locked, svnusers.userid " . "  FROM " . $schema . "rights, " . $schema . "users_rights, " . $schema . "svnusers " . " WHERE (rights.id = users_rights.right_id) " . "   AND (svnusers.id = users_rights.user_id)" . "   AND (users_rights.deleted = '00000000000000') " . "   AND (rights.deleted = '00000000000000') " . "ORDER BY svnusers.userid, rights.id";
     $resultrights = db_query($query, $dbh);
     
     while ( $rowrights = db_assoc($resultrights['result']) ) {
