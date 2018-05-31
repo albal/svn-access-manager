@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="tests/bootstrap/bootstrap.php" backupGlobals="false" convertErrorsToExceptions="true"
+<phpunit colors="true" bootstrap="tests/bootstrap/bootstrap.php" 
+    backupGlobals="false" convertErrorsToExceptions="true"
     convertNoticesToExceptions="true" convertWarningsToExceptions="true">
 	<testsuites>
 		<testsuite name="Application Test Suite">
@@ -24,13 +25,16 @@
 			logIncompleteSkipped="false" />
 	</logging>
 	<php>
-		<includePath>./config/:./include/:../config/:../include/:../install:./install</includePath>
+		<includePath>./config/:./include/:../config/:../include/:../install:./install
+		</includePath>
 
-		<var name="DB_DSN" value="mysql:dbname=your test db name here;host=localhost" />
+		<var name="DB_DSN" 
+		    value="mysql:dbname=your test db name here;host=localhost;port=33067" />
 		<var name="DB_USER" value="your user here" />
 		<var name="DB_PASSWD" value="your password here" />
 		<var name="DB_DBNAME" value="your test db name here" />
-		<var name="DB_HOST" value="localhost" />
+		<var name="DB_HOST" value="localhost:33607" />
+		<var name="DB_PORT" value="33067" />
 		<var name="DB_TYPE" value="mysqli" />
 		<var name="DB_CHARSET" value="latin1" />
 		<var name="DB_COLLATION" value="latin1_swedish_ci" />
@@ -38,19 +42,22 @@
 		<var name="DB_TEST_DATE" value="20180102" />
 		
 		<var name="PG_DB_TYPE" value="postgres8" />
-		<var name="PG_DB_DSN" value="pgsql:dbname=your test db name here;host=127.0.0.1;port=5432;user=your user here;password=your password here" />
+		<var name="PG_DB_DSN" 
+		  value="pgsql:dbname=your test db name here;host=127.0.0.1;port=54320;user=your user here;password=your password here" />
 		<var name="PG_DB_USER" value="your user here" />
         <var name="PG_DB_PASSWD" value="your password here" />
         <var name="PG_DB_DBNAME" value="your test db name here" />
         <var name="PG_DB_SCHEMA" value="public" />
-        <var name="PG_DB_HOST" value="127.0.0.1" />
-        <var name="PG_DB_PORT" value="5432" />
+        <var name="PG_DB_HOST" value="127.0.0.1:54320" />
+        <var name="PG_DB_PORT" value="54320" />
         
-        <var name="DB_MYSQL_DSN" value="mysql:dbname=your test db name here;host=localhost" />
+        <var name="DB_MYSQL_DSN" 
+            value="mysql:dbname=your test db name here;host=localhost;port=33061" />
         <var name="DB_MYSQL_USER" value="your user here" />
         <var name="DB_MYSQL_PASSWD" value="your password here" />
         <var name="DB_MYSQL_DBNAME" value="your test db name here" />
-        <var name="DB_MYSQL_HOST" value="localhost" />
+        <var name="DB_MYSQL_HOST" value="localhost:33061" />
+        <var name="DB_MYSQL_PORT" value="33061" />
         <var name="DB_MYSQL_TYPE" value="mysqli" />
         <var name="DB_MYSQL_CHARSET" value="latin1" />
         <var name="DB_MYSQL_COLLATION" value="latin1_swedish_ci" />
