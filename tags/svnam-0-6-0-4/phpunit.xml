@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="tests/bootstrap/bootstrap.php"
+    backupGlobals="false" convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true" convertWarningsToExceptions="true">
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">.</directory>
+            <directory suffix=".tpl">.</directory>
+            <directory suffix=".php">./tests/</directory>
+            <exclude>
+                <directory suffix=".php">./include/adodb5/</directory>
+                <directory>./help/</directory>
+                <directory>./lib/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover"
+            target="../reports/coverage/coverage.xml" />
+        <log type="junit" target="../reports/coverage/execution.xml"
+            logIncompleteSkipped="false" />
+    </logging>
+    <php>
+        <includePath>./config/:./include/:../config/:../include/:../install:./install
+        </includePath>
+
+        <var name="DB_DSN"
+            value="mysql:dbname=svnamtest;host=127.0.0.1;port=33067" />
+        <var name="DB_USER" value="svnam" />
+        <var name="DB_PASSWD" value="svnampass" />
+        <var name="DB_DBNAME" value="svnamtest" />
+        <var name="DB_HOST" value="127.0.0.1:33067" />
+        <var name="DB_PORT" value="33067" />
+        <var name="DB_TYPE" value="mysqli" />
+        <var name="DB_CHARSET" value="latin1" />
+        <var name="DB_COLLATION" value="latin1_swedish_ci" />
+
+        <var name="DB_TEST_DATE" value="20180102" />
+
+        <var name="PG_DB_TYPE" value="postgres8" />
+        <var name="PG_DB_DSN"
+            value="pgsql:dbname=svnam;host=127.0.0.1;port=54320;user=svnam;password=svnampass" />
+        <var name="PG_DB_USER" value="svnam" />
+        <var name="PG_DB_PASSWD" value="svnampass" />
+        <var name="PG_DB_DBNAME" value="svnam" />
+        <var name="PG_DB_SCHEMA" value="public" />
+        <var name="PG_DB_HOST" value="127.0.0.1:54320" />
+        <var name="PG_DB_PORT" value="54320" />
+
+        <var name="DB_MYSQL_DSN"
+            value="mysql:dbname=svnamtest;host=127.0.0.1;port=33061" />
+        <var name="DB_MYSQL_USER" value="svnam" />
+        <var name="DB_MYSQL_PASSWD" value="svnampass" />
+        <var name="DB_MYSQL_DBNAME" value="svnamtest" />
+        <var name="DB_MYSQL_HOST" value="127.0.0.1:33061" />
+        <var name="DB_MYSQL_PORT" value="33067" />
+        <var name="DB_MYSQL_TYPE" value="mysqli" />
+        <var name="DB_MYSQL_CHARSET" value="latin1" />
+        <var name="DB_MYSQL_COLLATION" value="latin1_swedish_ci" />
+
+        <server name="HTTP_HOST" value="localhost" />
+        <server name="PHP_SELF" value="meandyou.php" />
+        <server name="HTTP_ACCEPT_LANGUAGE" value="de_DE" />
+        <server name="REMOTE_ADDR" value="127.0.0.1" />
+
+        <const name="SVNSESSID" value="SVNSESSID" />
+        <const name="SVN_INST" value="svn_inst" />
+    </php>
+</phpunit>
