@@ -329,7 +329,8 @@ $DBTABLES = array(
         'svn_projects_mailinglists',
         'svn_projects_responsible',
         'svn_users_groups',
-        'users_rights'
+        'users_rights',
+        'messages'
 );
 
 /**

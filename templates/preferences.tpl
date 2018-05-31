@@ -10,7 +10,7 @@
             <label class="col-sm-2 control-label" for="pagesize"><?php print _("Records per page"); ?>:</label>
             <div class="col-sm-10">
                 <!-- <input type="number" class="form-control" id="pagesize" name="fPageSize" value="<?php print $tPageSize; ?>" data-toggle="tooltip" size="3" maxsize="3" data-toggle="tooltip" title="<?php print _("Number of lines of a table shown on a page.");?>" /> -->
-                <select class="form-control" id="pagesize" name="fPageSize" data-toggle="tooltip" title="<?php print _("Number of lines of a table shown on a page.");?>">
+                <select class="form-control selectpicker" id="pagesize" name="fPageSize" data-toggle="tooltip" title="<?php print _("Number of lines of a table shown on a page.");?>">
                     <?php
                         foreach( $tRecordsPerPage as $key => $value ) {
                             $selected = ($tPageSize == $key) ? 'selected' : '';                            

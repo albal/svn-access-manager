@@ -29,7 +29,7 @@
                         <?php print outputResponseSpan($tModulePathError); ?>
                     </div>
                 </div>
-                <div class="form-group ">
+                <div class="form-group <?php print outputResponseClasses($tRepositoryError); ?>">
                     <label class="col-sm-2 control-label" for="repo"><?php print _("Repository"); ?>:</label>
                     <div class="col-sm-4">
                         <select id="repo" class="selectpicker" name="fRepo" data-toggle="tooltip" title="<?php print _("Select the repository."); ?>">
@@ -48,6 +48,7 @@
                                 }
                             ?>
                         </select>
+                        <?php print outputResponseSpan($tRepositoryError); ?>
                     </div>
                 </div>
                 <div class="input-group">

@@ -27,7 +27,7 @@ RUN curl -l -k -s http://repo.webtatic.com/yum/el7/webtatic-release.rpm -o /tmp/
 
 RUN yum -y install mysql unzip tar curl subversion httpd mod_dav_svn \
                    viewvc php70w php70w-cli php70w-mbstring systemd \
-                   php70w-bcmath php70w-mcrypt php70w-mysql python34-devel \
+                   php70w-bcmath php70w-mcrypt php70w-mysql php70w-ldap python34-devel \
                    mariadb-server bind-utils pwgen psmisc vim-enhanced && \
     yum clean all && \
     rm -rf /var/cache/yum && \
