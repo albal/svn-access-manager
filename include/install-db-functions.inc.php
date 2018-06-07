@@ -317,7 +317,7 @@ function createUserRightsTableMySQL($dbh, $charset, $collation) {
  */
 function createMessagesTableMySQL($dbh, $charset, $collation) {
     
-    $query = "CREATE TABLE IF NOT EXISTS `svnam`.`messages` ( `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT , `validfrom` VARCHAR(8) NOT NULL DEFAULT '00000000' , `validuntil` VARCHAR(8) NOT NULL DEFAULT '99999999' , `message` TEXT NOT NULL, `created` VARCHAR(14) NULL DEFAULT '00000000000000' , `created_user` VARCHAR(255) NOT NULL DEFAULT ' ' , `modified` VARCHAR(14) NOT NULL DEFAULT '00000000000000' , `modified_user` VARCHAR(255) NOT NULL DEFAULT ' ' , `deleted` VARCHAR(14) NOT NULL DEFAULT '00000000000000' , `deleted_user` VARCHAR(255) NOT NULL DEFAULT ' ' , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=$charset COLLATE=$collation COMMENT = 'Table of messages';";
+    $query = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT , `validfrom` VARCHAR(8) NOT NULL DEFAULT '00000000' , `validuntil` VARCHAR(8) NOT NULL DEFAULT '99999999' , `message` TEXT NOT NULL, `created` VARCHAR(14) NULL DEFAULT '00000000000000' , `created_user` VARCHAR(255) NOT NULL DEFAULT ' ' , `modified` VARCHAR(14) NOT NULL DEFAULT '00000000000000' , `modified_user` VARCHAR(255) NOT NULL DEFAULT ' ' , `deleted` VARCHAR(14) NOT NULL DEFAULT '00000000000000' , `deleted_user` VARCHAR(255) NOT NULL DEFAULT ' ' , PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=$charset COLLATE=$collation COMMENT = 'Table of messages';";
     db_query_install($query, $dbh);
 }
 

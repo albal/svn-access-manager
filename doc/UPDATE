@@ -1,3 +1,13 @@
+Update to V0.6.0.9
+
+This version is a bugfix version to fix bug #57 making the installer fail.
+If you have a running version you do not need to do anything. Otherwise
+please use the updated install-db-function.inc.php file. Or download a fresh copy.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
 Update to V0.6.0.8
 
 Update the database in case of MySQL database
