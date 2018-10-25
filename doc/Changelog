@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Release 0.6.0.10
+Release 0.6.0.11
     - fixed bug in user list showing all users as admin users
     - fixed typo in html template
     - fixed user administration, password change uses now password policy of user instead
