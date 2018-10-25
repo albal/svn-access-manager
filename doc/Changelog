@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Release 0.6.0.10
+    - fixed bug in user list showing all users as admin users
+    - fixed typo in html template
+    - fixed user administration, password change uses now password policy of user instead
+      of asdmin policy
+    
 Release 0.6.0.9
     - fixed bug #57, installer uses a wrong database name for creating messages table.
       Thanks to Włodzimierz Donatowicz
