@@ -980,7 +980,7 @@ function checkPasswordPolicy($password, $admin = "y") {
         $groups ++;
     }
     
-    if ($admin == "y") {
+    if (($admin == "y") or ($admin == "1")) {
         
         $retval = checkAdminPasswordPolicy($passwordLength, $groups);
     }

@@ -576,7 +576,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     }
                     else {
                         
-                        $retval = checkPasswordPolicy($tPassword);
+                        $retval = checkPasswordPolicy($tPassword, $tAdministrator);
                         if ($retval == 0) {
                             
                             $tMessage = _("Password does not match the password policy!");
