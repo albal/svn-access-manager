@@ -1,50 +1,45 @@
-		<div id="edit_form">
-			<form name="deleteGroup" method="post">
-				<table>
-				   	<tr>
-				      <td colspan="3"><h3><?php print _("Group administration / delete group"); ?></h3></td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				   	<tr valign="top">
-				   		<td width="150"><?php print _("Group").": "; ?></td>
-				   		<td>
-				   			<?php print $tGroup; ?>
-				   		</td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr valign="top">
-				   		<td><?php print _("Description").": "; ?></td>
-				   		<td>
-				   			<?php print $tDescription; ?>
-				   		</td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr valign="top">
-				   		<td><?php print _("Group members").": "; ?></td>
-				   		<td>
-				   			<?php print $tMembers; ?>
-				   		</td>
-				   		<td>&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3" class="hlp_center">
-				      	<input type="image" name="fSubmit_ok" src="./images/ok.png" value="<?php print _("Delete"); ?>"  title="<?php print _("Delete"); ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input type="image" name="fSubmit_back" src="./images/button_cancel.png" value="<?php print _("Back"); ?>" title="<?php print _("Back"); ?>" />
-				      </td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3">&nbsp;</td>
-				   	</tr>
-				   	<tr>
-				      <td colspan="3" class="standout">
-				      	<?php print $tMessage; ?>
-				      </td>
-				   	</tr>
-				</table>
-			</form>
-		</div>
+<div>    
+    <h3 class="page-header"><?php print _("Group administration / delete group"); ?></h3> 
+</div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
+<div>
+    <form class="form-horizontal" name="deletegroupaccessright" method="post">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="name"><?php print _("Group"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tGroup;?></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="name"><?php print _("Description"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tDescription;?></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="name"><?php print_("Group members"); ?>:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static"><?php print $tMembers;?></p>
+            </div>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>    
+        <div class="input-group">
+            <button class="btn btn-sm btn-primary" data-toggle="tooltip" type="submit" name="fSubmit_ok" title="<?php print _("Delete"); ?>"><span class="glyphicon glyphicon-erase"></span> <?php print _("Delete"); ?></button>
+            <button class="btn btn-sm" data-toggle="tooltip" type="submit" name="fSubmit_back" title="<?php print _("Back"); ?>"><span class="glyphicon glyphicon-menu-left"></span> <?php print _("Back"); ?></button>
+        </div>
+        <div class="input-group">
+            <p>&nbsp;</p>
+        </div>
+    </form>
+</div>
+<script>
+$(document).ready(function() {
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: <?php print $CONF[TOOLTIP_SHOW]; ?>, hide: <?php print $CONF[TOOLTIP_HIDE]; ?>}}); 
+    });
+} );
+</script>

@@ -1,0 +1,9 @@
+[groups]
+Tester = test1, test2
+
+[/]
+admin = r
+
+[Test1:/]
+@Tester = rw
+
