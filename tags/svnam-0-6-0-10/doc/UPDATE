@@ -1,0 +1,600 @@
+Update to V0.6.0.10
+
+This version is a bugfix version to fix some minor bugs.
+If you have a running version you do not need to do anything. Otherwise
+please use the updated install-db-function.inc.php file. Or download a fresh copy.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.6.0.9
+
+This version is a bugfix version to fix bug #57 making the installer fail.
+If you have a running version you do not need to do anything. Otherwise
+please use the updated install-db-function.inc.php file. Or download a fresh copy.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.6.0.8
+
+Update the database in case of MySQL database
+
+To update the database please use the little sql script provided with
+this update. The script update-0.5.6.x-to-0.6.0.8.sql updates the MySQL
+database.
+   
+For PostgreSQL and Oracle change the database update script according to
+your needs.
+
+Version 0.6.0.0 was cleaned up. Unused files have been deleted. If you do not use the RPM
+installer please take care about the deleted files yourself.
+
+For the webpages Bootstrap 3 is now used. Please check to copy all the Bootstrap related 
+stuff during manual installation to have a complete environment.
+
+Constants are used instead of literals where suitable. Code duplications have been removed
+to create a more clean code.
+
+This version has included PHP Unit tests.
+
+Basic tests have been done with PHP 7. So if you want to give it a try with PHP 7 please use 
+SVN Access Manager together with PHP 7 and keep me updated. During the tests with PHP 7 no
+problems have shown up.
+ 
+There's also a fix for the installer included. MySQLi is now available as database type.
+If you already installed SVN Access Manager this fix is not needed. If you want to use
+the mysqli driver instead of the mysql driver please update your config.inc.php file
+accordingly and use 'mysqli' for database_type.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.6
+
+Version 0.5.6.6 contains a fix for the selinux policy for CentOS 6 and CentOS 7. If you are 
+using selinux just update the RPM packages. There's also a fix for the installer included.
+If you already installed SVN Access Manager this fix is not needed.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.5
+
+Version 0.5.6.5 contains a fix for pathes and filenames with blanks. Either compare your 
+installation to the current release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.4
+
+Version 0.5.6.4 contains a fix for pathes and filenames with blanks. Either compare your 
+installation to the current release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.3
+
+Version 0.5.6.3 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.20
+
+Version 0.5.5.20 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.6.2
+
+Update the database in case of MySQL database
+
+To update the database please use the little sql script provided with
+this update. The script update-0.5.5.x-to-0.5.6.0.sql updates the MySQL
+database.
+   
+For PostgreSQL and Oracle change the database update script according to
+your needs.
+
+Version 0.5.6.2 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.22
+
+Version 0.5.5.22 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.20
+
+Version 0.5.5.20 contains some bug fixes. Either compare your installation to the current 
+release or install the release from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.19
+
+Version 0.5.5.19 contains some bug fixes and some new features. There are changes regarding 
+the JavaScript libraries. Be sure to include the new library table.js. 
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.18
+
+Version 0.5.5.18 contains some bug fixes and some new features. There's a new
+JavaScript library used for table filtering. Be sure to include the new library.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.17
+
+Version 0.5.5.17 contains some bug fixes and some new features.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.16
+
+Version 0.5.5.16 contains an important security fix. Therefore you are strongly recommended
+to use the new version.
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.15
+
+Version 0.5.5.15 contains some additional documentation. The documentation 
+is now available as link. 
+
+Either compare your installation to the current release or install the release 
+from scratch.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.14
+
+Version 0.5.5.14 is a bug fix release. Either compare your installation to the 
+current release or install the release from scratch and copy the changed config 
+file from your previous installation into your new installation. 
+   
+This release contains new help texts. You can import them into your
+database. The folder install contains the file help_texts.sql. Import this file
+into the help table.    
+ 
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.13
+
+Version 0.5.5.13 is a bug fix and enhancement release. Either compare your 
+installation to the current release or install the release from scratch and 
+copy the changed config file from your previous installation into your new 
+installation. 
+   
+This release contains a lot of new help texts. You can import them into your
+database. The folder install contains the file help_texts.sql. Import this file
+into the help table.    
+ 
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.12
+
+Version 0.5.5.12 is a bug fix and enhancement release. Either compare your 
+installation to the current release or install the release from scratch and 
+copy the changed config file from your previous installation into your new 
+installation.
+ 
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.11
+
+These are the steps to update from version 0.5.5.10 to 0.5.5.11
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following lines and set the value as needed:
+   // sort field to sort ldap users
+   $CONF['ldap_sort_field']                        = 'sn';
+   
+   // sort order for ldap sort, allowed values are ASC and DESC
+   $CONF['ldap_sort_order']                        = 'ASC/DESC';
+   
+   // use login data for ldap bind, allowed values are 0 and 1
+   $CONF['ldap_bind_use_login_data']			   = 0/1;
+   
+   // LDAP bind dn suffix
+   $CONF['ldap_bind_dn_suffix']					   = '@domain.tld';
+
+2. Release 0.5.5.11 comes with a new features. Especially for LDAP connections
+   there are a lot of new features and improvements. 
+   That means that there are a lot of files changed. Either compare your 
+   installation to the current release or install the release from scratch and 
+   copy the changed config file from your previous installation into your new 
+   installation.
+   
+You're finished. 
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.10
+
+These are the steps to update from version 0.5.5.8/9 to 0.5.5.10
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following line and set the value as needed:
+   // anonymous access option, allowed values are 0 or 1
+   $CONF['write_anonymous_access_rights']	 = 0/1;
+
+2. Release 0.5.5.10 comes with a new feature of granting anonymous access. 
+   That means that there are a lot of files changed. Either compare your 
+   installation to the current release or install the release from scratch and 
+   copy the changed config file from your previous installation into your new 
+   installation.
+   
+You're finished. 
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.9
+
+Version 0.5.5.9 is a bug fix release. Either compare your 
+   installation to the current release or install the release from scratch and 
+   copy the changed config file from your previous installation into your new 
+   installation.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.8
+
+Version 0.5.5.8 is a bug fix release for the installer. Either compare your 
+   installation to the current release or install the release from scratch and 
+   copy the changed config file from your previous installation into your new 
+   installation.
+
+#-------------------------------------------------------------------------------------------#
+
+
+ 
+Update to V0.5.5.7
+
+These are the steps to update from version 0.5.5.6 to 0.5.5.7
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following line and set the values as needed:
+   // define default value for password expire, allowed values 0 and 1
+   $CONF['expire_password']		= '0/1'; 
+
+2. Release 0.5.5.7 comes with a new feature of sorting repository access rights. 
+   That means that there are a lot of files changed. Either compare your 
+   installation to the current release or install the release from scratch and 
+   copy the changed config file from your previous installation into your new 
+   installation.
+   
+You're finished. 
+   
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.6
+
+These are the steps to update from version 0.5.5.5 to 0.5.5.6
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following line and set the values as needed:
+   // SVN Access File sort order, allowed values are ASC or DESC
+	$CONF['repoPathSortOrder']		= 'ASC/DESC'; 
+
+2. Release 0.5.5.6 comes with a new feature of sorting repository access rights. 
+   That means that there are a lot of files changed. Either compare your 
+   installation to the current release or install the release from scratch and 
+   copy the changed config file from your previous installation into your new 
+   installation.
+   
+You're finished. 
+   
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.5
+
+These are the steps to update from version 0.5.5.4 to 0.5.5.5
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following line and set the values as needed:
+   // Custom Fields (NULL for not to use the field)
+	$CONF['column_custom1']			= 'Company';
+	$CONF['column_custom2']			= 'Phone';
+	$CONF['column_custom3']			= NULL;
+
+2. Update the database in case of MySQL database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.5.x.x-to-0.5.5.5.sql adds some fields.
+   
+   For PostgreSQL and Oracle change the database update script according to
+   your needs.
+
+3. Release 0.5.5.5 comes with a new feature of custom fields. That means that 
+   there are a lot of files changed. Either compare your installation to the 
+   current release or install the release from scratch and copy the changed 
+   config file from your previous installation into your new installation.
+   
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.5.4
+
+These are the steps to update from version 0.5.0.x to 0.5.5.4
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following line and set the values as needed:
+   $CONF['userDefaultAccess'] 		= 'read/write';
+   
+You're finished.
+   
+#-------------------------------------------------------------------------------------------#
+   
+   
+   
+Update to V0.5.5.0
+
+These are the steps to update from version 0.5.0.x to 0.5.5.0
+
+1. Edit config.inc.php in /etc/svn-access-manager directory.
+
+   Add the following lines and set the values as needed:
+   $CONF['use_ldap']                               = 'YES/NO';
+   $CONF['bind_dn']                                = 'ou=example,ou=org';
+   $CONF['bind_pw']                                = '';
+   $CONF['user_dn']                                = 'ou=people,ou=example,ou=org';
+   $CONF['user_filter_attr']                       = 'uid';
+   $CONF['user_objectclass']                       = 'inetOrgPerson';
+   $CONF['additional_user_filter']                 = '';
+   $CONF['ldap_server']                            = '';
+   $CONF['ldap_port']                              = '';
+   $CONF['ldap_protocol']                          = '3';
+   $CONF['attr_mapping']['uid']                    = 'uid';
+   $CONF['attr_mapping']['name']                   = 'sn';
+   $CONF['attr_mapping']['givenName']              = 'givenName';
+   $CONF['attr_mapping']['mail']                   = 'mail';
+   $CONF['attr_mapping']['userPassword']           = 'userPassword';
+
+   Keep in mind that the entries above are an example. Change as needed to work with
+   your environment! If you do not need LDAP add $CONF['use_ldap'] = 'NO' at least.
+   
+   Please refer to the documentation at http://svn-access-mana.sourceforge.net/
+   There are some explanations regarding LDAP connection and issues which can occur
+   connecting your environment to LDAP!
+   
+2. Release 0.5.5.0  comes with new features. That means that there are a lot of files 
+   changed. Either compare your installation to the current release or install the 
+   release from scratch and copy the changed config file from your previous 
+   installation into your new installation.
+   
+   
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.5.0.0
+
+These are the steps to update from version 0.4.1.x to 0.5.0.0
+
+1. config inc.php has moved. From release 0.5.0.0 the config.inc.php file is placed at
+   /etc/svn-access-manager directory. Please move your existing configuration to that
+   directory.
+   
+2. Update the database in case of MySQL database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.4.1.x-to-0.5.0.0 changes some fields and
+   makes the necessary conversions.
+   
+3. Release 0.5.0.0 comes with a complete new database layer and PostgreSQL support. 
+   That means that there are a lot of files changed. Either compare your installation 
+   to the current release or install the release from scratch and copy the changed config 
+   file from your previous installation into your new installation. Remember that the config
+   moved to a new place as described in 1.
+   
+   
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.4.1.5
+
+These are the steps to update from version 0.4.1.x to 0.4.1.5
+
+1. Edit config.inc.php in config folder
+
+   Add the following lines and change the values as needed:
+   $CONF['repo_compatibility']		= "--pre-1.6-compatible";
+   $CONF['accessControl']		= "dirs";
+   
+2. Release 0.4.1.5  comes with little new features. That means that there are files 
+   changed. Either compare your installation to the current release or install the 
+   release from scratch and copy the changed config file from your previous 
+   installation into your new installation.
+   
+   
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.4.1.0
+
+These are the steps to update from version 0.4.0.3 to 0.4.1.0
+
+1. Update the database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.4.0.3-to-0.4.1.0 adds new fields and
+   new tables.
+   
+   
+2. Edit config.inc.php in config folder
+
+   Add the following lines and change the values as needed:
+   $CONF['database_charset']		= 'latin1';
+   $CONF['database_collation']		= 'latin1_german1_ci';
+   $CONF['website_charset']		= 'iso8859-15';
+   
+   // Lost password
+   $CONF['lostPwSender']		= 'noreply@your-domain.tld';
+   $CONF['lostPwMaxError']		= 3;
+   $CONF['lostPwLinkValid']		= 2;
+
+
+3. Release 0.4.1.0  comes with new features. That means that there are a lot of
+   files changed and serveral new files included. Either compare your installation to 
+   the current release or install the release from scratch and copy the changed config
+   file from your previous installation into your new installation.
+   
+
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.4.0.0
+
+These are the steps to update from version 0.3.0.3 to 0.4.0.0
+
+1. Update the database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.3.0.2-to-0.3.1.0 adds new fields and
+   new tables.
+   
+   
+2. Edit config.inc.php in config folder
+
+   Add the following lines and change the values as needed:
+   $CONF['svnadmin_command']		= '/usr/bin/svnadmin';
+   $CONF['separateFilesPerRepo']	= 'NO';
+
+
+3. Release 0.4.0.0  comes with new features. That means that there are a lot of
+   files changed and serveral new files included. Either compare your installation to 
+   the current release or install the release from scratch and copy the changed config
+   file from your previous installation into your new installation.
+   
+
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.3.0.2
+
+The update from version 0.3.0.1 to 0.3.0.2 needs two steps.
+
+1. Update the database
+
+   To update the database please use the little sql script provided with
+   this update. The script update-0.3.0.1-to-0.3.0.2 adds one field to
+   the table svnusers. The field is called "superadmin".
+   
+
+
+2. Update database contents
+
+   For access to the svn repository using the http(s) protocol you need at 
+   least on superadmin user. Select the user in the database and change the field
+   superadmin to "1". Use phpmyadmin or a similar tool to do this.
+   
+   Create the svn access files. 
+   
+
+
+You're finished.
+
+#-------------------------------------------------------------------------------------------#
+
+
+
+Update to V0.2.3
+
+With version 0.2.3 md5 encryption of passwords is available. There's no need to convert
+the existing passwords in the database. The encryption algorithm is checked automatically
+and the passwords are treated accordingly.
+
+If you want to use md5 encrypted passwords you have to add $CONF['pwcrypt'] = 'md5' 
+to config.inc.php. 
+
+Notice:
+-------
+When passwords are changed the encryption algorithm selected in the config file is used to 
+encrypt the new password.
