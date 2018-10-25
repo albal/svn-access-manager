@@ -62,9 +62,9 @@ function outputAdminMenu($tAdmin, $rightUserAdmin, $rightGroupAdmin, $rightProje
 
     global $CONF;
     global $_SESSION;
-    
-    if (($tAdmin == "p") || ($rightUserAdmin != "none") || ($rightGroupAdmin != "none") || ($rightProjectAdmin != "none") || ($rightRepositoryAdmin != "none") || ($rightAccessRightAdmin != "none") || (count($tGroupsAllowed) > 0) || ($rightCreateFiles != "none")) {
-        
+
+    if ($tAdmin == "p" || $rightUserAdmin != "none" || $rightGroupAdmin != "none" || $rightProjectAdmin != "none" || $rightRepositoryAdmin != "none" || $rightAccessRightAdmin != "none" || count($tGroupsAllowed) > 0 || $rightCreateFiles != "none") {
+
         /**
          * dropdown Administration
          */
@@ -298,7 +298,7 @@ function outputUsers($tUsers, $rightAllowed) {
         $pwChanged = $date . " " . $time;
         $locked = $entry['locked'] == 0 ? _("no") : _("yes");
         $expires = $entry['passwordexpires'] == 0 ? _("no") : _("yes");
-        $admin = $entry[ADMIN] == "n" ? _("no") : _("yes");
+        $admin = ((strtolower($entry[ADMIN]) == "y") || $entry[ADMIN] == '1') ? _('yes') : _('no');
         $custom1 = $entry['custom1'];
         $custom2 = $entry['custom2'];
         $custom3 = $entry['custom3'];

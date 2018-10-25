@@ -53,7 +53,7 @@
         });
         
         $("button#cancel").click(function(){
-            window.location.assign("/main.php");
+            window.location.assign("main.php");
         }); 
         
     });
