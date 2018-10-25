@@ -1,58 +1,71 @@
-		<div id="edit_form">
-			<h3><?php print _("Log report"); ?></h3>
-			<p>&nbsp;</p>
-			<form name="rep_log" method="post">
-				<table id="log_table">
-					<thead>
-						<tr>
-					   		<th>
-					   			<?php print _("Date"); ?>
-					   		</th>
-					   		<th>
-					   			<?php print _("Username"); ?>
-					   		</th>
-					   		<th>
-					   			<?php print _("IP Address"); ?>
-					   		</th>
-					   		<th>
-					   			<?php print _("Logmessage"); ?>
-					   		</th>
-					   	</tr>
-					</thead>
-					<tbody>
-						<?php
-					   		foreach( $tLogmessages as $entry ) {
-					   		
-					   			list($date, $time)		= splitDateTime( $entry['logtimestamp'] );
-					   			
-					   			print "\t\t\t\t\t<tr>\n";
-					   			print "\t\t\t\t\t\t<td>".$date." ".$time."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['username']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['ipaddress']."</td>\n";
-					   			print "\t\t\t\t\t\t<td>".$entry['logmessage']."</td>\n";
-					   			print "\t\t\t\t\t</tr>\n";
-					   		}
-					   	?>
-					</tbody>
-					<tfoot>
-					   	<tr>
-					      <td colspan="5" class="standout">
-					      	<?php print $tMessage; ?>
-					      </td>
-					   	</tr>
-					</tfoot>
-				</table>
-			</form>
-			<script>
-					$("#log_table").ariaSorTable({
-						rowsToShow: <?php print $CONF['page_size'];?>,
-						pager: true,
-						textPager: '<?php print _("Page").":"; ?>',
-						onInit: function(){	}
-					});
-					
-					$("#edit_form *").tooltip({
-						showURL: false
-					});
-			</script>
-		</div>
+<div>       
+    <h3 class="page-header"><?php print _("Report log entries"); ?></h3> 
+</div>
+<?php 
+    outputMessage($tMessage, $tMessageType);
+?>
+<table id="logreport" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th >
+                <?php print _("Date"); ?>
+            </th>
+            <th>
+                <?php print _("Username"); ?>
+            </th>
+            <th>
+                <?php print _("IP Address"); ?>
+            </th>
+            <th>
+                <?php print _("Logmessage"); ?>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            foreach( $tLogmessages as $entry ) {
+            
+                list($date, $time)      = splitDateTimeI18n( $entry['logtimestamp'] );
+                
+                print "    <tr>\n";
+                print "        <td>".$date." ".$time."</td>\n";
+                print "        <td>".$entry['username']."</td>\n";
+                print "        <td>".$entry['ipaddress']."</td>\n";
+                print "        <td>".$entry['logmessage']."</td>\n";
+                print "    </tr>\n";
+            }
+        ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th >
+                <?php print _("Date"); ?>
+            </th>
+            <th>
+                <?php print _("Username"); ?>
+            </th>
+            <th>
+                <?php print _("IP Address"); ?>
+            </th>
+            <th>
+                <?php print _("Logmessage"); ?>
+            </th>
+        </tr>
+    </tfoot>
+</table>
+        
+<script>
+$(document).ready(function() {
+    $('#logreport').DataTable({
+        "order": [[ 0, "desc" ]],
+        stateSave: true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": <?php print getCurrentPageSize(); ?>,
+        <?php
+            if( check_language() == 'de' ) {
+                print '"language": {"url": "/lib/DataTables-1.10.16/i18n/German.json"}';
+            }
+        ?>
+    });
+} );
+</script>
