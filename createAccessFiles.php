@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$tViewvcConfig							= isset( $_POST['fViewvcConfig'] )	? db_escape_string( $_POST['fViewvcConfig'] )	: "";
 	$tReload								= isset( $_POST['fReload'] )		? trim( db_escape_string( $_POST['fReload'] ) )	: "";
+	$tConfiguredReload						= isset( $CONF['ViewvcApacheReload'] ) ? trim( $CONF['ViewvcApacheReload'] ) : "";
 	$tRetReload								= array();
 	
 	if( $button == _("Yes") ) {
@@ -113,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$returncode					= 1;
 				$tReloadArgs				= preg_split( '/\s+/', $tReload );
 				$tReloadCommand				= array_shift( $tReloadArgs );
-				if( ($tReloadCommand != "") and preg_match( '/^[A-Za-z0-9_\/\.\-]+$/', $tReloadCommand ) ) {
+				if( ($tConfiguredReload != "") and ($tReload == $tConfiguredReload) and ($tReloadCommand != "") and preg_match( '/^[A-Za-z0-9_\/\.\-]+$/', $tReloadCommand ) ) {
 					$cmdParts				= array( escapeshellcmd( $tReloadCommand ) );
 					foreach( $tReloadArgs as $arg ) {
 						$cmdParts[]			= escapeshellarg( $arg );

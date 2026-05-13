@@ -39,6 +39,18 @@ require ("$installBase/include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
+function sanitize_svn_relative_path( $path ) {
+	$pathParts		= explode( "/", preg_replace( '/\\\/', "/", $path ) );
+	$safeParts		= array();
+	foreach( $pathParts as $part ) {
+		if( ($part == "") or ($part == ".") or ($part == "..") ) {
+			continue;
+		}
+		$safeParts[]	= $part;
+	}
+	return( implode( "/", $safeParts ) );
+}
+
 $SESSID_USERNAME 								= check_session ();
 check_password_expired();
 $dbh 											= db_connect ();
@@ -213,7 +225,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$cmdParts[]					= "--password";
 					$cmdParts[]					= escapeshellarg( $tRepoPassword );
 				}
-				$cmdParts[]						= escapeshellarg( rtrim( $repopath, "/" )."/".ltrim( $tModulePath, "/" ) );
+				$safeModulePath					= sanitize_svn_relative_path( $tModulePath );
+				$cmdParts[]						= escapeshellarg( rtrim( $repopath, "/" )."/".$safeModulePath );
 				$cmd							= implode( " ", $cmdParts );
 				$errortext						= exec( $cmd, $tRepodirsArr, $retval );
 				
@@ -462,7 +475,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$cmdParts[]						= "--password";
 			$cmdParts[]						= escapeshellarg( $tRepoPassword );
 		}
-		$cmdParts[]							= escapeshellarg( rtrim( $repopath, "/" )."/".ltrim( $tModulePath."/".$tPathSelected, "/" ) );
+		$safeModulePath						= sanitize_svn_relative_path( $tModulePath );
+		$safePathSelected					= sanitize_svn_relative_path( $tPathSelected );
+		$fullPath							= $safeModulePath;
+		if( $safePathSelected != "" ) {
+			$fullPath						.= "/".$safePathSelected;
+		}
+		$cmdParts[]							= escapeshellarg( rtrim( $repopath, "/" )."/".$fullPath );
 		$cmd								= implode( " ", $cmdParts );
 		$errortext							= exec( $cmd, $tRepodirsArr, $retval );
 		
