@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$returncode					= 1;
 				$tReloadArgs				= preg_split( '/\s+/', $tReload );
 				$tReloadCommand				= array_shift( $tReloadArgs );
-				if( ($tConfiguredReload != "") and ($tReload == $tConfiguredReload) and ($tReloadCommand != "") and preg_match( '/^[A-Za-z0-9_\/\.\-]+$/', $tReloadCommand ) ) {
+				if( ($tConfiguredReload !== "") and ($tReload === $tConfiguredReload) and ($tReloadCommand !== "") and preg_match( '/^[A-Za-z0-9_\/\.\-]+$/', $tReloadCommand ) ) {
 					$cmdParts				= array( escapeshellcmd( $tReloadCommand ) );
 					foreach( $tReloadArgs as $arg ) {
 						$cmdParts[]			= escapeshellarg( $arg );

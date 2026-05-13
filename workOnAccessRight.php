@@ -43,7 +43,7 @@ function sanitize_svn_relative_path( $path ) {
 	$pathParts		= explode( "/", preg_replace( '/\\\/', "/", $path ) );
 	$safeParts		= array();
 	foreach( $pathParts as $part ) {
-		if( ($part == "") or ($part == ".") or ($part == "..") ) {
+		if( ($part === "") or ($part === ".") or ($part === "..") ) {
 			continue;
 		}
 		$safeParts[]	= $part;
@@ -219,7 +219,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 													"--config-dir",
 													escapeshellarg( $tempdir )
 												  );
-				if( strtolower(substr($tRepoPath, 0, 4)) == "http" ) {
+				$lowerRepoPath				= strtolower( $tRepoPath );
+				if( (strpos( $lowerRepoPath, "http://" ) === 0) or (strpos( $lowerRepoPath, "https://" ) === 0) ) {
 					$cmdParts[]					= "--username";
 					$cmdParts[]					= escapeshellarg( $tRepoUser );
 					$cmdParts[]					= "--password";
@@ -469,7 +470,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 												"--config-dir",
 												escapeshellarg( $tempdir )
 											  );
-		if( strtolower(substr($tRepoPath, 0, 4)) == "http" ) {
+		$lowerRepoPath					= strtolower( $tRepoPath );
+		if( (strpos( $lowerRepoPath, "http://" ) === 0) or (strpos( $lowerRepoPath, "https://" ) === 0) ) {
 			$cmdParts[]						= "--username";
 			$cmdParts[]						= escapeshellarg( $tRepoUser );
 			$cmdParts[]						= "--password";
