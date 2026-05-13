@@ -3164,7 +3164,7 @@ function doInstall() {
 			
 			$output						= "";
 			$retcode					= 0;
-			$cmd 						= $_SESSION['svn_inst']['svnadminCommand']." help create";
+			$cmd 						= escapeshellcmd( $_SESSION['svn_inst']['svnadminCommand'] )." help create";
 			exec( $cmd, $output, $retcode );
 			if( $retcode == 0 ) {
 				

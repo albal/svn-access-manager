@@ -289,19 +289,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	   							
 	   							
 	   							$compatibility		= isset( $CONF['repo_compatibility'] ) ? $CONF['repo_compatibility'] : "--pre-1.4-compatible";
-	   							$tCreateRepository 	= $svncmd." ".$compatibility." create ".$repopath;
+	   							if( ! preg_match( '/^--pre-[0-9]+\.[0-9]+-compatible$/', $compatibility ) ) {
+	   								$compatibility	= "--pre-1.4-compatible";
+	   							}
+	   							$tCreateRepository 	= escapeshellcmd( $svncmd )." ".$compatibility." create ".escapeshellarg( $repopath );
 	   							
 	   							#error_log( "create: $tCreateRepository");
 	   							
-	   							if( $os == "windows" ) {
-	   							
-	   								exec( $tCreateRepository, $output, $returncode );
-	   									
-	   							} else {
-	   								
-	   								exec( escapeshellcmd($tCreateRepository), $output, $returncode );
-	   									
-	   							}
+	   							exec( $tCreateRepository, $output, $returncode );
 	   						
 								sleep(2);
 								

@@ -39,6 +39,18 @@ require ("$installBase/include/db-functions-adodb.inc.php");
 
 initialize_i18n();
 
+function sanitize_svn_relative_path( $path ) {
+	$pathParts		= explode( "/", preg_replace( '/\\\/', "/", $path ) );
+	$safeParts		= array();
+	foreach( $pathParts as $part ) {
+		if( ($part === "") or ($part === ".") or ($part === "..") ) {
+			continue;
+		}
+		$safeParts[]	= $part;
+	}
+	return( implode( "/", $safeParts ) );
+}
+
 $SESSID_USERNAME 								= check_session ();
 check_password_expired();
 $dbh 											= db_connect ();
@@ -197,15 +209,26 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$tempdir					= "/var/tmp/";
 				}
 				
-				if( strtolower(substr($tRepoPath, 0, 4) == "http") ) {
-					$options					= " --username $tRepoUser --password $tRepoPassword ";
-				} else {
-					$options					= "";
-				}
-				
 				$repopath						= preg_replace( '/\\\/', '/', $tRepoPath );
 				$tRepodirs						= array();
-				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath;
+				$cmdParts						= array(
+													escapeshellcmd( $CONF['svn_command'] ),
+													"list",
+													"--no-auth-cache",
+													"--non-interactive",
+													"--config-dir",
+													escapeshellarg( $tempdir )
+												  );
+				$lowerRepoPath				= strtolower( $tRepoPath );
+				if( (strpos( $lowerRepoPath, "http://" ) === 0) or (strpos( $lowerRepoPath, "https://" ) === 0) ) {
+					$cmdParts[]					= "--username";
+					$cmdParts[]					= escapeshellarg( $tRepoUser );
+					$cmdParts[]					= "--password";
+					$cmdParts[]					= escapeshellarg( $tRepoPassword );
+				}
+				$safeModulePath					= sanitize_svn_relative_path( $tModulePath );
+				$cmdParts[]						= escapeshellarg( rtrim( $repopath, "/" )."/".$safeModulePath );
+				$cmd							= implode( " ", $cmdParts );
 				$errortext						= exec( $cmd, $tRepodirsArr, $retval );
 				
 				if( $retval == 0 ) {
@@ -437,15 +460,31 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tempdir						= "/var/tmp/";
 		}
 		
-		if( strtolower(substr($tRepoPath, 0, 4) == "http") ) {
-			$options						= " --username $tRepoUser --password $tRepoPassword ";
-		} else {
-			$options						= "";
-		}
-		
 		$tRepodirs							= array();
 		$repopath							= preg_replace( '/\\\/', '/', $tRepoPath );
-		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath.'/'.$tPathSelected;
+		$cmdParts							= array(
+												escapeshellcmd( $CONF['svn_command'] ),
+												"list",
+												"--no-auth-cache",
+												"--non-interactive",
+												"--config-dir",
+												escapeshellarg( $tempdir )
+											  );
+		$lowerRepoPath					= strtolower( $tRepoPath );
+		if( (strpos( $lowerRepoPath, "http://" ) === 0) or (strpos( $lowerRepoPath, "https://" ) === 0) ) {
+			$cmdParts[]						= "--username";
+			$cmdParts[]						= escapeshellarg( $tRepoUser );
+			$cmdParts[]						= "--password";
+			$cmdParts[]						= escapeshellarg( $tRepoPassword );
+		}
+		$safeModulePath						= sanitize_svn_relative_path( $tModulePath );
+		$safePathSelected					= sanitize_svn_relative_path( $tPathSelected );
+		$fullPath							= $safeModulePath;
+		if( $safePathSelected != "" ) {
+			$fullPath						.= "/".$safePathSelected;
+		}
+		$cmdParts[]							= escapeshellarg( rtrim( $repopath, "/" )."/".$fullPath );
+		$cmd								= implode( " ", $cmdParts );
 		$errortext							= exec( $cmd, $tRepodirsArr, $retval );
 		
 		if( strtolower($accessControl) != "files" ) {
