@@ -197,15 +197,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$tempdir					= "/var/tmp/";
 				}
 				
-				if( strtolower(substr($tRepoPath, 0, 4) == "http") ) {
-					$options					= " --username $tRepoUser --password $tRepoPassword ";
-				} else {
-					$options					= "";
-				}
-				
 				$repopath						= preg_replace( '/\\\/', '/', $tRepoPath );
 				$tRepodirs						= array();
-				$cmd							= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath;
+				$cmdParts						= array(
+													escapeshellcmd( $CONF['svn_command'] ),
+													"list",
+													"--no-auth-cache",
+													"--non-interactive",
+													"--config-dir",
+													escapeshellarg( $tempdir )
+												  );
+				if( strtolower(substr($tRepoPath, 0, 4)) == "http" ) {
+					$cmdParts[]					= "--username";
+					$cmdParts[]					= escapeshellarg( $tRepoUser );
+					$cmdParts[]					= "--password";
+					$cmdParts[]					= escapeshellarg( $tRepoPassword );
+				}
+				$cmdParts[]						= escapeshellarg( rtrim( $repopath, "/" )."/".ltrim( $tModulePath, "/" ) );
+				$cmd							= implode( " ", $cmdParts );
 				$errortext						= exec( $cmd, $tRepodirsArr, $retval );
 				
 				if( $retval == 0 ) {
@@ -437,15 +446,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$tempdir						= "/var/tmp/";
 		}
 		
-		if( strtolower(substr($tRepoPath, 0, 4) == "http") ) {
-			$options						= " --username $tRepoUser --password $tRepoPassword ";
-		} else {
-			$options						= "";
-		}
-		
 		$tRepodirs							= array();
 		$repopath							= preg_replace( '/\\\/', '/', $tRepoPath );
-		$cmd								= $CONF['svn_command'].' list --no-auth-cache --non-interactive --config-dir '.$tempdir.' '.$options.' '.$repopath.'/'.$tModulePath.'/'.$tPathSelected;
+		$cmdParts							= array(
+												escapeshellcmd( $CONF['svn_command'] ),
+												"list",
+												"--no-auth-cache",
+												"--non-interactive",
+												"--config-dir",
+												escapeshellarg( $tempdir )
+											  );
+		if( strtolower(substr($tRepoPath, 0, 4)) == "http" ) {
+			$cmdParts[]						= "--username";
+			$cmdParts[]						= escapeshellarg( $tRepoUser );
+			$cmdParts[]						= "--password";
+			$cmdParts[]						= escapeshellarg( $tRepoPassword );
+		}
+		$cmdParts[]							= escapeshellarg( rtrim( $repopath, "/" )."/".ltrim( $tModulePath."/".$tPathSelected, "/" ) );
+		$cmd								= implode( " ", $cmdParts );
 		$errortext							= exec( $cmd, $tRepodirsArr, $retval );
 		
 		if( strtolower($accessControl) != "files" ) {
