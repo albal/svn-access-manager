@@ -42,14 +42,13 @@
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" type="text/css" href="./style/lhelie.css" />
 	<![endif]-->
-	<link type="text/css" href="./style/redmond/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="./style/redmond/jquery-ui-1.12.1.css" rel="stylesheet" />	
 	<link rel="stylesheet" type="text/css" href="./style/jquery.tooltip.css" />
 	<link rel="stylesheet" type="text/css" href="./style/chosen.css" />
 	<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 	
 	<script language="javascript" type="text/javascript" src="./lib/jquery/jquery.js"></script>
-	<!--<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.6.custom.min.js"></script>-->
-	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
+	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery-ui-1.12.1.min.js"></script>		
 	<script language="javascript" type="text/javascript" src="./lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="./lib/jquery/ui.ariaSorTable_min.js"></script>
