@@ -32,12 +32,12 @@ include( "../include/output.inc.php" );
   	<meta name="GENERATOR" content="Quanta Plus">
   	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
   	
-	<link type="text/css" href="../style/redmond/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="../style/redmond/jquery-ui-1.12.1.css" rel="stylesheet" />	
 	<link rel="stylesheet" type="text/css" href="../style/jquery.tooltip.css" />
 	<link rel="stylesheet" href="../stylesheet.css" type="text/css" />
 	
 	<script language="javascript" type="text/javascript" src="../lib/jquery/jquery.js"></script>
-	<script language="javascript" type="text/javascript" src="../lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>		
+	<script language="javascript" type="text/javascript" src="../lib/jquery-ui/js/jquery-ui-1.12.1.min.js"></script>		
 	<script language="javascript" type="text/javascript" src="../lib/jquery-ui/js/jquery.ui.datepicker-de.js"></script>
 	<script language="JavaScript" type="text/javascript" src="../lib/jquery/jquery.tooltip.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="../lib/jquery/ui.ariaSorTable_min.js"></script>
@@ -1046,10 +1046,11 @@ include( "../include/output.inc.php" );
 				</form>
 				<script>
 					$(function() {
-						$( "#installtabs" ).tabs();
 						var $tabs = $( "#installtabs" ).tabs();
-						var $page = $( "#errors" ).val();
-						$tabs.tabs('select', $page);
+						var $page = parseInt($( "#errors" ).val(), 10);
+						if( !isNaN( $page ) ) {
+							$tabs.tabs( "option", "active", $page );
+						}
 					});
 					
 					$(function() {
